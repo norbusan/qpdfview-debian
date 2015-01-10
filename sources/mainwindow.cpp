@@ -125,21 +125,78 @@ namespace qpdfview
 class MainWindow::RestoreTab : public Database::RestoreTab
 {
 private:
-    MainWindow* m_mainWindow;
+    MainWindow* that;
 
 public:
-    RestoreTab(MainWindow* mainWindow) : m_mainWindow(mainWindow) {}
+    RestoreTab(MainWindow* that) : that(that) {}
 
     DocumentView* operator()(const QString& absoluteFilePath) const
     {
-        if(m_mainWindow->openInNewTab(absoluteFilePath, -1, QRectF(), true))
+        if(that->openInNewTab(absoluteFilePath, -1, QRectF(), true))
         {
-            return m_mainWindow->currentTab();
+            return that->currentTab();
         }
         else
         {
             return 0;
         }
+    }
+
+};
+
+class MainWindow::TextValueMapper : public MappingSpinBox::TextValueMapper
+{
+private:
+    MainWindow* that;
+
+public:
+    TextValueMapper(MainWindow* that) : that(that) {}
+
+    QString textFromValue(int val, bool& ok) const
+    {
+        const DocumentView* currentTab = that->currentTab();
+
+        if(currentTab == 0 || !(currentTab->hasFrontMatter() || that->s_settings->mainWindow().usePageLabel()))
+        {
+            ok = false;
+            return QString();
+        }
+
+        ok = true;
+        return currentTab->pageLabelFromNumber(val);
+    }
+
+    int valueFromText(const QString& text, bool& ok) const
+    {
+        const DocumentView* currentTab = that->currentTab();
+
+        if(currentTab == 0 || !(currentTab->hasFrontMatter() || that->s_settings->mainWindow().usePageLabel()))
+        {
+            ok = false;
+            return 0;
+        }
+
+        const QString& prefix = that->m_currentPageSpinBox->prefix();
+        const QString& suffix = that->m_currentPageSpinBox->suffix();
+
+        int from = 0;
+        int size = text.size();
+
+        if(!prefix.isEmpty() && text.startsWith(prefix))
+        {
+            from += prefix.size();
+            size -= from;
+        }
+
+        if(!suffix.isEmpty() && text.endsWith(suffix))
+        {
+            size -= suffix.size();
+        }
+
+        const QString& trimmedText = text.mid(from, size).trimmed();
+
+        ok = true;
+        return currentTab->pageNumberFromLabel(trimmedText);
     }
 
 };
@@ -1074,7 +1131,7 @@ void MainWindow::on_lastPage_triggered()
 void MainWindow::on_setFirstPage_triggered()
 {
     bool ok = false;
-    const int pageNumber = getMappedNumber(this, SLOT(currentPage_textFromValue(int,bool*)), SLOT(currentPage_valueFromText(QString,bool*)),
+    const int pageNumber = getMappedNumber(new TextValueMapper(this),
                                            this, tr("Set first page"), tr("Select the first page of the body matter:"),
                                            currentTab()->currentPage(), 1, currentTab()->numberOfPages(), &ok);
 
@@ -1087,7 +1144,7 @@ void MainWindow::on_setFirstPage_triggered()
 void MainWindow::on_jumpToPage_triggered()
 {
     bool ok = false;
-    const int pageNumber = getMappedNumber(this, SLOT(currentPage_textFromValue(int,bool*)), SLOT(currentPage_valueFromText(QString,bool*)),
+    const int pageNumber = getMappedNumber(new TextValueMapper(this),
                                            this, tr("Jump to page"), tr("Page:"),
                                            currentTab()->currentPage(), 1, currentTab()->numberOfPages(), &ok);
 
@@ -1643,49 +1700,6 @@ void MainWindow::on_about_triggered()
 #endif // WITH_CUPS
                                                       + tr("</ul>"
                                                            "<p>See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2014 The qpdfview developers</p>")));
-}
-
-QString MainWindow::currentPage_textFromValue(int value, bool* ok) const
-{
-    if(currentTab() == 0 || !(s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()))
-    {
-        *ok = false;
-        return QString();
-    }
-
-    *ok = true;
-    return currentTab()->pageLabelFromNumber(value);
-}
-
-int MainWindow::currentPage_valueFromText(QString text, bool* ok) const
-{
-    if(currentTab() == 0 || !(s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()))
-    {
-        *ok = false;
-        return 0;
-    }
-
-    const QString& prefix = m_currentPageSpinBox->prefix();
-    const QString& suffix = m_currentPageSpinBox->suffix();
-
-    int from = 0;
-    int size = text.size();
-
-    if(!prefix.isEmpty() && text.startsWith(prefix))
-    {
-        from += prefix.size();
-        size -= from;
-    }
-
-    if(!suffix.isEmpty() && text.endsWith(suffix))
-    {
-        size -= suffix.size();
-    }
-
-    text = text.mid(from, size).trimmed();
-
-    *ok = true;
-    return currentTab()->pageNumberFromLabel(text);
 }
 
 void MainWindow::on_focusCurrentPage_activated()
@@ -2417,7 +2431,7 @@ void MainWindow::createWidgets()
 
     // current page
 
-    m_currentPageSpinBox = new MappingSpinBox(this, SLOT(currentPage_textFromValue(int,bool*)), SLOT(currentPage_valueFromText(QString,bool*)), this);
+    m_currentPageSpinBox = new MappingSpinBox(new TextValueMapper(this), this);
 
     m_currentPageSpinBox->setAlignment(Qt::AlignCenter);
     m_currentPageSpinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);

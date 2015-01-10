@@ -225,7 +225,13 @@ class MappingSpinBox : public SpinBox
     Q_OBJECT
 
 public:
-    MappingSpinBox(QObject* mapper, const char* textFromValue, const char* valueFromText, QWidget* parent = 0);
+    struct TextValueMapper
+    {
+        virtual QString textFromValue(int val, bool& ok) const = 0;
+        virtual int valueFromText(const QString& text, bool& ok) const = 0;
+    };
+
+    MappingSpinBox(TextValueMapper* mapper, QWidget* parent = 0);
 
 protected:
     QString textFromValue(int val) const;
@@ -236,13 +242,11 @@ protected:
 private:
     Q_DISABLE_COPY(MappingSpinBox)
 
-    QObject* m_mapper;
-    QMetaMethod m_textFromValue;
-    QMetaMethod m_valueFromText;
+    QScopedPointer< TextValueMapper > m_mapper;
 
 };
 
-int getMappedNumber(QObject* mapper, const char* textFromValue, const char* valueFromText,
+int getMappedNumber(MappingSpinBox::TextValueMapper* mapper,
                     QWidget* parent, const QString& title, const QString& caption,
                     int value = 0, int min = -2147483647, int max = 2147483647,
                     bool* ok = 0, Qt::WindowFlags flags = 0);

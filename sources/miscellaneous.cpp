@@ -42,18 +42,6 @@ namespace
 
 using namespace qpdfview;
 
-QMetaMethod slotToMethod(const QMetaObject* metaObject, const char* slot)
-{
-    const int index = *slot == '1' ? metaObject->indexOfSlot(slot + 1) : -1;
-
-    if(index < 0)
-    {
-        qWarning() << "Could not connect slot:" << slot;
-    }
-
-    return metaObject->method(index);
-}
-
 void emphasizeText(const QString& text, bool matchCase, const QString& surroundingText, QTextLayout& textLayout)
 {
     QFont font = textLayout.font();
@@ -374,24 +362,17 @@ void SpinBox::keyPressEvent(QKeyEvent* event)
     }
 }
 
-MappingSpinBox::MappingSpinBox(QObject* mapper, const char* textFromValue, const char* valueFromText, QWidget* parent) : SpinBox(parent),
+MappingSpinBox::MappingSpinBox(TextValueMapper* mapper, QWidget* parent) : SpinBox(parent),
     m_mapper(mapper)
 {
-    const QMetaObject* metaObject = mapper->metaObject();
-
-    m_textFromValue = slotToMethod(metaObject, textFromValue);
-    m_valueFromText = slotToMethod(metaObject, valueFromText);
 }
 
 QString MappingSpinBox::textFromValue(int val) const
 {
-    QString text;
     bool ok = false;
+    QString text = m_mapper->textFromValue(val, ok);
 
-    const bool mapped = m_textFromValue.invoke(m_mapper, Qt::DirectConnection,
-                                               Q_RETURN_ARG(QString, text), Q_ARG(int, val), Q_ARG(bool*, &ok));
-
-    if(!mapped || !ok)
+    if(!ok)
     {
         text = SpinBox::textFromValue(val);
     }
@@ -401,13 +382,10 @@ QString MappingSpinBox::textFromValue(int val) const
 
 int MappingSpinBox::valueFromText(const QString& text) const
 {
-    int val;
     bool ok = false;
+    int val = m_mapper->valueFromText(text, ok);
 
-    const bool mapped = m_valueFromText.invoke(m_mapper, Qt::DirectConnection,
-                                               Q_RETURN_ARG(int, val), Q_ARG(QString, text), Q_ARG(bool*, &ok));
-
-    if(!mapped || !ok)
+    if(!ok)
     {
         val = SpinBox::valueFromText(text);
     }
@@ -423,7 +401,7 @@ QValidator::State MappingSpinBox::validate(QString& input, int& pos) const
     return QValidator::Acceptable;
 }
 
-int getMappedNumber(QObject* mapper, const char* textFromValue, const char* valueFromText,
+int getMappedNumber(MappingSpinBox::TextValueMapper* mapper,
                     QWidget* parent, const QString& title, const QString& caption,
                     int value, int min, int max, bool* ok, Qt::WindowFlags flags)
 {
@@ -433,7 +411,7 @@ int getMappedNumber(QObject* mapper, const char* textFromValue, const char* valu
     QLabel* label = new QLabel(dialog);
     label->setText(caption);
 
-    MappingSpinBox* mappingSpinBox = new MappingSpinBox(mapper, textFromValue, valueFromText, dialog);
+    MappingSpinBox* mappingSpinBox = new MappingSpinBox(mapper, dialog);
     mappingSpinBox->setRange(min, max);
     mappingSpinBox->setValue(value);
 
