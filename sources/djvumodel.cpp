@@ -316,17 +316,16 @@ QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTrans
         if(type == QLatin1String("word"))
         {
             const QString word = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
-            const Qt::CaseSensitivity sensitivity = matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive;
 
+            const Qt::CaseSensitivity sensitivity = matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive;
             int index = 0;
 
             while((index = word.indexOf(text, index, sensitivity)) != -1)
             {
-                const bool wordBegins = index == 0 || !word.at(index).isLetterOrNumber();
+                const int nextIndex = index + text.length();
 
-                index += text.length();
-
-                const bool wordEnds = index == word.length() || !word.at(index).isLetterOrNumber();
+                const bool wordBegins = index == 0 || !word.at(index - 1).isLetterOrNumber();
+                const bool wordEnds = nextIndex == word.length() || !word.at(nextIndex).isLetterOrNumber();
 
                 if(!wholeWords || (wordBegins && wordEnds))
                 {
@@ -339,6 +338,8 @@ QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTrans
 
                     results.append(transform.mapRect(rect));
                 }
+
+                index = nextIndex;
             }
         }
         else

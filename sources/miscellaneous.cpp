@@ -51,14 +51,27 @@ void emphasizeText(const QString& text, bool matchCase, bool wholeWords, const Q
 
     QList< QTextLayout::FormatRange > additionalFormats;
 
-    for(int position = 0; (position = surroundingText.indexOf(text, position, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive)) != -1; position += text.length())
-    {
-        QTextLayout::FormatRange formatRange;
-        formatRange.start = position;
-        formatRange.length = text.length();
-        formatRange.format.setFontWeight(QFont::Bold);
+    const Qt::CaseSensitivity sensitivity = matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive;
+    int index = 0;
 
-        additionalFormats.append(formatRange);
+    while((index = surroundingText.indexOf(text, index, sensitivity)) != -1)
+    {
+        const int nextIndex = index + text.length();
+
+        const bool wordBegins = index == 0 || !surroundingText.at(index - 1).isLetterOrNumber();
+        const bool wordEnds = nextIndex == surroundingText.length() || !surroundingText.at(nextIndex).isLetterOrNumber();
+
+        if(!wholeWords || (wordBegins && wordEnds))
+        {
+            QTextLayout::FormatRange formatRange;
+            formatRange.start = index;
+            formatRange.length = text.length();
+            formatRange.format.setFontWeight(QFont::Bold);
+
+            additionalFormats.append(formatRange);
+        }
+
+        index = nextIndex;
     }
 
     textLayout.setAdditionalFormats(additionalFormats);
