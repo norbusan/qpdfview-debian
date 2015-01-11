@@ -288,7 +288,10 @@ class SearchLineEdit : public ProgressLineEdit
 public:
     explicit SearchLineEdit(QWidget* parent = 0);
 
+public slots:
     void startSearch();
+
+    void startTimer();
     void stopTimer();
 
 signals:

@@ -512,6 +512,11 @@ void SearchLineEdit::startSearch()
     QTimer::singleShot(0, this, SLOT(on_timeout()));
 }
 
+void SearchLineEdit::startTimer()
+{
+    m_timer->start();
+}
+
 void SearchLineEdit::stopTimer()
 {
     m_timer->stop();
