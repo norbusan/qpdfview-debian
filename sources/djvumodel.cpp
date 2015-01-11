@@ -295,13 +295,10 @@ QString loadText(miniexp_t textExp, const QSizeF& size, const QRectF& rect)
     return QString();
 }
 
-QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTransform& transform, const QString& text, bool matchCase)
+QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTransform& transform, const QString& text, bool matchCase, bool wholeWords)
 {
     QList< miniexp_t > words;
     QList< QRectF > results;
-
-    int index = 0;
-    QRectF rect;
 
     words.append(pageTextExp);
 
@@ -319,31 +316,29 @@ QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTrans
         if(type == QLatin1String("word"))
         {
             const QString word = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
+            const Qt::CaseSensitivity sensitivity = matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive;
 
-            index = word.indexOf(text, index, matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
+            int index = 0;
 
-            if(index != -1)
+            while((index = word.indexOf(text, index, sensitivity)) != -1)
             {
-                const int xmin = miniexp_to_int(miniexp_cadr(textExp));
-                const int ymin = miniexp_to_int(miniexp_caddr(textExp));
-                const int xmax = miniexp_to_int(miniexp_cadddr(textExp));
-                const int ymax = miniexp_to_int(miniexp_caddddr(textExp));
+                const bool wordBegins = index == 0 || !word.at(index).isLetterOrNumber();
 
                 index += text.length();
-                rect = rect.united(QRectF(xmin, size.height() - ymax, xmax - xmin, ymax - ymin));
 
-                if(index == word.length() || !word.at(index).isLetter())
+                const bool wordEnds = index == word.length() || !word.at(index).isLetterOrNumber();
+
+                if(!wholeWords || (wordBegins && wordEnds))
                 {
-                    results.append(transform.mapRect(rect));
+                    const int xmin = miniexp_to_int(miniexp_cadr(textExp));
+                    const int ymin = miniexp_to_int(miniexp_caddr(textExp));
+                    const int xmax = miniexp_to_int(miniexp_cadddr(textExp));
+                    const int ymax = miniexp_to_int(miniexp_caddddr(textExp));
 
-                    index = 0;
-                    rect = QRectF();
+                    const QRectF rect(xmin, size.height() - ymax, xmax - xmin, ymax - ymin);
+
+                    results.append(transform.mapRect(rect));
                 }
-            }
-            else
-            {
-                index = 0;
-                rect = QRectF();
             }
         }
         else
@@ -649,7 +644,7 @@ QString DjVuPage::text(const QRectF& rect) const
     return text;
 }
 
-QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
+QList< QRectF > DjVuPage::search(const QString& text, bool matchCase, bool wholeWords) const
 {
     LOCK_PAGE
 
@@ -675,7 +670,7 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase) const
 
     const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
 
-    const QList< QRectF > results = findText(pageTextExp, m_size, transform, text, matchCase);
+    const QList< QRectF > results = findText(pageTextExp, m_size, transform, text, matchCase, wholeWords);
 
     {
         LOCK_PAGE_GLOBAL

@@ -389,7 +389,7 @@ QString PdfPage::text(const QRectF& rect) const
     return m_page->text(rect);
 }
 
-QList< QRectF > PdfPage::search(const QString& text, bool matchCase) const
+QList< QRectF > PdfPage::search(const QString& text, bool matchCase, bool wholeWords) const
 {
     LOCK_PAGE
 

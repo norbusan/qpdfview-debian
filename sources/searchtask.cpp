@@ -135,6 +135,7 @@ SearchTask::SearchTask(QObject* parent) : QThread(parent),
     m_pages(),
     m_text(),
     m_matchCase(false),
+    m_wholeWords(false),
     m_beginAtPage(1)
 {
 }
@@ -158,7 +159,7 @@ void SearchTask::run()
             break;
         }
 
-        const QList< QRectF > results = m_pages.at(index % m_pages.count())->search(m_text, m_matchCase);
+        const QList< QRectF > results = m_pages.at(index % m_pages.count())->search(m_text, m_matchCase, m_wholeWords);
 
         emit resultsReady(index % m_pages.count(), results);
 
@@ -171,12 +172,13 @@ void SearchTask::run()
 }
 
 void SearchTask::start(const QVector< Model::Page* >& pages,
-                       const QString& text, bool matchCase, int beginAtPage)
+                       const QString& text, bool matchCase, bool wholeWords, int beginAtPage)
 {
     m_pages = pages;
 
     m_text = text;
     m_matchCase = matchCase;
+    m_wholeWords = wholeWords;
     m_beginAtPage = beginAtPage;
 
     resetCancellation(m_wasCanceled);

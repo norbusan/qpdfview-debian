@@ -115,7 +115,7 @@ namespace Model
         QList< Link* > links() const;
 
         QString text(const QRectF& rect) const;
-        QList< QRectF > search(const QString& text, bool matchCase) const;
+        QList< QRectF > search(const QString& text, bool matchCase, bool wholeWords) const;
 
         QList< Annotation* > annotations() const;
 

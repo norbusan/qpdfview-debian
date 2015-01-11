@@ -815,6 +815,11 @@ bool DocumentView::searchMatchCase() const
     return m_searchTask->matchCase();
 }
 
+bool DocumentView::searchWholeWords() const
+{
+    return m_searchTask->wholeWords();
+}
+
 QString DocumentView::surroundingText(int page, const QRectF& rect) const
 {
     if(page < 1 || page > m_pages.size() || rect.isEmpty())
@@ -1094,12 +1099,12 @@ void DocumentView::temporaryHighlight(int page, const QRectF& highlight)
     }
 }
 
-void DocumentView::startSearch(const QString& text, bool matchCase)
+void DocumentView::startSearch(const QString& text, bool matchCase, bool wholeWords)
 {
     cancelSearch();
     clearResults();
 
-    m_searchTask->start(m_pages, text, matchCase, m_currentPage);
+    m_searchTask->start(m_pages, text, matchCase, wholeWords, m_currentPage);
 }
 
 void DocumentView::cancelSearch()

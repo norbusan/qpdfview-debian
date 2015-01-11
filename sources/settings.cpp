@@ -432,6 +432,16 @@ void Settings::DocumentView::setMatchCase(bool matchCase)
     m_settings->setValue("documentView/matchCase", matchCase);
 }
 
+bool Settings::DocumentView::wholeWords() const
+{
+    return m_settings->value("documentView/wholeWords", Defaults::DocumentView::wholeWords()).toBool();
+}
+
+void Settings::DocumentView::setWholeWords(bool wholeWords)
+{
+    m_settings->setValue("documentView/wholeWords", wholeWords);
+}
+
 int Settings::DocumentView::highlightDuration() const
 {
     return m_settings->value("documentView/highlightDuration", Defaults::DocumentView::highlightDuration()).toInt();

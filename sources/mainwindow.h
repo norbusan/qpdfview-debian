@@ -291,6 +291,7 @@ private:
 
     SearchLineEdit* m_searchLineEdit;
     QCheckBox* m_matchCaseCheckBox;
+    QCheckBox* m_wholeWordsCheckBox;
     QCheckBox* m_highlightAllCheckBox;
 
     void createWidgets();

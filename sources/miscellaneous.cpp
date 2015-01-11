@@ -42,7 +42,7 @@ namespace
 
 using namespace qpdfview;
 
-void emphasizeText(const QString& text, bool matchCase, const QString& surroundingText, QTextLayout& textLayout)
+void emphasizeText(const QString& text, bool matchCase, bool wholeWords, const QString& surroundingText, QTextLayout& textLayout)
 {
     QFont font = textLayout.font();
     font.setWeight(QFont::Light);
@@ -534,11 +534,13 @@ void SearchItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
 
     const QString text = index.data(SearchModel::TextRole).toString();
     const QString surroundingText = index.data(SearchModel::SurroundingTextRole).toString();
-    const bool matchCase = index.data(SearchModel::MatchCaseRole).toBool();
 
     if(!text.isEmpty() && !surroundingText.isEmpty())
     {
-        paintSurroundingText(painter, option, text, surroundingText, matchCase);
+        const bool matchCase = index.data(SearchModel::MatchCaseRole).toBool();
+        const bool wholeWords = index.data(SearchModel::WholeWordsRole).toBool();
+
+        paintSurroundingText(painter, option, text, surroundingText, matchCase, wholeWords);
         return;
     }
 }
@@ -558,7 +560,7 @@ void SearchItemDelegate::paintProgress(QPainter* painter, const QStyleOptionView
 }
 
 void SearchItemDelegate::paintSurroundingText(QPainter* painter, const QStyleOptionViewItem& option,
-                                              const QString& text, const QString& surroundingText, bool matchCase) const
+                                              const QString& text, const QString& surroundingText, bool matchCase, bool wholeWords) const
 {
     const int textMargin = QApplication::style()->pixelMetric(QStyle::PM_FocusFrameHMargin) + 1;
     const QRect textRect = option.rect.adjusted(textMargin, 0, -textMargin, 0);
@@ -574,7 +576,7 @@ void SearchItemDelegate::paintSurroundingText(QPainter* painter, const QStyleOpt
     textLayout.setText(elidedText);
     textLayout.setFont(option.font);
 
-    emphasizeText(text, matchCase, surroundingText, textLayout);
+    emphasizeText(text, matchCase, wholeWords, surroundingText, textLayout);
 
 
     textLayout.beginLayout();

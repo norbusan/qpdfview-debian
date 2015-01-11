@@ -210,6 +210,9 @@ public:
         bool matchCase() const;
         void setMatchCase(bool matchCase);
 
+        bool wholeWords() const;
+        void setWholeWords(bool wholeWords);
+
         int highlightDuration() const;
         void setHighlightDuration(int highlightDuration);
 
@@ -541,6 +544,7 @@ public:
         static inline qreal thumbnailSize() { return 150.0; }
 
         static inline bool matchCase() { return false; }
+        static inline bool wholeWords() { return false; }
 
         static inline int highlightDuration() { return 5 * 1000; }
         static inline QString sourceEditor() { return QString(); }

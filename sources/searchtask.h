@@ -46,6 +46,7 @@ public:
 
     inline QString text() const { return m_text; }
     inline bool matchCase() const { return m_matchCase; }
+    inline bool wholeWords() const { return m_wholeWords; }
 
     void run();
 
@@ -56,7 +57,7 @@ signals:
 
 public slots:
     void start(const QVector< Model::Page* >& pages,
-               const QString& text, bool matchCase, int beginAtPage = 1);
+               const QString& text, bool matchCase, bool wholeWords, int beginAtPage = 1);
 
     void cancel();
 
@@ -70,6 +71,7 @@ private:
 
     QString m_text;
     bool m_matchCase;
+    bool m_wholeWords;
     int m_beginAtPage;
 
 };

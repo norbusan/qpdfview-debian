@@ -320,7 +320,7 @@ private:
     void paintProgress(QPainter* painter, const QStyleOptionViewItem& option,
                        int progress) const;
     void paintSurroundingText(QPainter* painter, const QStyleOptionViewItem& option,
-                              const QString& text, const QString& surroundingText, bool matchCase) const;
+                              const QString& text, const QString& surroundingText, bool matchCase, bool wholeWords) const;
 
 };
 

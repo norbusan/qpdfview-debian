@@ -132,6 +132,7 @@ public:
 
     QString searchText() const;
     bool searchMatchCase() const;
+    bool searchWholeWords() const;
 
     QString surroundingText(int page, const QRectF& rect) const;
 
@@ -185,7 +186,7 @@ public slots:
 
     void temporaryHighlight(int page, const QRectF& highlight);
 
-    void startSearch(const QString& text, bool matchCase = true);
+    void startSearch(const QString& text, bool matchCase, bool wholeWords);
     void cancelSearch();
 
     void clearResults();

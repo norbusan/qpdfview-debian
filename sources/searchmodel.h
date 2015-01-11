@@ -57,6 +57,7 @@ public:
         RectRole,
         TextRole,
         MatchCaseRole,
+        WholeWordsRole,
         SurroundingTextRole
     };
 

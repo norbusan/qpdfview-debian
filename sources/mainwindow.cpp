@@ -230,6 +230,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
     restoreState(s_settings->mainWindow().state());
 
     m_matchCaseCheckBox->setChecked(s_settings->documentView().matchCase());
+    m_wholeWordsCheckBox->setChecked(s_settings->documentView().wholeWords());
 
     prepareDatabase();
 
@@ -490,6 +491,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     m_scaleFactorComboBox->setEnabled(hasCurrent);
     m_searchLineEdit->setEnabled(hasCurrent);
     m_matchCaseCheckBox->setEnabled(hasCurrent);
+    m_wholeWordsCheckBox->setEnabled(hasCurrent);
     m_highlightAllCheckBox->setEnabled(hasCurrent);
 
     m_searchDock->toggleViewAction()->setEnabled(hasCurrent);
@@ -1750,17 +1752,19 @@ void MainWindow::on_searchInitiated(const QString& text, bool modified)
     if(!text.isEmpty())
     {
         const bool allTabs = s_settings->mainWindow().extendedSearchDock() ? !modified : modified;
+        const bool matchCase = m_matchCaseCheckBox->isChecked();
+        const bool wholeWords = m_wholeWordsCheckBox->isChecked();
 
         if(allTabs)
         {
             for(int index = 0; index < m_tabWidget->count(); ++index)
             {
-                tab(index)->startSearch(text, m_matchCaseCheckBox->isChecked());
+                tab(index)->startSearch(text, matchCase, wholeWords);
             }
         }
         else
         {
-            currentTab()->startSearch(text, m_matchCaseCheckBox->isChecked());
+            currentTab()->startSearch(text, matchCase, wholeWords);
         }
     }
 }
@@ -2138,6 +2142,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
     s_settings->mainWindow().setRecentlyUsed(s_settings->mainWindow().trackRecentlyUsed() ? m_recentlyUsedMenu->filePaths() : QStringList());
 
     s_settings->documentView().setMatchCase(m_matchCaseCheckBox->isChecked());
+    s_settings->documentView().setWholeWords(m_wholeWordsCheckBox->isChecked());
 
     s_settings->mainWindow().setGeometry(m_fullscreenAction->isChecked() ? m_fullscreenAction->data().toByteArray() : saveGeometry());
     s_settings->mainWindow().setState(saveState());
@@ -2477,6 +2482,7 @@ void MainWindow::createWidgets()
 
     m_searchLineEdit = new SearchLineEdit(this);
     m_matchCaseCheckBox = new QCheckBox(tr("Match &case"), this);
+    m_wholeWordsCheckBox = new QCheckBox(tr("Whole &words"), this);
     m_highlightAllCheckBox = new QCheckBox(tr("Highlight &all"), this);
 
     connect(m_searchLineEdit, SIGNAL(searchInitiated(QString,bool)), SLOT(on_searchInitiated(QString,bool)));
@@ -2722,12 +2728,13 @@ void MainWindow::createSearchDock()
     QGridLayout* searchLayout = new QGridLayout(m_searchWidget);
     searchLayout->setRowStretch(2, 1);
     searchLayout->setColumnStretch(2, 1);
-    searchLayout->addWidget(m_searchLineEdit, 0, 0, 1, 6);
+    searchLayout->addWidget(m_searchLineEdit, 0, 0, 1, 7);
     searchLayout->addWidget(m_matchCaseCheckBox, 1, 0);
-    searchLayout->addWidget(m_highlightAllCheckBox, 1, 1);
-    searchLayout->addWidget(findPreviousButton, 1, 3);
-    searchLayout->addWidget(findNextButton, 1, 4);
-    searchLayout->addWidget(cancelSearchButton, 1, 5);
+    searchLayout->addWidget(m_wholeWordsCheckBox, 1, 1);
+    searchLayout->addWidget(m_highlightAllCheckBox, 1, 2);
+    searchLayout->addWidget(findPreviousButton, 1, 4);
+    searchLayout->addWidget(findNextButton, 1, 5);
+    searchLayout->addWidget(cancelSearchButton, 1, 6);
 
     m_searchDock->setWidget(m_searchWidget);
 

@@ -172,6 +172,8 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
             return view->searchText();
         case MatchCaseRole:
             return view->searchMatchCase();
+        case WholeWordsRole:
+            return view->searchWholeWords();
         case SurroundingTextRole:
             return fetchSurroundingText(view, result);
         case Qt::ToolTipRole:
