@@ -71,7 +71,10 @@ void emphasizeText(const QString& text, bool matchCase, bool wholeWords, const Q
             additionalFormats.append(formatRange);
         }
 
-        index = nextIndex;
+        if((index = nextIndex) >= surroundingText.length())
+        {
+            break;
+        }
     }
 
     textLayout.setAdditionalFormats(additionalFormats);

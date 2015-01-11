@@ -295,16 +295,24 @@ QString loadText(miniexp_t textExp, const QSizeF& size, const QRectF& rect)
     return QString();
 }
 
-QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTransform& transform, const QString& text, bool matchCase, bool wholeWords)
+QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTransform& transform, const QStringList& words, bool matchCase, bool wholeWords)
 {
-    QList< miniexp_t > words;
+    if(words.isEmpty())
+    {
+        return QList< QRectF >();
+    }
+
+    QRectF result;
+    int wordIndex = 0;
+
+    QList< miniexp_t > texts;
     QList< QRectF > results;
 
-    words.append(pageTextExp);
+    texts.append(pageTextExp);
 
-    while(!words.isEmpty())
+    while(!texts.isEmpty())
     {
-        miniexp_t textExp = words.takeFirst();
+        miniexp_t textExp = texts.takeFirst();
 
         if(miniexp_length(textExp) < 6 || !miniexp_symbolp(miniexp_car(textExp)))
         {
@@ -315,17 +323,17 @@ QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTrans
 
         if(type == QLatin1String("word"))
         {
-            const QString word = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
+            const QString text = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
 
             const Qt::CaseSensitivity sensitivity = matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive;
             int index = 0;
 
-            while((index = word.indexOf(text, index, sensitivity)) != -1)
+            while((index = text.indexOf(words.at(wordIndex), index, sensitivity)) != -1)
             {
-                const int nextIndex = index + text.length();
+                const int nextIndex = index + words.at(wordIndex).length();
 
-                const bool wordBegins = index == 0 || !word.at(index - 1).isLetterOrNumber();
-                const bool wordEnds = nextIndex == word.length() || !word.at(nextIndex).isLetterOrNumber();
+                const bool wordBegins = index == 0 || !text.at(index - 1).isLetterOrNumber();
+                const bool wordEnds = nextIndex == text.length() || !text.at(nextIndex).isLetterOrNumber();
 
                 if(!wholeWords || (wordBegins && wordEnds))
                 {
@@ -334,12 +342,36 @@ QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTrans
                     const int xmax = miniexp_to_int(miniexp_cadddr(textExp));
                     const int ymax = miniexp_to_int(miniexp_caddddr(textExp));
 
-                    const QRectF rect(xmin, size.height() - ymax, xmax - xmin, ymax - ymin);
+                    result = result.united(QRectF(xmin, size.height() - ymax, xmax - xmin, ymax - ymin));
 
-                    results.append(transform.mapRect(rect));
+                    // Advance after partial match
+                    if(++wordIndex == words.size())
+                    {
+                        results.append(transform.mapRect(result));
+
+                        // Reset after full match
+                        result = QRectF();
+                        wordIndex = 0;
+                    }
+                }
+                else
+                {
+                    // Reset after malformed match
+                    result = QRectF();
+                    wordIndex = 0;
                 }
 
-                index = nextIndex;
+                if((index = nextIndex) >= text.length())
+                {
+                    break;
+                }
+            }
+
+            if(index < 0)
+            {
+                // Reset after empty match
+                result = QRectF();
+                wordIndex = 0;
             }
         }
         else
@@ -350,7 +382,7 @@ QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTrans
             {
                 textItem = miniexp_car(textExp);
 
-                words.append(textItem);
+                texts.append(textItem);
             }
         }
     }
@@ -670,8 +702,9 @@ QList< QRectF > DjVuPage::search(const QString& text, bool matchCase, bool whole
     }
 
     const QTransform transform = QTransform::fromScale(72.0 / m_resolution, 72.0 / m_resolution);
+    const QStringList words = text.split(QRegExp(QLatin1String("\\W+")), QString::SkipEmptyParts);
 
-    const QList< QRectF > results = findText(pageTextExp, m_size, transform, text, matchCase, wholeWords);
+    const QList< QRectF > results = findText(pageTextExp, m_size, transform, words, matchCase, wholeWords);
 
     {
         LOCK_PAGE_GLOBAL
