@@ -161,7 +161,12 @@ void TabBar::mousePressEvent(QMouseEvent* event)
 
     if(event->button() == Qt::MidButton)
     {
-        emit tabCloseRequested(tabAt(event->pos()));
+        const int index = tabAt(event->pos());
+
+        if(index != -1)
+        {
+            emit tabCloseRequested(index);
+        }
     }
 }
 
