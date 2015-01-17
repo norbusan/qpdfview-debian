@@ -195,11 +195,20 @@ void SearchableMenu::keyPressEvent(QKeyEvent* event)
         return;
     }
 
+    setActiveAction(0);
+
     foreach(QAction* action, actions())
     {
         if(!action->data().isNull()) // Modify only flagged actions
         {
-            action->setVisible(action->text().contains(m_text, Qt::CaseInsensitive));
+            const bool visible = action->text().contains(m_text, Qt::CaseInsensitive);
+
+            action->setVisible(visible);
+
+            if(visible && activeAction() == 0)
+            {
+                setActiveAction(action);
+            }
         }
     }
 
