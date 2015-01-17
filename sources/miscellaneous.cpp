@@ -120,7 +120,7 @@ ProxyStyle::ProxyStyle() : QProxyStyle(),
 {
 }
 
-bool ProxyStyle::scrollableMenus()
+bool ProxyStyle::scrollableMenus() const
 {
     return m_scrollableMenus;
 }
@@ -141,9 +141,19 @@ int ProxyStyle::styleHint(StyleHint hint, const QStyleOption* option, const QWid
 }
 
 SearchableMenu::SearchableMenu(const QString& title, QWidget* parent) : QMenu(title, parent),
-    m_searchAsYouType(true),
-    m_searchFor()
+    m_searchable(false),
+    m_text()
 {
+}
+
+bool SearchableMenu::isSearchable() const
+{
+    return m_searchable;
+}
+
+void SearchableMenu::setSearchable(bool searchable)
+{
+    m_searchable = searchable;
 }
 
 void SearchableMenu::showEvent(QShowEvent* event)
@@ -152,7 +162,7 @@ void SearchableMenu::showEvent(QShowEvent* event)
 
     if(!event->spontaneous())
     {
-        m_searchFor = QString();
+        m_text = QString();
 
         foreach(QAction* action, actions())
         {
@@ -163,7 +173,7 @@ void SearchableMenu::showEvent(QShowEvent* event)
 
 void SearchableMenu::keyPressEvent(QKeyEvent* event)
 {
-    if(!m_searchAsYouType)
+    if(!m_searchable)
     {
         QMenu::keyPressEvent(event);
         return;
@@ -173,11 +183,11 @@ void SearchableMenu::keyPressEvent(QKeyEvent* event)
 
     if(isPrintable(text))
     {
-        m_searchFor.append(text);
+        m_text.append(text);
     }
     else if(event->key() == Qt::Key_Backspace || event->key() == Qt::Key_Delete)
     {
-        m_searchFor.chop(1);
+        m_text.chop(1);
     }
     else
     {
@@ -189,11 +199,11 @@ void SearchableMenu::keyPressEvent(QKeyEvent* event)
     {
         if(!action->data().isNull()) // Modify only flagged actions
         {
-            action->setVisible(action->text().contains(m_searchFor, Qt::CaseInsensitive));
+            action->setVisible(action->text().contains(m_text, Qt::CaseInsensitive));
         }
     }
 
-    QToolTip::showText(mapToGlobal(rect().topLeft()), tr("Search for '%1'...").arg(m_searchFor), this);
+    QToolTip::showText(mapToGlobal(rect().topLeft()), tr("Search for '%1'...").arg(m_text), this);
 }
 
 TabBar::TabBar(QWidget* parent) : QTabBar(parent)

@@ -355,6 +355,9 @@ public:
         bool scrollableMenus() const;
         void setScrollableMenus(bool scrollableMenus);
 
+        bool searchableMenus() const;
+        void setSearchableMenus(bool searchableMenus);
+
         bool toggleToolAndMenuBarsWithFullscreen() const;
         void setToggleToolAndMenuBarsWithFullscreen(bool toggleToolAndMenuBarsWithFullscreen) const;
 
@@ -616,6 +619,8 @@ public:
         static inline QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
 
         static inline bool scrollableMenus() { return false; }
+        static inline bool searchableMenus() { return false; }
+
         static inline bool toggleToolAndMenuBarsWithFullscreen() { return false; }
 
         static QString path();

@@ -1231,6 +1231,9 @@ void MainWindow::on_settings_triggered()
         m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(s_settings->mainWindow().tabVisibility()));
         m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
 
+        m_tabsMenu->setSearchable(s_settings->mainWindow().searchableMenus());
+        m_bookmarksMenu->setSearchable(s_settings->mainWindow().searchableMenus());
+
         m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
 
         for(int index = 0; index < m_tabWidget->count(); ++index)
@@ -2922,6 +2925,8 @@ void MainWindow::createMenus()
     m_tabsMenu = new SearchableMenu(tr("&Tabs"));
     menuBar()->addMenu(m_tabsMenu);
 
+    m_tabsMenu->setSearchable(s_settings->mainWindow().searchableMenus());
+
     m_tabsMenu->addActions(QList< QAction* >() << m_previousTabAction << m_nextTabAction);
     m_tabsMenu->addSeparator();
     m_tabsMenu->addActions(QList< QAction* >() << m_closeTabAction << m_closeAllTabsAction << m_closeAllTabsButCurrentTabAction);
@@ -2941,6 +2946,8 @@ void MainWindow::createMenus()
 
     m_bookmarksMenu = new SearchableMenu(tr("&Bookmarks"));
     menuBar()->addMenu(m_bookmarksMenu);
+
+    m_bookmarksMenu->setSearchable(s_settings->mainWindow().searchableMenus());
 
     connect(m_bookmarksMenu, SIGNAL(aboutToShow()), this, SLOT(on_bookmarksMenu_aboutToShow()));
 

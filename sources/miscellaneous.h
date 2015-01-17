@@ -65,7 +65,7 @@ class ProxyStyle : public QProxyStyle
 public:
     ProxyStyle();
 
-    bool scrollableMenus();
+    bool scrollableMenus() const;
     void setScrollableMenus(bool scrollableMenus);
 
     int styleHint(StyleHint hint, const QStyleOption* option, const QWidget* widget, QStyleHintReturn* returnData) const;
@@ -86,16 +86,16 @@ class SearchableMenu : public QMenu
 public:
     SearchableMenu(const QString& title, QWidget* parent = 0);
 
-    bool searchAsYouType() const { return m_searchAsYouType; }
-    void setSearchAsYouType(bool searchAsYouType) { m_searchAsYouType = searchAsYouType; }
+    bool isSearchable() const;
+    void setSearchable(bool searchable);
 
 protected:
     void showEvent(QShowEvent* event);
     void keyPressEvent(QKeyEvent* event);
 
 private:
-    bool m_searchAsYouType;
-    QString m_searchFor;
+    bool m_searchable;
+    QString m_text;
 
 };
 

@@ -848,6 +848,16 @@ void Settings::MainWindow::setScrollableMenus(bool scrollableMenus)
     m_settings->setValue("mainWindow/scrollableMenus", scrollableMenus);
 }
 
+bool Settings::MainWindow::searchableMenus() const
+{
+    return m_settings->value("mainWindow/searchableMenus", Defaults::MainWindow::searchableMenus()).toBool();
+}
+
+void Settings::MainWindow::setSearchableMenus(bool searchableMenus)
+{
+    m_settings->setValue("mainWindow/searchableMenus", searchableMenus);
+}
+
 bool Settings::MainWindow::toggleToolAndMenuBarsWithFullscreen() const
 {
     return m_settings->value("mainWindow/toggleToolAndMenuBarsWithFullscreen", Defaults::MainWindow::toggleToolAndMenuBarsWithFullscreen()).toBool();
