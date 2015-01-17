@@ -27,7 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QComboBox>
 #include <QGraphicsEffect>
 #include <QLineEdit>
-#include <QMetaMethod>
+#include <QMenu>
 #include <QPainter>
 #include <QProxyStyle>
 #include <QSpinBox>
@@ -74,6 +74,28 @@ private:
     Q_DISABLE_COPY(ProxyStyle)
 
     bool m_scrollableMenus;
+
+};
+
+// searchable menu
+
+class SearchableMenu : public QMenu
+{
+    Q_OBJECT
+
+public:
+    SearchableMenu(const QString& title, QWidget* parent = 0);
+
+    bool searchAsYouType() const { return m_searchAsYouType; }
+    void setSearchAsYouType(bool searchAsYouType) { m_searchAsYouType = searchAsYouType; }
+
+protected:
+    void showEvent(QShowEvent* event);
+    void keyPressEvent(QKeyEvent* event);
+
+private:
+    bool m_searchAsYouType;
+    QString m_searchFor;
 
 };
 

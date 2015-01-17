@@ -33,6 +33,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMouseEvent>
 #include <QTextLayout>
 #include <QTimer>
+#include <QToolTip>
 #include <QVBoxLayout>
 
 #include "searchmodel.h"
@@ -41,6 +42,19 @@ namespace
 {
 
 using namespace qpdfview;
+
+inline bool isPrintable(const QString& string)
+{
+    foreach(QChar character, string)
+    {
+        if(!character.isPrint())
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
 
 void emphasizeText(const QString& text, bool matchCase, bool wholeWords, const QString& surroundingText, QTextLayout& textLayout)
 {
@@ -124,6 +138,62 @@ int ProxyStyle::styleHint(StyleHint hint, const QStyleOption* option, const QWid
     }
 
     return QProxyStyle::styleHint(hint, option, widget, returnData);
+}
+
+SearchableMenu::SearchableMenu(const QString& title, QWidget* parent) : QMenu(title, parent),
+    m_searchAsYouType(true),
+    m_searchFor()
+{
+}
+
+void SearchableMenu::showEvent(QShowEvent* event)
+{
+    QMenu::showEvent(event);
+
+    if(!event->spontaneous())
+    {
+        m_searchFor = QString();
+
+        foreach(QAction* action, actions())
+        {
+            action->setVisible(true);
+        }
+    }
+}
+
+void SearchableMenu::keyPressEvent(QKeyEvent* event)
+{
+    if(!m_searchAsYouType)
+    {
+        QMenu::keyPressEvent(event);
+        return;
+    }
+
+    const QString text = event->text();
+
+    if(isPrintable(text))
+    {
+        m_searchFor.append(text);
+    }
+    else if(event->key() == Qt::Key_Backspace || event->key() == Qt::Key_Delete)
+    {
+        m_searchFor.chop(1);
+    }
+    else
+    {
+        QMenu::keyPressEvent(event);
+        return;
+    }
+
+    foreach(QAction* action, actions())
+    {
+        if(!action->data().isNull()) // Modify only flagged actions
+        {
+            action->setVisible(action->text().contains(m_searchFor, Qt::CaseInsensitive));
+        }
+    }
+
+    QToolTip::showText(mapToGlobal(rect().topLeft()), tr("Search for '%1'...").arg(m_searchFor), this);
 }
 
 TabBar::TabBar(QWidget* parent) : QTabBar(parent)

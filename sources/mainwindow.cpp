@@ -326,6 +326,8 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         QAction* tabAction = new QAction(m_tabWidget->tabText(index), newTab);
         connect(tabAction, SIGNAL(triggered()), SLOT(on_tabAction_triggered()));
 
+        tabAction->setData(true); // Flag action for search-as-you-type
+
         m_tabsMenu->addAction(tabAction);
 
         on_thumbnails_dockLocationChanged(dockWidgetArea(m_thumbnailsDock));
@@ -2917,7 +2919,9 @@ void MainWindow::createMenus()
 
     // tabs
 
-    m_tabsMenu = menuBar()->addMenu(tr("&Tabs"));
+    m_tabsMenu = new SearchableMenu(tr("&Tabs"));
+    menuBar()->addMenu(m_tabsMenu);
+
     m_tabsMenu->addActions(QList< QAction* >() << m_previousTabAction << m_nextTabAction);
     m_tabsMenu->addSeparator();
     m_tabsMenu->addActions(QList< QAction* >() << m_closeTabAction << m_closeAllTabsAction << m_closeAllTabsButCurrentTabAction);
@@ -2935,7 +2939,8 @@ void MainWindow::createMenus()
 
     // bookmarks
 
-    m_bookmarksMenu = menuBar()->addMenu(tr("&Bookmarks"));
+    m_bookmarksMenu = new SearchableMenu(tr("&Bookmarks"));
+    menuBar()->addMenu(m_bookmarksMenu);
 
     connect(m_bookmarksMenu, SIGNAL(aboutToShow()), this, SLOT(on_bookmarksMenu_aboutToShow()));
 

@@ -57,6 +57,7 @@ class TreeView;
 class ComboBox;
 class MappingSpinBox;
 class SearchLineEdit;
+class SearchableMenu;
 class RecentlyUsedMenu;
 class RecentlyClosedMenu;
 class BookmarkModel;
@@ -414,9 +415,9 @@ private:
     RecentlyUsedMenu* m_recentlyUsedMenu;
     QMenu* m_editMenu;
     QMenu* m_viewMenu;
-    QMenu* m_tabsMenu;
+    SearchableMenu* m_tabsMenu;
     RecentlyClosedMenu* m_recentlyClosedMenu;
-    QMenu* m_bookmarksMenu;
+    SearchableMenu* m_bookmarksMenu;
     QMenu* m_helpMenu;
 
     bool m_bookmarksMenuIsDirty;
