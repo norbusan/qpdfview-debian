@@ -166,6 +166,8 @@ private:
     QLineEdit* m_viewToolBarLineEdit;
 
     QCheckBox* m_scrollableMenusCheckBox;
+    QCheckBox* m_searchableMenusCheckBox;
+
     QCheckBox* m_toggleToolAndMenuBarsWithFullscreenCheckBox;
 
     QCheckBox* m_usePageLabelCheckBox;

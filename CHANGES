@@ -7,6 +7,7 @@ Release 0.4.14:
   * Added restoring of expanded outline items after refresh. Thanks to Bendik R. Opstad.
   * Added various smaller user interface enhancements.
   * Added whole-words-only search option.
+  * Added optionally searchable tabs and bookmarks menus.
   * Updated settings section of the online help.
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated Ukrainian translations. Thanks to Yuri Chornoivan.

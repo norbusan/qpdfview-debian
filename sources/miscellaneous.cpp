@@ -181,7 +181,7 @@ void SearchableMenu::keyPressEvent(QKeyEvent* event)
 
     const QString text = event->text();
 
-    if(isPrintable(text))
+    if(!text.isEmpty() && isPrintable(text))
     {
         m_text.append(text);
     }
