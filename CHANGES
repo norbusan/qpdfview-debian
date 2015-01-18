@@ -8,6 +8,7 @@ Release 0.4.14:
   * Added various smaller user interface enhancements.
   * Added whole-words-only search option.
   * Added optionally searchable tabs and bookmarks menus.
+  * Added Finnish translation of online help. Thanks to Timo Seppola.
   * Updated settings section of the online help.
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
