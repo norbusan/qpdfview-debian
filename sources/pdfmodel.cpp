@@ -395,35 +395,43 @@ QList< QRectF > PdfPage::search(const QString& text, bool matchCase, bool wholeW
 
     QList< QRectF > results;
 
-#if defined(HAS_POPPLER_22)
+#if defined(HAS_POPPLER_31)
 
-    results = m_page->search(text, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive);
+    const Poppler::Page::SearchFlags flags = 0
+            | (matchCase ? 0 : Poppler::Page::IgnoreCase)
+            | (wholeWords ? Poppler::Page::WholeWords : 0);
+
+    results = m_page->search(text, flags);
+
+#elif defined(HAS_POPPLER_22)
+
+    const Poppler::Page::SearchMode mode = matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive;
+
+    results = m_page->search(text, mode);
 
 #elif defined(HAS_POPPLER_14)
 
+    const Poppler::Page::SearchMode mode = matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive;
+
     double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0;
 
-    while(m_page->search(text, left, top, right, bottom, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
+    while(m_page->search(text, left, top, right, bottom, Poppler::Page::NextResult, mode))
     {
-        QRectF rect;
-        rect.setLeft(left);
-        rect.setTop(top);
-        rect.setRight(right);
-        rect.setBottom(bottom);
-
-        results.append(rect);
+        results.append(QRectF(left, top, right - left, bottom - top));
     }
 
 #else
 
+    const Poppler::Page::SearchMode mode = matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive;
+
     QRectF rect;
 
-    while(m_page->search(text, rect, Poppler::Page::NextResult, matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive))
+    while(m_page->search(text, rect, Poppler::Page::NextResult, mode))
     {
         results.append(rect);
     }
 
-#endif // HAS_POPPLER_22 HAS_POPPLER_14
+#endif // HAS_POPPLER_31 HAS_POPPLER_22 HAS_POPPLER_14
 
     return results;
 }
