@@ -391,7 +391,7 @@ bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, boo
 {
     const QFileInfo fileInfo(filePath);
 
-    for(int index = 0; index < m_tabWidget->count(); ++index)
+    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
         if(tab(index)->fileInfo() == fileInfo)
         {
@@ -643,7 +643,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
 void MainWindow::on_currentTab_documentChanged()
 {
-    for(int index = 0; index < m_tabWidget->count(); ++index)
+    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
         if(sender() == m_tabWidget->widget(index))
         {
@@ -1198,7 +1198,7 @@ void MainWindow::on_cancelSearch_triggered()
     m_searchLineEdit->stopTimer();
     m_searchLineEdit->setProgress(0);
 
-    for(int index = 0; index < m_tabWidget->count(); ++index)
+    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
         tab(index)->cancelSearch();
     }
@@ -1236,7 +1236,7 @@ void MainWindow::on_settings_triggered()
 
         m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
 
-        for(int index = 0; index < m_tabWidget->count(); ++index)
+        for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
         {
             if(!tab(index)->refresh())
             {
@@ -1444,7 +1444,7 @@ void MainWindow::on_recentlyClosed_tabActionTriggered(QAction* tabAction)
 
 void MainWindow::on_tabAction_triggered()
 {
-    for(int index = 0; index < m_tabWidget->count(); ++index)
+    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
         if(sender()->parent() == m_tabWidget->widget(index))
         {
@@ -1762,7 +1762,7 @@ void MainWindow::on_searchInitiated(const QString& text, bool modified)
 
         if(allTabs)
         {
-            for(int index = 0; index < m_tabWidget->count(); ++index)
+            for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
             {
                 tab(index)->startSearch(text, matchCase, wholeWords);
             }
@@ -1897,7 +1897,7 @@ void MainWindow::on_properties_sectionCountChanged()
 
 void MainWindow::on_thumbnails_dockLocationChanged(Qt::DockWidgetArea area)
 {
-    for(int index = 0; index < m_tabWidget->count(); ++index)
+    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
         tab(index)->setThumbnailsOrientation(area == Qt::TopDockWidgetArea || area == Qt::BottomDockWidgetArea ? Qt::Horizontal : Qt::Vertical);
     }
@@ -2068,7 +2068,7 @@ void MainWindow::on_search_visibilityChanged(bool visible)
         m_searchLineEdit->stopTimer();
         m_searchLineEdit->setProgress(0);
 
-        for(int index = 0; index < m_tabWidget->count(); ++index)
+        for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
         {
             tab(index)->cancelSearch();
             tab(index)->clearResults();
@@ -2115,7 +2115,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 {
     m_searchDock->setVisible(false);
 
-    for(int index = 0; index < m_tabWidget->count(); ++index)
+    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
         if(!saveModifications(tab(index)))
         {
@@ -2222,7 +2222,7 @@ QList< DocumentView* > MainWindow::tabs() const
 {
     QList< DocumentView* > tabs;
 
-    for(int index = 0; index < m_tabWidget->count(); ++index)
+    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
         tabs.append(tab(index));
     }
