@@ -136,6 +136,11 @@ void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardIte
     }
 }
 
+inline void restoreRenderHint(Poppler::Document* document, const Poppler::Document::RenderHints hints, const Poppler::Document::RenderHint hint)
+{
+    document->setRenderHint(hint, hints.testFlag(hint));
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -397,9 +402,7 @@ QList< QRectF > PdfPage::search(const QString& text, bool matchCase, bool wholeW
 
 #if defined(HAS_POPPLER_31)
 
-    const Poppler::Page::SearchFlags flags = 0
-            | (matchCase ? 0 : Poppler::Page::IgnoreCase)
-            | (wholeWords ? Poppler::Page::WholeWords : 0);
+    const Poppler::Page::SearchFlags flags((matchCase ? 0 : Poppler::Page::IgnoreCase) | (wholeWords ? Poppler::Page::WholeWords : 0));
 
     results = m_page->search(text, flags);
 
@@ -651,7 +654,44 @@ bool PdfDocument::unlock(const QString& password)
 {
     LOCK_DOCUMENT
 
-    return m_document->unlock(password.toLatin1(), password.toLatin1());
+    // Poppler drops render hints and backend after unlocking so we need to restore them.
+
+    const Poppler::Document::RenderHints hints = m_document->renderHints();
+    const Poppler::Document::RenderBackend backend = m_document->renderBackend();
+
+    const bool ok = m_document->unlock(password.toLatin1(), password.toLatin1());
+
+    restoreRenderHint(m_document, hints, Poppler::Document::Antialiasing);
+    restoreRenderHint(m_document, hints, Poppler::Document::TextAntialiasing);
+
+#ifdef HAS_POPPLER_14
+
+    restoreRenderHint(m_document, hints, Poppler::Document::TextHinting);
+
+#endif // HAS_POPPLER_18 HAS_POPPLER_14
+
+#ifdef HAS_POPPLER_18
+
+    restoreRenderHint(m_document, hints, Poppler::Document::TextSlightHinting);
+
+#endif // HAS_POPPLER_18
+
+#ifdef HAS_POPPLER_22
+
+    restoreRenderHint(m_document, hints, Poppler::Document::OverprintPreview);
+
+#endif // HAS_POPPLER_22
+
+#ifdef HAS_POPPLER_24
+
+    restoreRenderHint(m_document, hints, Poppler::Document::ThinLineSolid);
+    restoreRenderHint(m_document, hints, Poppler::Document::ThinLineShape);
+
+#endif // HAS_POPPLER_24
+
+    m_document->setRenderBackend(backend);
+
+    return ok;
 }
 
 QStringList PdfDocument::saveFilter() const
@@ -692,7 +732,7 @@ void PdfDocument::setPaperColor(const QColor& paperColor)
     m_document->setPaperColor(paperColor);
 }
 
-void Model::PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
+void PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
 {
     Document::loadOutline(outlineModel);
 
