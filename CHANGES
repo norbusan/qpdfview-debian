@@ -7,7 +7,7 @@ Release 0.4.14:
   * Improved user interaction of the extended search dock.
   * Added restoring of expanded outline items after refresh. Thanks to Bendik R. Opstad.
   * Added various smaller user interface enhancements.
-  * Added whole-words-only search option.
+  * Added whole-words-only search option (depending on Poppler version 0.31 or higher).
   * Added optionally searchable tabs and bookmarks menus.
   * Improved flexibility of searching DjVu documents.
   * Added Finnish translation of online help. Thanks to Timo Seppola.
