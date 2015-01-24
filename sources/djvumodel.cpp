@@ -302,6 +302,8 @@ QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTrans
         return QList< QRectF >();
     }
 
+    const Qt::CaseSensitivity caseSensitivity = matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive;
+
     QRectF result;
     int wordIndex = 0;
 
@@ -325,10 +327,9 @@ QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTrans
         {
             const QString text = QString::fromUtf8(miniexp_to_str(miniexp_nth(5, textExp)));
 
-            const Qt::CaseSensitivity sensitivity = matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive;
             int index = 0;
 
-            while((index = text.indexOf(words.at(wordIndex), index, sensitivity)) != -1)
+            while((index = text.indexOf(words.at(wordIndex), index, caseSensitivity)) != -1)
             {
                 const int nextIndex = index + words.at(wordIndex).length();
 
