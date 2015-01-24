@@ -19,6 +19,7 @@ HEADERS += \
     sources/thumbnailitem.h \
     sources/presentationview.h \
     sources/searchmodel.h \
+    sources/searchitemdelegate.h \
     sources/searchtask.h \
     sources/miscellaneous.h \
     sources/documentlayout.h \
@@ -45,6 +46,7 @@ SOURCES += \
     sources/thumbnailitem.cpp \
     sources/presentationview.cpp \
     sources/searchmodel.cpp \
+    sources/searchitemdelegate.cpp \
     sources/searchtask.cpp \
     sources/miscellaneous.cpp \
     sources/documentlayout.cpp \

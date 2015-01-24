@@ -31,7 +31,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 #include <QProxyStyle>
 #include <QSpinBox>
-#include <QStyledItemDelegate>
 #include <QTreeView>
 
 class QTextLayout;
@@ -327,25 +326,6 @@ private:
     Q_DISABLE_COPY(SearchLineEdit)
 
     QTimer* m_timer;
-
-};
-
-// search item delegate
-
-class SearchItemDelegate : public QStyledItemDelegate
-{
-    Q_OBJECT
-
-public:
-    explicit SearchItemDelegate(QObject* parent = 0);
-
-    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
-
-private:
-    void paintProgress(QPainter* painter, const QStyleOptionViewItem& option,
-                       int progress) const;
-    void paintSurroundingText(QPainter* painter, const QStyleOptionViewItem& option,
-                              const QString& matchedText, const QString& surroundingText) const;
 
 };
 

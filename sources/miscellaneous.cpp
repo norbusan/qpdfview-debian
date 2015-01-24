@@ -28,10 +28,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QLabel>
-#include <qmath.h>
 #include <QMenu>
 #include <QMouseEvent>
-#include <QTextLayout>
 #include <QTimer>
 #include <QToolTip>
 #include <QVBoxLayout>
@@ -54,28 +52,6 @@ inline bool isPrintable(const QString& string)
     }
 
     return true;
-}
-
-void emphasizeText(const QString& matchedText, const QString& surroundingText, QTextLayout& textLayout)
-{
-    QFont font = textLayout.font();
-    font.setWeight(QFont::Light);
-    textLayout.setFont(font);
-
-
-    QList< QTextLayout::FormatRange > additionalFormats;
-
-    for(int index = 0; (index = surroundingText.indexOf(matchedText, index)) != -1; index += matchedText.length())
-    {
-        QTextLayout::FormatRange formatRange;
-        formatRange.start = index;
-        formatRange.length = matchedText.length();
-        formatRange.format.setFontWeight(QFont::Bold);
-
-        additionalFormats.append(formatRange);
-    }
-
-    textLayout.setAdditionalFormats(additionalFormats);
 }
 
 } // anonymous
@@ -613,93 +589,6 @@ void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
     stopTimer();
 
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
-}
-
-SearchItemDelegate::SearchItemDelegate(QObject* parent) : QStyledItemDelegate(parent)
-{
-}
-
-void SearchItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
-{
-    QStyledItemDelegate::paint(painter, option, index);
-
-    const int progress = index.data(SearchModel::ProgressRole).toInt();
-
-    if(progress != 0)
-    {
-        paintProgress(painter, option, progress);
-        return;
-    }
-
-    const QString matchedText = index.data(SearchModel::MatchedTextRole).toString();
-    const QString surroundingText = index.data(SearchModel::SurroundingTextRole).toString();
-
-    if(!matchedText.isEmpty() && !surroundingText.isEmpty())
-    {
-        paintSurroundingText(painter, option, matchedText, surroundingText);
-        return;
-    }
-}
-
-void SearchItemDelegate::paintProgress(QPainter* painter, const QStyleOptionViewItem& option,
-                                       int progress) const
-{
-    QRect highlightedRect = option.rect;
-    highlightedRect.setWidth(progress * highlightedRect.width() / 100);
-
-    painter->save();
-
-    painter->setCompositionMode(QPainter::CompositionMode_Multiply);
-    painter->fillRect(highlightedRect, option.palette.highlight());
-
-    painter->restore();
-}
-
-void SearchItemDelegate::paintSurroundingText(QPainter* painter, const QStyleOptionViewItem& option,
-                                              const QString& matchedText, const QString& surroundingText) const
-{
-    const int textMargin = QApplication::style()->pixelMetric(QStyle::PM_FocusFrameHMargin) + 1;
-    const QRect textRect = option.rect.adjusted(textMargin, 0, -textMargin, 0);
-    const QString elidedText = option.fontMetrics.elidedText(surroundingText, option.textElideMode, textRect.width());
-
-    QTextOption textOption;
-    textOption.setWrapMode(QTextOption::NoWrap);
-    textOption.setTextDirection(surroundingText.isRightToLeft() ? Qt::RightToLeft : Qt::LeftToRight);
-    textOption.setAlignment(QStyle::visualAlignment(textOption.textDirection(), option.displayAlignment));
-
-    QTextLayout textLayout;
-    textLayout.setTextOption(textOption);
-    textLayout.setText(elidedText);
-    textLayout.setFont(option.font);
-
-    emphasizeText(matchedText, surroundingText, textLayout);
-
-
-    textLayout.beginLayout();
-
-    QTextLine textLine = textLayout.createLine();
-
-    if(!textLine.isValid())
-    {
-        return;
-    }
-
-    textLine.setLineWidth(textRect.width());
-
-    textLayout.endLayout();
-
-
-    const QSize layoutSize(textRect.width(), qFloor(textLine.height()));
-    const QRect layoutRect = QStyle::alignedRect(option.direction, option.displayAlignment, layoutSize, textRect);
-
-    painter->save();
-
-    painter->setClipping(true);
-    painter->setClipRect(layoutRect);
-
-    textLine.draw(painter, layoutRect.topLeft());
-
-    painter->restore();
 }
 
 } // qpdfview

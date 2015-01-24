@@ -60,6 +60,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "shortcuthandler.h"
 #include "thumbnailitem.h"
 #include "searchmodel.h"
+#include "searchitemdelegate.h"
 #include "documentview.h"
 #include "miscellaneous.h"
 #include "printdialog.h"
