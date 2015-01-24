@@ -3,11 +3,13 @@ Release 0.4.14:
   * Fixed display of warning dialog upon restoring tabs.
   * Fixed compilation using LLVM Clang. Thanks to Franz Fellner.
   * Fixed crash upon middle-clicking into empty part of tab bar.
+  * Fixed losing rendering hints after unlocking encrypted PDF documents.
   * Improved user interaction of the extended search dock.
   * Added restoring of expanded outline items after refresh. Thanks to Bendik R. Opstad.
   * Added various smaller user interface enhancements.
   * Added whole-words-only search option.
   * Added optionally searchable tabs and bookmarks menus.
+  * Improved flexibility of searching DjVu documents.
   * Added Finnish translation of online help. Thanks to Timo Seppola.
   * Updated settings section of the online help.
   * Updated Czech translations. Thanks to Pavel Fric.

@@ -56,7 +56,7 @@ inline bool isPrintable(const QString& string)
     return true;
 }
 
-void emphasizeText(const QString& text, bool matchCase, bool wholeWords, const QString& surroundingText, QTextLayout& textLayout)
+void emphasizeText(const QString& matchedText, const QString& surroundingText, QTextLayout& textLayout)
 {
     QFont font = textLayout.font();
     font.setWeight(QFont::Light);
@@ -65,30 +65,14 @@ void emphasizeText(const QString& text, bool matchCase, bool wholeWords, const Q
 
     QList< QTextLayout::FormatRange > additionalFormats;
 
-    const Qt::CaseSensitivity sensitivity = matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive;
-    int index = 0;
-
-    while((index = surroundingText.indexOf(text, index, sensitivity)) != -1)
+    for(int index = 0; (index = surroundingText.indexOf(matchedText, index)) != -1; index += matchedText.length())
     {
-        const int nextIndex = index + text.length();
+        QTextLayout::FormatRange formatRange;
+        formatRange.start = index;
+        formatRange.length = matchedText.length();
+        formatRange.format.setFontWeight(QFont::Bold);
 
-        const bool wordBegins = index == 0 || !surroundingText.at(index - 1).isLetterOrNumber();
-        const bool wordEnds = nextIndex == surroundingText.length() || !surroundingText.at(nextIndex).isLetterOrNumber();
-
-        if(!wholeWords || (wordBegins && wordEnds))
-        {
-            QTextLayout::FormatRange formatRange;
-            formatRange.start = index;
-            formatRange.length = text.length();
-            formatRange.format.setFontWeight(QFont::Bold);
-
-            additionalFormats.append(formatRange);
-        }
-
-        if((index = nextIndex) >= surroundingText.length())
-        {
-            break;
-        }
+        additionalFormats.append(formatRange);
     }
 
     textLayout.setAdditionalFormats(additionalFormats);
@@ -647,15 +631,12 @@ void SearchItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
         return;
     }
 
-    const QString text = index.data(SearchModel::TextRole).toString();
+    const QString matchedText = index.data(SearchModel::MatchedTextRole).toString();
     const QString surroundingText = index.data(SearchModel::SurroundingTextRole).toString();
 
-    if(!text.isEmpty() && !surroundingText.isEmpty())
+    if(!matchedText.isEmpty() && !surroundingText.isEmpty())
     {
-        const bool matchCase = index.data(SearchModel::MatchCaseRole).toBool();
-        const bool wholeWords = index.data(SearchModel::WholeWordsRole).toBool();
-
-        paintSurroundingText(painter, option, text, surroundingText, matchCase, wholeWords);
+        paintSurroundingText(painter, option, matchedText, surroundingText);
         return;
     }
 }
@@ -675,7 +656,7 @@ void SearchItemDelegate::paintProgress(QPainter* painter, const QStyleOptionView
 }
 
 void SearchItemDelegate::paintSurroundingText(QPainter* painter, const QStyleOptionViewItem& option,
-                                              const QString& text, const QString& surroundingText, bool matchCase, bool wholeWords) const
+                                              const QString& matchedText, const QString& surroundingText) const
 {
     const int textMargin = QApplication::style()->pixelMetric(QStyle::PM_FocusFrameHMargin) + 1;
     const QRect textRect = option.rect.adjusted(textMargin, 0, -textMargin, 0);
@@ -691,7 +672,7 @@ void SearchItemDelegate::paintSurroundingText(QPainter* painter, const QStyleOpt
     textLayout.setText(elidedText);
     textLayout.setFont(option.font);
 
-    emphasizeText(text, matchCase, wholeWords, surroundingText, textLayout);
+    emphasizeText(matchedText, surroundingText, textLayout);
 
 
     textLayout.beginLayout();

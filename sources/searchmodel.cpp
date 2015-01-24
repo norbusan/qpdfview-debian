@@ -174,6 +174,8 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
             return view->searchMatchCase();
         case WholeWordsRole:
             return view->searchWholeWords();
+        case MatchedTextRole:
+            return fetchMatchedText(view, result);
         case SurroundingTextRole:
             return fetchSurroundingText(view, result);
         case Qt::ToolTipRole:
@@ -377,7 +379,9 @@ void SearchModel::on_fetchSurroundingText_finished()
         return;
     }
 
-    m_textCache.insert(job.key, job.object, job.object->length());
+    const int cost = job.object->first.length() + job.object->second.length();
+
+    m_textCache.insert(job.key, job.object, cost);
 
     emit dataChanged(createIndex(0, 0, view), createIndex(results->count() - 1, 0, view));
 }
@@ -385,7 +389,7 @@ void SearchModel::on_fetchSurroundingText_finished()
 SearchModel::SearchModel(QObject* parent) : QAbstractItemModel(parent),
     m_views(),
     m_results(),
-    m_textCache(65536),
+    m_textCache(1 << 16),
     m_textWatchers()
 {
 }
@@ -424,19 +428,28 @@ QModelIndex SearchModel::findOrInsertView(DocumentView* view)
     return createIndex(row, 0);
 }
 
+QString SearchModel::fetchMatchedText(DocumentView* view, const SearchModel::Result& result) const
+{
+    const TextCacheObject* object = fetchText(view, result);
+
+    return object != 0 ? object->first : QString();
+}
+
 QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& result) const
 {
-    if(view == 0)
-    {
-        return QString();
-    }
+    const TextCacheObject* object = fetchText(view, result);
 
+    return object != 0 ? object->second : QString();
+}
+
+const SearchModel::TextCacheObject* SearchModel::fetchText(DocumentView* view, const SearchModel::Result& result) const
+{
     const TextCacheKey key = textCacheKey(view, result);
     const TextCacheObject* object = m_textCache.object(key);
 
     if(object != 0)
     {
-        return *object;
+        return object;
     }
 
     if(m_textWatchers.size() < 20 && !m_textWatchers.contains(key))
@@ -449,7 +462,7 @@ QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& resu
         watcher->setFuture(QtConcurrent::run(textJob, key, result));
     }
 
-    return QLatin1String("...");
+    return 0;
 }
 
 inline SearchModel::TextCacheKey SearchModel::textCacheKey(DocumentView* view, const Result& result)
@@ -465,9 +478,9 @@ inline SearchModel::TextCacheKey SearchModel::textCacheKey(DocumentView* view, c
 
 SearchModel::TextJob SearchModel::textJob(const TextCacheKey& key, const Result& result)
 {
-    const QString surroundingText = key.first->surroundingText(result.first, result.second);
+    const QPair< QString, QString >& text = key.first->searchContext(result.first, result.second);
 
-    return TextJob(key, new QString(surroundingText));
+    return TextJob(key, new TextCacheObject(text));
 }
 
 } // qpdfview

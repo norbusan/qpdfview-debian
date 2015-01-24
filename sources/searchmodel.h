@@ -58,6 +58,7 @@ public:
         TextRole,
         MatchCaseRole,
         WholeWordsRole,
+        MatchedTextRole,
         SurroundingTextRole
     };
 
@@ -107,7 +108,7 @@ private:
 
 
     typedef QPair< DocumentView*, QByteArray > TextCacheKey;
-    typedef QString TextCacheObject;
+    typedef QPair< QString, QString > TextCacheObject;
 
     struct TextJob
     {
@@ -124,7 +125,10 @@ private:
     mutable QCache< TextCacheKey, TextCacheObject > m_textCache;
     mutable QHash< TextCacheKey, TextWatcher* > m_textWatchers;
 
+    QString fetchMatchedText(DocumentView* view, const Result& result) const;
     QString fetchSurroundingText(DocumentView* view, const Result& result) const;
+
+    const TextCacheObject* fetchText(DocumentView* view, const Result& result) const;
 
     static TextCacheKey textCacheKey(DocumentView* view, const Result& result);
     static TextJob textJob(const TextCacheKey& key, const Result& result);

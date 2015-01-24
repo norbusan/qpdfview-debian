@@ -820,11 +820,11 @@ bool DocumentView::searchWholeWords() const
     return m_searchTask->wholeWords();
 }
 
-QString DocumentView::surroundingText(int page, const QRectF& rect) const
+QPair< QString, QString > DocumentView::searchContext(int page, const QRectF& rect) const
 {
     if(page < 1 || page > m_pages.size() || rect.isEmpty())
     {
-        return QString();
+        return qMakePair(QString(), QString());
     }
 
     // Fetch at most half of a line as centered on the given rectangle as possible.
@@ -834,7 +834,10 @@ QString DocumentView::surroundingText(int page, const QRectF& rect) const
 
     const QRectF surroundingRect(x, rect.top(), width, rect.height());
 
-    return m_pages.at(page - 1)->text(surroundingRect).simplified();
+    const QString& matchedText = m_pages.at(page - 1)->text(rect).simplified();
+    const QString& surroundingText = m_pages.at(page - 1)->text(surroundingRect).simplified();
+
+    return qMakePair(matchedText, surroundingText);
 }
 
 void DocumentView::show()

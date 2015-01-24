@@ -134,7 +134,7 @@ public:
     bool searchMatchCase() const;
     bool searchWholeWords() const;
 
-    QString surroundingText(int page, const QRectF& rect) const;
+    QPair< QString, QString > searchContext(int page, const QRectF& rect) const;
 
 signals:
     void documentChanged();
