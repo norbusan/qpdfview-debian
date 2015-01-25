@@ -513,7 +513,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1709"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Zobacz &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; celem uzyskania więcej informacji.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 Programiści qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1992"/>
@@ -549,7 +549,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2491"/>
         <source>Whole &amp;words</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Wszystkie słowa</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2492"/>
@@ -1231,7 +1231,7 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="175"/>
         <source>Search for &apos;%1&apos;...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Szukaj &apos;%1&apos;...</translation>
     </message>
 </context>
 <context>
@@ -1615,7 +1615,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="781"/>
         <source>Searchable menus:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Menu wyszukiwania:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="788"/>

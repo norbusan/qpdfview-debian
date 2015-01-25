@@ -1231,7 +1231,7 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="175"/>
         <source>Search for &apos;%1&apos;...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шукати «%1»…</translation>
     </message>
 </context>
 <context>
@@ -1615,7 +1615,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="781"/>
         <source>Searchable menus:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Придатні до пошуку меню:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="788"/>
