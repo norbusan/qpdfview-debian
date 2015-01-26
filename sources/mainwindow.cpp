@@ -334,6 +334,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         on_thumbnails_dockLocationChanged(dockWidgetArea(m_thumbnailsDock));
 
         connect(newTab, SIGNAL(documentChanged()), SLOT(on_currentTab_documentChanged()));
+        connect(newTab, SIGNAL(documentModified()), SLOT(on_currentTab_documentModified()));
 
         connect(newTab, SIGNAL(numberOfPagesChanged(int)), SLOT(on_currentTab_numberOfPagesChaned(int)));
         connect(newTab, SIGNAL(currentPageChanged(int)), SLOT(on_currentTab_currentPageChanged(int)));
@@ -670,6 +671,16 @@ void MainWindow::on_currentTab_documentChanged()
         m_outlineView->restoreExpansion();
 
         setWindowTitleForCurrentTab();
+
+        setWindowModified(currentTab() != 0 ? currentTab()->wasModified() : false);
+    }
+}
+
+void MainWindow::on_currentTab_documentModified()
+{
+    if(senderIsCurrentTab())
+    {
+        setWindowModified(true);
     }
 }
 
@@ -2328,7 +2339,7 @@ void MainWindow::setWindowTitleForCurrentTab()
             currentPage = QString(" (%1 / %2)").arg(currentTab()->currentPage()).arg(currentTab()->numberOfPages());
         }
 
-        tabText = m_tabWidget->tabText(m_tabWidget->currentIndex()) + currentPage + QLatin1String(" - ");
+        tabText = m_tabWidget->tabText(m_tabWidget->currentIndex()) + currentPage + QLatin1String("[*] - ");
     }
 
     if(s_settings->mainWindow().instanceNameInWindowTitle() && !qApp->objectName().isEmpty())
