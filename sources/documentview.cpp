@@ -834,8 +834,8 @@ QPair< QString, QString > DocumentView::searchContext(int page, const QRectF& re
 
     const QRectF surroundingRect(x, rect.top(), width, rect.height());
 
-    const QString& matchedText = m_pages.at(page - 1)->text(rect).simplified();
-    const QString& surroundingText = m_pages.at(page - 1)->text(surroundingRect).simplified();
+    const QString& matchedText = m_pages.at(page - 1)->cachedText(rect);
+    const QString& surroundingText = m_pages.at(page - 1)->cachedText(surroundingRect);
 
     return qMakePair(matchedText, surroundingText);
 }

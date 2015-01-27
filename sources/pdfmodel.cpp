@@ -22,6 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pdfmodel.h"
 
+#include <QCache>
 #include <QFormLayout>
 #include <QMessageBox>
 #include <QSettings>
@@ -140,6 +141,12 @@ inline void restoreRenderHint(Poppler::Document* document, const Poppler::Docume
 {
     document->setRenderHint(hint, hints.testFlag(hint));
 }
+
+typedef QSharedPointer< Poppler::TextBox > TextBox;
+typedef QList< TextBox > TextBoxList;
+
+QCache< const PdfPage*,  TextBoxList > textCache(1 << 12);
+QMutex textCacheMutex;
 
 } // anonymous
 
@@ -391,7 +398,63 @@ QString PdfPage::text(const QRectF& rect) const
 {
     LOCK_PAGE
 
-    return m_page->text(rect);
+    return m_page->text(rect).simplified();
+}
+
+QString PdfPage::cachedText(const QRectF& rect) const
+{
+    bool wasCached = false;
+    TextBoxList textBoxes;
+
+    {
+        QMutexLocker mutexLocker(&textCacheMutex);
+
+        if(TextBoxList* object = textCache.object(this))
+        {
+            wasCached = true;
+
+            textBoxes = *object;
+        }
+    }
+
+    if(!wasCached)
+    {
+        foreach(Poppler::TextBox* textBox, m_page->textList())
+        {
+            textBoxes.append(TextBox(textBox));
+        }
+
+        QMutexLocker mutexLocker(&textCacheMutex);
+
+        textCache.insert(this, new TextBoxList(textBoxes), textBoxes.count());
+    }
+
+    QString text;
+
+    foreach(const TextBox& textBox, textBoxes)
+    {
+        if(!rect.intersects(textBox->boundingBox()))
+        {
+            continue;
+        }
+
+        const QString& characters = textBox->text();
+
+        for(int index = 0; index < characters.length(); ++index)
+        {
+            if(rect.intersects(textBox->charBoundingBox(index)))
+            {
+                text.append(characters.at(index));
+            }
+        }
+
+        if(textBox->hasSpaceAfter())
+        {
+            text.append(QChar::Space);
+        }
+    }
+
+    return text.simplified();
 }
 
 QList< QRectF > PdfPage::search(const QString& text, bool matchCase, bool wholeWords) const
