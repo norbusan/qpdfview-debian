@@ -323,6 +323,18 @@ void SearchModel::insertResults(DocumentView* view, int page, const QList< QRect
 
 void SearchModel::clearResults(DocumentView* view)
 {
+    foreach(const TextCacheKey& key, m_textWatchers.keys())
+    {
+        if(key.first == view)
+        {
+            TextWatcher* watcher = m_textWatchers.take(key);
+
+            watcher->cancel();
+            watcher->waitForFinished();
+            watcher->deleteLater();
+        }
+    }
+
     foreach(const TextCacheKey& key, m_textCache.keys())
     {
         if(key.first == view)
@@ -361,7 +373,7 @@ void SearchModel::on_fetchSurroundingText_finished()
 {
     TextWatcher* watcher = dynamic_cast< TextWatcher* >(sender());
 
-    if(watcher == 0)
+    if(watcher == 0 || watcher->isCanceled())
     {
         return;
     }
@@ -369,7 +381,7 @@ void SearchModel::on_fetchSurroundingText_finished()
     const TextJob job = watcher->result();
 
     m_textWatchers.remove(job.key);
-    delete watcher;
+    watcher->deleteLater();
 
     DocumentView* view = job.key.first;
     const Results* results = m_results.value(view, 0);
