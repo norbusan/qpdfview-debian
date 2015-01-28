@@ -2934,7 +2934,7 @@ void MainWindow::createMenus()
 
     // tabs
 
-    m_tabsMenu = new SearchableMenu(tr("&Tabs"));
+    m_tabsMenu = new SearchableMenu(tr("&Tabs"), this);
     menuBar()->addMenu(m_tabsMenu);
 
     m_tabsMenu->setSearchable(s_settings->mainWindow().searchableMenus());
@@ -2956,7 +2956,7 @@ void MainWindow::createMenus()
 
     // bookmarks
 
-    m_bookmarksMenu = new SearchableMenu(tr("&Bookmarks"));
+    m_bookmarksMenu = new SearchableMenu(tr("&Bookmarks"), this);
     menuBar()->addMenu(m_bookmarksMenu);
 
     m_bookmarksMenu->setSearchable(s_settings->mainWindow().searchableMenus());
