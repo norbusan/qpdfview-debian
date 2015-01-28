@@ -419,9 +419,13 @@ QString PdfPage::cachedText(const QRectF& rect) const
 
     if(!wasCached)
     {
-        foreach(Poppler::TextBox* textBox, m_page->textList())
         {
-            textBoxes.append(TextBox(textBox));
+            LOCK_PAGE
+
+            foreach(Poppler::TextBox* textBox, m_page->textList())
+            {
+                textBoxes.append(TextBox(textBox));
+            }
         }
 
         QMutexLocker mutexLocker(&textCacheMutex);
