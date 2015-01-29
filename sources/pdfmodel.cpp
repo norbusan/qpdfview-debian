@@ -283,6 +283,12 @@ PdfPage::PdfPage(QMutex* mutex, Poppler::Page* page) :
 
 PdfPage::~PdfPage()
 {
+    {
+        QMutexLocker mutexLocker(&textCacheMutex);
+
+        textCache.remove(this);
+    }
+
     delete m_page;
 }
 
