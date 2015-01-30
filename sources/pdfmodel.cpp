@@ -148,6 +148,8 @@ typedef QList< TextBox > TextBoxList;
 QCache< const PdfPage*,  TextBoxList > textCache(1 << 12);
 QMutex textCacheMutex;
 
+#define LOCK_TEXT_CACHE QMutexLocker mutexLocker(&textCacheMutex);
+
 } // anonymous
 
 namespace qpdfview
@@ -284,7 +286,7 @@ PdfPage::PdfPage(QMutex* mutex, Poppler::Page* page) :
 PdfPage::~PdfPage()
 {
     {
-        QMutexLocker mutexLocker(&textCacheMutex);
+        LOCK_TEXT_CACHE
 
         textCache.remove(this);
     }
@@ -413,7 +415,7 @@ QString PdfPage::cachedText(const QRectF& rect) const
     TextBoxList textBoxes;
 
     {
-        QMutexLocker mutexLocker(&textCacheMutex);
+        LOCK_TEXT_CACHE
 
         if(TextBoxList* object = textCache.object(this))
         {
@@ -434,7 +436,7 @@ QString PdfPage::cachedText(const QRectF& rect) const
             }
         }
 
-        QMutexLocker mutexLocker(&textCacheMutex);
+        LOCK_TEXT_CACHE
 
         textCache.insert(this, new TextBoxList(textBoxes), textBoxes.count());
     }
