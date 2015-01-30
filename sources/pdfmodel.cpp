@@ -460,7 +460,7 @@ QString PdfPage::cachedText(const QRectF& rect) const
 
         if(textBox->hasSpaceAfter())
         {
-            text.append(QChar::Space);
+            text.append(QLatin1Char(' '));
         }
     }
 
