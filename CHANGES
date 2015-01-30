@@ -3,8 +3,10 @@ Release 0.4.14:
   * Fixed display of warning dialog upon restoring tabs.
   * Fixed compilation using LLVM Clang. Thanks to Franz Fellner.
   * Fixed crash upon middle-clicking into empty part of tab bar.
+  * Fixed a race condition in text extraction within the extended search dock.
   * Fixed losing rendering hints after unlocking encrypted PDF documents.
   * Improved user interaction of the extended search dock.
+  * Improved the speed of text extraction within the extended search dock. Thanks to S. Razi Alavizadeh.
   * Added restoring of expanded outline items after refresh. Thanks to Bendik R. Opstad.
   * Added various smaller user interface enhancements.
   * Added whole-words-only search option (depending on Poppler version 0.31 or higher).
