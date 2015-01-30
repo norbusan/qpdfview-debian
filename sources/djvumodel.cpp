@@ -675,7 +675,7 @@ QString DjVuPage::text(const QRectF& rect) const
         ddjvu_miniexp_release(m_parent->m_document, pageTextExp);
     }
 
-    return text;
+    return text.simplified();
 }
 
 QList< QRectF > DjVuPage::search(const QString& text, bool matchCase, bool wholeWords) const

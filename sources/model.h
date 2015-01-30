@@ -115,6 +115,8 @@ namespace Model
         virtual QList< Link* > links() const { return QList< Link* >(); }
 
         virtual QString text(const QRectF& rect) const { Q_UNUSED(rect); return QString(); }
+        virtual QString cachedText(const QRectF& rect) const { return text(rect); }
+
         virtual QList< QRectF > search(const QString& text, bool matchCase, bool wholeWords) const { Q_UNUSED(text); Q_UNUSED(matchCase); Q_UNUSED(wholeWords); return QList< QRectF >(); }
 
         virtual QList< Annotation* > annotations() const { return QList< Annotation* >(); }
