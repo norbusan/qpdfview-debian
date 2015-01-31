@@ -89,7 +89,7 @@ public:
     void setSearchable(bool searchable);
 
 protected:
-    void showEvent(QShowEvent* event);
+    void hideEvent(QHideEvent* event);
     void keyPressEvent(QKeyEvent* event);
 
 private:

@@ -116,11 +116,11 @@ void SearchableMenu::setSearchable(bool searchable)
     m_searchable = searchable;
 }
 
-void SearchableMenu::showEvent(QShowEvent* event)
+void SearchableMenu::hideEvent(QHideEvent* event)
 {
-    QMenu::showEvent(event);
+    QMenu::hideEvent(event);
 
-    if(!event->spontaneous())
+    if(m_searchable && !event->spontaneous())
     {
         m_text = QString();
 
