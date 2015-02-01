@@ -457,9 +457,8 @@ QString SearchModel::fetchSurroundingText(DocumentView* view, const Result& resu
 const SearchModel::TextCacheObject* SearchModel::fetchText(DocumentView* view, const SearchModel::Result& result) const
 {
     const TextCacheKey key = textCacheKey(view, result);
-    const TextCacheObject* object = m_textCache.object(key);
 
-    if(object != 0)
+    if(const TextCacheObject* object = m_textCache.object(key))
     {
         return object;
     }

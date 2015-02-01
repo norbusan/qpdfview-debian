@@ -417,7 +417,7 @@ QString PdfPage::cachedText(const QRectF& rect) const
     {
         LOCK_TEXT_CACHE
 
-        if(TextBoxList* object = textCache.object(this))
+        if(const TextBoxList* object = textCache.object(this))
         {
             wasCached = true;
 

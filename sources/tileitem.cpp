@@ -130,9 +130,7 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 {
     if(keepObsoletePixmaps && s_settings->pageItem().keepObsoletePixmaps())
     {
-        CacheObject* object = s_cache.object(cacheKey());
-
-        if(object != 0)
+        if(const CacheObject* object = s_cache.object(cacheKey()))
         {
             m_obsoletePixmap = object->first;
         }
@@ -252,9 +250,8 @@ inline TileItem::CacheKey TileItem::cacheKey() const
 QPixmap TileItem::takePixmap()
 {
     const CacheKey key = cacheKey();
-    const CacheObject* object = s_cache.object(key);
 
-    if(object != 0)
+    if(const CacheObject* object = s_cache.object(key))
     {
         m_obsoletePixmap = QPixmap();
 
