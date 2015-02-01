@@ -92,12 +92,10 @@ PageItem::PageItem(Model::Page* page, int index, DrawMode drawMode, QGraphicsIte
 
     if(!s_settings->pageItem().useTiling() || thumbnailMode())
     {
-        TileItem* tile = new TileItem(this);
-
         m_tileItems.resize(1);
         m_tileItems.squeeze();
 
-        m_tileItems.replace(0, tile);
+        m_tileItems.replace(0, new TileItem(this));
     }
 
     QTimer::singleShot(0, this, SLOT(loadInteractiveElements()));
