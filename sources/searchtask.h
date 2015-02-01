@@ -1,6 +1,6 @@
 /*
 
-Copyright 2012-2013 Adam Reichold
+Copyright 2012-2015 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -41,8 +41,8 @@ class SearchTask : public QThread
 public:
     explicit SearchTask(QObject* parent = 0);
 
-    bool wasCanceled() const;
-    int progress() const;
+    bool wasCanceled() const { return loadCancellation() != NotCanceled; }
+    int progress() const { return acquireProgress(); }
 
     inline QString text() const { return m_text; }
     inline bool matchCase() const { return m_matchCase; }
@@ -59,13 +59,29 @@ public slots:
     void start(const QVector< Model::Page* >& pages,
                const QString& text, bool matchCase, bool wholeWords, int beginAtPage = 1);
 
-    void cancel();
+    void cancel() { setCancellation(); }
 
 private:
     Q_DISABLE_COPY(SearchTask)
 
     QAtomicInt m_wasCanceled;
     mutable QAtomicInt m_progress;
+
+    enum
+    {
+        NotCanceled = 0,
+        Canceled = 1
+    };
+
+    void setCancellation();
+    void resetCancellation();
+    bool testCancellation();
+    int loadCancellation() const;
+
+    void releaseProgress(int value);
+    int acquireProgress() const;
+    int loadProgress() const;
+
 
     QVector< Model::Page* > m_pages;
 
@@ -75,6 +91,82 @@ private:
     int m_beginAtPage;
 
 };
+
+#if QT_VERSION > QT_VERSION_CHECK(5,0,0)
+
+inline void SearchTask::setCancellation()
+{
+    m_wasCanceled.storeRelease(Canceled);
+}
+
+inline void SearchTask::resetCancellation()
+{
+    m_wasCanceled.storeRelease(NotCanceled);
+}
+
+inline bool SearchTask::testCancellation()
+{
+    return m_wasCanceled.load() != NotCanceled;
+}
+
+inline int SearchTask::loadCancellation() const
+{
+    return m_wasCanceled.load();
+}
+
+inline void SearchTask::releaseProgress(int value)
+{
+    m_progress.storeRelease(value);
+}
+
+inline int SearchTask::acquireProgress() const
+{
+    return m_progress.loadAcquire();
+}
+
+inline int SearchTask::loadProgress() const
+{
+    return m_progress.load();
+}
+
+#else
+
+inline void SearchTask::setCancellation()
+{
+    m_wasCanceled.fetchAndStoreRelease(Canceled);
+}
+
+inline void SearchTask::resetCancellation()
+{
+    m_wasCanceled.fetchAndStoreRelease(NotCanceled);
+}
+
+inline bool SearchTask::testCancellation()
+{
+    return !m_wasCanceled.testAndSetRelaxed(NotCanceled, NotCanceled);
+}
+
+inline int SearchTask::loadCancellation() const
+{
+    return m_wasCanceled;
+}
+
+inline void SearchTask::releaseProgress(int value)
+{
+    m_progress.fetchAndStoreRelease(value);
+}
+
+inline int SearchTask::acquireProgress() const
+{
+    return m_progress.fetchAndAddAcquire(0);
+}
+
+inline int SearchTask::loadProgress() const
+{
+    return m_progress;
+}
+
+#endif // QT_VERSION
 
 } // qpdfview
 

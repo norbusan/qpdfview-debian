@@ -1,6 +1,6 @@
 /*
 
-Copyright 2012-2013 Adam Reichold
+Copyright 2012-2015 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -23,109 +23,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "model.h"
 
-namespace
-{
-
-using namespace qpdfview;
-
-enum
-{
-    NotCanceled = 0,
-    Canceled = 1
-};
-
-void setCancellation(QAtomicInt& wasCanceled)
-{
-#if QT_VERSION > QT_VERSION_CHECK(5,0,0)
-
-    wasCanceled.storeRelease(Canceled);
-
-#else
-
-    wasCanceled.fetchAndStoreRelease(Canceled);
-
-#endif // QT_VERSION
-}
-
-void resetCancellation(QAtomicInt& wasCanceled)
-{
-#if QT_VERSION > QT_VERSION_CHECK(5,0,0)
-
-    wasCanceled.storeRelease(NotCanceled);
-
-#else
-
-    wasCanceled.fetchAndStoreRelease(NotCanceled);
-
-#endif // QT_VERSION
-}
-
-bool testCancellation(QAtomicInt& wasCanceled)
-{
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    return wasCanceled.load() != NotCanceled;
-
-#else
-
-    return !wasCanceled.testAndSetRelaxed(NotCanceled, NotCanceled);
-
-#endif // QT_VERSION
-}
-
-int loadCancellation(const QAtomicInt& wasCanceled)
-{
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    return wasCanceled.load();
-
-#else
-
-    return wasCanceled;
-
-#endif // QT_VERSION
-}
-
-void releaseProgress(QAtomicInt& progress, int value)
-{
-#if QT_VERSION > QT_VERSION_CHECK(5,0,0)
-
-    progress.storeRelease(value);
-
-#else
-
-    progress.fetchAndStoreRelease(value);
-
-#endif // QT_VERSION
-}
-
-int acquireProgress(QAtomicInt& progress)
-{
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    return progress.loadAcquire();
-
-#else
-
-    return progress.fetchAndAddAcquire(0);
-
-#endif // QT_VERSION
-}
-
-int loadProgress(const QAtomicInt& progress)
-{
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    return progress.load();
-#else
-
-    return progress;
-
-#endif // QT_VERSION
-}
-
-} // anonymous
-
 namespace qpdfview
 {
 
@@ -140,21 +37,11 @@ SearchTask::SearchTask(QObject* parent) : QThread(parent),
 {
 }
 
-bool SearchTask::wasCanceled() const
-{
-    return loadCancellation(m_wasCanceled) != NotCanceled;
-}
-
-int SearchTask::progress() const
-{
-    return acquireProgress(m_progress);
-}
-
 void SearchTask::run()
 {
     for(int index = m_beginAtPage - 1; index < m_pages.count() + m_beginAtPage - 1; ++index)
     {
-        if(testCancellation(m_wasCanceled))
+        if(testCancellation())
         {
             break;
         }
@@ -163,12 +50,12 @@ void SearchTask::run()
 
         emit resultsReady(index % m_pages.count(), results);
 
-        releaseProgress(m_progress, 100 * (index + 1 - m_beginAtPage + 1) / m_pages.count());
+        releaseProgress(100 * (index + 1 - m_beginAtPage + 1) / m_pages.count());
 
-        emit progressChanged(loadProgress(m_progress));
+        emit progressChanged(loadProgress());
     }
 
-    releaseProgress(m_progress, 0);
+    releaseProgress(0);
 }
 
 void SearchTask::start(const QVector< Model::Page* >& pages,
@@ -181,15 +68,10 @@ void SearchTask::start(const QVector< Model::Page* >& pages,
     m_wholeWords = wholeWords;
     m_beginAtPage = beginAtPage;
 
-    resetCancellation(m_wasCanceled);
-    releaseProgress(m_progress, 0);
+    resetCancellation();
+    releaseProgress(0);
 
     QThread::start();
-}
-
-void SearchTask::cancel()
-{
-    setCancellation(m_wasCanceled);
 }
 
 } // qpdfview

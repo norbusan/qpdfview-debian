@@ -1147,7 +1147,7 @@ void PageItem::prepareTiling()
     }
 }
 
-void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
+inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
 {
     if(s_settings->pageItem().decoratePages() && !presentationMode())
     {
@@ -1200,7 +1200,7 @@ void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) const
     }
 }
 
-void PageItem::paintLinks(QPainter* painter) const
+inline void PageItem::paintLinks(QPainter* painter) const
 {
     if(s_settings->pageItem().decorateLinks() && !presentationMode() && !m_links.isEmpty())
     {
@@ -1218,7 +1218,7 @@ void PageItem::paintLinks(QPainter* painter) const
     }
 }
 
-void PageItem::paintFormFields(QPainter* painter) const
+inline void PageItem::paintFormFields(QPainter* painter) const
 {
     if(s_settings->pageItem().decorateFormFields() && !presentationMode() && !m_formFields.isEmpty())
     {
@@ -1236,7 +1236,7 @@ void PageItem::paintFormFields(QPainter* painter) const
     }
 }
 
-void PageItem::paintHighlights(QPainter* painter) const
+inline void PageItem::paintHighlights(QPainter* painter) const
 {
     if(!m_highlights.isEmpty())
     {
@@ -1256,7 +1256,7 @@ void PageItem::paintHighlights(QPainter* painter) const
     }
 }
 
-void PageItem::paintRubberBand(QPainter* painter) const
+inline void PageItem::paintRubberBand(QPainter* painter) const
 {
     if(!m_rubberBand.isNull())
     {

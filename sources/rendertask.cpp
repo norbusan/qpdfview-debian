@@ -1,6 +1,6 @@
 /*
 
-Copyright 2013 Adam Reichold
+Copyright 2013-2015 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -30,69 +30,6 @@ namespace
 {
 
 using namespace qpdfview;
-
-enum
-{
-    NotCanceled = 0,
-    CanceledNormally = 1,
-    CanceledForcibly = 2
-};
-
-void setCancellation(QAtomicInt& wasCanceled, bool force)
-{
-#if QT_VERSION > QT_VERSION_CHECK(5,0,0)
-
-    wasCanceled.storeRelease(force ? CanceledForcibly : CanceledNormally);
-
-#else
-
-    wasCanceled.fetchAndStoreRelease(force ? CanceledForcibly : CanceledNormally);
-
-#endif // QT_VERSION
-}
-
-void resetCancellation(QAtomicInt& wasCanceled)
-{
-#if QT_VERSION > QT_VERSION_CHECK(5,0,0)
-
-    wasCanceled.storeRelease(NotCanceled);
-
-#else
-
-    wasCanceled.fetchAndStoreRelease(NotCanceled);
-
-#endif // QT_VERSION
-}
-
-bool testCancellation(QAtomicInt& wasCanceled, bool prefetch)
-{
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    return prefetch ?
-                wasCanceled.load() == CanceledForcibly :
-                wasCanceled.load() != NotCanceled;
-
-#else
-
-    return prefetch ?
-                wasCanceled.testAndSetRelaxed(CanceledForcibly, CanceledForcibly) :
-                !wasCanceled.testAndSetRelaxed(NotCanceled, NotCanceled);
-
-#endif // QT_VERSION
-}
-
-int loadCancellation(const QAtomicInt& wasCanceled)
-{
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-    return wasCanceled.load();
-
-#else
-
-    return wasCanceled;
-
-#endif // QT_VERSION
-}
 
 qreal scaledResolutionX(const RenderParam& renderParam)
 {
@@ -247,24 +184,9 @@ bool RenderTask::isRunning() const
     return m_isRunning;
 }
 
-bool RenderTask::wasCanceled() const
-{
-    return loadCancellation(m_wasCanceled) != NotCanceled;
-}
-
-bool RenderTask::wasCanceledNormally() const
-{
-    return loadCancellation(m_wasCanceled) == CanceledNormally;
-}
-
-bool RenderTask::wasCanceledForcibly() const
-{
-    return loadCancellation(m_wasCanceled) == CanceledForcibly;
-}
-
 void RenderTask::run()
 {
-#define CANCELLATION_POINT if(testCancellation(m_wasCanceled, m_prefetch)) { finish(); return; }
+#define CANCELLATION_POINT if(testCancellation()) { finish(); return; }
 
     CANCELLATION_POINT
 
@@ -328,14 +250,9 @@ void RenderTask::start(const RenderParam& renderParam,
     m_isRunning = true;
     m_mutex.unlock();
 
-    resetCancellation(m_wasCanceled);
+    resetCancellation();
 
     QThreadPool::globalInstance()->start(this, prefetch ? 0 : 1);
-}
-
-void RenderTask::cancel(bool force)
-{
-    setCancellation(m_wasCanceled, force);
 }
 
 void RenderTask::finish()

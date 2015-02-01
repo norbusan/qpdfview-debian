@@ -1,6 +1,6 @@
 /*
 
-Copyright 2013 Adam Reichold
+Copyright 2013-2015 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -49,9 +49,9 @@ public:
 
     bool isRunning() const;
 
-    bool wasCanceled() const;
-    bool wasCanceledNormally() const;
-    bool wasCanceledForcibly() const;
+    bool wasCanceled() const { return loadCancellation() != NotCanceled; }
+    bool wasCanceledNormally() const { return loadCancellation() == CanceledNormally; }
+    bool wasCanceledForcibly() const { return loadCancellation() == CanceledForcibly; }
 
     void run();
 
@@ -67,7 +67,7 @@ public slots:
                const QRect& rect, bool prefetch,
                bool trimMargins, const QColor& paperColor);
 
-    void cancel(bool force = false);
+    void cancel(bool force = false) { setCancellation(force); }
 
 private:
     Q_DISABLE_COPY(RenderTask)
@@ -77,6 +77,18 @@ private:
 
     bool m_isRunning;
     QAtomicInt m_wasCanceled;
+
+    enum
+    {
+        NotCanceled = 0,
+        CanceledNormally = 1,
+        CanceledForcibly = 2
+    };
+
+    void setCancellation(bool force);
+    void resetCancellation();
+    bool testCancellation();
+    int loadCancellation() const;
 
     void finish();
 
@@ -92,6 +104,56 @@ private:
     QColor m_paperColor;
 
 };
+
+#if QT_VERSION > QT_VERSION_CHECK(5,0,0)
+
+inline void RenderTask::setCancellation(bool force)
+{
+    m_wasCanceled.storeRelease(force ? CanceledForcibly : CanceledNormally);
+}
+
+inline void RenderTask::resetCancellation()
+{
+    m_wasCanceled.storeRelease(NotCanceled);
+}
+
+inline bool RenderTask::testCancellation()
+{
+    return m_prefetch ?
+                m_wasCanceled.load() == CanceledForcibly :
+                m_wasCanceled.load() != NotCanceled;
+}
+
+inline int RenderTask::loadCancellation() const
+{
+    return m_wasCanceled.load();
+}
+
+#else
+
+inline void RenderTask::setCancellation(bool force)
+{
+    m_wasCanceled.fetchAndStoreRelease(force ? CanceledForcibly : CanceledNormally);
+}
+
+inline void RenderTask::resetCancellation()
+{
+    m_wasCanceled.fetchAndStoreRelease(NotCanceled);
+}
+
+inline bool RenderTask::testCancellation()
+{
+    return m_prefetch ?
+                m_wasCanceled.testAndSetRelaxed(CanceledForcibly, CanceledForcibly) :
+                !m_wasCanceled.testAndSetRelaxed(NotCanceled, NotCanceled);
+}
+
+inline int RenderTask::loadCancellation() const
+{
+    return m_wasCanceled;
+}
+
+#endif // QT_VERSION
 
 } // qpdfview
 
