@@ -338,6 +338,8 @@ void PageItem::cancelRender()
         {
             tile->cancelRender();
         }
+
+        m_exposedTileItems.clear();
     }
 }
 
