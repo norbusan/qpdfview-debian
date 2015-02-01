@@ -81,7 +81,7 @@ bool testCancellation(QAtomicInt& wasCanceled, bool prefetch)
 #endif // QT_VERSION
 }
 
-int loadWasCanceled(const QAtomicInt& wasCanceled)
+int loadCancellation(const QAtomicInt& wasCanceled)
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -249,17 +249,17 @@ bool RenderTask::isRunning() const
 
 bool RenderTask::wasCanceled() const
 {
-    return loadWasCanceled(m_wasCanceled) != NotCanceled;
+    return loadCancellation(m_wasCanceled) != NotCanceled;
 }
 
 bool RenderTask::wasCanceledNormally() const
 {
-    return loadWasCanceled(m_wasCanceled) == CanceledNormally;
+    return loadCancellation(m_wasCanceled) == CanceledNormally;
 }
 
 bool RenderTask::wasCanceledForcibly() const
 {
-    return loadWasCanceled(m_wasCanceled) == CanceledForcibly;
+    return loadCancellation(m_wasCanceled) == CanceledForcibly;
 }
 
 void RenderTask::run()

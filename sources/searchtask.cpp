@@ -73,7 +73,7 @@ bool testCancellation(QAtomicInt& wasCanceled)
 #endif // QT_VERSION
 }
 
-int loadWasCanceled(const QAtomicInt& wasCanceled)
+int loadCancellation(const QAtomicInt& wasCanceled)
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -142,7 +142,7 @@ SearchTask::SearchTask(QObject* parent) : QThread(parent),
 
 bool SearchTask::wasCanceled() const
 {
-    return loadWasCanceled(m_wasCanceled) != NotCanceled;
+    return loadCancellation(m_wasCanceled) != NotCanceled;
 }
 
 int SearchTask::progress() const
