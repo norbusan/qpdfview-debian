@@ -92,12 +92,10 @@ PageItem::PageItem(Model::Page* page, int index, DrawMode drawMode, QGraphicsIte
 
     if(!s_settings->pageItem().useTiling() || thumbnailMode())
     {
-        TileItem* tile = new TileItem(this);
-
         m_tileItems.resize(1);
         m_tileItems.squeeze();
 
-        m_tileItems.replace(0, tile);
+        m_tileItems.replace(0, new TileItem(this));
     }
 
     QTimer::singleShot(0, this, SLOT(loadInteractiveElements()));
@@ -336,7 +334,7 @@ void PageItem::cancelRender()
     }
     else
     {
-        foreach(TileItem* tile, m_tileItems)
+        foreach(TileItem* tile, m_exposedTileItems)
         {
             tile->cancelRender();
         }
@@ -1123,6 +1121,8 @@ void PageItem::prepareTiling()
         m_tileItems.replace(index, new TileItem(this));
     }
 
+    m_exposedTileItems.clear();
+
     if(oldCount != newCount)
     {
         foreach(TileItem* tile, m_tileItems)
@@ -1175,14 +1175,24 @@ inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) co
 
         foreach(TileItem* tile, m_tileItems)
         {
-            if(translatedExposedRect.intersects(tile->rect()))
+            const bool intersects = translatedExposedRect.intersects(tile->rect());
+            const bool contains = m_exposedTileItems.contains(tile);
+
+            if(intersects && !contains)
             {
-                tile->paint(painter, m_boundingRect.topLeft());
+                m_exposedTileItems.insert(tile);
             }
-            else
+            else if(!intersects && contains)
             {
+                m_exposedTileItems.remove(tile);
+
                 tile->cancelRender();
             }
+        }
+
+        foreach(TileItem* tile, m_exposedTileItems)
+        {
+            tile->paint(painter, m_boundingRect.topLeft());
         }
     }
 
