@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCache>
 #include <QGraphicsObject>
 #include <QIcon>
+#include <QSet>
 
 class QGraphicsProxyWidget;
 
@@ -210,6 +211,7 @@ private:
     void prepareGeometry();
 
     QVector< TileItem* > m_tileItems;
+    mutable QSet< TileItem* > m_exposedTileItems;
 
     void prepareTiling();
 

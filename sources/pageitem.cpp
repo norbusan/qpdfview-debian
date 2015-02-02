@@ -334,10 +334,12 @@ void PageItem::cancelRender()
     }
     else
     {
-        foreach(TileItem* tile, m_tileItems)
+        foreach(TileItem* tile, m_exposedTileItems)
         {
             tile->cancelRender();
         }
+
+        m_exposedTileItems.clear();
     }
 }
 
@@ -1121,6 +1123,8 @@ void PageItem::prepareTiling()
         m_tileItems.replace(index, new TileItem(this));
     }
 
+    m_exposedTileItems.clear();
+
     if(oldCount != newCount)
     {
         foreach(TileItem* tile, m_tileItems)
@@ -1173,14 +1177,24 @@ inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) co
 
         foreach(TileItem* tile, m_tileItems)
         {
-            if(translatedExposedRect.intersects(tile->rect()))
+            const bool intersects = translatedExposedRect.intersects(tile->rect());
+            const bool contains = m_exposedTileItems.contains(tile);
+
+            if(intersects && !contains)
             {
-                tile->paint(painter, m_boundingRect.topLeft());
+                m_exposedTileItems.insert(tile);
             }
-            else
+            else if(!intersects && contains)
             {
+                m_exposedTileItems.remove(tile);
+
                 tile->cancelRender();
             }
+        }
+
+        foreach(TileItem* tile, m_exposedTileItems)
+        {
+            tile->paint(painter, m_boundingRect.topLeft());
         }
     }
 
