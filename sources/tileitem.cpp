@@ -22,7 +22,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "tileitem.h"
 
 #include <QPainter>
-#include <QTimer>
 
 #include "settings.h"
 #include "rendertask.h"
@@ -41,6 +40,7 @@ TileItem::TileItem(QObject* parent) : QObject(parent),
     m_pixmapError(false),
     m_pixmap(),
     m_obsoletePixmap(),
+    m_deleteAfterRender(false),
     m_renderTask(0)
 {
     if(s_settings == 0)
@@ -175,21 +175,28 @@ void TileItem::cancelRender()
 
 void TileItem::deleteAfterRender()
 {
-    cancelRender();
-
     if(!m_renderTask->isRunning())
     {
-        delete this;
+        deleteLater();
     }
     else
     {
-        QTimer::singleShot(0, this, SLOT(deleteAfterRender()));
+        m_renderTask->cancel(true);
+
+        m_deleteAfterRender = true;
     }
 }
 
 void TileItem::on_renderTask_finished()
 {
-    parentPage()->update();
+    if(!m_deleteAfterRender)
+    {
+        parentPage()->update();
+    }
+    else
+    {
+        deleteLater();
+    }
 }
 
 void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,

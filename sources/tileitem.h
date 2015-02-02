@@ -92,6 +92,7 @@ private:
 
     QPixmap takePixmap();
 
+    bool m_deleteAfterRender;
     RenderTask* m_renderTask;
 
 };
