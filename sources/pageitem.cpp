@@ -46,6 +46,9 @@ namespace
 
 using namespace qpdfview;
 
+const int largeTilesThreshold = 8;
+const int veryLargeTilesThreshold = 16;
+
 const qreal proxyPadding = 2.0;
 
 bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
@@ -1095,8 +1098,18 @@ void PageItem::prepareTiling()
 
     const qreal pageWidth = m_boundingRect.width();
     const qreal pageHeight = m_boundingRect.height();
+    const qreal pageSize = qMax(pageWidth, pageHeight);
 
-    const int tileSize = s_settings->pageItem().tileSize();
+    int tileSize = s_settings->pageItem().tileSize();
+
+    if(tileSize * largeTilesThreshold < pageSize)
+    {
+        tileSize *= 2;
+    }
+    else if(tileSize * veryLargeTilesThreshold < pageSize)
+    {
+        tileSize *= 4;
+    }
 
     int tileWidth = pageWidth < pageHeight ? tileSize * pageWidth / pageHeight : tileSize;
     int tileHeight = pageHeight < pageWidth ? tileSize * pageHeight / pageWidth : tileSize;
