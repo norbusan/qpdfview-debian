@@ -1102,13 +1102,13 @@ void PageItem::prepareTiling()
 
     int tileSize = s_settings->pageItem().tileSize();
 
-    if(tileSize * largeTilesThreshold < pageSize)
-    {
-        tileSize *= 2;
-    }
-    else if(tileSize * veryLargeTilesThreshold < pageSize)
+    if(tileSize * veryLargeTilesThreshold < pageSize)
     {
         tileSize *= 4;
+    }
+    else if(tileSize * largeTilesThreshold < pageSize)
+    {
+        tileSize *= 2;
     }
 
     int tileWidth = pageWidth < pageHeight ? tileSize * pageWidth / pageHeight : tileSize;
@@ -1124,27 +1124,27 @@ void PageItem::prepareTiling()
     const int newCount = columnCount * rowCount;
     const int oldCount = m_tileItems.count();
 
-    for(int index = newCount; index < oldCount; ++index)
-    {
-        m_tileItems.at(index)->deleteAfterRender();
-    }
-
-    m_tileItems.resize(newCount);
-
-    for(int index = oldCount; index < newCount; ++index)
-    {
-        m_tileItems.replace(index, new TileItem(this));
-    }
-
-    m_exposedTileItems.clear();
-
     if(oldCount != newCount)
     {
+        for(int index = newCount; index < oldCount; ++index)
+        {
+            m_tileItems.at(index)->deleteAfterRender();
+        }
+
+        m_tileItems.resize(newCount);
+
+        for(int index = oldCount; index < newCount; ++index)
+        {
+            m_tileItems.replace(index, new TileItem(this));
+        }
+
         foreach(TileItem* tile, m_tileItems)
         {
             tile->dropObsoletePixmap();
         }
     }
+
+    m_exposedTileItems.clear();
 
 
     for(int column = 0; column < columnCount; ++column)
