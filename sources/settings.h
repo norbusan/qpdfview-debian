@@ -442,11 +442,11 @@ public:
 
     void sync();
 
-    PageItem& pageItem();
-    PresentationView& presentationView();
-    DocumentView& documentView();
-    MainWindow& mainWindow();
-    PrintDialog& printDialog();
+    PageItem& pageItem() { return m_pageItem; }
+    PresentationView& presentationView() { return m_presentationView; }
+    DocumentView& documentView() { return m_documentView; }
+    MainWindow& mainWindow() { return m_mainWindow; }
+    PrintDialog& printDialog() { return m_printDialog; }
 
 private:
     Q_DISABLE_COPY(Settings)

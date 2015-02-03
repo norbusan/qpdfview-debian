@@ -1072,31 +1072,6 @@ void Settings::sync()
     m_documentView.sync();
 }
 
-Settings::PageItem& Settings::pageItem()
-{
-    return m_pageItem;
-}
-
-Settings::PresentationView& Settings::presentationView()
-{
-    return m_presentationView;
-}
-
-Settings::DocumentView& Settings::documentView()
-{
-    return m_documentView;
-}
-
-Settings::MainWindow& Settings::mainWindow()
-{
-    return m_mainWindow;
-}
-
-Settings::PrintDialog& Settings::printDialog()
-{
-    return m_printDialog;
-}
-
 Settings::Settings(QObject* parent) : QObject(parent),
     m_settings(new QSettings("qpdfview", "qpdfview", this)),
     m_pageItem(m_settings),
