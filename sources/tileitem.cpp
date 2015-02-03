@@ -189,13 +189,17 @@ void TileItem::deleteAfterRender()
 
 void TileItem::on_renderTask_finished()
 {
-    if(!m_deleteAfterRender)
-    {
-        parentPage()->update();
-    }
-    else
+    if(m_deleteAfterRender)
     {
         deleteLater();
+        return;
+    }
+
+    PageItem* page = parentPage();
+
+    if(!s_settings->pageItem().useTiling() || page->thumbnailMode() || page->m_exposedTileItems.contains(this))
+    {
+        page->update();
     }
 }
 
