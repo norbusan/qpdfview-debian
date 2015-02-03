@@ -63,12 +63,12 @@ namespace qpdfview
 
 Settings* PageItem::s_settings = 0;
 
-PageItem::PageItem(Model::Page* page, int index, DrawMode drawMode, QGraphicsItem* parent) : QGraphicsObject(parent),
+PageItem::PageItem(Model::Page* page, int index, PaintMode paintMode, QGraphicsItem* parent) : QGraphicsObject(parent),
     m_page(page),
     m_size(page->size()),
     m_cropRect(),
     m_index(index),
-    m_drawMode(drawMode),
+    m_paintMode(paintMode),
     m_highlights(),
     m_links(),
     m_annotations(),

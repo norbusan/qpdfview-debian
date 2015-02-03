@@ -53,14 +53,14 @@ class PageItem : public QGraphicsObject
     friend class TileItem;
 
 public:
-    enum DrawMode
+    enum PaintMode
     {
         DefaultMode,
         PresentationMode,
         ThumbnailMode
     };
 
-    PageItem(Model::Page* page, int index, DrawMode drawMode = DefaultMode, QGraphicsItem* parent = 0);
+    PageItem(Model::Page* page, int index, PaintMode paintMode = DefaultMode, QGraphicsItem* parent = 0);
     ~PageItem();
 
     QRectF boundingRect() const;
@@ -162,10 +162,10 @@ private:
     void updateCropRect();
 
     int m_index;
-    DrawMode m_drawMode;
+    PaintMode m_paintMode;
 
-    inline bool presentationMode() const { return m_drawMode == PresentationMode; }
-    inline bool thumbnailMode() const { return m_drawMode == ThumbnailMode; }
+    inline bool presentationMode() const { return m_paintMode == PresentationMode; }
+    inline bool thumbnailMode() const { return m_paintMode == ThumbnailMode; }
 
     QList< QRectF > m_highlights;
 
