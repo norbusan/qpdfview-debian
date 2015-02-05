@@ -1182,7 +1182,12 @@ inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) co
 
     if(!s_settings->pageItem().useTiling() || thumbnailMode())
     {
-        m_tileItems.first()->paint(painter, m_boundingRect.topLeft());
+        TileItem* tile = m_tileItems.first();
+
+        if(tile->paint(painter, m_boundingRect.topLeft()))
+        {
+            tile->dropPixmap();
+        }
     }
     else
     {
@@ -1205,9 +1210,22 @@ inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) co
             }
         }
 
+        bool allExposedPainted = true;
+
         foreach(TileItem* tile, m_exposedTileItems)
         {
-            tile->paint(painter, m_boundingRect.topLeft());
+            if(!tile->paint(painter, m_boundingRect.topLeft()))
+            {
+                allExposedPainted = false;
+            }
+        }
+
+        if(allExposedPainted)
+        {
+            foreach(TileItem* tile, m_exposedTileItems)
+            {
+                tile->dropPixmap();
+            }
         }
     }
 

@@ -88,7 +88,7 @@ void TileItem::dropCachedPixmaps(PageItem* page)
     }
 }
 
-void TileItem::paint(QPainter* painter, const QPointF& topLeft)
+bool TileItem::paint(QPainter* painter, const QPointF& topLeft)
 {
     const QPixmap& pixmap = takePixmap();
 
@@ -97,12 +97,16 @@ void TileItem::paint(QPainter* painter, const QPointF& topLeft)
         // pixmap
 
         painter->drawPixmap(m_rect.topLeft() + topLeft, pixmap);
+
+        return true;
     }
     else if(!m_obsoletePixmap.isNull())
     {
         // obsolete pixmap
 
         painter->drawPixmap(QRectF(m_rect).translated(topLeft), m_obsoletePixmap, QRectF());
+
+        return false;
     }
     else
     {
@@ -116,12 +120,16 @@ void TileItem::paint(QPainter* painter, const QPointF& topLeft)
             // progress icon
 
             s_settings->pageItem().progressIcon().paint(painter, iconRect);
+
+            return false;
         }
         else
         {
             // error icon
 
             s_settings->pageItem().errorIcon().paint(painter, iconRect);
+
+            return true;
         }
     }
 }
@@ -278,7 +286,6 @@ QPixmap TileItem::takePixmap()
         s_cache.insert(key, new CacheObject(m_pixmap, m_cropRect), cost);
 
         pixmap = m_pixmap;
-        m_pixmap = QPixmap();
     }
     else
     {

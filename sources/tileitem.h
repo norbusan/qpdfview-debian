@@ -54,7 +54,7 @@ public:
 
     static void dropCachedPixmaps(PageItem* page);
 
-    void paint(QPainter* painter, const QPointF& topLeft);
+    bool paint(QPainter* painter, const QPointF& topLeft);
 
 public slots:
     void refresh(bool keepObsoletePixmaps = false);
