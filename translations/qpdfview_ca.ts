@@ -888,82 +888,82 @@
 <context>
     <name>qpdfview::PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="416"/>
+        <location filename="../sources/pageitem.cpp" line="419"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Vés a la pàgina %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="420"/>
+        <location filename="../sources/pageitem.cpp" line="423"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Vés a la pàgina %1 del fitxer &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="428"/>
+        <location filename="../sources/pageitem.cpp" line="431"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Obre &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="463"/>
+        <location filename="../sources/pageitem.cpp" line="466"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Edita el camp &apos;%1&apos; del formulari.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="773"/>
+        <location filename="../sources/pageitem.cpp" line="776"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Copia el &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="774"/>
+        <location filename="../sources/pageitem.cpp" line="777"/>
         <source>&amp;Select text</source>
         <translation type="unfinished">Tria text (&amp;S)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="775"/>
+        <location filename="../sources/pageitem.cpp" line="778"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Copia la &amp;imatge</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="776"/>
+        <location filename="../sources/pageitem.cpp" line="779"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Desa la imatge a un &amp;fitxer...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="811"/>
+        <location filename="../sources/pageitem.cpp" line="814"/>
         <source>Save image to file</source>
         <translation type="unfinished">Desa la imatge a un fitxer...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="815"/>
+        <location filename="../sources/pageitem.cpp" line="818"/>
         <source>Warning</source>
         <translation type="unfinished">Avís</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="815"/>
+        <location filename="../sources/pageitem.cpp" line="818"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">No s&apos;ha pogut desar la imatge al fitxer &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="828"/>
+        <location filename="../sources/pageitem.cpp" line="831"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Afegix &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="829"/>
+        <location filename="../sources/pageitem.cpp" line="832"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">&amp;Destaca</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="868"/>
+        <location filename="../sources/pageitem.cpp" line="871"/>
         <source>&amp;Copy link address</source>
         <translation type="unfinished">&amp;Còpia direcció de l&apos;enllaç</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="869"/>
+        <location filename="../sources/pageitem.cpp" line="872"/>
         <source>&amp;Select link address</source>
         <translation type="unfinished">Tria direcció de l&apos;enllaç (&amp;S)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="892"/>
+        <location filename="../sources/pageitem.cpp" line="895"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Elimina l&apos;anotació</translation>
     </message>

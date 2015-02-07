@@ -51,11 +51,11 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
     <li><a href="#auxiliaryviews">Вспомогательные виды</a></li>
     <li><a href="#settings">Настройки</a></li>
     <ol>
-    	<li><a href="#behaviorsettings">Behavior settings</a></li>
+    	<li><a href="#behaviorsettings">Настройки поведения</a></li>
     	<li><a href="#graphicssettings">Настройки графики</a></li>
     	<li><a href="#interfacesettings">Настройки интерфейса</a></li>
-    	<li><a href="#shortcutsettings">Shortcut settings</a></li>
-    	<li><a href="#modifiersettings">Modifier settings</a></li>
+    	<li><a href="#shortcutsettings">Настройки комбинаций клавиш</a></li>
+    	<li><a href="#modifiersettings">Настройки модификаторов</a></li>
     </ol>
 </ol>
 
@@ -66,12 +66,12 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 PS, DjVuLibre для поддержки DjVu, CUPS для поддержки печати и Qt для
 графического интерфейса.</p>
 
-<p>Please refer to the manual page for information on command-line options and
-configuration files.</p>
+<p>Информацию о параметрах командной строки и конфигурационных файлах можно
+найти в man-странице программы.</p>
 
 <h3><a name="mainmenu">Главное меню</a> <a href="#top">&uarr;</a></h3>
 
-<h4><a name="file">File</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="file">Файл</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
 	<li><b>Открыть...</b> Запускает диалог выбора файла, который будет открыт на
@@ -86,8 +86,8 @@ configuration files.</p>
 	<li><b>Обновить</b> Повторная загрузка файла, отображаемого на текущей вкладке.</li>
 	<li><b>Сохранить копию...</b> Запускает диалог для сохранения копии файла,
 отображаемого на текущей вкладке.</li>
-	<li><b>Save as...</b> Opens a dialog to save the file displayed in the current
-tab including changes to annotations and form fields.</li>
+	<li><b>Сохранить как...</b> Открывает диалог для сохранения файла, отображаемого
+на текущей вкладке, включая изменения в примечаниях и полях форм.</li>
     <li><b>Печать...</b> Запускает диалог для печати файла, отображаемого на текущей
 вкладке.</li>
 	<li><b>Выход</b> Закрывает все вкладки и завершает работу программы.</li>
@@ -102,169 +102,180 @@ tab including changes to annotations and form fields.</li>
 отображения на текущей вкладке.</li>
     <li><b>Jump backward/forward</b> Jumps backward/forward in the history of
 displayed page.</li>
-	<li><b>Search...</b> Opens the search dock below the main view. The search
-automatically starts two seconds after the last change of the search term or
-is manually started by pressing the return key. If the Shift modifier is
-held when the return key is pressed, the search starts in all tabs instead
-of just the current tab. (This effect is reversed if the extended search
-dock is enabled in the settings.)</li>
-	<li><b>Find previous/next</b> Jumps to the previous/next occurrence of the
-search term in the document.</li>
-	<li><b>Cancel search</b> Cancels the currently running search and closes the
-search dock.</li>
-	<li><b>Copy to clipboard</b> If checked, the program will wait for a frame to be
-dragged to copy texts or images.</li>
-	<li><b>Add annotation</b> If checked, the program will wait for a frame to be
-dragged to add annotations.</li>
-	<li><b>Settings...</b> Opens the settings dialog. The button labeled 'Defaults'
-will revert all settings on all tabs to their default values. The button
-labeled 'Defaults on current tab' will revert only the settings on the
-current tab to their default values.</li>
+	<li><b>Поиск...</b> Открывает панель поиска под областью, в которой отображается
+документ. Поиск начинается автоматически через 2 секунды после изменения
+текста в поле поиска; его также можно начать вручную, нажав клавишу
+Enter. При удержании нажатым модификатора Shift во время нажатия Enter поиск
+будет осуществляться во всех вкладках, а не только в текущей. (Это действует
+наоборот, если в настройках включена опция расширенной панели поиска.)</li>
+	<li><b>Найти предыдущее/следующее</b> Переход к предыдущему или следующему
+найденному фрагменту текста в документе.</li>
+	<li><b>Отменить поиск</b> Отменяет текущий поиск и закрывает панель поиска.</li>
+	<li><b>Скопировать в буфер</b> Переводит программу в режим выделения текста или
+изображений для копирования в буфер обмена.</li>
+	<li><b>Добавить комментарий</b> Переводит программу в режим выделения для
+добавления аннотаций.</li>
+	<li><b>Настройки...</b> Открывает диалог настроек. Кнопка 'По умолчанию'
+сбрасывает все настройки на всех вкладках к их стандартным значениям. Кнопка
+'По умолчанию на текущей вкладке' сбрасывает только настройки для текущей
+вкладки.</li>
 </ul>
 
-<p>The <em>current page</em> can be changed by entering the desired page into
-the text field in the edit tool bar, which can be focused using Ctrl+K, and
-pressing the return key.</p>
+<p><em>Текущую страницу</em> можно изменить, указав нужный номер в текстовом
+поле на панели инструментов «Правка» (перейти в это поле можно нажатием
+Ctrl+K) и нажав клавишу Enter.</p>
 
 <h4><a name="view">Просмотр</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Continuous</b> Determines whether all rows of the page layout are visible
-at once.</li>
-	<li><b>Two pages</b> Determines whether the page layout uses two columns.</li>
-	<li><b>Two pages with cover page</b> Determines whether the page layout uses two
-columns with a break after the cover page.</li>
-	<li><b>Multiple pages</b> Determines whether the page layout uses multiple
-columns. The number of columns can be changed in the settings dialog.</li>
-    <li><b>Right to left</b> Determines how pages are arranged in layouts with
-multiple pages per row.</li>
+	<li><b>Рулоном</b> Если включено, перелистывание осуществляется не постранично,
+а так, будто страницы подаются непрерывным рулоном.</li>
+	<li><b>Две страницы</b> Просмотр в два столбца, при котором на экране
+отображаются по две страницы сразу.</li>
+	<li><b>Две страницы и обложка</b> Как и предыдущая команда, отображает по две
+страницы, но обложка отображается отдельно.</li>
+	<li><b>Несколько страниц</b> Отображение страниц в несколько
+столбцов. Количество столбцов можно изменить в диалоге настроек (на вкладке
+«Графика»).</li>
+    <li><b>Справа налево</b> Изменяет порядок страниц при просмотре в несколько
+столбцов.</li>
 	<li><b>Увеличить масштаб</b> Увеличивает масштаб на 10 процентов. Максимальное
 увеличение составляет 5000 процентов.</li>
 	<li><b>Уменьшить масштаб</b> Уменьшает масштаб на 10 процентов. Минимальное
 уменьшение составляет 10 процентов.</li>
 	<li><b>Исходный размер</b> Возвращает значение масштаба к 100 процентам.</li>
-    <li><b>Fit to page width</b> Determines the scale factor such that all pages
-fully fit into the main view horizontally.</li>
-	<li><b>Fit to page size</b> Determines the scale factor such that all pages
-fully fit into the main view horizontally and vertically.</li>
+    <li><b>По ширине</b> Выбирает масштаб, при котором страницы умещаются по ширине
+в области просмотра.</li>
+	<li><b>Страница целиком</b> Выбирает масштаб, при котором страницы полностью
+умещаются в область просмотра (и по горизонтали, и по вертикали).</li>
 	<li><b>Повернуть влево</b> Поворачивает страницы влево, или против часовой
 стрелки, на 90 градусов.</li>
 	<li><b>Повернуть вправо</b> Поворачивает страницы вправо, или по часовой
 стрелке, на 90 градусов.</li>
-    <li><b>Invert colors</b> Determines whether pages are rendered with inverted
-colors.</li>
-    <li><b>Convert to grayscale</b> Determines whether pages are converted to
-grayscale after rendering.</li>
-	<li><b>Tool bars</b> This menu contains a list of available tool bars for
-accessing frequently used actions.</li>
-	<li><b>Docks</b> This menu contains a list of available docks for displaying
-supplementary information.</li>
+    <li><b>Инвертировать цвета</b> Отображает страницы в инвертированных цветах.</li>
+    <li><b>Конвертировать в серые тона</b> Отображает страницы в оттенках серого
+цвета.</li>
+	<li><b>Панели инструментов</b> Содержит список доступных панелей инструментов,
+обеспечивающих быстрый доступ к часто используемым действиям.</li>
+	<li><b>Прилипалы</b> Содержит список доступных стыкуемых областей (доков),
+отображающих различную дополнительную информацию.</li>
 	<li><b>Шрифты...</b> Открывает окно со шрифтами, используемыми в документе.</li>
-	<li><b>Fullscreen</b> Toggles the fullscreen mode, i.e. the window is shown
-maximized and without decoration.</li>
-	<li><b>Presentation...</b> Enters presentation mode which can be left by
-pressing F12 or escape. The home/end key is used to display the first/last
-page. Arrow keys right and down, space and the page down key jump to the
-next page. Arrow keys left and up, backspace and the page up key jump to the
-previous page. Pressing control and return jumps back to the page before the
-last jump.</li>
+	<li><b>Полный экран</b> Переключение на полноэкранный режим просмотра, когда
+окно распахнуто во весь размер экрана и не имеет элементов декорации.</li>
+	<li><b>Презентация...</b> Переход в режим презентации, покинуть который можно
+нажатием F12 или Esc. Клавиши Home/End используются для перехода к
+первой/последней странице. Клавиши со стрелками вправо и вниз, пробел и Page
+down — для перехода к следующей странице. Стрелки влево и вверх, Backspace и
+Page up — к предыдущей странице. Control+Enter возвращает к странице,
+которая была текущей до последнего перехода.</li>
 </ul>
 
-<p>The <em>scale factor</em> can be changed by entering the desired percentage
-into the text field in the view tool bar, which can be focused using Ctrl+L,
-and pressing the return key.</p>
+<p><em>Масштаб</em> можно изменить, указав значение в процентах в текстовом
+поле на панели инструментов «Вид» (перейти в него можно с помощью  Ctrl+L),
+и нажав клавишу Enter.</p>
 
 <h4><a name="tabs">Вкладки</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Previous/Next tab</b> Makes the previous/next tab the current tab. Cycles
-to the last/first tab if the first/last tab is the current tab.</li>
-    <li><b>Close tab</b> Closes the current tab.</li>
-    <li><b>Close all tabs</b> Closes all tabs.</li>
-    <li><b>Close all tabs but current tab</b> Closes all tabs except for the current
-tab.</li>
-    <li><b>Recently closed</b> Contains a list of the most recently closed tabs (if
-enabled in the settings).</li>
+    <li><b>Предыдущая/Следующая вкладка</b> Переход к предыдущей или следующей
+вкладке. Переход циклический, т.е. если текущая вкладка является последней,
+то переходит к первой вкладке, и наоборот.</li>
+    <li><b>Закрыть вкладку</b> Закрывает текущую вкладку.</li>
+    <li><b>Закрыть все вкладки</b> Закрывает все вкладки.</li>
+    <li><b>Закрыть все вкладки, кроме текущей</b> Закрывает все вкладки, кроме
+текущей.</li>
+    <li><b>Недавно закрытые</b> Содержит список недавно закрытых вкладок (если это
+разрешено в настройках).</li>
 </ul>
 
-<p>This menu contains a list of all tabs which can be made the current tab by
-clicking on the corresponding menu item. Tabs can also be closed by
-middle-clicking. The first nine tabs can also be activated by holding the
-Alt modifier and pressing keys one to nine.</p>
+<p>Это меню содержит список всех вкладок, каждую из которых можно сделать
+текущей, щёлкнув на соответствующем пункте меню. Вкладки можно также
+закрывать щелчком средней кнопкой мыши. Первые девять вкладок можно
+активировать нажатием клавиш от 1 до 9 при нажатом модификаторе Alt.</p>
 
-<h4><a name="bookmarks">Bookmarks</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="bookmarks">Закладки</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Previous bookmark</b> Jumps to the closest bookmark before the current
-page.</li>
-    <li><b>Next bookmark</b> Jumps to the closest bookmark after the current page.</li>
-    <li><b>Add bookmark</b> Adds a bookmark for the current file and page.</li>
-    <li><b>Remove bookmark</b> Removes the bookmark for the current file and page.</li>
-    <li><b>Remove all bookmarks</b> Removes all bookmarks.</li>
-    <li><b>Open</b> Opens the corresponding file in the current tab. If there is no
-tab, the file is opened in a new tab.</li>
-    <li><b>Open in new tab</b> Opens the corresponding file in a new tab.</li>
-    <li><b>Jump to page</b> Jumps to the corresponding page if the corresponding
-file is already open. Otherwise the corresponding file is opened in a new
-tab.</li>
+    <li><b>Предыдущая закладка</b> Переход к ближайшей закладке перед текущей
+страницей.</li>
+    <li><b>Следующая закладка</b> Переход к ближайшей закладке после текущей
+страницы.</li>
+    <li><b>Добавить закладку</b> Добавляет закладку для текущего файла и страницы.</li>
+    <li><b>Удалить закладку</b> Удаляет закладку для текущего файла и страницы.</li>
+    <li><b>Удалить все закладки</b> Удаляет все закладки.</li>
+    <li><b>Открыть</b> Открывает соответствующий файл в текущей вкладке. Если ни
+одной вкладки нет, файл открывается в новой вкладке.</li>
+    <li><b>Открыть в новой вкладке</b> Открывает соответствующий файл в новой
+вкладке.</li>
+    <li><b>Перейти на страницу</b> Осуществляет переход к указанной странице, если
+соответствующий файл уже открыт. В противном случае соответствующий файл
+открывается в новой вкладке.</li>
 </ul>
 
-<h4><a name="help">Help</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="help">Справка</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Contents</b> Displays this document.</li>
-	<li><b>About</b> Displays the program version.</li>
+	<li><b>Содержание</b> Отображает этот документ.</li>
+	<li><b>О программе</b> Показывает версию программы и краткую информацию о ней.</li>
 </ul>
 
-<h3><a name="mainview">Main view</a> <a href="#top">&uarr;</a></h3>
+<h3><a name="mainview">Основная область</a> <a href="#top">&uarr;</a></h3>
 
-<p>The backspace/space key skips to the previous/next page. The home/end key
-skips to the first/last page. The arrow, page up and page down keys scroll
-the viewport. Pressing control and return jumps to the page before the last
-jump.</p>
+<p>Клавиши Backspace/пробел используются для перехода к предыдущей следующей
+странице. Клавиши Home/End — для перехода к первой/последней
+странице. Клавиши со стрелками, Page up и Page down прокручивают документ в
+области просмотра. Нажатие Control+Enter возвращает к странице, которая была
+текущей до последнего перехода.</p>
 
-<p>Using the mouse wheel scrolls up and down. Holding <b>ALT</b> while using
-the mouse wheel scrolls left and right. Holding <b>CTRL</b> while using the
-mouse wheel scales the document. Holding <b>SHIFT</b> while using the mouse
-wheel rotates the document. (Keyboard modifiers can be changed in the
-settings dialog.) Click and hold the middle mouse button to select a
-rectangle to zoom to.</p>
+<p>Используя колёсико мыши, можно прокручивать документ вверх и вниз. С нажатой
+клавишей <b>ALT</b> прокрутка осуществляется влево и вправо. Использование
+колёсика при нажатой клавише <b>CTRL</b> изменяет масштаб, а при нажатой
+<b>SHIFT</b> поворачивает документ. (Клавиши-модификаторы можно изменить в
+диалоге настройки.) Щёлкните и удерживайте среднюю кнопку мыши, чтобы
+выделить прямоугольную область и масштабировать документ до её размера.</p>
 
-<p>Links are highlighted by red frames (if enabled in the settings). Left-click
-on a link to show the linked page or open the linked URL in the default
-browser (if enabled in the settings). Middle-click on a link to show the
-linked page in a new tab. Hovering over a link displays its destination as a
-tool tip.</p>
+<p>Ссылки подсвечиваются красными рамочками (если это включено в
+настройках). Щёлкните левой кнопкой на ссылке для перехода на
+соответствующую страницу или открытия URL в используемом по умолчанию
+браузере (если это включено в настройках). Щелчок средней кнопкой на ссылке
+откроет страницу по ссылке в новой вкладке. При наведении указателя на
+ссылку во всплывающей подсказке будет показано, куда она ведёт.</p>
 
-<p>Form fields are highlighted by blue frames (if enabled in the
-settings). Left-click on a form field to edit its contents. Hovering over a
-form field displays its name as a tool tip.</p>
+<p>Поля форм подсвечиваются синими рамочками (Если это включено в
+настройках). Щёлкните левой кнопкой на поле, чтобы изменить его
+содержимое. При наведении указателя на поле во всплывающей подсказке
+отображается его имя.</p>
 
 <p>The source of a position in the document is requested by double-clicking
 which opens the first matching <em>SyncTeX</em> node using the source
 editor.</p>
 
-<p>To <em>copy texts or images</em>, hold <b>SHIFT</b>, click and hold the left
-mouse button to drag a frame around the area to copy. Once the mouse button
-is released, a pop-up menu is displayed to select whether to copy texts or
-images into the clipboard.</p>
+<p>Для того, чтобы <em>скопировать текст или изображения</em>, удерживая
+нажатой <b>SHIFT</b>, щёлкните левой кнопкой мыши и, не отпуская её,
+выделите рамочкой копируемую область. После того, как вы отпустите кнопку
+мыши, появится всплывающее меню, позволяющее скопировать текст или
+изображение в буфер обмена.</p>
 
-<p>To <em>add annotations</em>, hold <b>CTRL</b>, click and hold the left mouse
-button to drag a frame around the region to annotate. Once the mouse button
-is released, a pop-up menu is displayed to select whether to add text or
-highlight annotations. Left-click to <em>edit annotations</em>. Right-click
-to <em>remove annotations</em>. (Adding and removing annotations requires
-version 0.20.1 or higher of the Poppler library.) Hovering over an
-annotation displays its contents as a tool tip.</p>
+<p>Чтобы <em>добавить комментарии</em>, удерживая нажатой <b>CTRL</b>, щёлкните
+левой кнопкой мыши и, не отпуская её, обведите рамкой комментируемую
+область. Когда вы отпустите кнопку мыши, появится всплывающее меню,
+позволяющее добавить текст или выделить комментарии. Щёлкните левой кнопкой
+для <em>редактирования комментариев</em>. Щелчок правой кнопкой позволяет
+<em>удалить комментарий</em>. (Для добавления или удаления комментариев
+требуется версия библиотеки Poppler 0.20.1 или более поздняя.) При наведении
+указателя на комментарий во всплывающей подсказке отображается его
+содержимое.</p>
 
-<p>To <em>zoom to a selection</em>, hold <b>SHIFT</b> and <b>CTRL</b>, click
-and hold the left mouse button to drag a frame around region to zoom into.</p>
+<p>Для того, чтобы <em>масштабировать документ по выделению</em>, удерживайте
+<b>SHIFT</b> и <b>CTRL</b>, щёлкните левой кнопкой мыши и, не отпуская её
+обведите рамочкой область, до которой нужно выполнить масштабирование.</p>
 
-<p>The <em>visibility of the tool and menu bars</em> can be toggled using
-configurable keyboard shortcuts whose default values are "Shift+Alt+T" and
-"Shift+Alt+M".</p>
+<p><em>Скрыть или снова сделать видимыми панель инструментов и меню</em> можно
+с помощью настраиваемых комбинаций клавиш (по умолчанию это "Shift+Alt+T" и
+"Shift+Alt+M").</p>
 
-<h3><a name="auxiliaryviews">Auxiliary views</a> <a href="#top">&uarr;</a></h3>
+<h3><a name="auxiliaryviews">Вспомогательные области</a> <a
+href="#top">&uarr;</a></h3>
 
 <p>The <em>outline</em> view displays an overview of the contents of the
 document. A left click on an entry jumps to the respective page in the main

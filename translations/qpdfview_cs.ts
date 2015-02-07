@@ -888,82 +888,82 @@
 <context>
     <name>qpdfview::PageItem</name>
     <message>
-        <location filename="../sources/pageitem.cpp" line="416"/>
+        <location filename="../sources/pageitem.cpp" line="419"/>
         <source>Go to page %1.</source>
         <translation type="unfinished">Jít na stranu %1.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="420"/>
+        <location filename="../sources/pageitem.cpp" line="423"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
         <translation type="unfinished">Jít na stranu %1 souboru &apos;%2&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="428"/>
+        <location filename="../sources/pageitem.cpp" line="431"/>
         <source>Open &apos;%1&apos;.</source>
         <translation type="unfinished">Otevřít &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="463"/>
+        <location filename="../sources/pageitem.cpp" line="466"/>
         <source>Edit form field &apos;%1&apos;.</source>
         <translation type="unfinished">Upravit formulářové pole &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="773"/>
+        <location filename="../sources/pageitem.cpp" line="776"/>
         <source>Copy &amp;text</source>
         <translation type="unfinished">Kopírovat &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="774"/>
+        <location filename="../sources/pageitem.cpp" line="777"/>
         <source>&amp;Select text</source>
         <translation type="unfinished">&amp;Vybrat text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="775"/>
+        <location filename="../sources/pageitem.cpp" line="778"/>
         <source>Copy &amp;image</source>
         <translation type="unfinished">Kopírovat &amp;obrázek</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="776"/>
+        <location filename="../sources/pageitem.cpp" line="779"/>
         <source>Save image to &amp;file...</source>
         <translation type="unfinished">Uložit obrázek do &amp;souboru...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="811"/>
+        <location filename="../sources/pageitem.cpp" line="814"/>
         <source>Save image to file</source>
         <translation type="unfinished">Uložit obrázek do souboru</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="815"/>
+        <location filename="../sources/pageitem.cpp" line="818"/>
         <source>Warning</source>
         <translation type="unfinished">Varování</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="815"/>
+        <location filename="../sources/pageitem.cpp" line="818"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
         <translation type="unfinished">Nepodařilo se uložit obrázek do souboru &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="828"/>
+        <location filename="../sources/pageitem.cpp" line="831"/>
         <source>Add &amp;text</source>
         <translation type="unfinished">Přidat &amp;text</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="829"/>
+        <location filename="../sources/pageitem.cpp" line="832"/>
         <source>Add &amp;highlight</source>
         <translation type="unfinished">Přidat &amp;zvýraznění</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="868"/>
+        <location filename="../sources/pageitem.cpp" line="871"/>
         <source>&amp;Copy link address</source>
         <translation type="unfinished">&amp;Kopírovat adresu odkazu</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="869"/>
+        <location filename="../sources/pageitem.cpp" line="872"/>
         <source>&amp;Select link address</source>
         <translation type="unfinished">&amp;Vybrat adresu odkazu</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="892"/>
+        <location filename="../sources/pageitem.cpp" line="895"/>
         <source>&amp;Remove annotation</source>
         <translation type="unfinished">&amp;Odstranit poznámku</translation>
     </message>
