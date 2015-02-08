@@ -41,7 +41,7 @@ class BookmarkMenu : public QMenu
 public:
     BookmarkMenu(const QFileInfo& fileInfo, QWidget* parent = 0);
 
-    inline QString absoluteFilePath() const { return menuAction()->data().toString(); }
+    QString absoluteFilePath() const { return menuAction()->data().toString(); }
 
     void addJumpToPageAction(int page, const QString& label);
     void removeJumpToPageAction(int page);

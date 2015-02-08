@@ -2220,12 +2220,12 @@ void MainWindow::prepareStyle()
     qApp->setStyle(style);
 }
 
-DocumentView* MainWindow::currentTab() const
+inline DocumentView* MainWindow::currentTab() const
 {
     return qobject_cast< DocumentView* >(m_tabWidget->currentWidget());
 }
 
-DocumentView* MainWindow::tab(int index) const
+inline DocumentView* MainWindow::tab(int index) const
 {
     return qobject_cast< DocumentView* >(m_tabWidget->widget(index));
 }
@@ -3174,7 +3174,7 @@ bool MainWindowAdaptor::closeTab(const QString& absoluteFilePath)
     return false;
 }
 
-MainWindow* MainWindowAdaptor::mainWindow() const
+inline MainWindow* MainWindowAdaptor::mainWindow() const
 {
     return qobject_cast< MainWindow* >(parent());
 }

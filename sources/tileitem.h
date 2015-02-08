@@ -43,14 +43,14 @@ public:
     TileItem(QObject* parent = 0);
     ~TileItem();
 
-    inline const QRect& rect() const { return m_rect; }
-    inline void setRect(const QRect& rect) { m_rect = rect; }
+    const QRect& rect() const { return m_rect; }
+    void setRect(const QRect& rect) { m_rect = rect; }
 
-    inline const QRectF& cropRect() const { return m_cropRect; }
+    const QRectF& cropRect() const { return m_cropRect; }
     void setCropRect(const QRectF& cropRect);
 
-    inline void dropPixmap() { m_pixmap = QPixmap(); }
-    inline void dropObsoletePixmap() { m_obsoletePixmap = QPixmap(); }
+    void dropPixmap() { m_pixmap = QPixmap(); }
+    void dropObsoletePixmap() { m_obsoletePixmap = QPixmap(); }
 
     static void dropCachedPixmaps(PageItem* page);
 

@@ -59,7 +59,7 @@ public:
     static void forgetAllPaths();
 
 
-    inline bool isEmpty() const { return m_bookmarks.isEmpty(); }
+    bool isEmpty() const { return m_bookmarks.isEmpty(); }
 
     void addBookmark(const BookmarkItem& bookmark);
     void removeBookmark(const BookmarkItem& bookmark);

@@ -64,15 +64,15 @@ public:
     explicit DocumentView(QWidget* parent = 0);
     ~DocumentView();
 
-    inline const QFileInfo& fileInfo() const { return m_fileInfo; }
-    inline bool wasModified() const { return m_wasModified; }
+    const QFileInfo& fileInfo() const { return m_fileInfo; }
+    bool wasModified() const { return m_wasModified; }
 
-    inline int numberOfPages() const { return m_pages.count(); }
-    inline int currentPage() const { return m_currentPage; }
+    int numberOfPages() const { return m_pages.count(); }
+    int currentPage() const { return m_currentPage; }
 
-    inline bool hasFrontMatter() const { return m_firstPage > 1; }
+    bool hasFrontMatter() const { return m_firstPage > 1; }
 
-    inline int firstPage() const { return m_firstPage; }
+    int firstPage() const { return m_firstPage; }
     void setFirstPage(int firstPage);
 
     QString defaultPageLabelFromNumber(int number) const;
@@ -86,47 +86,47 @@ public:
 
     bool canSave() const;
 
-    inline bool continuousMode() const { return m_continuousMode; }
+    bool continuousMode() const { return m_continuousMode; }
     void setContinuousMode(bool continuousMode);
 
     LayoutMode layoutMode() const;
     void setLayoutMode(LayoutMode layoutMode);
 
-    inline bool rightToLeftMode() const { return m_rightToLeftMode; }
+    bool rightToLeftMode() const { return m_rightToLeftMode; }
     void setRightToLeftMode(bool rightToLeftMode);
 
-    inline ScaleMode scaleMode() const { return m_scaleMode; }
+    ScaleMode scaleMode() const { return m_scaleMode; }
     void setScaleMode(ScaleMode scaleMode);
 
-    inline qreal scaleFactor() const { return m_scaleFactor; }
+    qreal scaleFactor() const { return m_scaleFactor; }
     void setScaleFactor(qreal scaleFactor);
 
-    inline Rotation rotation() const { return m_rotation; }
+    Rotation rotation() const { return m_rotation; }
     void setRotation(Rotation rotation);
 
-    inline bool invertColors() const { return m_invertColors; }
+    bool invertColors() const { return m_invertColors; }
     void setInvertColors(bool invertColors);
 
-    inline bool convertToGrayscale() const { return m_convertToGrayscale; }
+    bool convertToGrayscale() const { return m_convertToGrayscale; }
     void setConvertToGrayscale(bool convertToGrayscale);
 
-    inline bool highlightAll() const { return m_highlightAll; }
+    bool highlightAll() const { return m_highlightAll; }
     void setHighlightAll(bool highlightAll);
 
-    inline RubberBandMode rubberBandMode() const { return m_rubberBandMode; }
+    RubberBandMode rubberBandMode() const { return m_rubberBandMode; }
     void setRubberBandMode(RubberBandMode rubberBandMode);
 
     bool searchWasCanceled() const;
     int searchProgress() const;
 
-    inline Qt::Orientation thumbnailsOrientation() const { return m_thumbnailsOrientation; }
+    Qt::Orientation thumbnailsOrientation() const { return m_thumbnailsOrientation; }
     void setThumbnailsOrientation(Qt::Orientation thumbnailsOrientation);
 
-    inline const QVector< ThumbnailItem* >& thumbnailItems() const { return m_thumbnailItems; }
-    inline QGraphicsScene* thumbnailsScene() const { return m_thumbnailsScene; }
+    const QVector< ThumbnailItem* >& thumbnailItems() const { return m_thumbnailItems; }
+    QGraphicsScene* thumbnailsScene() const { return m_thumbnailsScene; }
 
-    inline QStandardItemModel* outlineModel() const { return m_outlineModel; }
-    inline QStandardItemModel* propertiesModel() const { return m_propertiesModel; }
+    QStandardItemModel* outlineModel() const { return m_outlineModel; }
+    QStandardItemModel* propertiesModel() const { return m_propertiesModel; }
 
     QStandardItemModel* fontsModel() const;
 

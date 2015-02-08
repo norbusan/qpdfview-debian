@@ -52,42 +52,42 @@ public:
     public:
         void sync();
 
-        inline int cacheSize() const { return m_cacheSize; }
+        int cacheSize() const { return m_cacheSize; }
         void setCacheSize(int cacheSize);
 
-        inline bool useTiling() const { return m_useTiling; }
+        bool useTiling() const { return m_useTiling; }
         void setUseTiling(bool useTiling);
 
-        inline int tileSize() const { return m_tileSize; }
+        int tileSize() const { return m_tileSize; }
 
-        inline const QIcon& progressIcon() const { return m_progressIcon; }
-        inline const QIcon& errorIcon() const { return m_errorIcon; }
+        const QIcon& progressIcon() const { return m_progressIcon; }
+        const QIcon& errorIcon() const { return m_errorIcon; }
 
-        inline bool keepObsoletePixmaps() const { return m_keepObsoletePixmaps; }
+        bool keepObsoletePixmaps() const { return m_keepObsoletePixmaps; }
         void setKeepObsoletePixmaps(bool keepObsoletePixmaps);
 
-        inline bool useDevicePixelRatio() const { return m_useDevicePixelRatio; }
+        bool useDevicePixelRatio() const { return m_useDevicePixelRatio; }
         void setUseDevicePixelRatio(bool useDevicePixelRatio);
 
-        inline bool trimMargins() const { return m_trimMargins; }
+        bool trimMargins() const { return m_trimMargins; }
         void setTrimMargins(bool trimMargins);
 
-        inline bool decoratePages() const { return m_decoratePages; }
+        bool decoratePages() const { return m_decoratePages; }
         void setDecoratePages(bool decoratePages);
 
-        inline bool decorateLinks() const { return m_decorateLinks; }
+        bool decorateLinks() const { return m_decorateLinks; }
         void setDecorateLinks(bool decorateLinks);
 
-        inline bool decorateFormFields() const { return m_decorateFormFields; }
+        bool decorateFormFields() const { return m_decorateFormFields; }
         void setDecorateFormFields(bool decorateFormFields);
 
-        inline const QColor& backgroundColor() const { return m_backgroundColor; }
+        const QColor& backgroundColor() const { return m_backgroundColor; }
         void setBackgroundColor(const QColor& backgroundColor);
 
-        inline const QColor& paperColor() const { return m_paperColor; }
+        const QColor& paperColor() const { return m_paperColor; }
         void setPaperColor(const QColor& paperColor);
 
-        inline const QColor& highlightColor() const { return m_highlightColor; }
+        const QColor& highlightColor() const { return m_highlightColor; }
         void setHighlightColor(const QColor& highlightColor);
 
         QColor annotationColor() const;
@@ -175,21 +175,21 @@ public:
 
         int autoRefreshTimeout() const;
 
-        inline bool prefetch() const { return m_prefetch; }
+        bool prefetch() const { return m_prefetch; }
         void setPrefetch(bool prefetch);
 
-        inline int prefetchDistance() const { return m_prefetchDistance; }
+        int prefetchDistance() const { return m_prefetchDistance; }
         void setPrefetchDistance(int prefetchDistance);
 
         int prefetchTimeout() const;
 
-        inline int pagesPerRow() const { return m_pagesPerRow; }
+        int pagesPerRow() const { return m_pagesPerRow; }
         void setPagesPerRow(int pagesPerRow);
 
-        inline bool highlightCurrentThumbnail() const { return m_highlightCurrentThumbnail; }
+        bool highlightCurrentThumbnail() const { return m_highlightCurrentThumbnail; }
         void setHighlightCurrentThumbnail(bool highlightCurrentThumbnail);
 
-        inline bool limitThumbnailsToResults() const { return m_limitThumbnailsToResults; }
+        bool limitThumbnailsToResults() const { return m_limitThumbnailsToResults; }
         void setLimitThumbnailsToResults(bool limitThumbnailsToResults);
 
         qreal minimumScaleFactor() const;
@@ -198,13 +198,13 @@ public:
         qreal zoomFactor() const;
         void setZoomFactor(qreal zoomFactor);
 
-        inline qreal pageSpacing() const { return m_pageSpacing; }
+        qreal pageSpacing() const { return m_pageSpacing; }
         void setPageSpacing(qreal pageSpacing);
 
-        inline qreal thumbnailSpacing() const { return m_thumbnailSpacing; }
+        qreal thumbnailSpacing() const { return m_thumbnailSpacing; }
         void setThumbnailSpacing(qreal thumbnailSpacing);
 
-        inline qreal thumbnailSize() const { return m_thumbnailSize; }
+        qreal thumbnailSize() const { return m_thumbnailSize; }
         void setThumbnailSize(qreal thumbnailSize);
 
         bool matchCase() const;
@@ -472,32 +472,32 @@ public:
     class PageItem
     {
     public:
-        static inline int cacheSize() { return 32 * 1024 * 1024; }
+        static int cacheSize() { return 32 * 1024 * 1024; }
 
-        static inline bool useTiling() { return false; }
-        static inline int tileSize() { return 1024; }
+        static bool useTiling() { return false; }
+        static int tileSize() { return 1024; }
 
-        static inline bool keepObsoletePixmaps() { return false; }
-        static inline bool useDevicePixelRatio() { return false; }
+        static bool keepObsoletePixmaps() { return false; }
+        static bool useDevicePixelRatio() { return false; }
 
-        static inline bool trimMargins() { return false; }
+        static bool trimMargins() { return false; }
 
-        static inline bool decoratePages() { return true; }
-        static inline bool decorateLinks() { return true; }
-        static inline bool decorateFormFields() { return true; }
+        static bool decoratePages() { return true; }
+        static bool decorateLinks() { return true; }
+        static bool decorateFormFields() { return true; }
 
-        static inline QColor backgroundColor() { return Qt::darkGray; }
-        static inline QColor paperColor() { return Qt::white; }
+        static QColor backgroundColor() { return Qt::darkGray; }
+        static QColor paperColor() { return Qt::white; }
 
-        static inline QColor highlightColor() { return Qt::yellow; }
-        static inline QColor annotationColor() { return Qt::yellow; }
+        static QColor highlightColor() { return Qt::yellow; }
+        static QColor annotationColor() { return Qt::yellow; }
 
-        static inline Qt::KeyboardModifiers copyToClipboardModifiers() { return Qt::ShiftModifier; }
-        static inline Qt::KeyboardModifiers addAnnotationModifiers() { return Qt::ControlModifier; }
-        static inline Qt::KeyboardModifiers zoomToSelectionModifiers() { return Qt::ShiftModifier | Qt::ControlModifier; }
+        static Qt::KeyboardModifiers copyToClipboardModifiers() { return Qt::ShiftModifier; }
+        static Qt::KeyboardModifiers addAnnotationModifiers() { return Qt::ControlModifier; }
+        static Qt::KeyboardModifiers zoomToSelectionModifiers() { return Qt::ShiftModifier | Qt::ControlModifier; }
 
-        static inline bool annotationOverlay() { return false; }
-        static inline bool formFieldOverlay() { return true; }
+        static bool annotationOverlay() { return false; }
+        static bool formFieldOverlay() { return true; }
 
     private:
         PageItem() {}
@@ -507,10 +507,10 @@ public:
     class PresentationView
     {
     public:
-        static inline bool synchronize() { return false; }
-        static inline int screen() { return -1; }
+        static bool synchronize() { return false; }
+        static int screen() { return -1; }
 
-        static inline QColor backgroundColor() { return QColor(); }
+        static QColor backgroundColor() { return QColor(); }
 
     private:
         PresentationView() {}
@@ -520,60 +520,55 @@ public:
     class DocumentView
     {
     public:
-        static inline bool openUrl() { return false; }
+        static bool openUrl() { return false; }
 
-        static inline bool autoRefresh() { return false; }
+        static bool autoRefresh() { return false; }
 
-        static inline int autoRefreshTimeout() { return 750; }
+        static int autoRefreshTimeout() { return 750; }
 
-        static inline bool prefetch() { return false; }
-        static inline int prefetchDistance() { return 1; }
+        static bool prefetch() { return false; }
+        static int prefetchDistance() { return 1; }
 
-        static inline int prefetchTimeout() { return 250; }
+        static int prefetchTimeout() { return 250; }
 
-        static inline int pagesPerRow() { return 3; }
+        static int pagesPerRow() { return 3; }
 
-        static inline bool highlightCurrentThumbnail() { return false; }
-        static inline bool limitThumbnailsToResults() { return false; }
+        static bool highlightCurrentThumbnail() { return false; }
+        static bool limitThumbnailsToResults() { return false; }
 
-        static inline qreal minimumScaleFactor() { return 0.1; }
-        static inline qreal maximumScaleFactor() { return 50.0; }
+        static qreal minimumScaleFactor() { return 0.1; }
+        static qreal maximumScaleFactor() { return 50.0; }
 
-        static inline qreal zoomFactor() { return 1.1; }
+        static qreal zoomFactor() { return 1.1; }
 
-        static inline qreal pageSpacing() { return 5.0; }
-        static inline qreal thumbnailSpacing() { return 3.0; }
+        static qreal pageSpacing() { return 5.0; }
+        static qreal thumbnailSpacing() { return 3.0; }
 
-        static inline qreal thumbnailSize() { return 150.0; }
+        static qreal thumbnailSize() { return 150.0; }
 
-        static inline bool matchCase() { return false; }
-        static inline bool wholeWords() { return false; }
+        static bool matchCase() { return false; }
+        static bool wholeWords() { return false; }
 
-        static inline int highlightDuration() { return 5 * 1000; }
-        static inline QString sourceEditor() { return QString(); }
+        static int highlightDuration() { return 5 * 1000; }
+        static QString sourceEditor() { return QString(); }
 
-        static inline Qt::KeyboardModifiers zoomModifiers() { return Qt::ControlModifier; }
-        static inline Qt::KeyboardModifiers rotateModifiers() { return Qt::ShiftModifier; }
-        static inline Qt::KeyboardModifiers scrollModifiers() { return Qt::AltModifier; }
+        static Qt::KeyboardModifiers zoomModifiers() { return Qt::ControlModifier; }
+        static Qt::KeyboardModifiers rotateModifiers() { return Qt::ShiftModifier; }
+        static Qt::KeyboardModifiers scrollModifiers() { return Qt::AltModifier; }
 
         // per-tab defaults
 
-        static inline bool continuousMode() { return false; }
-
-        static inline LayoutMode layoutMode() { return SinglePageMode; }
-
+        static bool continuousMode() { return false; }
+        static LayoutMode layoutMode() { return SinglePageMode; }
         static bool rightToLeftMode();
 
-        static inline ScaleMode scaleMode() { return ScaleFactorMode; }
+        static ScaleMode scaleMode() { return ScaleFactorMode; }
+        static qreal scaleFactor() { return 1.0; }
+        static Rotation rotation() { return RotateBy0; }
 
-        static inline qreal scaleFactor() { return 1.0; }
-
-        static inline Rotation rotation() { return RotateBy0; }
-
-        static inline bool invertColors() { return false; }
-        static inline bool convertToGrayscale() { return false; }
-
-        static inline bool highlightAll() { return false; }
+        static bool invertColors() { return false; }
+        static bool convertToGrayscale() { return false; }
+        static bool highlightAll() { return false; }
 
     private:
         DocumentView() {}
@@ -583,45 +578,45 @@ public:
     class MainWindow
     {
     public:
-        static inline bool trackRecentlyUsed() { return false; }
-        static inline int recentlyUsedCount() { return 10; }
+        static bool trackRecentlyUsed() { return false; }
+        static int recentlyUsedCount() { return 10; }
 
-        static inline bool keepRecentlyClosed() { return false; }
-        static inline int recentlyClosedCount() { return 5; }
+        static bool keepRecentlyClosed() { return false; }
+        static int recentlyClosedCount() { return 5; }
 
-        static inline bool restoreTabs() { return false; }
-        static inline bool restoreBookmarks() { return false; }
-        static inline bool restorePerFileSettings() { return false; }
+        static bool restoreTabs() { return false; }
+        static bool restoreBookmarks() { return false; }
+        static bool restorePerFileSettings() { return false; }
 
-        static inline int saveDatabaseInterval() { return 5 * 60 * 1000; }
+        static int saveDatabaseInterval() { return 5 * 60 * 1000; }
 
-        static inline int tabPosition() { return 0; }
-        static inline int tabVisibility() { return 0; }
+        static int tabPosition() { return 0; }
+        static int tabVisibility() { return 0; }
 
-        static inline bool spreadTabs() { return false; }
+        static bool spreadTabs() { return false; }
 
-        static inline bool newTabNextToCurrentTab() { return true; }
-        static inline bool exitAfterLastTab() { return false; }
+        static bool newTabNextToCurrentTab() { return true; }
+        static bool exitAfterLastTab() { return false; }
 
-        static inline bool documentTitleAsTabTitle() { return true; }
+        static bool documentTitleAsTabTitle() { return true; }
 
-        static inline bool currentPageInWindowTitle() { return false; }
-        static inline bool instanceNameInWindowTitle() { return false; }
+        static bool currentPageInWindowTitle() { return false; }
+        static bool instanceNameInWindowTitle() { return false; }
 
-        static inline bool extendedSearchDock() { return false; }
+        static bool extendedSearchDock() { return false; }
 
-        static inline bool usePageLabel() { return true; }
+        static bool usePageLabel() { return true; }
 
-        static inline bool synchronizeOutlineView() { return false; }
+        static bool synchronizeOutlineView() { return false; }
 
-        static inline QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh"; }
-        static inline QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }
-        static inline QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
+        static QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh"; }
+        static QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }
+        static QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
 
-        static inline bool scrollableMenus() { return false; }
-        static inline bool searchableMenus() { return false; }
+        static bool scrollableMenus() { return false; }
+        static bool searchableMenus() { return false; }
 
-        static inline bool toggleToolAndMenuBarsWithFullscreen() { return false; }
+        static bool toggleToolAndMenuBarsWithFullscreen() { return false; }
 
         static QString path();
 
@@ -633,24 +628,24 @@ public:
     class PrintDialog
     {
     public:
-        static inline bool collateCopies() { return false; }
+        static bool collateCopies() { return false; }
 
-        static inline QPrinter::PageOrder pageOrder() { return QPrinter::FirstPageFirst; }
+        static QPrinter::PageOrder pageOrder() { return QPrinter::FirstPageFirst; }
 
-        static inline QPrinter::Orientation orientation() { return QPrinter::Portrait; }
+        static QPrinter::Orientation orientation() { return QPrinter::Portrait; }
 
-        static inline QPrinter::ColorMode colorMode() { return QPrinter::Color; }
+        static QPrinter::ColorMode colorMode() { return QPrinter::Color; }
 
-        static inline QPrinter::DuplexMode duplex() { return QPrinter::DuplexNone; }
+        static QPrinter::DuplexMode duplex() { return QPrinter::DuplexNone; }
 
-        static inline bool fitToPage() { return false; }
+        static bool fitToPage() { return false; }
 
 #if QT_VERSION < QT_VERSION_CHECK(5,2,0)
 
-        static inline PrintOptions::PageSet pageSet() { return PrintOptions::AllPages; }
+        static PrintOptions::PageSet pageSet() { return PrintOptions::AllPages; }
 
-        static inline PrintOptions::NumberUp numberUp() { return PrintOptions::SinglePage; }
-        static inline PrintOptions::NumberUpLayout numberUpLayout() { return PrintOptions::LeftRightTopBottom; }
+        static PrintOptions::NumberUp numberUp() { return PrintOptions::SinglePage; }
+        static PrintOptions::NumberUpLayout numberUpLayout() { return PrintOptions::LeftRightTopBottom; }
 
 #endif // QT_VERSION
 

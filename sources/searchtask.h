@@ -44,9 +44,9 @@ public:
     bool wasCanceled() const { return loadCancellation() != NotCanceled; }
     int progress() const { return acquireProgress(); }
 
-    inline QString text() const { return m_text; }
-    inline bool matchCase() const { return m_matchCase; }
-    inline bool wholeWords() const { return m_wholeWords; }
+    const QString& text() const { return m_text; }
+    bool matchCase() const { return m_matchCase; }
+    bool wholeWords() const { return m_wholeWords; }
 
     void run();
 

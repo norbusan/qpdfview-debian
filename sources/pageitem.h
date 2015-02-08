@@ -66,43 +66,43 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
 
-    inline int index() const { return m_index; }
+    int index() const { return m_index; }
 
-    inline const QSizeF& size() const { return m_size; }
+    const QSizeF& size() const { return m_size; }
 
     qreal displayedWidth() const;
     qreal displayedHeight() const;
 
-    inline const QList< QRectF >& highlights() const { return m_highlights; }
+    const QList< QRectF >& highlights() const { return m_highlights; }
     void setHighlights(const QList< QRectF >& highlights);
 
-    inline RubberBandMode rubberBandMode() const { return m_rubberBandMode; }
+    RubberBandMode rubberBandMode() const { return m_rubberBandMode; }
     void setRubberBandMode(RubberBandMode rubberBandMode);
 
-    inline bool showsAnnotationOverlay() const { return !m_annotationOverlay.isEmpty(); }
-    inline bool showsFormFieldOverlay() const { return !m_formFieldOverlay.isEmpty(); }
+    bool showsAnnotationOverlay() const { return !m_annotationOverlay.isEmpty(); }
+    bool showsFormFieldOverlay() const { return !m_formFieldOverlay.isEmpty(); }
 
-    inline int resolutionX() const { return m_renderParam.resolution.resolutionX; }
-    inline int resolutionY() const { return m_renderParam.resolution.resolutionY; }
+    int resolutionX() const { return m_renderParam.resolution.resolutionX; }
+    int resolutionY() const { return m_renderParam.resolution.resolutionY; }
     void setResolution(int resolutionX, int resolutionY);
 
-    inline qreal devicePixelRatio() const { return m_renderParam.resolution.devicePixelRatio; }
+    qreal devicePixelRatio() const { return m_renderParam.resolution.devicePixelRatio; }
     void setDevicePixelRatio(qreal devicePixelRatio);
 
-    inline qreal scaleFactor() const { return m_renderParam.scaleFactor; }
+    qreal scaleFactor() const { return m_renderParam.scaleFactor; }
     void setScaleFactor(qreal scaleFactor);
 
-    inline Rotation rotation() const { return m_renderParam.rotation; }
+    Rotation rotation() const { return m_renderParam.rotation; }
     void setRotation(Rotation rotation);
 
-    inline bool invertColors() { return m_renderParam.invertColors; }
+    bool invertColors() { return m_renderParam.invertColors; }
     void setInvertColors(bool invertColors);
 
-    inline bool convertToGrayscale() { return m_renderParam.convertToGrayscale; }
+    bool convertToGrayscale() { return m_renderParam.convertToGrayscale; }
     void setConvertToGrayscale(bool convertToGrayscale);
 
-    inline const QTransform& transform() const { return m_transform; }
-    inline const QTransform& normalizedTransform() const { return m_normalizedTransform; }
+    const QTransform& transform() const { return m_transform; }
+    const QTransform& normalizedTransform() const { return m_normalizedTransform; }
 
 signals:
     void cropRectChanged();
@@ -164,8 +164,8 @@ private:
     int m_index;
     PaintMode m_paintMode;
 
-    inline bool presentationMode() const { return m_paintMode == PresentationMode; }
-    inline bool thumbnailMode() const { return m_paintMode == ThumbnailMode; }
+    bool presentationMode() const { return m_paintMode == PresentationMode; }
+    bool thumbnailMode() const { return m_paintMode == ThumbnailMode; }
 
     QList< QRectF > m_highlights;
 
