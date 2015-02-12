@@ -1000,7 +1000,7 @@
         <location filename="../sources/pdfmodel.cpp" line="962"/>
         <location filename="../sources/pdfmodel.cpp" line="969"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Подсказка текста:</translation>
+        <translation type="unfinished">Хинтинг текста:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="980"/>
@@ -1192,7 +1192,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="32"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished">Не&amp;давно открытые</translation>
+        <translation type="unfinished">Недавно &amp;закрытые</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
@@ -1312,7 +1312,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="247"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished">Запомнить недавно открытые:</translation>
+        <translation type="unfinished">Помнисть недавно закрытые:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="254"/>
@@ -1660,7 +1660,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="917"/>
         <source>Rotate:</source>
-        <translation type="unfinished">Повернуть:</translation>
+        <translation type="unfinished">Поворот:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="923"/>
