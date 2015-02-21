@@ -180,12 +180,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="985"/>
         <source>Right mouse button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bouton droit</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="986"/>
         <source>Middle mouse button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bouton du milieu</translation>
     </message>
 </context>
 <context>
@@ -193,7 +193,7 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="39"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Signet</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="48"/>
@@ -203,17 +203,17 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="53"/>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Étiquette :</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="58"/>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Commentaire :</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="64"/>
         <source>Modified:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifié :</translation>
     </message>
 </context>
 <context>
@@ -329,7 +329,7 @@
     <message>
         <location filename="../sources/fontsdialog.cpp" line="37"/>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Polices de caractères</translation>
     </message>
 </context>
 <context>
@@ -337,7 +337,7 @@
     <message>
         <location filename="../sources/helpdialog.cpp" line="40"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aide</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="47"/>
@@ -453,7 +453,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1151"/>
         <source>Set first page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Définir la première page</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1151"/>
@@ -511,6 +511,17 @@
         <translation type="unfinished">&lt;li&gt;Service d’impression utilisant CUPS %1&lt;/li&gt;</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="1720"/>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</source>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Voir &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pour plus de renseignements.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2003"/>
+        <location filename="../sources/mainwindow.cpp" line="2635"/>
+        <source>&amp;Remove bookmark</source>
+        <translation type="unfinished">Supprime&amp;r le signet</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="2004"/>
         <source>&amp;Edit bookmark</source>
         <translation type="unfinished"></translation>
@@ -538,7 +549,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2502"/>
         <source>Whole &amp;words</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Mots entiers</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2503"/>
@@ -558,6 +569,11 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2554"/>
         <source>Open &amp;copy in new tab</source>
+        <translation type="unfinished">Ouvrir et &amp;copier dans un nouvel onglet</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2555"/>
+        <source>Open containing &amp;folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -608,7 +624,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2569"/>
         <source>&amp;Set first page...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Définir la première page...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2571"/>
@@ -728,7 +744,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2606"/>
         <source>Convert to grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Convertir en niveaux de gris</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2608"/>
@@ -786,32 +802,6 @@
         <translation type="unfinished">&amp;Ajouter un signet</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2835"/>
-        <source>Thumb&amp;nails</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2847"/>
-        <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2003"/>
-        <location filename="../sources/mainwindow.cpp" line="2635"/>
-        <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Supprime&amp;r le signet</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1720"/>
-        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Voir &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pour plus d&apos;informations.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt; {2012-2015 ?}</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2555"/>
-        <source>Open containing &amp;folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2636"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Supprimer tous les signets</translation>
@@ -845,6 +835,11 @@
         <translation type="unfinished">&amp;Affichage</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="2718"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Chercher</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="2806"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Sommaire</translation>
@@ -855,9 +850,14 @@
         <translation type="unfinished">&amp;Propriétés</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2718"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Chercher</translation>
+        <location filename="../sources/mainwindow.cpp" line="2835"/>
+        <source>Thumb&amp;nails</source>
+        <translation type="unfinished">Vigne&amp;ttes</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2847"/>
+        <source>Book&amp;marks</source>
+        <translation type="unfinished">Si&amp;gnets</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2920"/>
@@ -915,7 +915,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="777"/>
         <source>&amp;Select text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Sélectionner le texte</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="778"/>
@@ -955,12 +955,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="871"/>
         <source>&amp;Copy link address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Copier l&apos;adresse du lien</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="872"/>
         <source>&amp;Select link address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Sélectionner l&apos;adresse du lien</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="895"/>
@@ -1218,12 +1218,12 @@
     <message>
         <location filename="../sources/searchmodel.cpp" line="148"/>
         <source>&lt;b&gt;%1&lt;/b&gt; occurrences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; occurrences</translation>
     </message>
     <message>
         <location filename="../sources/searchmodel.cpp" line="182"/>
         <source>&lt;b&gt;%1&lt;/b&gt; occurrences on page &lt;b&gt;%2&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; occurrences sur la page &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1231,7 +1231,7 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="175"/>
         <source>Search for &apos;%1&apos;...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Recherche de « %1 »</translation>
     </message>
 </context>
 <context>
@@ -1239,7 +1239,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="93"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Paramètres</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="96"/>
@@ -1513,6 +1513,21 @@
         <translation type="unfinished">Distance de préchargement :</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="668"/>
+        <source>Extended search dock:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="675"/>
+        <source>Annotation overlay:</source>
+        <translation type="unfinished">Superposition des annotations :</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="682"/>
+        <source>Form field overlay:</source>
+        <translation type="unfinished">Superposition des champs de formulaire :</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="687"/>
         <source>Top</source>
         <translation type="unfinished">Haut</translation>
@@ -1565,7 +1580,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="724"/>
         <source>Exit after last tab:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sortir après le dernier onglet :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="733"/>
@@ -1576,16 +1591,6 @@
         <location filename="../sources/settingsdialog.cpp" line="742"/>
         <source>Recently closed count:</source>
         <translation type="unfinished">Nombre de fichiers récemment fermés :</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="668"/>
-        <source>Extended search dock:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="788"/>
-        <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished">Affichage des barres d&apos;outils et de menu en mode plein écran :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="750"/>
@@ -1605,17 +1610,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="774"/>
         <source>Scrollable menus:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Menus déroulants :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="781"/>
         <source>Searchable menus:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Menus consultables :</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="788"/>
+        <source>Toggle tool and menu bars with fullscreen:</source>
+        <translation type="unfinished">Affichage des barres d&apos;outils et de menu en mode plein écran :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="795"/>
         <source>Use page label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Utiliser le libellé de la page :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="802"/>
@@ -1641,16 +1651,6 @@
         <location filename="../sources/settingsdialog.cpp" line="830"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished">Limiter les miniatures aux résultats</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="675"/>
-        <source>Annotation overlay:</source>
-        <translation type="unfinished">Superposition des annotations :</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="682"/>
-        <source>Form field overlay:</source>
-        <translation type="unfinished">Superposition des champs de formulaire :</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="911"/>
