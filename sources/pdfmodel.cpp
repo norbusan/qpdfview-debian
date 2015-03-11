@@ -847,6 +847,22 @@ void PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
         propertiesModel->setItem(index, 0, new QStandardItem(key));
         propertiesModel->setItem(index, 1, new QStandardItem(value));
     }
+
+    int pdfMajorVersion = 1;
+    int pdfMinorVersion = 0;
+    m_document->getPdfVersion(&pdfMajorVersion, &pdfMinorVersion);
+
+    propertiesModel->appendRow(QList< QStandardItem* >()
+                               << new QStandardItem(tr("PDF version"))
+                               << new QStandardItem(QString("%1.%2").arg(pdfMajorVersion).arg(pdfMinorVersion)));
+
+    propertiesModel->appendRow(QList< QStandardItem* >()
+                               << new QStandardItem(tr("Encrypted"))
+                               << new QStandardItem(m_document->isEncrypted() ? tr("Yes") : tr("No")));
+
+    propertiesModel->appendRow(QList< QStandardItem* >()
+                               << new QStandardItem(tr("Linearized"))
+                               << new QStandardItem(m_document->isLinearized() ? tr("Yes") : tr("No")));
 }
 
 void PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
