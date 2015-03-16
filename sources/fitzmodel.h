@@ -81,7 +81,7 @@ namespace Model
 
         bool canBePrintedUsingCUPS() const;
 
-        void setPaperColor(const QColor &paperColor);
+        void setPaperColor(const QColor& paperColor);
 
         void loadOutline(QStandardItemModel* outlineModel) const;
 

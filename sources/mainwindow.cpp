@@ -2823,6 +2823,7 @@ void MainWindow::createDocks()
 
     m_propertiesView = new QTableView(this);
     m_propertiesView->setAlternatingRowColors(true);
+    m_propertiesView->setTabKeyNavigation(false);
     m_propertiesView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_propertiesView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
