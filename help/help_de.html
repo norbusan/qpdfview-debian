@@ -1,0 +1,544 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
+
+<!--
+
+Copyright 2012 Benjamin Eltzner
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>
+.
+
+This file is additionally licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported (CC-BY-SA) license. The full text of the license can be found at https://creativecommons.org/licenses/by-sa/3.0/legalcode
+
+-->
+<html>
+
+<head>
+    <title>Hilfe</title>    
+</head>
+
+<body>
+
+<h2><a name="top">Hilfe</a></h2>
+
+<h4>Inhaltsverzeichnis</h4>
+<ol>
+    <li><a href="#mainmenu">Hauptmenü</a></li>
+    <ol>
+        <li><a href="#file">Datei</a></li>
+        <li><a href="#edit">Bearbeiten</a></li>
+        <li><a href="#view">Ansicht</a></li>
+        <li><a href="#tabs">Reiter</a></li>
+        <li><a href="#bookmarks">Lesezeichen</a></li>
+        <li><a href="#help">Hilfe</a></li>
+    </ol>
+    <li><a href="#mainview">Hauptansicht</a></li>
+    <li><a href="#auxiliaryviews">Hilfsansichten</a></li>
+    <li><a href="#settings">Einstellungen</a></li>
+    <ol>
+    	<li><a href="#behaviorsettings">Verhalten</a></li>
+    	<li><a href="#graphicssettings">Grafik</a></li>
+    	<li><a href="#interfacesettings">Oberfläche</a></li>
+    	<li><a href="#shortcutsettings">Tastenkürzel</a></li>
+    	<li><a href="#modifiersettings">Modifikatoren</a></li>
+    </ol>
+</ol>
+
+<h4>Einleitung</h4>
+
+<p><em>qpdfview</em> ist ein Programm zum Anzeigen von Dokumenten mit
+Reitern. Es verwendet Poppler für PDF-Unterstützung, libspectre für
+PS-Unterstützung, DjVuLibre für DjVu-Unterstützung, CUPS zum Drucken und den
+Qt-Werkzeugsatz für die Benutzeroberfläche.</p>
+
+<p>Informationen über Kommandozeilenoptionen und Konfigurationsdateien sind in
+der Kommandozeilenanleitung zu finden.</p>
+
+<h3><a name="mainmenu">Hauptmenü</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="file">Datei</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Öffnen...</b> Öffnet einen Auswahldialog zum Öffnen einer Datei im
+aktuellen Reiter. Falls kein Reiter vorhanden ist, wird die Datei in einem
+neuen Reiter geöffnet.</li>
+	<li><b>In neuem Reiter öffnen...</b> Öffnet einen Auswahldialog zum Öffnen von
+Dateien in neuen Reitern.</li>
+    <li><b>Öffne beinhaltendes Verzeichnis</b> Öffnet das Verzeichnes, welches die
+im aktuellen Reiter dargestellte Datei enthält.</li>
+	<li><b>Zuletzt verwendet</b> Enthält eine Liste der zuletzt verwendeten Dateien
+(falls dies in den Einstellungen eingeschaltet ist).</li>
+	<li><b>Aktualisieren</b> Lädt die Datei neu, die im aktuellen Reiter angezeigt
+wird.</li>
+	<li><b>Kopie speichern...</b> Öffnet einen Auswahldialog zum Speichern einer
+Kopie der im aktuellen Reiter angezeigten Datei.</li>
+	<li><b>Speichern unter...</b> Öffnet einen Auswahldialog zum Speichern einer
+Kopie der im aktuellen Reiter angezeigten Datei mit allen Änderungen an
+Anmerkungen und Formularfeldern.</li>
+    <li><b>Drucken...</b> Öffnet einen Druckdialog für die im aktuellen Reiter
+angezeigte Datei.</li>
+	<li><b>Beenden</b> Schließt alle Reiter und beendet das Programm.</li>
+</ul>
+
+<h4><a name="edit">Bearbeiten</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Vorige/Nächste/Erste/Letzte Seite</b> Springt zur
+vorigen/nächsten/ersten/letzten Seite des Dokuments.</li>
+    <li><b>Zu Seite springen...</b> Öffnet einen Dialog zur Eingabe einer Seite zur
+Anzeige im aktuellen Reiter.</li>
+    <li><b>Springe rückwärts/vorwärts</b> Springt rückwärts/vorwärts in der Chronik
+der angezeigten Seiten.</li>
+	<li><b>Suchen...</b> Öffnet die Suchansicht unter der Hauptansicht. Die Suche
+beginnt automatisch zwei Sekunden nach der letzten Änderung des Suchbegriffs
+oder wird manuell mit der Eingabetaste gestartet. Falls die Umschalttaste
+gehalten wird, während die Eingabetaste gedrückt wird, startet die Suche in
+allen Reitern anstatt nur dem aktuellen Reiter. (Dieser Effekt wird
+umgekehrt falls die erweiterte Suchansicht verwendet wird.)</li>
+	<li><b>Rückwärts/Vorwärts suchen</b> Springt zur vorigen/nächsten Fundstelle des
+Suchbegriffs im Dokument.</li>
+	<li><b>Suche abbrechen</b> Bricht die aktuelle laufende Suche ab und schließt
+die Suchansicht.</li>
+	<li><b>In Zwischenablage kopieren</b> Wenn aktiviert, wird das Programm darauf
+warten, dass zum Kopieren ein Rahmen um Text oder Bilder gezogen wird.</li>
+	<li><b>Anmerkung hinzufügen</b> Wenn aktiviert, wird das Programm darauf warten,
+dass ein Rahmen gezogen wird um Anmerkungen hinzuzufügen.</li>
+	<li><b>Einstellungen...</b> Öffnet den Einstellungsdialog. Die Schaltflächen mit
+der Aufschrift 'Vorgaben' setzt alle Einstellungen in allen Reitern des
+Einstellungsdialogs auf ihre Vorgabewerte. Die Schaltfläche 'Vorgaben auf
+aktuellem Reiter' setzt nur die Einstellungen im aktuellen Reiter des
+Einstellungsdialogs auf ihre Vorgabewerte.</li>
+</ul>
+
+<p>Die <em>aktuelle Seite</em> kann geändert werden, indem die Zielseite in das
+Textfeld in der Bearbeiten-Werkzeugleiste eingegeben wird. Das Textfeld kann
+durch Druck von Strg+K und Bestätigung mit der Eingabetaste fokussiert
+werden.</p>
+
+<h4><a name="view">Ansicht</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Fortlaufend</b> Legt fest, ob die Seiten fortlaufend in Reihen
+übereinander angezeigt werden.</li>
+	<li><b>Zweiseitig</b> Legt fest, ob die Seitenanzeige zweispaltig ist.</li>
+	<li><b>Zweiseitig mit Titelseite</b> Legt fest, ob die Seitenanzeige zweispaltig
+ist und die Titelseite einzeln anzeigt.</li>
+	<li><b>Mehrere Seiten</b> Legt fest, ob die Seitenanzeige mehrspaltig ist. Die
+Anzahl der Spalten für diese Anzeigeart kann im Einstellungsdialog geändert
+werden.</li>
+    <li><b>Rechts nach links</b> Bestimmt wie die Seiten in Darstellungen mit
+mehreren Seiten pro Reihe angeordnet werden.</li>
+	<li><b>Vergrößern</b> Vergrößert den Skalenfaktor um 10 Prozent. Der Maximalwert
+beträgt 5000 Prozent.</li>
+	<li><b>Verkleinern</b> Verkleinert den Skalenfaktor um 10 Prozent. Der
+Minimalwert beträgt 10 Prozent.</li>
+	<li><b>Ursprüngliche Größe</b> Setzt den Skalenfaktor auf 100 Prozent zurück.</li>
+    <li><b>An Seitenbreite anpassen</b> Bestimmt den Skalenfaktor so dass eine Zeile
+von Seiten die Hauptansicht horizontal ausfüllt.</li>
+	<li><b>An Seitengröße anpassen</b> Bestimmt den Skalenfaktor so dass eine Zeile
+von Seiten vollständig in der Hauptansicht angezeigt wird.</li>
+	<li><b>Nach links drehen</b> Dreht alle Seiten nach links gegen den
+Uhrzeigersinn um 90 Grad.</li>
+	<li><b>Nach rechts drehen</b> Dreht alle Seiten nach rechts im Uhrzeigersinn um
+90 Grad.</li>
+    <li><b>Farben umkehren</b> Legt fest, ob Seiten mit umgekehrten Farben
+dargestellt werden.</li>
+    <li><b>In Graustufen umwandeln</b> Legt fest, ob Seiten vor der Darstellung in
+Graustufen umgewandelt werden.</li>
+	<li><b>Werkzeugleisten</b> Dieses Menü enthält eine Liste verfügbarer
+Werkzeugleisten zum Zugriff auf häufig genutzte Aktionen.</li>
+	<li><b>Paletten</b> Dieses Menü enthält eine Liste verfügbarer Paletten zur
+Anzeige von Zusatzinformationen.</li>
+	<li><b>Schriften...</b> Öffnet einen Dialog, der die im Dokument verwendeten
+Schriftarten auflistet.</li>
+	<li><b>Vollbild</b> Schaltet die Vollbildanzeige ein, in der das Fenster
+maximiert und ohne Fensterdekorationen angezeigt wird.</li>
+	<li><b>Präsentation...</b> Schaltet in den Präsentationsmodus, der durch Drücken
+von F12 oder Escape verlassen werden kann. Die Pos1/Ende-Tasten werden
+verwendet um die erste/letzte Seite zu zeigen. Die Pfeiltasten rechts und
+unten, die Leertaste und die Bild-ab-Taste springen zur nächsten Seite. Die
+Pfeiltasten links und oben, die Rücktaste und die Bild-auf-Taste springen
+zur vorigen Seite. Drücken von Strg und Eingabetaste springt zur Seite vor
+dem letzten Sprung.</li>
+</ul>
+
+<p>Der <em>Skalenfaktor</em> kann geändert werden, indem die gewünschte
+Prozentzahl in das Textfeld in der Ansicht-Werkzeugleiste eingetragen
+wird. Das Textfeld kann durch Druck von Strg+L und Bestätigung mit der
+Eingabetaste fokussiert werden.</p>
+
+<h4><a name="tabs">Reiter</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Voriger/Nächster Reiter</b> Hebt den vorigen/nächsten Reiter in der
+Leiste hervor. Springt zum letzten/ersten Reiter, wenn der erste/letzte
+Reiter aktuell hervorgehoben ist.</li>
+    <li><b>Reiter schließen</b> Schließt den hervorgehobenen Reiter.</li>
+    <li><b>Alle Reiter schließen</b> Schließt alle Reiter.</li>
+    <li><b>Alle Reiter bis auf den Aktuellen schließen</b> Schließt alle bis auf den
+aktuell hervorgehobenen Reiter.</li>
+    <li><b>Zuletzt geschlossen</b> Enthält eine Liste der zuletzt geschlossenen
+Reiter (falls dies in den Einstellungen eingeschaltet ist).</li>
+</ul>
+
+<p>Dieses Menü enthält eine Liste aller Reiter, die durch ein Klick auf den
+entsprechenden Menüeintrag hervorgehoben werden können. Reiter können auch
+durch einen Mittelklick geschlossen werden. Die ersten neun Reiter können
+auch durch Halten der Alt-Taste und Druck auf die entsprechende Zahltaste
+hervorgehoben werden.</p>
+
+<h4><a name="bookmarks">Lesezeichen</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Voriges Lesezeichen</b> Springt zum nächsten Lesezeichen vor der
+aktuellen Seite.</li>
+    <li><b>Nächstes Lesezeichen</b> Springt zum nächsten Lesezeichen nach der
+aktuellen Seite.</li>
+    <li><b>Lesezeichen hinzufügen</b> Fügt ein Lesezeichen für die aktuelle Datei
+und Seite hinzu.</li>
+    <li><b>Lesezeichen entfernen</b> Entfernt das Lesezeichen für die aktuelle Datei
+und Seite.</li>
+    <li><b>Alle Lesezeichen entfernen</b> Entfernt alle Lesezeichen für alle
+Dateien.</li>
+    <li><b>Öffnen</b> Öffnet die entsprechende Datei im aktuellen Reiter. Falls es
+keinen Reiter gibt, wird die Datei in einem neuen Reiter geöffnet.</li>
+    <li><b>In neuem Reiter öffnen</b> Öffnet die entsprechende Datei in einem neuen
+Reiter.</li>
+    <li><b>Gehe zu Seite</b> Springt zur entsprechenden Seite, falls die
+entsprechende Datei bereits geöffnet ist. Andernfalls wird die entsprechende
+Datei in einem neuen Reiter geöffnet.</li>
+</ul>
+
+<h4><a name="help">Hilfe</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Inhalt</b> Zeigt dieses Dokument an.</li>
+	<li><b>Über</b> Zeigt die Programmversion an.</li>
+</ul>
+
+<h3><a name="mainview">Hauptansicht</a> <a href="#top">&uarr;</a></h3>
+
+<p>Die Rücktaste/Leertaste springt zur vorigen/nächsten Seite. Die
+Pos1/Ende-Taste springt zur ersten/letzten Seite. Die Pfeil-, Bild-auf- und
+Bild-ab-Tasten bewegen den Sichtbereich. Steuerung und Eingabetaste springt
+zur Seite vor dem letzten Sprung.</p>
+
+<p>Das Mausrad rollt den Sichtbereich auf und ab. Halten von <b>ALT</b> während
+der Verwendung des Mausrads rollt den Sichtbereich nach links und
+rechts. Halten von <b>STRG</b> während der Verwendung des Mausrads skaliert
+das Dokument. Halten von <b>UMSCHALT</b> während der Verwendung des Mausrads
+rotiert das Dokument. (Modifikator-Tasten können in den Einstellungen
+geändert werden. Kilcken und halten der mittleren Maustaste wählt ein zu
+vergrößerndes Rechteck aus.</p>
+
+<p>Links werden rot umrandet (falls dies in den Einstellungen eingeschaltet
+ist). Ein Linksklick auf einen Link zeigt die verlinkte Seite oder öffnet
+die verlinkte URL im Standard-Browser (falls dies in den Einstellungen
+eingeschaltet ist). Ein Mittelklick auf einen Link zeigt die verlinkte Seite
+in einem neuen Reiter. Wird der Mauszeiger ohne Tastendruck auf einem Link
+platziert, wird das Linkziel als Tooltip angezeigt.</p>
+
+<p>Formularfelder werden blau umrandet (falls dies in den Einstellungen
+eingeschaltet ist). Ein Linksklick auf ein Formularfeld ermöglicht die
+Bearbeitung. Wird der Mauszeiger ohne Tastendruck auf einem Formularfeld
+platziert, wird dessen Name als Tooltip angezeigt.</p>
+
+<p>Der Quelltext einer Position im Dokument wird durch einen Doppelklick
+angezeigt. Dabei wird der erste passende SyncTeX-Knoten im Quelltext-Editor
+geöffnet.</p>
+
+<p><em>In Zwischenablage kopieren:</em> Bei gedrückter <b>SHIFT</b>-Taste mit
+der linken Maustaste klicken, halten und einen Rahmen um die zu kopierende
+Fläche ziehen. Sobald die Maustaste losgelassen wird, wird ein Menü
+angezeigt, um auszuwählen, ob Text oder Bilder in die Zwischenablage kopiert
+werden.</p>
+
+<p><em>Anmerkungen hinzufügen:</em> Bei gedrückter <b>STRG</b>-Taste mit der
+linken Maustaste klicken, halten und einen Rahmen um die zu nutzende Fläche
+ziehen. Sobald die Maustaste losgelassen wird, wird ein Menü angezeigt, um
+auszuwählen, ob Texte oder Hervorhebungen hinzugefügt werden sollen. Mittels
+Linksklick werden vorhandene <em>Anmerkungen bearbeitet</em>. Mittels
+Rechtsklick werden vorhandene <em>Anmerkungen entfernt</em>. (Das Hinzufügen
+und Entfernen von Anmerkungen setzt Version 0.20.1 oder höher der
+Poppler-Bibliothek voraus.) Wird der Mauszeiger ohne Tastendruck auf einer
+Anmerkung platziert, wird deren Inhalt als Tooltip angezeigt.</p>
+
+<p><em>Auswahl vergrößern:</em> Die Tasten <b>SHIFT</b> and <b>STRG</b>
+gedrückt halten und einen Rahmen um den zu vergrößernden Bereich ziehen.</p>
+
+<p>Die <em>Sichtbarkeit der Werkzeug- und Menüleisten</em> kann mittels
+einstellbarer Tastaturkürzel mit den Standardwerten "Umschalt+Alt+T" und
+"Umschalt+Alt+M" umgeschalten werden.</p>
+
+<h3><a name="auxiliaryviews">Hilfsansichten</a> <a href="#top">&uarr;</a></h3>
+
+<p>Die <em>Gliederungs-Ansicht</em> stelle eine Übersicht des Dokumenteninhalts
+dar. Durch einen Linksclick auf einen Eintrag springt die Hauptansicht zur
+entsprechenden Seite. Mit Hilfe des Kontextmenüs könnte alle Einträge
+unterhalb des gewählten Eintrags expandiert/kollabiert werden.</p>
+
+<p>Die <em>Eigenschaften-Ansicht<em> zeigt zusätzliche im Dokument enthaltene
+Informationen an.</p>
+
+<p>Die <em>Vorschaubilder-Ansicht</em> zeigt kleinere Ansichten der Seiten des
+Dokumentes. Durch einen Linksclick auf einen Eintrag springt die
+Hauptansicht zur entsprechenden Seite.</p>
+
+<p>The <em>Lesezeichenansicht</em> zeigt die zum im aktuellen Reiter
+dargestellten Dokument gehörenden Lesezeichen. Das Kontextmenü erlaubt es
+zum vorigen/nächsten Lesezeichen zu springen oder Lesezeichen
+hinzuzufügen. Das Kontextmenü jedes Eintrags erlaubt es außerdem den Eintrag
+zu bearbeiten und zu löschen.</p>
+
+<p>Falls sie in den Einstellungen aktiviert wurde, stellt die erweiterte
+<em>Suchansicht</em> eine Übersicht der Ergebnisse der in den Reitern
+durchgeführten Suchvorgänge dar. Sie stellt außerdem den die Suchergebnisse
+umgebenden Text dar, wobei der Suchbegriff hervorgehoben wird. Durch
+Mausklick auf einen Eintrag wechselt die Hauptansicht zum zugehörigen Reiter
+und springt zur entsprechenden Position.</p>
+
+<h3><a name="settings">Einstellungen</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="behaviorsettings">Einstellungen zum Verhalten</a> <a
+href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>URL öffnen</b> Legt fest, ob Links auf URLs bei Anklicken im
+Standard-Browser geöffnet werden sollen.</li>
+    <li><b>Automatische Aktualisierung</b> Legt fest, ob Dateien automatisch neu
+geladen werden, nachdem sie auf der Festplatte verändert wurden.</li>
+    <li><b>Verwendete Dateien merken</b> Aktiviert ein Menü welches eine Liste der
+zuletzt verwendeten Dateien enthält, deren Anzahl durch die Option "Anzahl
+verwendeter Dateien" bestimmt wird. (Erst nach Neustart wirksam.)</li>
+    <li><b>Geschlossene Reiter aufheben</b> Aktiviert ein Menü welches eine Liste
+der zuletzt geschlossenen Reiter enthält, deren Anzahl durch die Option
+"Anzahl geschlossener Reiter" bestimmt wird. Die Reiter verfügbar zu halten
+kann den Speicherverbrauch signifikant erhöhen. (Erst nach Neustart
+wirksam.)</li>
+    <li><b>Reiter wiederherstellen</b> Falls eingeschaltet werden Reiter und ihre
+Eigenschaften beim Beenden des Programms gespeichert und beim nächsten
+Starten wiederhergestellt.</li>
+    <li><b>Lesezeichen wiederherstellen</b> Falls eingeschaltet werden Lesezeichen
+beim Beenden des Programms gespeichert und beim nächsten Starten
+wiederhergestellt.</li>
+    <li><b>Dateieinstellungen wiederherstellen</b> Falls eingeschaltet werden
+Einstellungen für einzelne Dateien beim Schließen/Öffnen von Reitern
+gespeichert/geladen.</li>
+    <li><b>Speicherintervall</b> Das Zeitintervall nach dem Reiter, Lesezeichen und
+Dateieinstellungen in der Datenbank gespeichert werden.</li>
+    <li><b>Präsentation synchronisieren</b> Falls eingeschaltet kann die
+Hauptansicht verwendet werden um die Präsentationsansicht zu steuern.</li>
+    <li><b>Präsentationsbildschirm</b> Der Index des Bildschirms, der die
+Präsentationsansicht zeigen soll.</li>
+    <li><b>Gliederung synchronisieren</b> Falls eingeschaltet, wird in der
+Gliederungsansicht der erste Eintrag zur aktuellen Seite hervorgehoben, wenn
+die aktuelle Seite wechselt.</li>
+    <li><b>Vergrößerungsfaktor</b> Der Skalierungsfaktor wird beim Vergrößern mit
+dieser Zahl multipliziert und beim Verkleinern durch diese Zahl dividiert.</li>
+    <li><b>Farbe der Hervorhebungen</b> Legt die Farbe von Hervorhebungen fest.</li>
+    <li><b>Dauer der Hervorhebungen</b> Legt die Dauer von vorübergehenden
+Hervorhebungen fest.</li>
+    <li><b>Farbe für Anmerkungen</b> Die Farbe von Anmerkungen die mit diesem
+Programm hinzugefügt werden, beschrieben durch SVG-Farbnamen oder in
+hexadezimaler Notation '#rrggbb'.</li>
+    <li><b>Quelltexteditor</b> Das Programm, das gestartet wird um Quelltexte zu
+bearbeiten. '%1' wird durch den absoluten Dateipfad und '%2' bzw. '%3' durch
+Zeilen- bzw. Spaltennummer ersetzt.</li>
+</ul>
+
+<h4><a name="graphicssettings">Einstellungen zur Grafik</a> <a
+href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Kachelung verwenden</b> Die Seiten werden vor Darstellung und
+Zwischenspeicherung in Kacheln unterteilt, um den Speicherverbrauch zu
+reduzieren.</li>
+    <li><b>Veraltete Grafiken aufheben</b> Falls eingeschaltet, werden bei
+Veränderung der Vergrößerung (auf Kosten zusätzlichen
+Arbeitsspeicherverbrauchs) bereits erstellte Grafiken der alten Auflösung
+verwendet, um Näherungen der endgültigen Grafiken darzustellen, bis diese
+verfügbar sind.</li>
+    <li>.</li>
+    <li><b>Ränder abschneiden</b> Aktiviert das automatische Entfernen leerer
+Seitenränder.</li>
+    <li><b>Seiten verzieren</b> Legt fest, ob Seiten vom Hintergrund abgesetzt
+dargestellt werden.</li>
+    <li><b>Verweise verzieren</b> Legt fest, ob Verweise ("Links") durch rote Rahmen
+hervorgehoben werden.</li>
+    <li><b>Formularfelder verzieren</b> Legt fest, ob Formularfelder durch blaue
+Rahmen hervorgehoben werden.</li>
+    <li><b>Hintergrundfarbe</b> Legt die Farbe des Hintergrundes mittels
+SVG-Farbnamen oder hexadezimaler Notation '#rrggbb' fest.</li>
+    <li><b>Papierfarbe</b> Legt die Farbe der Seiten mittels SVG-Farbnamen oder
+hexadezimaler Notation '#rrggbb' fest.</li>
+    <li><b>Präsentationshintergrundfarbe</b> Überschreibt die Papierfarbe bei der
+Darstellung der Hintergrundfarbe der Präsentationsansicht und wird mittels
+SVG-Farbnamen oder hexadezimaler Notation '#rrggbb' definiert.</li>
+    <li><b>Seiten pro Zeile</b> Anzahl der Seiten pro Zeile in der 'Mehrere
+Seiten'-Ansicht.</li>
+    <li><b>Abstand der Seiten</b> Legt sowohl vertikalen als auch horizontalen
+Abstand zwischen Seiten fest.</li>
+    <li><b>Abstand der Vorschaubilder</b> Legt sowohl vertikalen als auch
+horizontalen Abstand zwischen Vorschaubildern fest.</li>
+    <li><b>Größe der Vorschaubilder</b> Legt die Größe der Vorschaubilder fest.</li>
+    <li><b>Größe des Zwischenspeichers</b> Das Programm wird versuchen, gezeichnete
+Seiten bis zu diesem Speicherverbrauch zwischenzuspeichern, was die Anzeige
+von Seiten auf Kosten höheren Speicherverbrauchs beschleunigt.</li>
+    <li><b>Vorausladen</b> Das Programm wird versuchen, Seiten zu zeichnen, die noch
+nicht angezeigt werden, was die Anzeige von Seiten auf Kosten höheren
+Zwischenspeicherverbrauchs beschleunigt.</li>
+    <li><b>Reichweite des Vorausladens</b> Das Vorausladen lädt diese Anzahl an
+Zeilen über die aktuelle Zeile hinaus und halb so viele Zeilen vor der
+aktuellen Zeile voraus.</li>
+    <li><b>PDF-Einstellungen</b>
+    <ul>
+        <li><b>Kantenglättung</b> Verbessert die Anzeigequalität auf Kosten der
+Geschwindigkeit.</li>
+        <li><b>Text-Kantenglättung</b> Verbessert die Anzeigequalität von Text auf
+Kosten der Geschwindigkeit.</li>
+        <li><b>Text-Hinting</b> Kann die Anzeigequalität von Text für bestimmte
+Schriftarten verbessern.</li>
+        <li><b>Überdruckvorschau</b> Falls eingeschaltet, wird eine Vorschau des
+Überdruckens einer Tintenlage über eine andere angezeigt.</li>
+        <li><b>Modus für dünne Linien</b> Wählt das Optimierungsverfahren für das
+Zeichnen dünner Linien aus.</li>
+        <li><b>Unterbau</b> Wählt den Unterbau zum Zeichnen von Seiten aus.</li>
+    </ul>
+    </li>
+    <li><b>PS-Einstellungen</b>
+    <ul>
+        <li><b>Bits für Grafik-Kantenglättung</b> Legt fest wie stark Kanten in Grafiken
+geglättet werden.</li>
+        <li><b>Bits für Text-Kantenglättung</b> Legt fest wie stark Kanten im Text
+geglättet werden.</li>
+    </ul>
+    </li>
+</ul>
+
+<h4><a name="interfacesettings">Einstellung zur Oberfläche</a> <a
+href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Erweiterte Suchansicht</b> Erweitert die Standardsuchansicht um eine
+Übersicht der Suchergebnisse aller Reiter. (Nach Neustart wirksam.)</li>
+    <li><b>Eingebettet dargestellte Anmerkungen</b> Ist diese Option aktiviert,
+werden alle Anmerkungen einer Seite als interaktive Überlagerung
+dargestellt. Ansonsten wird jede Anmerkung als separates Fenster behandelt.</li>
+    <li><b>Eingebettet dargestellte Formularfelder</b> Ist diese Option aktiviert,
+werden alle Formularfelder einer Seite als interaktive Überlagerung
+dargestellt. Ansonsten wird jedes Formularfeld als separates Fenster
+behandelt.</li>
+    <li><b>Reiterposition</b> Legt fest an welcher Kante der Hauptansicht die Reiter
+angezeigt werden.</li>
+    <li><b>Reitersichtbarkeit</b> Legt fest ob Reiter angezeigt werden falls weniger
+als zwei Dokumente geöffnet sind.</li>
+    <li><b>Reiter ausbreiten</b> Legt fest ob die Reiter gleichmäßig über den
+gesamten Reiterbereich ausgebreitet werden.</li>
+    <li><b>Neuer Reiter neben aktuellem Reiter</b> Falls aktiviert werden neue
+Reiter rechts neben dem aktuellen Reiter eingefügt.</li>
+    <li><b>Nach letztem Reiter beenden</b> Bewirkt, dass die Anwendung nach dem
+Schließen des letzten Reiters beendet wird.</li>
+    <li><b>Anzahl verwendeter Dateien</b> Legt die Azahl der Dateien fest, die im
+Menü für zuletzt verwendete Dateien aufgeführt werden, falls "Verwendete
+Dateien merken" aktiviert ist. (Tritt nach Neustart des Programms in Kraft.)</li>
+    <li><b>Anzahl geschlossener Reiter</b> Legt die Azahl der Reiter fest, die im
+Menü für zuletzt geschlossene Reiter aufgeführt werden, falls "Geschlossene
+Reiter merken" aktiviert ist. (Tritt nach Neustart des Programms in Kraft.)</li>
+    <li><b>Datei-Werkzeugleiste</b> Legt fest, welche Aktionen in welcher
+Reihenfolge in der Datei-Werkzeugleiste angezeigt werden. Verfügbare
+Aktionen sind "openInNewTab" (In neuem Reiter öffnen), "open" (Öffnen),
+"refresh" (Aktualisieren), "saveCopy" (Kopie speichern), "saveAs" (Speichern
+unter), "print" (Drucken) und "separator" (Trennelement). (Tritt nach
+Neustart des Programms in Kraft.)</li>
+    <li><b>Bearbeiten-Werkzeugleiste</b> Legt fest, welche Aktionen in welcher
+Reihenfolge in der Bearbeiten-Werkzeugleiste angezeigt werden. Verfügbare
+Aktionen sind "currentPage" (Aktuelle Seite), "previousPage" (Vorige Seite),
+"nextPage" (Nächste Seite), "firstPage" (Erste Seite), "lastPage" (Letzte
+Seite), "jumpToPage" (Springe zu Seite), "jumpBackward" (Springe Rückwärts),
+"jumpForward" (Springe Vorwärts), "search" (Suche), "copyToClipboardMode"
+(Kopieren in Zwischenablage), "addAnnotationMode" (Anmerkung hinzufügen) und
+"separator" (Trennelement). (Tritt nach Neustart des Programms in Kraft.)</li>
+    <li><b>Ansicht-Werkzeugleiste</b> Legt fest, welche Aktionen in welcher
+Reihenfolge in der Bearbeiten-Werkzeugleiste angezeigt werden. Verfügbare
+Aktionen sind "scaleFactor" (Skalenfaktor), "zoomIn" (Vergrößern), "zoomOut"
+(Verkleinern), "continuousMode" (Fortlaufend), "twoPagesMode" (Zweiseitig),
+"twoPagesWithCoverPageMode" (Zweiseitig mit Titelseite), "multiplePagesMode"
+(Mehrere Seiten), "originalSize" (Ursprüngliche Größe), "fitToPageWidthMode"
+(An Seitenbreite anpassen), "fitToPageSizeMode" (An Seitengröße anpassen),
+"rotateLeft" (Nach links drehen), "rotateRight" (Nach rechts drehen),
+"fullscreen" (Vollbild), "presentation" (Präsentation) und "separator"
+(Trennelement). (Tritt nach Neustart des Programms in Kraft.)</li>
+    <li><b>Laufende Menüs</b> Überschreibt die Vorgabe des Standardstils, so dass
+Menüs laufen anstatt in mehreren Spalten dargestellt zu werden, falls sie
+größer sind als die verfügbare Bildschirmfläche. (Nach Neustart wirksam.)</li>
+    <li><b>Durchsuchbare Menüs</b> Erweitert die übliche Tastaturnavigation der
+Reiter- und Lesezeichen-Menüs um eine Suchfunktion.</li>
+    <li><b>Werkzeug- und Menüleisten bei Vollbild umschalten</b> Die Sichtbarkeit
+von Werkzeug- und Menüleisten wird immer dann umgeschalten wenn der
+Vollbildmouds umgeschalten wird.</li>
+    <li><b>Seitenbeschriftung verwenden</b> Legt fest, ob vom Dokument vergebene
+Seitenbeschriftungen anstatt von Seitenzahlen verwendet werden.</li>
+    <li><b>Dokumententitel als Reitertitel</b> Legt fest ob der Reitertitel anhand
+der Metadaten anstatt des Dateinamens ermittelt wird.</li>
+    <li><b>Aktuelle Seite im Fenstertitel</b> Falls aktiviert wird die aktuelle
+Seite und die Anzahl der Seiten des aktuellen Dokuments im Fenstertitel
+angezeigt.</li>
+    <li>Falls aktiviert und die aktuelle Instanz benannt ist wird deren Name im
+Fenstertitel angezeigt.</li>
+    <li><b>Aktuelles Vorschaubild hervorheben</b> Falls eingeschaltet, wird die
+aktuelle Seite in der Vorschauansicht hervorgehoben.</li>
+    <li><b>Vorschaubilder auf Ergebnisse beschränken</b> Falls diese Einstellung
+eingeschaltet ist und eine Suche durchgeführt wird, werden nur Seiten, die
+den Suchbegriff enthalten, in der Vorschauansicht angezeigt.</li>
+</ul>
+
+<h4><a name="shortcutsettings">Einstellungen zu Tastenkürzeln</a> <a
+href="#top">&uarr;</a></h4>
+
+<p>Die Tastenkürzel-Einstellungen ermöglichen die Anpassung der Tastenkürzel an
+persönliche Vorlieben. Zum Ändern eines Tastenkürzel wird ein Doppelklick
+auf das Tastenkürzel ausgeführt und anschließend das neue Tastenkürzel
+eingegeben. Jeder Aktion können mehrere Tastenkürzel zugeordnet werden, die
+durch Semikolons getrennt aufgelistet werden. Tastennamen, die nicht aus
+einem Zeichen bestehen, (z.B. "Alt", "Strg", "Bild aufwärts") werden
+explizit ausgeschrieben, wobei die Erkennung Groß- und Kleinschreibung nicht
+unterscheidet. Falls das Tastenkürzel Modifikator-Tasten enthält, werden die
+Namen der Tasten mit einem Pluszeichen zusammengefügt wobei die
+Modifikator-Taste zuerst genannt werden muss, z.B. "Strg+A" oder "Strg++".</p>
+
+<h4><a name="modifiersettings">Einstellungen zu Modifikatoren</a> <a
+href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Skalieren</b> Die Tastaturmodifikatoren, um die Darstellung der
+Hauptansicht mittels des Mausrads zu skalieren.</li>
+    <li><b>Rotieren</b> Die Tastaturmodifikatoren, um die Darstellung der
+Hauptansicht mittels des Mausrads zu rotieren.</li>
+    <li><b>Bildlauf</b> Die Tastaturmodifikatoren, um die Darstellung der
+Hauptansicht mittels des Mausrads horizontal zu verschieben.</li>
+    <li><b>In Zwischenablage kopieren</b> Die Tastaturmodifikatoren, um Texte oder
+Bilder von einer Seite in die Zwischenablage zu kopieren.</li>
+    <li><b>Anmerkungen hinzufügen</b> Die Tastaturmodifikatoren, um einer Seite
+Anmerkungen hinzu zufügen.</li>
+    <li><b>Auswahl vergrößern</b> Die Tastaturmodifikatoren, um die einen zu
+vergrößernden Bereich mit der Maus auszuwählen.</li>
+</ul>
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<radialGradient cx="32.608" cy="37.2021" gradientUnits="userSpaceOnUse" id="radialGradient3225" r="83.2401">
+<stop offset="0" stop-color="#fafafa"/>
+<stop offset="1" stop-color="#bbb"/>
+</radialGradient>
+<radialGradient cx="11.8979" cy="4.5256" gradientUnits="userSpaceOnUse" id="radialGradient3227" r="36.5538">
+<stop offset="0" stop-color="#a3a3a3"/>
+<stop offset="1" stop-color="#4c4c4c"/>
+</radialGradient>
+<radialGradient cx="11.2387" cy="8.1525" gradientUnits="userSpaceOnUse" id="radialGradient3229" r="36.9479">
+<stop offset="0" stop-color="#fff"/>
+<stop offset="1" stop-color="#f8f8f8"/>
+</radialGradient>
+</defs>
+<g id="g3251-5" transform="matrix(.5,0,0,.5,-6.95855,.96662)">
+<path d="m7.7526,3.6464h32.577a1.149,1.149 0 0,1 1.149,1.149v38.6225a1.149,1.149 0 0,1 -1.149,1.149h-32.577a1.149,1.149 0 0,1 -1.149-1.149v-38.6225a1.149,1.149 0 0,1 1.149-1.149" display="block" fill="url(#radialGradient3225)" stroke="url(#radialGradient3227)" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="m7.8151,4.5839h32.4779a.149,.149 0 0,1 .149.149v38.6484a.149,.149 0 0,1 -.149.149h-32.4779a.149,.149 0 0,1 -.149-.149v-38.6484a.149,.149 0 0,1 .149-.149" display="block" fill="none" stroke="url(#radialGradient3229)" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use height="48" transform="translate(37.876)" width="48" xlink:href="#g3251-5"/>
+<g transform="matrix(.5,0,0,.5,11.97945,.96662)">
+<path d="m7.7526,3.6464h32.577a1.149,1.149 0 0,1 1.149,1.149v38.6225a1.149,1.149 0 0,1 -1.149,1.149h-32.577a1.149,1.149 0 0,1 -1.149-1.149v-38.6225a1.149,1.149 0 0,1 1.149-1.149" display="block" fill="url(#radialGradient3225)" stroke="url(#radialGradient3227)" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="m7.8151,4.5839h32.4779a.149,.149 0 0,1 .149.149v38.6484a.149,.149 0 0,1 -.149.149h-32.4779a.149,.149 0 0,1 -.149-.149v-38.6484a.149,.149 0 0,1 .149-.149" display="block" fill="none" stroke="url(#radialGradient3229)" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g transform="matrix(.5,0,0,.5,-6.95855,22.92663)">
+<path d="m7.7526,3.6464h32.577a1.149,1.149 0 0,1 1.149,1.149v38.6225a1.149,1.149 0 0,1 -1.149,1.149h-32.577a1.149,1.149 0 0,1 -1.149-1.149v-38.6225a1.149,1.149 0 0,1 1.149-1.149" display="block" fill="url(#radialGradient3225)" stroke="url(#radialGradient3227)" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="m7.8151,4.5839h32.4779a.149,.149 0 0,1 .149.149v38.6484a.149,.149 0 0,1 -.149.149h-32.4779a.149,.149 0 0,1 -.149-.149v-38.6484a.149,.149 0 0,1 .149-.149" display="block" fill="none" stroke="url(#radialGradient3229)" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use height="48" transform="translate(37.876,21.96)" width="48" xlink:href="#g3251-5"/>
+<g transform="matrix(.5,0,0,.5,11.97945,22.92663)">
+<path d="m7.7526,3.6464h32.577a1.149,1.149 0 0,1 1.149,1.149v38.6225a1.149,1.149 0 0,1 -1.149,1.149h-32.577a1.149,1.149 0 0,1 -1.149-1.149v-38.6225a1.149,1.149 0 0,1 1.149-1.149" display="block" fill="url(#radialGradient3225)" stroke="url(#radialGradient3227)" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="m7.8151,4.5839h32.4779a.149,.149 0 0,1 .149.149v38.6484a.149,.149 0 0,1 -.149.149h-32.4779a.149,.149 0 0,1 -.149-.149v-38.6484a.149,.149 0 0,1 .149-.149" display="block" fill="none" stroke="url(#radialGradient3229)" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

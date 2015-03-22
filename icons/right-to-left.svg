@@ -1,0 +1,26 @@
+<svg width="48" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" height="48">
+<defs>
+<linearGradient id="linearGradient3260-0">
+<stop offset="0" stop-color="#204a87"/>
+<stop offset="1" stop-color="#204a87" stop-opacity="0"/>
+</linearGradient>
+<linearGradient gradientTransform="matrix(.7071 -.7071 .7071 .7071 9.89722 24.70151)" id="linearGradient3482" xlink:href="#linearGradient3260-0" y1="11.394" x1="12.364" y2="17.581" gradientUnits="userSpaceOnUse" x2="18.227"/>
+<radialGradient cx="11.239" cy="8.153" id="radialGradient3244" r="36.948" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#fff"/>
+<stop offset="1" stop-color="#f8f8f8"/>
+</radialGradient>
+<radialGradient cx="32.608" cy="37.202" id="radialGradient3247" r="83.24" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#fafafa"/>
+<stop offset="1" stop-color="#bbb"/>
+</radialGradient>
+<radialGradient cx="11.898" cy="4.526" id="radialGradient3249" r="36.554" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#a3a3a3"/>
+<stop offset="1" stop-color="#4c4c4c"/>
+</radialGradient>
+</defs>
+<g transform="translate(-.0411 -.1067)">
+<path fill="url(#radialGradient3247)" display="block" stroke="url(#radialGradient3249)" stroke-linejoin="round" stroke-linecap="round" d="m7.7526,3.6464h32.577a1.149,1.149 0 0,1 1.149,1.149v38.6225a1.149,1.149 0 0,1 -1.149,1.149h-32.577a1.149,1.149 0 0,1 -1.149-1.149v-38.6225a1.149,1.149 0 0,1 1.149-1.149"/>
+<path fill="none" display="block" stroke="url(#radialGradient3244)" stroke-linejoin="round" stroke-linecap="round" d="m7.8151,4.5839h32.4779a.149,.149 0 0,1 .149,.149v38.6484a.149,.149 0 0,1 -.149,.149h-32.4779a.149,.149 0 0,1 -.149-.149v-38.6484a.149,.149 0 0,1 .149-.149"/>
+</g>
+<path fill="url(#linearGradient3482)" fill-rule="evenodd" d="m17.6754,23.9945 9.1924,9.1924v-5.701l11.358,.0442l-.0442-7.071h-11.3138v-5.6568l-9.1924,9.1924z"/>
+</svg>

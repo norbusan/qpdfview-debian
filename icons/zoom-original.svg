@@ -1,0 +1,20 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient cx="11.2387" cy="8.1525" gradientUnits="userSpaceOnUse" id="radialGradient3244" r="36.9479">
+<stop offset="0" stop-color="#fff"/>
+<stop offset="1" stop-color="#f8f8f8"/>
+</radialGradient>
+<radialGradient cx="32.608" cy="37.2021" gradientUnits="userSpaceOnUse" id="radialGradient3247" r="83.2401">
+<stop offset="0" stop-color="#fafafa"/>
+<stop offset="1" stop-color="#bbb"/>
+</radialGradient>
+<radialGradient cx="11.8979" cy="4.5256" gradientUnits="userSpaceOnUse" id="radialGradient3249" r="36.5538">
+<stop offset="0" stop-color="#a3a3a3"/>
+<stop offset="1" stop-color="#4c4c4c"/>
+</radialGradient>
+</defs>
+<g transform="translate(-.0411,-.1067)">
+<path d="m7.7526,3.6464h32.577a1.149,1.149 0 0,1 1.149,1.149v38.6225a1.149,1.149 0 0,1 -1.149,1.149h-32.577a1.149,1.149 0 0,1 -1.149-1.149v-38.6225a1.149,1.149 0 0,1 1.149-1.149" display="block" fill="url(#radialGradient3247)" stroke="url(#radialGradient3249)" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="m7.8151,4.5839h32.4779a.149,.149 0 0,1 .149.149v38.6484a.149,.149 0 0,1 -.149.149h-32.4779a.149,.149 0 0,1 -.149-.149v-38.6484a.149,.149 0 0,1 .149-.149" display="block" fill="none" stroke="url(#radialGradient3244)" stroke-linecap="round" stroke-linejoin="round"/>
+</g><text fill="#204987" font-family="DejaVu Sans" font-size="15.31" font-weight="bold" letter-spacing="0" word-spacing="0" x="9.9648" xml:space="preserve" y="29.5804"><tspan font-family="DejaVu Sans" font-size="15.31" font-weight="bold" x="9.9648" y="29.5804">1:1</tspan></text>
+</svg>
