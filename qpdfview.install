@@ -1,0 +1,7 @@
+debian/tmp/usr/bin/
+debian/tmp/usr/lib/qpdfview/libqpdfview_pdf.so
+debian/tmp/usr/share/applications/
+debian/tmp/usr/share/man/
+debian/tmp/usr/share/qpdfview/help.html
+debian/tmp/usr/share/icons/hicolor/scalable/apps/qpdfview.svg
+debian/qpdfview.xpm usr/share/qpdfview/

@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+export QT_SELECT=qt5
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_clean:
+	rm -fr miscellaneous/qpdfview.desktop translations/*.qm moc* objects*
+	dh_auto_clean
+
+override_dh_auto_configure:
+	lrelease qpdfview.pro
+	qmake DEFINES+="_FILE_OFFSET_BITS=64" QMAKE_CFLAGS="$(CFLAGS) $(CPPFLAGS)" QMAKE_CXXFLAGS="$(CFLAGS) $(CPPFLAGS) $(CXXFLAGS)" QMAKE_LFLAGS="$(LDFLAGS)" qpdfview.pro
+
+override_dh_installchangelogs:
+	dh_installchangelogs CHANGES

@@ -1,0 +1,64 @@
+Source: qpdfview
+Section: graphics
+Priority: optional
+Maintainer: Benjamin Eltzner <b.eltzner@gmx.de>
+Build-Depends: debhelper (>=9.0.0), libcups2-dev, qttools5-dev-tools, qtbase5-dev, libqt5svg5-dev, libpoppler-qt5-dev, pkg-config, libspectre-dev, libdjvulibre-dev, dpkg-dev (>=1.16.1.1), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: https://launchpad.net/qpdfview
+
+Package: qpdfview
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, libqt5sql5-sqlite, libqt5svg5, hicolor-icon-theme
+Recommends: qpdfview-djvu-plugin (= ${binary:Version}), qpdfview-ps-plugin (=${binary:Version}), qpdfview-translations (=${binary:Version})
+Description: tabbed document viewer
+ qpdfview is a simple tabbed document viewer which uses the Poppler library for
+ PDF rendering and CUPS for printing and provides a clear and simple Qt
+ graphical user interface. Support for the DjVu and PostScript formats can be
+ added via plugins.
+ .
+ Current features include:
+   - Outline, properties and thumbnail panes
+   - Scale, rotate and fit
+   - Fullscreen and presentation views
+   - Continuous and multi-page layouts
+   - Search for text (PDF and DjVu only)
+   - Configurable toolbars
+   - SyncTeX support (PDF only)
+   - Partial annotation support (PDF only, Poppler version 0.20.1 or newer)
+   - Partial form support (PDF only)
+   - Persistent per-file settings
+   - Support for DjVu and PostScript documents via plugins
+
+Package: qpdfview-djvu-plugin
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, qpdfview (=${binary:Version})
+Description: tabbed document viewer - DjVu plugin
+ qpdfview is a simple tabbed document viewer which uses the Poppler library for
+ PDF rendering and CUPS for printing and provides a clear and simple Qt
+ graphical user interface. Support for the DjVu and PostScript formats can be
+ added via plugins.
+ .
+ This plugin adds support for the DjVu format.
+
+Package: qpdfview-ps-plugin
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, qpdfview (=${binary:Version})
+Description: tabbed document viewer - PostScript plugin
+ qpdfview is a simple tabbed document viewer which uses the Poppler library for
+ PDF rendering and CUPS for printing and provides a clear and simple Qt
+ graphical user interface. Support for the DjVu and PostScript formats can be
+ added via plugins.
+ .
+ This plugin adds support for the PostScript format.
+
+Package: qpdfview-translations
+Architecture: all
+Depends: ${misc:Depends}, ${shlibs:Depends}, qpdfview (>=${binary:Version})
+Replaces: qpdfview-languages
+Description: tabbed document viewer - translations
+ qpdfview is a simple tabbed document viewer which uses the Poppler library for
+ PDF rendering and CUPS for printing and provides a clear and simple Qt
+ graphical user interface. Support for the DjVu and PostScript formats can be
+ added via plugins.
+ .
+ This package contains all translations.
