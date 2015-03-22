@@ -1,0 +1,21 @@
+Description: Add more items to the toolbar default.
+ With this patch a fresh install provides more toolbar buttons by default
+ thus making the program easier to use for beginners.
+Author: Benjamin Eltzner <b.eltzner@gmx.de>
+Last-Update: 2015-03-22
+---
+--- a/sources/settings.h
++++ b/sources/settings.h
+@@ -609,9 +609,9 @@
+ 
+         static bool synchronizeOutlineView() { return false; }
+ 
+-        static QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh"; }
+-        static QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }
+-        static QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
++        static QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh" << "saveCopy" << "print"; }
++        static QStringList editToolBar() { return QStringList() << "firstPage" << "previousPage" << "currentPage" << "nextPage" << "lastPage" << "search" << "separator" << "copyToClipboardMode" << "addAnnotationMode"; }
++        static QStringList viewToolBar() { return QStringList() << "zoomIn" << "scaleFactor" << "zoomOut" << "separator" << "continuousMode" << "twoPagesMode" << "separator" << "rotateLeft" << "rotateRight" << "separator" << "fullscreen" << "presentation"; }
+ 
+         static bool scrollableMenus() { return false; }
+         static bool searchableMenus() { return false; }

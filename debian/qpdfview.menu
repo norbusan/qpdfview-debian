@@ -1,0 +1,7 @@
+?package(qpdfview): \
+        needs="X11" \
+        section="Applications/Viewers" \
+        title="qPDFview" \
+        hints="Qt" \
+        command="qpdfview" \
+        icon="/usr/share/qpdfview/qpdfview.xpm"

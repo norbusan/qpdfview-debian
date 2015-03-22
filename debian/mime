@@ -1,0 +1,6 @@
+application/pdf; qpdfview %s; test=test -n "$DISPLAY"; nametemplate=%s.pdf; priority=5
+application/x-pdf; qpdfview %s; test=test -n "$DISPLAY"; nametemplate=%s.pdf; priority=5
+text/pdf; qpdfview %s; test=test -n "$DISPLAY"; nametemplate=%s.pdf; priority=5
+text/x-pdf; qpdfview %s; test=test -n "$DISPLAY"; nametemplate=%s.pdf; priority=5
+image/pdf; qpdfview %s; test=test -n "$DISPLAY"; nametemplate=%s.pdf; priority=5
+image/x-pdf; qpdfview %s; test=test -n "$DISPLAY"; nametemplate=%s.pdf; priority=5
