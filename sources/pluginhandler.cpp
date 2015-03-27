@@ -136,15 +136,15 @@ PluginHandler::FileType matchFileType(const QString& filePath)
     {
         const char* mime_type = magic_file(cookie, QFile::encodeName(filePath));
 
-        if(qstrncmp(mime_type, "application/pdf", 15) == 0)
+        if(qstrcmp(mime_type, "application/pdf") == 0)
         {
             fileType = PluginHandler::PDF;
         }
-        else if(qstrncmp(mime_type, "application/postscript", 22) == 0)
+        else if(qstrcmp(mime_type, "application/postscript") == 0)
         {
             fileType = PluginHandler::PS;
         }
-        else if(qstrncmp(mime_type, "image/vnd.djvu", 14) == 0)
+        else if(qstrcmp(mime_type, "image/vnd.djvu") == 0)
         {
             fileType = PluginHandler::DjVu;
         }

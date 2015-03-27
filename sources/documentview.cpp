@@ -190,7 +190,7 @@ int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** o
 
     for(int index = 0; index < colorModel->num_choices; ++index)
     {
-        if(qstrncmp(colorModel->choices[index].choice, "CMYK", 4) == 0)
+        if(qstrcmp(colorModel->choices[index].choice, "CMYK") == 0)
         {
             return cupsAddOption("ColorModel", "CMYK", num_options, options);
         }
@@ -198,7 +198,7 @@ int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** o
 
     for(int index = 0; index < colorModel->num_choices; ++index)
     {
-        if(qstrncmp(colorModel->choices[index].choice, "RGB", 3) == 0)
+        if(qstrcmp(colorModel->choices[index].choice, "RGB") == 0)
         {
             return cupsAddOption("ColorModel", "RGB", num_options, options);
         }
