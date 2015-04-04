@@ -30,6 +30,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QLabel>
 #include <QMenu>
 #include <QMouseEvent>
+#include <QScrollBar>
 #include <QTimer>
 #include <QToolTip>
 #include <QVBoxLayout>
@@ -349,6 +350,68 @@ void TreeView::collapseAll(const QModelIndex& index)
     }
 }
 
+int TreeView::expandedDepth(const QModelIndex& index)
+{
+    if(!index.isValid() || !isExpanded(index) || !model()->hasChildren(index))
+    {
+        return 0;
+    }
+
+    int depth = 0;
+
+    for(int row = 0, rowCount = model()->rowCount(index); row < rowCount; ++row)
+    {
+        depth = qMax(depth, expandedDepth(index.child(row, 0)));
+    }
+
+    return 1 + depth;
+}
+
+void TreeView::expandToDepth(const QModelIndex& index, int depth)
+{
+    if(!index.isValid())
+    {
+        return;
+    }
+
+    if(depth > 0)
+    {
+        if(!isExpanded(index))
+        {
+            expand(index);
+        }
+    }
+
+    if(depth > 1)
+    {
+        for(int row = 0, rowCount = model()->rowCount(index); row < rowCount; ++row)
+        {
+            expandToDepth(index.child(row, 0), depth - 1);
+        }
+    }
+}
+
+void TreeView::collapseFromDepth(const QModelIndex& index, int depth)
+{
+    if(!index.isValid())
+    {
+        return;
+    }
+
+    if(depth <= 0)
+    {
+        if(isExpanded(index))
+        {
+            collapse(index);
+        }
+    }
+
+    for(int row = 0, rowCount = model()->rowCount(index); row < rowCount; ++row)
+    {
+        collapseFromDepth(index.child(row, 0), depth - 1);
+    }
+}
+
 void TreeView::restoreExpansion(const QModelIndex& index)
 {
     if(index.isValid())
@@ -365,6 +428,123 @@ void TreeView::restoreExpansion(const QModelIndex& index)
     {
         restoreExpansion(model()->index(row, 0, index));
     }
+}
+
+void TreeView::keyPressEvent(QKeyEvent* event)
+{
+    const bool verticalKeys = event->key() == Qt::Key_Up || event->key() == Qt::Key_Down;
+    const bool horizontalKeys = event->key() == Qt::Key_Left || event->key() == Qt::Key_Right;
+
+    // If Shift is pressed, the view is scrolled up or down.
+    if(event->modifiers().testFlag(Qt::ShiftModifier) && verticalKeys)
+    {
+        QScrollBar* scrollBar = verticalScrollBar();
+
+        if(scrollBar->value() > scrollBar->minimum() && event->key() == Qt::Key_Up)
+        {
+            verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepSub);
+
+            event->accept();
+            return;
+        }
+        else if(scrollBar->value() < scrollBar->maximum() && event->key() == Qt::Key_Down)
+        {
+            verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepAdd);
+
+            event->accept();
+            return;
+        }
+    }
+
+    const QModelIndexList selection = selectedIndexes();
+
+    // If Control is pressed, all children of the selected item are expanded or collapsed.
+    if(!selection.isEmpty() && event->modifiers().testFlag(Qt::ControlModifier) && horizontalKeys)
+    {
+        if(event->key() == Qt::Key_Left)
+        {
+            collapseAll(selection.first());
+        }
+        else if(event->key() == Qt::Key_Right)
+        {
+            expandAll(selection.first());
+        }
+
+        event->accept();
+        return;
+    }
+
+    // If Shift is pressed, one level of children of the selected item are expanded or collapsed.
+    if(!selection.isEmpty() && event->modifiers().testFlag(Qt::ShiftModifier) && horizontalKeys)
+    {
+        if(event->key() == Qt::Key_Left)
+        {
+            const int depth = expandedDepth(selection.first());
+
+            collapseFromDepth(selection.first(), depth - 1);
+        }
+        else if(event->key() == Qt::Key_Right)
+        {
+            const int depth = expandedDepth(selection.first());
+
+            expandToDepth(selection.first(), depth + 1);
+        }
+
+        event->accept();
+        return;
+    }
+
+    QTreeView::keyPressEvent(event);
+}
+
+void TreeView::wheelEvent(QWheelEvent* event)
+{
+    const QModelIndexList selection = selectedIndexes();
+
+    // If Control is pressed, expand or collapse the selected entry.
+    if(!selection.isEmpty() && event->modifiers().testFlag(Qt::ControlModifier))
+    {
+        if(event->delta() > 0)
+        {
+            collapse(selection.first());
+        }
+        else
+        {
+            expand(selection.first());
+        }
+
+        // Fall through when Shift is also pressed.
+        if(!event->modifiers().testFlag(Qt::ShiftModifier))
+        {
+            event->accept();
+            return;
+        }
+    }
+
+    // If Shift is pressed, move the selected entry up and down.
+    if(!selection.isEmpty() && event->modifiers().testFlag(Qt::ShiftModifier))
+    {
+        QModelIndex sibling;
+
+        if(event->delta() > 0)
+        {
+            sibling = indexAbove(selection.first());
+        }
+        else
+        {
+            sibling = indexBelow(selection.first());
+        }
+
+        if(sibling.isValid())
+        {
+            setCurrentIndex(sibling);
+        }
+
+        event->accept();
+        return;
+    }
+
+    QTreeView::wheelEvent(event);
 }
 
 void TreeView::contextMenuEvent(QContextMenuEvent* event)

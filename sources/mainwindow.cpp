@@ -2123,6 +2123,27 @@ void MainWindow::on_saveDatabase_timeout()
     }
 }
 
+bool MainWindow::eventFilter(QObject* target, QEvent* event)
+{
+    // This event filter is used to override any keyboard shortcuts if the outline widget has the focus.
+    if(target == m_outlineView && event->type() == QEvent::ShortcutOverride)
+    {
+        QKeyEvent* keyEvent = static_cast< QKeyEvent* >(event);
+
+        const bool modifiers = keyEvent->modifiers().testFlag(Qt::ControlModifier) || keyEvent->modifiers().testFlag(Qt::ShiftModifier);
+        const bool keys = keyEvent->key() == Qt::Key_Right || keyEvent->key() == Qt::Key_Left || keyEvent->key() == Qt::Key_Up || keyEvent->key() == Qt::Key_Down;
+
+        if(modifiers && keys)
+        {
+            keyEvent->accept();
+            return true;
+        }
+
+    }
+
+    return QMainWindow::eventFilter(target, event);
+}
+
 void MainWindow::closeEvent(QCloseEvent* event)
 {
     m_searchDock->setVisible(false);
@@ -2809,7 +2830,10 @@ void MainWindow::createDocks()
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_outlineView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_outlineView->setSelectionMode(QAbstractItemView::SingleSelection);
     m_outlineView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    m_outlineView->installEventFilter(this);
 
     connect(m_outlineView->header(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_outline_sectionCountChanged()));
     connect(m_outlineView, SIGNAL(clicked(QModelIndex)), SLOT(on_outline_clicked(QModelIndex)));

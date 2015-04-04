@@ -241,6 +241,8 @@ protected slots:
     void on_saveDatabase_timeout();
 
 protected:
+    bool eventFilter(QObject* target, QEvent* event);
+
     void closeEvent(QCloseEvent* event);
 
     void dragEnterEvent(QDragEnterEvent* event);

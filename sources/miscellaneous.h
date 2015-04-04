@@ -172,9 +172,17 @@ public slots:
     void expandAll(const QModelIndex& index = QModelIndex());
     void collapseAll(const QModelIndex& index = QModelIndex());
 
+    int expandedDepth(const QModelIndex& index);
+
+    void expandToDepth(const QModelIndex& index, int depth);
+    void collapseFromDepth(const QModelIndex& index, int depth);
+
     void restoreExpansion(const QModelIndex& index = QModelIndex());
 
 protected:
+    void keyPressEvent(QKeyEvent* event);
+    void wheelEvent(QWheelEvent* event);
+
     void contextMenuEvent(QContextMenuEvent* event);
 
 protected slots:
