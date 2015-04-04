@@ -4,41 +4,60 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="863"/>
-        <source>Name</source>
-        <translation type="unfinished">Nome</translation>
+        <location filename="../sources/pdfmodel.cpp" line="856"/>
+        <source>PDF version</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="863"/>
-        <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <location filename="../sources/pdfmodel.cpp" line="860"/>
+        <source>Encrypted</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="863"/>
-        <source>Embedded</source>
-        <translation type="unfinished">Incorporato</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="863"/>
-        <source>Subset</source>
-        <translation type="unfinished">Sottoinsieme</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="863"/>
-        <source>File</source>
-        <translation type="unfinished">File</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="871"/>
-        <location filename="../sources/pdfmodel.cpp" line="872"/>
+        <location filename="../sources/pdfmodel.cpp" line="861"/>
+        <location filename="../sources/pdfmodel.cpp" line="865"/>
+        <location filename="../sources/pdfmodel.cpp" line="887"/>
+        <location filename="../sources/pdfmodel.cpp" line="888"/>
         <source>Yes</source>
         <translation type="unfinished">Sì</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="871"/>
-        <location filename="../sources/pdfmodel.cpp" line="872"/>
+        <location filename="../sources/pdfmodel.cpp" line="861"/>
+        <location filename="../sources/pdfmodel.cpp" line="865"/>
+        <location filename="../sources/pdfmodel.cpp" line="887"/>
+        <location filename="../sources/pdfmodel.cpp" line="888"/>
         <source>No</source>
         <translation type="unfinished">No</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="864"/>
+        <source>Linearized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="879"/>
+        <source>Name</source>
+        <translation type="unfinished">Nome</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="879"/>
+        <source>Type</source>
+        <translation type="unfinished">Tipo</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="879"/>
+        <source>Embedded</source>
+        <translation type="unfinished">Incorporato</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="879"/>
+        <source>Subset</source>
+        <translation type="unfinished">Sottoinsieme</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="879"/>
+        <source>File</source>
+        <translation type="unfinished">File</translation>
     </message>
 </context>
 <context>
@@ -185,7 +204,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="986"/>
         <source>Middle mouse button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pulsante centrale del mouse</translation>
     </message>
 </context>
 <context>
@@ -511,6 +530,11 @@
         <translation type="unfinished">&lt;li&gt;Supporto per la stampa usando CUPS %1&lt;/li&gt;</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="1720"/>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</source>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Visitare &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per ulteriori informazioni.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="2003"/>
         <location filename="../sources/mainwindow.cpp" line="2635"/>
         <source>&amp;Remove bookmark</source>
@@ -544,7 +568,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2502"/>
         <source>Whole &amp;words</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Parol_e intere</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2503"/>
@@ -564,7 +588,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2554"/>
         <source>Open &amp;copy in new tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apri _copia in nuova scheda</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2555"/>
@@ -739,7 +763,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2606"/>
         <source>Convert to grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Converti in scale di grigi</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2608"/>
@@ -813,21 +837,26 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2677"/>
-        <location filename="../sources/mainwindow.cpp" line="2874"/>
+        <location filename="../sources/mainwindow.cpp" line="2875"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;File</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2680"/>
-        <location filename="../sources/mainwindow.cpp" line="2895"/>
+        <location filename="../sources/mainwindow.cpp" line="2896"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Modifica</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2683"/>
-        <location filename="../sources/mainwindow.cpp" line="2908"/>
+        <location filename="../sources/mainwindow.cpp" line="2909"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Visualizza</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2718"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Cerca</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2806"/>
@@ -840,47 +869,37 @@
         <translation type="unfinished">&amp;Proprietà</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2959"/>
-        <source>&amp;Bookmarks</source>
-        <translation type="unfinished">Segnali&amp;bri</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2718"/>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Cerca</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="1720"/>
-        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Visitare &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; per ulteriori informazioni.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 The qpdfview developers&lt;/p&gt; {2012-2015 ?}</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2835"/>
+        <location filename="../sources/mainwindow.cpp" line="2836"/>
         <source>Thumb&amp;nails</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mi_niature</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2847"/>
+        <location filename="../sources/mainwindow.cpp" line="2848"/>
         <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Se&amp;gnalibri</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2920"/>
+        <location filename="../sources/mainwindow.cpp" line="2921"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Barre degli s&amp;trumenti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2923"/>
+        <location filename="../sources/mainwindow.cpp" line="2924"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Elementi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2937"/>
+        <location filename="../sources/mainwindow.cpp" line="2938"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Schede</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2970"/>
+        <location filename="../sources/mainwindow.cpp" line="2960"/>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished">Segnali&amp;bri</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2971"/>
         <source>&amp;Help</source>
         <translation type="unfinished">A&amp;iuto</translation>
     </message>
@@ -971,69 +990,69 @@
 <context>
     <name>qpdfview::PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="943"/>
+        <location filename="../sources/pdfmodel.cpp" line="959"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Antialiasing:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="950"/>
+        <location filename="../sources/pdfmodel.cpp" line="966"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Antialiasing del testo:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="957"/>
-        <location filename="../sources/pdfmodel.cpp" line="987"/>
+        <location filename="../sources/pdfmodel.cpp" line="973"/>
+        <location filename="../sources/pdfmodel.cpp" line="1003"/>
         <source>None</source>
         <translation type="unfinished">Nessuna</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="958"/>
+        <location filename="../sources/pdfmodel.cpp" line="974"/>
         <source>Full</source>
         <translation type="unfinished">Completa</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="959"/>
+        <location filename="../sources/pdfmodel.cpp" line="975"/>
         <source>Reduced</source>
         <translation type="unfinished">Ridotta</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="962"/>
-        <location filename="../sources/pdfmodel.cpp" line="969"/>
+        <location filename="../sources/pdfmodel.cpp" line="978"/>
+        <location filename="../sources/pdfmodel.cpp" line="985"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Approssimazione del testo:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="980"/>
+        <location filename="../sources/pdfmodel.cpp" line="996"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">Anteprima sovrastampa:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="988"/>
+        <location filename="../sources/pdfmodel.cpp" line="1004"/>
         <source>Solid</source>
         <translation type="unfinished">Solida</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="989"/>
+        <location filename="../sources/pdfmodel.cpp" line="1005"/>
         <source>Shaped</source>
         <translation type="unfinished">Sagomata</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="992"/>
+        <location filename="../sources/pdfmodel.cpp" line="1008"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Modalità per le linee sottili:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="997"/>
+        <location filename="../sources/pdfmodel.cpp" line="1013"/>
         <source>Splash</source>
         <translation type="unfinished">Splash</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="998"/>
+        <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>Arthur</source>
         <translation type="unfinished">Arthur</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1001"/>
+        <location filename="../sources/pdfmodel.cpp" line="1017"/>
         <source>Backend:</source>
         <translation type="unfinished">Backend:</translation>
     </message>
@@ -1218,12 +1237,12 @@
     <message>
         <location filename="../sources/searchmodel.cpp" line="148"/>
         <source>&lt;b&gt;%1&lt;/b&gt; occurrences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Corrispondenze &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../sources/searchmodel.cpp" line="182"/>
         <source>&lt;b&gt;%1&lt;/b&gt; occurrences on page &lt;b&gt;%2&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Corrispondenze sulla pagina &lt;b&gt;%2&lt;/b&gt;: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -1231,7 +1250,7 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="175"/>
         <source>Search for &apos;%1&apos;...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ricerca di &quot;%1&quot;...</translation>
     </message>
 </context>
 <context>
@@ -1513,6 +1532,21 @@
         <translation type="unfinished">Distanza di prefetch:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="668"/>
+        <source>Extended search dock:</source>
+        <translation type="unfinished">Elemento di ricerca esteso:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="675"/>
+        <source>Annotation overlay:</source>
+        <translation type="unfinished">Motivo annotazione:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="682"/>
+        <source>Form field overlay:</source>
+        <translation type="unfinished">Motivo campo del form:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="687"/>
         <source>Top</source>
         <translation type="unfinished">In alto</translation>
@@ -1565,7 +1599,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="724"/>
         <source>Exit after last tab:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uscire dopo l&apos;ultima sceda:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="733"/>
@@ -1576,16 +1610,6 @@
         <location filename="../sources/settingsdialog.cpp" line="742"/>
         <source>Recently closed count:</source>
         <translation type="unfinished">Conteggio chiusi di recente:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="668"/>
-        <source>Extended search dock:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="788"/>
-        <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation type="unfinished">Attiva/Disattiva barre dei menù e degli strumenti a schermo intero:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="750"/>
@@ -1605,12 +1629,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="774"/>
         <source>Scrollable menus:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Menù scorrevoli:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="781"/>
         <source>Searchable menus:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ricerca nei menù:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="788"/>
+        <source>Toggle tool and menu bars with fullscreen:</source>
+        <translation type="unfinished">Attiva/Disattiva barre dei menù e degli strumenti a schermo intero:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="795"/>
@@ -1643,16 +1672,6 @@
         <translation type="unfinished">Limitare le miniature nei risultati:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="675"/>
-        <source>Annotation overlay:</source>
-        <translation type="unfinished">Motivo annotazione:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="682"/>
-        <source>Form field overlay:</source>
-        <translation type="unfinished">Motivo campo del form:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="911"/>
         <source>Zoom:</source>
         <translation type="unfinished">Ingrandimento:</translation>
@@ -1680,7 +1699,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="941"/>
         <source>Zoom to selection:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ingrandimento alla sezione:</translation>
     </message>
 </context>
 <context>

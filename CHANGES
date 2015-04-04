@@ -1,3 +1,8 @@
+Release 0.4.15:
+  * Added document properties on PDF version, encryption and linearization.
+  * Updated Polish translations. Thanks to Piotr Strębski.
+  * Updated Italian translations. Thanks to Claudio Arseni.
+
 Release 0.4.14:
   * Fixed keyboard movement not working in annotations and form fields.
   * Fixed display of warning dialog upon restoring tabs.

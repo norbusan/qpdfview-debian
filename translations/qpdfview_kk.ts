@@ -4,39 +4,58 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="863"/>
+        <location filename="../sources/pdfmodel.cpp" line="864"/>
+        <source>Linearized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="879"/>
         <source>Name</source>
         <translation type="unfinished">Аты</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="863"/>
+        <location filename="../sources/pdfmodel.cpp" line="879"/>
         <source>Type</source>
         <translation type="unfinished">Түрі</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="863"/>
+        <location filename="../sources/pdfmodel.cpp" line="879"/>
         <source>Embedded</source>
         <translation type="unfinished">Енгізілген</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="863"/>
+        <location filename="../sources/pdfmodel.cpp" line="879"/>
         <source>Subset</source>
         <translation type="unfinished">Ішкі жиын</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="863"/>
+        <location filename="../sources/pdfmodel.cpp" line="879"/>
         <source>File</source>
         <translation type="unfinished">Файл</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="871"/>
-        <location filename="../sources/pdfmodel.cpp" line="872"/>
+        <location filename="../sources/pdfmodel.cpp" line="861"/>
+        <location filename="../sources/pdfmodel.cpp" line="865"/>
+        <location filename="../sources/pdfmodel.cpp" line="887"/>
+        <location filename="../sources/pdfmodel.cpp" line="888"/>
         <source>Yes</source>
         <translation type="unfinished">Иә</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="871"/>
-        <location filename="../sources/pdfmodel.cpp" line="872"/>
+        <location filename="../sources/pdfmodel.cpp" line="856"/>
+        <source>PDF version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="860"/>
+        <source>Encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="861"/>
+        <location filename="../sources/pdfmodel.cpp" line="865"/>
+        <location filename="../sources/pdfmodel.cpp" line="887"/>
+        <location filename="../sources/pdfmodel.cpp" line="888"/>
         <source>No</source>
         <translation type="unfinished">Жоқ</translation>
     </message>
@@ -813,19 +832,19 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2677"/>
-        <location filename="../sources/mainwindow.cpp" line="2874"/>
+        <location filename="../sources/mainwindow.cpp" line="2875"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Файл</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2680"/>
-        <location filename="../sources/mainwindow.cpp" line="2895"/>
+        <location filename="../sources/mainwindow.cpp" line="2896"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Түзету</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2683"/>
-        <location filename="../sources/mainwindow.cpp" line="2908"/>
+        <location filename="../sources/mainwindow.cpp" line="2909"/>
         <source>&amp;View</source>
         <translation type="unfinished">Тү&amp;рі</translation>
     </message>
@@ -840,7 +859,7 @@
         <translation type="unfinished">Қас&amp;иеттері</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2959"/>
+        <location filename="../sources/mainwindow.cpp" line="2960"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Бетбелгілер</translation>
     </message>
@@ -855,32 +874,32 @@
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Көбірек білу үшін &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; қараңыз.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 qpdfview өндірушілері&lt;/p&gt; {2012-2015 ?}</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2835"/>
+        <location filename="../sources/mainwindow.cpp" line="2836"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2847"/>
+        <location filename="../sources/mainwindow.cpp" line="2848"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2920"/>
+        <location filename="../sources/mainwindow.cpp" line="2921"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">&amp;Саймандар панельдері</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2923"/>
+        <location filename="../sources/mainwindow.cpp" line="2924"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Бекіткіштер</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2937"/>
+        <location filename="../sources/mainwindow.cpp" line="2938"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">Б&amp;еттер</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2970"/>
+        <location filename="../sources/mainwindow.cpp" line="2971"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Көмек</translation>
     </message>
@@ -971,69 +990,69 @@
 <context>
     <name>qpdfview::PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="943"/>
+        <location filename="../sources/pdfmodel.cpp" line="959"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Тегістеу:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="950"/>
+        <location filename="../sources/pdfmodel.cpp" line="966"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Мәтінді тегістеу:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="957"/>
-        <location filename="../sources/pdfmodel.cpp" line="987"/>
+        <location filename="../sources/pdfmodel.cpp" line="973"/>
+        <location filename="../sources/pdfmodel.cpp" line="1003"/>
         <source>None</source>
         <translation type="unfinished">Ешнәрсе</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="958"/>
+        <location filename="../sources/pdfmodel.cpp" line="974"/>
         <source>Full</source>
         <translation type="unfinished">Толық</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="959"/>
+        <location filename="../sources/pdfmodel.cpp" line="975"/>
         <source>Reduced</source>
         <translation type="unfinished">Кішірейтілген</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="962"/>
-        <location filename="../sources/pdfmodel.cpp" line="969"/>
+        <location filename="../sources/pdfmodel.cpp" line="978"/>
+        <location filename="../sources/pdfmodel.cpp" line="985"/>
         <source>Text hinting:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="980"/>
+        <location filename="../sources/pdfmodel.cpp" line="996"/>
         <source>Overprint preview:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="988"/>
+        <location filename="../sources/pdfmodel.cpp" line="1004"/>
         <source>Solid</source>
         <translation type="unfinished">Бүтін</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="989"/>
+        <location filename="../sources/pdfmodel.cpp" line="1005"/>
         <source>Shaped</source>
         <translation type="unfinished">Пішінделген</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="992"/>
+        <location filename="../sources/pdfmodel.cpp" line="1008"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Жұқа сызық режимі:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="997"/>
+        <location filename="../sources/pdfmodel.cpp" line="1013"/>
         <source>Splash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="998"/>
+        <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>Arthur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1001"/>
+        <location filename="../sources/pdfmodel.cpp" line="1017"/>
         <source>Backend:</source>
         <translation type="unfinished"></translation>
     </message>
