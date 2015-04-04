@@ -55,6 +55,11 @@ inline bool isPrintable(const QString& string)
     return true;
 }
 
+inline QModelIndex firstIndex(const QModelIndexList& indexes)
+{
+    return indexes.isEmpty() ? QModelIndex() : indexes.first();
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -440,14 +445,14 @@ void TreeView::keyPressEvent(QKeyEvent* event)
     {
         QScrollBar* scrollBar = verticalScrollBar();
 
-        if(scrollBar->value() > scrollBar->minimum() && event->key() == Qt::Key_Up)
+        if(event->key() == Qt::Key_Up && scrollBar->value() > scrollBar->minimum())
         {
             verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepSub);
 
             event->accept();
             return;
         }
-        else if(scrollBar->value() < scrollBar->maximum() && event->key() == Qt::Key_Down)
+        else if(event->key() == Qt::Key_Down && scrollBar->value() < scrollBar->maximum())
         {
             verticalScrollBar()->triggerAction(QAbstractSlider::SliderSingleStepAdd);
 
@@ -456,18 +461,18 @@ void TreeView::keyPressEvent(QKeyEvent* event)
         }
     }
 
-    const QModelIndexList selection = selectedIndexes();
+    const QModelIndex selection = firstIndex(selectedIndexes());
 
     // If Control is pressed, all children of the selected item are expanded or collapsed.
-    if(!selection.isEmpty() && event->modifiers().testFlag(Qt::ControlModifier) && horizontalKeys)
+    if(event->modifiers().testFlag(Qt::ControlModifier) && horizontalKeys)
     {
         if(event->key() == Qt::Key_Left)
         {
-            collapseAll(selection.first());
+            collapseAll(selection);
         }
         else if(event->key() == Qt::Key_Right)
         {
-            expandAll(selection.first());
+            expandAll(selection);
         }
 
         event->accept();
@@ -475,19 +480,19 @@ void TreeView::keyPressEvent(QKeyEvent* event)
     }
 
     // If Shift is pressed, one level of children of the selected item are expanded or collapsed.
-    if(!selection.isEmpty() && event->modifiers().testFlag(Qt::ShiftModifier) && horizontalKeys)
+    if(event->modifiers().testFlag(Qt::ShiftModifier) && horizontalKeys && selection.isValid())
     {
         if(event->key() == Qt::Key_Left)
         {
-            const int depth = expandedDepth(selection.first());
+            const int depth = expandedDepth(selection);
 
-            collapseFromDepth(selection.first(), depth - 1);
+            collapseFromDepth(selection, depth - 1);
         }
         else if(event->key() == Qt::Key_Right)
         {
-            const int depth = expandedDepth(selection.first());
+            const int depth = expandedDepth(selection);
 
-            expandToDepth(selection.first(), depth + 1);
+            expandToDepth(selection, depth + 1);
         }
 
         event->accept();
@@ -499,18 +504,18 @@ void TreeView::keyPressEvent(QKeyEvent* event)
 
 void TreeView::wheelEvent(QWheelEvent* event)
 {
-    const QModelIndexList selection = selectedIndexes();
+    const QModelIndex selection = firstIndex(selectedIndexes());
 
     // If Control is pressed, expand or collapse the selected entry.
-    if(!selection.isEmpty() && event->modifiers().testFlag(Qt::ControlModifier))
+    if(event->modifiers().testFlag(Qt::ControlModifier) && selection.isValid())
     {
         if(event->delta() > 0)
         {
-            collapse(selection.first());
+            collapse(selection);
         }
         else
         {
-            expand(selection.first());
+            expand(selection);
         }
 
         // Fall through when Shift is also pressed.
@@ -522,17 +527,17 @@ void TreeView::wheelEvent(QWheelEvent* event)
     }
 
     // If Shift is pressed, move the selected entry up and down.
-    if(!selection.isEmpty() && event->modifiers().testFlag(Qt::ShiftModifier))
+    if(event->modifiers().testFlag(Qt::ShiftModifier) && selection.isValid())
     {
         QModelIndex sibling;
 
         if(event->delta() > 0)
         {
-            sibling = indexAbove(selection.first());
+            sibling = indexAbove(selection);
         }
         else
         {
-            sibling = indexBelow(selection.first());
+            sibling = indexBelow(selection);
         }
 
         if(sibling.isValid())
