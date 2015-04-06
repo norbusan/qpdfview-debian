@@ -464,6 +464,8 @@ void TreeView::keyPressEvent(QKeyEvent* event)
     const bool verticalKeys = event->key() == Qt::Key_Up || event->key() == Qt::Key_Down;
     const bool horizontalKeys = event->key() == Qt::Key_Left || event->key() == Qt::Key_Right;
 
+    const QModelIndex selection = firstIndex(selectedIndexes());
+
     // If Shift is pressed, the view is scrolled up or down.
     if(event->modifiers().testFlag(Qt::ShiftModifier) && verticalKeys)
     {
@@ -484,8 +486,6 @@ void TreeView::keyPressEvent(QKeyEvent* event)
             return;
         }
     }
-
-    const QModelIndex selection = firstIndex(selectedIndexes());
 
     // If Control is pressed, all children of the selected item are expanded or collapsed.
     if(event->modifiers().testFlag(Qt::ControlModifier) && horizontalKeys)
