@@ -268,42 +268,42 @@ ShortcutHandler::ShortcutHandler(QObject* parent) : QAbstractTableModel(parent),
 
     m_skipBackwardAction = new QAction(tr("Skip backward"), this);
     m_skipBackwardAction->setObjectName(QLatin1String("skipBackward"));
-    m_skipBackwardAction->setShortcut(QKeySequence(Qt::Key_PageUp));
+    m_skipBackwardAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_PageUp) << QKeySequence(Qt::KeypadModifier + Qt::Key_PageUp));
     registerAction(m_skipBackwardAction);
 
     // skip forward shortcut
 
     m_skipForwardAction = new QAction(tr("Skip forward"), this);
     m_skipForwardAction->setObjectName(QLatin1String("skipForward"));
-    m_skipForwardAction->setShortcut(QKeySequence(Qt::Key_PageDown));
+    m_skipForwardAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_PageDown) << QKeySequence(Qt::KeypadModifier + Qt::Key_PageDown));
     registerAction(m_skipForwardAction);
 
     // move up shortcut
 
     m_moveUpAction = new QAction(tr("Move up"), this);
     m_moveUpAction->setObjectName(QLatin1String("moveUp"));
-    m_moveUpAction->setShortcut(QKeySequence(Qt::Key_Up));
+    m_moveUpAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_Up) << QKeySequence(Qt::KeypadModifier + Qt::Key_Up));
     registerAction(m_moveUpAction);
 
     // move down shortcut
 
     m_moveDownAction = new QAction(tr("Move down"), this);
     m_moveDownAction->setObjectName(QLatin1String("moveDown"));
-    m_moveDownAction->setShortcut(QKeySequence(Qt::Key_Down));
+    m_moveDownAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_Down) << QKeySequence(Qt::KeypadModifier + Qt::Key_Down));
     registerAction(m_moveDownAction);
 
     // move left shortcut
 
     m_moveLeftAction = new QAction(tr("Move left"), this);
     m_moveLeftAction->setObjectName(QLatin1String("moveLeft"));
-    m_moveLeftAction->setShortcut(QKeySequence(Qt::Key_Left));
+    m_moveLeftAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_Left) << QKeySequence(Qt::KeypadModifier + Qt::Key_Left));
     registerAction(m_moveLeftAction);
 
     // move right shortcut
 
     m_moveRightAction = new QAction(tr("Move right"), this);
     m_moveRightAction->setObjectName(QLatin1String("moveRight"));
-    m_moveRightAction->setShortcut(QKeySequence(Qt::Key_Right));
+    m_moveRightAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_Right) << QKeySequence(Qt::KeypadModifier + Qt::Key_Right));
     registerAction(m_moveRightAction);
 }
 
