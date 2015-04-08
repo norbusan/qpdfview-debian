@@ -2508,13 +2508,13 @@ void MainWindow::createWidgets()
     connect(m_highlightAllCheckBox, SIGNAL(clicked(bool)), SLOT(on_highlightAll_clicked(bool)));
 }
 
-QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable, bool checked)
+QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QIcon& icon, const QList< QKeySequence >& shortcuts, const char* member, bool checkable, bool checked)
 {
     QAction* action = new QAction(text, this);
 
     action->setObjectName(objectName);
     action->setIcon(icon);
-    action->setShortcut(shortcut);
+    action->setShortcuts(shortcuts);
 
     if(!objectName.isEmpty())
     {
@@ -2540,9 +2540,19 @@ QAction* MainWindow::createAction(const QString& text, const QString& objectName
     return action;
 }
 
-QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable, bool checked)
+inline QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence shortcut, const char* member, bool checkable, bool checked)
 {
-    return createAction(text, objectName, QIcon::fromTheme(iconName, QIcon(QLatin1String(":icons/") + iconName + QLatin1String(".svg"))), shortcut, member, checkable, checked);
+    return createAction(text, objectName, icon, QList< QKeySequence >() << shortcut, member, checkable, checked);
+}
+
+inline QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QList< QKeySequence >& shortcuts, const char* member, bool checkable, bool checked)
+{
+    return createAction(text, objectName, QIcon::fromTheme(iconName, QIcon(QLatin1String(":icons/") + iconName + QLatin1String(".svg"))), shortcuts, member, checkable, checked);
+}
+
+inline QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable, bool checked)
+{
+    return createAction(text, objectName, iconName, QList< QKeySequence >() << shortcut, member, checkable, checked);
 }
 
 void MainWindow::createActions()
@@ -2563,8 +2573,8 @@ void MainWindow::createActions()
 
     m_previousPageAction = createAction(tr("&Previous page"), QLatin1String("previousPage"), QLatin1String("go-previous"), QKeySequence(Qt::Key_Backspace), SLOT(on_previousPage_triggered()));
     m_nextPageAction = createAction(tr("&Next page"), QLatin1String("nextPage"), QLatin1String("go-next"), QKeySequence(Qt::Key_Space), SLOT(on_nextPage_triggered()));
-    m_firstPageAction = createAction(tr("&First page"), QLatin1String("firstPage"), QLatin1String("go-first"), QKeySequence(Qt::Key_Home), SLOT(on_firstPage_triggered()));
-    m_lastPageAction = createAction(tr("&Last page"), QLatin1String("lastPage"), QLatin1String("go-last"), QKeySequence(Qt::Key_End), SLOT(on_lastPage_triggered()));
+    m_firstPageAction = createAction(tr("&First page"), QLatin1String("firstPage"), QLatin1String("go-first"), QList< QKeySequence >() << QKeySequence(Qt::Key_Home) << QKeySequence(Qt::KeypadModifier + Qt::Key_Home), SLOT(on_firstPage_triggered()));
+    m_lastPageAction = createAction(tr("&Last page"), QLatin1String("lastPage"), QLatin1String("go-last"), QList< QKeySequence >() << QKeySequence(Qt::Key_End) << QKeySequence(Qt::KeypadModifier + Qt::Key_End), SLOT(on_lastPage_triggered()));
 
     m_setFirstPageAction = createAction(tr("&Set first page..."), QString(), QIcon(), QKeySequence(), SLOT(on_setFirstPage_triggered()));
 
