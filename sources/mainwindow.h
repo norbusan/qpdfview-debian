@@ -62,6 +62,7 @@ class RecentlyUsedMenu;
 class RecentlyClosedMenu;
 class BookmarkModel;
 class Database;
+class ShortcutHandler;
 class HelpDialog;
 
 class MainWindow : public QMainWindow
@@ -251,6 +252,7 @@ private:
 
     static Settings* s_settings;
     static Database* s_database;
+    static ShortcutHandler* s_shortcutHandler;
 
     void prepareStyle();
 

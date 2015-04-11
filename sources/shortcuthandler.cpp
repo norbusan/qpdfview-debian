@@ -58,7 +58,7 @@ QStringList toStringList(const QList< QKeySequence >& shortcuts, QKeySequence::S
     return stringList;
 }
 
-bool matches(const QKeySequence& keySequence, const QList< QKeySequence >& shortcuts)
+inline bool matches(const QKeySequence& keySequence, const QList< QKeySequence >& shortcuts)
 {
     foreach(const QKeySequence& shortcut, shortcuts)
     {

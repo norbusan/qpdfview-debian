@@ -64,6 +64,8 @@ Settings* Settings::instance()
     if(s_instance == 0)
     {
         s_instance = new Settings(qApp);
+
+        s_instance->sync();
     }
 
     return s_instance;

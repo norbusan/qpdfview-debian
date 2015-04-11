@@ -204,6 +204,7 @@ public:
 
 Settings* MainWindow::s_settings = 0;
 Database* MainWindow::s_database = 0;
+ShortcutHandler* MainWindow::s_shortcutHandler = 0;
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 {
@@ -212,7 +213,10 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
         s_settings = Settings::instance();
     }
 
-    s_settings->sync();
+    if(s_shortcutHandler == 0)
+    {
+        s_shortcutHandler = ShortcutHandler::instance();
+    }
 
     prepareStyle();
 
@@ -224,14 +228,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
     createDocks();
     createMenus();
 
-    m_toggleToolBarsAction = createAction(tr("Toggle tool bars"), QLatin1String("toggleToolBars"), QIcon(), QKeySequence(Qt::SHIFT + Qt::ALT + Qt::Key_T), SLOT(on_toggleToolBars_triggered(bool)), true, true);
-    m_toggleMenuBarAction = createAction(tr("Toggle menu bar"), QLatin1String("toggleMenuBar"), QIcon(), QKeySequence(Qt::SHIFT + Qt::ALT + Qt::Key_M), SLOT(on_toggleMenuBar_triggered(bool)), true, true);
-
     restoreGeometry(s_settings->mainWindow().geometry());
     restoreState(s_settings->mainWindow().state());
-
-    m_matchCaseCheckBox->setChecked(s_settings->documentView().matchCase());
-    m_wholeWordsCheckBox->setChecked(s_settings->documentView().wholeWords());
 
     prepareDatabase();
 
@@ -2506,6 +2504,9 @@ void MainWindow::createWidgets()
     connect(m_matchCaseCheckBox, SIGNAL(clicked()), m_searchLineEdit, SLOT(startTimer()));
     connect(m_wholeWordsCheckBox, SIGNAL(clicked()), m_searchLineEdit, SLOT(startTimer()));
     connect(m_highlightAllCheckBox, SIGNAL(clicked(bool)), SLOT(on_highlightAll_clicked(bool)));
+
+    m_matchCaseCheckBox->setChecked(s_settings->documentView().matchCase());
+    m_wholeWordsCheckBox->setChecked(s_settings->documentView().wholeWords());
 }
 
 QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QIcon& icon, const QList< QKeySequence >& shortcuts, const char* member, bool checkable, bool checked)
@@ -2518,7 +2519,7 @@ QAction* MainWindow::createAction(const QString& text, const QString& objectName
 
     if(!objectName.isEmpty())
     {
-        ShortcutHandler::instance()->registerAction(action);
+        s_shortcutHandler->registerAction(action);
     }
 
     if(checkable)
@@ -2547,7 +2548,14 @@ inline QAction* MainWindow::createAction(const QString& text, const QString& obj
 
 inline QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QList< QKeySequence >& shortcuts, const char* member, bool checkable, bool checked)
 {
-    return createAction(text, objectName, QIcon::fromTheme(iconName, QIcon(QLatin1String(":icons/") + iconName + QLatin1String(".svg"))), shortcuts, member, checkable, checked);
+    QIcon icon = QIcon::fromTheme(iconName);
+
+    if(icon.isNull())
+    {
+        icon = QIcon(QLatin1String(":icons/") + iconName + QLatin1String(".svg"));
+    }
+
+    return createAction(text, objectName, icon, shortcuts, member, checkable, checked);
 }
 
 inline QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable, bool checked)
@@ -2595,19 +2603,19 @@ void MainWindow::createActions()
 
     // view
 
-    m_continuousModeAction = createAction(tr("&Continuous"), QLatin1String("continuousMode"), QIcon(":icons/continuous.svg"), QKeySequence(Qt::CTRL + Qt::Key_7), SLOT(on_continuousMode_triggered(bool)), true);
-    m_twoPagesModeAction = createAction(tr("&Two pages"), QLatin1String("twoPagesMode"), QIcon(":icons/two-pages.svg"), QKeySequence(Qt::CTRL + Qt::Key_6), SLOT(on_twoPagesMode_triggered(bool)), true);
-    m_twoPagesWithCoverPageModeAction = createAction(tr("Two pages &with cover page"), QLatin1String("twoPagesWithCoverPageMode"), QIcon(":icons/two-pages-with-cover-page.svg"), QKeySequence(Qt::CTRL + Qt::Key_5), SLOT(on_twoPagesWithCoverPageMode_triggered(bool)), true);
-    m_multiplePagesModeAction = createAction(tr("&Multiple pages"), QLatin1String("multiplePagesMode"), QIcon(":icons/multiple-pages.svg"), QKeySequence(Qt::CTRL + Qt::Key_4), SLOT(on_multiplePagesMode_triggered(bool)), true);
+    m_continuousModeAction = createAction(tr("&Continuous"), QLatin1String("continuousMode"), QIcon(QLatin1String(":icons/continuous.svg")), QKeySequence(Qt::CTRL + Qt::Key_7), SLOT(on_continuousMode_triggered(bool)), true);
+    m_twoPagesModeAction = createAction(tr("&Two pages"), QLatin1String("twoPagesMode"), QIcon(QLatin1String(":icons/two-pages.svg")), QKeySequence(Qt::CTRL + Qt::Key_6), SLOT(on_twoPagesMode_triggered(bool)), true);
+    m_twoPagesWithCoverPageModeAction = createAction(tr("Two pages &with cover page"), QLatin1String("twoPagesWithCoverPageMode"), QIcon(QLatin1String(":icons/two-pages-with-cover-page.svg")), QKeySequence(Qt::CTRL + Qt::Key_5), SLOT(on_twoPagesWithCoverPageMode_triggered(bool)), true);
+    m_multiplePagesModeAction = createAction(tr("&Multiple pages"), QLatin1String("multiplePagesMode"), QIcon(QLatin1String(":icons/multiple-pages.svg")), QKeySequence(Qt::CTRL + Qt::Key_4), SLOT(on_multiplePagesMode_triggered(bool)), true);
 
-    m_rightToLeftModeAction = createAction(tr("Right to left"), QLatin1String("rightToLeftMode"), QIcon(":icons/right-to-left.svg"), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R), SLOT(on_rightToLeftMode_triggered(bool)), true);
+    m_rightToLeftModeAction = createAction(tr("Right to left"), QLatin1String("rightToLeftMode"), QIcon(QLatin1String(":icons/right-to-left.svg")), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R), SLOT(on_rightToLeftMode_triggered(bool)), true);
 
     m_zoomInAction = createAction(tr("Zoom &in"), QLatin1String("zoomIn"), QLatin1String("zoom-in"), QKeySequence(Qt::CTRL + Qt::Key_Up), SLOT(on_zoomIn_triggered()));
     m_zoomOutAction = createAction(tr("Zoom &out"), QLatin1String("zoomOut"), QLatin1String("zoom-out"), QKeySequence(Qt::CTRL + Qt::Key_Down), SLOT(on_zoomOut_triggered()));
     m_originalSizeAction = createAction(tr("Original &size"), QLatin1String("originalSize"), QLatin1String("zoom-original"), QKeySequence(Qt::CTRL + Qt::Key_0), SLOT(on_originalSize_triggered()));
 
-    m_fitToPageWidthModeAction = createAction(tr("Fit to page width"), QLatin1String("fitToPageWidthMode"), QIcon(":icons/fit-to-page-width.svg"), QKeySequence(Qt::CTRL + Qt::Key_9), SLOT(on_fitToPageWidthMode_triggered(bool)), true);
-    m_fitToPageSizeModeAction = createAction(tr("Fit to page size"), QLatin1String("fitToPageSizeMode"), QIcon(":icons/fit-to-page-size.svg"), QKeySequence(Qt::CTRL + Qt::Key_8), SLOT(on_fitToPageSizeMode_triggered(bool)), true);
+    m_fitToPageWidthModeAction = createAction(tr("Fit to page width"), QLatin1String("fitToPageWidthMode"), QIcon(QLatin1String(":icons/fit-to-page-width.svg")), QKeySequence(Qt::CTRL + Qt::Key_9), SLOT(on_fitToPageWidthMode_triggered(bool)), true);
+    m_fitToPageSizeModeAction = createAction(tr("Fit to page size"), QLatin1String("fitToPageSizeMode"), QIcon(QLatin1String(":icons/fit-to-page-size.svg")), QKeySequence(Qt::CTRL + Qt::Key_8), SLOT(on_fitToPageSizeMode_triggered(bool)), true);
 
     m_rotateLeftAction = createAction(tr("Rotate &left"), QLatin1String("rotateLeft"), QLatin1String("object-rotate-left"), QKeySequence(Qt::CTRL + Qt::Key_Left), SLOT(on_rotateLeft_triggered()));
     m_rotateRightAction = createAction(tr("Rotate &right"), QLatin1String("rotateRight"), QLatin1String("object-rotate-right"), QKeySequence(Qt::CTRL + Qt::Key_Right), SLOT(on_rotateRight_triggered()));
@@ -2649,6 +2657,11 @@ void MainWindow::createActions()
 
     m_contentsAction = createAction(tr("&Contents"), QLatin1String("contents"), QIcon::fromTheme("help-contents"), QKeySequence::HelpContents, SLOT(on_contents_triggered()));
     m_aboutAction = createAction(tr("&About"), QString(), QIcon::fromTheme("help-about"), QKeySequence(), SLOT(on_about_triggered()));
+
+    // tool bars and menu bar
+
+    m_toggleToolBarsAction = createAction(tr("Toggle tool bars"), QLatin1String("toggleToolBars"), QIcon(), QKeySequence(Qt::SHIFT + Qt::ALT + Qt::Key_T), SLOT(on_toggleToolBars_triggered(bool)), true, true);
+    m_toggleMenuBarAction = createAction(tr("Toggle menu bar"), QLatin1String("toggleMenuBar"), QIcon(), QKeySequence(Qt::SHIFT + Qt::ALT + Qt::Key_M), SLOT(on_toggleMenuBar_triggered(bool)), true, true);
 }
 
 QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions)
@@ -2677,7 +2690,7 @@ QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectNa
     }
 
     toolBar->toggleViewAction()->setObjectName(objectName + QLatin1String("ToggleView"));
-    ShortcutHandler::instance()->registerAction(toolBar->toggleViewAction());
+    s_shortcutHandler->registerAction(toolBar->toggleViewAction());
 
     return toolBar;
 }
@@ -2716,7 +2729,7 @@ QDockWidget* MainWindow::createDock(const QString& text, const QString& objectNa
     dock->toggleViewAction()->setObjectName(objectName + QLatin1String("ToggleView"));
     dock->toggleViewAction()->setShortcut(toggleViewShortcut);
 
-    ShortcutHandler::instance()->registerAction(dock->toggleViewAction());
+    s_shortcutHandler->registerAction(dock->toggleViewAction());
 
     dock->hide();
 
@@ -2784,7 +2797,7 @@ void MainWindow::createSearchDock()
         m_searchDock->toggleViewAction()->setObjectName(QLatin1String("searchDockToggleView"));
         m_searchDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F10));
 
-        ShortcutHandler::instance()->registerAction(m_searchDock->toggleViewAction());
+        s_shortcutHandler->registerAction(m_searchDock->toggleViewAction());
 
         m_searchView = new QTreeView(m_searchWidget);
         m_searchView->setAlternatingRowColors(true);
