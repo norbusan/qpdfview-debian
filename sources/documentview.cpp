@@ -1024,16 +1024,20 @@ void DocumentView::lastPage()
     jumpToPage(m_pages.count());
 }
 
-void DocumentView::jumpToPage(int page, bool trackChange, bool changeLeftAndTop, qreal newLeft, qreal newTop)
+void DocumentView::jumpToPage(int page, bool trackChange, qreal newLeft, qreal newTop)
 {
     if(page >= 1 && page <= m_pages.count())
     {
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        if(!changeLeftAndTop)
+        if(qIsNaN(newLeft))
         {
             newLeft = left;
+        }
+
+        if(qIsNaN(newTop))
+        {
             newTop = top;
         }
 
@@ -1071,7 +1075,7 @@ void DocumentView::jumpBackward()
         m_future.prepend(Position(m_currentPage, left, top));
 
         const Position pos = m_past.takeLast();
-        jumpToPage(pos.page, false, true, pos.left, pos.top);
+        jumpToPage(pos.page, false, pos.left, pos.top);
 
         emit canJumpChanged(!m_past.isEmpty(), !m_future.isEmpty());
     }
@@ -1092,7 +1096,7 @@ void DocumentView::jumpForward()
         m_past.append(Position(m_currentPage, left, top));
 
         const Position pos = m_future.takeFirst();
-        jumpToPage(pos.page, false, true, pos.left, pos.top);
+        jumpToPage(pos.page, false, pos.left, pos.top);
 
         emit canJumpChanged(!m_past.isEmpty(), !m_future.isEmpty());
     }
@@ -1422,22 +1426,13 @@ void DocumentView::on_thumbnails_cropRectChanged()
 
 void DocumentView::on_pages_linkClicked(bool newTab, int page, qreal left, qreal top)
 {
-    page = qMax(page, 1);
-    page = qMin(page, m_pages.count());
-
-    left = left >= 0.0 ? left : 0.0;
-    left = left <= 1.0 ? left : 1.0;
-
-    top = top >= 0.0 ? top : 0.0;
-    top = top <= 1.0 ? top : 1.0;
-
     if(newTab)
     {
         emit linkClicked(page);
     }
     else
     {
-        jumpToPage(page, true, true, left, top);
+        jumpToPage(page, true, left, top);
     }
 }
 
@@ -1536,7 +1531,7 @@ void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rec
 
     setScaleMode(ScaleFactorMode);
 
-    jumpToPage(page, false, true, rect.left(), rect.top());
+    jumpToPage(page, false, rect.left(), rect.top());
 }
 
 void DocumentView::on_pages_wasModified()
