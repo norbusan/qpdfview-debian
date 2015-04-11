@@ -2088,7 +2088,9 @@ void DocumentView::loadFallbackOutline()
         QStandardItem* item = new QStandardItem(tr("Page %1").arg(pageLabelFromNumber(page)));
         item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
-        item->setData(page, Qt::UserRole + 1);
+        item->setData(page, Model::Document::PageRole);
+        item->setData(qQNaN(), Model::Document::LeftRole);
+        item->setData(qQNaN(), Model::Document::TopRole);
 
         QStandardItem* pageItem = item->clone();
         pageItem->setText(QString::number(page));
