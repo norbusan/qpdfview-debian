@@ -1024,14 +1024,20 @@ void DocumentView::lastPage()
     jumpToPage(m_pages.count());
 }
 
-void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qreal changeTop)
+void DocumentView::jumpToPage(int page, bool trackChange, bool changeLeftAndTop, qreal newLeft, qreal newTop)
 {
     if(page >= 1 && page <= m_pages.count())
     {
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        if(m_currentPage != m_layout->currentPage(page) || qAbs(left - changeLeft) > 0.01 || qAbs(top - changeTop) > 0.01)
+        if(!changeLeftAndTop)
+        {
+            newLeft = left;
+            newTop = top;
+        }
+
+        if(m_currentPage != m_layout->currentPage(page) || qAbs(left - newLeft) > 0.01 || qAbs(top - newTop) > 0.01)
         {
             if(trackChange)
             {
@@ -1043,7 +1049,7 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qrea
 
             m_currentPage = m_layout->currentPage(page);
 
-            prepareView(changeLeft, changeTop, page);
+            prepareView(newLeft, newTop, page);
 
             emit currentPageChanged(m_currentPage, trackChange);
         }
@@ -1065,7 +1071,7 @@ void DocumentView::jumpBackward()
         m_future.prepend(Position(m_currentPage, left, top));
 
         const Position pos = m_past.takeLast();
-        jumpToPage(pos.page, false, pos.left, pos.top);
+        jumpToPage(pos.page, false, true, pos.left, pos.top);
 
         emit canJumpChanged(!m_past.isEmpty(), !m_future.isEmpty());
     }
@@ -1086,7 +1092,7 @@ void DocumentView::jumpForward()
         m_past.append(Position(m_currentPage, left, top));
 
         const Position pos = m_future.takeFirst();
-        jumpToPage(pos.page, false, pos.left, pos.top);
+        jumpToPage(pos.page, false, true, pos.left, pos.top);
 
         emit canJumpChanged(!m_past.isEmpty(), !m_future.isEmpty());
     }
@@ -1431,7 +1437,7 @@ void DocumentView::on_pages_linkClicked(bool newTab, int page, qreal left, qreal
     }
     else
     {
-        jumpToPage(page, true, left, top);
+        jumpToPage(page, true, true, left, top);
     }
 }
 
@@ -1530,7 +1536,7 @@ void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rec
 
     setScaleMode(ScaleFactorMode);
 
-    jumpToPage(page, false, rect.left(), rect.top());
+    jumpToPage(page, false, true, rect.left(), rect.top());
 }
 
 void DocumentView::on_pages_wasModified()
@@ -2324,12 +2330,12 @@ void DocumentView::prepareScene()
     scene()->setSceneRect(left, 0.0, right - left, height);
 }
 
-void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePage)
+void DocumentView::prepareView(qreal newLeft, qreal newTop, int visiblePage)
 {
-    qreal left = scene()->sceneRect().left();
-    qreal top = scene()->sceneRect().top();
-    qreal width = scene()->sceneRect().width();
-    qreal height = scene()->sceneRect().height();
+    const QRectF sceneRect = scene()->sceneRect();
+
+    qreal top = sceneRect.top();
+    qreal height = sceneRect.height();
 
     int horizontalValue = 0;
     int verticalValue = 0;
@@ -2367,8 +2373,8 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
 
         if(index == visiblePage - 1)
         {
-            horizontalValue = qFloor(boundingRect.left() + changeLeft * boundingRect.width());
-            verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
+            horizontalValue = qFloor(boundingRect.left() + newLeft * boundingRect.width());
+            verticalValue = qFloor(boundingRect.top() + newTop * boundingRect.height());
         }
 
         if(index == highlightIsOnPage - 1)
@@ -2382,7 +2388,7 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
         m_thumbnailItems.at(index)->setHighlighted(highlightCurrentThumbnail && (index == m_currentPage - 1));
     }
 
-    setSceneRect(left, top, width, height);
+    setSceneRect(sceneRect.left(), top, sceneRect.width(), height);
 
     horizontalScrollBar()->setValue(horizontalValue);
     verticalScrollBar()->setValue(verticalValue);

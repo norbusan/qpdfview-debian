@@ -177,7 +177,7 @@ void Database::restoreTabs(const RestoreTab& restoreTab)
 
                 newTab->setRotation(static_cast< Rotation >(query.value(7).toUInt()));
 
-                newTab->jumpToPage(query.value(1).toInt());
+                newTab->jumpToPage(query.value(1).toInt(), false);
             }
         }
 

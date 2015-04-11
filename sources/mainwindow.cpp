@@ -1854,7 +1854,7 @@ void MainWindow::on_outline_clicked(const QModelIndex& index)
 
     if(ok)
     {
-        currentTab()->jumpToPage(page, true, left, top);
+        currentTab()->jumpToPage(page, true, true, left, top);
     }
 }
 
