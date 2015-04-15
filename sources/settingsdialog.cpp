@@ -257,13 +257,8 @@ void SettingsDialog::createBehaviorTab()
 
     // save database interval
 
-    m_saveDatabaseInterval = new QSpinBox(this);
-    m_saveDatabaseInterval->setSuffix(tr(" min"));
-    m_saveDatabaseInterval->setRange(0, 60);
-    m_saveDatabaseInterval->setSpecialValueText(tr("Never"));
-    m_saveDatabaseInterval->setValue(s_settings->mainWindow().saveDatabaseInterval() / 1000 / 60);
-
-    m_behaviorLayout->addRow(tr("Save database interval:"), m_saveDatabaseInterval);
+    m_saveDatabaseInterval = addSpinBox(m_behaviorLayout, tr("Save database interval:"), tr(" min"), tr("Never"),
+                                        0, 60, 1, s_settings->mainWindow().saveDatabaseInterval() / 1000 / 60);
 
 #ifndef WITH_SQL
 
@@ -281,12 +276,8 @@ void SettingsDialog::createBehaviorTab()
 
     // presentation screen
 
-    m_presentationScreenSpinBox = new QSpinBox(this);
-    m_presentationScreenSpinBox->setRange(-1, QApplication::desktop()->screenCount() - 1);
-    m_presentationScreenSpinBox->setSpecialValueText(tr("Default"));
-    m_presentationScreenSpinBox->setValue(s_settings->presentationView().screen());
-
-    m_behaviorLayout->addRow(tr("Presentation screen:"), m_presentationScreenSpinBox);
+    m_presentationScreenSpinBox = addSpinBox(m_behaviorLayout, tr("Presentation screen:"), QString(), tr("Default"),
+                                             -1, QApplication::desktop()->screenCount() - 1, 1, s_settings->presentationView().screen());
 
     // synchronize outline view
 
@@ -300,23 +291,13 @@ void SettingsDialog::createBehaviorTab()
 
     // zoom factor
 
-    m_zoomFactorSpinBox = new QDoubleSpinBox(this);
-    m_zoomFactorSpinBox->setRange(1.0, 2.0);
-    m_zoomFactorSpinBox->setSingleStep(0.05);
-    m_zoomFactorSpinBox->setValue(s_settings->documentView().zoomFactor());
-
-    m_behaviorLayout->addRow(tr("Zoom factor:"), m_zoomFactorSpinBox);
+    m_zoomFactorSpinBox = addDoubleSpinBox(m_behaviorLayout, tr("Zoom factor:"), QString(),
+                                           1.0, 2.0, 0.05, s_settings->documentView().zoomFactor());
 
     // highlight duration
 
-    m_highlightDurationSpinBox = new QSpinBox(this);
-    m_highlightDurationSpinBox->setSuffix(tr(" ms"));
-    m_highlightDurationSpinBox->setRange(0, 60000);
-    m_highlightDurationSpinBox->setSingleStep(500);
-    m_highlightDurationSpinBox->setSpecialValueText(tr("None"));
-    m_highlightDurationSpinBox->setValue(s_settings->documentView().highlightDuration());
-
-    m_behaviorLayout->addRow(tr("Highlight duration:"), m_highlightDurationSpinBox);
+    m_highlightDurationSpinBox = addSpinBox(m_behaviorLayout, tr("Highlight duration:"), tr(" ms"), tr("None"),
+                                            0, 60000, 500, s_settings->documentView().highlightDuration());
 
     // highlight color
 
@@ -938,12 +919,28 @@ QCheckBox* SettingsDialog::addCheckBox(QFormLayout* layout, const QString& label
     return checkBox;
 }
 
+QSpinBox* SettingsDialog::addSpinBox(QFormLayout* layout, const QString& label, const QString& suffix, const QString& special, int min, int max, int step, int val)
+{
+    QSpinBox* spinBox = new QSpinBox(this);
+    spinBox->setRange(min, max);
+    spinBox->setSingleStep(step);
+    spinBox->setValue(val);
+
+    spinBox->setSuffix(suffix);
+    spinBox->setSpecialValueText(special);
+
+    layout->addRow(label, spinBox);
+
+    return spinBox;
+}
+
 QDoubleSpinBox* SettingsDialog::addDoubleSpinBox(QFormLayout* layout, const QString& label, const QString& suffix, double min, double max, double step, double val)
 {
     QDoubleSpinBox* spinBox = new QDoubleSpinBox(this);
     spinBox->setRange(min, max);
     spinBox->setSingleStep(step);
     spinBox->setValue(val);
+
     spinBox->setSuffix(suffix);
 
     layout->addRow(label, spinBox);
