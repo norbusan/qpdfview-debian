@@ -200,8 +200,8 @@ private:
 
     // helper methods
 
-    void createColorComboBox(QComboBox*& comboBox, const QColor& color);
-    void createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers);
+    QComboBox* addColorComboBox(QFormLayout* layout, const QString& label, const QColor& color);
+    QComboBox* addModifiersComboBox(QFormLayout* layout, const QString& label, const Qt::KeyboardModifiers& modifiers);
 
 };
 

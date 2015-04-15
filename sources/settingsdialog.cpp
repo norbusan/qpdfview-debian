@@ -338,15 +338,13 @@ void SettingsDialog::createBehaviorTab()
 
     // highlight color
 
-    createColorComboBox(m_highlightColorComboBox, s_settings->pageItem().highlightColor());
-
-    m_behaviorLayout->addRow(tr("Highlight color:"), m_highlightColorComboBox);
+    m_highlightColorComboBox = addColorComboBox(m_behaviorLayout, tr("Highlight color:"),
+                                                s_settings->pageItem().highlightColor());
 
     // annotation color
 
-    createColorComboBox(m_annotationColorComboBox, s_settings->pageItem().annotationColor());
-
-    m_behaviorLayout->addRow(tr("Annotation color:"), m_annotationColorComboBox);
+    m_annotationColorComboBox = addColorComboBox(m_behaviorLayout, tr("Annotation color:"),
+                                                 s_settings->pageItem().annotationColor());
 
     // source editor
 
@@ -472,21 +470,18 @@ void SettingsDialog::createGraphicsTab()
 
     // background color
 
-    createColorComboBox(m_backgroundColorComboBox, s_settings->pageItem().backgroundColor());
-
-    m_graphicsLayout->addRow(tr("Background color:"), m_backgroundColorComboBox);
+    m_backgroundColorComboBox = addColorComboBox(m_graphicsLayout, tr("Background color:"),
+                                                 s_settings->pageItem().backgroundColor());
 
     // paper color
 
-    createColorComboBox(m_paperColorComboBox, s_settings->pageItem().paperColor());
-
-    m_graphicsLayout->addRow(tr("Paper color:"), m_paperColorComboBox);
+    m_paperColorComboBox = addColorComboBox(m_graphicsLayout, tr("Paper color:"),
+                                            s_settings->pageItem().paperColor());
 
     // presentation background color
 
-    createColorComboBox(m_presentationBackgroundColorComboBox, s_settings->presentationView().backgroundColor());
-
-    m_graphicsLayout->addRow(tr("Presentation background color:"), m_presentationBackgroundColorComboBox);
+    m_presentationBackgroundColorComboBox = addColorComboBox(m_graphicsLayout, tr("Presentation background color:"),
+                                                             s_settings->presentationView().backgroundColor());
 
     // pages per row
 
@@ -915,39 +910,33 @@ void SettingsDialog::createModifiersTab()
 {
     // zoom modifiers
 
-    createModifiersComboBox(m_zoomModifiersComboBox, s_settings->documentView().zoomModifiers());
-
-    m_modifiersLayout->addRow(tr("Zoom:"), m_zoomModifiersComboBox);
+    m_zoomModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Zoom:"),
+                                                   s_settings->documentView().zoomModifiers());
 
     // rototate modifiers
 
-    createModifiersComboBox(m_rotateModifiersComboBox, s_settings->documentView().rotateModifiers());
-
-    m_modifiersLayout->addRow(tr("Rotate:"), m_rotateModifiersComboBox);
+    m_rotateModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Rotate:"),
+                                                     s_settings->documentView().rotateModifiers());
 
     // scroll modifiers
 
-    createModifiersComboBox(m_scrollModifiersComboBox, s_settings->documentView().scrollModifiers());
-
-    m_modifiersLayout->addRow(tr("Scroll:"), m_scrollModifiersComboBox);
+    m_scrollModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Scroll:"),
+                                                     s_settings->documentView().scrollModifiers());
 
     // copy to clipboard modifiers
 
-    createModifiersComboBox(m_copyToClipboardModifiersComboBox, s_settings->pageItem().copyToClipboardModifiers());
-
-    m_modifiersLayout->addRow(tr("Copy to clipboard:"), m_copyToClipboardModifiersComboBox);
+    m_copyToClipboardModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Copy to clipboard:"),
+                                                              s_settings->pageItem().copyToClipboardModifiers());
 
     // add annotation modifiers
 
-    createModifiersComboBox(m_addAnnotationModifiersComboBox, s_settings->pageItem().addAnnotationModifiers());
-
-    m_modifiersLayout->addRow(tr("Add annotation:"), m_addAnnotationModifiersComboBox);
+    m_addAnnotationModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Add annotation:"),
+                                                            s_settings->pageItem().addAnnotationModifiers());
 
     // zoom to selection modifiers
 
-    createModifiersComboBox(m_zoomToSelectionModifiersComboBox, s_settings->pageItem().zoomToSelectionModifiers());
-
-    m_modifiersLayout->addRow(tr("Zoom to selection:"), m_zoomToSelectionModifiersComboBox);
+    m_zoomToSelectionModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Zoom to selection:"),
+                                                              s_settings->pageItem().zoomToSelectionModifiers());
 }
 
 void SettingsDialog::acceptModifiersTab()
@@ -972,19 +961,23 @@ void SettingsDialog::resetModifiersTab()
     setCurrentIndexFromKeyboardModifiers(m_zoomToSelectionModifiersComboBox, Defaults::PageItem::zoomToSelectionModifiers());
 }
 
-void SettingsDialog::createColorComboBox(QComboBox*& comboBox, const QColor& color)
+QComboBox* SettingsDialog::addColorComboBox(QFormLayout* layout, const QString& label, const QColor& color)
 {
-    comboBox = new QComboBox(this);
+    QComboBox* comboBox = new QComboBox(this);
     comboBox->setEditable(true);
     comboBox->setInsertPolicy(QComboBox::NoInsert);
     comboBox->addItems(QColor::colorNames());
 
+    layout->addRow(label, comboBox);
+
     setCurrentTextToColorName(comboBox, color);
+
+    return comboBox;
 }
 
-void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers)
+QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QString& label, const Qt::KeyboardModifiers& modifiers)
 {
-    comboBox = new QComboBox(this);
+    QComboBox* comboBox = new QComboBox(this);
     comboBox->addItem(QShortcut::tr("Shift"), static_cast< int >(Qt::ShiftModifier));
     comboBox->addItem(QShortcut::tr("Ctrl"), static_cast< int >(Qt::ControlModifier));
     comboBox->addItem(QShortcut::tr("Alt"), static_cast< int >(Qt::AltModifier));
@@ -994,7 +987,11 @@ void SettingsDialog::createModifiersComboBox(QComboBox*& comboBox, const Qt::Key
     comboBox->addItem(QShortcut::tr("Right mouse button"), static_cast< int >(Qt::RightButton));
     comboBox->addItem(QShortcut::tr("Middle mouse button"), static_cast< int >(Qt::MidButton));
 
+    layout->addRow(label, comboBox);
+
     setCurrentIndexFromKeyboardModifiers(comboBox, modifiers);
+
+    return comboBox;
 }
 
 } // qpdfview
