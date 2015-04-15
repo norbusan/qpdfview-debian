@@ -309,6 +309,13 @@ void SettingsDialog::createBehaviorTab()
 
     m_behaviorLayout->addRow(tr("Synchronize outline view:"), m_synchronizeOutlineViewCheckBox);
 
+    // scroll if not visible
+
+    m_scrollIfNotVisibleCheckBox = new QCheckBox(this);
+    m_scrollIfNotVisibleCheckBox->setChecked(s_settings->documentView().scrollIfNotVisible());
+
+    m_behaviorLayout->addRow(tr("Scroll if not visible:"), m_scrollIfNotVisibleCheckBox);
+
     // zoom factor
 
     m_zoomFactorSpinBox = new QDoubleSpinBox(this);
@@ -369,6 +376,7 @@ void SettingsDialog::acceptBehaivorTab()
 
     s_settings->mainWindow().setSynchronizeOutlineView(m_synchronizeOutlineViewCheckBox->isChecked());
 
+    s_settings->documentView().setScrollIfNotVisible(m_scrollIfNotVisibleCheckBox->isChecked());
     s_settings->documentView().setZoomFactor(m_zoomFactorSpinBox->value());
 
     s_settings->documentView().setHighlightDuration(m_highlightDurationSpinBox->value());
@@ -397,6 +405,7 @@ void SettingsDialog::resetBehaviorTab()
 
     m_synchronizeOutlineViewCheckBox->setChecked(Defaults::MainWindow::synchronizeOutlineView());
 
+    m_scrollIfNotVisibleCheckBox->setChecked(Defaults::DocumentView::scrollIfNotVisible());
     m_zoomFactorSpinBox->setValue(Defaults::DocumentView::zoomFactor());
 
     m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
