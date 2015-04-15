@@ -200,6 +200,8 @@ private:
 
     // helper methods
 
+    QCheckBox* addCheckBox(QFormLayout* layout, const QString& label, bool checked);
+    QDoubleSpinBox* addDoubleSpinBox(QFormLayout* layout, const QString& label, const QString& suffix, double min, double max, double step, double val);
     QComboBox* addColorComboBox(QFormLayout* layout, const QString& label, const QColor& color);
     QComboBox* addModifiersComboBox(QFormLayout* layout, const QString& label, const Qt::KeyboardModifiers& modifiers);
 

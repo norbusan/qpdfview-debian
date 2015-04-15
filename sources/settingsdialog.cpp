@@ -218,54 +218,42 @@ void SettingsDialog::createBehaviorTab()
 {
     // open URL
 
-    m_openUrlCheckBox = new QCheckBox(this);
-    m_openUrlCheckBox->setChecked(s_settings->documentView().openUrl());
-
-    m_behaviorLayout->addRow(tr("Open URL:"), m_openUrlCheckBox);
+    m_openUrlCheckBox = addCheckBox(m_behaviorLayout, tr("Open URL:"),
+                                    s_settings->documentView().openUrl());
 
     // auto-refresh
 
-    m_autoRefreshCheckBox = new QCheckBox(this);
-    m_autoRefreshCheckBox->setChecked(s_settings->documentView().autoRefresh());
-
-    m_behaviorLayout->addRow(tr("Auto-refresh:"), m_autoRefreshCheckBox);
+    m_autoRefreshCheckBox = addCheckBox(m_behaviorLayout, tr("Auto-refresh:"),
+                                        s_settings->documentView().autoRefresh());
 
     // track recently used
 
-    m_trackRecentlyUsedCheckBox = new QCheckBox(this);
-    m_trackRecentlyUsedCheckBox->setChecked(s_settings->mainWindow().trackRecentlyUsed());
-    m_trackRecentlyUsedCheckBox->setToolTip(tr("Effective after restart."));
+    m_trackRecentlyUsedCheckBox = addCheckBox(m_behaviorLayout, tr("Track recently used:"),
+                                              s_settings->mainWindow().trackRecentlyUsed());
 
-    m_behaviorLayout->addRow(tr("Track recently used:"), m_trackRecentlyUsedCheckBox);
+    m_trackRecentlyUsedCheckBox->setToolTip(tr("Effective after restart."));
 
     // keep recently closed
 
-    m_keepRecentlyClosedCheckBox = new QCheckBox(this);
-    m_keepRecentlyClosedCheckBox->setChecked(s_settings->mainWindow().keepRecentlyClosed());
-    m_keepRecentlyClosedCheckBox->setToolTip(tr("Effective after restart."));
+    m_keepRecentlyClosedCheckBox = addCheckBox(m_behaviorLayout, tr("Keep recently closed:"),
+                                               s_settings->mainWindow().keepRecentlyClosed());
 
-    m_behaviorLayout->addRow(tr("Keep recently closed:"), m_keepRecentlyClosedCheckBox);
+    m_keepRecentlyClosedCheckBox->setToolTip(tr("Effective after restart."));
 
     // restore tabs
 
-    m_restoreTabsCheckBox = new QCheckBox(this);
-    m_restoreTabsCheckBox->setChecked(s_settings->mainWindow().restoreTabs());
-
-    m_behaviorLayout->addRow(tr("Restore tabs:"), m_restoreTabsCheckBox);
+    m_restoreTabsCheckBox = addCheckBox(m_behaviorLayout, tr("Restore tabs:"),
+                                        s_settings->mainWindow().restoreTabs());
 
     // restore bookmarks
 
-    m_restoreBookmarksCheckBox = new QCheckBox(this);
-    m_restoreBookmarksCheckBox->setChecked(s_settings->mainWindow().restoreBookmarks());
-
-    m_behaviorLayout->addRow(tr("Restore bookmarks:"), m_restoreBookmarksCheckBox);
+    m_restoreBookmarksCheckBox = addCheckBox(m_behaviorLayout, tr("Restore bookmarks:"),
+                                             s_settings->mainWindow().restoreBookmarks());
 
     // restore per-file settings
 
-    m_restorePerFileSettingsCheckBox = new QCheckBox(this);
-    m_restorePerFileSettingsCheckBox->setChecked(s_settings->mainWindow().restorePerFileSettings());
-
-    m_behaviorLayout->addRow(tr("Restore per-file settings:"), m_restorePerFileSettingsCheckBox);
+    m_restorePerFileSettingsCheckBox = addCheckBox(m_behaviorLayout, tr("Restore per-file settings:"),
+                                                   s_settings->mainWindow().restorePerFileSettings());
 
     // save database interval
 
@@ -288,10 +276,8 @@ void SettingsDialog::createBehaviorTab()
 
     // synchronize presentation
 
-    m_synchronizePresentationCheckBox = new QCheckBox(this);
-    m_synchronizePresentationCheckBox->setChecked(s_settings->presentationView().synchronize());
-
-    m_behaviorLayout->addRow(tr("Synchronize presentation:"), m_synchronizePresentationCheckBox);
+    m_synchronizePresentationCheckBox = addCheckBox(m_behaviorLayout, tr("Synchronize presentation:"),
+                                                    s_settings->presentationView().synchronize());
 
     // presentation screen
 
@@ -304,17 +290,13 @@ void SettingsDialog::createBehaviorTab()
 
     // synchronize outline view
 
-    m_synchronizeOutlineViewCheckBox = new QCheckBox(this);
-    m_synchronizeOutlineViewCheckBox->setChecked(s_settings->mainWindow().synchronizeOutlineView());
-
-    m_behaviorLayout->addRow(tr("Synchronize outline view:"), m_synchronizeOutlineViewCheckBox);
+    m_synchronizeOutlineViewCheckBox = addCheckBox(m_behaviorLayout, tr("Synchronize outline view:"),
+                                                   s_settings->mainWindow().synchronizeOutlineView());
 
     // scroll if not visible
 
-    m_scrollIfNotVisibleCheckBox = new QCheckBox(this);
-    m_scrollIfNotVisibleCheckBox->setChecked(s_settings->documentView().scrollIfNotVisible());
-
-    m_behaviorLayout->addRow(tr("Scroll if not visible:"), m_scrollIfNotVisibleCheckBox);
+    m_scrollIfNotVisibleCheckBox = addCheckBox(m_behaviorLayout, tr("Scroll if not visible:"),
+                                               s_settings->documentView().scrollIfNotVisible());
 
     // zoom factor
 
@@ -493,33 +475,18 @@ void SettingsDialog::createGraphicsTab()
 
     // page spacing
 
-    m_pageSpacingSpinBox = new QDoubleSpinBox(this);
-    m_pageSpacingSpinBox->setSuffix(tr(" px"));
-    m_pageSpacingSpinBox->setRange(0.0, 25.0);
-    m_pageSpacingSpinBox->setSingleStep(0.25);
-    m_pageSpacingSpinBox->setValue(s_settings->documentView().pageSpacing());
-
-    m_graphicsLayout->addRow(tr("Page spacing:"), m_pageSpacingSpinBox);
+    m_pageSpacingSpinBox = addDoubleSpinBox(m_graphicsLayout, tr("Page spacing:"), tr(" px"),
+                                            0.0, 25.0, 0.25, s_settings->documentView().pageSpacing());
 
     // thumbnail spacing
 
-    m_thumbnailSpacingSpinBox = new QDoubleSpinBox(this);
-    m_thumbnailSpacingSpinBox->setSuffix(tr(" px"));
-    m_thumbnailSpacingSpinBox->setRange(0.0, 25.0);
-    m_thumbnailSpacingSpinBox->setSingleStep(0.25);
-    m_thumbnailSpacingSpinBox->setValue(s_settings->documentView().thumbnailSpacing());
-
-    m_graphicsLayout->addRow(tr("Thumbnail spacing:"), m_thumbnailSpacingSpinBox);
+    m_thumbnailSpacingSpinBox = addDoubleSpinBox(m_graphicsLayout, tr("Thumbnail spacing:"), tr(" px"),
+                                                 0.0, 25.0, 0.25, s_settings->documentView().thumbnailSpacing());
 
     // thumbnail size
 
-    m_thumbnailSizeSpinBox = new QDoubleSpinBox(this);
-    m_thumbnailSizeSpinBox->setSuffix(tr(" px"));
-    m_thumbnailSizeSpinBox->setRange(30.0, 300.0);
-    m_thumbnailSizeSpinBox->setSingleStep(10.0);
-    m_thumbnailSizeSpinBox->setValue(s_settings->documentView().thumbnailSize());
-
-    m_graphicsLayout->addRow(tr("Thumbnail size:"), m_thumbnailSizeSpinBox);
+    m_thumbnailSizeSpinBox = addDoubleSpinBox(m_graphicsLayout, tr("Thumbnail size:"), tr(" px"),
+                                              30.0, 300.0, 10.0, s_settings->documentView().thumbnailSize());
 
     // cache size
 
@@ -961,6 +928,29 @@ void SettingsDialog::resetModifiersTab()
     setCurrentIndexFromKeyboardModifiers(m_zoomToSelectionModifiersComboBox, Defaults::PageItem::zoomToSelectionModifiers());
 }
 
+QCheckBox* SettingsDialog::addCheckBox(QFormLayout* layout, const QString& label, bool checked)
+{
+    QCheckBox* checkBox = new QCheckBox(this);
+    checkBox->setChecked(checked);
+
+    layout->addRow(label, checkBox);
+
+    return checkBox;
+}
+
+QDoubleSpinBox* SettingsDialog::addDoubleSpinBox(QFormLayout* layout, const QString& label, const QString& suffix, double min, double max, double step, double val)
+{
+    QDoubleSpinBox* spinBox = new QDoubleSpinBox(this);
+    spinBox->setRange(min, max);
+    spinBox->setSingleStep(step);
+    spinBox->setValue(val);
+    spinBox->setSuffix(suffix);
+
+    layout->addRow(label, spinBox);
+
+    return spinBox;
+}
+
 QComboBox* SettingsDialog::addColorComboBox(QFormLayout* layout, const QString& label, const QColor& color)
 {
     QComboBox* comboBox = new QComboBox(this);
@@ -968,9 +958,9 @@ QComboBox* SettingsDialog::addColorComboBox(QFormLayout* layout, const QString& 
     comboBox->setInsertPolicy(QComboBox::NoInsert);
     comboBox->addItems(QColor::colorNames());
 
-    layout->addRow(label, comboBox);
-
     setCurrentTextToColorName(comboBox, color);
+
+    layout->addRow(label, comboBox);
 
     return comboBox;
 }
@@ -987,9 +977,9 @@ QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QStri
     comboBox->addItem(QShortcut::tr("Right mouse button"), static_cast< int >(Qt::RightButton));
     comboBox->addItem(QShortcut::tr("Middle mouse button"), static_cast< int >(Qt::MidButton));
 
-    layout->addRow(label, comboBox);
-
     setCurrentIndexFromKeyboardModifiers(comboBox, modifiers);
+
+    layout->addRow(label, comboBox);
 
     return comboBox;
 }
