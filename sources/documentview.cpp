@@ -224,6 +224,14 @@ inline QRectF rectOfResult(const QModelIndex& index)
     return index.data(SearchModel::RectRole).toRectF();
 }
 
+inline void setValueIfNotVisible(QScrollBar* scrollBar, int value)
+{
+    if(value < scrollBar->value() || value > scrollBar->value() + scrollBar->pageStep())
+    {
+        scrollBar->setValue(value);
+    }
+}
+
 void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, const QModelIndex& index, QString path)
 {
     path += index.data(Qt::DisplayRole).toString();
@@ -2387,8 +2395,16 @@ void DocumentView::prepareView(qreal newLeft, qreal newTop, int visiblePage)
 
     setSceneRect(sceneRect.left(), top, sceneRect.width(), height);
 
-    horizontalScrollBar()->setValue(horizontalValue);
-    verticalScrollBar()->setValue(verticalValue);
+    if(s_settings->documentView().scrollIfNotVisible())
+    {
+        setValueIfNotVisible(horizontalScrollBar(), horizontalValue);
+        setValueIfNotVisible(verticalScrollBar(), verticalValue);
+    }
+    else
+    {
+        horizontalScrollBar()->setValue(horizontalValue);
+        verticalScrollBar()->setValue(verticalValue);
+    }
 
     viewport()->update();
 }
