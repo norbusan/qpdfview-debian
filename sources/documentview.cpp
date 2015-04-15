@@ -2039,7 +2039,7 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
 void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 {
     const PageItem* page = m_pageItems.at(m_currentPage - 1);
-    const QRectF boundingRect = page->boundingRect().translated(page->pos());
+    const QRectF boundingRect = page->uncroppedBoundingRect().translated(page->pos());
 
     const QPointF topLeft = mapToScene(viewport()->rect().topLeft());
 
@@ -2353,7 +2353,6 @@ void DocumentView::prepareView(qreal newLeft, qreal newTop, int visiblePage)
     for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
-        const QRectF boundingRect = page->boundingRect().translated(page->pos());
 
         if(m_continuousMode)
         {
@@ -2364,6 +2363,8 @@ void DocumentView::prepareView(qreal newLeft, qreal newTop, int visiblePage)
             if(m_layout->leftIndex(index) == m_currentPage - 1)
             {
                 page->setVisible(true);
+
+                const QRectF boundingRect = page->boundingRect().translated(page->pos());
 
                 top = boundingRect.top() - s_settings->documentView().pageSpacing();
                 height = boundingRect.height() + 2.0 * s_settings->documentView().pageSpacing();
@@ -2378,6 +2379,8 @@ void DocumentView::prepareView(qreal newLeft, qreal newTop, int visiblePage)
 
         if(index == visiblePage - 1)
         {
+            const QRectF boundingRect = page->uncroppedBoundingRect().translated(page->pos());
+
             horizontalValue = qFloor(boundingRect.left() + newLeft * boundingRect.width());
             verticalValue = qFloor(boundingRect.top() + newTop * boundingRect.height());
         }

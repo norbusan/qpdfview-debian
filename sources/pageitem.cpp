@@ -1237,7 +1237,7 @@ inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) co
 
         painter->setClipping(false);
 
-        painter->drawRect(s_settings->pageItem().trimMargins() ? PageItem::boundingRect() : m_boundingRect);
+        painter->drawRect(s_settings->pageItem().trimMargins() ? PageItem::boundingRect() : PageItem::uncroppedBoundingRect());
 
         painter->restore();
     }

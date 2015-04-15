@@ -63,6 +63,8 @@ public:
     PageItem(Model::Page* page, int index, PaintMode paintMode = DefaultMode, QGraphicsItem* parent = 0);
     ~PageItem();
 
+    const QRectF& uncroppedBoundingRect() const { return m_boundingRect; }
+
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
 
