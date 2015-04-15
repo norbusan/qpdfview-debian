@@ -320,7 +320,7 @@ private:
     void prepareBackground();
 
     void prepareScene();
-    void prepareView(qreal newLeft = 0.0, qreal newTop = 0.0, int visiblePage = 0);
+    void prepareView(qreal newLeft = 0.0, qreal newTop = 0.0, bool forceScroll = true, int scrollToPage = 0);
 
     void prepareThumbnailsScene();
 

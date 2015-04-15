@@ -1061,7 +1061,7 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal newLeft, qreal n
 
             m_currentPage = m_layout->currentPage(page);
 
-            prepareView(newLeft, newTop, page);
+            prepareView(newLeft, newTop, false, page);
 
             emit currentPageChanged(m_currentPage, trackChange);
         }
@@ -2335,7 +2335,7 @@ void DocumentView::prepareScene()
     scene()->setSceneRect(left, 0.0, right - left, height);
 }
 
-void DocumentView::prepareView(qreal newLeft, qreal newTop, int visiblePage)
+void DocumentView::prepareView(qreal newLeft, qreal newTop, bool forceScroll, int scrollToPage)
 {
     const QRectF sceneRect = scene()->sceneRect();
 
@@ -2345,7 +2345,7 @@ void DocumentView::prepareView(qreal newLeft, qreal newTop, int visiblePage)
     int horizontalValue = 0;
     int verticalValue = 0;
 
-    visiblePage = visiblePage == 0 ? m_currentPage : visiblePage;
+    scrollToPage = scrollToPage != 0 ? scrollToPage : m_currentPage;
 
     const int highlightIsOnPage = m_currentResult.isValid() ? pageOfResult(m_currentResult) : 0;
     const bool highlightCurrentThumbnail = s_settings->documentView().highlightCurrentThumbnail();
@@ -2377,7 +2377,7 @@ void DocumentView::prepareView(qreal newLeft, qreal newTop, int visiblePage)
             }
         }
 
-        if(index == visiblePage - 1)
+        if(index == scrollToPage - 1)
         {
             const QRectF boundingRect = page->uncroppedBoundingRect().translated(page->pos());
 
@@ -2398,7 +2398,7 @@ void DocumentView::prepareView(qreal newLeft, qreal newTop, int visiblePage)
 
     setSceneRect(sceneRect.left(), top, sceneRect.width(), height);
 
-    if(s_settings->documentView().scrollIfNotVisible())
+    if(!forceScroll && s_settings->documentView().scrollIfNotVisible())
     {
         setValueIfNotVisible(horizontalScrollBar(), horizontalValue);
         setValueIfNotVisible(verticalScrollBar(), verticalValue);
