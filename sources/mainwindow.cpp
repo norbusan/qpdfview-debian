@@ -2548,14 +2548,7 @@ inline QAction* MainWindow::createAction(const QString& text, const QString& obj
 
 inline QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QList< QKeySequence >& shortcuts, const char* member, bool checkable, bool checked)
 {
-    QIcon icon = QIcon::fromTheme(iconName);
-
-    if(icon.isNull())
-    {
-        icon = QIcon(QLatin1String(":icons/") + iconName + QLatin1String(".svg"));
-    }
-
-    return createAction(text, objectName, icon, shortcuts, member, checkable, checked);
+    return createAction(text, objectName, loadIconWithFallback(iconName), shortcuts, member, checkable, checked);
 }
 
 inline QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable, bool checked)
@@ -2662,6 +2655,11 @@ void MainWindow::createActions()
 
     m_toggleToolBarsAction = createAction(tr("Toggle tool bars"), QLatin1String("toggleToolBars"), QIcon(), QKeySequence(Qt::SHIFT + Qt::ALT + Qt::Key_T), SLOT(on_toggleToolBars_triggered(bool)), true, true);
     m_toggleMenuBarAction = createAction(tr("Toggle menu bar"), QLatin1String("toggleMenuBar"), QIcon(), QKeySequence(Qt::SHIFT + Qt::ALT + Qt::Key_M), SLOT(on_toggleMenuBar_triggered(bool)), true, true);
+
+    // progress and error icons
+
+    s_settings->pageItem().setProgressIcon(loadIconWithFallback(QLatin1String("image-loading")));
+    s_settings->pageItem().setErrorIcon(loadIconWithFallback(QLatin1String("image-missing")));
 }
 
 QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions)

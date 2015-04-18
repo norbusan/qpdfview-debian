@@ -329,6 +329,20 @@ private:
 
 };
 
+// fallback icons
+
+inline QIcon loadIconWithFallback(const QString& name)
+{
+    QIcon icon = QIcon::fromTheme(name);
+
+    if(icon.isNull())
+    {
+        icon = QIcon(QLatin1String(":icons/") + name + QLatin1String(".svg"));
+    }
+
+    return icon;
+}
+
 } // qpdfview
 
 #endif // MISCELLANEOUS_H

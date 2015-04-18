@@ -61,7 +61,10 @@ public:
         int tileSize() const { return m_tileSize; }
 
         const QIcon& progressIcon() const { return m_progressIcon; }
+        void setProgressIcon(const QIcon& progressIcon) { m_progressIcon = progressIcon; }
+
         const QIcon& errorIcon() const { return m_errorIcon; }
+        void setErrorIcon(const QIcon& errorIcon) { m_errorIcon = errorIcon; }
 
         bool keepObsoletePixmaps() const { return m_keepObsoletePixmaps; }
         void setKeepObsoletePixmaps(bool keepObsoletePixmaps);

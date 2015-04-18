@@ -85,9 +85,6 @@ void Settings::PageItem::sync()
     m_useTiling = m_settings->value("pageItem/useTiling", Defaults::PageItem::useTiling()).toBool();
     m_tileSize = m_settings->value("pageItem/tileSize", Defaults::PageItem::tileSize()).toInt();
 
-    m_progressIcon = QIcon::fromTheme("image-loading", QIcon(":/icons/image-loading.svg"));
-    m_errorIcon = QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg"));
-
     m_keepObsoletePixmaps = m_settings->value("pageItem/keepObsoletePixmaps", Defaults::PageItem::keepObsoletePixmaps()).toBool();
     m_useDevicePixelRatio = m_settings->value("pageItem/useDevicePixelRatio", Defaults::PageItem::useDevicePixelRatio()).toBool();
 
