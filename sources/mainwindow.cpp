@@ -3135,6 +3135,13 @@ void MainWindowAdaptor::fitToPageSizeModeAction(bool checked)
     mainWindow()->on_fitToPageSizeMode_triggered(checked);
 }
 
+void MainWindowAdaptor::convertToGrayscaleAction(bool checked)
+{
+    ONLY_IF_CURRENT_TAB
+
+    mainWindow()->on_convertToGrayscale_triggered(checked);
+}
+
 void MainWindowAdaptor::invertColorsAction(bool checked)
 {
     ONLY_IF_CURRENT_TAB

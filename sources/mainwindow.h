@@ -482,6 +482,7 @@ public slots:
     Q_NOREPLY void fitToPageWidthModeAction(bool checked);
     Q_NOREPLY void fitToPageSizeModeAction(bool checked);
 
+    Q_NOREPLY void convertToGrayscaleAction(bool checked);
     Q_NOREPLY void invertColorsAction(bool checked);
 
     Q_NOREPLY void fullscreenAction(bool checked);
