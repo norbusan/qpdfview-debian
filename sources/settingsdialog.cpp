@@ -380,56 +380,42 @@ void SettingsDialog::createGraphicsTab()
 {
     // use tiling
 
-    m_useTilingCheckBox = new QCheckBox(this);
-    m_useTilingCheckBox->setChecked(s_settings->pageItem().useTiling());
-
-    m_graphicsLayout->addRow(tr("Use tiling:"), m_useTilingCheckBox);
+    m_useTilingCheckBox = addCheckBox(m_graphicsLayout, tr("Use tiling:"),
+                                      s_settings->pageItem().useTiling());
 
     // keep obsolete pixmaps
 
-    m_keepObsoletePixmapsCheckBox = new QCheckBox(this);
-    m_keepObsoletePixmapsCheckBox->setChecked(s_settings->pageItem().keepObsoletePixmaps());
-
-    m_graphicsLayout->addRow(tr("Keep obsolete pixmaps:"), m_keepObsoletePixmapsCheckBox);
+    m_keepObsoletePixmapsCheckBox = addCheckBox(m_graphicsLayout, tr("Keep obsolete pixmaps:"),
+                                                s_settings->pageItem().keepObsoletePixmaps());
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
     // use device pixel ratio
 
-    m_useDevicePixelRatioCheckBox = new QCheckBox(this);
-    m_useDevicePixelRatioCheckBox->setChecked(s_settings->pageItem().useDevicePixelRatio());
-
-    m_graphicsLayout->addRow(tr("Use device pixel ratio:"), m_useDevicePixelRatioCheckBox);
+    m_useDevicePixelRatioCheckBox = addCheckBox(m_graphicsLayout, tr("Use device pixel ratio:"),
+                                                s_settings->pageItem().useDevicePixelRatio());
 
 #endif // QT_VERSION
 
     // trim margins
 
-    m_trimMarginsCheckBox = new QCheckBox(this);
-    m_trimMarginsCheckBox->setChecked(s_settings->pageItem().trimMargins());
-
-    m_graphicsLayout->addRow(tr("Trim margins:"), m_trimMarginsCheckBox);
+    m_trimMarginsCheckBox = addCheckBox(m_graphicsLayout, tr("Trim margins:"),
+                                        s_settings->pageItem().trimMargins());
 
     // decorate pages
 
-    m_decoratePagesCheckBox = new QCheckBox(this);
-    m_decoratePagesCheckBox->setChecked(s_settings->pageItem().decoratePages());
-
-    m_graphicsLayout->addRow(tr("Decorate pages:"), m_decoratePagesCheckBox);
+    m_decoratePagesCheckBox = addCheckBox(m_graphicsLayout, tr("Decorate pages:"),
+                                          s_settings->pageItem().decoratePages());
 
     // decorate links
 
-    m_decorateLinksCheckBox = new QCheckBox(this);
-    m_decorateLinksCheckBox->setChecked(s_settings->pageItem().decorateLinks());
-
-    m_graphicsLayout->addRow(tr("Decorate links:"), m_decorateLinksCheckBox);
+    m_decorateLinksCheckBox = addCheckBox(m_graphicsLayout, tr("Decorate links:"),
+                                          s_settings->pageItem().decorateLinks());
 
     // decorate form fields
 
-    m_decorateFormFieldsCheckBox = new QCheckBox(this);
-    m_decorateFormFieldsCheckBox->setChecked(s_settings->pageItem().decorateFormFields());
-
-    m_graphicsLayout->addRow(tr("Decorate form fields:"), m_decorateFormFieldsCheckBox);
+    m_decorateFormFieldsCheckBox = addCheckBox(m_graphicsLayout, tr("Decorate form fields:"),
+                                               s_settings->pageItem().decorateFormFields());
 
     // background color
 
@@ -448,11 +434,8 @@ void SettingsDialog::createGraphicsTab()
 
     // pages per row
 
-    m_pagesPerRowSpinBox = new QSpinBox(this);
-    m_pagesPerRowSpinBox->setRange(1, 10);
-    m_pagesPerRowSpinBox->setValue(s_settings->documentView().pagesPerRow());
-
-    m_graphicsLayout->addRow(tr("Pages per row:"), m_pagesPerRowSpinBox);
+    m_pagesPerRowSpinBox = addSpinBox(m_graphicsLayout, tr("Pages per row:"), QString(), QString(),
+                                      1, 10, 1, s_settings->documentView().pagesPerRow());
 
     // page spacing
 
@@ -499,18 +482,13 @@ void SettingsDialog::createGraphicsTab()
 
     // prefetch
 
-    m_prefetchCheckBox = new QCheckBox(this);
-    m_prefetchCheckBox->setChecked(s_settings->documentView().prefetch());
-
-    m_graphicsLayout->addRow(tr("Prefetch:"), m_prefetchCheckBox);
+    m_prefetchCheckBox = addCheckBox(m_graphicsLayout, tr("Prefetch:"),
+                                     s_settings->documentView().prefetch());
 
     // prefetch distance
 
-    m_prefetchDistanceSpinBox = new QSpinBox(this);
-    m_prefetchDistanceSpinBox->setRange(1, 10);
-    m_prefetchDistanceSpinBox->setValue(s_settings->documentView().prefetchDistance());
-
-    m_graphicsLayout->addRow(tr("Prefetch distance:"), m_prefetchDistanceSpinBox);
+    m_prefetchDistanceSpinBox = addSpinBox(m_graphicsLayout, tr("Prefetch distance:"), QString(), QString(),
+                                           1, 10, 1, s_settings->documentView().prefetchDistance());
 }
 
 void SettingsDialog::acceptGraphicsTab()
@@ -613,25 +591,20 @@ void SettingsDialog::createInterfaceTab()
 {
     // extended search dock
 
-    m_extendedSearchDock = new QCheckBox(this);
-    m_extendedSearchDock->setChecked(s_settings->mainWindow().extendedSearchDock());
-    m_extendedSearchDock->setToolTip(tr("Effective after restart."));
+    m_extendedSearchDock = addCheckBox(m_interfaceLayout, tr("Extended search dock:"),
+                                       s_settings->mainWindow().extendedSearchDock());
 
-    m_interfaceLayout->addRow(tr("Extended search dock:"), m_extendedSearchDock);
+    m_extendedSearchDock->setToolTip(tr("Effective after restart."));
 
     // annotation overlay
 
-    m_annotationOverlayCheckBox = new QCheckBox(this);
-    m_annotationOverlayCheckBox->setChecked(s_settings->pageItem().annotationOverlay());
-
-    m_interfaceLayout->addRow(tr("Annotation overlay:"), m_annotationOverlayCheckBox);
+    m_annotationOverlayCheckBox = addCheckBox(m_interfaceLayout, tr("Annotation overlay:"),
+                                              s_settings->pageItem().annotationOverlay());
 
     // form field overlay
 
-    m_formFieldOverlayCheckBox = new QCheckBox(this);
-    m_formFieldOverlayCheckBox->setChecked(s_settings->pageItem().formFieldOverlay());
-
-    m_interfaceLayout->addRow(tr("Form field overlay:"), m_formFieldOverlayCheckBox);
+    m_formFieldOverlayCheckBox = addCheckBox(m_interfaceLayout, tr("Form field overlay:"),
+                                             s_settings->pageItem().formFieldOverlay());
 
     // tab position
 
@@ -656,42 +629,32 @@ void SettingsDialog::createInterfaceTab()
 
     // spread tabs
 
-    m_spreadTabsCheckBox = new QCheckBox(this);
-    m_spreadTabsCheckBox->setChecked(s_settings->mainWindow().spreadTabs());
-
-    m_interfaceLayout->addRow(tr("Spread tabs:"), m_spreadTabsCheckBox);
+    m_spreadTabsCheckBox = addCheckBox(m_interfaceLayout, tr("Spread tabs:"),
+                                       s_settings->mainWindow().spreadTabs());
 
     // new tab next to current tab
 
-    m_newTabNextToCurrentTabCheckBox = new QCheckBox(this);
-    m_newTabNextToCurrentTabCheckBox->setChecked(s_settings->mainWindow().newTabNextToCurrentTab());
-
-    m_interfaceLayout->addRow(tr("New tab next to current tab:"), m_newTabNextToCurrentTabCheckBox);
+    m_newTabNextToCurrentTabCheckBox = addCheckBox(m_interfaceLayout, tr("New tab next to current tab:"),
+                                                   s_settings->mainWindow().newTabNextToCurrentTab());
 
     // exit after last tab
 
-    m_exitAfterLastTabCheckBox = new QCheckBox(this);
-    m_exitAfterLastTabCheckBox->setChecked(s_settings->mainWindow().exitAfterLastTab());
-
-    m_interfaceLayout->addRow(tr("Exit after last tab:"), m_exitAfterLastTabCheckBox);
+    m_exitAfterLastTabCheckBox = addCheckBox(m_interfaceLayout, tr("Exit after last tab:"),
+                                             s_settings->mainWindow().exitAfterLastTab());
 
     // recently used count
 
-    m_recentlyUsedCountSpinBox = new QSpinBox(this);
-    m_recentlyUsedCountSpinBox->setRange(1, 50);
-    m_recentlyUsedCountSpinBox->setValue(s_settings->mainWindow().recentlyUsedCount());
-    m_recentlyUsedCountSpinBox->setToolTip(tr("Effective after restart."));
+    m_recentlyUsedCountSpinBox = addSpinBox(m_interfaceLayout, tr("Recently used count:"), QString(), QString(),
+                                            1, 50, 1, s_settings->mainWindow().recentlyUsedCount());
 
-    m_interfaceLayout->addRow(tr("Recently used count:"), m_recentlyUsedCountSpinBox);
+    m_recentlyUsedCountSpinBox->setToolTip(tr("Effective after restart."));
 
     // recently closed count
 
-    m_recentlyClosedCountSpinBox = new QSpinBox(this);
-    m_recentlyClosedCountSpinBox->setRange(1, 25);
-    m_recentlyClosedCountSpinBox->setValue(s_settings->mainWindow().recentlyClosedCount());
-    m_recentlyClosedCountSpinBox->setToolTip(tr("Effective after restart."));
+    m_recentlyClosedCountSpinBox = addSpinBox(m_interfaceLayout, tr("Recently closed count:"), QString(), QString(),
+                                              1, 25, 1, s_settings->mainWindow().recentlyClosedCount());
 
-    m_interfaceLayout->addRow(tr("Recently closed count:"), m_recentlyClosedCountSpinBox);
+    m_recentlyClosedCountSpinBox->setToolTip(tr("Effective after restart."));
 
     // file tool bar
 
@@ -719,67 +682,50 @@ void SettingsDialog::createInterfaceTab()
 
     // scrollable menus
 
-    m_scrollableMenusCheckBox = new QCheckBox(this);
-    m_scrollableMenusCheckBox->setChecked(s_settings->mainWindow().scrollableMenus());
-    m_scrollableMenusCheckBox->setToolTip(tr("Effective after restart."));
+    m_scrollableMenusCheckBox = addCheckBox(m_interfaceLayout, tr("Scrollable menus:"),
+                                            s_settings->mainWindow().scrollableMenus());
 
-    m_interfaceLayout->addRow(tr("Scrollable menus:"), m_scrollableMenusCheckBox);
+    m_scrollableMenusCheckBox->setToolTip(tr("Effective after restart."));
 
     // searchable menus
 
-    m_searchableMenusCheckBox = new QCheckBox(this);
-    m_searchableMenusCheckBox->setChecked(s_settings->mainWindow().searchableMenus());
-
-    m_interfaceLayout->addRow(tr("Searchable menus:"), m_searchableMenusCheckBox);
+    m_searchableMenusCheckBox = addCheckBox(m_interfaceLayout, tr("Searchable menus:"),
+                                            s_settings->mainWindow().searchableMenus());
 
     // toggle tool and menu bars with fullscreen
 
-    m_toggleToolAndMenuBarsWithFullscreenCheckBox = new QCheckBox(this);
-    m_toggleToolAndMenuBarsWithFullscreenCheckBox->setChecked(s_settings->mainWindow().toggleToolAndMenuBarsWithFullscreen());
-
-    m_interfaceLayout->addRow(tr("Toggle tool and menu bars with fullscreen:"), m_toggleToolAndMenuBarsWithFullscreenCheckBox);
+    m_toggleToolAndMenuBarsWithFullscreenCheckBox = addCheckBox(m_interfaceLayout, tr("Toggle tool and menu bars with fullscreen:"),
+                                                                s_settings->mainWindow().toggleToolAndMenuBarsWithFullscreen());
 
     // use page label
 
-    m_usePageLabelCheckBox = new QCheckBox(this);
-    m_usePageLabelCheckBox->setChecked(s_settings->mainWindow().usePageLabel());
-
-    m_interfaceLayout->addRow(tr("Use page label:"), m_usePageLabelCheckBox);
+    m_usePageLabelCheckBox = addCheckBox(m_interfaceLayout, tr("Use page label:"),
+                                         s_settings->mainWindow().usePageLabel());
 
     // document title as tab title
 
-    m_documentTitleAsTabTitleCheckBox = new QCheckBox(this);
-    m_documentTitleAsTabTitleCheckBox->setChecked(s_settings->mainWindow().documentTitleAsTabTitle());
-
-    m_interfaceLayout->addRow(tr("Document title as tab title:"), m_documentTitleAsTabTitleCheckBox);
+    m_documentTitleAsTabTitleCheckBox = addCheckBox(m_interfaceLayout, tr("Document title as tab title:"),
+                                                    s_settings->mainWindow().documentTitleAsTabTitle());
 
     // current page in window title
 
-    m_currentPageInWindowTitleCheckBox = new QCheckBox(this);
-    m_currentPageInWindowTitleCheckBox->setChecked(s_settings->mainWindow().currentPageInWindowTitle());
-
-    m_interfaceLayout->addRow(tr("Current page in window title:"), m_currentPageInWindowTitleCheckBox);
+    m_currentPageInWindowTitleCheckBox = addCheckBox(m_interfaceLayout, tr("Current page in window title:"),
+                                                     s_settings->mainWindow().currentPageInWindowTitle());
 
     // instance name in window title
 
-    m_instanceNameInWindowTitleCheckBox = new QCheckBox(this);
-    m_instanceNameInWindowTitleCheckBox->setChecked(s_settings->mainWindow().instanceNameInWindowTitle());
-
-    m_interfaceLayout->addRow(tr("Instance name in window title:"), m_instanceNameInWindowTitleCheckBox);
+    m_instanceNameInWindowTitleCheckBox = addCheckBox(m_interfaceLayout, tr("Instance name in window title:"),
+                                                      s_settings->mainWindow().instanceNameInWindowTitle());
 
     // highlight current thumbnail
 
-    m_highlightCurrentThumbnailCheckBox = new QCheckBox(this);
-    m_highlightCurrentThumbnailCheckBox->setChecked(s_settings->documentView().highlightCurrentThumbnail());
-
-    m_interfaceLayout->addRow(tr("Highlight current thumbnail:"), m_highlightCurrentThumbnailCheckBox);
+    m_highlightCurrentThumbnailCheckBox = addCheckBox(m_interfaceLayout, tr("Highlight current thumbnail:"),
+                                                      s_settings->documentView().highlightCurrentThumbnail());
 
     // limit thumbnails to results
 
-    m_limitThumbnailsToResultsCheckBox = new QCheckBox(this);
-    m_limitThumbnailsToResultsCheckBox->setChecked(s_settings->documentView().limitThumbnailsToResults());
-
-    m_interfaceLayout->addRow(tr("Limit thumbnails to results:"), m_limitThumbnailsToResultsCheckBox);
+    m_limitThumbnailsToResultsCheckBox = addCheckBox(m_interfaceLayout, tr("Limit thumbnails to results:"),
+                                                     s_settings->documentView().limitThumbnailsToResults());
 }
 
 void SettingsDialog::acceptInterfaceTab()
