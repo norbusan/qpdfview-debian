@@ -1,4 +1,5 @@
 Release 0.4.15:
+  * Fixed compatibility with MuPDF version 1.7. Thanks to Martin Banky.
   * Added document properties on PDF version, encryption and linearization.
   * Extended the default movement keyboard shortcuts to include the numpad keys.
   * Updated Polish translations. Thanks to Piotr Strębski.

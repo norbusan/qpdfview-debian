@@ -1,6 +1,7 @@
 /*
 
-Copyright 2014 Adam Reichold
+Copyright 2015 Martin Banky
+Copyright 2014-2015 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -91,7 +92,7 @@ FitzPage::FitzPage(const FitzDocument* parent, fz_page* page) :
 
 FitzPage::~FitzPage()
 {
-    fz_free_page(m_parent->m_document, m_page);
+    fz_drop_page(m_parent->m_context, m_page);
 }
 
 QSizeF FitzPage::size() const
@@ -99,7 +100,7 @@ QSizeF FitzPage::size() const
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 
     fz_rect rect;
-    fz_bound_page(m_parent->m_document, m_page, &rect);
+    fz_bound_page(m_parent->m_context, m_page, &rect);
 
     return QSizeF(rect.x1 - rect.x0, rect.y1 - rect.y0);
 }
@@ -130,7 +131,7 @@ QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
     }
 
     fz_rect rect;
-    fz_bound_page(m_parent->m_document, m_page, &rect);
+    fz_bound_page(m_parent->m_context, m_page, &rect);
     fz_transform_rect(&rect, &matrix);
 
     fz_irect irect;
@@ -141,8 +142,8 @@ QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
     fz_display_list* display_list = fz_new_display_list(context);
 
     fz_device* device = fz_new_list_device(context, display_list);
-    fz_run_page(m_parent->m_document, m_page, device, &matrix, 0);
-    fz_free_device(device);
+    fz_run_page(m_parent->m_context, m_page, device, &matrix, 0);
+    fz_drop_device(m_parent->m_context, device);
 
 
     mutexLocker.unlock();
@@ -173,12 +174,12 @@ QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
     fz_pixmap* pixmap = fz_new_pixmap_with_data(context, fz_device_bgr(context), image.width(), image.height(), image.bits());
 
     device = fz_new_draw_device(context, pixmap);
-    fz_run_display_list(display_list, device, &tileMatrix, &tileRect, 0);
-    fz_free_device(device);
+    fz_run_display_list(context, display_list, device, &tileMatrix, &tileRect, 0);
+    fz_drop_device(context, device);
 
     fz_drop_pixmap(context, pixmap);
     fz_drop_display_list(context, display_list);
-    fz_free_context(context);
+    fz_drop_context(context);
 
     return image;
 }
@@ -190,12 +191,12 @@ QList< Link* > FitzPage::links() const
     QList< Link* > links;
 
     fz_rect rect;
-    fz_bound_page(m_parent->m_document, m_page, &rect);
+    fz_bound_page(m_parent->m_context, m_page, &rect);
 
     const qreal width = qAbs(rect.x1 - rect.x0);
     const qreal height = qAbs(rect.y1 - rect.y0);
 
-    fz_link* first_link = fz_load_links(m_parent->m_document, m_page);
+    fz_link* first_link = fz_load_links(m_parent->m_context, m_page);
 
     for(fz_link* link = first_link; link != 0; link = link->next)
     {
@@ -249,22 +250,22 @@ FitzDocument::FitzDocument(fz_context* context, fz_document* document) :
 
 FitzDocument::~FitzDocument()
 {
-    fz_close_document(m_document);
-    fz_free_context(m_context);
+    fz_drop_document(m_context, m_document);
+    fz_drop_context(m_context);
 }
 
 int FitzDocument::numberOfPages() const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
-    return fz_count_pages(m_document);
+    return fz_count_pages(m_context, m_document);
 }
 
 Page* FitzDocument::page(int index) const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
-    fz_page* page = fz_load_page(m_document, index);
+    fz_page* page = fz_load_page(m_context, m_document, index);
 
     return page != 0 ? new FitzPage(this, page) : 0;
 }
@@ -287,13 +288,13 @@ void FitzDocument::loadOutline(QStandardItemModel* outlineModel) const
 
     QMutexLocker mutexLocker(&m_mutex);
 
-    fz_outline* outline = fz_load_outline(m_document);
+    fz_outline* outline = fz_load_outline(m_context, m_document);
 
     if(outline != 0)
     {
         ::loadOutline(outline, outlineModel->invisibleRootItem());
 
-        fz_free_outline(m_context, outline);
+        fz_drop_outline(m_context, outline);
     }
 }
 
@@ -314,7 +315,7 @@ FitzPlugin::FitzPlugin(QObject* parent) : QObject(parent)
 
 FitzPlugin::~FitzPlugin()
 {
-    fz_free_context(m_context);
+    fz_drop_context(m_context);
 }
 
 Model::Document* FitzPlugin::loadDocument(const QString& filePath) const
@@ -338,7 +339,7 @@ Model::Document* FitzPlugin::loadDocument(const QString& filePath) const
 
     if(document == 0)
     {
-        fz_free_context(context);
+        fz_drop_context(context);
 
         return 0;
     }
