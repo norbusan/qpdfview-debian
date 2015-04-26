@@ -96,6 +96,7 @@ private:
 
     QCheckBox* m_synchronizeOutlineViewCheckBox;
 
+    QCheckBox* m_scrollIfNotVisibleCheckBox;
     QDoubleSpinBox* m_zoomFactorSpinBox;
 
     QSpinBox* m_highlightDurationSpinBox;
@@ -199,8 +200,11 @@ private:
 
     // helper methods
 
-    void createColorComboBox(QComboBox*& comboBox, const QColor& color);
-    void createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers);
+    QCheckBox* addCheckBox(QFormLayout* layout, const QString& label, bool checked);
+    QSpinBox* addSpinBox(QFormLayout* layout, const QString& label, const QString& suffix, const QString& special, int min, int max, int step, int val);
+    QDoubleSpinBox* addDoubleSpinBox(QFormLayout* layout, const QString& label, const QString& suffix, double min, double max, double step, double val);
+    QComboBox* addColorComboBox(QFormLayout* layout, const QString& label, const QColor& color);
+    QComboBox* addModifiersComboBox(QFormLayout* layout, const QString& label, const Qt::KeyboardModifiers& modifiers);
 
 };
 

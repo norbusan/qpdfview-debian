@@ -63,6 +63,8 @@ public:
     PageItem(Model::Page* page, int index, PaintMode paintMode = DefaultMode, QGraphicsItem* parent = 0);
     ~PageItem();
 
+    const QRectF& uncroppedBoundingRect() const { return m_boundingRect; }
+
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
 
@@ -107,7 +109,7 @@ public:
 signals:
     void cropRectChanged();
 
-    void linkClicked(bool newTab, int page, qreal left = 0.0, qreal top = 0.0);
+    void linkClicked(bool newTab, int page, qreal left = qQNaN(), qreal top = qQNaN());
     void linkClicked(bool newTab, const QString& fileName, int page);
     void linkClicked(const QString& url);
 

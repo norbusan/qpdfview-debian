@@ -299,6 +299,8 @@ void Settings::DocumentView::sync()
 
     m_pagesPerRow = m_settings->value("documentView/pagesPerRow", Defaults::DocumentView::pagesPerRow()).toInt();
 
+    m_scrollIfNotVisible = m_settings->value("documentView/scrollIfNotVisible", Defaults::DocumentView::scrollIfNotVisible()).toBool();
+
     m_highlightCurrentThumbnail = m_settings->value("documentView/highlightCurrentThumbnail", Defaults::DocumentView::highlightCurrentThumbnail()).toBool();
     m_limitThumbnailsToResults = m_settings->value("documentView/limitThumbnailsToResults", Defaults::DocumentView::limitThumbnailsToResults()).toBool();
 
@@ -360,6 +362,12 @@ void Settings::DocumentView::setPagesPerRow(int pagesPerRow)
         m_pagesPerRow = pagesPerRow;
         m_settings->setValue("documentView/pagesPerRow", pagesPerRow);
     }
+}
+
+void Settings::DocumentView::setScrollIfNotVisible(bool scrollIfNotVisible)
+{
+    m_scrollIfNotVisible = scrollIfNotVisible;
+    m_settings->setValue("documentView/scrollIfNotVisible", scrollIfNotVisible);
 }
 
 void Settings::DocumentView::setHighlightCurrentThumbnail(bool highlightCurrentThumbnail)

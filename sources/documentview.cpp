@@ -224,6 +224,14 @@ inline QRectF rectOfResult(const QModelIndex& index)
     return index.data(SearchModel::RectRole).toRectF();
 }
 
+inline void setValueIfNotVisible(QScrollBar* scrollBar, int value)
+{
+    if(value < scrollBar->value() || value > scrollBar->value() + scrollBar->pageStep())
+    {
+        scrollBar->setValue(value);
+    }
+}
+
 void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, const QModelIndex& index, QString path)
 {
     path += index.data(Qt::DisplayRole).toString();
@@ -1024,14 +1032,24 @@ void DocumentView::lastPage()
     jumpToPage(m_pages.count());
 }
 
-void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qreal changeTop)
+void DocumentView::jumpToPage(int page, bool trackChange, qreal newLeft, qreal newTop)
 {
     if(page >= 1 && page <= m_pages.count())
     {
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        if(m_currentPage != m_layout->currentPage(page) || qAbs(left - changeLeft) > 0.01 || qAbs(top - changeTop) > 0.01)
+        if(qIsNaN(newLeft))
+        {
+            newLeft = left;
+        }
+
+        if(qIsNaN(newTop))
+        {
+            newTop = top;
+        }
+
+        if(m_currentPage != m_layout->currentPage(page) || qAbs(left - newLeft) > 0.01 || qAbs(top - newTop) > 0.01)
         {
             if(trackChange)
             {
@@ -1043,7 +1061,7 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qrea
 
             m_currentPage = m_layout->currentPage(page);
 
-            prepareView(changeLeft, changeTop, page);
+            prepareView(newLeft, newTop, false, page);
 
             emit currentPageChanged(m_currentPage, trackChange);
         }
@@ -1416,15 +1434,6 @@ void DocumentView::on_thumbnails_cropRectChanged()
 
 void DocumentView::on_pages_linkClicked(bool newTab, int page, qreal left, qreal top)
 {
-    page = qMax(page, 1);
-    page = qMin(page, m_pages.count());
-
-    left = left >= 0.0 ? left : 0.0;
-    left = left <= 1.0 ? left : 1.0;
-
-    top = top >= 0.0 ? top : 0.0;
-    top = top <= 1.0 ? top : 1.0;
-
     if(newTab)
     {
         emit linkClicked(page);
@@ -2030,7 +2039,7 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
 void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 {
     const PageItem* page = m_pageItems.at(m_currentPage - 1);
-    const QRectF boundingRect = page->boundingRect().translated(page->pos());
+    const QRectF boundingRect = page->uncroppedBoundingRect().translated(page->pos());
 
     const QPointF topLeft = mapToScene(viewport()->rect().topLeft());
 
@@ -2087,7 +2096,9 @@ void DocumentView::loadFallbackOutline()
         QStandardItem* item = new QStandardItem(tr("Page %1").arg(pageLabelFromNumber(page)));
         item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
-        item->setData(page, Qt::UserRole + 1);
+        item->setData(page, Model::Document::PageRole);
+        item->setData(qQNaN(), Model::Document::LeftRole);
+        item->setData(qQNaN(), Model::Document::TopRole);
 
         QStandardItem* pageItem = item->clone();
         pageItem->setText(QString::number(page));
@@ -2324,17 +2335,17 @@ void DocumentView::prepareScene()
     scene()->setSceneRect(left, 0.0, right - left, height);
 }
 
-void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePage)
+void DocumentView::prepareView(qreal newLeft, qreal newTop, bool forceScroll, int scrollToPage)
 {
-    qreal left = scene()->sceneRect().left();
-    qreal top = scene()->sceneRect().top();
-    qreal width = scene()->sceneRect().width();
-    qreal height = scene()->sceneRect().height();
+    const QRectF sceneRect = scene()->sceneRect();
+
+    qreal top = sceneRect.top();
+    qreal height = sceneRect.height();
 
     int horizontalValue = 0;
     int verticalValue = 0;
 
-    visiblePage = visiblePage == 0 ? m_currentPage : visiblePage;
+    scrollToPage = scrollToPage != 0 ? scrollToPage : m_currentPage;
 
     const int highlightIsOnPage = m_currentResult.isValid() ? pageOfResult(m_currentResult) : 0;
     const bool highlightCurrentThumbnail = s_settings->documentView().highlightCurrentThumbnail();
@@ -2342,7 +2353,6 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
     for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
-        const QRectF boundingRect = page->boundingRect().translated(page->pos());
 
         if(m_continuousMode)
         {
@@ -2353,6 +2363,8 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
             if(m_layout->leftIndex(index) == m_currentPage - 1)
             {
                 page->setVisible(true);
+
+                const QRectF boundingRect = page->boundingRect().translated(page->pos());
 
                 top = boundingRect.top() - s_settings->documentView().pageSpacing();
                 height = boundingRect.height() + 2.0 * s_settings->documentView().pageSpacing();
@@ -2365,10 +2377,12 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
             }
         }
 
-        if(index == visiblePage - 1)
+        if(index == scrollToPage - 1)
         {
-            horizontalValue = qFloor(boundingRect.left() + changeLeft * boundingRect.width());
-            verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
+            const QRectF boundingRect = page->uncroppedBoundingRect().translated(page->pos());
+
+            horizontalValue = qFloor(boundingRect.left() + newLeft * boundingRect.width());
+            verticalValue = qFloor(boundingRect.top() + newTop * boundingRect.height());
         }
 
         if(index == highlightIsOnPage - 1)
@@ -2382,10 +2396,18 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
         m_thumbnailItems.at(index)->setHighlighted(highlightCurrentThumbnail && (index == m_currentPage - 1));
     }
 
-    setSceneRect(left, top, width, height);
+    setSceneRect(sceneRect.left(), top, sceneRect.width(), height);
 
-    horizontalScrollBar()->setValue(horizontalValue);
-    verticalScrollBar()->setValue(verticalValue);
+    if(!forceScroll && s_settings->documentView().scrollIfNotVisible())
+    {
+        setValueIfNotVisible(horizontalScrollBar(), horizontalValue);
+        setValueIfNotVisible(verticalScrollBar(), verticalValue);
+    }
+    else
+    {
+        horizontalScrollBar()->setValue(horizontalValue);
+        verticalScrollBar()->setValue(verticalValue);
+    }
 
     viewport()->update();
 }

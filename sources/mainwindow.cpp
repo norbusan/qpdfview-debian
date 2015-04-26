@@ -1854,9 +1854,9 @@ void MainWindow::on_outline_sectionCountChanged()
 void MainWindow::on_outline_clicked(const QModelIndex& index)
 {
     bool ok = false;
-    const int page = index.data(Qt::UserRole + 1).toInt(&ok);
-    const qreal left = index.data(Qt::UserRole + 2).toReal();
-    const qreal top = index.data(Qt::UserRole + 3).toReal();
+    const int page = index.data(Model::Document::PageRole).toInt(&ok);
+    const qreal left = index.data(Model::Document::LeftRole).toReal();
+    const qreal top = index.data(Model::Document::TopRole).toReal();
 
     if(ok)
     {

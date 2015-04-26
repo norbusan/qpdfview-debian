@@ -85,8 +85,8 @@ void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardIte
     if(linkDestination != 0)
     {
         int page = linkDestination->pageNumber();
-        qreal left = 0.0;
-        qreal top = 0.0;
+        qreal left = qQNaN();
+        qreal top = qQNaN();
 
         page = page >= 1 ? page : 1;
         page = page <= document->numPages() ? page : document->numPages();
@@ -361,16 +361,27 @@ QList< Link* > PdfPage::links() const
         {
             const Poppler::LinkGoto* linkGoto = static_cast< const Poppler::LinkGoto* >(link);
 
-            const int page = linkGoto->destination().pageNumber();
+            int page = linkGoto->destination().pageNumber();
+            qreal left = qQNaN();
+            qreal top = qQNaN();
 
-            qreal left = linkGoto->destination().isChangeLeft() ? linkGoto->destination().left() : 0.0;
-            qreal top = linkGoto->destination().isChangeTop() ? linkGoto->destination().top() : 0.0;
+            page = page >= 1 ? page : 1;
 
-            left = left >= 0.0 ? left : 0.0;
-            left = left <= 1.0 ? left : 1.0;
+            if(linkGoto->destination().isChangeLeft())
+            {
+                left = linkGoto->destination().left();
 
-            top = top >= 0.0 ? top : 0.0;
-            top = top <= 1.0 ? top : 1.0;
+                left = left >= 0.0 ? left : 0.0;
+                left = left <= 1.0 ? left : 1.0;
+            }
+
+            if(linkGoto->destination().isChangeTop())
+            {
+                top = linkGoto->destination().top();
+
+                top = top >= 0.0 ? top : 0.0;
+                top = top <= 1.0 ? top : 1.0;
+            }
 
             if(linkGoto->isExternal())
             {
