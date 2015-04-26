@@ -24,6 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define GLOBAL_H
 
 #include <QtGlobal>
+#include <qnumeric.h>
 
 namespace qpdfview
 {
