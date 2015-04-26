@@ -593,8 +593,6 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
     const QAction* action = menu.exec(globalPos);
 
-    const int count = m_tabWidget->count();
-
     QList< DocumentView* > tabsToClose;
 
     if(action == closeAllTabsAction)
@@ -603,6 +601,8 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     }
     else if(action == closeAllTabsButThisOneAction)
     {
+        const int count = m_tabWidget->count();
+
         for(int indexToClose = 0; indexToClose < count; ++indexToClose)
         {
             if(indexToClose != index)
@@ -620,10 +620,16 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     }
     else if(action == closeAllTabsToTheRightAction)
     {
+        const int count = m_tabWidget->count();
+
         for(int indexToClose = count - 1; indexToClose > index; --indexToClose)
         {
             tabsToClose.append(tab(indexToClose));
         }
+    }
+    else
+    {
+        return;
     }
 
     disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
