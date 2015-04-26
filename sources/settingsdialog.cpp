@@ -59,7 +59,7 @@ void setCurrentIndexFromData(QComboBox* comboBox, int data)
     comboBox->setCurrentIndex(comboBox->findData(data));
 }
 
-int getDataFromCurrentIndex(const QComboBox* comboBox)
+int dataFromCurrentIndex(const QComboBox* comboBox)
 {
     return comboBox->itemData(comboBox->currentIndex()).toInt();
 }
@@ -69,7 +69,7 @@ void setCurrentTextToColorName(QComboBox* comboBox, const QColor& color)
     comboBox->lineEdit()->setText(color.isValid() ? color.name() : QString());
 }
 
-QColor getValidColorFromCurrentText(const QComboBox* comboBox, const QColor& defaultColor)
+QColor validColorFromCurrentText(const QComboBox* comboBox, const QColor& defaultColor)
 {
     const QColor color(comboBox->currentText());
 
@@ -81,7 +81,7 @@ void setCurrentIndexFromKeyboardModifiers(QComboBox* comboBox, const Qt::Keyboar
     comboBox->setCurrentIndex(comboBox->findData(static_cast< int >(modifiers)));
 }
 
-Qt::KeyboardModifier getKeyboardModifierFromCurrentIndex(const QComboBox* comboBox)
+Qt::KeyboardModifier keyboardModifierFromCurrentIndex(const QComboBox* comboBox)
 {
     return static_cast< Qt::KeyboardModifier >(comboBox->itemData(comboBox->currentIndex()).toInt());
 }
@@ -284,10 +284,10 @@ void SettingsDialog::createBehaviorTab()
     m_highlightDurationSpinBox = addSpinBox(m_behaviorLayout, tr("Highlight duration:"), QString(), tr(" ms"), tr("None"),
                                             0, 60000, 500, s_settings->documentView().highlightDuration());
 
-    m_highlightColorComboBox = addColorComboBox(m_behaviorLayout, tr("Highlight color:"),
+    m_highlightColorComboBox = addColorComboBox(m_behaviorLayout, tr("Highlight color:"), QString(),
                                                 s_settings->pageItem().highlightColor());
 
-    m_annotationColorComboBox = addColorComboBox(m_behaviorLayout, tr("Annotation color:"),
+    m_annotationColorComboBox = addColorComboBox(m_behaviorLayout, tr("Annotation color:"), QString(),
                                                  s_settings->pageItem().annotationColor());
 
 
@@ -318,8 +318,8 @@ void SettingsDialog::acceptBehaivorTab()
     s_settings->documentView().setZoomFactor(m_zoomFactorSpinBox->value());
 
     s_settings->documentView().setHighlightDuration(m_highlightDurationSpinBox->value());
-    s_settings->pageItem().setHighlightColor(getValidColorFromCurrentText(m_highlightColorComboBox, Defaults::PageItem::highlightColor()));
-    s_settings->pageItem().setAnnotationColor(getValidColorFromCurrentText(m_annotationColorComboBox, Defaults::PageItem::annotationColor()));
+    s_settings->pageItem().setHighlightColor(validColorFromCurrentText(m_highlightColorComboBox, Defaults::PageItem::highlightColor()));
+    s_settings->pageItem().setAnnotationColor(validColorFromCurrentText(m_annotationColorComboBox, Defaults::PageItem::annotationColor()));
 
     s_settings->documentView().setSourceEditor(m_sourceEditorLineEdit->text());
 }
@@ -385,13 +385,13 @@ void SettingsDialog::createGraphicsTab()
                                                s_settings->pageItem().decorateFormFields());
 
 
-    m_backgroundColorComboBox = addColorComboBox(m_graphicsLayout, tr("Background color:"),
+    m_backgroundColorComboBox = addColorComboBox(m_graphicsLayout, tr("Background color:"), QString(),
                                                  s_settings->pageItem().backgroundColor());
 
-    m_paperColorComboBox = addColorComboBox(m_graphicsLayout, tr("Paper color:"),
+    m_paperColorComboBox = addColorComboBox(m_graphicsLayout, tr("Paper color:"), QString(),
                                             s_settings->pageItem().paperColor());
 
-    m_presentationBackgroundColorComboBox = addColorComboBox(m_graphicsLayout, tr("Presentation background color:"),
+    m_presentationBackgroundColorComboBox = addColorComboBox(m_graphicsLayout, tr("Presentation background color:"), QString(),
                                                              s_settings->presentationView().backgroundColor());
 
 
@@ -410,31 +410,8 @@ void SettingsDialog::createGraphicsTab()
                                               30.0, 300.0, 10.0, s_settings->documentView().thumbnailSize());
 
 
-    m_cacheSizeComboBox = new QComboBox(this);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(0), 0);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(8), 8 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(16), 16 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(32), 32 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(64), 64 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(128), 128 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(256), 256 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(512), 512 * 1024 * 1024);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(1024), 1073741823);
-    m_cacheSizeComboBox->addItem(tr("%1 MB").arg(2048), 2147483647);
-
-    const int cacheSize = s_settings->pageItem().cacheSize();
-    int cacheSizeIndex = m_cacheSizeComboBox->findData(cacheSize);
-
-    if(cacheSizeIndex == -1)
-    {
-        m_cacheSizeComboBox->addItem(tr("%1 MB").arg(cacheSize / 1024 / 1024), cacheSize);
-
-        cacheSizeIndex = m_cacheSizeComboBox->count() - 1;
-    }
-
-    m_cacheSizeComboBox->setCurrentIndex(cacheSizeIndex);
-
-    m_graphicsLayout->addRow(tr("Cache size:"), m_cacheSizeComboBox);
+    m_cacheSizeComboBox = addDataSizeComboBox(m_graphicsLayout, tr("Cache size:"), QString(),
+                                              s_settings->pageItem().cacheSize());
 
     m_prefetchCheckBox = addCheckBox(m_graphicsLayout, tr("Prefetch:"), QString(),
                                      s_settings->documentView().prefetch());
@@ -455,9 +432,9 @@ void SettingsDialog::acceptGraphicsTab()
     s_settings->pageItem().setDecorateLinks(m_decorateLinksCheckBox->isChecked());
     s_settings->pageItem().setDecorateFormFields(m_decorateFormFieldsCheckBox->isChecked());
 
-    s_settings->pageItem().setBackgroundColor(getValidColorFromCurrentText(m_backgroundColorComboBox, Defaults::PageItem::backgroundColor()));
-    s_settings->pageItem().setPaperColor(getValidColorFromCurrentText(m_paperColorComboBox, Defaults::PageItem::paperColor()));
-    s_settings->presentationView().setBackgroundColor(getValidColorFromCurrentText(m_presentationBackgroundColorComboBox, Defaults::PresentationView::backgroundColor()));
+    s_settings->pageItem().setBackgroundColor(validColorFromCurrentText(m_backgroundColorComboBox, Defaults::PageItem::backgroundColor()));
+    s_settings->pageItem().setPaperColor(validColorFromCurrentText(m_paperColorComboBox, Defaults::PageItem::paperColor()));
+    s_settings->presentationView().setBackgroundColor(validColorFromCurrentText(m_presentationBackgroundColorComboBox, Defaults::PresentationView::backgroundColor()));
 
     s_settings->documentView().setPagesPerRow(m_pagesPerRowSpinBox->value());
 
@@ -466,7 +443,7 @@ void SettingsDialog::acceptGraphicsTab()
 
     s_settings->documentView().setThumbnailSize(m_thumbnailSizeSpinBox->value());
 
-    s_settings->pageItem().setCacheSize(m_cacheSizeComboBox->itemData(m_cacheSizeComboBox->currentIndex()).toInt());
+    s_settings->pageItem().setCacheSize(dataFromCurrentIndex(m_cacheSizeComboBox));
     s_settings->documentView().setPrefetch(m_prefetchCheckBox->isChecked());
     s_settings->documentView().setPrefetchDistance(m_prefetchDistanceSpinBox->value());
 
@@ -509,7 +486,7 @@ void SettingsDialog::resetGraphicsTab()
 
     m_thumbnailSizeSpinBox->setValue(Defaults::DocumentView::thumbnailSize());
 
-    m_cacheSizeComboBox->setCurrentIndex(m_cacheSizeComboBox->findData(Defaults::PageItem::cacheSize()));
+    setCurrentIndexFromData(m_cacheSizeComboBox, Defaults::PageItem::cacheSize());
     m_prefetchCheckBox->setChecked(Defaults::DocumentView::prefetch());
     m_prefetchDistanceSpinBox->setValue(Defaults::DocumentView::prefetchDistance());
 
@@ -618,8 +595,8 @@ void SettingsDialog::acceptInterfaceTab()
     s_settings->pageItem().setAnnotationOverlay(m_annotationOverlayCheckBox->isChecked());
     s_settings->pageItem().setFormFieldOverlay(m_formFieldOverlayCheckBox);
 
-    s_settings->mainWindow().setTabPosition(getDataFromCurrentIndex(m_tabPositionComboBox));
-    s_settings->mainWindow().setTabVisibility(getDataFromCurrentIndex(m_tabVisibilityComboBox));
+    s_settings->mainWindow().setTabPosition(dataFromCurrentIndex(m_tabPositionComboBox));
+    s_settings->mainWindow().setTabVisibility(dataFromCurrentIndex(m_tabVisibilityComboBox));
     s_settings->mainWindow().setSpreadTabs(m_spreadTabsCheckBox->isChecked());
 
     s_settings->mainWindow().setNewTabNextToCurrentTab(m_newTabNextToCurrentTabCheckBox->isChecked());
@@ -685,35 +662,35 @@ void SettingsDialog::resetInterfaceTab()
 
 void SettingsDialog::createModifiersTab()
 {
-    m_zoomModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Zoom:"),
+    m_zoomModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Zoom:"), QString(),
                                                    s_settings->documentView().zoomModifiers());
 
-    m_rotateModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Rotate:"),
+    m_rotateModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Rotate:"), QString(),
                                                      s_settings->documentView().rotateModifiers());
 
-    m_scrollModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Scroll:"),
+    m_scrollModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Scroll:"), QString(),
                                                      s_settings->documentView().scrollModifiers());
 
 
-    m_copyToClipboardModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Copy to clipboard:"),
+    m_copyToClipboardModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Copy to clipboard:"), QString(),
                                                               s_settings->pageItem().copyToClipboardModifiers());
 
-    m_addAnnotationModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Add annotation:"),
+    m_addAnnotationModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Add annotation:"), QString(),
                                                             s_settings->pageItem().addAnnotationModifiers());
 
-    m_zoomToSelectionModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Zoom to selection:"),
+    m_zoomToSelectionModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Zoom to selection:"), QString(),
                                                               s_settings->pageItem().zoomToSelectionModifiers());
 }
 
 void SettingsDialog::acceptModifiersTab()
 {
-    s_settings->documentView().setZoomModifiers(getKeyboardModifierFromCurrentIndex(m_zoomModifiersComboBox));
-    s_settings->documentView().setRotateModifiers(getKeyboardModifierFromCurrentIndex(m_rotateModifiersComboBox));
-    s_settings->documentView().setScrollModifiers(getKeyboardModifierFromCurrentIndex(m_scrollModifiersComboBox));
+    s_settings->documentView().setZoomModifiers(keyboardModifierFromCurrentIndex(m_zoomModifiersComboBox));
+    s_settings->documentView().setRotateModifiers(keyboardModifierFromCurrentIndex(m_rotateModifiersComboBox));
+    s_settings->documentView().setScrollModifiers(keyboardModifierFromCurrentIndex(m_scrollModifiersComboBox));
 
-    s_settings->pageItem().setCopyToClipboardModifiers(getKeyboardModifierFromCurrentIndex(m_copyToClipboardModifiersComboBox));
-    s_settings->pageItem().setAddAnnotationModifiers(getKeyboardModifierFromCurrentIndex(m_addAnnotationModifiersComboBox));
-    s_settings->pageItem().setZoomToSelectionModifiers(getKeyboardModifierFromCurrentIndex(m_zoomToSelectionModifiersComboBox));
+    s_settings->pageItem().setCopyToClipboardModifiers(keyboardModifierFromCurrentIndex(m_copyToClipboardModifiersComboBox));
+    s_settings->pageItem().setAddAnnotationModifiers(keyboardModifierFromCurrentIndex(m_addAnnotationModifiersComboBox));
+    s_settings->pageItem().setZoomToSelectionModifiers(keyboardModifierFromCurrentIndex(m_zoomToSelectionModifiersComboBox));
 }
 
 void SettingsDialog::resetModifiersTab()
@@ -789,7 +766,7 @@ QComboBox* SettingsDialog::addComboBox(QFormLayout* layout, const QString& label
         comboBox->addItem(text.at(index), data.at(index));
     }
 
-    comboBox->setCurrentIndex(comboBox->findData(value));
+    setCurrentIndexFromData(comboBox, value);
 
     comboBox->setToolTip(toolTip);
     layout->addRow(label, comboBox);
@@ -797,7 +774,39 @@ QComboBox* SettingsDialog::addComboBox(QFormLayout* layout, const QString& label
     return comboBox;
 }
 
-QComboBox* SettingsDialog::addColorComboBox(QFormLayout* layout, const QString& label, const QColor& color)
+QComboBox* SettingsDialog::addDataSizeComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, int dataSize)
+{
+    QComboBox* comboBox = new QComboBox(this);
+
+    comboBox->addItem(tr("%1 MB").arg(0), 0);
+    comboBox->addItem(tr("%1 MB").arg(8), 8 << 20);
+    comboBox->addItem(tr("%1 MB").arg(16), 16 << 20);
+    comboBox->addItem(tr("%1 MB").arg(32), 32 << 20);
+    comboBox->addItem(tr("%1 MB").arg(64), 64 << 20);
+    comboBox->addItem(tr("%1 MB").arg(128), 128 << 20);
+    comboBox->addItem(tr("%1 MB").arg(256), 256 << 20);
+    comboBox->addItem(tr("%1 MB").arg(512), 512 << 20);
+    comboBox->addItem(tr("%1 MB").arg(1024), 1024 << 20);
+    comboBox->addItem(tr("%1 MB").arg(2048), INT_MAX);
+
+    int currentIndex = comboBox->findData(dataSize);
+
+    if(currentIndex == -1)
+    {
+        currentIndex = comboBox->count();
+
+        comboBox->addItem(tr("%1 MB").arg(dataSize >> 20), dataSize);
+    }
+
+    comboBox->setCurrentIndex(currentIndex);
+
+    comboBox->setToolTip(toolTip);
+    layout->addRow(label, comboBox);
+
+    return comboBox;
+}
+
+QComboBox* SettingsDialog::addColorComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QColor& color)
 {
     QComboBox* comboBox = new QComboBox(this);
     comboBox->setEditable(true);
@@ -806,12 +815,13 @@ QComboBox* SettingsDialog::addColorComboBox(QFormLayout* layout, const QString& 
 
     setCurrentTextToColorName(comboBox, color);
 
+    comboBox->setToolTip(toolTip);
     layout->addRow(label, comboBox);
 
     return comboBox;
 }
 
-QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QString& label, const Qt::KeyboardModifiers& modifiers)
+QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const Qt::KeyboardModifiers& modifiers)
 {
     QComboBox* comboBox = new QComboBox(this);
     comboBox->addItem(QShortcut::tr("Shift"), static_cast< int >(Qt::ShiftModifier));
@@ -825,6 +835,7 @@ QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QStri
 
     setCurrentIndexFromKeyboardModifiers(comboBox, modifiers);
 
+    comboBox->setToolTip(toolTip);
     layout->addRow(label, comboBox);
 
     return comboBox;
