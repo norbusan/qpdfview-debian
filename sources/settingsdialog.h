@@ -113,12 +113,7 @@ private:
 
     QCheckBox* m_useTilingCheckBox;
     QCheckBox* m_keepObsoletePixmapsCheckBox;
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
     QCheckBox* m_useDevicePixelRatioCheckBox;
-
-#endif // QT_VERSION
 
     QCheckBox* m_trimMarginsCheckBox;
 
@@ -200,9 +195,11 @@ private:
 
     // helper methods
 
-    QCheckBox* addCheckBox(QFormLayout* layout, const QString& label, bool checked);
-    QSpinBox* addSpinBox(QFormLayout* layout, const QString& label, const QString& suffix, const QString& special, int min, int max, int step, int val);
-    QDoubleSpinBox* addDoubleSpinBox(QFormLayout* layout, const QString& label, const QString& suffix, double min, double max, double step, double val);
+    QCheckBox* addCheckBox(QFormLayout* layout, const QString& label, const QString& toolTip, bool checked);
+    QLineEdit* addLineEdit(QFormLayout* layout, const QString& label, const QString& toolTip, const QString& text);
+    QSpinBox* addSpinBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QString& suffix, const QString& special, int min, int max, int step, int val);
+    QDoubleSpinBox* addDoubleSpinBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QString& suffix, double min, double max, double step, double val);
+    QComboBox* addComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QStringList& text, const QList< int >& data, int value);
     QComboBox* addColorComboBox(QFormLayout* layout, const QString& label, const QColor& color);
     QComboBox* addModifiersComboBox(QFormLayout* layout, const QString& label, const Qt::KeyboardModifiers& modifiers);
 
