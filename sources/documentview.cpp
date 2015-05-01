@@ -951,48 +951,56 @@ bool DocumentView::refresh()
 
 bool DocumentView::save(const QString& filePath, bool withChanges)
 {
+    // Save document to temporary file...
     QTemporaryFile temporaryFile;
-    QFile file(filePath);
 
-    if(temporaryFile.open())
+    if(!temporaryFile.open())
     {
-        temporaryFile.close();
-
-        if(m_document->save(temporaryFile.fileName(), withChanges))
-        {
-            if(temporaryFile.open())
-            {
-                if(file.open(QIODevice::WriteOnly | QIODevice::Truncate))
-                {
-                    const qint64 maxSize = 4096;
-                    qint64 size = -1;
-
-                    char* data = new char[maxSize];
-
-                    while(!temporaryFile.atEnd())
-                    {
-                        size = temporaryFile.read(data, maxSize);
-
-                        if(size == -1 || file.write(data, size) == -1)
-                        {
-                            delete[] data;
-                            return false;
-                        }
-                    }
-
-                    if(withChanges)
-                    {
-                        m_wasModified = false;
-                    }
-
-                    delete[] data;
-                    return true;
-                }
-            }
-        }
+        return false;
     }
 
-    return false;
+    temporaryFile.close();
+
+    if(!m_document->save(temporaryFile.fileName(), withChanges))
+    {
+        return false;
+    }
+
+    if(!temporaryFile.open())
+    {
+        return false;
+    }
+
+    // Copy from temporary file to actual file...
+    QFile file(filePath);
+
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        return false;
+    }
+
+    const qint64 maxSize = 4096;
+    qint64 size = -1;
+
+    QScopedArrayPointer< char > buffer(new char[maxSize]);
+
+    do
+    {
+        size = temporaryFile.read(buffer.data(), maxSize);
+
+        if(size == -1 || file.write(buffer.data(), size) == -1)
+        {
+            return false;
+        }
+    }
+    while(size > 0);
+
+    if(withChanges)
+    {
+        m_wasModified = false;
+    }
+
+    return true;
 }
 
 bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
