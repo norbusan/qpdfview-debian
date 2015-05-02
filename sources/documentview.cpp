@@ -153,6 +153,30 @@ QString intToRoman(int number)
     return result;
 }
 
+bool copyFile(QFile& source, QFile& destination)
+{
+    const qint64 maxSize = 4096;
+    qint64 size = -1;
+
+    QScopedArrayPointer< char > buffer(new char[maxSize]);
+
+    do
+    {
+        if((size = source.read(buffer.data(), maxSize)) < 0)
+        {
+            return false;
+        }
+
+        if(destination.write(buffer.data(), size) < 0)
+        {
+            return false;
+        }
+    }
+    while(size > 0);
+
+    return true;
+}
+
 #ifdef WITH_CUPS
 
 struct RemovePpdFileDeleter
@@ -951,9 +975,10 @@ bool DocumentView::refresh()
 
 bool DocumentView::save(const QString& filePath, bool withChanges)
 {
-    // Save document to temporary file...
     QTemporaryFile temporaryFile;
+    QFile file(filePath);
 
+    // Save document to temporary file...
     if(!temporaryFile.open())
     {
         return false;
@@ -966,34 +991,21 @@ bool DocumentView::save(const QString& filePath, bool withChanges)
         return false;
     }
 
+    // Copy from temporary file to actual file...
     if(!temporaryFile.open())
     {
         return false;
     }
-
-    // Copy from temporary file to actual file...
-    QFile file(filePath);
 
     if(!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
     {
         return false;
     }
 
-    const qint64 maxSize = 4096;
-    qint64 size = -1;
-
-    QScopedArrayPointer< char > buffer(new char[maxSize]);
-
-    do
+    if(!copyFile(temporaryFile, file))
     {
-        size = temporaryFile.read(buffer.data(), maxSize);
-
-        if(size == -1 || file.write(buffer.data(), size) == -1)
-        {
-            return false;
-        }
+        return false;
     }
-    while(size > 0);
 
     if(withChanges)
     {
