@@ -5,6 +5,11 @@ Release 0.4.15:
   * Extended the default movement keyboard shortcuts to include the numpad keys.
   * Updated Polish translations. Thanks to Piotr Strębski.
   * Updated Italian translations. Thanks to Claudio Arseni.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated British English translations. Thanks to Anthony Harrington and Andy Chandler.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated French translations. Thanks to Jean Marc.
 
 Release 0.4.14:
   * Fixed keyboard movement not working in annotations and form fields.

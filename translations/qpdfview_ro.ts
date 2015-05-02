@@ -264,47 +264,42 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="561"/>
-        <source>Supported formats (%1)</source>
-        <translation type="unfinished">Formate suportate (%1)</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1469"/>
+        <location filename="../sources/documentview.cpp" line="1461"/>
         <source>Information</source>
         <translation type="unfinished">Informații</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1469"/>
+        <location filename="../sources/documentview.cpp" line="1461"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Accesarea URL-urilor este dezactivată din configurări.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1512"/>
+        <location filename="../sources/documentview.cpp" line="1504"/>
         <source>Warning</source>
         <translation type="unfinished">Atenție</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1512"/>
+        <location filename="../sources/documentview.cpp" line="1504"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nu s-au găsit datele SyncTeX pentru „%1”.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1985"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Se tipărește „%1”...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2054"/>
+        <location filename="../sources/documentview.cpp" line="2046"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Deblocare %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2054"/>
+        <location filename="../sources/documentview.cpp" line="2046"/>
         <source>Password:</source>
         <translation type="unfinished">Parolă:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2096"/>
+        <location filename="../sources/documentview.cpp" line="2088"/>
         <source>Page %1</source>
         <translation type="unfinished">Pagina %1</translation>
     </message>
@@ -1060,17 +1055,22 @@
 <context>
     <name>qpdfview::PluginHandler</name>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="215"/>
+        <location filename="../sources/pluginhandler.cpp" line="237"/>
+        <source>Supported formats (%1)</source>
+        <translation type="unfinished">Formate suportate (%1)</translation>
+    </message>
+    <message>
+        <location filename="../sources/pluginhandler.cpp" line="248"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
         <translation type="unfinished">NU s-a găsit o potrivire pentru tipul de fișier „%1”!</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="225"/>
+        <location filename="../sources/pluginhandler.cpp" line="258"/>
         <source>Critical</source>
         <translation type="unfinished">Critic</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="225"/>
+        <location filename="../sources/pluginhandler.cpp" line="258"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
         <translation type="unfinished">Nu s-a putut încărca extensia pentru tipul de fișier „%1”!</translation>
     </message>

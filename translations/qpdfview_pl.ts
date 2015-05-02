@@ -6,7 +6,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="875"/>
         <source>Linearized</source>
-        <translation type="unfinished"></translation>
+        <translation>Linearyzowane</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="890"/>
@@ -44,12 +44,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="867"/>
         <source>PDF version</source>
-        <translation type="unfinished"></translation>
+        <translation>Wersja PDF</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="871"/>
         <source>Encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaszyfrowane</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="872"/>
@@ -264,47 +264,42 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="561"/>
-        <source>Supported formats (%1)</source>
-        <translation type="unfinished">Wspierane formaty (%1)</translation>
-    </message>
-    <message>
-        <location filename="../sources/documentview.cpp" line="1469"/>
+        <location filename="../sources/documentview.cpp" line="1461"/>
         <source>Information</source>
         <translation type="unfinished">Informacje</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1469"/>
+        <location filename="../sources/documentview.cpp" line="1461"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otwieranie adresów URL jest wyłączone w ustawieniach.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1512"/>
+        <location filename="../sources/documentview.cpp" line="1504"/>
         <source>Warning</source>
         <translation type="unfinished">Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1512"/>
+        <location filename="../sources/documentview.cpp" line="1504"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Dane systemu SyncTeX dla &apos;%1&apos; nie zostały znalezione.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1985"/>
+        <location filename="../sources/documentview.cpp" line="1977"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drukowanie &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2054"/>
+        <location filename="../sources/documentview.cpp" line="2046"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Odblokuj %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2054"/>
+        <location filename="../sources/documentview.cpp" line="2046"/>
         <source>Password:</source>
         <translation type="unfinished">Hasło:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2096"/>
+        <location filename="../sources/documentview.cpp" line="2088"/>
         <source>Page %1</source>
         <translation type="unfinished">Strona %1</translation>
     </message>
@@ -377,16 +372,6 @@
 </context>
 <context>
     <name>qpdfview::MainWindow</name>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2683"/>
-        <source>Toggle tool bars</source>
-        <translation type="unfinished">Przełącz paski narzędzi</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2684"/>
-        <source>Toggle menu bar</source>
-        <translation type="unfinished">Przełącz pasek menu</translation>
-    </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="306"/>
         <location filename="../sources/mainwindow.cpp" line="383"/>
@@ -836,6 +821,16 @@
         <translation type="unfinished">&amp;O progamie</translation>
     </message>
     <message>
+        <location filename="../sources/mainwindow.cpp" line="2683"/>
+        <source>Toggle tool bars</source>
+        <translation type="unfinished">Przełącz paski narzędzi</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2684"/>
+        <source>Toggle menu bar</source>
+        <translation type="unfinished">Przełącz pasek menu</translation>
+    </message>
+    <message>
         <location filename="../sources/mainwindow.cpp" line="2725"/>
         <location filename="../sources/mainwindow.cpp" line="2926"/>
         <source>&amp;File</source>
@@ -1060,17 +1055,22 @@
 <context>
     <name>qpdfview::PluginHandler</name>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="215"/>
+        <location filename="../sources/pluginhandler.cpp" line="237"/>
+        <source>Supported formats (%1)</source>
+        <translation type="unfinished">Wspierane formaty (%1)</translation>
+    </message>
+    <message>
+        <location filename="../sources/pluginhandler.cpp" line="248"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
         <translation type="unfinished">Nie można dopasować typu pliku &apos;%1&apos;!</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="225"/>
+        <location filename="../sources/pluginhandler.cpp" line="258"/>
         <source>Critical</source>
         <translation type="unfinished">Krytyczny</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="225"/>
+        <location filename="../sources/pluginhandler.cpp" line="258"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
         <translation type="unfinished">Nie można wczytać wtyczki dla typu pliku &apos;%1&apos;!</translation>
     </message>
@@ -1312,6 +1312,11 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="237"/>
+        <source>Track recently used:</source>
+        <translation type="unfinished">Śledź ostatnio użyte:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="237"/>
         <location filename="../sources/settingsdialog.cpp" line="240"/>
         <location filename="../sources/settingsdialog.cpp" line="511"/>
         <location filename="../sources/settingsdialog.cpp" line="542"/>
@@ -1322,11 +1327,6 @@
         <location filename="../sources/settingsdialog.cpp" line="559"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Zmiany dostępne po ponownym uruchomieniu.</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="237"/>
-        <source>Track recently used:</source>
-        <translation type="unfinished">Śledź ostatnio użyte:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="240"/>
@@ -1350,6 +1350,11 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="253"/>
+        <source>Save database interval:</source>
+        <translation type="unfinished">Odstęp zapisu bazy danych:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="253"/>
         <source> min</source>
         <translation type="unfinished"> min.</translation>
     </message>
@@ -1360,24 +1365,19 @@
         <translation type="unfinished">Nigdy</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="253"/>
-        <source>Save database interval:</source>
-        <translation type="unfinished">Odstęp zapisu bazy danych:</translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="266"/>
         <source>Synchronize presentation:</source>
         <translation type="unfinished">Synchronizuj prezentację:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
-        <source>Default</source>
-        <translation type="unfinished">Domyślny</translation>
+        <source>Presentation screen:</source>
+        <translation type="unfinished">Ekran do prezentacji:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="269"/>
-        <source>Presentation screen:</source>
-        <translation type="unfinished">Ekran do prezentacji:</translation>
+        <source>Default</source>
+        <translation type="unfinished">Domyślny</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="273"/>
@@ -1387,12 +1387,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="277"/>
         <source>Scroll if not visible:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Przewiń jeśli niewidoczne:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="280"/>
         <source>Zoom factor:</source>
         <translation type="unfinished">Współczynnik powiększania:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="284"/>
+        <source>Highlight duration:</source>
+        <translation type="unfinished">Czas trwania podświetlenia:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
@@ -1403,11 +1408,6 @@
         <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>None</source>
         <translation type="unfinished">Brak</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="284"/>
-        <source>Highlight duration:</source>
-        <translation type="unfinished">Czas trwania podświetlenia:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="287"/>
@@ -1421,13 +1421,13 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="294"/>
-        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished">sekwencja &apos;%1&apos; jest zastępowana przez ścieżkę bezwzględną. &apos;%2&apos; i &apos;%3&apos; są zastępowane odpowiednio przez numer linii i kolumny.</translation>
+        <source>Source editor:</source>
+        <translation type="unfinished">Edytor tekstu źródłowego:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="294"/>
-        <source>Source editor:</source>
-        <translation type="unfinished">Edytor tekstu źródłowego:</translation>
+        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
+        <translation type="unfinished">sekwencja &apos;%1&apos; jest zastępowana przez ścieżkę bezwzględną. &apos;%2&apos; i &apos;%3&apos; są zastępowane odpowiednio przez numer linii i kolumny.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="358"/>
@@ -1486,15 +1486,15 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="402"/>
+        <source>Page spacing:</source>
+        <translation type="unfinished">Odstępy między stronami:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="402"/>
         <location filename="../sources/settingsdialog.cpp" line="405"/>
         <location filename="../sources/settingsdialog.cpp" line="409"/>
         <source> px</source>
         <translation type="unfinished"> piks.</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="402"/>
-        <source>Page spacing:</source>
-        <translation type="unfinished">Odstępy między stronami:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="405"/>
@@ -1505,21 +1505,6 @@
         <location filename="../sources/settingsdialog.cpp" line="409"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Wielkość miniatury:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="781"/>
-        <location filename="../sources/settingsdialog.cpp" line="782"/>
-        <location filename="../sources/settingsdialog.cpp" line="783"/>
-        <location filename="../sources/settingsdialog.cpp" line="784"/>
-        <location filename="../sources/settingsdialog.cpp" line="785"/>
-        <location filename="../sources/settingsdialog.cpp" line="786"/>
-        <location filename="../sources/settingsdialog.cpp" line="787"/>
-        <location filename="../sources/settingsdialog.cpp" line="788"/>
-        <location filename="../sources/settingsdialog.cpp" line="789"/>
-        <location filename="../sources/settingsdialog.cpp" line="790"/>
-        <location filename="../sources/settingsdialog.cpp" line="798"/>
-        <source>%1 MB</source>
-        <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="413"/>
@@ -1552,6 +1537,11 @@
         <translation type="unfinished">Pokrycie pola formularza:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="521"/>
+        <source>Tab position:</source>
+        <translation type="unfinished">Położenie paska kart:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="522"/>
         <source>Top</source>
         <translation type="unfinished">Na górze</translation>
@@ -1572,9 +1562,9 @@
         <translation type="unfinished">Po prawej</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="521"/>
-        <source>Tab position:</source>
-        <translation type="unfinished">Położenie paska kart:</translation>
+        <location filename="../sources/settingsdialog.cpp" line="526"/>
+        <source>Tab visibility:</source>
+        <translation type="unfinished">Widoczność paska kart:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="527"/>
@@ -1585,11 +1575,6 @@
         <location filename="../sources/settingsdialog.cpp" line="527"/>
         <source>Always</source>
         <translation type="unfinished">Zawsze</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="526"/>
-        <source>Tab visibility:</source>
-        <translation type="unfinished">Widoczność paska kart:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="531"/>
@@ -1705,6 +1690,21 @@
         <location filename="../sources/settingsdialog.cpp" line="681"/>
         <source>Zoom to selection:</source>
         <translation type="unfinished">Powiększenie przy zaznaczeniu:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="781"/>
+        <location filename="../sources/settingsdialog.cpp" line="782"/>
+        <location filename="../sources/settingsdialog.cpp" line="783"/>
+        <location filename="../sources/settingsdialog.cpp" line="784"/>
+        <location filename="../sources/settingsdialog.cpp" line="785"/>
+        <location filename="../sources/settingsdialog.cpp" line="786"/>
+        <location filename="../sources/settingsdialog.cpp" line="787"/>
+        <location filename="../sources/settingsdialog.cpp" line="788"/>
+        <location filename="../sources/settingsdialog.cpp" line="789"/>
+        <location filename="../sources/settingsdialog.cpp" line="790"/>
+        <location filename="../sources/settingsdialog.cpp" line="798"/>
+        <source>%1 MB</source>
+        <translation type="unfinished">%1 MB</translation>
     </message>
 </context>
 <context>
