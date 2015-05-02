@@ -71,6 +71,8 @@ public:
         }
     }
 
+    static QStringList openFilter();
+
     Model::Document* loadDocument(const QString& filePath);
 
     SettingsWidget* createSettingsWidget(FileType fileType, QWidget* parent = 0);

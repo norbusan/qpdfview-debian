@@ -206,6 +206,39 @@ PluginHandler::~PluginHandler()
     s_instance = 0;
 }
 
+QStringList PluginHandler::openFilter()
+{
+    QStringList openFilter;
+    QStringList supportedFormats;
+
+#if defined(WITH_PDF) || defined(WITH_FITZ)
+
+    openFilter.append("Portable document format (*.pdf)");
+    supportedFormats.append("*.pdf");
+
+#endif // WITH_PDF // WITH_FITZ
+
+#ifdef WITH_PS
+
+    openFilter.append("PostScript (*.ps)");
+    openFilter.append("Encapsulated PostScript (*.eps)");
+    supportedFormats.append("*.ps *.eps");
+
+#endif // WITH_PS
+
+#ifdef WITH_DJVU
+
+    openFilter.append("DjVu (*.djvu *.djv)");
+    supportedFormats.append("*.djvu");
+    supportedFormats.append("*.djv");
+
+#endif // WITH_DJVU
+
+    openFilter.prepend(tr("Supported formats (%1)").arg(supportedFormats.join(" ")));
+
+    return openFilter;
+}
+
 Model::Document* PluginHandler::loadDocument(const QString& filePath)
 {
     FileType fileType = matchFileType(filePath);
