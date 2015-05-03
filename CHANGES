@@ -1,5 +1,6 @@
 Release 0.4.15:
   * Fixed compatibility with MuPDF version 1.7. Thanks to Martin Banky.
+  * Added keeping the page-relative position upon page change.
   * Added document properties on PDF version, encryption and linearization.
   * Added keyboard navigation to the outline view. Thanks to Bendik R. Opstad.
   * Extended the default movement keyboard shortcuts to include the numpad keys.
