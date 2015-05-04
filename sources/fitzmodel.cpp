@@ -304,7 +304,7 @@ FitzPlugin::FitzPlugin(QObject* parent) : QObject(parent)
 {
     setObjectName("FitzPlugin");
 
-    m_locks_context.user = reinterpret_cast< void* >(this);
+    m_locks_context.user = this;
     m_locks_context.lock = FitzPlugin::lock;
     m_locks_context.unlock = FitzPlugin::unlock;
 
@@ -349,12 +349,12 @@ Model::Document* FitzPlugin::loadDocument(const QString& filePath) const
 
 void FitzPlugin::lock(void* user, int lock)
 {
-    reinterpret_cast< FitzPlugin* >(user)->m_mutex[lock].lock();
+    static_cast< FitzPlugin* >(user)->m_mutex[lock].lock();
 }
 
 void FitzPlugin::unlock(void* user, int lock)
 {
-    reinterpret_cast< FitzPlugin* >(user)->m_mutex[lock].unlock();
+    static_cast< FitzPlugin* >(user)->m_mutex[lock].unlock();
 }
 
 } // qpdfview
