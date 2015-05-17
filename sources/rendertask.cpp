@@ -34,14 +34,16 @@ using namespace qpdfview;
 
 qreal scaledResolutionX(const RenderParam& renderParam)
 {
-    return renderParam.resolution.devicePixelRatio *
-            renderParam.resolution.resolutionX * renderParam.scaleFactor;
+    return renderParam.devicePixelRatio
+            * renderParam.resolutionX
+            * renderParam.scaleFactor;
 }
 
 qreal scaledResolutionY(const RenderParam& renderParam)
 {
-    return renderParam.resolution.devicePixelRatio *
-            renderParam.resolution.resolutionY * renderParam.scaleFactor;
+    return renderParam.devicePixelRatio
+            * renderParam.resolutionY
+            * renderParam.scaleFactor;
 }
 
 bool columnHasPaperColor(int x, QRgb paperColor, const QImage& image)
@@ -204,7 +206,7 @@ void RenderTask::run()
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
+    image.setDevicePixelRatio(m_renderParam.devicePixelRatio);
 
 #endif // QT_VERSION
 

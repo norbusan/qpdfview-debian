@@ -27,38 +27,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace qpdfview
 {
 
-struct RenderResolution
-{
-    int resolutionX;
-    int resolutionY;
-    qreal devicePixelRatio;
-
-    RenderResolution(int resolutionX = 72, int resolutionY = 72,
-                     qreal devicePixelRatio = 1.0) :
-        resolutionX(resolutionX),
-        resolutionY(resolutionY),
-        devicePixelRatio(devicePixelRatio) {}
-
-    bool operator==(const RenderResolution& other) const
-    {
-        return resolutionX == other.resolutionX
-            && resolutionY == other.resolutionY
-            && qFuzzyCompare(devicePixelRatio, other.devicePixelRatio);
-    }
-
-    bool operator!=(const RenderResolution& other) const { return !operator==(other); }
-
-};
-
-inline QDataStream& operator<<(QDataStream& stream, const RenderResolution& that)
-{
-    stream << that.resolutionX
-           << that.resolutionY
-           << that.devicePixelRatio;
-
-   return stream;
-}
-
 enum RenderFlag
 {
     InvertColors = 1 << 0,
@@ -70,7 +38,9 @@ Q_DECLARE_FLAGS(RenderFlags, RenderFlag)
 
 struct RenderParam
 {
-    RenderResolution resolution;
+    int resolutionX;
+    int resolutionY;
+    qreal devicePixelRatio;
 
     qreal scaleFactor;
     Rotation rotation;
@@ -93,20 +63,25 @@ struct RenderParam
         }
     }
 
-    RenderParam(const RenderResolution& resolution = RenderResolution(),
+    RenderParam(int resolutionX = 72, int resolutionY = 72,
+                qreal devicePixelRatio = 1.0,
                 qreal scaleFactor = 1.0, Rotation rotation = RotateBy0,
                 RenderFlags flags = 0) :
-        resolution(resolution),
+        resolutionX(resolutionX),
+        resolutionY(resolutionY),
+        devicePixelRatio(devicePixelRatio),
         scaleFactor(scaleFactor),
         rotation(rotation),
         flags(flags) {}
 
     bool operator==(const RenderParam& other) const
     {
-        return resolution == other.resolution
-            && qFuzzyCompare(scaleFactor, other.scaleFactor)
-            && rotation == other.rotation
-            && flags == other.flags;
+        return resolutionX == other.resolutionX
+                && resolutionY == other.resolutionY
+                && qFuzzyCompare(devicePixelRatio, other.devicePixelRatio)
+                && qFuzzyCompare(scaleFactor, other.scaleFactor)
+                && rotation == other.rotation
+                && flags == other.flags;
     }
 
     bool operator!=(const RenderParam& other) const { return !operator==(other); }
@@ -115,10 +90,12 @@ struct RenderParam
 
 inline QDataStream& operator<<(QDataStream& stream, const RenderParam& that)
 {
-    stream << that.resolution
+    stream << that.resolutionX
+           << that.resolutionY
+           << that.devicePixelRatio
            << that.scaleFactor
            << that.rotation
-           << that.flags;
+           << static_cast< int >(that.flags);
 
    return stream;
 }

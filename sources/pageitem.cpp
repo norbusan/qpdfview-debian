@@ -155,10 +155,10 @@ qreal PageItem::displayedWidth() const
     default:
     case RotateBy0:
     case RotateBy180:
-        return m_renderParam.resolution.resolutionX / 72.0 * cropWidth * m_size.width();
+        return m_renderParam.resolutionX / 72.0 * cropWidth * m_size.width();
     case RotateBy90:
     case RotateBy270:
-        return m_renderParam.resolution.resolutionX / 72.0 * cropHeight * m_size.height();
+        return m_renderParam.resolutionX / 72.0 * cropHeight * m_size.height();
     }
 }
 
@@ -172,10 +172,10 @@ qreal PageItem::displayedHeight() const
     default:
     case RotateBy0:
     case RotateBy180:
-        return m_renderParam.resolution.resolutionY / 72.0 * cropHeight * m_size.height();
+        return m_renderParam.resolutionY / 72.0 * cropHeight * m_size.height();
     case RotateBy90:
     case RotateBy270:
-        return m_renderParam.resolution.resolutionY / 72.0 * cropWidth * m_size.width();
+        return m_renderParam.resolutionY / 72.0 * cropWidth * m_size.width();
     }
 }
 
@@ -205,12 +205,12 @@ void PageItem::setRubberBandMode(RubberBandMode rubberBandMode)
 
 void PageItem::setResolution(int resolutionX, int resolutionY)
 {
-    if((m_renderParam.resolution.resolutionX != resolutionX || m_renderParam.resolution.resolutionY != resolutionY) && resolutionX > 0 && resolutionY > 0)
+    if((m_renderParam.resolutionX != resolutionX || m_renderParam.resolutionY != resolutionY) && resolutionX > 0 && resolutionY > 0)
     {
         refresh(true);
 
-        m_renderParam.resolution.resolutionX = resolutionX;
-        m_renderParam.resolution.resolutionY = resolutionY;
+        m_renderParam.resolutionX = resolutionX;
+        m_renderParam.resolutionY = resolutionY;
 
         prepareGeometryChange();
         prepareGeometry();
@@ -224,11 +224,11 @@ void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
         return;
     }
 
-    if(!qFuzzyCompare(m_renderParam.resolution.devicePixelRatio, devicePixelRatio) && devicePixelRatio > 0.0)
+    if(!qFuzzyCompare(m_renderParam.devicePixelRatio, devicePixelRatio) && devicePixelRatio > 0.0)
     {
         refresh(true);
 
-        m_renderParam.resolution.devicePixelRatio = devicePixelRatio;
+        m_renderParam.devicePixelRatio = devicePixelRatio;
 
         prepareGeometryChange();
         prepareGeometry();
@@ -837,8 +837,8 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     else if(action == copyImageAction || action == saveImageToFileAction)
     {
         const QRect rect = m_rubberBand.translated(-m_boundingRect.topLeft()).toRect();
-        const QImage image = m_page->render(m_renderParam.resolution.resolutionX * m_renderParam.scaleFactor,
-                                            m_renderParam.resolution.resolutionY * m_renderParam.scaleFactor,
+        const QImage image = m_page->render(m_renderParam.resolutionX * m_renderParam.scaleFactor,
+                                            m_renderParam.resolutionY * m_renderParam.scaleFactor,
                                             m_renderParam.rotation, rect);
 
         if(!image.isNull())
@@ -1089,8 +1089,8 @@ void PageItem::prepareGeometry()
 {
     m_transform.reset();
 
-    m_transform.scale(m_renderParam.resolution.resolutionX * m_renderParam.scaleFactor / 72.0,
-                      m_renderParam.resolution.resolutionY * m_renderParam.scaleFactor / 72.0);
+    m_transform.scale(m_renderParam.resolutionX * m_renderParam.scaleFactor / 72.0,
+                      m_renderParam.resolutionY * m_renderParam.scaleFactor / 72.0);
 
     switch(m_renderParam.rotation)
     {

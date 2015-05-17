@@ -105,7 +105,7 @@ public:
     void setRotation(Rotation rotation);
 
     qpdfview::RenderFlags renderFlags() const;
-    void setRenderFlags(qpdfview::RenderFlags flags);
+    void setRenderFlags(qpdfview::RenderFlags renderFlags);
 
     bool invertColors() const { return m_invertColors; }
     void setInvertColors(bool invertColors);

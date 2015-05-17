@@ -8,12 +8,12 @@ MOC_DIR = moc
 
 HEADERS += \
     sources/global.h \
-    sources/renderparam.h \
     sources/printoptions.h \
     sources/settings.h \
     sources/model.h \
     sources/pluginhandler.h \
     sources/shortcuthandler.h \
+    sources/renderparam.h \
     sources/rendertask.h \
     sources/tileitem.h \
     sources/pageitem.h \
@@ -41,6 +41,7 @@ SOURCES += \
     sources/settings.cpp \
     sources/pluginhandler.cpp \
     sources/shortcuthandler.cpp \
+    sources/renderparam.cpp \
     sources/rendertask.cpp \
     sources/tileitem.cpp \
     sources/pageitem.cpp \

@@ -693,31 +693,31 @@ void DocumentView::setRotation(Rotation rotation)
 
 qpdfview::RenderFlags DocumentView::renderFlags() const
 {
-    qpdfview::RenderFlags flags = 0;
+    qpdfview::RenderFlags renderFlags = 0;
 
     if(m_invertColors)
     {
-        flags |= InvertColors;
+        renderFlags |= InvertColors;
     }
 
     if(m_convertToGrayscale)
     {
-        flags |= ConvertToGrayscale;
+        renderFlags |= ConvertToGrayscale;
     }
 
     if(m_trimMargins)
     {
-        flags |= TrimMargins;
+        renderFlags |= TrimMargins;
     }
 
-    return flags;
+    return renderFlags;
 }
 
-void DocumentView::setRenderFlags(qpdfview::RenderFlags flags)
+void DocumentView::setRenderFlags(qpdfview::RenderFlags renderFlags)
 {
-    setInvertColors(flags.testFlag(InvertColors));
-    setConvertToGrayscale(flags.testFlag(ConvertToGrayscale));
-    setTrimMargins(flags.testFlag(TrimMargins));
+    setInvertColors(renderFlags.testFlag(InvertColors));
+    setConvertToGrayscale(renderFlags.testFlag(ConvertToGrayscale));
+    setTrimMargins(renderFlags.testFlag(TrimMargins));
 }
 
 void DocumentView::setInvertColors(bool invertColors)
