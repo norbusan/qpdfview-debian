@@ -614,175 +614,88 @@ QString Database::instanceName()
 
 bool Database::prepareTabs_v4()
 {
-    Transaction transaction(m_database);
-
-    QSqlQuery query(m_database);
-    query.exec("CREATE TABLE tabs_v4 "
-               "(filePath TEXT"
-               ",instanceName TEXT"
-               ",currentPage INTEGER"
-               ",continuousMode INTEGER"
-               ",layoutMode INTEGER"
-               ",rightToLeftMode INTEGER"
-               ",scaleMode INTEGER"
-               ",scaleFactor REAL"
-               ",rotation INTEGER"
-               ",renderFlags INTEGER"
-               ",firstPage INTEGER)");
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return false;
-    }
-
-    transaction.commit();
-    return true;
+    return prepareTable("CREATE TABLE tabs_v4 "
+                        "(filePath TEXT"
+                        ",instanceName TEXT"
+                        ",currentPage INTEGER"
+                        ",continuousMode INTEGER"
+                        ",layoutMode INTEGER"
+                        ",rightToLeftMode INTEGER"
+                        ",scaleMode INTEGER"
+                        ",scaleFactor REAL"
+                        ",rotation INTEGER"
+                        ",renderFlags INTEGER"
+                        ",firstPage INTEGER)");
 }
 
 bool Database::prepareBookmarks_v3()
 {
-    Transaction transaction(m_database);
-
-    QSqlQuery query(m_database);
-    query.exec("CREATE TABLE bookmarks_v3 "
-               "(filePath TEXT"
-               ",page INTEGER"
-               ",label TEXT"
-               ",comment TEXT"
-               ",modified DATETIME)");
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return false;
-    }
-
-    transaction.commit();
-    return true;
+    return prepareTable("CREATE TABLE bookmarks_v3 "
+                        "(filePath TEXT"
+                        ",page INTEGER"
+                        ",label TEXT"
+                        ",comment TEXT"
+                        ",modified DATETIME)");
 }
 
 bool Database::preparePerFileSettings_v4()
 {
-    Transaction transaction(m_database);
-
-    QSqlQuery query(m_database);
-
-    query.exec("CREATE TABLE perfilesettings_v4 "
-               "(lastUsed INTEGER"
-               ",filePath TEXT PRIMARY KEY"
-               ",currentPage INTEGER"
-               ",continuousMode INTEGER"
-               ",layoutMode INTEGER"
-               ",rightToLeftMode INTEGER"
-               ",scaleMode INTEGER"
-               ",scaleFactor REAL"
-               ",rotation INTEGER"
-               ",renderFlags INTEGER"
-               ",firstPage INTEGER)");
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return false;
-    }
-
-    transaction.commit();
-    return true;
+    return prepareTable("CREATE TABLE perfilesettings_v4 "
+                        "(lastUsed INTEGER"
+                        ",filePath TEXT PRIMARY KEY"
+                        ",currentPage INTEGER"
+                        ",continuousMode INTEGER"
+                        ",layoutMode INTEGER"
+                        ",rightToLeftMode INTEGER"
+                        ",scaleMode INTEGER"
+                        ",scaleFactor REAL"
+                        ",rotation INTEGER"
+                        ",renderFlags INTEGER"
+                        ",firstPage INTEGER)");
 }
 
 void Database::migrateTabs_v3_v4()
 {
-    Transaction transaction(m_database);
+    migrateTable("INSERT INTO tabs_v4 "
+                 "SELECT filePath,instanceName,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,-1 "
+                 "FROM tabs_v3",
 
-    QSqlQuery query(m_database);
-    query.prepare("INSERT INTO tabs_v4 "
-                  "SELECT filePath,instanceName,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,-1 "
-                  "FROM tabs_v3");
+                 "DROP TABLE tabs_v3",
 
-    query.exec();
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return;
-    }
-
-    qWarning() << "Migrated tabs from v3 to v4, dropping v3.";
-    query.exec("DROP TABLE tabs_v3");
-
-    transaction.commit();
+                 "Migrated tabs from v3 to v4, dropping v3.");
 }
 
 void Database::migrateTabs_v2_v4()
 {
-    Transaction transaction(m_database);
+    migrateTable("INSERT INTO tabs_v4 "
+                 "SELECT filePath,instanceName,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1 "
+                 "FROM tabs_v2",
 
-    QSqlQuery query(m_database);
-    query.prepare("INSERT INTO tabs_v4 "
-                  "SELECT filePath,instanceName,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1 "
-                  "FROM tabs_v2");
+                 "DROP TABLE tabs_v2"  ,
 
-    query.exec();
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return;
-    }
-
-    qWarning() << "Migrated tabs from v2 to v4, dropping v2.";
-    query.exec("DROP TABLE tabs_v2");
-
-    transaction.commit();
+                 "Migrated tabs from v2 to v4, dropping v2.");
 }
 
 void Database::migrateTabs_v1_v4()
 {
-    Transaction transaction(m_database);
+    migrateTable("INSERT INTO tabs_v4 "
+                 "SELECT filePath,?,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1 "
+                 "FROM tabs_v1",
 
-    QSqlQuery query(m_database);
-    query.prepare("INSERT INTO tabs_v4 "
-                  "SELECT filePath,?,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1 "
-                  "FROM tabs_v1");
+                 "DROP TABLE tabs_v1",
 
-    query.bindValue(0, instanceName());
-
-    query.exec();
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return;
-    }
-
-    qWarning() << "Migrated tabs from v1 to v4, dropping v1.";
-    query.exec("DROP TABLE tabs_v1");
-
-    transaction.commit();
+                 "Migrated tabs from v1 to v4, dropping v1.");
 }
 
 void Database::migrateBookmarks_v2_v3()
 {
-    Transaction transaction(m_database);
+    migrateTable("INSERT INTO bookmarks_v3 "
+                 "SELECT filePath,page,label,'',datetime('now') "
+                 "FROM bookmarks_v2",
 
-    QSqlQuery query(m_database);
-    query.prepare("INSERT INTO bookmarks_v3 "
-                  "SELECT filePath,page,label,'',datetime('now') "
-                  "FROM bookmarks_v2");
+                 "DROP TABLE bookmarks_v2",
 
-    query.exec();
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return;
-    }
-
-    qWarning() << "Migrated bookmarks from v2 to v3, dropping v2.";
-    query.exec("DROP TABLE bookmarks_v2");
-
-    transaction.commit();
+                 "Migrated bookmarks from v2 to v3, dropping v2.");
 }
 
 void Database::migrateBookmarks_v1_v3()
@@ -836,69 +749,67 @@ void Database::migrateBookmarks_v1_v3()
 
 void Database::migratePerFileSettings_v3_v4()
 {
-    Transaction transaction(m_database);
+    migrateTable("INSERT INTO perfilesettings_v4 "
+                 "SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,firstPage "
+                 "FROM perfilesettings_v3",
 
-    QSqlQuery query(m_database);
-    query.prepare("INSERT INTO perfilesettings_v4 "
-                  "SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,firstPage "
-                  "FROM perfilesettings_v3");
+                 "DROP TABLE perfilesettings_v3",
 
-    query.exec();
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return;
-    }
-
-    qWarning() << "Migrated per-file settings from v3 to v4, dropping v3.";
-    query.exec("DROP TABLE perfilesettings_v3");
-
-    transaction.commit();
+                 "Migrated per-file settings from v3 to v4, dropping v3.");
 }
 
 void Database::migratePerFileSettings_v2_v4()
 {
-    Transaction transaction(m_database);
+    migrateTable("INSERT INTO perfilesettings_v4 "
+                 "SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,-1 "
+                 "FROM perfilesettings_v2",
 
-    QSqlQuery query(m_database);
-    query.prepare("INSERT INTO perfilesettings_v4 "
-                  "SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,-1 "
-                  "FROM perfilesettings_v2");
+                 "DROP TABLE perfilesettings_v2",
 
-    query.exec();
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return;
-    }
-
-    qWarning() << "Migrated per-file settings from v2 to v4, dropping v2.";
-    query.exec("DROP TABLE perfilesettings_v2");
-
-    transaction.commit();
+                 "Migrated per-file settings from v2 to v4, dropping v2.");
 }
 
 void Database::migratePerFileSettings_v1_v4()
 {
+    migrateTable("INSERT INTO perfilesettings_v4 "
+                 "SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1 "
+                 "FROM perfilesettings_v1",
+
+                 "DROP TABLE perfilesettings_v1",
+
+                 "Migrated per-file settings from v1 to v4, dropping v1.");
+}
+
+bool Database::prepareTable(const QString& prepare)
+{
     Transaction transaction(m_database);
 
     QSqlQuery query(m_database);
-    query.prepare("INSERT INTO perfilesettings_v4 "
-                  "SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1 "
-                  "FROM perfilesettings_v1");
 
-    query.exec();
+    if(!query.exec(prepare))
+    {
+        qDebug() << query.lastError();
+        return false;
+    }
 
-    if(!query.isActive())
+    transaction.commit();
+    return true;
+}
+
+void Database::migrateTable(const QString& migrate, const QString& prune, const QString& warning)
+{
+    Transaction transaction(m_database);
+
+    QSqlQuery query(m_database);
+
+    if(!query.exec(migrate))
     {
         qDebug() << query.lastError();
         return;
     }
 
-    qWarning() << "Migrated per-file settings from v1 to v4, dropping v1.";
-    query.exec("DROP TABLE perfilesettings_v1");
+    qWarning() << warning;
+    query.exec(prune);
 
     transaction.commit();
 }

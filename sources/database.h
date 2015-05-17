@@ -89,6 +89,9 @@ private:
     void migratePerFileSettings_v2_v4();
     void migratePerFileSettings_v1_v4();
 
+    bool prepareTable(const QString& prepare);
+    void migrateTable(const QString& migrate, const QString& prune, const QString& warning);
+
     void limitPerFileSettings();
 
     QSqlDatabase m_database;
