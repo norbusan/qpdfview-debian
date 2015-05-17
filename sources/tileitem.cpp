@@ -199,10 +199,8 @@ void TileItem::on_renderTask_finished()
     if(m_deleteAfterRender)
     {
         deleteLater();
-        return;
     }
-
-    if(!m_page->useTiling() || m_page->m_exposedTileItems.contains(this))
+    else if(!m_page->useTiling() || m_page->m_exposedTileItems.contains(this))
     {
         m_page->update();
     }

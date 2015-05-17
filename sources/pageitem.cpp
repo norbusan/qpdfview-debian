@@ -218,7 +218,7 @@ void PageItem::setRenderParam(RenderParam renderParam)
 
         const bool trimMarginsChanged = m_renderParam.trimMargins() != renderParam.trimMargins();
 
-        refresh(!rotationChanged && !flagsChanged);
+        refresh(!rotationChanged && !flagsChanged, trimMarginsChanged);
 
         m_renderParam = renderParam;
 
@@ -316,7 +316,7 @@ void PageItem::setTrimMargins(bool trimMargins)
 {
     if(m_renderParam.trimMargins() != trimMargins)
     {
-        refresh(false);
+        refresh(false, true);
 
         m_renderParam.setTrimMargins(trimMargins);
 

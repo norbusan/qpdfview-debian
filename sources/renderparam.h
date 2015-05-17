@@ -38,25 +38,12 @@ enum RenderFlag
 
 Q_DECLARE_FLAGS(RenderFlags, RenderFlag)
 
-struct RenderParamData : public QSharedData
-{
-    int resolutionX;
-    int resolutionY;
-    qreal devicePixelRatio;
-
-    qreal scaleFactor;
-    Rotation rotation;
-
-    RenderFlags flags;
-
-};
-
 class RenderParam
 {
 public:
     RenderParam(int resolutionX = 72, int resolutionY = 72, qreal devicePixelRatio = 1.0,
                 qreal scaleFactor = 1.0, Rotation rotation = RotateBy0,
-                RenderFlags flags = 0) : d(new RenderParamData)
+                RenderFlags flags = 0) : d(new SharedData)
     {
         d->resolutionX = resolutionX;
         d->resolutionY = resolutionY;
@@ -119,7 +106,20 @@ public:
     bool operator!=(const RenderParam& other) const { return !operator==(other); }
 
 private:
-    QSharedDataPointer< RenderParamData > d;
+    struct SharedData : public QSharedData
+    {
+        int resolutionX;
+        int resolutionY;
+        qreal devicePixelRatio;
+
+        qreal scaleFactor;
+        Rotation rotation;
+
+        RenderFlags flags;
+
+    };
+
+    QSharedDataPointer< SharedData > d;
 
 };
 
@@ -130,7 +130,7 @@ inline QDataStream& operator<<(QDataStream& stream, const RenderParam& that)
            << that.devicePixelRatio()
            << that.scaleFactor()
            << that.rotation()
-           << static_cast< int >(that.flags());
+           << that.flags();
 
    return stream;
 }
