@@ -298,7 +298,7 @@ void PageItem::setInvertColors(bool invertColors)
     {
         refresh(false);
 
-        m_renderParam.setFlag(InvertColors, invertColors);
+        m_renderParam.setInvertColors(invertColors);
     }
 }
 
@@ -308,7 +308,7 @@ void PageItem::setConvertToGrayscale(bool convertToGrayscale)
     {
         refresh(false);
 
-        m_renderParam.setFlag(ConvertToGrayscale, convertToGrayscale);
+        m_renderParam.setConvertToGrayscale(convertToGrayscale);
     }
 }
 
@@ -318,7 +318,7 @@ void PageItem::setTrimMargins(bool trimMargins)
     {
         refresh(false);
 
-        m_renderParam.setFlag(TrimMargins, trimMargins);
+        m_renderParam.setTrimMargins(trimMargins);
 
         prepareCropRect();
     }
