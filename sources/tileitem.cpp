@@ -64,7 +64,9 @@ TileItem::~TileItem()
 
 void TileItem::setCropRect(const QRectF& cropRect)
 {
-    if(!s_settings->pageItem().trimMargins())
+    PageItem* page = parentPage();
+
+    if(!page->m_renderParam.trimMargins)
     {
         return;
     }
@@ -73,7 +75,7 @@ void TileItem::setCropRect(const QRectF& cropRect)
     {
         m_cropRect = cropRect;
 
-        parentPage()->updateCropRect();
+        page->updateCropRect();
     }
 }
 

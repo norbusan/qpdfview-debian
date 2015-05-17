@@ -91,7 +91,6 @@ PageItem::PageItem(Model::Page* page, int index, PaintMode paintMode, QGraphicsI
     setAcceptHoverEvents(true);
 
     setFlag(QGraphicsItem::ItemUsesExtendedStyleOption, s_settings->pageItem().useTiling() && !thumbnailMode());
-    setFlag(QGraphicsItem::ItemClipsToShape, s_settings->pageItem().trimMargins());
 
     if(!s_settings->pageItem().useTiling() || thumbnailMode())
     {
@@ -289,6 +288,19 @@ void PageItem::setTrimMargins(bool trimMargins)
         refresh(false);
 
         m_renderParam.trimMargins = trimMargins;
+
+        setFlag(QGraphicsItem::ItemClipsToShape, m_renderParam.trimMargins);
+
+        m_cropRect = QRectF();
+
+        foreach(TileItem* tile, m_tileItems)
+        {
+            tile->resetCropRect();
+        }
+
+        prepareGeometryChange();
+
+        emit cropRectChanged();
     }
 }
 
@@ -775,6 +787,7 @@ void PageItem::updateCropRect()
         m_cropRect = cropRect;
 
         prepareGeometryChange();
+
         emit cropRectChanged();
     }
 }
@@ -1247,7 +1260,7 @@ inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) co
 
         painter->setClipping(false);
 
-        painter->drawRect(s_settings->pageItem().trimMargins() ? PageItem::boundingRect() : PageItem::uncroppedBoundingRect());
+        painter->drawRect(m_renderParam.trimMargins ? PageItem::boundingRect() : PageItem::uncroppedBoundingRect());
 
         painter->restore();
     }

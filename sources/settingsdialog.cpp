@@ -371,10 +371,6 @@ void SettingsDialog::createGraphicsTab()
 #endif // QT_VERSION
 
 
-    m_trimMarginsCheckBox = addCheckBox(m_graphicsLayout, tr("Trim margins:"), QString(),
-                                        s_settings->pageItem().trimMargins());
-
-
     m_decoratePagesCheckBox = addCheckBox(m_graphicsLayout, tr("Decorate pages:"), QString(),
                                           s_settings->pageItem().decoratePages());
 
@@ -426,8 +422,6 @@ void SettingsDialog::acceptGraphicsTab()
     s_settings->pageItem().setKeepObsoletePixmaps(m_keepObsoletePixmapsCheckBox->isChecked());
     s_settings->pageItem().setUseDevicePixelRatio(m_useDevicePixelRatioCheckBox->isChecked());
 
-    s_settings->pageItem().setTrimMargins(m_trimMarginsCheckBox->isChecked());
-
     s_settings->pageItem().setDecoratePages(m_decoratePagesCheckBox->isChecked());
     s_settings->pageItem().setDecorateLinks(m_decorateLinksCheckBox->isChecked());
     s_settings->pageItem().setDecorateFormFields(m_decorateFormFieldsCheckBox->isChecked());
@@ -468,8 +462,6 @@ void SettingsDialog::resetGraphicsTab()
     m_useTilingCheckBox->setChecked(Defaults::PageItem::useTiling());
     m_keepObsoletePixmapsCheckBox->setChecked(Defaults::PageItem::keepObsoletePixmaps());
     m_useDevicePixelRatioCheckBox->setChecked(Defaults::PageItem::useDevicePixelRatio());
-
-    m_trimMarginsCheckBox->setChecked(Defaults::PageItem::trimMargins());
 
     m_decoratePagesCheckBox->setChecked(Defaults::PageItem::decoratePages());
     m_decorateLinksCheckBox->setChecked(Defaults::PageItem::decorateLinks());

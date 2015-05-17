@@ -47,6 +47,7 @@ public:
     void setRect(const QRect& rect) { m_rect = rect; }
 
     const QRectF& cropRect() const { return m_cropRect; }
+    void resetCropRect() { m_cropRect = QRectF(); }
     void setCropRect(const QRectF& cropRect);
 
     void dropPixmap() { m_pixmap = QPixmap(); }

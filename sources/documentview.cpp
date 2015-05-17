@@ -410,7 +410,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     m_invertColors = s_settings->documentView().invertColors();
     m_convertToGrayscale = s_settings->documentView().convertToGrayscale();
-    m_trimMargins = s_settings->pageItem().trimMargins();
+    m_trimMargins = s_settings->documentView().trimMargins();
 
     m_highlightAll = s_settings->documentView().highlightAll();
 }
@@ -755,7 +755,7 @@ void DocumentView::setTrimMargins(bool trimMargins)
 
         emit trimMarginsChanged(m_trimMargins);
 
-        s_settings->pageItem().setTrimMargins(m_trimMargins);
+        s_settings->documentView().setTrimMargins(m_trimMargins);
     }
 }
 
