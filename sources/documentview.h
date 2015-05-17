@@ -34,7 +34,7 @@ class QFileSystemWatcher;
 class QPrinter;
 class QStandardItemModel;
 
-#include "global.h"
+#include "renderparam.h"
 #include "printoptions.h"
 
 namespace qpdfview
@@ -103,6 +103,9 @@ public:
 
     Rotation rotation() const { return m_rotation; }
     void setRotation(Rotation rotation);
+
+    qpdfview::RenderFlags renderFlags() const;
+    void setRenderFlags(qpdfview::RenderFlags flags);
 
     bool invertColors() const { return m_invertColors; }
     void setInvertColors(bool invertColors);

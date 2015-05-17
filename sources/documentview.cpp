@@ -691,6 +691,35 @@ void DocumentView::setRotation(Rotation rotation)
     }
 }
 
+qpdfview::RenderFlags DocumentView::renderFlags() const
+{
+    qpdfview::RenderFlags flags = 0;
+
+    if(m_invertColors)
+    {
+        flags |= InvertColors;
+    }
+
+    if(m_convertToGrayscale)
+    {
+        flags |= ConvertToGrayscale;
+    }
+
+    if(m_trimMargins)
+    {
+        flags |= TrimMargins;
+    }
+
+    return flags;
+}
+
+void DocumentView::setRenderFlags(qpdfview::RenderFlags flags)
+{
+    setInvertColors(flags.testFlag(InvertColors));
+    setConvertToGrayscale(flags.testFlag(ConvertToGrayscale));
+    setTrimMargins(flags.testFlag(TrimMargins));
+}
+
 void DocumentView::setInvertColors(bool invertColors)
 {
     if(m_invertColors != invertColors)
