@@ -97,11 +97,14 @@ public:
     Rotation rotation() const { return m_renderParam.rotation; }
     void setRotation(Rotation rotation);
 
-    bool invertColors() { return m_renderParam.invertColors; }
+    bool invertColors() const { return m_renderParam.invertColors; }
     void setInvertColors(bool invertColors);
 
-    bool convertToGrayscale() { return m_renderParam.convertToGrayscale; }
+    bool convertToGrayscale() const { return m_renderParam.convertToGrayscale; }
     void setConvertToGrayscale(bool convertToGrayscale);
+
+    bool trimMargins() const { return m_renderParam.trimMargins; }
+    void setTrimMargins(bool trimMargins);
 
     const QTransform& transform() const { return m_transform; }
     const QTransform& normalizedTransform() const { return m_normalizedTransform; }

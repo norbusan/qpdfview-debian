@@ -166,9 +166,7 @@ int TileItem::startRender(bool prefetch)
         return 0;
     }
 
-    m_renderTask->start(parentPage()->m_renderParam,
-                        m_rect, prefetch,
-                        s_settings->pageItem().trimMargins(), s_settings->pageItem().paperColor());
+    m_renderTask->start(parentPage()->m_renderParam, m_rect, prefetch);
 
     return 1;
 }
@@ -261,6 +259,7 @@ inline TileItem::CacheKey TileItem::cacheKey() const
             << page->m_renderParam.rotation
             << page->m_renderParam.invertColors
             << page->m_renderParam.convertToGrayscale
+            << page->m_renderParam.trimMargins
             << m_rect;
 
     return qMakePair(page, key);

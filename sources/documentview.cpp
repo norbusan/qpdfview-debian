@@ -314,6 +314,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_rotation(RotateBy0),
     m_invertColors(false),
     m_convertToGrayscale(false),
+    m_trimMargins(false),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
     m_pageItems(),
@@ -409,6 +410,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     m_invertColors = s_settings->documentView().invertColors();
     m_convertToGrayscale = s_settings->documentView().convertToGrayscale();
+    m_trimMargins = s_settings->pageItem().trimMargins();
+
     m_highlightAll = s_settings->documentView().highlightAll();
 }
 
@@ -731,6 +734,28 @@ void DocumentView::setConvertToGrayscale(bool convertToGrayscale)
         emit convertToGrayscaleChanged(m_convertToGrayscale);
 
         s_settings->documentView().setConvertToGrayscale(m_convertToGrayscale);
+    }
+}
+
+void DocumentView::setTrimMargins(bool trimMargins)
+{
+    if(m_trimMargins != trimMargins)
+    {
+        m_trimMargins = trimMargins;
+
+        foreach(PageItem* page, m_pageItems)
+        {
+            page->setTrimMargins(m_trimMargins);
+        }
+
+        foreach(ThumbnailItem* page, m_thumbnailItems)
+        {
+            page->setTrimMargins(m_trimMargins);
+        }
+
+        emit trimMarginsChanged(m_trimMargins);
+
+        s_settings->pageItem().setTrimMargins(m_trimMargins);
     }
 }
 

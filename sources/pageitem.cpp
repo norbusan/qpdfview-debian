@@ -282,6 +282,16 @@ void PageItem::setConvertToGrayscale(bool convertToGrayscale)
     }
 }
 
+void PageItem::setTrimMargins(bool trimMargins)
+{
+    if(m_renderParam.trimMargins != trimMargins)
+    {
+        refresh(false);
+
+        m_renderParam.trimMargins = trimMargins;
+    }
+}
+
 
 void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
 {

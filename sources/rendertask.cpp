@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QThreadPool>
 
 #include "model.h"
+#include "settings.h"
 
 namespace
 {
@@ -154,16 +155,21 @@ void convertToGrayscale(QImage& image)
 namespace qpdfview
 {
 
+Settings* RenderTask::s_settings = 0;
+
 RenderTask::RenderTask(Model::Page* page, QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(NotCanceled),
     m_page(page),
     m_renderParam(),
     m_rect(),
-    m_prefetch(false),
-    m_trimMargins(false),
-    m_paperColor()
+    m_prefetch(false)
 {
+    if(s_settings == 0)
+    {
+        s_settings = Settings::instance();
+    }
+
     setAutoDelete(false);
 }
 
@@ -202,11 +208,11 @@ void RenderTask::run()
 
 #endif // QT_VERSION
 
-    if(m_trimMargins)
+    if(m_renderParam.trimMargins)
     {
         CANCELLATION_POINT
 
-        cropRect = trimMargins(m_paperColor.rgb(), image);
+        cropRect = trimMargins(s_settings->pageItem().paperColor().rgb(), image);
     }
 
     if(m_renderParam.convertToGrayscale)
@@ -235,16 +241,12 @@ void RenderTask::run()
 }
 
 void RenderTask::start(const RenderParam& renderParam,
-                       const QRect& rect, bool prefetch,
-                       bool trimMargins, const QColor& paperColor)
+                       const QRect& rect, bool prefetch)
 {
     m_renderParam = renderParam;
 
     m_rect = rect;
     m_prefetch = prefetch;
-
-    m_trimMargins = trimMargins;
-    m_paperColor = paperColor;
 
     m_mutex.lock();
     m_isRunning = true;

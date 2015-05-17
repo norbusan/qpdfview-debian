@@ -70,15 +70,17 @@ struct RenderParam
 
     bool invertColors;
     bool convertToGrayscale;
+    bool trimMargins;
 
     RenderParam(const RenderResolution& resolution = RenderResolution(),
                 qreal scaleFactor = 1.0, Rotation rotation = RotateBy0,
-                bool invertColors = false, bool convertToGrayscale = false) :
+                bool invertColors = false, bool convertToGrayscale = false, bool trimMargins = false) :
         resolution(resolution),
         scaleFactor(scaleFactor),
         rotation(rotation),
         invertColors(invertColors),
-        convertToGrayscale(convertToGrayscale) {}
+        convertToGrayscale(convertToGrayscale),
+        trimMargins(trimMargins) {}
 
     bool operator==(const RenderParam& other) const
     {
@@ -86,7 +88,8 @@ struct RenderParam
             && qFuzzyCompare(scaleFactor, other.scaleFactor)
             && rotation == other.rotation
             && invertColors == other.invertColors
-            && convertToGrayscale == other.convertToGrayscale;
+            && convertToGrayscale == other.convertToGrayscale
+            && trimMargins == other.trimMargins;
     }
 
     bool operator!=(const RenderParam& other) const { return !operator==(other); }

@@ -38,6 +38,8 @@ namespace Model
 class Page;
 }
 
+class Settings;
+
 class RenderTask : public QObject, QRunnable
 {
     Q_OBJECT
@@ -64,13 +66,14 @@ signals:
 
 public slots:
     void start(const RenderParam& renderParam,
-               const QRect& rect, bool prefetch,
-               bool trimMargins, const QColor& paperColor);
+               const QRect& rect, bool prefetch);
 
     void cancel(bool force = false) { setCancellation(force); }
 
 private:
     Q_DISABLE_COPY(RenderTask)
+
+    static Settings* s_settings;
 
     mutable QMutex m_mutex;
     QWaitCondition m_waitCondition;
@@ -99,9 +102,6 @@ private:
 
     QRect m_rect;
     bool m_prefetch;
-
-    bool m_trimMargins;
-    QColor m_paperColor;
 
 };
 
