@@ -111,7 +111,9 @@ protected slots:
     void on_currentTab_linkClicked(bool newTab, const QString& filePath, int page);
 
     void on_currentTab_invertColorsChanged(bool invertColors);
-    void on_currentTab_convertToGrayscale(bool convertToGrayscale);
+    void on_currentTab_convertToGrayscaleChanged(bool convertToGrayscale);
+    void on_currentTab_trimMarginsChanged(bool trimMargins);
+
     void on_currentTab_highlightAllChanged(bool highlightAll);
     void on_currentTab_rubberBandModeChanged(RubberBandMode rubberBandMode);
 
@@ -179,6 +181,7 @@ protected slots:
 
     void on_invertColors_triggered(bool checked);
     void on_convertToGrayscale_triggered(bool checked);
+    void on_trimMargins_triggered(bool checked);
 
     void on_fonts_triggered();
 
@@ -353,6 +356,7 @@ private:
 
     QAction* m_invertColorsAction;
     QAction* m_convertToGrayscaleAction;
+    QAction* m_trimMarginsAction;
 
     QAction* m_fontsAction;
 

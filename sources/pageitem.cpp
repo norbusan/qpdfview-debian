@@ -291,12 +291,12 @@ void PageItem::setTrimMargins(bool trimMargins)
 
         setFlag(QGraphicsItem::ItemClipsToShape, m_renderParam.trimMargins);
 
-        m_cropRect = QRectF();
-
         foreach(TileItem* tile, m_tileItems)
         {
             tile->resetCropRect();
         }
+
+        m_cropRect = QRectF();
 
         prepareGeometryChange();
 

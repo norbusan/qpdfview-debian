@@ -2241,6 +2241,9 @@ void DocumentView::preparePages()
         PageItem* page = new PageItem(m_pages.at(index), index);
 
         page->setInvertColors(m_invertColors);
+        page->setConvertToGrayscale(m_convertToGrayscale);
+        page->setTrimMargins(m_trimMargins);
+
         page->setRubberBandMode(m_rubberBandMode);
 
         scene()->addItem(page);
@@ -2271,6 +2274,8 @@ void DocumentView::prepareThumbnails()
         ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), pageLabelFromNumber(index + 1), index);
 
         page->setInvertColors(m_invertColors);
+        page->setConvertToGrayscale(m_convertToGrayscale);
+        page->setTrimMargins(m_trimMargins);
 
         m_thumbnailsScene->addItem(page);
         m_thumbnailItems.append(page);
