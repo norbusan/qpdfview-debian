@@ -203,6 +203,38 @@ void PageItem::setRubberBandMode(RubberBandMode rubberBandMode)
     }
 }
 
+void PageItem::setRenderParam(RenderParam renderParam)
+{
+    if(m_renderParam != renderParam)
+    {
+        const bool resolutionChanged = m_renderParam.resolutionX() != renderParam.resolutionX()
+                || m_renderParam.resolutionY() != renderParam.resolutionY()
+                || m_renderParam.devicePixelRatio() != renderParam.devicePixelRatio()
+                || m_renderParam.scaleFactor() != renderParam.scaleFactor();
+
+        const bool rotationChanged = m_renderParam.rotation() != renderParam.rotation();
+
+        const bool flagsChanged = m_renderParam.flags() != renderParam.flags();
+
+        const bool trimMarginsChanged = m_renderParam.trimMargins() != renderParam.trimMargins();
+
+        refresh(!rotationChanged && !flagsChanged);
+
+        m_renderParam = renderParam;
+
+        if(resolutionChanged || rotationChanged)
+        {
+            prepareGeometryChange();
+            prepareGeometry();
+        }
+
+        if(trimMarginsChanged)
+        {
+            prepareCropRect();
+        }
+    }
+}
+
 void PageItem::setResolution(int resolutionX, int resolutionY)
 {
     if((m_renderParam.resolutionX() != resolutionX || m_renderParam.resolutionY() != resolutionY) && resolutionX > 0 && resolutionY > 0)
@@ -288,18 +320,7 @@ void PageItem::setTrimMargins(bool trimMargins)
 
         m_renderParam.setFlag(TrimMargins, trimMargins);
 
-        setFlag(QGraphicsItem::ItemClipsToShape, trimMargins);
-
-        foreach(TileItem* tile, m_tileItems)
-        {
-            tile->resetCropRect();
-        }
-
-        m_cropRect = QRectF();
-
-        prepareGeometryChange();
-
-        emit cropRectChanged();
+        prepareCropRect();
     }
 }
 
@@ -749,6 +770,22 @@ void PageItem::loadInteractiveElements()
     }
 
     update();
+}
+
+void PageItem::prepareCropRect()
+{
+    setFlag(QGraphicsItem::ItemClipsToShape, m_renderParam.trimMargins());
+
+    foreach(TileItem* tile, m_tileItems)
+    {
+        tile->resetCropRect();
+    }
+
+    m_cropRect = QRectF();
+
+    prepareGeometryChange();
+
+    emit cropRectChanged();
 }
 
 void PageItem::updateCropRect()

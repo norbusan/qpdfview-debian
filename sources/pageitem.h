@@ -84,6 +84,9 @@ public:
     bool showsAnnotationOverlay() const { return !m_annotationOverlay.isEmpty(); }
     bool showsFormFieldOverlay() const { return !m_formFieldOverlay.isEmpty(); }
 
+    const RenderParam& renderParam() const { return m_renderParam; }
+    void setRenderParam(RenderParam renderParam);
+
     int resolutionX() const { return m_renderParam.resolutionX(); }
     int resolutionY() const { return m_renderParam.resolutionY(); }
     void setResolution(int resolutionX, int resolutionY);
@@ -164,6 +167,7 @@ private:
 
     QRectF m_cropRect;
 
+    void prepareCropRect();
     void updateCropRect();
 
     int m_index;

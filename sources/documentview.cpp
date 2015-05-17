@@ -248,6 +248,14 @@ inline QRectF rectOfResult(const QModelIndex& index)
     return index.data(SearchModel::RectRole).toRectF();
 }
 
+inline void adjustScaleFactor(RenderParam& renderParam, qreal scaleFactor)
+{
+    if(!qFuzzyCompare(renderParam.scaleFactor(), scaleFactor))
+    {
+        renderParam.setScaleFactor(scaleFactor);
+    }
+}
+
 inline void setValueIfNotVisible(QScrollBar* scrollBar, int value)
 {
     if(value < scrollBar->value() || value > scrollBar->value() + scrollBar->pageStep())
@@ -2355,39 +2363,38 @@ void DocumentView::prepareBackground()
 
 void DocumentView::prepareScene()
 {
-    // prepare scale factor and rotation
+    // prepare render parameters and adjust scale factor
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    RenderParam renderParam(logicalDpiX(), logicalDpiY(), devicePixelRatio(),
+                            scaleFactor(), rotation(), renderFlags());
+
+#else
+
+    RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
+                            scaleFactor(), rotation(), renderFlags());
+
+#endif // QT_VERSION
 
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
 
     foreach(PageItem* page, m_pageItems)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-        page->setDevicePixelRatio(devicePixelRatio());
-
-#endif // QT_VERSION
-
-        page->setResolution(logicalDpiX(), logicalDpiY());
-
-        page->setRotation(m_rotation);
-
         const qreal displayedWidth = page->displayedWidth();
         const qreal displayedHeight = page->displayedHeight();
 
-        switch(m_scaleMode)
+        if(m_scaleMode == FitToPageWidthMode)
         {
-        default:
-        case ScaleFactorMode:
-            page->setScaleFactor(m_scaleFactor);
-            break;
-        case FitToPageWidthMode:
-            page->setScaleFactor(visibleWidth / displayedWidth);
-            break;
-        case FitToPageSizeMode:
-            page->setScaleFactor(qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
-            break;
+            adjustScaleFactor(renderParam, visibleWidth / displayedWidth);
         }
+        else if(m_scaleMode == FitToPageSizeMode)
+        {
+            adjustScaleFactor(renderParam, qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
+        }
+
+        page->setRenderParam(renderParam);
     }
 
     // prepare layout
@@ -2481,6 +2488,34 @@ void DocumentView::prepareView(qreal newLeft, qreal newTop, bool forceScroll, in
 
 void DocumentView::prepareThumbnailsScene()
 {
+    // prepare render parameters and adjust scale factor
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    RenderParam renderParam(logicalDpiX(), logicalDpiY(), devicePixelRatio(),
+                            scaleFactor(), rotation(), renderFlags());
+
+#else
+
+    RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
+                            scaleFactor(), rotation(), renderFlags());
+
+#endif // QT_VERSION
+
+    const qreal thumbnailSize = s_settings->documentView().thumbnailSize();
+
+    foreach(ThumbnailItem* page, m_thumbnailItems)
+    {
+        const qreal displayedWidth = page->displayedWidth();
+        const qreal displayedHeight = page->displayedHeight();
+
+        adjustScaleFactor(renderParam, qMin(thumbnailSize / displayedWidth, thumbnailSize / displayedHeight));
+
+        page->setRenderParam(renderParam);
+    }
+
+    // prepare layout
+
     const qreal thumbnailSpacing = s_settings->documentView().thumbnailSpacing();
 
     qreal left = 0.0;
@@ -2494,6 +2529,8 @@ void DocumentView::prepareThumbnailsScene()
     {
         ThumbnailItem* page = m_thumbnailItems.at(index);
 
+        // prepare visibility
+
         if(limitThumbnailsToResults && s_searchModel->hasResults(this) && !s_searchModel->hasResultsOnPage(this, index + 1))
         {
             page->setVisible(false);
@@ -2505,20 +2542,7 @@ void DocumentView::prepareThumbnailsScene()
 
         page->setVisible(true);
 
-        // prepare scale factor
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-        page->setDevicePixelRatio(devicePixelRatio());
-
-#endif // QT_VERSION
-
-        page->setResolution(logicalDpiX(), logicalDpiY());
-
-        page->setScaleFactor(qMin(s_settings->documentView().thumbnailSize() / page->displayedWidth(),
-                                  s_settings->documentView().thumbnailSize() / page->displayedHeight()));
-
-        // prepare layout
+        // prepare position
 
         const QRectF boundingRect = page->boundingRect();
 
