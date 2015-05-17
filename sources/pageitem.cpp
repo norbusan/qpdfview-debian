@@ -90,9 +90,9 @@ PageItem::PageItem(Model::Page* page, int index, PaintMode paintMode, QGraphicsI
 
     setAcceptHoverEvents(true);
 
-    setFlag(QGraphicsItem::ItemUsesExtendedStyleOption, s_settings->pageItem().useTiling() && !thumbnailMode());
+    setFlag(QGraphicsItem::ItemUsesExtendedStyleOption, useTiling());
 
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         m_tileItems.resize(1);
         m_tileItems.squeeze();
@@ -307,7 +307,7 @@ void PageItem::setTrimMargins(bool trimMargins)
 
 void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
 {
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         m_tileItems.first()->refresh(keepObsoletePixmaps);
     }
@@ -336,7 +336,7 @@ int PageItem::startRender(bool prefetch)
 {
     int cost = 0;
 
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         cost += m_tileItems.first()->startRender(prefetch);
     }
@@ -353,7 +353,7 @@ int PageItem::startRender(bool prefetch)
 
 void PageItem::cancelRender()
 {
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         m_tileItems.first()->cancelRender();
     }
@@ -756,7 +756,7 @@ void PageItem::updateCropRect()
 {
     QRectF cropRect;
 
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         cropRect = m_tileItems.first()->cropRect();
     }
@@ -790,6 +790,21 @@ void PageItem::updateCropRect()
 
         emit cropRectChanged();
     }
+}
+
+inline bool PageItem::presentationMode() const
+{
+    return m_paintMode == PresentationMode;
+}
+
+inline bool PageItem::thumbnailMode() const
+{
+    return m_paintMode == ThumbnailMode;
+}
+
+inline bool PageItem::useTiling() const
+{
+    return m_paintMode != ThumbnailMode && s_settings->pageItem().useTiling();
 }
 
 void PageItem::copyToClipboard(const QPoint& screenPos)
@@ -1111,7 +1126,7 @@ void PageItem::prepareGeometry()
 
 void PageItem::prepareTiling()
 {
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         m_tileItems.first()->setRect(QRect(0, 0, m_boundingRect.width(), m_boundingRect.height()));
 
@@ -1203,7 +1218,7 @@ inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) co
 
     // tiles
 
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         TileItem* tile = m_tileItems.first();
 

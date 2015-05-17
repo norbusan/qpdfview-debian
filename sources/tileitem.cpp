@@ -205,7 +205,7 @@ void TileItem::on_renderTask_finished()
 
     PageItem* page = parentPage();
 
-    if(!s_settings->pageItem().useTiling() || page->thumbnailMode() || page->m_exposedTileItems.contains(this))
+    if(!page->useTiling() || page->m_exposedTileItems.contains(this))
     {
         page->update();
     }

@@ -169,8 +169,10 @@ private:
     int m_index;
     PaintMode m_paintMode;
 
-    bool presentationMode() const { return m_paintMode == PresentationMode; }
-    bool thumbnailMode() const { return m_paintMode == ThumbnailMode; }
+    bool presentationMode() const;
+    bool thumbnailMode() const;
+
+    bool useTiling() const;
 
     QList< QRectF > m_highlights;
 
