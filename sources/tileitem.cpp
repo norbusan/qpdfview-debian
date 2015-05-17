@@ -34,7 +34,8 @@ Settings* TileItem::s_settings = 0;
 
 QCache< TileItem::CacheKey, TileItem::CacheObject > TileItem::s_cache;
 
-TileItem::TileItem(QObject* parent) : QObject(parent),
+TileItem::TileItem(PageItem* page) : QObject(page),
+    m_page(page),
     m_rect(),
     m_cropRect(),
     m_pixmapError(false),
@@ -50,7 +51,7 @@ TileItem::TileItem(QObject* parent) : QObject(parent),
 
     s_cache.setMaxCost(s_settings->pageItem().cacheSize());
 
-    m_renderTask = new RenderTask(parentPage()->m_page, this);
+    m_renderTask = new RenderTask(m_page->m_page, this);
 
     connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
     connect(m_renderTask, SIGNAL(imageReady(RenderParam,QRect,bool,QImage,QRectF)), SLOT(on_renderTask_imageReady(RenderParam,QRect,bool,QImage,QRectF)));
@@ -64,9 +65,7 @@ TileItem::~TileItem()
 
 void TileItem::setCropRect(const QRectF& cropRect)
 {
-    PageItem* page = parentPage();
-
-    if(!page->m_renderParam.trimMargins())
+    if(!m_page->m_renderParam.trimMargins())
     {
         return;
     }
@@ -75,7 +74,7 @@ void TileItem::setCropRect(const QRectF& cropRect)
     {
         m_cropRect = cropRect;
 
-        page->updateCropRect();
+        m_page->updateCropRect();
     }
 }
 
@@ -168,7 +167,7 @@ int TileItem::startRender(bool prefetch)
         return 0;
     }
 
-    m_renderTask->start(parentPage()->m_renderParam, m_rect, prefetch);
+    m_renderTask->start(m_page->m_renderParam, m_rect, prefetch);
 
     return 1;
 }
@@ -203,11 +202,9 @@ void TileItem::on_renderTask_finished()
         return;
     }
 
-    PageItem* page = parentPage();
-
-    if(!page->useTiling() || page->m_exposedTileItems.contains(this))
+    if(!m_page->useTiling() || m_page->m_exposedTileItems.contains(this))
     {
-        page->update();
+        m_page->update();
     }
 }
 
@@ -215,7 +212,7 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
                                         const QRect& rect, bool prefetch,
                                         QImage image, QRectF cropRect)
 {
-    if(parentPage()->m_renderParam != renderParam || m_rect != rect)
+    if(m_page->m_renderParam != renderParam || m_rect != rect)
     {
         return;
     }
@@ -244,23 +241,14 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     }
 }
 
-inline PageItem* TileItem::parentPage() const
-{
-    return qobject_cast< PageItem* >(parent());
-}
-
 inline TileItem::CacheKey TileItem::cacheKey() const
 {
-    PageItem* page = parentPage();
     QByteArray key;
+    QDataStream stream(&key, QIODevice::WriteOnly);
 
-    {
-        QDataStream stream(&key, QIODevice::WriteOnly);
+    stream << m_page->m_renderParam << m_rect;
 
-        stream << page->m_renderParam << m_rect;
-    }
-
-    return qMakePair(page, key);
+    return qMakePair(m_page, key);
 }
 
 QPixmap TileItem::takePixmap()

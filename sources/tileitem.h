@@ -41,7 +41,7 @@ class TileItem : public QObject
     Q_OBJECT
 
 public:
-    TileItem(QObject* parent = 0);
+    TileItem(PageItem* page);
     ~TileItem();
 
     const QRect& rect() const { return m_rect; }
@@ -82,8 +82,9 @@ private:
 
     static QCache< CacheKey, CacheObject > s_cache;
 
-    PageItem* parentPage() const;
     CacheKey cacheKey() const;
+
+    PageItem* m_page;
 
     QRect m_rect;
     QRectF m_cropRect;
