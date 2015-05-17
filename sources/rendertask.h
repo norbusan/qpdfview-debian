@@ -97,6 +97,7 @@ private:
 
     Model::Page* m_page;
 
+    static RenderParam s_defaultRenderParam;
     RenderParam m_renderParam;
 
     QRect m_rect;

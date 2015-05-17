@@ -159,11 +159,13 @@ namespace qpdfview
 
 Settings* RenderTask::s_settings = 0;
 
+RenderParam RenderTask::s_defaultRenderParam;
+
 RenderTask::RenderTask(Model::Page* page, QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(NotCanceled),
     m_page(page),
-    m_renderParam(),
+    m_renderParam(s_defaultRenderParam),
     m_rect(),
     m_prefetch(false)
 {
