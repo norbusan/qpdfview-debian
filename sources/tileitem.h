@@ -32,6 +32,7 @@ namespace qpdfview
 {
 
 class Settings;
+class RenderParam;
 class RenderTask;
 class PageItem;
 

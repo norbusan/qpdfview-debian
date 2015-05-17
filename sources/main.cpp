@@ -46,6 +46,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // WITH_SYNCTEX
 
+#include "renderparam.h"
 #include "documentview.h"
 #include "database.h"
 #include "mainwindow.h"

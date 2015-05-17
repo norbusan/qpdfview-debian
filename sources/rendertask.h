@@ -22,13 +22,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef RENDERTASK_H
 #define RENDERTASK_H
 
-#include <QColor>
 #include <QImage>
 #include <QMutex>
 #include <QRunnable>
 #include <QWaitCondition>
 
-#include "global.h"
+#include "renderparam.h"
 
 namespace qpdfview
 {

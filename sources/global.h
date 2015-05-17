@@ -1,6 +1,6 @@
 /*
 
-Copyright 2013 Adam Reichold
+Copyright 2013, 2015 Adam Reichold
 Copyright 2013 Alexander Volkov
 
 This file is part of qpdfview.
@@ -36,64 +36,6 @@ enum Rotation
     RotateBy180 = 2,
     RotateBy270 = 3,
     NumberOfRotations = 4
-};
-
-struct RenderResolution
-{
-    int resolutionX;
-    int resolutionY;
-    qreal devicePixelRatio;
-
-    RenderResolution(int resolutionX = 72, int resolutionY = 72,
-                     qreal devicePixelRatio = 1.0) :
-        resolutionX(resolutionX),
-        resolutionY(resolutionY),
-        devicePixelRatio(devicePixelRatio) {}
-
-    bool operator==(const RenderResolution& other) const
-    {
-        return resolutionX == other.resolutionX
-            && resolutionY == other.resolutionY
-            && qFuzzyCompare(devicePixelRatio, other.devicePixelRatio);
-    }
-
-    bool operator!=(const RenderResolution& other) const { return !operator==(other); }
-
-};
-
-struct RenderParam
-{
-    RenderResolution resolution;
-
-    qreal scaleFactor;
-    Rotation rotation;
-
-    bool invertColors;
-    bool convertToGrayscale;
-    bool trimMargins;
-
-    RenderParam(const RenderResolution& resolution = RenderResolution(),
-                qreal scaleFactor = 1.0, Rotation rotation = RotateBy0,
-                bool invertColors = false, bool convertToGrayscale = false, bool trimMargins = false) :
-        resolution(resolution),
-        scaleFactor(scaleFactor),
-        rotation(rotation),
-        invertColors(invertColors),
-        convertToGrayscale(convertToGrayscale),
-        trimMargins(trimMargins) {}
-
-    bool operator==(const RenderParam& other) const
-    {
-        return resolution == other.resolution
-            && qFuzzyCompare(scaleFactor, other.scaleFactor)
-            && rotation == other.rotation
-            && invertColors == other.invertColors
-            && convertToGrayscale == other.convertToGrayscale
-            && trimMargins == other.trimMargins;
-    }
-
-    bool operator!=(const RenderParam& other) const { return !operator==(other); }
-
 };
 
 enum RubberBandMode

@@ -29,7 +29,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 class QGraphicsProxyWidget;
 
-#include "global.h"
+#include "renderparam.h"
 
 namespace qpdfview
 {

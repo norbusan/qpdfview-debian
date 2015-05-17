@@ -8,6 +8,7 @@ MOC_DIR = moc
 
 HEADERS += \
     sources/global.h \
+    sources/renderparam.h \
     sources/printoptions.h \
     sources/settings.h \
     sources/model.h \
