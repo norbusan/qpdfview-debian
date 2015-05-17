@@ -263,33 +263,33 @@ void PageItem::setRotation(Rotation rotation)
 
 void PageItem::setInvertColors(bool invertColors)
 {
-    if(m_renderParam.invertColors != invertColors)
+    if(m_renderParam.invertColors() != invertColors)
     {
         refresh(false);
 
-        m_renderParam.invertColors = invertColors;
+        m_renderParam.setFlag(InvertColors, invertColors);
     }
 }
 
 void PageItem::setConvertToGrayscale(bool convertToGrayscale)
 {
-    if(m_renderParam.convertToGrayscale != convertToGrayscale)
+    if(m_renderParam.convertToGrayscale() != convertToGrayscale)
     {
         refresh(false);
 
-        m_renderParam.convertToGrayscale = convertToGrayscale;
+        m_renderParam.setFlag(ConvertToGrayscale, convertToGrayscale);
     }
 }
 
 void PageItem::setTrimMargins(bool trimMargins)
 {
-    if(m_renderParam.trimMargins != trimMargins)
+    if(m_renderParam.trimMargins() != trimMargins)
     {
         refresh(false);
 
-        m_renderParam.trimMargins = trimMargins;
+        m_renderParam.setFlag(TrimMargins, trimMargins);
 
-        setFlag(QGraphicsItem::ItemClipsToShape, m_renderParam.trimMargins);
+        setFlag(QGraphicsItem::ItemClipsToShape, trimMargins);
 
         foreach(TileItem* tile, m_tileItems)
         {
@@ -1208,7 +1208,7 @@ inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) co
 
         QColor paperColor = s_settings->pageItem().paperColor();
 
-        if(m_renderParam.invertColors)
+        if(m_renderParam.invertColors())
         {
             paperColor.setRgb(~paperColor.rgb());
         }
@@ -1275,7 +1275,7 @@ inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) co
 
         painter->setClipping(false);
 
-        painter->drawRect(m_renderParam.trimMargins ? PageItem::boundingRect() : PageItem::uncroppedBoundingRect());
+        painter->drawRect(m_renderParam.trimMargins() ? PageItem::boundingRect() : PageItem::uncroppedBoundingRect());
 
         painter->restore();
     }

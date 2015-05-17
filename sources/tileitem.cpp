@@ -66,7 +66,7 @@ void TileItem::setCropRect(const QRectF& cropRect)
 {
     PageItem* page = parentPage();
 
-    if(!page->m_renderParam.trimMargins)
+    if(!page->m_renderParam.trimMargins())
     {
         return;
     }
@@ -254,15 +254,11 @@ inline TileItem::CacheKey TileItem::cacheKey() const
     PageItem* page = parentPage();
     QByteArray key;
 
-    QDataStream(&key, QIODevice::WriteOnly)
-            << page->m_renderParam.resolution.resolutionX
-            << page->m_renderParam.resolution.resolutionY
-            << page->m_renderParam.scaleFactor
-            << page->m_renderParam.rotation
-            << page->m_renderParam.invertColors
-            << page->m_renderParam.convertToGrayscale
-            << page->m_renderParam.trimMargins
-            << m_rect;
+    {
+        QDataStream stream(&key, QIODevice::WriteOnly);
+
+        stream << page->m_renderParam << m_rect;
+    }
 
     return qMakePair(page, key);
 }

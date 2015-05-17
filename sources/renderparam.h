@@ -50,6 +50,24 @@ struct RenderResolution
 
 };
 
+inline QDataStream& operator<<(QDataStream& stream, const RenderResolution& that)
+{
+    stream << that.resolutionX
+           << that.resolutionY
+           << that.devicePixelRatio;
+
+   return stream;
+}
+
+enum RenderFlag
+{
+    InvertColors = 1 << 0,
+    ConvertToGrayscale = 1 << 1,
+    TrimMargins = 1 << 2
+};
+
+Q_DECLARE_FLAGS(RenderFlags, RenderFlag)
+
 struct RenderParam
 {
     RenderResolution resolution;
@@ -57,33 +75,53 @@ struct RenderParam
     qreal scaleFactor;
     Rotation rotation;
 
-    bool invertColors;
-    bool convertToGrayscale;
-    bool trimMargins;
+    RenderFlags flags;
+
+    bool invertColors() const { return flags.testFlag(InvertColors); }
+    bool convertToGrayscale() const { return flags.testFlag(ConvertToGrayscale); }
+    bool trimMargins() const { return flags.testFlag(TrimMargins); }
+
+    void setFlag(RenderFlag flag, bool on)
+    {
+        if(on)
+        {
+            flags |= flag;
+        }
+        else
+        {
+            flags &= ~flag;
+        }
+    }
 
     RenderParam(const RenderResolution& resolution = RenderResolution(),
                 qreal scaleFactor = 1.0, Rotation rotation = RotateBy0,
-                bool invertColors = false, bool convertToGrayscale = false, bool trimMargins = false) :
+                RenderFlags flags = 0) :
         resolution(resolution),
         scaleFactor(scaleFactor),
         rotation(rotation),
-        invertColors(invertColors),
-        convertToGrayscale(convertToGrayscale),
-        trimMargins(trimMargins) {}
+        flags(flags) {}
 
     bool operator==(const RenderParam& other) const
     {
         return resolution == other.resolution
             && qFuzzyCompare(scaleFactor, other.scaleFactor)
             && rotation == other.rotation
-            && invertColors == other.invertColors
-            && convertToGrayscale == other.convertToGrayscale
-            && trimMargins == other.trimMargins;
+            && flags == other.flags;
     }
 
     bool operator!=(const RenderParam& other) const { return !operator==(other); }
 
 };
+
+inline QDataStream& operator<<(QDataStream& stream, const RenderParam& that)
+{
+    stream << that.resolution
+           << that.scaleFactor
+           << that.rotation
+           << that.flags;
+
+   return stream;
+}
 
 } // qpdfview
 

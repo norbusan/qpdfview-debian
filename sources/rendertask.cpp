@@ -208,21 +208,21 @@ void RenderTask::run()
 
 #endif // QT_VERSION
 
-    if(m_renderParam.trimMargins)
+    if(m_renderParam.trimMargins())
     {
         CANCELLATION_POINT
 
         cropRect = trimMargins(s_settings->pageItem().paperColor().rgb(), image);
     }
 
-    if(m_renderParam.convertToGrayscale)
+    if(m_renderParam.convertToGrayscale())
     {
         CANCELLATION_POINT
 
         convertToGrayscale(image);
     }
 
-    if(m_renderParam.invertColors)
+    if(m_renderParam.invertColors())
     {
         CANCELLATION_POINT
 
