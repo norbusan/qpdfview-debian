@@ -22,6 +22,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef RENDERPARAM_H
 #define RENDERPARAM_H
 
+#include <QSharedDataPointer>
+
 #include "global.h"
 
 namespace qpdfview
@@ -36,7 +38,7 @@ enum RenderFlag
 
 Q_DECLARE_FLAGS(RenderFlags, RenderFlag)
 
-struct RenderParam
+struct RenderParamData : public QSharedData
 {
     int resolutionX;
     int resolutionY;
@@ -47,55 +49,88 @@ struct RenderParam
 
     RenderFlags flags;
 
-    bool invertColors() const { return flags.testFlag(InvertColors); }
-    bool convertToGrayscale() const { return flags.testFlag(ConvertToGrayscale); }
-    bool trimMargins() const { return flags.testFlag(TrimMargins); }
+};
 
-    void setFlag(RenderFlag flag, bool on)
+class RenderParam
+{
+public:
+    RenderParam(int resolutionX = 72, int resolutionY = 72, qreal devicePixelRatio = 1.0,
+                qreal scaleFactor = 1.0, Rotation rotation = RotateBy0,
+                RenderFlags flags = 0) : d(new RenderParamData)
     {
-        if(on)
+        d->resolutionX = resolutionX;
+        d->resolutionY = resolutionY;
+        d->devicePixelRatio = devicePixelRatio;
+        d->scaleFactor = scaleFactor;
+        d->rotation = rotation;
+        d->flags = flags;
+    }
+
+    int resolutionX() const { return d->resolutionX; }
+    int resolutionY() const { return d->resolutionY; }
+    void setResolution(int resolutionX, int resolutionY)
+    {
+        d->resolutionX = resolutionX;
+        d->resolutionY = resolutionY;
+    }
+
+    qreal devicePixelRatio() const { return d->devicePixelRatio; }
+    void setDevicePixelRatio(qreal devicePixelRatio) { d->devicePixelRatio = devicePixelRatio; }
+
+    qreal scaleFactor() const { return d->scaleFactor; }
+    void setScaleFactor(qreal scaleFactor) { d->scaleFactor = scaleFactor; }
+
+    Rotation rotation() const { return d->rotation; }
+    void setRotation(Rotation rotation) { d->rotation = rotation; }
+
+    RenderFlags flags() const { return d->flags; }
+    void setFlags(RenderFlags flags) { d->flags = flags; }
+    void setFlag(RenderFlag flag, bool enabled = true)
+    {
+        if(enabled)
         {
-            flags |= flag;
+            d->flags |= flag;
         }
         else
         {
-            flags &= ~flag;
+            d->flags &= ~flag;
         }
     }
 
-    RenderParam(int resolutionX = 72, int resolutionY = 72,
-                qreal devicePixelRatio = 1.0,
-                qreal scaleFactor = 1.0, Rotation rotation = RotateBy0,
-                RenderFlags flags = 0) :
-        resolutionX(resolutionX),
-        resolutionY(resolutionY),
-        devicePixelRatio(devicePixelRatio),
-        scaleFactor(scaleFactor),
-        rotation(rotation),
-        flags(flags) {}
+    bool invertColors() const { return d->flags.testFlag(InvertColors); }
+    void setInvertColors(bool invertColors) { setFlag(InvertColors, invertColors); }
+
+    bool convertToGrayscale() const { return d->flags.testFlag(ConvertToGrayscale); }
+    void setConvertToGrayscale(bool convertToGrayscale) { setFlag(ConvertToGrayscale, convertToGrayscale); }
+
+    bool trimMargins() const { return d->flags.testFlag(TrimMargins); }
+    void setTrimMargins(bool trimMargins) { setFlag(TrimMargins, trimMargins); }
 
     bool operator==(const RenderParam& other) const
     {
-        return resolutionX == other.resolutionX
-                && resolutionY == other.resolutionY
-                && qFuzzyCompare(devicePixelRatio, other.devicePixelRatio)
-                && qFuzzyCompare(scaleFactor, other.scaleFactor)
-                && rotation == other.rotation
-                && flags == other.flags;
+        return d->resolutionX == other.d->resolutionX
+                && d->resolutionY == other.d->resolutionY
+                && qFuzzyCompare(d->devicePixelRatio, other.d->devicePixelRatio)
+                && qFuzzyCompare(d->scaleFactor, other.d->scaleFactor)
+                && d->rotation == other.d->rotation
+                && d->flags == other.d->flags;
     }
 
     bool operator!=(const RenderParam& other) const { return !operator==(other); }
+
+private:
+    QSharedDataPointer< RenderParamData > d;
 
 };
 
 inline QDataStream& operator<<(QDataStream& stream, const RenderParam& that)
 {
-    stream << that.resolutionX
-           << that.resolutionY
-           << that.devicePixelRatio
-           << that.scaleFactor
-           << that.rotation
-           << static_cast< int >(that.flags);
+    stream << that.resolutionX()
+           << that.resolutionY()
+           << that.devicePixelRatio()
+           << that.scaleFactor()
+           << that.rotation()
+           << static_cast< int >(that.flags());
 
    return stream;
 }

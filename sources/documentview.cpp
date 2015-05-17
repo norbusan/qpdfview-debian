@@ -720,6 +720,22 @@ void DocumentView::setRenderFlags(qpdfview::RenderFlags renderFlags)
     setTrimMargins(renderFlags.testFlag(TrimMargins));
 }
 
+void DocumentView::setRenderFlag(qpdfview::RenderFlag renderFlag, bool enabled)
+{
+    switch(renderFlag)
+    {
+    case InvertColors:
+        setInvertColors(enabled);
+        break;
+    case ConvertToGrayscale:
+        setConvertToGrayscale(enabled);
+        break;
+    case TrimMargins:
+        setTrimMargins(enabled);
+        break;
+    }
+}
+
 void DocumentView::setInvertColors(bool invertColors)
 {
     if(m_invertColors != invertColors)

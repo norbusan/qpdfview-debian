@@ -84,17 +84,17 @@ public:
     bool showsAnnotationOverlay() const { return !m_annotationOverlay.isEmpty(); }
     bool showsFormFieldOverlay() const { return !m_formFieldOverlay.isEmpty(); }
 
-    int resolutionX() const { return m_renderParam.resolutionX; }
-    int resolutionY() const { return m_renderParam.resolutionY; }
+    int resolutionX() const { return m_renderParam.resolutionX(); }
+    int resolutionY() const { return m_renderParam.resolutionY(); }
     void setResolution(int resolutionX, int resolutionY);
 
-    qreal devicePixelRatio() const { return m_renderParam.devicePixelRatio; }
+    qreal devicePixelRatio() const { return m_renderParam.devicePixelRatio(); }
     void setDevicePixelRatio(qreal devicePixelRatio);
 
-    qreal scaleFactor() const { return m_renderParam.scaleFactor; }
+    qreal scaleFactor() const { return m_renderParam.scaleFactor(); }
     void setScaleFactor(qreal scaleFactor);
 
-    Rotation rotation() const { return m_renderParam.rotation; }
+    Rotation rotation() const { return m_renderParam.rotation(); }
     void setRotation(Rotation rotation);
 
     bool invertColors() const { return m_renderParam.invertColors(); }

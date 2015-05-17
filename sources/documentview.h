@@ -106,6 +106,7 @@ public:
 
     qpdfview::RenderFlags renderFlags() const;
     void setRenderFlags(qpdfview::RenderFlags renderFlags);
+    void setRenderFlag(qpdfview::RenderFlag renderFlag, bool enabled = true);
 
     bool invertColors() const { return m_invertColors; }
     void setInvertColors(bool invertColors);
