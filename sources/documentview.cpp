@@ -248,6 +248,21 @@ inline QRectF rectOfResult(const QModelIndex& index)
     return index.data(SearchModel::RectRole).toRectF();
 }
 
+inline void adjustComposeBackgroundMode(RenderParam& renderParam, ComposeBackgroundMode mode)
+{
+    switch(mode)
+    {
+    default:
+        break;
+    case DarkenBackgroundMode:
+        renderParam.setDarkenBackground(true);
+        break;
+    case LightenBackgroundMode:
+        renderParam.setLightenBackground(true);
+        break;
+    }
+}
+
 inline void adjustScaleFactor(RenderParam& renderParam, qreal scaleFactor)
 {
     if(!qFuzzyCompare(renderParam.scaleFactor(), scaleFactor))
@@ -732,6 +747,8 @@ void DocumentView::setRenderFlag(qpdfview::RenderFlag renderFlag, bool enabled)
 {
     switch(renderFlag)
     {
+    default:
+        break;
     case InvertColors:
         setInvertColors(enabled);
         break;
@@ -2365,17 +2382,16 @@ void DocumentView::prepareScene()
 {
     // prepare render parameters and adjust scale factor
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-    RenderParam renderParam(logicalDpiX(), logicalDpiY(), devicePixelRatio(),
-                            scaleFactor(), rotation(), renderFlags());
-
-#else
-
     RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
                             scaleFactor(), rotation(), renderFlags());
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    renderParam.setDevicePixelRatio(devicePixelRatio());
+
 #endif // QT_VERSION
+
+    adjustComposeBackgroundMode(renderParam, s_settings->documentView().composeBackground());
 
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
@@ -2490,17 +2506,16 @@ void DocumentView::prepareThumbnailsScene()
 {
     // prepare render parameters and adjust scale factor
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-    RenderParam renderParam(logicalDpiX(), logicalDpiY(), devicePixelRatio(),
-                            scaleFactor(), rotation(), renderFlags());
-
-#else
-
     RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
                             scaleFactor(), rotation(), renderFlags());
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    renderParam.setDevicePixelRatio(devicePixelRatio());
+
 #endif // QT_VERSION
+
+    adjustComposeBackgroundMode(renderParam, s_settings->documentView().composeBackground());
 
     const qreal thumbnailSize = s_settings->documentView().thumbnailSize();
 

@@ -64,6 +64,14 @@ enum ScaleMode
     NumberOfScaleModes = 3
 };
 
+enum ComposeBackgroundMode
+{
+    DefaultBackgroundMode = 0,
+    DarkenBackgroundMode = 1,
+    LightenBackgroundMode = 2,
+    NumberOfBackgroundModes = 4
+};
+
 } // qpdfview
 
 #endif // GLOBAL_H
