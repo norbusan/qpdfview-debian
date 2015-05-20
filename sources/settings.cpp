@@ -420,16 +420,6 @@ void Settings::DocumentView::setThumbnailSize(qreal thumbnailSize)
     }
 }
 
-ComposeBackgroundMode Settings::DocumentView::composeBackground() const
-{
-    return static_cast< ComposeBackgroundMode >(m_settings->value("documentView/composeBackground", Defaults::DocumentView::composeBackground()).toInt());
-}
-
-void Settings::DocumentView::setComposeBackground(ComposeBackgroundMode composeBackground)
-{
-    m_settings->setValue("documentView/composeBackground", static_cast< int >(composeBackground));
-}
-
 bool Settings::DocumentView::matchCase() const
 {
     return m_settings->value("documentView/matchCase", Defaults::DocumentView::matchCase()).toBool();
@@ -593,6 +583,16 @@ bool Settings::DocumentView::trimMargins() const
 void Settings::DocumentView::setTrimMargins(bool trimMargins)
 {
     m_settings->setValue("documentView/trimMargins", trimMargins);
+}
+
+CompositionMode Settings::DocumentView::compositionMode() const
+{
+    return static_cast< CompositionMode >(m_settings->value("documentView/compositionMode", Defaults::DocumentView::compositionMode()).toInt());
+}
+
+void Settings::DocumentView::setCompositionMode(CompositionMode compositionMode)
+{
+    m_settings->setValue("documentView/compositionMode", static_cast< int >(compositionMode));
 }
 
 bool Settings::DocumentView::highlightAll() const

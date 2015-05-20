@@ -208,9 +208,6 @@ public:
         qreal thumbnailSize() const { return m_thumbnailSize; }
         void setThumbnailSize(qreal thumbnailSize);
 
-        ComposeBackgroundMode composeBackground() const;
-        void setComposeBackground(ComposeBackgroundMode composeBackground);
-
         bool matchCase() const;
         void setMatchCase(bool matchCase);
 
@@ -260,6 +257,9 @@ public:
 
         bool trimMargins() const;
         void setTrimMargins(bool trimMargins);
+
+        CompositionMode compositionMode() const;
+        void setCompositionMode(CompositionMode compositionMode);
 
         bool highlightAll() const;
         void setHighlightAll(bool highlightAll);
@@ -555,7 +555,7 @@ public:
 
         static qreal thumbnailSize() { return 150.0; }
 
-        static ComposeBackgroundMode composeBackground() { return DefaultBackgroundMode; }
+        static CompositionMode compositionMode() { return NoCompositionMode; }
 
         static bool matchCase() { return false; }
         static bool wholeWords() { return false; }

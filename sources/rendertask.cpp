@@ -153,7 +153,7 @@ void convertToGrayscale(QImage& image)
     }
 }
 
-void composeBackground(QPainter::CompositionMode mode, const QColor& color, QImage& image)
+void composeWithColor(QPainter::CompositionMode mode, const QColor& color, QImage& image)
 {
     QPainter painter(&image);
 
@@ -221,17 +221,17 @@ void RenderTask::run()
 
 #endif // QT_VERSION
 
-    if(m_renderParam.darkenBackground())
+    if(m_renderParam.darkenWithPaperColor())
     {
         CANCELLATION_POINT
 
-        composeBackground(QPainter::CompositionMode_Darken, s_settings->pageItem().paperColor(), image);
+        composeWithColor(QPainter::CompositionMode_Darken, s_settings->pageItem().paperColor(), image);
     }
-    else if(m_renderParam.lightenBackground())
+    else if(m_renderParam.lightenWithPaperColor())
     {
         CANCELLATION_POINT
 
-        composeBackground(QPainter::CompositionMode_Lighten, s_settings->pageItem().paperColor(), image);
+        composeWithColor(QPainter::CompositionMode_Lighten, s_settings->pageItem().paperColor(), image);
     }
 
     if(m_renderParam.trimMargins())

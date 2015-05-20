@@ -248,17 +248,17 @@ inline QRectF rectOfResult(const QModelIndex& index)
     return index.data(SearchModel::RectRole).toRectF();
 }
 
-inline void adjustComposeBackgroundMode(RenderParam& renderParam, ComposeBackgroundMode mode)
+inline void adjustCompositionMode(RenderParam& renderParam, CompositionMode mode)
 {
     switch(mode)
     {
     default:
         break;
-    case DarkenBackgroundMode:
-        renderParam.setDarkenBackground(true);
+    case DarkenWithPaperColorMode:
+        renderParam.setDarkenWithPaperColor(true);
         break;
-    case LightenBackgroundMode:
-        renderParam.setLightenBackground(true);
+    case LightenWithPaperColorMode:
+        renderParam.setLightenWithPaperColor(true);
         break;
     }
 }
@@ -2391,7 +2391,7 @@ void DocumentView::prepareScene()
 
 #endif // QT_VERSION
 
-    adjustComposeBackgroundMode(renderParam, s_settings->documentView().composeBackground());
+    adjustCompositionMode(renderParam, s_settings->documentView().compositionMode());
 
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
@@ -2515,7 +2515,7 @@ void DocumentView::prepareThumbnailsScene()
 
 #endif // QT_VERSION
 
-    adjustComposeBackgroundMode(renderParam, s_settings->documentView().composeBackground());
+    adjustCompositionMode(renderParam, s_settings->documentView().compositionMode());
 
     const qreal thumbnailSize = s_settings->documentView().thumbnailSize();
 
