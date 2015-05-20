@@ -338,6 +338,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_invertColors(false),
     m_convertToGrayscale(false),
     m_trimMargins(false),
+    m_compositionMode(NoCompositionMode),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
     m_pageItems(),
@@ -434,6 +435,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_invertColors = s_settings->documentView().invertColors();
     m_convertToGrayscale = s_settings->documentView().convertToGrayscale();
     m_trimMargins = s_settings->documentView().trimMargins();
+
+    m_compositionMode = s_settings->documentView().compositionMode();
 
     m_highlightAll = s_settings->documentView().highlightAll();
 }
@@ -826,6 +829,21 @@ void DocumentView::setTrimMargins(bool trimMargins)
         emit trimMarginsChanged(m_trimMargins);
 
         s_settings->documentView().setTrimMargins(m_trimMargins);
+    }
+}
+
+void DocumentView::setCompositionMode(CompositionMode compositionMode)
+{
+    if(m_compositionMode != compositionMode && compositionMode >= 0 && compositionMode < NumberOfCompositionModes)
+    {
+        m_compositionMode = compositionMode;
+
+        prepareScene();
+        prepareView();
+
+        emit compositionModeChanged(m_compositionMode);
+
+        s_settings->documentView().setCompositionMode(m_compositionMode);
     }
 }
 
@@ -2391,7 +2409,7 @@ void DocumentView::prepareScene()
 
 #endif // QT_VERSION
 
-    adjustCompositionMode(renderParam, s_settings->documentView().compositionMode());
+    adjustCompositionMode(renderParam, m_compositionMode);
 
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
@@ -2515,7 +2533,7 @@ void DocumentView::prepareThumbnailsScene()
 
 #endif // QT_VERSION
 
-    adjustCompositionMode(renderParam, s_settings->documentView().compositionMode());
+    adjustCompositionMode(renderParam, m_compositionMode);
 
     const qreal thumbnailSize = s_settings->documentView().thumbnailSize();
 

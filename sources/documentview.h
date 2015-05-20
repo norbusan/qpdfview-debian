@@ -117,6 +117,9 @@ public:
     bool trimMargins() const { return m_trimMargins; }
     void setTrimMargins(bool trimMargins);
 
+    CompositionMode compositionMode() const { return m_compositionMode; }
+    void setCompositionMode(CompositionMode compositionMode);
+
     bool highlightAll() const { return m_highlightAll; }
     void setHighlightAll(bool highlightAll);
 
@@ -165,6 +168,8 @@ signals:
     void invertColorsChanged(bool invertColors);
     void convertToGrayscaleChanged(bool convertToGrayscale);
     void trimMarginsChanged(bool trimMargins);
+
+    void compositionModeChanged(CompositionMode compositionMode);
 
     void highlightAllChanged(bool highlightAll);
     void rubberBandModeChanged(RubberBandMode rubberBandMode);
@@ -301,6 +306,8 @@ private:
     bool m_invertColors;
     bool m_convertToGrayscale;
     bool m_trimMargins;
+
+    CompositionMode m_compositionMode;
 
     bool m_highlightAll;
     RubberBandMode m_rubberBandMode;
