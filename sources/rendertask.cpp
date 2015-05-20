@@ -22,6 +22,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "rendertask.h"
 
 #include <qmath.h>
+#include <QPainter>
 #include <QThreadPool>
 
 #include "model.h"
@@ -152,6 +153,14 @@ void convertToGrayscale(QImage& image)
     }
 }
 
+void composeBackground(QPainter::CompositionMode mode, const QColor& color, QImage& image)
+{
+    QPainter painter(&image);
+
+    painter.setCompositionMode(mode);
+    painter.fillRect(image.rect(), color);
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -211,6 +220,19 @@ void RenderTask::run()
     image.setDevicePixelRatio(m_renderParam.devicePixelRatio());
 
 #endif // QT_VERSION
+
+    if(m_renderParam.darkenBackground())
+    {
+        CANCELLATION_POINT
+
+        composeBackground(QPainter::CompositionMode_Darken, s_settings->pageItem().paperColor(), image);
+    }
+    else if(m_renderParam.lightenBackground())
+    {
+        CANCELLATION_POINT
+
+        composeBackground(QPainter::CompositionMode_Lighten, s_settings->pageItem().paperColor(), image);
+    }
 
     if(m_renderParam.trimMargins())
     {
