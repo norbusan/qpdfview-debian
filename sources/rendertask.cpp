@@ -285,6 +285,8 @@ void RenderTask::start(const RenderParam& renderParam,
 
 void RenderTask::finish()
 {
+    m_renderParam = s_defaultRenderParam;
+
     emit finished();
 
     m_mutex.lock();
