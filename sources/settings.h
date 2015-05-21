@@ -555,7 +555,7 @@ public:
 
         static qreal thumbnailSize() { return 150.0; }
 
-        static CompositionMode compositionMode() { return NoCompositionMode; }
+        static CompositionMode compositionMode() { return DefaultCompositionMode; }
 
         static bool matchCase() { return false; }
         static bool wholeWords() { return false; }

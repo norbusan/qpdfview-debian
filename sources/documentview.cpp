@@ -338,7 +338,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_invertColors(false),
     m_convertToGrayscale(false),
     m_trimMargins(false),
-    m_compositionMode(NoCompositionMode),
+    m_compositionMode(DefaultCompositionMode),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
     m_pageItems(),
@@ -736,6 +736,18 @@ qpdfview::RenderFlags DocumentView::renderFlags() const
         renderFlags |= TrimMargins;
     }
 
+    switch(m_compositionMode)
+    {
+    default:
+        break;
+    case DarkenWithPaperColorMode:
+        renderFlags |= DarkenWithPaperColor;
+        break;
+    case LightenWithPaperColorMode:
+        renderFlags |= LightenWithPaperColor;
+        break;
+    }
+
     return renderFlags;
 }
 
@@ -744,6 +756,19 @@ void DocumentView::setRenderFlags(qpdfview::RenderFlags renderFlags)
     setInvertColors(renderFlags.testFlag(InvertColors));
     setConvertToGrayscale(renderFlags.testFlag(ConvertToGrayscale));
     setTrimMargins(renderFlags.testFlag(TrimMargins));
+
+    if(renderFlags.testFlag(DarkenWithPaperColor))
+    {
+        setCompositionMode(DarkenWithPaperColorMode);
+    }
+    else if(renderFlags.testFlag(LightenWithPaperColor))
+    {
+        setCompositionMode(LightenWithPaperColorMode);
+    }
+    else
+    {
+        setCompositionMode(DefaultCompositionMode);
+    }
 }
 
 void DocumentView::setRenderFlag(qpdfview::RenderFlag renderFlag, bool enabled)
@@ -760,6 +785,12 @@ void DocumentView::setRenderFlag(qpdfview::RenderFlag renderFlag, bool enabled)
         break;
     case TrimMargins:
         setTrimMargins(enabled);
+        break;
+    case DarkenWithPaperColor:
+        setCompositionMode(enabled ? DarkenWithPaperColorMode : DefaultCompositionMode);
+        break;
+    case LightenWithPaperColor:
+        setCompositionMode(enabled ? LightenWithPaperColorMode : DefaultCompositionMode);
         break;
     }
 }
@@ -838,8 +869,11 @@ void DocumentView::setCompositionMode(CompositionMode compositionMode)
     {
         m_compositionMode = compositionMode;
 
+        qreal left = 0.0, top = 0.0;
+        saveLeftAndTop(left, top);
+
         prepareScene();
-        prepareView();
+        prepareView(left, top);
 
         emit compositionModeChanged(m_compositionMode);
 

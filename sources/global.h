@@ -66,10 +66,10 @@ enum ScaleMode
 
 enum CompositionMode
 {
-    NoCompositionMode = 0,
+    DefaultCompositionMode = 0,
     DarkenWithPaperColorMode = 1,
     LightenWithPaperColorMode = 2,
-    NumberOfCompositionModes = 4
+    NumberOfCompositionModes = 3
 };
 
 } // qpdfview
