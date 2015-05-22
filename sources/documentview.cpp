@@ -1033,12 +1033,12 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal newLeft, qreal n
 
         if(qIsNaN(newLeft))
         {
-            newLeft = left;
+            newLeft = qBound(qreal(0.0), left, qreal(1.0));
         }
 
         if(qIsNaN(newTop))
         {
-            newTop = top;
+            newTop = qBound(qreal(0.0), top, qreal(1.0));
         }
 
         if(m_currentPage != m_layout->currentPage(page) || qAbs(left - newLeft) > 0.01 || qAbs(top - newTop) > 0.01)
