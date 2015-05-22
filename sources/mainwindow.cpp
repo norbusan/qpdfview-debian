@@ -532,6 +532,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         on_currentTab_invertColorsChanged(currentTab()->invertColors());
         on_currentTab_convertToGrayscaleChanged(currentTab()->convertToGrayscale());
+        on_currentTab_trimMarginsChanged(currentTab()->trimMargins());
+
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
         on_currentTab_rubberBandModeChanged(currentTab()->rubberBandMode());
     }

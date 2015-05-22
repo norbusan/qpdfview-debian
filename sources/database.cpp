@@ -468,7 +468,7 @@ void Database::savePerFileSettings(const DocumentView* tab)
         QSqlQuery query(m_database);
         query.prepare("INSERT OR REPLACE INTO perfilesettings_v4 "
                       "(lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage)"
-                      " VALUES (?,?,?,?,?,?,?,?,?,?)");
+                      " VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 
         query.bindValue(0, QDateTime::currentDateTime().toTime_t());
 
