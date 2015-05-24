@@ -145,37 +145,37 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
     paintRubberBand(painter);
 }
 
-qreal PageItem::displayedWidth() const
+qreal PageItem::displayedWidth(const RenderParam& renderParam) const
 {
     const qreal cropWidth = m_cropRect.isNull() ? 1.0 : m_cropRect.width();
     const qreal cropHeight = m_cropRect.isNull() ? 1.0 : m_cropRect.height();
 
-    switch(m_renderParam.rotation())
+    switch(renderParam.rotation())
     {
     default:
     case RotateBy0:
     case RotateBy180:
-        return m_renderParam.resolutionX() / 72.0 * cropWidth * m_size.width();
+        return renderParam.resolutionX() / 72.0 * cropWidth * m_size.width();
     case RotateBy90:
     case RotateBy270:
-        return m_renderParam.resolutionX() / 72.0 * cropHeight * m_size.height();
+        return renderParam.resolutionX() / 72.0 * cropHeight * m_size.height();
     }
 }
 
-qreal PageItem::displayedHeight() const
+qreal PageItem::displayedHeight(const RenderParam& renderParam) const
 {
     const qreal cropHeight = m_cropRect.isNull() ? 1.0 : m_cropRect.height();
     const qreal cropWidth = m_cropRect.isNull() ? 1.0 : m_cropRect.width();
 
-    switch(m_renderParam.rotation())
+    switch(renderParam.rotation())
     {
     default:
     case RotateBy0:
     case RotateBy180:
-        return m_renderParam.resolutionY() / 72.0 * cropHeight * m_size.height();
+        return renderParam.resolutionY() / 72.0 * cropHeight * m_size.height();
     case RotateBy90:
     case RotateBy270:
-        return m_renderParam.resolutionY() / 72.0 * cropWidth * m_size.width();
+        return renderParam.resolutionY() / 72.0 * cropWidth * m_size.width();
     }
 }
 
@@ -203,14 +203,14 @@ void PageItem::setRubberBandMode(RubberBandMode rubberBandMode)
     }
 }
 
-void PageItem::setRenderParam(RenderParam renderParam)
+void PageItem::setRenderParam(const RenderParam& renderParam)
 {
     if(m_renderParam != renderParam)
     {
         const bool resolutionChanged = m_renderParam.resolutionX() != renderParam.resolutionX()
                 || m_renderParam.resolutionY() != renderParam.resolutionY()
-                || m_renderParam.devicePixelRatio() != renderParam.devicePixelRatio()
-                || m_renderParam.scaleFactor() != renderParam.scaleFactor();
+                || !qFuzzyCompare(m_renderParam.devicePixelRatio(), renderParam.devicePixelRatio())
+                || !qFuzzyCompare(m_renderParam.scaleFactor(), renderParam.scaleFactor());
 
         const bool rotationChanged = m_renderParam.rotation() != renderParam.rotation();
 

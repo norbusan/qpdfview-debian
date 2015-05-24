@@ -2382,8 +2382,8 @@ void DocumentView::prepareScene()
 
     foreach(PageItem* page, m_pageItems)
     {
-        const qreal displayedWidth = page->displayedWidth();
-        const qreal displayedHeight = page->displayedHeight();
+        const qreal displayedWidth = page->displayedWidth(renderParam);
+        const qreal displayedHeight = page->displayedHeight(renderParam);
 
         if(m_scaleMode == FitToPageWidthMode)
         {
@@ -2506,8 +2506,8 @@ void DocumentView::prepareThumbnailsScene()
 
     foreach(ThumbnailItem* page, m_thumbnailItems)
     {
-        const qreal displayedWidth = page->displayedWidth();
-        const qreal displayedHeight = page->displayedHeight();
+        const qreal displayedWidth = page->displayedWidth(renderParam);
+        const qreal displayedHeight = page->displayedHeight(renderParam);
 
         adjustScaleFactor(renderParam, qMin(thumbnailSize / displayedWidth, thumbnailSize / displayedHeight));
 

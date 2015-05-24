@@ -72,8 +72,11 @@ public:
 
     const QSizeF& size() const { return m_size; }
 
-    qreal displayedWidth() const;
-    qreal displayedHeight() const;
+    qreal displayedWidth() const { return displayedWidth(renderParam()); }
+    qreal displayedHeight() const { return displayedHeight(renderParam()); }
+
+    qreal displayedWidth(const RenderParam& renderParam) const;
+    qreal displayedHeight(const RenderParam& renderParam) const;
 
     const QList< QRectF >& highlights() const { return m_highlights; }
     void setHighlights(const QList< QRectF >& highlights);
@@ -85,7 +88,7 @@ public:
     bool showsFormFieldOverlay() const { return !m_formFieldOverlay.isEmpty(); }
 
     const RenderParam& renderParam() const { return m_renderParam; }
-    void setRenderParam(RenderParam renderParam);
+    void setRenderParam(const RenderParam& renderParam);
 
     int resolutionX() const { return m_renderParam.resolutionX(); }
     int resolutionY() const { return m_renderParam.resolutionY(); }

@@ -95,12 +95,19 @@ public:
 
     bool operator==(const RenderParam& other) const
     {
-        return d->resolutionX == other.d->resolutionX
-                && d->resolutionY == other.d->resolutionY
-                && qFuzzyCompare(d->devicePixelRatio, other.d->devicePixelRatio)
-                && qFuzzyCompare(d->scaleFactor, other.d->scaleFactor)
-                && d->rotation == other.d->rotation
-                && d->flags == other.d->flags;
+        if(d == other.d)
+        {
+            return true;
+        }
+        else
+        {
+            return d->resolutionX == other.d->resolutionX
+                    && d->resolutionY == other.d->resolutionY
+                    && qFuzzyCompare(d->devicePixelRatio, other.d->devicePixelRatio)
+                    && qFuzzyCompare(d->scaleFactor, other.d->scaleFactor)
+                    && d->rotation == other.d->rotation
+                    && d->flags == other.d->flags;
+        }
     }
 
     bool operator!=(const RenderParam& other) const { return !operator==(other); }
