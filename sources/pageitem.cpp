@@ -250,11 +250,6 @@ void PageItem::setResolution(int resolutionX, int resolutionY)
 
 void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
 {
-    if(!s_settings->pageItem().useDevicePixelRatio())
-    {
-        return;
-    }
-
     if(!qFuzzyCompare(m_renderParam.devicePixelRatio(), devicePixelRatio) && devicePixelRatio > 0.0)
     {
         refresh(true);

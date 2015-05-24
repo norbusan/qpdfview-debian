@@ -2365,15 +2365,15 @@ void DocumentView::prepareScene()
 {
     // prepare render parameters and adjust scale factor
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-    RenderParam renderParam(logicalDpiX(), logicalDpiY(), devicePixelRatio(),
-                            scaleFactor(), rotation(), renderFlags());
-
-#else
-
     RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
                             scaleFactor(), rotation(), renderFlags());
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    if(s_settings->pageItem().useDevicePixelRatio())
+    {
+        renderParam.setDevicePixelRatio(devicePixelRatio());
+    }
 
 #endif // QT_VERSION
 
@@ -2490,15 +2490,15 @@ void DocumentView::prepareThumbnailsScene()
 {
     // prepare render parameters and adjust scale factor
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-    RenderParam renderParam(logicalDpiX(), logicalDpiY(), devicePixelRatio(),
-                            scaleFactor(), rotation(), renderFlags());
-
-#else
-
     RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
                             scaleFactor(), rotation(), renderFlags());
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    if(s_settings->pageItem().useDevicePixelRatio())
+    {
+        renderParam.setDevicePixelRatio(devicePixelRatio());
+    }
 
 #endif // QT_VERSION
 

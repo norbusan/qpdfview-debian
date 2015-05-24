@@ -580,7 +580,10 @@ void PresentationView::prepareScene()
     {
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-        page->setDevicePixelRatio(devicePixelRatio());
+        if(s_settings->pageItem().useDevicePixelRatio())
+        {
+            page->setDevicePixelRatio(devicePixelRatio());
+        }
 
 #endif // QT_VERSION
 
