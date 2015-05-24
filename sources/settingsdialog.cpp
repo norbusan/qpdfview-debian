@@ -274,8 +274,8 @@ void SettingsDialog::createBehaviorTab()
                                                    s_settings->mainWindow().synchronizeOutlineView());
 
 
-    m_scrollIfNotVisibleCheckBox = addCheckBox(m_behaviorLayout, tr("Scroll if not visible:"), QString(),
-                                               s_settings->documentView().scrollIfNotVisible());
+    m_minimalScrollingCheckBox = addCheckBox(m_behaviorLayout, tr("Minimal scrolling:"), QString(),
+                                               s_settings->documentView().minimalScrolling());
 
     m_zoomFactorSpinBox = addDoubleSpinBox(m_behaviorLayout, tr("Zoom factor:"), QString(), QString(),
                                            1.0, 2.0, 0.05, s_settings->documentView().zoomFactor());
@@ -314,7 +314,7 @@ void SettingsDialog::acceptBehaivorTab()
 
     s_settings->mainWindow().setSynchronizeOutlineView(m_synchronizeOutlineViewCheckBox->isChecked());
 
-    s_settings->documentView().setScrollIfNotVisible(m_scrollIfNotVisibleCheckBox->isChecked());
+    s_settings->documentView().setMinimalScrolling(m_minimalScrollingCheckBox->isChecked());
     s_settings->documentView().setZoomFactor(m_zoomFactorSpinBox->value());
 
     s_settings->documentView().setHighlightDuration(m_highlightDurationSpinBox->value());
@@ -343,7 +343,7 @@ void SettingsDialog::resetBehaviorTab()
 
     m_synchronizeOutlineViewCheckBox->setChecked(Defaults::MainWindow::synchronizeOutlineView());
 
-    m_scrollIfNotVisibleCheckBox->setChecked(Defaults::DocumentView::scrollIfNotVisible());
+    m_minimalScrollingCheckBox->setChecked(Defaults::DocumentView::minimalScrolling());
     m_zoomFactorSpinBox->setValue(Defaults::DocumentView::zoomFactor());
 
     m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());

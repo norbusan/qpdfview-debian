@@ -96,7 +96,7 @@ private:
 
     QCheckBox* m_synchronizeOutlineViewCheckBox;
 
-    QCheckBox* m_scrollIfNotVisibleCheckBox;
+    QCheckBox* m_minimalScrollingCheckBox;
     QDoubleSpinBox* m_zoomFactorSpinBox;
 
     QSpinBox* m_highlightDurationSpinBox;

@@ -2390,7 +2390,7 @@ void DocumentView::prepareView(qreal newLeft, qreal newTop, bool forceScroll, in
 
     setSceneRect(sceneRect.left(), top, sceneRect.width(), height);
 
-    if(!forceScroll && s_settings->documentView().scrollIfNotVisible())
+    if(!forceScroll && s_settings->documentView().minimalScrolling())
     {
         setValueIfNotVisible(horizontalScrollBar(), horizontalValue);
         setValueIfNotVisible(verticalScrollBar(), verticalValue);
