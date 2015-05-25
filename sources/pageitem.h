@@ -72,8 +72,11 @@ public:
 
     const QSizeF& size() const { return m_size; }
 
-    qreal displayedWidth() const;
-    qreal displayedHeight() const;
+    qreal displayedWidth() const { return displayedWidth(renderParam()); }
+    qreal displayedHeight() const { return displayedHeight(renderParam()); }
+
+    qreal displayedWidth(const RenderParam& renderParam) const;
+    qreal displayedHeight(const RenderParam& renderParam) const;
 
     const QList< QRectF >& highlights() const { return m_highlights; }
     void setHighlights(const QList< QRectF >& highlights);
@@ -85,29 +88,7 @@ public:
     bool showsFormFieldOverlay() const { return !m_formFieldOverlay.isEmpty(); }
 
     const RenderParam& renderParam() const { return m_renderParam; }
-    void setRenderParam(RenderParam renderParam);
-
-    int resolutionX() const { return m_renderParam.resolutionX(); }
-    int resolutionY() const { return m_renderParam.resolutionY(); }
-    void setResolution(int resolutionX, int resolutionY);
-
-    qreal devicePixelRatio() const { return m_renderParam.devicePixelRatio(); }
-    void setDevicePixelRatio(qreal devicePixelRatio);
-
-    qreal scaleFactor() const { return m_renderParam.scaleFactor(); }
-    void setScaleFactor(qreal scaleFactor);
-
-    Rotation rotation() const { return m_renderParam.rotation(); }
-    void setRotation(Rotation rotation);
-
-    bool invertColors() const { return m_renderParam.invertColors(); }
-    void setInvertColors(bool invertColors);
-
-    bool convertToGrayscale() const { return m_renderParam.convertToGrayscale(); }
-    void setConvertToGrayscale(bool convertToGrayscale);
-
-    bool trimMargins() const { return m_renderParam.trimMargins(); }
-    void setTrimMargins(bool trimMargins);
+    void setRenderParam(const RenderParam& renderParam);
 
     const QTransform& transform() const { return m_transform; }
     const QTransform& normalizedTransform() const { return m_normalizedTransform; }

@@ -57,17 +57,12 @@ public:
     Rotation rotation() const;
     void setRotation(Rotation rotation);
 
-    bool invertColors() const;
-    void setInvertColors(bool invertColors);
-
 signals:
     void currentPageChanged(int currentPage, bool trackChange = false);
 
     void scaleModeChanged(ScaleMode scaleMode);
     void scaleFactorChanged(qreal scaleFactor);
     void rotationChanged(Rotation rotation);
-
-    void invertColorsChanged(bool invertColors);
     
 public slots:
     void show();
@@ -119,8 +114,6 @@ private:
     ScaleMode m_scaleMode;
     qreal m_scaleFactor;
     Rotation m_rotation;
-
-    bool m_invertColors;
 
     QVector< PageItem* > m_pageItems;
 

@@ -30,6 +30,21 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "pageitem.h"
 #include "documentview.h"
 
+namespace
+{
+
+using namespace qpdfview;
+
+inline void adjustScaleFactor(RenderParam& renderParam, qreal scaleFactor)
+{
+    if(!qFuzzyCompare(renderParam.scaleFactor(), scaleFactor))
+    {
+        renderParam.setScaleFactor(scaleFactor);
+    }
+}
+
+} // anonymous
+
 namespace qpdfview
 {
 
@@ -44,7 +59,6 @@ PresentationView::PresentationView(const QVector< Model::Page* >& pages, QWidget
     m_scaleMode(FitToPageSizeMode),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
-    m_invertColors(false),
     m_pageItems()
 {
     if(s_settings == 0)
@@ -171,28 +185,6 @@ void PresentationView::setRotation(Rotation rotation)
     }
 }
 
-bool PresentationView::invertColors() const
-{
-    return m_invertColors;
-}
-
-void PresentationView::setInvertColors(bool invertColors)
-{
-    if(m_invertColors != invertColors)
-    {
-        m_invertColors = invertColors;
-
-        foreach(PageItem* page, m_pageItems)
-        {
-            page->setInvertColors(m_invertColors);
-        }
-
-        prepareBackground();
-
-        emit invertColorsChanged(m_invertColors);
-    }
-}
-
 void PresentationView::show()
 {
     QWidget::show();
@@ -261,7 +253,9 @@ void PresentationView::zoomIn()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() * s_settings->documentView().zoomFactor(),
+        const qreal currentScaleFactor = m_pageItems.at(m_currentPage - 1)->renderParam().scaleFactor();
+
+        setScaleFactor(qMin(currentScaleFactor * s_settings->documentView().zoomFactor(),
                             s_settings->documentView().maximumScaleFactor()));
 
         setScaleMode(ScaleFactorMode);
@@ -277,7 +271,9 @@ void PresentationView::zoomOut()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() / s_settings->documentView().zoomFactor(),
+        const qreal currentScaleFactor = m_pageItems.at(m_currentPage - 1)->renderParam().scaleFactor();
+
+        setScaleFactor(qMax(currentScaleFactor / s_settings->documentView().zoomFactor(),
                             s_settings->documentView().minimumScaleFactor()));
 
         setScaleMode(ScaleFactorMode);
@@ -470,11 +466,6 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
 
         event->accept();
         return;
-    case Qt::CTRL + Qt::Key_I:
-        setInvertColors(!invertColors());
-
-        event->accept();
-        return;
     case Qt::Key_F12:
     case Qt::Key_Escape:
         close();
@@ -543,8 +534,6 @@ void PresentationView::preparePages()
     {
         PageItem* page = new PageItem(m_pages.at(index), index, PageItem::PresentationMode);
 
-        page->setInvertColors(m_invertColors);
-
         scene()->addItem(page);
         m_pageItems.append(page);
 
@@ -563,47 +552,41 @@ void PresentationView::prepareBackground()
         backgroundColor = s_settings->pageItem().paperColor();
     }
 
-    if(m_invertColors)
-    {
-        backgroundColor.setRgb(~backgroundColor.rgb());
-    }
-
     scene()->setBackgroundBrush(QBrush(backgroundColor));
 }
 
 void PresentationView::prepareScene()
 {
+    RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
+                            scaleFactor(), rotation(), 0);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    if(s_settings->pageItem().useDevicePixelRatio())
+    {
+        renderParam.setDevicePixelRatio(devicePixelRatio());
+    }
+
+#endif // QT_VERSION
+
     const qreal visibleWidth = viewport()->width();
     const qreal visibleHeight = viewport()->height();
 
     foreach(PageItem* page, m_pageItems)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+        const qreal displayedWidth = page->displayedWidth(renderParam);
+        const qreal displayedHeight = page->displayedHeight(renderParam);
 
-        page->setDevicePixelRatio(devicePixelRatio());
-
-#endif // QT_VERSION
-
-        page->setResolution(logicalDpiX(), logicalDpiY());
-
-        page->setRotation(m_rotation);
-
-        const qreal displayedWidth = page->displayedWidth();
-        const qreal displayedHeight = page->displayedHeight();
-
-        switch(m_scaleMode)
+        if(m_scaleMode == FitToPageWidthMode)
         {
-        default:
-        case ScaleFactorMode:
-            page->setScaleFactor(m_scaleFactor);
-            break;
-        case FitToPageWidthMode:
-            page->setScaleFactor(visibleWidth / displayedWidth);
-            break;
-        case FitToPageSizeMode:
-            page->setScaleFactor(qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
-            break;
+            adjustScaleFactor(renderParam, visibleWidth / displayedWidth);
         }
+        else if(m_scaleMode == FitToPageSizeMode)
+        {
+            adjustScaleFactor(renderParam, qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
+        }
+
+        page->setRenderParam(renderParam);
     }
 }
 
