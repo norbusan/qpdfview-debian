@@ -248,6 +248,14 @@ inline QRectF rectOfResult(const QModelIndex& index)
     return index.data(SearchModel::RectRole).toRectF();
 }
 
+inline void adjustScaleFactor(RenderParam& renderParam, qreal scaleFactor)
+{
+    if(!qFuzzyCompare(renderParam.scaleFactor(), scaleFactor))
+    {
+        renderParam.setScaleFactor(scaleFactor);
+    }
+}
+
 inline void setValueIfNotVisible(QScrollBar* scrollBar, int value)
 {
     if(value < scrollBar->value() || value > scrollBar->value() + scrollBar->pageStep())
@@ -314,6 +322,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_rotation(RotateBy0),
     m_invertColors(false),
     m_convertToGrayscale(false),
+    m_trimMargins(false),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
     m_pageItems(),
@@ -409,6 +418,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     m_invertColors = s_settings->documentView().invertColors();
     m_convertToGrayscale = s_settings->documentView().convertToGrayscale();
+    m_trimMargins = s_settings->documentView().trimMargins();
+
     m_highlightAll = s_settings->documentView().highlightAll();
 }
 
@@ -688,6 +699,51 @@ void DocumentView::setRotation(Rotation rotation)
     }
 }
 
+qpdfview::RenderFlags DocumentView::renderFlags() const
+{
+    qpdfview::RenderFlags renderFlags = 0;
+
+    if(m_invertColors)
+    {
+        renderFlags |= InvertColors;
+    }
+
+    if(m_convertToGrayscale)
+    {
+        renderFlags |= ConvertToGrayscale;
+    }
+
+    if(m_trimMargins)
+    {
+        renderFlags |= TrimMargins;
+    }
+
+    return renderFlags;
+}
+
+void DocumentView::setRenderFlags(qpdfview::RenderFlags renderFlags)
+{
+    setInvertColors(renderFlags.testFlag(InvertColors));
+    setConvertToGrayscale(renderFlags.testFlag(ConvertToGrayscale));
+    setTrimMargins(renderFlags.testFlag(TrimMargins));
+}
+
+void DocumentView::setRenderFlag(qpdfview::RenderFlag renderFlag, bool enabled)
+{
+    switch(renderFlag)
+    {
+    case InvertColors:
+        setInvertColors(enabled);
+        break;
+    case ConvertToGrayscale:
+        setConvertToGrayscale(enabled);
+        break;
+    case TrimMargins:
+        setTrimMargins(enabled);
+        break;
+    }
+}
+
 void DocumentView::setInvertColors(bool invertColors)
 {
     if(m_invertColors != invertColors)
@@ -731,6 +787,28 @@ void DocumentView::setConvertToGrayscale(bool convertToGrayscale)
         emit convertToGrayscaleChanged(m_convertToGrayscale);
 
         s_settings->documentView().setConvertToGrayscale(m_convertToGrayscale);
+    }
+}
+
+void DocumentView::setTrimMargins(bool trimMargins)
+{
+    if(m_trimMargins != trimMargins)
+    {
+        m_trimMargins = trimMargins;
+
+        foreach(PageItem* page, m_pageItems)
+        {
+            page->setTrimMargins(m_trimMargins);
+        }
+
+        foreach(ThumbnailItem* page, m_thumbnailItems)
+        {
+            page->setTrimMargins(m_trimMargins);
+        }
+
+        emit trimMarginsChanged(m_trimMargins);
+
+        s_settings->documentView().setTrimMargins(m_trimMargins);
     }
 }
 
@@ -2216,6 +2294,9 @@ void DocumentView::preparePages()
         PageItem* page = new PageItem(m_pages.at(index), index);
 
         page->setInvertColors(m_invertColors);
+        page->setConvertToGrayscale(m_convertToGrayscale);
+        page->setTrimMargins(m_trimMargins);
+
         page->setRubberBandMode(m_rubberBandMode);
 
         scene()->addItem(page);
@@ -2246,6 +2327,8 @@ void DocumentView::prepareThumbnails()
         ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), pageLabelFromNumber(index + 1), index);
 
         page->setInvertColors(m_invertColors);
+        page->setConvertToGrayscale(m_convertToGrayscale);
+        page->setTrimMargins(m_trimMargins);
 
         m_thumbnailsScene->addItem(page);
         m_thumbnailItems.append(page);
@@ -2280,39 +2363,38 @@ void DocumentView::prepareBackground()
 
 void DocumentView::prepareScene()
 {
-    // prepare scale factor and rotation
+    // prepare render parameters and adjust scale factor
+
+    RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
+                            scaleFactor(), rotation(), renderFlags());
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    if(s_settings->pageItem().useDevicePixelRatio())
+    {
+        renderParam.setDevicePixelRatio(devicePixelRatio());
+    }
+
+#endif // QT_VERSION
 
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
 
     foreach(PageItem* page, m_pageItems)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+        const qreal displayedWidth = page->displayedWidth(renderParam);
+        const qreal displayedHeight = page->displayedHeight(renderParam);
 
-        page->setDevicePixelRatio(devicePixelRatio());
-
-#endif // QT_VERSION
-
-        page->setResolution(logicalDpiX(), logicalDpiY());
-
-        page->setRotation(m_rotation);
-
-        const qreal displayedWidth = page->displayedWidth();
-        const qreal displayedHeight = page->displayedHeight();
-
-        switch(m_scaleMode)
+        if(m_scaleMode == FitToPageWidthMode)
         {
-        default:
-        case ScaleFactorMode:
-            page->setScaleFactor(m_scaleFactor);
-            break;
-        case FitToPageWidthMode:
-            page->setScaleFactor(visibleWidth / displayedWidth);
-            break;
-        case FitToPageSizeMode:
-            page->setScaleFactor(qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
-            break;
+            adjustScaleFactor(renderParam, visibleWidth / displayedWidth);
         }
+        else if(m_scaleMode == FitToPageSizeMode)
+        {
+            adjustScaleFactor(renderParam, qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
+        }
+
+        page->setRenderParam(renderParam);
     }
 
     // prepare layout
@@ -2406,6 +2488,34 @@ void DocumentView::prepareView(qreal newLeft, qreal newTop, bool forceScroll, in
 
 void DocumentView::prepareThumbnailsScene()
 {
+    // prepare render parameters and adjust scale factor
+
+    RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
+                            scaleFactor(), rotation(), renderFlags());
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    if(s_settings->pageItem().useDevicePixelRatio())
+    {
+        renderParam.setDevicePixelRatio(devicePixelRatio());
+    }
+
+#endif // QT_VERSION
+
+    const qreal thumbnailSize = s_settings->documentView().thumbnailSize();
+
+    foreach(ThumbnailItem* page, m_thumbnailItems)
+    {
+        const qreal displayedWidth = page->displayedWidth(renderParam);
+        const qreal displayedHeight = page->displayedHeight(renderParam);
+
+        adjustScaleFactor(renderParam, qMin(thumbnailSize / displayedWidth, thumbnailSize / displayedHeight));
+
+        page->setRenderParam(renderParam);
+    }
+
+    // prepare layout
+
     const qreal thumbnailSpacing = s_settings->documentView().thumbnailSpacing();
 
     qreal left = 0.0;
@@ -2419,6 +2529,8 @@ void DocumentView::prepareThumbnailsScene()
     {
         ThumbnailItem* page = m_thumbnailItems.at(index);
 
+        // prepare visibility
+
         if(limitThumbnailsToResults && s_searchModel->hasResults(this) && !s_searchModel->hasResultsOnPage(this, index + 1))
         {
             page->setVisible(false);
@@ -2430,20 +2542,7 @@ void DocumentView::prepareThumbnailsScene()
 
         page->setVisible(true);
 
-        // prepare scale factor
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-        page->setDevicePixelRatio(devicePixelRatio());
-
-#endif // QT_VERSION
-
-        page->setResolution(logicalDpiX(), logicalDpiY());
-
-        page->setScaleFactor(qMin(s_settings->documentView().thumbnailSize() / page->displayedWidth(),
-                                  s_settings->documentView().thumbnailSize() / page->displayedHeight()));
-
-        // prepare layout
+        // prepare position
 
         const QRectF boundingRect = page->boundingRect();
 

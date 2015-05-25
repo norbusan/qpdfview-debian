@@ -350,7 +350,9 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(linkClicked(bool,QString,int)), SLOT(on_currentTab_linkClicked(bool,QString,int)));
 
         connect(newTab, SIGNAL(invertColorsChanged(bool)), SLOT(on_currentTab_invertColorsChanged(bool)));
-        connect(newTab, SIGNAL(convertToGrayscaleChanged(bool)), SLOT(on_currentTab_convertToGrayscale(bool)));
+        connect(newTab, SIGNAL(convertToGrayscaleChanged(bool)), SLOT(on_currentTab_convertToGrayscaleChanged(bool)));
+        connect(newTab, SIGNAL(trimMarginsChanged(bool)), SLOT(on_currentTab_trimMarginsChanged(bool)));
+
         connect(newTab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
         connect(newTab, SIGNAL(rubberBandModeChanged(RubberBandMode)), SLOT(on_currentTab_rubberBandModeChanged(RubberBandMode)));
 
@@ -473,6 +475,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
     m_invertColorsAction->setEnabled(hasCurrent);
     m_convertToGrayscaleAction->setEnabled(hasCurrent);
+    m_trimMarginsAction->setEnabled(hasCurrent);
 
     m_fontsAction->setEnabled(hasCurrent);
 
@@ -528,7 +531,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
 
         on_currentTab_invertColorsChanged(currentTab()->invertColors());
-        on_currentTab_convertToGrayscale(currentTab()->convertToGrayscale());
+        on_currentTab_convertToGrayscaleChanged(currentTab()->convertToGrayscale());
+        on_currentTab_trimMarginsChanged(currentTab()->trimMargins());
+
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
         on_currentTab_rubberBandModeChanged(currentTab()->rubberBandMode());
     }
@@ -864,11 +869,19 @@ void MainWindow::on_currentTab_invertColorsChanged(bool invertColors)
     }
 }
 
-void MainWindow::on_currentTab_convertToGrayscale(bool convertToGrayscale)
+void MainWindow::on_currentTab_convertToGrayscaleChanged(bool convertToGrayscale)
 {
     if(senderIsCurrentTab())
     {
         m_convertToGrayscaleAction->setChecked(convertToGrayscale);
+    }
+}
+
+void MainWindow::on_currentTab_trimMarginsChanged(bool trimMargins)
+{
+    if(senderIsCurrentTab())
+    {
+        m_trimMarginsAction->setChecked(trimMargins);
     }
 }
 
@@ -1330,6 +1343,11 @@ void MainWindow::on_invertColors_triggered(bool checked)
 void MainWindow::on_convertToGrayscale_triggered(bool checked)
 {
     currentTab()->setConvertToGrayscale(checked);
+}
+
+void MainWindow::on_trimMargins_triggered(bool checked)
+{
+    currentTab()->setTrimMargins(checked);
 }
 
 void MainWindow::on_fonts_triggered()
@@ -2642,6 +2660,7 @@ void MainWindow::createActions()
 
     m_invertColorsAction = createAction(tr("Invert colors"), QLatin1String("invertColors"), QIcon(), QKeySequence(Qt::CTRL + Qt::Key_I), SLOT(on_invertColors_triggered(bool)), true);
     m_convertToGrayscaleAction = createAction(tr("Convert to grayscale"), QLatin1String("convertToGrayscale"), QIcon(), QKeySequence(Qt::CTRL + Qt::Key_U), SLOT(on_convertToGrayscale_triggered(bool)), true);
+    m_trimMarginsAction = createAction(tr("Trim margins"), QLatin1String("trimMargins"), QIcon(), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_U), SLOT(on_trimMargins_triggered(bool)), true);
 
     m_fontsAction = createAction(tr("Fonts..."), QString(), QIcon(), QKeySequence(), SLOT(on_fonts_triggered()));
 
@@ -2966,7 +2985,7 @@ void MainWindow::createMenus()
     m_viewMenu->addSeparator();
     m_viewMenu->addActions(QList< QAction* >() << m_rotateLeftAction << m_rotateRightAction);
     m_viewMenu->addSeparator();
-    m_viewMenu->addActions(QList< QAction* >() << m_invertColorsAction << m_convertToGrayscaleAction);
+    m_viewMenu->addActions(QList< QAction* >() << m_invertColorsAction << m_convertToGrayscaleAction << m_trimMarginsAction);
     m_viewMenu->addSeparator();
 
     QMenu* toolBarsMenu = m_viewMenu->addMenu(tr("&Tool bars"));

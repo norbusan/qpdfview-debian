@@ -115,8 +115,6 @@ private:
     QCheckBox* m_keepObsoletePixmapsCheckBox;
     QCheckBox* m_useDevicePixelRatioCheckBox;
 
-    QCheckBox* m_trimMarginsCheckBox;
-
     QCheckBox* m_decoratePagesCheckBox;
     QCheckBox* m_decorateLinksCheckBox;
     QCheckBox* m_decorateFormFieldsCheckBox;

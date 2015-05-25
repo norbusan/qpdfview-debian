@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QThreadPool>
 
 #include "model.h"
+#include "settings.h"
 
 namespace
 {
@@ -33,14 +34,16 @@ using namespace qpdfview;
 
 qreal scaledResolutionX(const RenderParam& renderParam)
 {
-    return renderParam.resolution.devicePixelRatio *
-            renderParam.resolution.resolutionX * renderParam.scaleFactor;
+    return renderParam.devicePixelRatio()
+            * renderParam.resolutionX()
+            * renderParam.scaleFactor();
 }
 
 qreal scaledResolutionY(const RenderParam& renderParam)
 {
-    return renderParam.resolution.devicePixelRatio *
-            renderParam.resolution.resolutionY * renderParam.scaleFactor;
+    return renderParam.devicePixelRatio()
+            * renderParam.resolutionY()
+            * renderParam.scaleFactor();
 }
 
 bool columnHasPaperColor(int x, QRgb paperColor, const QImage& image)
@@ -154,16 +157,23 @@ void convertToGrayscale(QImage& image)
 namespace qpdfview
 {
 
+Settings* RenderTask::s_settings = 0;
+
+RenderParam RenderTask::s_defaultRenderParam;
+
 RenderTask::RenderTask(Model::Page* page, QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(NotCanceled),
     m_page(page),
-    m_renderParam(),
+    m_renderParam(s_defaultRenderParam),
     m_rect(),
-    m_prefetch(false),
-    m_trimMargins(false),
-    m_paperColor()
+    m_prefetch(false)
 {
+    if(s_settings == 0)
+    {
+        s_settings = Settings::instance();
+    }
+
     setAutoDelete(false);
 }
 
@@ -194,29 +204,29 @@ void RenderTask::run()
     QRectF cropRect;
 
     image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
-                           m_renderParam.rotation, m_rect);
+                           m_renderParam.rotation(), m_rect);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
+    image.setDevicePixelRatio(m_renderParam.devicePixelRatio());
 
 #endif // QT_VERSION
 
-    if(m_trimMargins)
+    if(m_renderParam.trimMargins())
     {
         CANCELLATION_POINT
 
-        cropRect = trimMargins(m_paperColor.rgb(), image);
+        cropRect = trimMargins(s_settings->pageItem().paperColor().rgb(), image);
     }
 
-    if(m_renderParam.convertToGrayscale)
+    if(m_renderParam.convertToGrayscale())
     {
         CANCELLATION_POINT
 
         convertToGrayscale(image);
     }
 
-    if(m_renderParam.invertColors)
+    if(m_renderParam.invertColors())
     {
         CANCELLATION_POINT
 
@@ -235,16 +245,12 @@ void RenderTask::run()
 }
 
 void RenderTask::start(const RenderParam& renderParam,
-                       const QRect& rect, bool prefetch,
-                       bool trimMargins, const QColor& paperColor)
+                       const QRect& rect, bool prefetch)
 {
     m_renderParam = renderParam;
 
     m_rect = rect;
     m_prefetch = prefetch;
-
-    m_trimMargins = trimMargins;
-    m_paperColor = paperColor;
 
     m_mutex.lock();
     m_isRunning = true;
@@ -257,6 +263,8 @@ void RenderTask::start(const RenderParam& renderParam,
 
 void RenderTask::finish()
 {
+    m_renderParam = s_defaultRenderParam;
+
     emit finished();
 
     m_mutex.lock();

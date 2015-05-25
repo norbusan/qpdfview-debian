@@ -72,9 +72,6 @@ public:
         bool useDevicePixelRatio() const { return m_useDevicePixelRatio; }
         void setUseDevicePixelRatio(bool useDevicePixelRatio);
 
-        bool trimMargins() const { return m_trimMargins; }
-        void setTrimMargins(bool trimMargins);
-
         bool decoratePages() const { return m_decoratePages; }
         void setDecoratePages(bool decoratePages);
 
@@ -127,8 +124,6 @@ public:
 
         bool m_keepObsoletePixmaps;
         bool m_useDevicePixelRatio;
-
-        bool m_trimMargins;
 
         bool m_decoratePages;
         bool m_decorateLinks;
@@ -259,6 +254,9 @@ public:
 
         bool convertToGrayscale() const;
         void setConvertToGrayscale(bool convertToGrayscale);
+
+        bool trimMargins() const;
+        void setTrimMargins(bool trimMargins);
 
         bool highlightAll() const;
         void setHighlightAll(bool highlightAll);
@@ -488,8 +486,6 @@ public:
         static bool keepObsoletePixmaps() { return false; }
         static bool useDevicePixelRatio() { return false; }
 
-        static bool trimMargins() { return false; }
-
         static bool decoratePages() { return true; }
         static bool decorateLinks() { return true; }
         static bool decorateFormFields() { return true; }
@@ -577,7 +573,9 @@ public:
         static Rotation rotation() { return RotateBy0; }
 
         static bool invertColors() { return false; }
-        static bool convertToGrayscale() { return false; }
+        static bool convertToGrayscale() { return false; }        
+        static bool trimMargins() { return false; }
+
         static bool highlightAll() { return false; }
 
     private:

@@ -32,6 +32,7 @@ namespace qpdfview
 {
 
 class Settings;
+class RenderParam;
 class RenderTask;
 class PageItem;
 
@@ -40,13 +41,14 @@ class TileItem : public QObject
     Q_OBJECT
 
 public:
-    TileItem(QObject* parent = 0);
+    TileItem(PageItem* page);
     ~TileItem();
 
     const QRect& rect() const { return m_rect; }
     void setRect(const QRect& rect) { m_rect = rect; }
 
     const QRectF& cropRect() const { return m_cropRect; }
+    void resetCropRect() { m_cropRect = QRectF(); }
     void setCropRect(const QRectF& cropRect);
 
     void dropPixmap() { m_pixmap = QPixmap(); }
@@ -80,8 +82,9 @@ private:
 
     static QCache< CacheKey, CacheObject > s_cache;
 
-    PageItem* parentPage() const;
     CacheKey cacheKey() const;
+
+    PageItem* m_page;
 
     QRect m_rect;
     QRectF m_cropRect;

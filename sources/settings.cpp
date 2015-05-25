@@ -88,8 +88,6 @@ void Settings::PageItem::sync()
     m_keepObsoletePixmaps = m_settings->value("pageItem/keepObsoletePixmaps", Defaults::PageItem::keepObsoletePixmaps()).toBool();
     m_useDevicePixelRatio = m_settings->value("pageItem/useDevicePixelRatio", Defaults::PageItem::useDevicePixelRatio()).toBool();
 
-    m_trimMargins = m_settings->value("pageItem/trimMargins", Defaults::PageItem::trimMargins()).toBool();
-
     m_decoratePages = m_settings->value("pageItem/decoratePages", Defaults::PageItem::decoratePages()).toBool();
     m_decorateLinks = m_settings->value("pageItem/decorateLinks", Defaults::PageItem::decorateLinks()).toBool();
     m_decorateFormFields = m_settings->value("pageItem/decorateFormFields", Defaults::PageItem::decorateFormFields()).toBool();
@@ -125,12 +123,6 @@ void Settings::PageItem::setUseDevicePixelRatio(bool useDevicePixelRatio)
 {
     m_useDevicePixelRatio = useDevicePixelRatio;
     m_settings->setValue("pageItem/useDevicePixelRatio", useDevicePixelRatio);
-}
-
-void Settings::PageItem::setTrimMargins(bool trimMargins)
-{
-    m_trimMargins = trimMargins;
-    m_settings->setValue("pageItem/trimMargins", trimMargins);
 }
 
 void Settings::PageItem::setDecoratePages(bool decoratePages)
@@ -236,7 +228,6 @@ Settings::PageItem::PageItem(QSettings* settings) :
     m_errorIcon(),
     m_keepObsoletePixmaps(Defaults::PageItem::keepObsoletePixmaps()),
     m_useDevicePixelRatio(false),
-    m_trimMargins(false),
     m_decoratePages(Defaults::PageItem::decoratePages()),
     m_decorateLinks(Defaults::PageItem::decorateLinks()),
     m_decorateFormFields(Defaults::PageItem::decorateFormFields()),
@@ -582,6 +573,16 @@ bool Settings::DocumentView::convertToGrayscale() const
 void Settings::DocumentView::setConvertToGrayscale(bool convertToGrayscale)
 {
     m_settings->setValue("documentView/convertToGrayscale", convertToGrayscale);
+}
+
+bool Settings::DocumentView::trimMargins() const
+{
+    return m_settings->value("documentView/trimMargins", Defaults::DocumentView::trimMargins()).toBool();
+}
+
+void Settings::DocumentView::setTrimMargins(bool trimMargins)
+{
+    m_settings->setValue("documentView/trimMargins", trimMargins);
 }
 
 bool Settings::DocumentView::highlightAll() const

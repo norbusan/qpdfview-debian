@@ -90,10 +90,9 @@ PageItem::PageItem(Model::Page* page, int index, PaintMode paintMode, QGraphicsI
 
     setAcceptHoverEvents(true);
 
-    setFlag(QGraphicsItem::ItemUsesExtendedStyleOption, s_settings->pageItem().useTiling() && !thumbnailMode());
-    setFlag(QGraphicsItem::ItemClipsToShape, s_settings->pageItem().trimMargins());
+    setFlag(QGraphicsItem::ItemUsesExtendedStyleOption, useTiling());
 
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         m_tileItems.resize(1);
         m_tileItems.squeeze();
@@ -146,37 +145,37 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
     paintRubberBand(painter);
 }
 
-qreal PageItem::displayedWidth() const
+qreal PageItem::displayedWidth(const RenderParam& renderParam) const
 {
     const qreal cropWidth = m_cropRect.isNull() ? 1.0 : m_cropRect.width();
     const qreal cropHeight = m_cropRect.isNull() ? 1.0 : m_cropRect.height();
 
-    switch(m_renderParam.rotation)
+    switch(renderParam.rotation())
     {
     default:
     case RotateBy0:
     case RotateBy180:
-        return m_renderParam.resolution.resolutionX / 72.0 * cropWidth * m_size.width();
+        return renderParam.resolutionX() / 72.0 * cropWidth * m_size.width();
     case RotateBy90:
     case RotateBy270:
-        return m_renderParam.resolution.resolutionX / 72.0 * cropHeight * m_size.height();
+        return renderParam.resolutionX() / 72.0 * cropHeight * m_size.height();
     }
 }
 
-qreal PageItem::displayedHeight() const
+qreal PageItem::displayedHeight(const RenderParam& renderParam) const
 {
     const qreal cropHeight = m_cropRect.isNull() ? 1.0 : m_cropRect.height();
     const qreal cropWidth = m_cropRect.isNull() ? 1.0 : m_cropRect.width();
 
-    switch(m_renderParam.rotation)
+    switch(renderParam.rotation())
     {
     default:
     case RotateBy0:
     case RotateBy180:
-        return m_renderParam.resolution.resolutionY / 72.0 * cropHeight * m_size.height();
+        return renderParam.resolutionY() / 72.0 * cropHeight * m_size.height();
     case RotateBy90:
     case RotateBy270:
-        return m_renderParam.resolution.resolutionY / 72.0 * cropWidth * m_size.width();
+        return renderParam.resolutionY() / 72.0 * cropWidth * m_size.width();
     }
 }
 
@@ -204,14 +203,45 @@ void PageItem::setRubberBandMode(RubberBandMode rubberBandMode)
     }
 }
 
+void PageItem::setRenderParam(const RenderParam& renderParam)
+{
+    if(m_renderParam != renderParam)
+    {
+        const bool resolutionChanged = m_renderParam.resolutionX() != renderParam.resolutionX()
+                || m_renderParam.resolutionY() != renderParam.resolutionY()
+                || !qFuzzyCompare(m_renderParam.devicePixelRatio(), renderParam.devicePixelRatio())
+                || !qFuzzyCompare(m_renderParam.scaleFactor(), renderParam.scaleFactor());
+
+        const bool rotationChanged = m_renderParam.rotation() != renderParam.rotation();
+
+        const bool flagsChanged = m_renderParam.flags() != renderParam.flags();
+
+        const bool trimMarginsChanged = m_renderParam.trimMargins() != renderParam.trimMargins();
+
+        refresh(!rotationChanged && !flagsChanged, trimMarginsChanged);
+
+        m_renderParam = renderParam;
+
+        if(resolutionChanged || rotationChanged)
+        {
+            prepareGeometryChange();
+            prepareGeometry();
+        }
+
+        if(trimMarginsChanged)
+        {
+            prepareCropRect();
+        }
+    }
+}
+
 void PageItem::setResolution(int resolutionX, int resolutionY)
 {
-    if((m_renderParam.resolution.resolutionX != resolutionX || m_renderParam.resolution.resolutionY != resolutionY) && resolutionX > 0 && resolutionY > 0)
+    if((m_renderParam.resolutionX() != resolutionX || m_renderParam.resolutionY() != resolutionY) && resolutionX > 0 && resolutionY > 0)
     {
         refresh(true);
 
-        m_renderParam.resolution.resolutionX = resolutionX;
-        m_renderParam.resolution.resolutionY = resolutionY;
+        m_renderParam.setResolution(resolutionX, resolutionY);
 
         prepareGeometryChange();
         prepareGeometry();
@@ -220,16 +250,11 @@ void PageItem::setResolution(int resolutionX, int resolutionY)
 
 void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
 {
-    if(!s_settings->pageItem().useDevicePixelRatio())
-    {
-        return;
-    }
-
-    if(!qFuzzyCompare(m_renderParam.resolution.devicePixelRatio, devicePixelRatio) && devicePixelRatio > 0.0)
+    if(!qFuzzyCompare(m_renderParam.devicePixelRatio(), devicePixelRatio) && devicePixelRatio > 0.0)
     {
         refresh(true);
 
-        m_renderParam.resolution.devicePixelRatio = devicePixelRatio;
+        m_renderParam.setDevicePixelRatio(devicePixelRatio);
 
         prepareGeometryChange();
         prepareGeometry();
@@ -238,11 +263,11 @@ void PageItem::setDevicePixelRatio(qreal devicePixelRatio)
 
 void PageItem::setScaleFactor(qreal scaleFactor)
 {
-    if(!qFuzzyCompare(m_renderParam.scaleFactor, scaleFactor) && scaleFactor > 0.0)
+    if(!qFuzzyCompare(m_renderParam.scaleFactor(), scaleFactor) && scaleFactor > 0.0)
     {
         refresh(true);
 
-        m_renderParam.scaleFactor = scaleFactor;
+        m_renderParam.setScaleFactor(scaleFactor);
 
         prepareGeometryChange();
         prepareGeometry();
@@ -251,11 +276,11 @@ void PageItem::setScaleFactor(qreal scaleFactor)
 
 void PageItem::setRotation(Rotation rotation)
 {
-    if(m_renderParam.rotation != rotation && rotation >= 0 && rotation < NumberOfRotations)
+    if(m_renderParam.rotation() != rotation && rotation >= 0 && rotation < NumberOfRotations)
     {
         refresh(false);
 
-        m_renderParam.rotation = rotation;
+        m_renderParam.setRotation(rotation);
 
         prepareGeometryChange();
         prepareGeometry();
@@ -264,28 +289,40 @@ void PageItem::setRotation(Rotation rotation)
 
 void PageItem::setInvertColors(bool invertColors)
 {
-    if(m_renderParam.invertColors != invertColors)
+    if(m_renderParam.invertColors() != invertColors)
     {
         refresh(false);
 
-        m_renderParam.invertColors = invertColors;
+        m_renderParam.setInvertColors(invertColors);
     }
 }
 
 void PageItem::setConvertToGrayscale(bool convertToGrayscale)
 {
-    if(m_renderParam.convertToGrayscale != convertToGrayscale)
+    if(m_renderParam.convertToGrayscale() != convertToGrayscale)
     {
         refresh(false);
 
-        m_renderParam.convertToGrayscale = convertToGrayscale;
+        m_renderParam.setConvertToGrayscale(convertToGrayscale);
+    }
+}
+
+void PageItem::setTrimMargins(bool trimMargins)
+{
+    if(m_renderParam.trimMargins() != trimMargins)
+    {
+        refresh(false, true);
+
+        m_renderParam.setTrimMargins(trimMargins);
+
+        prepareCropRect();
     }
 }
 
 
 void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
 {
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         m_tileItems.first()->refresh(keepObsoletePixmaps);
     }
@@ -314,7 +351,7 @@ int PageItem::startRender(bool prefetch)
 {
     int cost = 0;
 
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         cost += m_tileItems.first()->startRender(prefetch);
     }
@@ -331,7 +368,7 @@ int PageItem::startRender(bool prefetch)
 
 void PageItem::cancelRender()
 {
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         m_tileItems.first()->cancelRender();
     }
@@ -730,11 +767,27 @@ void PageItem::loadInteractiveElements()
     update();
 }
 
+void PageItem::prepareCropRect()
+{
+    setFlag(QGraphicsItem::ItemClipsToShape, m_renderParam.trimMargins());
+
+    foreach(TileItem* tile, m_tileItems)
+    {
+        tile->resetCropRect();
+    }
+
+    m_cropRect = QRectF();
+
+    prepareGeometryChange();
+
+    emit cropRectChanged();
+}
+
 void PageItem::updateCropRect()
 {
     QRectF cropRect;
 
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         cropRect = m_tileItems.first()->cropRect();
     }
@@ -765,8 +818,24 @@ void PageItem::updateCropRect()
         m_cropRect = cropRect;
 
         prepareGeometryChange();
+
         emit cropRectChanged();
     }
+}
+
+inline bool PageItem::presentationMode() const
+{
+    return m_paintMode == PresentationMode;
+}
+
+inline bool PageItem::thumbnailMode() const
+{
+    return m_paintMode == ThumbnailMode;
+}
+
+inline bool PageItem::useTiling() const
+{
+    return m_paintMode != ThumbnailMode && s_settings->pageItem().useTiling();
 }
 
 void PageItem::copyToClipboard(const QPoint& screenPos)
@@ -799,9 +868,9 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     else if(action == copyImageAction || action == saveImageToFileAction)
     {
         const QRect rect = m_rubberBand.translated(-m_boundingRect.topLeft()).toRect();
-        const QImage image = m_page->render(m_renderParam.resolution.resolutionX * m_renderParam.scaleFactor,
-                                            m_renderParam.resolution.resolutionY * m_renderParam.scaleFactor,
-                                            m_renderParam.rotation, rect);
+        const QImage image = m_page->render(m_renderParam.resolutionX() * m_renderParam.scaleFactor(),
+                                            m_renderParam.resolutionY() * m_renderParam.scaleFactor(),
+                                            m_renderParam.rotation(), rect);
 
         if(!image.isNull())
         {
@@ -1013,7 +1082,7 @@ void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidge
     qreal width = rect.width();
     qreal height = rect.height();
 
-    switch(m_renderParam.rotation)
+    switch(m_renderParam.rotation())
     {
     default:
     case RotateBy0:
@@ -1039,10 +1108,10 @@ void PageItem::setProxyGeometry(Model::FormField* formField, QGraphicsProxyWidge
         break;
     }
 
-    width /= m_renderParam.scaleFactor;
-    height /= m_renderParam.scaleFactor;
+    width /= m_renderParam.scaleFactor();
+    height /= m_renderParam.scaleFactor();
 
-    proxy->setScale(m_renderParam.scaleFactor);
+    proxy->setScale(m_renderParam.scaleFactor());
 
     proxy->setGeometry(QRectF(x - proxyPadding, y - proxyPadding, width + proxyPadding, height + proxyPadding));
 }
@@ -1051,10 +1120,10 @@ void PageItem::prepareGeometry()
 {
     m_transform.reset();
 
-    m_transform.scale(m_renderParam.resolution.resolutionX * m_renderParam.scaleFactor / 72.0,
-                      m_renderParam.resolution.resolutionY * m_renderParam.scaleFactor / 72.0);
+    m_transform.scale(m_renderParam.resolutionX() * m_renderParam.scaleFactor() / 72.0,
+                      m_renderParam.resolutionY() * m_renderParam.scaleFactor() / 72.0);
 
-    switch(m_renderParam.rotation)
+    switch(m_renderParam.rotation())
     {
     default:
     case RotateBy0:
@@ -1088,7 +1157,7 @@ void PageItem::prepareGeometry()
 
 void PageItem::prepareTiling()
 {
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         m_tileItems.first()->setRect(QRect(0, 0, m_boundingRect.width(), m_boundingRect.height()));
 
@@ -1170,7 +1239,7 @@ inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) co
 
         QColor paperColor = s_settings->pageItem().paperColor();
 
-        if(m_renderParam.invertColors)
+        if(m_renderParam.invertColors())
         {
             paperColor.setRgb(~paperColor.rgb());
         }
@@ -1180,7 +1249,7 @@ inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) co
 
     // tiles
 
-    if(!s_settings->pageItem().useTiling() || thumbnailMode())
+    if(!useTiling())
     {
         TileItem* tile = m_tileItems.first();
 
@@ -1237,7 +1306,7 @@ inline void PageItem::paintPage(QPainter* painter, const QRectF& exposedRect) co
 
         painter->setClipping(false);
 
-        painter->drawRect(s_settings->pageItem().trimMargins() ? PageItem::boundingRect() : PageItem::uncroppedBoundingRect());
+        painter->drawRect(m_renderParam.trimMargins() ? PageItem::boundingRect() : PageItem::uncroppedBoundingRect());
 
         painter->restore();
     }

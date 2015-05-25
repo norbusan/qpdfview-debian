@@ -150,7 +150,7 @@ void Database::restoreTabs(const RestoreTab& restoreTab)
         Transaction transaction(m_database);
 
         QSqlQuery query(m_database);
-        query.prepare("SELECT filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation FROM tabs_v3 WHERE instanceName==?");
+        query.prepare("SELECT filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage FROM tabs_v4 WHERE instanceName==?");
 
         query.bindValue(0, instanceName());
 
@@ -177,6 +177,10 @@ void Database::restoreTabs(const RestoreTab& restoreTab)
 
                 newTab->setRotation(static_cast< Rotation >(query.value(7).toUInt()));
 
+                newTab->setRenderFlags(static_cast< qpdfview::RenderFlags >(query.value(8).toUInt()));
+
+                newTab->setFirstPage(query.value(9).toInt());
+
                 newTab->jumpToPage(query.value(1).toInt(), false);
             }
         }
@@ -197,7 +201,7 @@ void Database::saveTabs(const QList< DocumentView* >& tabs)
 
         QSqlQuery query(m_database);
 
-        query.prepare("DELETE FROM tabs_v3 WHERE instanceName==?");
+        query.prepare("DELETE FROM tabs_v4 WHERE instanceName==?");
 
         query.bindValue(0, instanceName());
 
@@ -209,9 +213,9 @@ void Database::saveTabs(const QList< DocumentView* >& tabs)
             return;
         }
 
-        query.prepare("INSERT INTO tabs_v3 "
-                      "(filePath,instanceName,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation)"
-                      " VALUES (?,?,?,?,?,?,?,?,?)");
+        query.prepare("INSERT INTO tabs_v4 "
+                      "(filePath,instanceName,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage)"
+                      " VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 
         foreach(const DocumentView* tab, tabs)
         {
@@ -227,6 +231,10 @@ void Database::saveTabs(const QList< DocumentView* >& tabs)
             query.bindValue(7, tab->scaleFactor());
 
             query.bindValue(8, static_cast< uint >(tab->rotation()));
+
+            query.bindValue(9, static_cast< uint >(tab->renderFlags()));
+
+            query.bindValue(10, tab->firstPage());
 
             query.exec();
 
@@ -256,7 +264,7 @@ void Database::clearTabs()
         Transaction transaction(m_database);
 
         QSqlQuery query(m_database);
-        query.exec("DELETE FROM tabs_v3");
+        query.exec("DELETE FROM tabs_v4");
 
         if(!query.isActive())
         {
@@ -409,7 +417,7 @@ void Database::restorePerFileSettings(DocumentView* tab)
         Transaction transaction(m_database);
 
         QSqlQuery query(m_database);
-        query.prepare("SELECT currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,firstPage FROM perfilesettings_v3 WHERE filePath==?");
+        query.prepare("SELECT currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage FROM perfilesettings_v4 WHERE filePath==?");
 
         query.bindValue(0, QCryptographicHash::hash(tab->fileInfo().absoluteFilePath().toUtf8(), QCryptographicHash::Sha1).toBase64());
 
@@ -426,7 +434,9 @@ void Database::restorePerFileSettings(DocumentView* tab)
 
             tab->setRotation(static_cast< Rotation >(query.value(6).toUInt()));
 
-            tab->setFirstPage(query.value(7).toInt());
+            tab->setRenderFlags(static_cast< qpdfview::RenderFlags >(query.value(7).toUInt()));
+
+            tab->setFirstPage(query.value(8).toInt());
 
             tab->jumpToPage(query.value(0).toInt(), false);
         }
@@ -456,9 +466,9 @@ void Database::savePerFileSettings(const DocumentView* tab)
         Transaction transaction(m_database);
 
         QSqlQuery query(m_database);
-        query.prepare("INSERT OR REPLACE INTO perfilesettings_v3 "
-                      "(lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,firstPage)"
-                      " VALUES (?,?,?,?,?,?,?,?,?,?)");
+        query.prepare("INSERT OR REPLACE INTO perfilesettings_v4 "
+                      "(lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage)"
+                      " VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 
         query.bindValue(0, QDateTime::currentDateTime().toTime_t());
 
@@ -474,7 +484,9 @@ void Database::savePerFileSettings(const DocumentView* tab)
 
         query.bindValue(8, static_cast< uint >(tab->rotation()));
 
-        query.bindValue(9, tab->firstPage());
+        query.bindValue(9, static_cast< uint >(tab->renderFlags()));
+
+        query.bindValue(10, tab->firstPage());
 
         query.exec();
 
@@ -526,17 +538,21 @@ Database::Database(QObject* parent) : QObject(parent)
 
         // tabs
 
-        if(!tables.contains("tabs_v3"))
+        if(!tables.contains("tabs_v4"))
         {
-            if(prepareTabs_v3())
+            if(prepareTabs_v4())
             {
-                if(tables.contains("tabs_v2"))
+                if(tables.contains("tabs_v3"))
                 {
-                    migrateTabs_v2_v3();
+                    migrateTabs_v3_v4();
+                }
+                else if(tables.contains("tabs_v2"))
+                {
+                    migrateTabs_v2_v4();
                 }
                 else if(tables.contains("tabs_v1"))
                 {
-                    migrateTabs_v1_v3();
+                    migrateTabs_v1_v4();
                 }
             }
         }
@@ -560,17 +576,21 @@ Database::Database(QObject* parent) : QObject(parent)
 
         // per-file settings
 
-        if(!tables.contains("perfilesettings_v3"))
+        if(!tables.contains("perfilesettings_v4"))
         {
-            if(preparePerFileSettings_v3())
+            if(preparePerFileSettings_v4())
             {
+                if(tables.contains("perfilesettings_v3"))
+                {
+                    migratePerFileSettings_v3_v4();
+                }
                 if(tables.contains("perfilesettings_v2"))
                 {
-                    migratePerFileSettings_v2_v3();
+                    migratePerFileSettings_v2_v4();
                 }
                 else if(tables.contains("perfilesettings_v1"))
                 {
-                    migratePerFileSettings_v1_v3();
+                    migratePerFileSettings_v1_v4();
                 }
             }
         }
@@ -592,151 +612,90 @@ QString Database::instanceName()
 
 #ifdef WITH_SQL
 
-bool Database::prepareTabs_v3()
+bool Database::prepareTabs_v4()
 {
-    Transaction transaction(m_database);
-
-    QSqlQuery query(m_database);
-    query.exec("CREATE TABLE tabs_v3 "
-               "(filePath TEXT"
-               ",instanceName TEXT"
-               ",currentPage INTEGER"
-               ",continuousMode INTEGER"
-               ",layoutMode INTEGER"
-               ",rightToLeftMode INTEGER"
-               ",scaleMode INTEGER"
-               ",scaleFactor REAL"
-               ",rotation INTEGER)");
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return false;
-    }
-
-    transaction.commit();
-    return true;
+    return prepareTable("CREATE TABLE tabs_v4 "
+                        "(filePath TEXT"
+                        ",instanceName TEXT"
+                        ",currentPage INTEGER"
+                        ",continuousMode INTEGER"
+                        ",layoutMode INTEGER"
+                        ",rightToLeftMode INTEGER"
+                        ",scaleMode INTEGER"
+                        ",scaleFactor REAL"
+                        ",rotation INTEGER"
+                        ",renderFlags INTEGER"
+                        ",firstPage INTEGER)");
 }
 
 bool Database::prepareBookmarks_v3()
 {
-    Transaction transaction(m_database);
-
-    QSqlQuery query(m_database);
-    query.exec("CREATE TABLE bookmarks_v3 "
-               "(filePath TEXT"
-               ",page INTEGER"
-               ",label TEXT"
-               ",comment TEXT"
-               ",modified DATETIME)");
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return false;
-    }
-
-    transaction.commit();
-    return true;
+    return prepareTable("CREATE TABLE bookmarks_v3 "
+                        "(filePath TEXT"
+                        ",page INTEGER"
+                        ",label TEXT"
+                        ",comment TEXT"
+                        ",modified DATETIME)");
 }
 
-bool Database::preparePerFileSettings_v3()
+bool Database::preparePerFileSettings_v4()
 {
-    Transaction transaction(m_database);
-
-    QSqlQuery query(m_database);
-
-    query.exec("CREATE TABLE perfilesettings_v3 "
-               "(lastUsed INTEGER"
-               ",filePath TEXT PRIMARY KEY"
-               ",currentPage INTEGER"
-               ",continuousMode INTEGER"
-               ",layoutMode INTEGER"
-               ",rightToLeftMode INTEGER"
-               ",scaleMode INTEGER"
-               ",scaleFactor REAL"
-               ",rotation INTEGER"
-               ",firstPage INTEGER)");
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return false;
-    }
-
-    transaction.commit();
-    return true;
+    return prepareTable("CREATE TABLE perfilesettings_v4 "
+                        "(lastUsed INTEGER"
+                        ",filePath TEXT PRIMARY KEY"
+                        ",currentPage INTEGER"
+                        ",continuousMode INTEGER"
+                        ",layoutMode INTEGER"
+                        ",rightToLeftMode INTEGER"
+                        ",scaleMode INTEGER"
+                        ",scaleFactor REAL"
+                        ",rotation INTEGER"
+                        ",renderFlags INTEGER"
+                        ",firstPage INTEGER)");
 }
 
-void Database::migrateTabs_v2_v3()
+void Database::migrateTabs_v3_v4()
 {
-    Transaction transaction(m_database);
+    migrateTable("INSERT INTO tabs_v4 "
+                 "SELECT filePath,instanceName,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,-1 "
+                 "FROM tabs_v3",
 
-    QSqlQuery query(m_database);
-    query.prepare("INSERT INTO tabs_v3 "
-                  "SELECT filePath,instanceName,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation "
-                  "FROM tabs_v2");
+                 "DROP TABLE tabs_v3",
 
-    query.exec();
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return;
-    }
-
-    qWarning() << "Migrated tabs from v2 to v3, dropping v2.";
-    query.exec("DROP TABLE tabs_v2");
-
-    transaction.commit();
+                 "Migrated tabs from v3 to v4, dropping v3.");
 }
 
-void Database::migrateTabs_v1_v3()
+void Database::migrateTabs_v2_v4()
 {
-    Transaction transaction(m_database);
+    migrateTable("INSERT INTO tabs_v4 "
+                 "SELECT filePath,instanceName,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1 "
+                 "FROM tabs_v2",
 
-    QSqlQuery query(m_database);
-    query.prepare("INSERT INTO tabs_v3 "
-                  "SELECT filePath,?,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation "
-                  "FROM tabs_v1");
+                 "DROP TABLE tabs_v2"  ,
 
-    query.bindValue(0, instanceName());
+                 "Migrated tabs from v2 to v4, dropping v2.");
+}
 
-    query.exec();
+void Database::migrateTabs_v1_v4()
+{
+    migrateTable("INSERT INTO tabs_v4 "
+                 "SELECT filePath,?,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1 "
+                 "FROM tabs_v1",
 
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return;
-    }
+                 "DROP TABLE tabs_v1",
 
-    qWarning() << "Migrated tabs from v1 to v3, dropping v1.";
-    query.exec("DROP TABLE tabs_v1");
-
-    transaction.commit();
+                 "Migrated tabs from v1 to v4, dropping v1.");
 }
 
 void Database::migrateBookmarks_v2_v3()
 {
-    Transaction transaction(m_database);
+    migrateTable("INSERT INTO bookmarks_v3 "
+                 "SELECT filePath,page,label,'',datetime('now') "
+                 "FROM bookmarks_v2",
 
-    QSqlQuery query(m_database);
-    query.prepare("INSERT INTO bookmarks_v3 "
-                  "SELECT filePath,page,label,'',datetime('now') "
-                  "FROM bookmarks_v2");
+                 "DROP TABLE bookmarks_v2",
 
-    query.exec();
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return;
-    }
-
-    qWarning() << "Migrated bookmarks from v2 to v3, dropping v2.";
-    query.exec("DROP TABLE bookmarks_v2");
-
-    transaction.commit();
+                 "Migrated bookmarks from v2 to v3, dropping v2.");
 }
 
 void Database::migrateBookmarks_v1_v3()
@@ -788,48 +747,69 @@ void Database::migrateBookmarks_v1_v3()
     transaction.commit();
 }
 
-void Database::migratePerFileSettings_v2_v3()
+void Database::migratePerFileSettings_v3_v4()
 {
-    Transaction transaction(m_database);
+    migrateTable("INSERT INTO perfilesettings_v4 "
+                 "SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,firstPage "
+                 "FROM perfilesettings_v3",
 
-    QSqlQuery query(m_database);
-    query.prepare("INSERT INTO perfilesettings_v3 "
-                  "SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,-1 "
-                  "FROM perfilesettings_v2");
+                 "DROP TABLE perfilesettings_v3",
 
-    query.exec();
-
-    if(!query.isActive())
-    {
-        qDebug() << query.lastError();
-        return;
-    }
-
-    qWarning() << "Migrated per-file settings from v2 to v3, dropping v2.";
-    query.exec("DROP TABLE perfilesettings_v2");
-
-    transaction.commit();
+                 "Migrated per-file settings from v3 to v4, dropping v3.");
 }
 
-void Database::migratePerFileSettings_v1_v3()
+void Database::migratePerFileSettings_v2_v4()
+{
+    migrateTable("INSERT INTO perfilesettings_v4 "
+                 "SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,-1 "
+                 "FROM perfilesettings_v2",
+
+                 "DROP TABLE perfilesettings_v2",
+
+                 "Migrated per-file settings from v2 to v4, dropping v2.");
+}
+
+void Database::migratePerFileSettings_v1_v4()
+{
+    migrateTable("INSERT INTO perfilesettings_v4 "
+                 "SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1 "
+                 "FROM perfilesettings_v1",
+
+                 "DROP TABLE perfilesettings_v1",
+
+                 "Migrated per-file settings from v1 to v4, dropping v1.");
+}
+
+bool Database::prepareTable(const QString& prepare)
 {
     Transaction transaction(m_database);
 
     QSqlQuery query(m_database);
-    query.prepare("INSERT INTO perfilesettings_v3 "
-                  "SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,-1 "
-                  "FROM perfilesettings_v1");
 
-    query.exec();
+    if(!query.exec(prepare))
+    {
+        qDebug() << query.lastError();
+        return false;
+    }
 
-    if(!query.isActive())
+    transaction.commit();
+    return true;
+}
+
+void Database::migrateTable(const QString& migrate, const QString& prune, const QString& warning)
+{
+    Transaction transaction(m_database);
+
+    QSqlQuery query(m_database);
+
+    if(!query.exec(migrate))
     {
         qDebug() << query.lastError();
         return;
     }
 
-    qWarning() << "Migrated per-file settings from v1 to v3, dropping v1.";
-    query.exec("DROP TABLE perfilesettings_v1");
+    qWarning() << warning;
+    query.exec(prune);
 
     transaction.commit();
 }
@@ -842,11 +822,11 @@ void Database::limitPerFileSettings()
 
     if(Settings::instance()->mainWindow().restorePerFileSettings())
     {
-        query.exec("DELETE FROM perfilesettings_v3 WHERE filePath NOT IN (SELECT filePath FROM perfilesettings_v3 ORDER BY lastUsed DESC LIMIT 1000)");
+        query.exec("DELETE FROM perfilesettings_v4 WHERE filePath NOT IN (SELECT filePath FROM perfilesettings_v4 ORDER BY lastUsed DESC LIMIT 1000)");
     }
     else
     {
-        query.exec("DELETE FROM perfilesettings_v3");
+        query.exec("DELETE FROM perfilesettings_v4");
     }
 
     if(!query.isActive())
