@@ -184,8 +184,8 @@ public:
         int pagesPerRow() const { return m_pagesPerRow; }
         void setPagesPerRow(int pagesPerRow);
 
-        bool scrollIfNotVisible() const { return m_scrollIfNotVisible; }
-        void setScrollIfNotVisible(bool scrollIfNotVisible);
+        bool minimalScrolling() const { return m_minimalScrolling; }
+        void setMinimalScrolling(bool minimalScrolling);
 
         bool highlightCurrentThumbnail() const { return m_highlightCurrentThumbnail; }
         void setHighlightCurrentThumbnail(bool highlightCurrentThumbnail);
@@ -272,7 +272,7 @@ public:
 
         int m_pagesPerRow;
 
-        bool m_scrollIfNotVisible;
+        bool m_minimalScrolling;
 
         bool m_highlightCurrentThumbnail;
         bool m_limitThumbnailsToResults;
@@ -537,7 +537,7 @@ public:
 
         static int pagesPerRow() { return 3; }
 
-        static bool scrollIfNotVisible() { return false; }
+        static bool minimalScrolling() { return false; }
 
         static bool highlightCurrentThumbnail() { return false; }
         static bool limitThumbnailsToResults() { return false; }

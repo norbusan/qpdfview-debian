@@ -1111,12 +1111,12 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal newLeft, qreal n
 
         if(qIsNaN(newLeft))
         {
-            newLeft = left;
+            newLeft = qBound(qreal(0.0), left, qreal(1.0));
         }
 
         if(qIsNaN(newTop))
         {
-            newTop = top;
+            newTop = qBound(qreal(0.0), top, qreal(1.0));
         }
 
         if(m_currentPage != m_layout->currentPage(page) || qAbs(left - newLeft) > 0.01 || qAbs(top - newTop) > 0.01)
@@ -2472,7 +2472,7 @@ void DocumentView::prepareView(qreal newLeft, qreal newTop, bool forceScroll, in
 
     setSceneRect(sceneRect.left(), top, sceneRect.width(), height);
 
-    if(!forceScroll && s_settings->documentView().scrollIfNotVisible())
+    if(!forceScroll && s_settings->documentView().minimalScrolling())
     {
         setValueIfNotVisible(horizontalScrollBar(), horizontalValue);
         setValueIfNotVisible(verticalScrollBar(), verticalValue);
