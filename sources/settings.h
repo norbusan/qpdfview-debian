@@ -1,6 +1,7 @@
 /*
 
-Copyright 2012-2013 Adam Reichold
+Copyright 2015 S. Razi Alavizadeh
+Copyright 2012-2015 Adam Reichold
 Copyright 2012 Alexander Volkov
 
 This file is part of qpdfview.
@@ -358,6 +359,12 @@ public:
         QStringList viewToolBar() const;
         void setViewToolBar(const QStringList& viewToolBar);
 
+        QStringList documentContextMenu() const;
+        void setDocumentContextMenu(const QStringList& documentContextMenu);
+
+        QStringList tabContextMenu() const;
+        void setTabContextMenu(const QStringList& tabContextMenu);
+
         bool scrollableMenus() const;
         void setScrollableMenus(bool scrollableMenus);
 
@@ -620,6 +627,9 @@ public:
         static QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh"; }
         static QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }
         static QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
+
+        static QStringList documentContextMenu() { return QStringList() << "openCopyInNewTab" << "separator" << "previousPage" << "nextPage" << "firstPage" << "lastPage" << "separator" << "jumpToPage" << "jumpBackward" << "jumpForward" << "separator" << "setFirstPage" << "separator" << "findPrevious" << "findNext" << "cancelSearch"; }
+        static QStringList tabContexntMenu() { return QStringList() << "closeAllTabs" << "closeAllTabsButThisOne" << "closeAllTabsToTheLeft" << "closeAllTabsToTheRight"; }
 
         static bool scrollableMenus() { return false; }
         static bool searchableMenus() { return false; }

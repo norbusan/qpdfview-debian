@@ -1,6 +1,7 @@
 /*
 
-Copyright 2012-2013 Adam Reichold
+Copyright 2015 S. Razi Alavizadeh
+Copyright 2012-2015 Adam Reichold
 Copyright 2012 Alexander Volkov
 
 This file is part of qpdfview.
@@ -539,14 +540,19 @@ void SettingsDialog::createInterfaceTab()
 
 
     m_fileToolBarLineEdit = addLineEdit(m_interfaceLayout, tr("File tool bar:"), tr("Effective after restart."),
-                                        s_settings->mainWindow().fileToolBar().join(","));
+                                        s_settings->mainWindow().fileToolBar().join(','));
 
     m_editToolBarLineEdit = addLineEdit(m_interfaceLayout, tr("Edit tool bar:"), tr("Effective after restart."),
-                                        s_settings->mainWindow().editToolBar().join(","));
+                                        s_settings->mainWindow().editToolBar().join(','));
 
     m_viewToolBarLineEdit = addLineEdit(m_interfaceLayout, tr("View tool bar:"), tr("Effective after restart."),
-                                        s_settings->mainWindow().viewToolBar().join(","));
+                                        s_settings->mainWindow().viewToolBar().join(','));
 
+    m_documentContextMenuLineEdit = addLineEdit(m_interfaceLayout, tr("Document context menu:"), QString(),
+                                                s_settings->mainWindow().documentContextMenu().join(','));
+
+    m_tabContextMenuLineEdit = addLineEdit(m_interfaceLayout, tr("Tab context menu:"), QString(),
+                                           s_settings->mainWindow().tabContextMenu().join(','));
 
     m_scrollableMenusCheckBox = addCheckBox(m_interfaceLayout, tr("Scrollable menus:"), tr("Effective after restart."),
                                             s_settings->mainWindow().scrollableMenus());
@@ -597,9 +603,12 @@ void SettingsDialog::acceptInterfaceTab()
     s_settings->mainWindow().setRecentlyUsedCount(m_recentlyUsedCountSpinBox->value());
     s_settings->mainWindow().setRecentlyClosedCount(m_recentlyClosedCountSpinBox->value());
 
-    s_settings->mainWindow().setFileToolBar(m_fileToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
-    s_settings->mainWindow().setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
-    s_settings->mainWindow().setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
+    s_settings->mainWindow().setFileToolBar(m_fileToolBarLineEdit->text().split(',', QString::SkipEmptyParts));
+    s_settings->mainWindow().setEditToolBar(m_editToolBarLineEdit->text().split(',', QString::SkipEmptyParts));
+    s_settings->mainWindow().setViewToolBar(m_viewToolBarLineEdit->text().split(',', QString::SkipEmptyParts));
+
+    s_settings->mainWindow().setDocumentContextMenu(m_documentContextMenuLineEdit->text().split(',', QString::SkipEmptyParts));
+    s_settings->mainWindow().setTabContextMenu(m_tabContextMenuLineEdit->text().split(',', QString::SkipEmptyParts));
 
     s_settings->mainWindow().setScrollableMenus(m_scrollableMenusCheckBox->isChecked());
     s_settings->mainWindow().setSearchableMenus(m_searchableMenusCheckBox->isChecked());
@@ -633,9 +642,12 @@ void SettingsDialog::resetInterfaceTab()
     m_recentlyUsedCountSpinBox->setValue(Defaults::MainWindow::recentlyUsedCount());
     m_recentlyClosedCountSpinBox->setValue(Defaults::MainWindow::recentlyClosedCount());
 
-    m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(","));
-    m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
-    m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
+    m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(','));
+    m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(','));
+    m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(','));
+
+    m_documentContextMenuLineEdit->setText(Defaults::MainWindow::documentContextMenu().join(','));
+    m_tabContextMenuLineEdit->setText(Defaults::MainWindow::tabContexntMenu().join(','));
 
     m_scrollableMenusCheckBox->setChecked(Defaults::MainWindow::scrollableMenus());
     m_searchableMenusCheckBox->setChecked(Defaults::MainWindow::searchableMenus());

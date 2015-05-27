@@ -1,6 +1,6 @@
 /*
 
-Copyright 2014 S. Razi Alavizadeh
+Copyright 2014-2015 S. Razi Alavizadeh
 Copyright 2012-2015 Adam Reichold
 Copyright 2014 Dorian Scholz
 Copyright 2012 Michał Trybus
@@ -115,6 +115,41 @@ void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
     if(toolButton != 0)
     {
         toolButton->setMenu(menu);
+    }
+}
+
+inline QAction* createTemporaryAction(QObject* parent, const QString& text, const QString& objectName)
+{
+    QAction* action = new QAction(text, parent);
+
+    action->setObjectName(objectName);
+
+    return action;
+}
+
+void addWidgetActions(QWidget* widget, const QStringList& actionNames, const QList< QAction* >& actions)
+{
+    foreach(const QString& actionName, actionNames)
+    {
+        if(actionName == QLatin1String("separator"))
+        {
+            QAction* separator = new QAction(widget);
+            separator->setSeparator(true);
+
+            widget->addAction(separator);
+
+            continue;
+        }
+
+        foreach(QAction* action, actions)
+        {
+            if(actionName == action->objectName())
+            {
+                widget->addAction(action);
+
+                break;
+            }
+        }
     }
 }
 
@@ -591,12 +626,21 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 {
     QMenu menu;
 
-    const QAction* closeAllTabsAction = menu.addAction(tr("Close all tabs"));
-    const QAction* closeAllTabsButThisOneAction = menu.addAction(tr("Close all tabs but this one"));
-    const QAction* closeAllTabsToTheLeftAction = menu.addAction(tr("Close all tabs to the left"));
-    const QAction* closeAllTabsToTheRightAction = menu.addAction(tr("Close all tabs to the right"));
+    QAction* closeAllTabsAction = createTemporaryAction(&menu, tr("Close all tabs"), QLatin1String("closeAllTabs"));
+    QAction* closeAllTabsButThisOneAction = createTemporaryAction(&menu, tr("Close all tabs but this one"), QLatin1String("closeAllTabsButThisOne"));
+    QAction* closeAllTabsToTheLeftAction = createTemporaryAction(&menu, tr("Close all tabs to the left"), QLatin1String("closeAllTabsToTheLeft"));
+    QAction* closeAllTabsToTheRightAction = createTemporaryAction(&menu, tr("Close all tabs to the right"), QLatin1String("closeAllTabsToTheRight"));
 
-    const QAction* action = menu.exec(globalPos);
+    QList< QAction* > actions;
+
+    actions << closeAllTabsAction
+            << closeAllTabsButThisOneAction
+            << closeAllTabsToTheLeftAction
+            << closeAllTabsToTheRightAction;
+
+    addWidgetActions(&menu, s_settings->mainWindow().tabContextMenu(), actions);
+
+    QAction* action = menu.exec(globalPos);
 
     QList< DocumentView* > tabsToClose;
 
@@ -924,19 +968,20 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
     {
         QMenu menu;
 
-        menu.addAction(m_openCopyInNewTabAction);
-        menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction);
-        menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction);
-        menu.addSeparator();
-        menu.addAction(m_setFirstPageAction);
+        QList< QAction* > actions;
+
+        actions << m_openCopyInNewTabAction
+                << m_previousPageAction << m_nextPageAction
+                << m_firstPageAction << m_lastPageAction
+                << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction
+                << m_setFirstPageAction;
 
         if(m_searchDock->isVisible())
         {
-            menu.addSeparator();
-            menu.addActions(QList< QAction* >() << m_findPreviousAction << m_findNextAction << m_cancelSearchAction);
+            actions << m_findPreviousAction << m_findNextAction << m_cancelSearchAction;
         }
+
+        addWidgetActions(&menu, s_settings->mainWindow().documentContextMenu(), actions);
 
         menu.exec(currentTab()->mapToGlobal(pos));
     }
@@ -2622,7 +2667,7 @@ void MainWindow::createActions()
     m_firstPageAction = createAction(tr("&First page"), QLatin1String("firstPage"), QLatin1String("go-first"), QList< QKeySequence >() << QKeySequence(Qt::Key_Home) << QKeySequence(Qt::KeypadModifier + Qt::Key_Home), SLOT(on_firstPage_triggered()));
     m_lastPageAction = createAction(tr("&Last page"), QLatin1String("lastPage"), QLatin1String("go-last"), QList< QKeySequence >() << QKeySequence(Qt::Key_End) << QKeySequence(Qt::KeypadModifier + Qt::Key_End), SLOT(on_lastPage_triggered()));
 
-    m_setFirstPageAction = createAction(tr("&Set first page..."), QString(), QIcon(), QKeySequence(), SLOT(on_setFirstPage_triggered()));
+    m_setFirstPageAction = createAction(tr("&Set first page..."), QLatin1String("setFirstPage"), QIcon(), QKeySequence(), SLOT(on_setFirstPage_triggered()));
 
     m_jumpToPageAction = createAction(tr("&Jump to page..."), QLatin1String("jumpToPage"), QLatin1String("go-jump"), QKeySequence(Qt::CTRL + Qt::Key_J), SLOT(on_jumpToPage_triggered()));
 
@@ -2713,25 +2758,7 @@ QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectNa
     QToolBar* toolBar = addToolBar(text);
     toolBar->setObjectName(objectName);
 
-    foreach(const QString& actionName, actionNames)
-    {
-        if(actionName == QLatin1String("separator"))
-        {
-            toolBar->addSeparator();
-
-            continue;
-        }
-
-        foreach(QAction* action, actions)
-        {
-            if(actionName == action->objectName())
-            {
-                toolBar->addAction(action);
-
-                break;
-            }
-        }
-    }
+    addWidgetActions(toolBar, actionNames, actions);
 
     toolBar->toggleViewAction()->setObjectName(objectName + QLatin1String("ToggleView"));
     s_shortcutHandler->registerAction(toolBar->toggleViewAction());
