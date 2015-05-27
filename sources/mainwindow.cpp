@@ -27,6 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QCheckBox>
+#include <QClipboard>
 #include <QDateTime>
 #include <QDebug>
 #include <QDesktopServices>
@@ -626,25 +627,38 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 {
     QMenu menu;
 
+    QAction* copyFilePathAction = createTemporaryAction(&menu, tr("Copy file path"), QLatin1String("copyFilePath"));
+    QAction* selectFilePathAction = createTemporaryAction(&menu, tr("Select file path"), QLatin1String("selectFilePath"));
+
     QAction* closeAllTabsAction = createTemporaryAction(&menu, tr("Close all tabs"), QLatin1String("closeAllTabs"));
     QAction* closeAllTabsButThisOneAction = createTemporaryAction(&menu, tr("Close all tabs but this one"), QLatin1String("closeAllTabsButThisOne"));
     QAction* closeAllTabsToTheLeftAction = createTemporaryAction(&menu, tr("Close all tabs to the left"), QLatin1String("closeAllTabsToTheLeft"));
     QAction* closeAllTabsToTheRightAction = createTemporaryAction(&menu, tr("Close all tabs to the right"), QLatin1String("closeAllTabsToTheRight"));
 
+    selectFilePathAction->setVisible(QApplication::clipboard()->supportsSelection());
+
     QList< QAction* > actions;
 
-    actions << closeAllTabsAction
-            << closeAllTabsButThisOneAction
-            << closeAllTabsToTheLeftAction
-            << closeAllTabsToTheRightAction;
+    actions << m_openCopyInNewTabAction << m_openContainingFolderAction
+            << copyFilePathAction << selectFilePathAction
+            << closeAllTabsAction << closeAllTabsButThisOneAction
+            << closeAllTabsToTheLeftAction << closeAllTabsToTheRightAction;
 
     addWidgetActions(&menu, s_settings->mainWindow().tabContextMenu(), actions);
 
-    QAction* action = menu.exec(globalPos);
+    const QAction* action = menu.exec(globalPos);
 
     QList< DocumentView* > tabsToClose;
 
-    if(action == closeAllTabsAction)
+    if(action == copyFilePathAction)
+    {
+        QApplication::clipboard()->setText(tab(index)->fileInfo().absoluteFilePath());
+    }
+    else if(action == selectFilePathAction)
+    {
+        QApplication::clipboard()->setText(tab(index)->fileInfo().absoluteFilePath(), QClipboard::Selection);
+    }
+    else if(action == closeAllTabsAction)
     {
         tabsToClose = tabs();
     }
@@ -970,7 +984,7 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
 
         QList< QAction* > actions;
 
-        actions << m_openCopyInNewTabAction
+        actions << m_openCopyInNewTabAction << m_openContainingFolderAction
                 << m_previousPageAction << m_nextPageAction
                 << m_firstPageAction << m_lastPageAction
                 << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction
@@ -2652,7 +2666,7 @@ void MainWindow::createActions()
 
     m_openAction = createAction(tr("&Open..."), QLatin1String("open"), QLatin1String("document-open"), QKeySequence::Open, SLOT(on_open_triggered()));
     m_openInNewTabAction = createAction(tr("Open in new &tab..."), QLatin1String("openInNewTab"), QLatin1String("tab-new"), QKeySequence::AddTab, SLOT(on_openInNewTab_triggered()));
-    m_openCopyInNewTabAction = createAction(tr("Open &copy in new tab"), QLatin1String("openCopyInNewTab"), QIcon(), QKeySequence(), SLOT(on_openCopyInNewTab_triggered()));
+    m_openCopyInNewTabAction = createAction(tr("Open &copy in new tab"), QLatin1String("openCopyInNewTab"), QLatin1String("tab-new"), QKeySequence(), SLOT(on_openCopyInNewTab_triggered()));
     m_openContainingFolderAction = createAction(tr("Open containing &folder"), QLatin1String("openContainingFolder"), QLatin1String("folder"), QKeySequence(), SLOT(on_openContainingFolder_triggered()));
     m_refreshAction = createAction(tr("&Refresh"), QLatin1String("refresh"), QLatin1String("view-refresh"), QKeySequence::Refresh, SLOT(on_refresh_triggered()));
     m_saveCopyAction = createAction(tr("&Save copy..."), QLatin1String("saveCopy"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_saveCopy_triggered()));
@@ -2970,7 +2984,7 @@ void MainWindow::createMenus()
     // file
 
     m_fileMenu = menuBar()->addMenu(tr("&File"));
-    m_fileMenu->addActions(QList< QAction* >() << m_openAction << m_openInNewTabAction << m_openContainingFolderAction);
+    m_fileMenu->addActions(QList< QAction* >() << m_openAction << m_openInNewTabAction);
 
     m_recentlyUsedMenu = new RecentlyUsedMenu(s_settings->mainWindow().recentlyUsed(), s_settings->mainWindow().recentlyUsedCount(), this);
 
