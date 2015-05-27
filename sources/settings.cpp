@@ -846,6 +846,16 @@ void Settings::MainWindow::setViewToolBar(const QStringList& viewToolBar)
     m_settings->setValue("mainWindow/viewToolBar", trimmed(viewToolBar));
 }
 
+QStringList Settings::MainWindow::currentTabContextMenu() const
+{
+    return m_settings->value("mainWindow/currentTabContextMenu", Defaults::MainWindow::currentTabContextMenu()).toStringList();
+}
+
+void Settings::MainWindow::setCurrentTabContextMenu(const QStringList& currentTabContextMenu)
+{
+    m_settings->setValue("mainWindow/currentTabContextMenu", trimmed(currentTabContextMenu));
+}
+
 bool Settings::MainWindow::scrollableMenus() const
 {
     return m_settings->value("mainWindow/scrollableMenus", Defaults::MainWindow::scrollableMenus()).toBool();

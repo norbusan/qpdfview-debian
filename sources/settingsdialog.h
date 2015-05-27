@@ -159,6 +159,8 @@ private:
     QLineEdit* m_editToolBarLineEdit;
     QLineEdit* m_viewToolBarLineEdit;
 
+    QLineEdit* m_currentTabContextMenuLineEdit;
+
     QCheckBox* m_scrollableMenusCheckBox;
     QCheckBox* m_searchableMenusCheckBox;
 

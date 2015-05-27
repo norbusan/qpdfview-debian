@@ -118,6 +118,32 @@ void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
     }
 }
 
+void setupWidgetActions(QWidget* widget, const QStringList& actionNames, const QList< QAction* >& actions)
+{
+    foreach(const QString& actionName, actionNames)
+    {
+        if(actionName == QLatin1String("separator"))
+        {
+            QAction* separator = new QAction(widget);
+            separator->setSeparator(true);
+
+            widget->addAction(separator);
+
+            continue;
+        }
+
+        foreach(QAction* action, actions)
+        {
+            if(actionName == action->objectName())
+            {
+                widget->addAction(action);
+
+                break;
+            }
+        }
+    }
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -924,19 +950,16 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
     {
         QMenu menu;
 
-        menu.addAction(m_openCopyInNewTabAction);
-        menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction);
-        menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction);
-        menu.addSeparator();
-        menu.addAction(m_setFirstPageAction);
+        QStringList actionNames = s_settings->mainWindow().currentTabContextMenu();
 
-        if(m_searchDock->isVisible())
+        if(!m_searchDock->isVisible())
         {
-            menu.addSeparator();
-            menu.addActions(QList< QAction* >() << m_findPreviousAction << m_findNextAction << m_cancelSearchAction);
+            actionNames.removeAll("findPrevious");
+            actionNames.removeAll("findNext");
+            actionNames.removeAll("cancelSearch");
         }
+
+        ::setupWidgetActions(&menu, actionNames, QList< QAction* >() << m_openCopyInNewTabAction << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction << m_setFirstPageAction << m_findPreviousAction << m_findNextAction << m_cancelSearchAction);
 
         menu.exec(currentTab()->mapToGlobal(pos));
     }
@@ -2622,7 +2645,7 @@ void MainWindow::createActions()
     m_firstPageAction = createAction(tr("&First page"), QLatin1String("firstPage"), QLatin1String("go-first"), QList< QKeySequence >() << QKeySequence(Qt::Key_Home) << QKeySequence(Qt::KeypadModifier + Qt::Key_Home), SLOT(on_firstPage_triggered()));
     m_lastPageAction = createAction(tr("&Last page"), QLatin1String("lastPage"), QLatin1String("go-last"), QList< QKeySequence >() << QKeySequence(Qt::Key_End) << QKeySequence(Qt::KeypadModifier + Qt::Key_End), SLOT(on_lastPage_triggered()));
 
-    m_setFirstPageAction = createAction(tr("&Set first page..."), QString(), QIcon(), QKeySequence(), SLOT(on_setFirstPage_triggered()));
+    m_setFirstPageAction = createAction(tr("&Set first page..."), QLatin1String("setFirstPage"), QIcon(), QKeySequence(), SLOT(on_setFirstPage_triggered()));
 
     m_jumpToPageAction = createAction(tr("&Jump to page..."), QLatin1String("jumpToPage"), QLatin1String("go-jump"), QKeySequence(Qt::CTRL + Qt::Key_J), SLOT(on_jumpToPage_triggered()));
 
@@ -2713,25 +2736,7 @@ QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectNa
     QToolBar* toolBar = addToolBar(text);
     toolBar->setObjectName(objectName);
 
-    foreach(const QString& actionName, actionNames)
-    {
-        if(actionName == QLatin1String("separator"))
-        {
-            toolBar->addSeparator();
-
-            continue;
-        }
-
-        foreach(QAction* action, actions)
-        {
-            if(actionName == action->objectName())
-            {
-                toolBar->addAction(action);
-
-                break;
-            }
-        }
-    }
+    ::setupWidgetActions(toolBar, actionNames, actions);
 
     toolBar->toggleViewAction()->setObjectName(objectName + QLatin1String("ToggleView"));
     s_shortcutHandler->registerAction(toolBar->toggleViewAction());

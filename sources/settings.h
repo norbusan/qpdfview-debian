@@ -358,6 +358,9 @@ public:
         QStringList viewToolBar() const;
         void setViewToolBar(const QStringList& viewToolBar);
 
+        QStringList currentTabContextMenu() const;
+        void setCurrentTabContextMenu(const QStringList& currentTabContextMenu);
+
         bool scrollableMenus() const;
         void setScrollableMenus(bool scrollableMenus);
 
@@ -620,6 +623,8 @@ public:
         static QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh"; }
         static QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }
         static QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
+
+        static QStringList currentTabContextMenu() { return QStringList() << "openCopyInNewTab" << "separator" << "previousPage" << "nextPage" << "firstPage" << "lastPage" << "separator" << "jumpToPage" << "jumpBackward" << "jumpForward" << "separator" << "setFirstPage" << "separator" << "findPrevious" << "findNext" << "cancelSearch"; }
 
         static bool scrollableMenus() { return false; }
         static bool searchableMenus() { return false; }

@@ -547,6 +547,8 @@ void SettingsDialog::createInterfaceTab()
     m_viewToolBarLineEdit = addLineEdit(m_interfaceLayout, tr("View tool bar:"), tr("Effective after restart."),
                                         s_settings->mainWindow().viewToolBar().join(","));
 
+    m_currentTabContextMenuLineEdit = addLineEdit(m_interfaceLayout, tr("Current tab menu:"), QString(),
+                                                  s_settings->mainWindow().currentTabContextMenu().join(","));
 
     m_scrollableMenusCheckBox = addCheckBox(m_interfaceLayout, tr("Scrollable menus:"), tr("Effective after restart."),
                                             s_settings->mainWindow().scrollableMenus());
@@ -601,6 +603,8 @@ void SettingsDialog::acceptInterfaceTab()
     s_settings->mainWindow().setEditToolBar(m_editToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
     s_settings->mainWindow().setViewToolBar(m_viewToolBarLineEdit->text().split(",", QString::SkipEmptyParts));
 
+    s_settings->mainWindow().setCurrentTabContextMenu(m_currentTabContextMenuLineEdit->text().split(",", QString::SkipEmptyParts));
+
     s_settings->mainWindow().setScrollableMenus(m_scrollableMenusCheckBox->isChecked());
     s_settings->mainWindow().setSearchableMenus(m_searchableMenusCheckBox->isChecked());
 
@@ -636,6 +640,8 @@ void SettingsDialog::resetInterfaceTab()
     m_fileToolBarLineEdit->setText(Defaults::MainWindow::fileToolBar().join(","));
     m_editToolBarLineEdit->setText(Defaults::MainWindow::editToolBar().join(","));
     m_viewToolBarLineEdit->setText(Defaults::MainWindow::viewToolBar().join(","));
+
+    m_currentTabContextMenuLineEdit->setText(Defaults::MainWindow::currentTabContextMenu().join(","));
 
     m_scrollableMenusCheckBox->setChecked(Defaults::MainWindow::scrollableMenus());
     m_searchableMenusCheckBox->setChecked(Defaults::MainWindow::searchableMenus());
