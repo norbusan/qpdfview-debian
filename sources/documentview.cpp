@@ -353,7 +353,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     setAcceptDrops(false);
     setDragMode(QGraphicsView::ScrollHandDrag);
 
-    connectVerticalScrollBar();
+    reconnectVerticalScrollBar();
 
     m_thumbnailsScene = new QGraphicsScene(this);
 
@@ -2231,14 +2231,14 @@ void DocumentView::adjustScrollBarPolicy()
     }
 }
 
-void DocumentView::connectVerticalScrollBar()
-{
-    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
-}
-
 void DocumentView::disconnectVerticalScrollBar()
 {
     disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
+}
+
+void DocumentView::reconnectVerticalScrollBar()
+{
+    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
 }
 
 void DocumentView::prepareDocument(Model::Document* document, const QVector< Model::Page* >& pages)
@@ -2580,7 +2580,7 @@ void DocumentView::prepareHighlight(int index, const QRectF& rect)
 
     disconnectVerticalScrollBar();
     centerOn(m_highlight);
-    connectVerticalScrollBar();
+    reconnectVerticalScrollBar();
 
     viewport()->update();
 }

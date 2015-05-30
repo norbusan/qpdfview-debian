@@ -325,6 +325,8 @@ presentation view on.</li>
     <li><b>Synchronise outline view</b> If enabled, the outline view will highlight
 the first entry pointing to the current page whenever the current page
 changes.</li>
+    <li><b>Minimal scrolling</b>If enabled, the view port will only be scrolled if
+the target position is not yet visible.</li>
     <li><b>Zoom factor</b> The number by which the scale factor is multiplied
 resp. divided upon zooming in resp. out.</li>
     <li><b>Highlight colour</b> Determines the colour of highlights.</li>
@@ -435,6 +437,15 @@ bar. Available actions are scaleFactor, zoomIn, zoomOut, continuousMode,
 twoPagesMode, twoPagesWithCoverPageMode, multiplePagesMode, originalSize,
 fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen,
 presentation and separator. (Effective after restart.)</li>
+    <li><b>Document context menu</b> Defines which actions are visible in the
+document's context menu. Available actions are openCopyInNewTab,
+openContainingFolder, previousPage, nextPage, firstPage, lastPage,
+jumpToPage, jumpBackward, jumpForward, setFirstPage, findPrevious, findNext,
+cancelSearch and separator.</li>
+    <li><b>Tab context menu</b> Defines which actions are visible in a tab's context
+menu. Available actions are openCopyInNewTab, openContainingFolder,
+copyFilePath, selectFilePath, closeAllTabs, closeAllTabsButThisOne,
+closeAllTabsToTheLeft, closeAllTabsToTheRight and separator.</li>
     <li><b>Scrollable menus</b> Will override the default style so that pop-up menus
 scroll instead being laid-out in mutliple columns if they are larger than
 the available screen space. (Effective after restart.)</li>

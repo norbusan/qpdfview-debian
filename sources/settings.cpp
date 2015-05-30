@@ -1,6 +1,7 @@
 /*
 
-Copyright 2012-2013 Adam Reichold
+Copyright 2015 S. Razi Alavizadeh
+Copyright 2012-2015 Adam Reichold
 Copyright 2012 Alexander Volkov
 
 This file is part of qpdfview.
@@ -854,6 +855,26 @@ QStringList Settings::MainWindow::viewToolBar() const
 void Settings::MainWindow::setViewToolBar(const QStringList& viewToolBar)
 {
     m_settings->setValue("mainWindow/viewToolBar", trimmed(viewToolBar));
+}
+
+QStringList Settings::MainWindow::documentContextMenu() const
+{
+    return m_settings->value("mainWindow/documentContextMenu", Defaults::MainWindow::documentContextMenu()).toStringList();
+}
+
+void Settings::MainWindow::setDocumentContextMenu(const QStringList& documentContextMenu)
+{
+    m_settings->setValue("mainWindow/documentContextMenu", trimmed(documentContextMenu));
+}
+
+QStringList Settings::MainWindow::tabContextMenu() const
+{
+    return m_settings->value("mainWindow/tabContextMenu", Defaults::MainWindow::tabContexntMenu()).toStringList();
+}
+
+void Settings::MainWindow::setTabContextMenu(const QStringList& tabContextMenu)
+{
+    m_settings->setValue("mainWindow/tabContextMenu", trimmed(tabContextMenu));
 }
 
 bool Settings::MainWindow::scrollableMenus() const

@@ -1,6 +1,7 @@
 /*
 
-Copyright 2012-2013 Adam Reichold
+Copyright 2015 S. Razi Alavizadeh
+Copyright 2012-2015 Adam Reichold
 Copyright 2012 Alexander Volkov
 
 This file is part of qpdfview.
@@ -158,6 +159,9 @@ private:
     QLineEdit* m_fileToolBarLineEdit;
     QLineEdit* m_editToolBarLineEdit;
     QLineEdit* m_viewToolBarLineEdit;
+
+    QLineEdit* m_documentContextMenuLineEdit;
+    QLineEdit* m_tabContextMenuLineEdit;
 
     QCheckBox* m_scrollableMenusCheckBox;
     QCheckBox* m_searchableMenusCheckBox;

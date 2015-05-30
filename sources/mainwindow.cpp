@@ -1,6 +1,6 @@
 /*
 
-Copyright 2014 S. Razi Alavizadeh
+Copyright 2014-2015 S. Razi Alavizadeh
 Copyright 2012-2015 Adam Reichold
 Copyright 2014 Dorian Scholz
 Copyright 2012 Michał Trybus
@@ -27,6 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QCheckBox>
+#include <QClipboard>
 #include <QDateTime>
 #include <QDebug>
 #include <QDesktopServices>
@@ -117,6 +118,61 @@ void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
         toolButton->setMenu(menu);
     }
 }
+
+inline QAction* createTemporaryAction(QObject* parent, const QString& text, const QString& objectName)
+{
+    QAction* action = new QAction(text, parent);
+
+    action->setObjectName(objectName);
+
+    return action;
+}
+
+void addWidgetActions(QWidget* widget, const QStringList& actionNames, const QList< QAction* >& actions)
+{
+    foreach(const QString& actionName, actionNames)
+    {
+        if(actionName == QLatin1String("separator"))
+        {
+            QAction* separator = new QAction(widget);
+            separator->setSeparator(true);
+
+            widget->addAction(separator);
+
+            continue;
+        }
+
+        foreach(QAction* action, actions)
+        {
+            if(actionName == action->objectName())
+            {
+                widget->addAction(action);
+
+                break;
+            }
+        }
+    }
+}
+
+class SignalBlocker
+{
+public:
+    SignalBlocker(QObject* object) : m_object(object)
+    {
+        m_object->blockSignals(true);
+    }
+
+    ~SignalBlocker()
+    {
+        m_object->blockSignals(false);
+    }
+
+private:
+    Q_DISABLE_COPY(SignalBlocker)
+
+    QObject* m_object;
+
+};
 
 } // anonymous
 
@@ -591,16 +647,59 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 {
     QMenu menu;
 
-    const QAction* closeAllTabsAction = menu.addAction(tr("Close all tabs"));
-    const QAction* closeAllTabsButThisOneAction = menu.addAction(tr("Close all tabs but this one"));
-    const QAction* closeAllTabsToTheLeftAction = menu.addAction(tr("Close all tabs to the left"));
-    const QAction* closeAllTabsToTheRightAction = menu.addAction(tr("Close all tabs to the right"));
+    // We block their signals since we need to handle them using the selected instead of the current tab.
+    SignalBlocker openCopyInNewTabSignalBlocker(m_openCopyInNewTabAction);
+    SignalBlocker openContainingFolderSignalBlocker(m_openContainingFolderAction);
+
+    QAction* copyFilePathAction = createTemporaryAction(&menu, tr("Copy file path"), QLatin1String("copyFilePath"));
+    QAction* selectFilePathAction = createTemporaryAction(&menu, tr("Select file path"), QLatin1String("selectFilePath"));
+
+    QAction* closeAllTabsAction = createTemporaryAction(&menu, tr("Close all tabs"), QLatin1String("closeAllTabs"));
+    QAction* closeAllTabsButThisOneAction = createTemporaryAction(&menu, tr("Close all tabs but this one"), QLatin1String("closeAllTabsButThisOne"));
+    QAction* closeAllTabsToTheLeftAction = createTemporaryAction(&menu, tr("Close all tabs to the left"), QLatin1String("closeAllTabsToTheLeft"));
+    QAction* closeAllTabsToTheRightAction = createTemporaryAction(&menu, tr("Close all tabs to the right"), QLatin1String("closeAllTabsToTheRight"));
+
+    selectFilePathAction->setVisible(QApplication::clipboard()->supportsSelection());
+
+    QList< QAction* > actions;
+
+    actions << m_openCopyInNewTabAction << m_openContainingFolderAction
+            << copyFilePathAction << selectFilePathAction
+            << closeAllTabsAction << closeAllTabsButThisOneAction
+            << closeAllTabsToTheLeftAction << closeAllTabsToTheRightAction;
+
+    addWidgetActions(&menu, s_settings->mainWindow().tabContextMenu(), actions);
 
     const QAction* action = menu.exec(globalPos);
 
+    const DocumentView* selectedTab = tab(index);
     QList< DocumentView* > tabsToClose;
 
-    if(action == closeAllTabsAction)
+    if(action == m_openCopyInNewTabAction)
+    {
+        openInNewTab(selectedTab->fileInfo().filePath(), selectedTab->currentPage());
+
+        return;
+    }
+    else if(action == m_openContainingFolderAction)
+    {
+        QDesktopServices::openUrl(QUrl::fromLocalFile(selectedTab->fileInfo().absolutePath()));
+
+        return;
+    }
+    else if(action == copyFilePathAction)
+    {
+        QApplication::clipboard()->setText(selectedTab->fileInfo().absoluteFilePath());
+
+        return;
+    }
+    else if(action == selectFilePathAction)
+    {
+        QApplication::clipboard()->setText(selectedTab->fileInfo().absoluteFilePath(), QClipboard::Selection);
+
+        return;
+    }
+    else if(action == closeAllTabsAction)
     {
         tabsToClose = tabs();
     }
@@ -637,7 +736,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
         return;
     }
 
-    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+    disconnectCurrentTabChanged();
 
     foreach(DocumentView* tab, tabsToClose)
     {
@@ -647,9 +746,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
         }
     }
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+    reconnectCurrentTabChanged();
 }
 
 void MainWindow::on_currentTab_documentChanged()
@@ -924,19 +1021,20 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
     {
         QMenu menu;
 
-        menu.addAction(m_openCopyInNewTabAction);
-        menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction);
-        menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction);
-        menu.addSeparator();
-        menu.addAction(m_setFirstPageAction);
+        QList< QAction* > actions;
+
+        actions << m_openCopyInNewTabAction << m_openContainingFolderAction
+                << m_previousPageAction << m_nextPageAction
+                << m_firstPageAction << m_lastPageAction
+                << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction
+                << m_setFirstPageAction;
 
         if(m_searchDock->isVisible())
         {
-            menu.addSeparator();
-            menu.addActions(QList< QAction* >() << m_findPreviousAction << m_findNextAction << m_cancelSearchAction);
+            actions << m_findPreviousAction << m_findNextAction << m_cancelSearchAction;
         }
+
+        addWidgetActions(&menu, s_settings->mainWindow().documentContextMenu(), actions);
 
         menu.exec(currentTab()->mapToGlobal(pos));
     }
@@ -1031,16 +1129,14 @@ void MainWindow::on_openInNewTab_triggered()
 
     if(!filePaths.isEmpty())
     {
-        disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+        disconnectCurrentTabChanged();
 
         foreach(const QString& filePath, filePaths)
         {
             openInNewTab(filePath);
         }
 
-        connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-        on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+        reconnectCurrentTabChanged();
     }
 }
 
@@ -1421,7 +1517,7 @@ void MainWindow::on_closeTab_triggered()
 
 void MainWindow::on_closeAllTabs_triggered()
 {
-    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+    disconnectCurrentTabChanged();
 
     foreach(DocumentView* tab, tabs())
     {
@@ -1431,14 +1527,12 @@ void MainWindow::on_closeAllTabs_triggered()
         }
     }
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+    reconnectCurrentTabChanged();
 }
 
 void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 {
-    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+    disconnectCurrentTabChanged();
 
     DocumentView* tab = currentTab();
 
@@ -1460,9 +1554,7 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
     m_tabWidget->setTabToolTip(newIndex, tabToolTip);
     m_tabWidget->setCurrentIndex(newIndex);
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+    reconnectCurrentTabChanged();
 }
 
 void MainWindow::on_recentlyClosed_tabActionTriggered(QAction* tabAction)
@@ -2224,7 +2316,7 @@ void MainWindow::dropEvent(QDropEvent* event)
     {
         event->acceptProposedAction();
 
-        disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+        disconnectCurrentTabChanged();
 
         foreach(const QUrl& url, event->mimeData()->urls())
         {
@@ -2238,9 +2330,7 @@ void MainWindow::dropEvent(QDropEvent* event)
             }
         }
 
-        connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-        on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+        reconnectCurrentTabChanged();
     }
 }
 
@@ -2367,6 +2457,18 @@ bool MainWindow::saveModifications(DocumentView* tab)
     }
 
     return true;
+}
+
+void MainWindow::disconnectCurrentTabChanged()
+{
+    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+}
+
+void MainWindow::reconnectCurrentTabChanged()
+{
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+
+    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
 }
 
 void MainWindow::setWindowTitleForCurrentTab()
@@ -2607,7 +2709,7 @@ void MainWindow::createActions()
 
     m_openAction = createAction(tr("&Open..."), QLatin1String("open"), QLatin1String("document-open"), QKeySequence::Open, SLOT(on_open_triggered()));
     m_openInNewTabAction = createAction(tr("Open in new &tab..."), QLatin1String("openInNewTab"), QLatin1String("tab-new"), QKeySequence::AddTab, SLOT(on_openInNewTab_triggered()));
-    m_openCopyInNewTabAction = createAction(tr("Open &copy in new tab"), QLatin1String("openCopyInNewTab"), QIcon(), QKeySequence(), SLOT(on_openCopyInNewTab_triggered()));
+    m_openCopyInNewTabAction = createAction(tr("Open &copy in new tab"), QLatin1String("openCopyInNewTab"), QLatin1String("tab-new"), QKeySequence(), SLOT(on_openCopyInNewTab_triggered()));
     m_openContainingFolderAction = createAction(tr("Open containing &folder"), QLatin1String("openContainingFolder"), QLatin1String("folder"), QKeySequence(), SLOT(on_openContainingFolder_triggered()));
     m_refreshAction = createAction(tr("&Refresh"), QLatin1String("refresh"), QLatin1String("view-refresh"), QKeySequence::Refresh, SLOT(on_refresh_triggered()));
     m_saveCopyAction = createAction(tr("&Save copy..."), QLatin1String("saveCopy"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_saveCopy_triggered()));
@@ -2622,7 +2724,7 @@ void MainWindow::createActions()
     m_firstPageAction = createAction(tr("&First page"), QLatin1String("firstPage"), QLatin1String("go-first"), QList< QKeySequence >() << QKeySequence(Qt::Key_Home) << QKeySequence(Qt::KeypadModifier + Qt::Key_Home), SLOT(on_firstPage_triggered()));
     m_lastPageAction = createAction(tr("&Last page"), QLatin1String("lastPage"), QLatin1String("go-last"), QList< QKeySequence >() << QKeySequence(Qt::Key_End) << QKeySequence(Qt::KeypadModifier + Qt::Key_End), SLOT(on_lastPage_triggered()));
 
-    m_setFirstPageAction = createAction(tr("&Set first page..."), QString(), QIcon(), QKeySequence(), SLOT(on_setFirstPage_triggered()));
+    m_setFirstPageAction = createAction(tr("&Set first page..."), QLatin1String("setFirstPage"), QIcon(), QKeySequence(), SLOT(on_setFirstPage_triggered()));
 
     m_jumpToPageAction = createAction(tr("&Jump to page..."), QLatin1String("jumpToPage"), QLatin1String("go-jump"), QKeySequence(Qt::CTRL + Qt::Key_J), SLOT(on_jumpToPage_triggered()));
 
@@ -2713,25 +2815,7 @@ QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectNa
     QToolBar* toolBar = addToolBar(text);
     toolBar->setObjectName(objectName);
 
-    foreach(const QString& actionName, actionNames)
-    {
-        if(actionName == QLatin1String("separator"))
-        {
-            toolBar->addSeparator();
-
-            continue;
-        }
-
-        foreach(QAction* action, actions)
-        {
-            if(actionName == action->objectName())
-            {
-                toolBar->addAction(action);
-
-                break;
-            }
-        }
-    }
+    addWidgetActions(toolBar, actionNames, actions);
 
     toolBar->toggleViewAction()->setObjectName(objectName + QLatin1String("ToggleView"));
     s_shortcutHandler->registerAction(toolBar->toggleViewAction());
@@ -2943,7 +3027,7 @@ void MainWindow::createMenus()
     // file
 
     m_fileMenu = menuBar()->addMenu(tr("&File"));
-    m_fileMenu->addActions(QList< QAction* >() << m_openAction << m_openInNewTabAction << m_openContainingFolderAction);
+    m_fileMenu->addActions(QList< QAction* >() << m_openAction << m_openInNewTabAction);
 
     m_recentlyUsedMenu = new RecentlyUsedMenu(s_settings->mainWindow().recentlyUsed(), s_settings->mainWindow().recentlyUsedCount(), this);
 

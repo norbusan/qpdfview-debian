@@ -748,7 +748,7 @@ inline bool PageItem::thumbnailMode() const
     return m_paintMode == ThumbnailMode;
 }
 
-inline bool PageItem::useTiling() const
+bool PageItem::useTiling() const
 {
     return m_paintMode != ThumbnailMode && s_settings->pageItem().useTiling();
 }
