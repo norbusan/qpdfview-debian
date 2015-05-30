@@ -167,42 +167,42 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="819"/>
+        <location filename="../sources/settingsdialog.cpp" line="831"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="820"/>
+        <location filename="../sources/settingsdialog.cpp" line="832"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="821"/>
+        <location filename="../sources/settingsdialog.cpp" line="833"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="822"/>
+        <location filename="../sources/settingsdialog.cpp" line="834"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished">Shift a Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="823"/>
+        <location filename="../sources/settingsdialog.cpp" line="835"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift a Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="824"/>
+        <location filename="../sources/settingsdialog.cpp" line="836"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished">Ctrl a Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="825"/>
+        <location filename="../sources/settingsdialog.cpp" line="837"/>
         <source>Right mouse button</source>
         <translation type="unfinished">Pravé tlačidlo myši</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="826"/>
+        <location filename="../sources/settingsdialog.cpp" line="838"/>
         <source>Middle mouse button</source>
         <translation type="unfinished">Stredné tlačidlo myši</translation>
     </message>
@@ -373,533 +373,543 @@
 <context>
     <name>qpdfview::MainWindow</name>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2702"/>
+        <location filename="../sources/mainwindow.cpp" line="2761"/>
         <source>Toggle tool bars</source>
         <translation type="unfinished">Prepínať panely nástrojov</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2703"/>
+        <location filename="../sources/mainwindow.cpp" line="2762"/>
         <source>Toggle menu bar</source>
         <translation type="unfinished">Prepínať panel menu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="306"/>
-        <location filename="../sources/mainwindow.cpp" line="385"/>
-        <location filename="../sources/mainwindow.cpp" line="1061"/>
-        <location filename="../sources/mainwindow.cpp" line="1078"/>
-        <location filename="../sources/mainwindow.cpp" line="1095"/>
-        <location filename="../sources/mainwindow.cpp" line="1131"/>
-        <location filename="../sources/mainwindow.cpp" line="1272"/>
-        <location filename="../sources/mainwindow.cpp" line="2343"/>
-        <location filename="../sources/mainwindow.cpp" line="2357"/>
+        <location filename="../sources/mainwindow.cpp" line="342"/>
+        <location filename="../sources/mainwindow.cpp" line="421"/>
+        <location filename="../sources/mainwindow.cpp" line="1120"/>
+        <location filename="../sources/mainwindow.cpp" line="1137"/>
+        <location filename="../sources/mainwindow.cpp" line="1154"/>
+        <location filename="../sources/mainwindow.cpp" line="1190"/>
+        <location filename="../sources/mainwindow.cpp" line="1331"/>
+        <location filename="../sources/mainwindow.cpp" line="2402"/>
+        <location filename="../sources/mainwindow.cpp" line="2416"/>
         <source>Warning</source>
         <translation type="unfinished">Varovanie</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="306"/>
-        <location filename="../sources/mainwindow.cpp" line="385"/>
+        <location filename="../sources/mainwindow.cpp" line="342"/>
+        <location filename="../sources/mainwindow.cpp" line="421"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">Nedalo sa otvoríť &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="594"/>
+        <location filename="../sources/mainwindow.cpp" line="630"/>
+        <source>Copy file path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="631"/>
+        <source>Select file path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="633"/>
         <source>Close all tabs</source>
         <translation type="unfinished">Zatvoriť všetky karty</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="595"/>
+        <location filename="../sources/mainwindow.cpp" line="634"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished">Zatvoriť všetky karty okrem tejto</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="596"/>
+        <location filename="../sources/mainwindow.cpp" line="635"/>
         <source>Close all tabs to the left</source>
         <translation type="unfinished">Zatvoriť všetky karty naľavo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="597"/>
+        <location filename="../sources/mainwindow.cpp" line="636"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished">Zatvoriť všetky karty napravo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1014"/>
+        <location filename="../sources/mainwindow.cpp" line="1073"/>
         <source>Open</source>
         <translation type="unfinished">Otvoriť</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1030"/>
+        <location filename="../sources/mainwindow.cpp" line="1089"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Otvoriť na novej karte</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1061"/>
-        <location filename="../sources/mainwindow.cpp" line="1272"/>
+        <location filename="../sources/mainwindow.cpp" line="1120"/>
+        <location filename="../sources/mainwindow.cpp" line="1331"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">Nepodarilo se obnoviť &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1068"/>
+        <location filename="../sources/mainwindow.cpp" line="1127"/>
         <source>Save copy</source>
         <translation type="unfinished">Uložiť kópiu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1078"/>
+        <location filename="../sources/mainwindow.cpp" line="1137"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">Nepodarilo se uložiť kópiu v &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1085"/>
-        <location filename="../sources/mainwindow.cpp" line="2347"/>
+        <location filename="../sources/mainwindow.cpp" line="1144"/>
+        <location filename="../sources/mainwindow.cpp" line="2406"/>
         <source>Save as</source>
         <translation type="unfinished">Uložiť ako</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1095"/>
-        <location filename="../sources/mainwindow.cpp" line="2357"/>
+        <location filename="../sources/mainwindow.cpp" line="1154"/>
+        <location filename="../sources/mainwindow.cpp" line="2416"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">Nepodarilo sa uložiť ako &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1131"/>
+        <location filename="../sources/mainwindow.cpp" line="1190"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">Nepodarilo sa vytlačiť &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1168"/>
+        <location filename="../sources/mainwindow.cpp" line="1227"/>
         <source>Set first page</source>
         <translation type="unfinished">Nastaviť prvú stranu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1168"/>
+        <location filename="../sources/mainwindow.cpp" line="1227"/>
         <source>Select the first page of the body matter:</source>
         <translation type="unfinished">Vybrať prvú stranu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1181"/>
+        <location filename="../sources/mainwindow.cpp" line="1240"/>
         <source>Jump to page</source>
         <translation type="unfinished">Prejsť na stranu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1181"/>
+        <location filename="../sources/mainwindow.cpp" line="1240"/>
         <source>Page:</source>
         <translation type="unfinished">Strana:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1573"/>
+        <location filename="../sources/mainwindow.cpp" line="1632"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Prejsť na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1724"/>
+        <location filename="../sources/mainwindow.cpp" line="1783"/>
         <source>About qpdfview</source>
         <translation type="unfinished">O qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1724"/>
+        <location filename="../sources/mainwindow.cpp" line="1783"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview je prehliadač dokumentov na kartách používajúci Qt.&lt;/p&gt;&lt;p&gt;Táto verzia obsahuje:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1728"/>
+        <location filename="../sources/mainwindow.cpp" line="1787"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;PDF podpora používajúca Poppler %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1731"/>
+        <location filename="../sources/mainwindow.cpp" line="1790"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;PostScript podpora používajúca libspectre %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1734"/>
+        <location filename="../sources/mainwindow.cpp" line="1793"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;DjVu podpora používajúca DjVuLibre %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1737"/>
+        <location filename="../sources/mainwindow.cpp" line="1796"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;PDF podpora používajúca Fitz %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1740"/>
+        <location filename="../sources/mainwindow.cpp" line="1799"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Podpora tlače používajúca CUPS %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1742"/>
+        <location filename="../sources/mainwindow.cpp" line="1801"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Pozrite &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; pre ďalšie informácie .&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 Vývojári qpdfview&lt;/p&gt;&lt;p&gt;Do slovenčiny preložil DAG Software &lt;i&gt;(Ďanovský Ján)&lt;/i&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2025"/>
-        <location filename="../sources/mainwindow.cpp" line="2692"/>
+        <location filename="../sources/mainwindow.cpp" line="2084"/>
+        <location filename="../sources/mainwindow.cpp" line="2751"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">Odst&amp;rániť záložku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2026"/>
+        <location filename="../sources/mainwindow.cpp" line="2085"/>
         <source>&amp;Edit bookmark</source>
         <translation type="unfinished">&amp;Upraviť záložku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2343"/>
+        <location filename="../sources/mainwindow.cpp" line="2402"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation type="unfinished">Dokument &apos;%1&apos; bol zmenený. Chcete uložiť vaše zmeny?</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2520"/>
+        <location filename="../sources/mainwindow.cpp" line="2579"/>
         <source>Page width</source>
         <translation type="unfinished">Šírka strany</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2521"/>
+        <location filename="../sources/mainwindow.cpp" line="2580"/>
         <source>Page size</source>
         <translation type="unfinished">Veľkosť strany</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2544"/>
+        <location filename="../sources/mainwindow.cpp" line="2603"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">Zhoda malý&amp;ch a veľkých písmen</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2545"/>
+        <location filename="../sources/mainwindow.cpp" line="2604"/>
         <source>Whole &amp;words</source>
         <translation type="unfinished">Celá &amp;slová</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2546"/>
+        <location filename="../sources/mainwindow.cpp" line="2605"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">Zvýr&amp;azniť všetko</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2608"/>
+        <location filename="../sources/mainwindow.cpp" line="2667"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Otvoriť...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2609"/>
+        <location filename="../sources/mainwindow.cpp" line="2668"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Otvoriť na novej &amp;karte...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2610"/>
+        <location filename="../sources/mainwindow.cpp" line="2669"/>
         <source>Open &amp;copy in new tab</source>
         <translation type="unfinished">Otvoriť &amp;kópiu na novej karte</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2611"/>
+        <location filename="../sources/mainwindow.cpp" line="2670"/>
         <source>Open containing &amp;folder</source>
         <translation type="unfinished">Otvoriť obsahujúci &amp;priečinok</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2612"/>
+        <location filename="../sources/mainwindow.cpp" line="2671"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">O&amp;bnoviť</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2613"/>
+        <location filename="../sources/mainwindow.cpp" line="2672"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">U&amp;ložiť kópiu...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2614"/>
+        <location filename="../sources/mainwindow.cpp" line="2673"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">Uložiť &amp;ako...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2615"/>
+        <location filename="../sources/mainwindow.cpp" line="2674"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">&amp;Tlačiť...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2616"/>
+        <location filename="../sources/mainwindow.cpp" line="2675"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">U&amp;končiť</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2620"/>
+        <location filename="../sources/mainwindow.cpp" line="2679"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Predchádzajúca strana</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2621"/>
+        <location filename="../sources/mainwindow.cpp" line="2680"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Nasledujúca strana</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2622"/>
+        <location filename="../sources/mainwindow.cpp" line="2681"/>
         <source>&amp;First page</source>
         <translation type="unfinished">P&amp;rvá strana</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2623"/>
+        <location filename="../sources/mainwindow.cpp" line="2682"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Pos&amp;ledná strana</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2625"/>
+        <location filename="../sources/mainwindow.cpp" line="2684"/>
         <source>&amp;Set first page...</source>
         <translation type="unfinished">&amp;Nastaviť prvú stranu...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2627"/>
+        <location filename="../sources/mainwindow.cpp" line="2686"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">Pre&amp;jsť na stranu...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2629"/>
+        <location filename="../sources/mainwindow.cpp" line="2688"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished">Prejsť &amp;späť</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2630"/>
+        <location filename="../sources/mainwindow.cpp" line="2689"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished">Prejsť &amp;dopredu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2632"/>
+        <location filename="../sources/mainwindow.cpp" line="2691"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;Hľadať...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2633"/>
+        <location filename="../sources/mainwindow.cpp" line="2692"/>
         <source>Find previous</source>
         <translation type="unfinished">Nájsť predchádzajúce</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2634"/>
+        <location filename="../sources/mainwindow.cpp" line="2693"/>
         <source>Find next</source>
         <translation type="unfinished">Nájsť ďalšie</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2635"/>
+        <location filename="../sources/mainwindow.cpp" line="2694"/>
         <source>Cancel search</source>
         <translation type="unfinished">Zrušiť hľadanie</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2637"/>
+        <location filename="../sources/mainwindow.cpp" line="2696"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">&amp;Kopírovať do schránky</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2638"/>
+        <location filename="../sources/mainwindow.cpp" line="2697"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">Prid&amp;ať komentár</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2640"/>
+        <location filename="../sources/mainwindow.cpp" line="2699"/>
         <source>Settings...</source>
         <translation type="unfinished">Nastavenia...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2644"/>
+        <location filename="../sources/mainwindow.cpp" line="2703"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">&amp;Súvislo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2645"/>
+        <location filename="../sources/mainwindow.cpp" line="2704"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp;Dve strany</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2646"/>
+        <location filename="../sources/mainwindow.cpp" line="2705"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">Dve strany s &amp;titulnou stranou</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2647"/>
+        <location filename="../sources/mainwindow.cpp" line="2706"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">Viac&amp;eré strany</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2649"/>
+        <location filename="../sources/mainwindow.cpp" line="2708"/>
         <source>Right to left</source>
         <translation type="unfinished">Sprava doľava</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2651"/>
+        <location filename="../sources/mainwindow.cpp" line="2710"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">Priblíž&amp;iť</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2652"/>
+        <location filename="../sources/mainwindow.cpp" line="2711"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">&amp;Odialiť</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2653"/>
+        <location filename="../sources/mainwindow.cpp" line="2712"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">Pôvodná &amp;veľkosť</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2655"/>
+        <location filename="../sources/mainwindow.cpp" line="2714"/>
         <source>Fit to page width</source>
         <translation type="unfinished">Prispôsobiť šírku strany</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2656"/>
+        <location filename="../sources/mainwindow.cpp" line="2715"/>
         <source>Fit to page size</source>
         <translation type="unfinished">Prispôsobiť veľkosť strany</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2658"/>
+        <location filename="../sources/mainwindow.cpp" line="2717"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">Otočiť doľ&amp;ava</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2659"/>
+        <location filename="../sources/mainwindow.cpp" line="2718"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Otočiť dop&amp;rava</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2661"/>
+        <location filename="../sources/mainwindow.cpp" line="2720"/>
         <source>Invert colors</source>
         <translation type="unfinished">Invertovať farby</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2662"/>
+        <location filename="../sources/mainwindow.cpp" line="2721"/>
         <source>Convert to grayscale</source>
         <translation type="unfinished">Konvertovať do odtieňov šedej</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2663"/>
+        <location filename="../sources/mainwindow.cpp" line="2722"/>
         <source>Trim margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2665"/>
+        <location filename="../sources/mainwindow.cpp" line="2724"/>
         <source>Fonts...</source>
         <translation type="unfinished">Písma...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2667"/>
+        <location filename="../sources/mainwindow.cpp" line="2726"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">&amp;Celá obrazovka</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2668"/>
+        <location filename="../sources/mainwindow.cpp" line="2727"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">&amp;Prezentácia...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2672"/>
+        <location filename="../sources/mainwindow.cpp" line="2731"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">&amp;Predchádzajúca karta</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2673"/>
+        <location filename="../sources/mainwindow.cpp" line="2732"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">&amp;Nasledujúca karta</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2675"/>
+        <location filename="../sources/mainwindow.cpp" line="2734"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;Zatvoriť kartu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2676"/>
+        <location filename="../sources/mainwindow.cpp" line="2735"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">Z&amp;atvoriť všetky karty</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2677"/>
+        <location filename="../sources/mainwindow.cpp" line="2736"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">Zatvoriť všetky karty &amp;okrem súčasnej</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2688"/>
+        <location filename="../sources/mainwindow.cpp" line="2747"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">&amp;Predchádzajúca záložka</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2689"/>
+        <location filename="../sources/mainwindow.cpp" line="2748"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">&amp;Nasledujúca záložka</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2691"/>
+        <location filename="../sources/mainwindow.cpp" line="2750"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">Prid&amp;ať záložku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2693"/>
+        <location filename="../sources/mainwindow.cpp" line="2752"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Odstrániť všetky záložky</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2697"/>
+        <location filename="../sources/mainwindow.cpp" line="2756"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">Pomo&amp;cník</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2698"/>
+        <location filename="../sources/mainwindow.cpp" line="2757"/>
         <source>&amp;About</source>
         <translation type="unfinished">O &amp;programe</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2744"/>
-        <location filename="../sources/mainwindow.cpp" line="2945"/>
+        <location filename="../sources/mainwindow.cpp" line="2785"/>
+        <location filename="../sources/mainwindow.cpp" line="2986"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Súbor</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2747"/>
-        <location filename="../sources/mainwindow.cpp" line="2966"/>
+        <location filename="../sources/mainwindow.cpp" line="2788"/>
+        <location filename="../sources/mainwindow.cpp" line="3007"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Upraviť</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2750"/>
-        <location filename="../sources/mainwindow.cpp" line="2979"/>
+        <location filename="../sources/mainwindow.cpp" line="2791"/>
+        <location filename="../sources/mainwindow.cpp" line="3020"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Zobraziť</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2785"/>
+        <location filename="../sources/mainwindow.cpp" line="2826"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Hľadať</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2873"/>
+        <location filename="../sources/mainwindow.cpp" line="2914"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Obsah</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2892"/>
+        <location filename="../sources/mainwindow.cpp" line="2933"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Vlastnosti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2906"/>
+        <location filename="../sources/mainwindow.cpp" line="2947"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished">&amp;Náhľady</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2918"/>
+        <location filename="../sources/mainwindow.cpp" line="2959"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished">&amp;Záložky</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2991"/>
+        <location filename="../sources/mainwindow.cpp" line="3032"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Panely &amp;nástrojov</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2994"/>
+        <location filename="../sources/mainwindow.cpp" line="3035"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">&amp;Bočné panely</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3008"/>
+        <location filename="../sources/mainwindow.cpp" line="3049"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">Kar&amp;ty</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3030"/>
+        <location filename="../sources/mainwindow.cpp" line="3071"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">Zá&amp;ložky</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3041"/>
+        <location filename="../sources/mainwindow.cpp" line="3082"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Nápoveda</translation>
     </message>
@@ -1261,448 +1271,458 @@
 <context>
     <name>qpdfview::SettingsDialog</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="103"/>
+        <location filename="../sources/settingsdialog.cpp" line="104"/>
         <source>Settings</source>
         <translation type="unfinished">Nastavenia</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="106"/>
+        <location filename="../sources/settingsdialog.cpp" line="107"/>
         <source>General</source>
         <translation type="unfinished">Všeobecné</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="139"/>
+        <location filename="../sources/settingsdialog.cpp" line="140"/>
         <source>&amp;Behavior</source>
         <translation type="unfinished">&amp;Správanie</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="140"/>
+        <location filename="../sources/settingsdialog.cpp" line="141"/>
         <source>&amp;Graphics</source>
         <translation type="unfinished">&amp;Grafika</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="141"/>
+        <location filename="../sources/settingsdialog.cpp" line="142"/>
         <source>&amp;Interface</source>
         <translation type="unfinished">Rozhran&amp;ie</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="142"/>
+        <location filename="../sources/settingsdialog.cpp" line="143"/>
         <source>&amp;Shortcuts</source>
         <translation type="unfinished">&amp;Skratky</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="143"/>
+        <location filename="../sources/settingsdialog.cpp" line="144"/>
         <source>&amp;Modifiers</source>
         <translation type="unfinished">&amp;Modifikátory</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="149"/>
+        <location filename="../sources/settingsdialog.cpp" line="150"/>
         <source>Defaults</source>
         <translation type="unfinished">Predvolené</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="152"/>
+        <location filename="../sources/settingsdialog.cpp" line="153"/>
         <source>Defaults on current tab</source>
         <translation type="unfinished">Východzie na aktuálnej karte</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="229"/>
+        <location filename="../sources/settingsdialog.cpp" line="230"/>
         <source>Open URL:</source>
         <translation type="unfinished">Otvárať URL adresy:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="233"/>
+        <location filename="../sources/settingsdialog.cpp" line="234"/>
         <source>Auto-refresh:</source>
         <translation type="unfinished">Obnoviť automaticky:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="237"/>
-        <location filename="../sources/settingsdialog.cpp" line="240"/>
-        <location filename="../sources/settingsdialog.cpp" line="503"/>
-        <location filename="../sources/settingsdialog.cpp" line="534"/>
-        <location filename="../sources/settingsdialog.cpp" line="537"/>
-        <location filename="../sources/settingsdialog.cpp" line="541"/>
-        <location filename="../sources/settingsdialog.cpp" line="544"/>
-        <location filename="../sources/settingsdialog.cpp" line="547"/>
-        <location filename="../sources/settingsdialog.cpp" line="551"/>
+        <location filename="../sources/settingsdialog.cpp" line="238"/>
+        <location filename="../sources/settingsdialog.cpp" line="241"/>
+        <location filename="../sources/settingsdialog.cpp" line="504"/>
+        <location filename="../sources/settingsdialog.cpp" line="535"/>
+        <location filename="../sources/settingsdialog.cpp" line="538"/>
+        <location filename="../sources/settingsdialog.cpp" line="542"/>
+        <location filename="../sources/settingsdialog.cpp" line="545"/>
+        <location filename="../sources/settingsdialog.cpp" line="548"/>
+        <location filename="../sources/settingsdialog.cpp" line="557"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Aplikuje sa po reštarte programu.</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="237"/>
+        <location filename="../sources/settingsdialog.cpp" line="238"/>
         <source>Track recently used:</source>
         <translation type="unfinished">Zaznamenávať nedávno otvorené:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="240"/>
+        <location filename="../sources/settingsdialog.cpp" line="241"/>
         <source>Keep recently closed:</source>
         <translation type="unfinished">Ponechať nedávno zatvorené:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="244"/>
+        <location filename="../sources/settingsdialog.cpp" line="245"/>
         <source>Restore tabs:</source>
         <translation type="unfinished">Obnoviť karty:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="247"/>
+        <location filename="../sources/settingsdialog.cpp" line="248"/>
         <source>Restore bookmarks:</source>
         <translation type="unfinished">Obnoviť záložky:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="250"/>
+        <location filename="../sources/settingsdialog.cpp" line="251"/>
         <source>Restore per-file settings:</source>
         <translation type="unfinished">Obnoviť nastavenie súboru:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="253"/>
+        <location filename="../sources/settingsdialog.cpp" line="254"/>
         <source> min</source>
         <translation type="unfinished"> min</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="253"/>
-        <location filename="../sources/settingsdialog.cpp" line="519"/>
+        <location filename="../sources/settingsdialog.cpp" line="254"/>
+        <location filename="../sources/settingsdialog.cpp" line="520"/>
         <source>Never</source>
         <translation type="unfinished">Nikdy</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="253"/>
+        <location filename="../sources/settingsdialog.cpp" line="254"/>
         <source>Save database interval:</source>
         <translation type="unfinished">Interval ukladania databáze:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="266"/>
+        <location filename="../sources/settingsdialog.cpp" line="267"/>
         <source>Synchronize presentation:</source>
         <translation type="unfinished">Synchronizovať prezentovanie:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="269"/>
+        <location filename="../sources/settingsdialog.cpp" line="270"/>
         <source>Default</source>
         <translation type="unfinished">Predvolené</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="269"/>
+        <location filename="../sources/settingsdialog.cpp" line="270"/>
         <source>Presentation screen:</source>
         <translation type="unfinished">Obrazovka prezentovania:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="273"/>
+        <location filename="../sources/settingsdialog.cpp" line="274"/>
         <source>Synchronize outline view:</source>
         <translation type="unfinished">Synchronizovať zobrazenie obsahu:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="280"/>
+        <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>Zoom factor:</source>
         <translation type="unfinished">Koeficient zväčšovania:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="284"/>
+        <location filename="../sources/settingsdialog.cpp" line="285"/>
         <source> ms</source>
         <translation type="unfinished"> ms</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="284"/>
+        <location filename="../sources/settingsdialog.cpp" line="285"/>
         <source>None</source>
         <translation type="unfinished">Nič</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="284"/>
+        <location filename="../sources/settingsdialog.cpp" line="285"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Trvanie zvýraznenia:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="287"/>
+        <location filename="../sources/settingsdialog.cpp" line="288"/>
         <source>Highlight color:</source>
         <translation type="unfinished">Farba zvýraznenia:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="290"/>
+        <location filename="../sources/settingsdialog.cpp" line="291"/>
         <source>Annotation color:</source>
         <translation type="unfinished">Farba poznámky:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="294"/>
+        <location filename="../sources/settingsdialog.cpp" line="295"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
         <translation type="unfinished">&apos;%1&apos; je nahradené absolútnou cestou k súboru. &apos;%2&apos; resp. &apos;%3&apos; je nahradené číslom radku resp. stĺpca.</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="294"/>
+        <location filename="../sources/settingsdialog.cpp" line="295"/>
         <source>Source editor:</source>
         <translation type="unfinished">Editor zdrojov:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="358"/>
+        <location filename="../sources/settingsdialog.cpp" line="359"/>
         <source>Use tiling:</source>
         <translation type="unfinished">Použiť dlaždicové zobrazenie:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="361"/>
+        <location filename="../sources/settingsdialog.cpp" line="362"/>
         <source>Keep obsolete pixmaps:</source>
         <translation type="unfinished">Zachovať zastaralé pixmapy:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="364"/>
+        <location filename="../sources/settingsdialog.cpp" line="365"/>
         <source>Use device pixel ratio:</source>
         <translation type="unfinished">Použiť pomer obrazovky zariadenia:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="374"/>
+        <location filename="../sources/settingsdialog.cpp" line="375"/>
         <source>Decorate pages:</source>
         <translation type="unfinished">Orámovať strany:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="377"/>
+        <location filename="../sources/settingsdialog.cpp" line="378"/>
         <source>Decorate links:</source>
         <translation type="unfinished">Orámovať odkazy:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="380"/>
+        <location filename="../sources/settingsdialog.cpp" line="381"/>
         <source>Decorate form fields:</source>
         <translation type="unfinished">Orámovať políčka formulára:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="384"/>
+        <location filename="../sources/settingsdialog.cpp" line="385"/>
         <source>Background color:</source>
         <translation type="unfinished">Farba pozadia:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="387"/>
+        <location filename="../sources/settingsdialog.cpp" line="388"/>
         <source>Paper color:</source>
         <translation type="unfinished">Farba papiera:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="390"/>
+        <location filename="../sources/settingsdialog.cpp" line="391"/>
         <source>Presentation background color:</source>
         <translation type="unfinished">Farba pozadia prezentácie:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="394"/>
+        <location filename="../sources/settingsdialog.cpp" line="395"/>
         <source>Pages per row:</source>
         <translation type="unfinished">Strán na riadok</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="398"/>
-        <location filename="../sources/settingsdialog.cpp" line="401"/>
-        <location filename="../sources/settingsdialog.cpp" line="405"/>
+        <location filename="../sources/settingsdialog.cpp" line="399"/>
+        <location filename="../sources/settingsdialog.cpp" line="402"/>
+        <location filename="../sources/settingsdialog.cpp" line="406"/>
         <source> px</source>
         <translation type="unfinished"> px</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="398"/>
+        <location filename="../sources/settingsdialog.cpp" line="399"/>
         <source>Page spacing:</source>
         <translation type="unfinished">Odstup strán:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="401"/>
+        <location filename="../sources/settingsdialog.cpp" line="402"/>
         <source>Thumbnail spacing:</source>
         <translation type="unfinished">Odstup miniatúr:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="405"/>
+        <location filename="../sources/settingsdialog.cpp" line="406"/>
         <source>Thumbnail size:</source>
         <translation type="unfinished">Veľkosť miniatúr:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="773"/>
-        <location filename="../sources/settingsdialog.cpp" line="774"/>
-        <location filename="../sources/settingsdialog.cpp" line="775"/>
-        <location filename="../sources/settingsdialog.cpp" line="776"/>
-        <location filename="../sources/settingsdialog.cpp" line="777"/>
-        <location filename="../sources/settingsdialog.cpp" line="778"/>
-        <location filename="../sources/settingsdialog.cpp" line="779"/>
-        <location filename="../sources/settingsdialog.cpp" line="780"/>
-        <location filename="../sources/settingsdialog.cpp" line="781"/>
-        <location filename="../sources/settingsdialog.cpp" line="782"/>
+        <location filename="../sources/settingsdialog.cpp" line="551"/>
+        <source>Document context menu:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="554"/>
+        <source>Tab context menu:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="785"/>
+        <location filename="../sources/settingsdialog.cpp" line="786"/>
+        <location filename="../sources/settingsdialog.cpp" line="787"/>
+        <location filename="../sources/settingsdialog.cpp" line="788"/>
+        <location filename="../sources/settingsdialog.cpp" line="789"/>
         <location filename="../sources/settingsdialog.cpp" line="790"/>
+        <location filename="../sources/settingsdialog.cpp" line="791"/>
+        <location filename="../sources/settingsdialog.cpp" line="792"/>
+        <location filename="../sources/settingsdialog.cpp" line="793"/>
+        <location filename="../sources/settingsdialog.cpp" line="794"/>
+        <location filename="../sources/settingsdialog.cpp" line="802"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MiB</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="409"/>
+        <location filename="../sources/settingsdialog.cpp" line="410"/>
         <source>Cache size:</source>
         <translation type="unfinished">Veľkosť vyrovnávacej pamäte:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="412"/>
+        <location filename="../sources/settingsdialog.cpp" line="413"/>
         <source>Prefetch:</source>
         <translation type="unfinished">Načítavať dopredu:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="415"/>
+        <location filename="../sources/settingsdialog.cpp" line="416"/>
         <source>Prefetch distance:</source>
         <translation type="unfinished">Vzdialenosť predprípravy:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="503"/>
+        <location filename="../sources/settingsdialog.cpp" line="504"/>
         <source>Extended search dock:</source>
         <translation type="unfinished">Rozšírený panel hľadania:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="506"/>
+        <location filename="../sources/settingsdialog.cpp" line="507"/>
         <source>Annotation overlay:</source>
         <translation type="unfinished">Prekrytie poznámky:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="509"/>
+        <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>Form field overlay:</source>
         <translation type="unfinished">Prekrytie formulárového políčka:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="514"/>
+        <location filename="../sources/settingsdialog.cpp" line="515"/>
         <source>Top</source>
         <translation type="unfinished">Hore</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="514"/>
+        <location filename="../sources/settingsdialog.cpp" line="515"/>
         <source>Bottom</source>
         <translation type="unfinished">Dole</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="514"/>
+        <location filename="../sources/settingsdialog.cpp" line="515"/>
         <source>Left</source>
         <translation type="unfinished">Vľavo</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="514"/>
+        <location filename="../sources/settingsdialog.cpp" line="515"/>
         <source>Right</source>
         <translation type="unfinished">Vpravo</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="513"/>
+        <location filename="../sources/settingsdialog.cpp" line="514"/>
         <source>Tab position:</source>
         <translation type="unfinished">Pozícia kariet:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="519"/>
+        <location filename="../sources/settingsdialog.cpp" line="520"/>
         <source>As needed</source>
         <translation type="unfinished">Podľa potreby</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="519"/>
+        <location filename="../sources/settingsdialog.cpp" line="520"/>
         <source>Always</source>
         <translation type="unfinished">Vždy</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="518"/>
+        <location filename="../sources/settingsdialog.cpp" line="519"/>
         <source>Tab visibility:</source>
         <translation type="unfinished">Viditeľnosť kariet:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="277"/>
+        <location filename="../sources/settingsdialog.cpp" line="278"/>
         <source>Minimal scrolling:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="523"/>
+        <location filename="../sources/settingsdialog.cpp" line="524"/>
         <source>Spread tabs:</source>
         <translation type="unfinished">Roztiahnuť karty:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="527"/>
+        <location filename="../sources/settingsdialog.cpp" line="528"/>
         <source>New tab next to current tab:</source>
         <translation type="unfinished">Nová karta vedľa aktuálnej karty:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="530"/>
+        <location filename="../sources/settingsdialog.cpp" line="531"/>
         <source>Exit after last tab:</source>
         <translation type="unfinished">Ukončiť po poslednej karte:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="534"/>
+        <location filename="../sources/settingsdialog.cpp" line="535"/>
         <source>Recently used count:</source>
         <translation type="unfinished">Počet nedávno použitých:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="537"/>
+        <location filename="../sources/settingsdialog.cpp" line="538"/>
         <source>Recently closed count:</source>
         <translation type="unfinished">Počet nedávno zatvorených:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="541"/>
+        <location filename="../sources/settingsdialog.cpp" line="542"/>
         <source>File tool bar:</source>
         <translation type="unfinished">Panel nástrojov pre Súbor:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="544"/>
+        <location filename="../sources/settingsdialog.cpp" line="545"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished">Panel nástrojov pre Upraviť:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="547"/>
+        <location filename="../sources/settingsdialog.cpp" line="548"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Panel nástrojov pre Zobraziť:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="551"/>
+        <location filename="../sources/settingsdialog.cpp" line="557"/>
         <source>Scrollable menus:</source>
         <translation type="unfinished">Skrolovacie menu:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="554"/>
+        <location filename="../sources/settingsdialog.cpp" line="560"/>
         <source>Searchable menus:</source>
         <translation type="unfinished">Prohľadávateľné menu:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="558"/>
+        <location filename="../sources/settingsdialog.cpp" line="564"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
         <translation type="unfinished">Prepínať panely nástrojov a panel menu pri zobrazení na celú obrazovku</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="562"/>
+        <location filename="../sources/settingsdialog.cpp" line="568"/>
         <source>Use page label:</source>
         <translation type="unfinished">Použiť popis strany:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="565"/>
+        <location filename="../sources/settingsdialog.cpp" line="571"/>
         <source>Document title as tab title:</source>
         <translation type="unfinished">Názov dokumentu ako titulok karty:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="569"/>
+        <location filename="../sources/settingsdialog.cpp" line="575"/>
         <source>Current page in window title:</source>
         <translation type="unfinished">Aktuálna strana v názve okna:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="572"/>
+        <location filename="../sources/settingsdialog.cpp" line="578"/>
         <source>Instance name in window title:</source>
         <translation type="unfinished">Názov inštancie v názve okna:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="576"/>
+        <location filename="../sources/settingsdialog.cpp" line="582"/>
         <source>Highlight current thumbnail:</source>
         <translation type="unfinished">Zvýrazniť aktuálny náhľad:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="579"/>
+        <location filename="../sources/settingsdialog.cpp" line="585"/>
         <source>Limit thumbnails to results:</source>
         <translation type="unfinished">Obmedziť náhľady pre výsledky:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="657"/>
+        <location filename="../sources/settingsdialog.cpp" line="669"/>
         <source>Zoom:</source>
         <translation type="unfinished">Priblíženie:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="660"/>
+        <location filename="../sources/settingsdialog.cpp" line="672"/>
         <source>Rotate:</source>
         <translation type="unfinished">Otočenie:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="663"/>
+        <location filename="../sources/settingsdialog.cpp" line="675"/>
         <source>Scroll:</source>
         <translation type="unfinished">Skrolovanie:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="667"/>
+        <location filename="../sources/settingsdialog.cpp" line="679"/>
         <source>Copy to clipboard:</source>
         <translation type="unfinished">Skopírovať  do schránky:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="670"/>
+        <location filename="../sources/settingsdialog.cpp" line="682"/>
         <source>Add annotation:</source>
         <translation type="unfinished">Pridať komentár:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="673"/>
+        <location filename="../sources/settingsdialog.cpp" line="685"/>
         <source>Zoom to selection:</source>
         <translation type="unfinished">Priblížiť výber</translation>
     </message>
