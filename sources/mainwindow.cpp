@@ -736,7 +736,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
         return;
     }
 
-    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+    disconnectCurrentTabChanged();
 
     foreach(DocumentView* tab, tabsToClose)
     {
@@ -746,9 +746,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
         }
     }
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+    reconnectCurrentTabChanged();
 }
 
 void MainWindow::on_currentTab_documentChanged()
@@ -1131,16 +1129,14 @@ void MainWindow::on_openInNewTab_triggered()
 
     if(!filePaths.isEmpty())
     {
-        disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+        disconnectCurrentTabChanged();
 
         foreach(const QString& filePath, filePaths)
         {
             openInNewTab(filePath);
         }
 
-        connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-        on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+        reconnectCurrentTabChanged();
     }
 }
 
@@ -1521,7 +1517,7 @@ void MainWindow::on_closeTab_triggered()
 
 void MainWindow::on_closeAllTabs_triggered()
 {
-    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+    disconnectCurrentTabChanged();
 
     foreach(DocumentView* tab, tabs())
     {
@@ -1531,14 +1527,12 @@ void MainWindow::on_closeAllTabs_triggered()
         }
     }
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+    reconnectCurrentTabChanged();
 }
 
 void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 {
-    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+    disconnectCurrentTabChanged();
 
     DocumentView* tab = currentTab();
 
@@ -1560,9 +1554,7 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
     m_tabWidget->setTabToolTip(newIndex, tabToolTip);
     m_tabWidget->setCurrentIndex(newIndex);
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+    reconnectCurrentTabChanged();
 }
 
 void MainWindow::on_recentlyClosed_tabActionTriggered(QAction* tabAction)
@@ -2324,7 +2316,7 @@ void MainWindow::dropEvent(QDropEvent* event)
     {
         event->acceptProposedAction();
 
-        disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+        disconnectCurrentTabChanged();
 
         foreach(const QUrl& url, event->mimeData()->urls())
         {
@@ -2338,9 +2330,7 @@ void MainWindow::dropEvent(QDropEvent* event)
             }
         }
 
-        connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-        on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+        reconnectCurrentTabChanged();
     }
 }
 
@@ -2467,6 +2457,18 @@ bool MainWindow::saveModifications(DocumentView* tab)
     }
 
     return true;
+}
+
+void MainWindow::disconnectCurrentTabChanged()
+{
+    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+}
+
+void MainWindow::reconnectCurrentTabChanged()
+{
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+
+    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
 }
 
 void MainWindow::setWindowTitleForCurrentTab()

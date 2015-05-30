@@ -274,6 +274,9 @@ private:
 
     bool saveModifications(DocumentView* tab);
 
+    void disconnectCurrentTabChanged();
+    void reconnectCurrentTabChanged();
+
     void setWindowTitleForCurrentTab();
     void setCurrentPageSuffixForCurrentTab();
 
