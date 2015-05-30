@@ -803,16 +803,13 @@ void DocumentView::setCompositionMode(CompositionMode compositionMode)
     {
     default:
     case DefaultCompositionMode:
-        setRenderFlag(DarkenWithPaperColor, false);
-        setRenderFlag(LightenWithPaperColor, false);
+        setRenderFlags((renderFlags() & ~DarkenWithPaperColor) & ~LightenWithPaperColor);
         break;
     case DarkenWithPaperColorMode:
-        setRenderFlag(DarkenWithPaperColor, true);
-        setRenderFlag(LightenWithPaperColor, false);
+        setRenderFlags((renderFlags() | DarkenWithPaperColor) & ~LightenWithPaperColor);
         break;
     case LightenWithPaperColorMode:
-        setRenderFlag(DarkenWithPaperColor, false);
-        setRenderFlag(LightenWithPaperColor, true);
+        setRenderFlags((renderFlags() & ~DarkenWithPaperColor) | LightenWithPaperColor);
         break;
     }
 }
