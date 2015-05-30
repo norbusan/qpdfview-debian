@@ -55,6 +55,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace
 {
 
+using namespace qpdfview;
+
 class Transaction
 {
 public:
@@ -77,6 +79,8 @@ public:
     }
 
 private:
+    Q_DISABLE_COPY(Transaction)
+
     bool m_committed;
     QSqlDatabase& m_database;
 
