@@ -154,6 +154,26 @@ void addWidgetActions(QWidget* widget, const QStringList& actionNames, const QLi
     }
 }
 
+class SignalBlocker
+{
+public:
+    SignalBlocker(QObject* object) : m_object(object)
+    {
+        m_object->blockSignals(true);
+    }
+
+    ~SignalBlocker()
+    {
+        m_object->blockSignals(false);
+    }
+
+private:
+    Q_DISABLE_COPY(SignalBlocker)
+
+    QObject* m_object;
+
+};
+
 } // anonymous
 
 namespace qpdfview
@@ -627,6 +647,10 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 {
     QMenu menu;
 
+    // We block their signals since we need to handle them using the selected instead of the current tab.
+    SignalBlocker openCopyInNewTabSignalBlocker(m_openCopyInNewTabAction);
+    SignalBlocker openContainingFolderSignalBlocker(m_openContainingFolderAction);
+
     QAction* copyFilePathAction = createTemporaryAction(&menu, tr("Copy file path"), QLatin1String("copyFilePath"));
     QAction* selectFilePathAction = createTemporaryAction(&menu, tr("Select file path"), QLatin1String("selectFilePath"));
 
@@ -648,15 +672,32 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
     const QAction* action = menu.exec(globalPos);
 
+    const DocumentView* selectedTab = tab(index);
     QList< DocumentView* > tabsToClose;
 
-    if(action == copyFilePathAction)
+    if(action == m_openCopyInNewTabAction)
     {
-        QApplication::clipboard()->setText(tab(index)->fileInfo().absoluteFilePath());
+        openInNewTab(selectedTab->fileInfo().filePath(), selectedTab->currentPage());
+
+        return;
+    }
+    else if(action == m_openContainingFolderAction)
+    {
+        QDesktopServices::openUrl(QUrl::fromLocalFile(selectedTab->fileInfo().absolutePath()));
+
+        return;
+    }
+    else if(action == copyFilePathAction)
+    {
+        QApplication::clipboard()->setText(selectedTab->fileInfo().absoluteFilePath());
+
+        return;
     }
     else if(action == selectFilePathAction)
     {
-        QApplication::clipboard()->setText(tab(index)->fileInfo().absoluteFilePath(), QClipboard::Selection);
+        QApplication::clipboard()->setText(selectedTab->fileInfo().absoluteFilePath(), QClipboard::Selection);
+
+        return;
     }
     else if(action == closeAllTabsAction)
     {
