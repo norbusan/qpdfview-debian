@@ -100,12 +100,12 @@ berikut/terdahulu/pertama/terakhir.</li>
 pada tab semasa.</li>
     <li><b>Lompat undur/maju</b> Lompat undur/maju dalam sejarah halaman yang
 dipaparkan.</li>
-	<li><b>Search...</b> Opens the search dock below the main view. The search
-automatically starts two seconds after the last change of the search term or
-is manually started by pressing the return key. If the Shift modifier is
-held when the return key is pressed, the search starts in all tabs instead
-of just the current tab. (This effect is reversed if the extended search
-dock is enabled in the settings.)</li>
+	<li><b>Gelintar...</b> Buka labuh gelintar dibawah paparan utama. Gelintar akan
+mula secara automatik dua saat selepas perubahan terakir terma gelintar atau
+ia dimulakan secara manual dengan menekan kekunci return. Jika pengubahsuai
+Shift ditahan ketika kekunci return masih ditekan, gelintar dimulakan dalam
+semua tab selain hanya tab semasa. (Kesan ini diterbalikkan jika labuh
+gelintar lanjutan dibenarkan di dalam tetapan.)</li>
 	<li><b>Cari terdahulu/berikut</b> Lompat ke kemunculan terma gelintar
 terdahulu/berikut didalam dokumen.</li>
 	<li><b>Batal gelintar</b> Batalkan gelintar yang sedang dijalankan dan tutu[
@@ -257,8 +257,9 @@ to <em>remove annotations</em>. (Adding and removing annotations requires
 version 0.20.1 or higher of the Poppler library.) Hovering over an
 annotation displays its contents as a tool tip.</p>
 
-<p>To <em>zoom to a selection</em>, hold <b>SHIFT</b> and <b>CTRL</b>, click
-and hold the left mouse button to drag a frame around region to zoom into.</p>
+<p>Untuk <em>zum ke pemilihan</em>, tahan <b>SHIFT</b> dan <b>CTRL</b>,
+kemudian klik dan tahan butang kiri tetikus dan seret bingkai disekitar
+kawasan yang hendak dizumkan.</p>
 
 <p><em>Ketampakan palang alat dan menu</em> boleh ditogol menggunakan pintasan
 papan kekunci boleh dikonfigur yang mana nilai lalai adalah "Shift+Alt+T"
@@ -280,8 +281,8 @@ children. Holding Shift and using the mousel wheel will change the selected
 item. Holding Control and using the mouse wheel will expand/collapse the
 selected item.</p>
 
-<p>The <em>properties view</em> displays additional information contained in
-the document.</p>
+<p><em>Paparan sifat</em> paparkan maklumat tambahan yang terkandung di dalam
+dokumen.</p>
 
 <p>The <em>thumbnails view</em> displays smaller versions of the pages of the
 document. A left click on an entry jumps to the respective page in the main
@@ -328,6 +329,8 @@ untuk mengawal paparan persembahan.</li>
     <li><b>Synchronize outline view</b> If enabled, the outline view will highlight
 the first entry pointing to the current page whenever the current page
 changes.</li>
+    <li><b>Minimal scrolling</b>If enabled, the view port will only be scrolled if
+the target position is not yet visible.</li>
     <li><b>Faktor zum</b> Bilangan faktor skala ialah perwakilan gandaan dibahagi
 dengan perwakilan zum masuk.</li>
     <li><b>Warna sorot</b> Tentukan warna sorot.</li>
@@ -361,9 +364,9 @@ bingkai biru.</li>
 kunci warna SVG atau notasi heksadesimal '#rrggbb'.</li>
     <li><b>Warna kertas</b> Tentukan warna halaman menggunakan kata kunci warna SVG
 atau notasi heksadesimal '#rrggbb'.</li>
-    <li><b>Presentation background color</b> Overrides the paper color in the
-computation of the background color of the presentation view and is defined
-using SVG color keywords or hexadecimal notation '#rrggbb'.</li>
+    <li><b>Warna latar belakang persembahan</b> Batalkan warna kertas dalam
+pengiraan warna latar belakang paparan persembahan dan ditakrif menggunakan
+kata kunci warna SVG atau notasi heksadesimal '#rrggbb'.</li>
     <li><b>Halaman per baris</b> Bilangan halaman per baris di dalam mod bentangan
 'halaman berbilang'.</li>
     <li><b>Penjarakkan halaman</b> Tentukan kedua-dua jarak menegak & mengufuk yang
@@ -404,8 +407,9 @@ menerap halaman.</li>
 <h4><a name="interfacesettings">Tetapan antaramuka</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Extended search dock</b> If enabled, the default search dock is extended
-by an overview showing the results of all tabs. (Effective after restart.)</li>
+    <li><b>Labuh gelintar lanjutan</b> Jika dibenarkan, labuh gelintar lalai
+dilanjutkan dengan paparan keputusan semua tab. (Berkessan selepas mula
+semula.)</li>
     <li><b>Annotation overlay</b> If enabled, all annotations on a page will be
 displayed as an interactive overlay. Otherwise each annotation will be
 handled as a separate pop-up window.</li>
@@ -420,8 +424,8 @@ dua dokumen dibuka.</li>
 keseluruhan palang tab.</li>
     <li><b>Tab baharu disebelah tab semasa</b> Jika dibenarkan, tab baharu dibuka
 disebelah kanan tab aktif.</li>
-    <li><b>Exit after last tab</b> If enabled, the application exits after the last
-tab is closed.</li>
+    <li><b>Keluar selepas tab terakhir</b> Jika dibenarkan, aplikasi keluar selepas
+tab terakhir ditutup.</li>
     <li><b>Recently used count</b> Sets the number of files that are listed in the
 recently used menu, if "Track recently used" is enabled. (Effective after
 restart.)</li>
@@ -441,6 +445,15 @@ bar. Available actions are scaleFactor, zoomIn, zoomOut, continuousMode,
 twoPagesMode, twoPagesWithCoverPageMode, multiplePagesMode, originalSize,
 fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen,
 presentation and separator. (Effective after restart.)</li>
+    <li><b>Document context menu</b> Defines which actions are visible in the
+document's context menu. Available actions are openCopyInNewTab,
+openContainingFolder, previousPage, nextPage, firstPage, lastPage,
+jumpToPage, jumpBackward, jumpForward, setFirstPage, findPrevious, findNext,
+cancelSearch and separator.</li>
+    <li><b>Tab context menu</b> Defines which actions are visible in a tab's context
+menu. Available actions are openCopyInNewTab, openContainingFolder,
+copyFilePath, selectFilePath, closeAllTabs, closeAllTabsButThisOne,
+closeAllTabsToTheLeft, closeAllTabsToTheRight and separator.</li>
     <li><b>Scrollable menus</b> Will override the default style so that pop-up menus
 scroll instead being laid-out in mutliple columns if they are larger than
 the available screen space. (Effective after restart.)</li>
@@ -450,8 +463,8 @@ and bookmarks menus by a search-as-you-type mechanism.</li>
 ketampakan palang alat dan menu bila menogol ke mod skrrin penuh.</li>
     <li><b>Use page label</b> Determines if document-supplied page label will be
 used instead of page numbers when available.</li>
-    <li><b>Document title as tab title</b> Determines if the tab title as derived
-from the meta-data instead of the file name.</li>
+    <li><b>Tajuk dokumen sebagai tajuk tab</b> Tentukan jika tajuk tab diambil dari
+data-meta selain dari nama fail.</li>
     <li><b>Halaman semasa dalam tajuk tetingkap</b> Jika dibenarkan, halaman semasa
 dan nombor halaman dokumen di dalam tab aktif dipaparkan dalam tajuk
 tetingkap.</li>
@@ -489,8 +502,8 @@ menggunakan roda tetikus dalam paparan utama.</li>
 atau imej ke papan keratan.</li>
     <li><b>Tambah catatan</b> Pengubahsuai papan kekunci untuk tambah catatan ke
 dalam halaman.</li>
-    <li><b>Zoom to selection</b> The keyboard modifiers to zoom to a slection on a
-page.</li>
+    <li><b>Zum ke pemilihan</b> Pengubahsuai papan kekunci yang mengezum ke
+pemilihan dalam satu halaman.</li>
 </ul>
 
 </body>

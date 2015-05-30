@@ -358,6 +358,8 @@ Präsentationsansicht zeigen soll.</li>
     <li><b>Gliederung synchronisieren</b> Falls eingeschaltet, wird in der
 Gliederungsansicht der erste Eintrag zur aktuellen Seite hervorgehoben, wenn
 die aktuelle Seite wechselt.</li>
+    <li><b>Minimal scrolling</b>If enabled, the view port will only be scrolled if
+the target position is not yet visible.</li>
     <li><b>Vergrößerungsfaktor</b> Der Skalierungsfaktor wird beim Vergrößern mit
 dieser Zahl multipliziert und beim Verkleinern durch diese Zahl dividiert.</li>
     <li><b>Farbe der Hervorhebungen</b> Legt die Farbe von Hervorhebungen fest.</li>
@@ -493,6 +495,15 @@ Aktionen sind "scaleFactor" (Skalenfaktor), "zoomIn" (Vergrößern), "zoomOut"
 "rotateLeft" (Nach links drehen), "rotateRight" (Nach rechts drehen),
 "fullscreen" (Vollbild), "presentation" (Präsentation) und "separator"
 (Trennelement). (Tritt nach Neustart des Programms in Kraft.)</li>
+    <li><b>Document context menu</b> Defines which actions are visible in the
+document's context menu. Available actions are openCopyInNewTab,
+openContainingFolder, previousPage, nextPage, firstPage, lastPage,
+jumpToPage, jumpBackward, jumpForward, setFirstPage, findPrevious, findNext,
+cancelSearch and separator.</li>
+    <li><b>Tab context menu</b> Defines which actions are visible in a tab's context
+menu. Available actions are openCopyInNewTab, openContainingFolder,
+copyFilePath, selectFilePath, closeAllTabs, closeAllTabsButThisOne,
+closeAllTabsToTheLeft, closeAllTabsToTheRight and separator.</li>
     <li><b>Laufende Menüs</b> Überschreibt die Vorgabe des Standardstils, so dass
 Menüs laufen anstatt in mehreren Spalten dargestellt zu werden, falls sie
 größer sind als die verfügbare Bildschirmfläche. (Nach Neustart wirksam.)</li>
