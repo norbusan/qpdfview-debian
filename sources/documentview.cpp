@@ -764,6 +764,8 @@ void DocumentView::setRenderFlags(qpdfview::RenderFlags renderFlags)
 
             s_settings->documentView().setCompositionMode(compositionMode());
         }
+
+        emit renderFlagsChanged(m_renderFlags);
     }
 }
 
@@ -1359,6 +1361,8 @@ void DocumentView::startPresentation()
     connect(this, SIGNAL(documentChanged()), presentationView, SLOT(close()));
 
     presentationView->setRotation(rotation());
+    presentationView->setRenderFlags(renderFlags());
+
     presentationView->jumpToPage(currentPage(), false);
 
     if(s_settings->presentationView().synchronize())

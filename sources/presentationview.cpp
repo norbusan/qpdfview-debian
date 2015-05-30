@@ -59,6 +59,7 @@ PresentationView::PresentationView(const QVector< Model::Page* >& pages, QWidget
     m_scaleMode(FitToPageSizeMode),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
+    m_renderFlags(0),
     m_pageItems()
 {
     if(s_settings == 0)
@@ -92,7 +93,7 @@ PresentationView::PresentationView(const QVector< Model::Page* >& pages, QWidget
     connect(this, SIGNAL(scaleModeChanged(ScaleMode)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(scaleFactorChanged(qreal)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(rotationChanged(Rotation)), m_prefetchTimer, SLOT(start()));
-    connect(this, SIGNAL(invertColorsChanged(bool)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(renderFlagsChanged(qpdfview::RenderFlags)), m_prefetchTimer, SLOT(start()));
 
     connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(on_prefetch_timeout()));
 
@@ -116,21 +117,6 @@ PresentationView::~PresentationView()
     qDeleteAll(m_pageItems);
 }
 
-int PresentationView::numberOfPages() const
-{
-    return m_pages.count();
-}
-
-int PresentationView::currentPage() const
-{
-    return m_currentPage;
-}
-
-ScaleMode PresentationView::scaleMode() const
-{
-    return m_scaleMode;
-}
-
 void PresentationView::setScaleMode(ScaleMode scaleMode)
 {
     if(m_scaleMode != scaleMode && scaleMode >= 0 && scaleMode < NumberOfScaleModes)
@@ -142,11 +128,6 @@ void PresentationView::setScaleMode(ScaleMode scaleMode)
 
         emit scaleModeChanged(m_scaleMode);
     }
-}
-
-qreal PresentationView::scaleFactor() const
-{
-    return m_scaleFactor;
 }
 
 void PresentationView::setScaleFactor(qreal scaleFactor)
@@ -167,11 +148,6 @@ void PresentationView::setScaleFactor(qreal scaleFactor)
     }
 }
 
-Rotation PresentationView::rotation() const
-{
-    return m_rotation;
-}
-
 void PresentationView::setRotation(Rotation rotation)
 {
     if(m_rotation != rotation)
@@ -182,6 +158,26 @@ void PresentationView::setRotation(Rotation rotation)
         prepareView();
 
         emit rotationChanged(m_rotation);
+    }
+}
+
+void PresentationView::setRenderFlags(qpdfview::RenderFlags renderFlags)
+{
+    if(m_renderFlags != renderFlags)
+    {
+        const qpdfview::RenderFlags difference = m_renderFlags ^ renderFlags;
+
+        m_renderFlags = renderFlags;
+
+        prepareScene();
+        prepareView();
+
+        if(difference.testFlag(InvertColors))
+        {
+            prepareBackground();
+        }
+
+        emit renderFlagsChanged(m_renderFlags);
     }
 }
 
@@ -466,6 +462,21 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
 
         event->accept();
         return;
+    case Qt::CTRL + Qt::Key_I:
+        setRenderFlags(renderFlags() ^ InvertColors);
+
+        event->accept();
+        return;
+    case Qt::CTRL + Qt::Key_U:
+        setRenderFlags(renderFlags() ^ ConvertToGrayscale);
+
+        event->accept();
+        return;
+    case Qt::CTRL + Qt::SHIFT + Qt::Key_U:
+        setRenderFlags(renderFlags() ^ TrimMargins);
+
+        event->accept();
+        return;
     case Qt::Key_F12:
     case Qt::Key_Escape:
         close();
@@ -558,7 +569,7 @@ void PresentationView::prepareBackground()
 void PresentationView::prepareScene()
 {
     RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
-                            scaleFactor(), rotation(), 0);
+                            scaleFactor(), rotation(), renderFlags());
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 

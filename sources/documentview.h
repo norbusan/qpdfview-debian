@@ -165,6 +165,8 @@ signals:
     void linkClicked(int page);
     void linkClicked(bool newTab, const QString& filePath, int page);
 
+    void renderFlagsChanged(qpdfview::RenderFlags renderFlags);
+
     void invertColorsChanged(bool invertColors);
     void convertToGrayscaleChanged(bool convertToGrayscale);
     void trimMarginsChanged(bool trimMargins);
