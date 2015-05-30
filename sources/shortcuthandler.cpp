@@ -227,7 +227,7 @@ bool ShortcutHandler::matchesMoveRight(const QKeySequence& keySequence) const
 
 bool ShortcutHandler::submit()
 {
-    for(QMap< QAction*, QList< QKeySequence > >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
+    for(QHash< QAction*, QList< QKeySequence > >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
     {
         iterator.key()->setShortcuts(iterator.value());
     }
@@ -242,7 +242,7 @@ bool ShortcutHandler::submit()
 
 void ShortcutHandler::revert()
 {
-    for(QMap< QAction*, QList< QKeySequence > >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
+    for(QHash< QAction*, QList< QKeySequence > >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
     {
         iterator.value() = iterator.key()->shortcuts();
     }
@@ -250,7 +250,7 @@ void ShortcutHandler::revert()
 
 void ShortcutHandler::reset()
 {
-    for(QMap< QAction*, QList< QKeySequence > >::iterator iterator = m_defaultShortcuts.begin(); iterator != m_defaultShortcuts.end(); ++iterator)
+    for(QHash< QAction*, QList< QKeySequence > >::iterator iterator = m_defaultShortcuts.begin(); iterator != m_defaultShortcuts.end(); ++iterator)
     {
         m_shortcuts.insert(iterator.key(), iterator.value());
     }
