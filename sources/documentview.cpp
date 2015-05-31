@@ -725,7 +725,7 @@ void DocumentView::setRenderFlags(qpdfview::RenderFlags renderFlags)
 {
     if(m_renderFlags != renderFlags)
     {
-        const qpdfview::RenderFlags difference = m_renderFlags ^ renderFlags;
+        const qpdfview::RenderFlags changedFlags = m_renderFlags ^ renderFlags;
 
         m_renderFlags = renderFlags;
 
@@ -735,7 +735,7 @@ void DocumentView::setRenderFlags(qpdfview::RenderFlags renderFlags)
         prepareScene();
         prepareView(left, top);
 
-        if(difference.testFlag(InvertColors))
+        if(changedFlags.testFlag(InvertColors))
         {
             prepareBackground();
 
@@ -744,21 +744,21 @@ void DocumentView::setRenderFlags(qpdfview::RenderFlags renderFlags)
             s_settings->documentView().setInvertColors(invertColors());
         }
 
-        if(difference.testFlag(ConvertToGrayscale))
+        if(changedFlags.testFlag(ConvertToGrayscale))
         {
             emit convertToGrayscaleChanged(convertToGrayscale());
 
             s_settings->documentView().setConvertToGrayscale(convertToGrayscale());
         }
 
-        if(difference.testFlag(TrimMargins))
+        if(changedFlags.testFlag(TrimMargins))
         {
             emit trimMarginsChanged(trimMargins());
 
             s_settings->documentView().setTrimMargins(trimMargins());
         }
 
-        if(difference.testFlag(DarkenWithPaperColor) || difference.testFlag(LightenWithPaperColor))
+        if(changedFlags.testFlag(DarkenWithPaperColor) || changedFlags.testFlag(LightenWithPaperColor))
         {
             emit compositionModeChanged(compositionMode());
 

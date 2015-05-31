@@ -165,14 +165,14 @@ void PresentationView::setRenderFlags(qpdfview::RenderFlags renderFlags)
 {
     if(m_renderFlags != renderFlags)
     {
-        const qpdfview::RenderFlags difference = m_renderFlags ^ renderFlags;
+        const qpdfview::RenderFlags changedFlags = m_renderFlags ^ renderFlags;
 
         m_renderFlags = renderFlags;
 
         prepareScene();
         prepareView();
 
-        if(difference.testFlag(InvertColors))
+        if(changedFlags.testFlag(InvertColors))
         {
             prepareBackground();
         }
