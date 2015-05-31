@@ -45,7 +45,7 @@ class QTableView;
 class QTreeView;
 class QWidgetAction;
 
-#include "global.h"
+#include "renderparam.h"
 
 namespace qpdfview
 {
@@ -110,9 +110,13 @@ protected slots:
     void on_currentTab_linkClicked(int page);
     void on_currentTab_linkClicked(bool newTab, const QString& filePath, int page);
 
+    void on_currentTab_renderFlagsChanged(qpdfview::RenderFlags renderFlags);
+
     void on_currentTab_invertColorsChanged(bool invertColors);
     void on_currentTab_convertToGrayscaleChanged(bool convertToGrayscale);
     void on_currentTab_trimMarginsChanged(bool trimMargins);
+
+    void on_currentTab_compositionModeChanged(CompositionMode compositionMode);
 
     void on_currentTab_highlightAllChanged(bool highlightAll);
     void on_currentTab_rubberBandModeChanged(RubberBandMode rubberBandMode);
@@ -182,6 +186,8 @@ protected slots:
     void on_invertColors_triggered(bool checked);
     void on_convertToGrayscale_triggered(bool checked);
     void on_trimMargins_triggered(bool checked);
+    void on_darkenWithPaperColor_triggered(bool checked);
+    void on_lightenWithPaperColor_triggered(bool checked);
 
     void on_fonts_triggered();
 
@@ -360,6 +366,8 @@ private:
     QAction* m_invertColorsAction;
     QAction* m_convertToGrayscaleAction;
     QAction* m_trimMarginsAction;
+    QAction* m_darkenWithPaperColorAction;
+    QAction* m_lightenWithPaperColorAction;
 
     QAction* m_fontsAction;
 

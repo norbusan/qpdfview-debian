@@ -405,9 +405,13 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(linkClicked(int)), SLOT(on_currentTab_linkClicked(int)));
         connect(newTab, SIGNAL(linkClicked(bool,QString,int)), SLOT(on_currentTab_linkClicked(bool,QString,int)));
 
+        connect(newTab, SIGNAL(renderFlagsChanged(qpdfview::RenderFlags)), SLOT(on_currentTab_renderFlagsChanged(qpdfview::RenderFlags)));
+
         connect(newTab, SIGNAL(invertColorsChanged(bool)), SLOT(on_currentTab_invertColorsChanged(bool)));
         connect(newTab, SIGNAL(convertToGrayscaleChanged(bool)), SLOT(on_currentTab_convertToGrayscaleChanged(bool)));
         connect(newTab, SIGNAL(trimMarginsChanged(bool)), SLOT(on_currentTab_trimMarginsChanged(bool)));
+
+        connect(newTab, SIGNAL(compositionModeChanged(CompositionMode)), SLOT(on_currentTab_compositionModeChanged(CompositionMode)));
 
         connect(newTab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
         connect(newTab, SIGNAL(rubberBandModeChanged(RubberBandMode)), SLOT(on_currentTab_rubberBandModeChanged(RubberBandMode)));
@@ -533,6 +537,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     m_convertToGrayscaleAction->setEnabled(hasCurrent);
     m_trimMarginsAction->setEnabled(hasCurrent);
 
+    m_darkenWithPaperColorAction->setEnabled(hasCurrent);
+    m_lightenWithPaperColorAction->setEnabled(hasCurrent);
+
     m_fontsAction->setEnabled(hasCurrent);
 
     m_presentationAction->setEnabled(hasCurrent);
@@ -590,6 +597,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_convertToGrayscaleChanged(currentTab()->convertToGrayscale());
         on_currentTab_trimMarginsChanged(currentTab()->trimMargins());
 
+        on_currentTab_compositionModeChanged(currentTab()->compositionMode());
+
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
         on_currentTab_rubberBandModeChanged(currentTab()->rubberBandMode());
     }
@@ -632,6 +641,11 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_fitToPageWidthModeAction->setChecked(false);
 
         m_invertColorsAction->setChecked(false);
+        m_convertToGrayscaleAction->setChecked(false);
+        m_trimMarginsAction->setChecked(false);
+
+        m_darkenWithPaperColorAction->setChecked(false);
+        m_lightenWithPaperColorAction->setChecked(false);
     }
 }
 
@@ -958,6 +972,17 @@ void MainWindow::on_currentTab_linkClicked(bool newTab, const QString& filePath,
     }
 }
 
+void MainWindow::on_currentTab_renderFlagsChanged(qpdfview::RenderFlags renderFlags)
+{
+    Q_UNUSED(renderFlags);
+
+    if(senderIsCurrentTab())
+    {
+        scheduleSaveTabs();
+        scheduleSavePerFileSettings();
+    }
+}
+
 void MainWindow::on_currentTab_invertColorsChanged(bool invertColors)
 {
     if(senderIsCurrentTab())
@@ -979,6 +1004,29 @@ void MainWindow::on_currentTab_trimMarginsChanged(bool trimMargins)
     if(senderIsCurrentTab())
     {
         m_trimMarginsAction->setChecked(trimMargins);
+    }
+}
+
+void MainWindow::on_currentTab_compositionModeChanged(CompositionMode compositionMode)
+{
+    if(senderIsCurrentTab())
+    {
+        switch(compositionMode)
+        {
+        default:
+        case DefaultCompositionMode:
+            m_darkenWithPaperColorAction->setChecked(false);
+            m_lightenWithPaperColorAction->setChecked(false);
+            break;
+        case DarkenWithPaperColorMode:
+            m_darkenWithPaperColorAction->setChecked(true);
+            m_lightenWithPaperColorAction->setChecked(false);
+            break;
+        case LightenWithPaperColorMode:
+            m_darkenWithPaperColorAction->setChecked(false);
+            m_lightenWithPaperColorAction->setChecked(true);
+            break;
+        }
     }
 }
 
@@ -1444,6 +1492,16 @@ void MainWindow::on_convertToGrayscale_triggered(bool checked)
 void MainWindow::on_trimMargins_triggered(bool checked)
 {
     currentTab()->setTrimMargins(checked);
+}
+
+void MainWindow::on_darkenWithPaperColor_triggered(bool checked)
+{
+    currentTab()->setCompositionMode(checked ? DarkenWithPaperColorMode : DefaultCompositionMode);
+}
+
+void MainWindow::on_lightenWithPaperColor_triggered(bool checked)
+{
+    currentTab()->setCompositionMode(checked ? LightenWithPaperColorMode : DefaultCompositionMode);
 }
 
 void MainWindow::on_fonts_triggered()
@@ -2764,6 +2822,9 @@ void MainWindow::createActions()
     m_convertToGrayscaleAction = createAction(tr("Convert to grayscale"), QLatin1String("convertToGrayscale"), QIcon(), QKeySequence(Qt::CTRL + Qt::Key_U), SLOT(on_convertToGrayscale_triggered(bool)), true);
     m_trimMarginsAction = createAction(tr("Trim margins"), QLatin1String("trimMargins"), QIcon(), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_U), SLOT(on_trimMargins_triggered(bool)), true);
 
+    m_darkenWithPaperColorAction = createAction(tr("Darken with paper color"), QLatin1String("darkenWithPaperColor"), QIcon(), QKeySequence(), SLOT(on_darkenWithPaperColor_triggered(bool)), true);
+    m_lightenWithPaperColorAction = createAction(tr("Lighten with paper color"), QLatin1String("lightenWithPaperColor"), QIcon(), QKeySequence(), SLOT(on_lightenWithPaperColor_triggered(bool)), true);
+
     m_fontsAction = createAction(tr("Fonts..."), QString(), QIcon(), QKeySequence(), SLOT(on_fonts_triggered()));
 
     m_fullscreenAction = createAction(tr("&Fullscreen"), QLatin1String("fullscreen"), QLatin1String("view-fullscreen"), QKeySequence(Qt::Key_F11), SLOT(on_fullscreen_triggered(bool)), true);
@@ -3070,6 +3131,11 @@ void MainWindow::createMenus()
     m_viewMenu->addActions(QList< QAction* >() << m_rotateLeftAction << m_rotateRightAction);
     m_viewMenu->addSeparator();
     m_viewMenu->addActions(QList< QAction* >() << m_invertColorsAction << m_convertToGrayscaleAction << m_trimMarginsAction);
+
+    QMenu* compositionModeMenu = m_viewMenu->addMenu(tr("Composition mode"));
+    compositionModeMenu->addAction(m_darkenWithPaperColorAction);
+    compositionModeMenu->addAction(m_lightenWithPaperColorAction);
+
     m_viewMenu->addSeparator();
 
     QMenu* toolBarsMenu = m_viewMenu->addMenu(tr("&Tool bars"));
