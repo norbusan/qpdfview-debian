@@ -563,6 +563,11 @@ void PresentationView::prepareBackground()
         backgroundColor = s_settings->pageItem().paperColor();
     }
 
+    if(m_renderFlags.testFlag(InvertColors))
+    {
+        backgroundColor.setRgb(~backgroundColor.rgb());
+    }
+
     scene()->setBackgroundBrush(QBrush(backgroundColor));
 }
 
