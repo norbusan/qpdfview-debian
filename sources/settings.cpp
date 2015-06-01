@@ -586,6 +586,16 @@ void Settings::DocumentView::setTrimMargins(bool trimMargins)
     m_settings->setValue("documentView/trimMargins", trimMargins);
 }
 
+CompositionMode Settings::DocumentView::compositionMode() const
+{
+    return static_cast< CompositionMode >(m_settings->value("documentView/compositionMode", Defaults::DocumentView::compositionMode()).toInt());
+}
+
+void Settings::DocumentView::setCompositionMode(CompositionMode compositionMode)
+{
+    m_settings->setValue("documentView/compositionMode", static_cast< int >(compositionMode));
+}
+
 bool Settings::DocumentView::highlightAll() const
 {
     return m_settings->value("documentView/highlightAll", Defaults::DocumentView::highlightAll()).toBool();

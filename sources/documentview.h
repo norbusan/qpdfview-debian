@@ -104,18 +104,21 @@ public:
     Rotation rotation() const { return m_rotation; }
     void setRotation(Rotation rotation);
 
-    qpdfview::RenderFlags renderFlags() const;
+    qpdfview::RenderFlags renderFlags() const { return m_renderFlags; }
     void setRenderFlags(qpdfview::RenderFlags renderFlags);
     void setRenderFlag(qpdfview::RenderFlag renderFlag, bool enabled = true);
 
-    bool invertColors() const { return m_invertColors; }
-    void setInvertColors(bool invertColors);
+    bool invertColors() const { return m_renderFlags.testFlag(InvertColors); }
+    void setInvertColors(bool invertColors) { setRenderFlag(InvertColors, invertColors); }
 
-    bool convertToGrayscale() const { return m_convertToGrayscale; }
-    void setConvertToGrayscale(bool convertToGrayscale);
+    bool convertToGrayscale() const { return m_renderFlags.testFlag(ConvertToGrayscale); }
+    void setConvertToGrayscale(bool convertToGrayscale) { setRenderFlag(ConvertToGrayscale, convertToGrayscale); }
 
-    bool trimMargins() const { return m_trimMargins; }
-    void setTrimMargins(bool trimMargins);
+    bool trimMargins() const { return m_renderFlags.testFlag(TrimMargins); }
+    void setTrimMargins(bool trimMargins) { setRenderFlag(TrimMargins, trimMargins); }
+
+    CompositionMode compositionMode() const;
+    void setCompositionMode(CompositionMode compositionMode);
 
     bool highlightAll() const { return m_highlightAll; }
     void setHighlightAll(bool highlightAll);
@@ -162,9 +165,13 @@ signals:
     void linkClicked(int page);
     void linkClicked(bool newTab, const QString& filePath, int page);
 
+    void renderFlagsChanged(qpdfview::RenderFlags renderFlags);
+
     void invertColorsChanged(bool invertColors);
     void convertToGrayscaleChanged(bool convertToGrayscale);
     void trimMarginsChanged(bool trimMargins);
+
+    void compositionModeChanged(CompositionMode compositionMode);
 
     void highlightAllChanged(bool highlightAll);
     void rubberBandModeChanged(RubberBandMode rubberBandMode);
@@ -298,9 +305,7 @@ private:
     qreal m_scaleFactor;
     Rotation m_rotation;
 
-    bool m_invertColors;
-    bool m_convertToGrayscale;
-    bool m_trimMargins;
+    qpdfview::RenderFlags m_renderFlags;
 
     bool m_highlightAll;
     RubberBandMode m_rubberBandMode;

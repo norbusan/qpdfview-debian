@@ -259,6 +259,9 @@ public:
         bool trimMargins() const;
         void setTrimMargins(bool trimMargins);
 
+        CompositionMode compositionMode() const;
+        void setCompositionMode(CompositionMode compositionMode);
+
         bool highlightAll() const;
         void setHighlightAll(bool highlightAll);
 
@@ -558,6 +561,8 @@ public:
         static qreal thumbnailSpacing() { return 3.0; }
 
         static qreal thumbnailSize() { return 150.0; }
+
+        static CompositionMode compositionMode() { return DefaultCompositionMode; }
 
         static bool matchCase() { return false; }
         static bool wholeWords() { return false; }

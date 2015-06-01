@@ -4,6 +4,7 @@ Release 0.4.15:
   * Added document properties on PDF version, encryption and linearization.
   * Added keyboard navigation to the outline view. Thanks to Bendik R. Opstad.
   * Added configurable document and tab context menus. Thanks to S. Razi Alavizadeh.
+  * Added composition modes to adjust the background of scanned documents.
   * Extended the default movement keyboard shortcuts to include the numpad keys.
   * Made the trim-margins setting a per-tab property.
   * Added Hungarian translations. Thanks to Páder Rezső.

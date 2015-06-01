@@ -320,9 +320,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_scaleMode(ScaleFactorMode),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
-    m_invertColors(false),
-    m_convertToGrayscale(false),
-    m_trimMargins(false),
+    m_renderFlags(0),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
     m_pageItems(),
@@ -416,9 +414,33 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_scaleFactor = s_settings->documentView().scaleFactor();
     m_rotation = s_settings->documentView().rotation();
 
-    m_invertColors = s_settings->documentView().invertColors();
-    m_convertToGrayscale = s_settings->documentView().convertToGrayscale();
-    m_trimMargins = s_settings->documentView().trimMargins();
+    if(s_settings->documentView().invertColors())
+    {
+        m_renderFlags |= InvertColors;
+    }
+
+    if(s_settings->documentView().convertToGrayscale())
+    {
+        m_renderFlags |= ConvertToGrayscale;
+    }
+
+    if(s_settings->documentView().trimMargins())
+    {
+        m_renderFlags |= TrimMargins;
+    }
+
+    switch(s_settings->documentView().compositionMode())
+    {
+    default:
+    case DefaultCompositionMode:
+        break;
+    case DarkenWithPaperColorMode:
+        m_renderFlags |= DarkenWithPaperColor;
+        break;
+    case LightenWithPaperColorMode:
+        m_renderFlags |= LightenWithPaperColor;
+        break;
+    }
 
     m_highlightAll = s_settings->documentView().highlightAll();
 }
@@ -695,120 +717,100 @@ void DocumentView::setRotation(Rotation rotation)
 
         emit rotationChanged(m_rotation);
 
-        s_settings->documentView().setRotation(rotation);
+        s_settings->documentView().setRotation(m_rotation);
     }
-}
-
-qpdfview::RenderFlags DocumentView::renderFlags() const
-{
-    qpdfview::RenderFlags renderFlags = 0;
-
-    if(m_invertColors)
-    {
-        renderFlags |= InvertColors;
-    }
-
-    if(m_convertToGrayscale)
-    {
-        renderFlags |= ConvertToGrayscale;
-    }
-
-    if(m_trimMargins)
-    {
-        renderFlags |= TrimMargins;
-    }
-
-    return renderFlags;
 }
 
 void DocumentView::setRenderFlags(qpdfview::RenderFlags renderFlags)
 {
-    setInvertColors(renderFlags.testFlag(InvertColors));
-    setConvertToGrayscale(renderFlags.testFlag(ConvertToGrayscale));
-    setTrimMargins(renderFlags.testFlag(TrimMargins));
+    if(m_renderFlags != renderFlags)
+    {
+        const qpdfview::RenderFlags changedFlags = m_renderFlags ^ renderFlags;
+
+        m_renderFlags = renderFlags;
+
+        qreal left = 0.0, top = 0.0;
+        saveLeftAndTop(left, top);
+
+        prepareScene();
+        prepareView(left, top);
+
+        if(changedFlags.testFlag(InvertColors))
+        {
+            prepareBackground();
+
+            emit invertColorsChanged(invertColors());
+
+            s_settings->documentView().setInvertColors(invertColors());
+        }
+
+        if(changedFlags.testFlag(ConvertToGrayscale))
+        {
+            emit convertToGrayscaleChanged(convertToGrayscale());
+
+            s_settings->documentView().setConvertToGrayscale(convertToGrayscale());
+        }
+
+        if(changedFlags.testFlag(TrimMargins))
+        {
+            emit trimMarginsChanged(trimMargins());
+
+            s_settings->documentView().setTrimMargins(trimMargins());
+        }
+
+        if(changedFlags.testFlag(DarkenWithPaperColor) || changedFlags.testFlag(LightenWithPaperColor))
+        {
+            emit compositionModeChanged(compositionMode());
+
+            s_settings->documentView().setCompositionMode(compositionMode());
+        }
+
+        emit renderFlagsChanged(m_renderFlags);
+    }
 }
 
 void DocumentView::setRenderFlag(qpdfview::RenderFlag renderFlag, bool enabled)
 {
-    switch(renderFlag)
+    if(enabled)
     {
-    case InvertColors:
-        setInvertColors(enabled);
-        break;
-    case ConvertToGrayscale:
-        setConvertToGrayscale(enabled);
-        break;
-    case TrimMargins:
-        setTrimMargins(enabled);
-        break;
+        setRenderFlags(m_renderFlags | renderFlag);
+    }
+    else
+    {
+        setRenderFlags(m_renderFlags & ~renderFlag);
     }
 }
 
-void DocumentView::setInvertColors(bool invertColors)
+CompositionMode DocumentView::compositionMode() const
 {
-    if(m_invertColors != invertColors)
+    if(m_renderFlags.testFlag(DarkenWithPaperColor))
     {
-        m_invertColors = invertColors;
-
-        foreach(PageItem* page, m_pageItems)
-        {
-            page->setInvertColors(m_invertColors);
-        }
-
-        foreach(ThumbnailItem* page, m_thumbnailItems)
-        {
-            page->setInvertColors(m_invertColors);
-        }
-
-        prepareBackground();
-
-        emit invertColorsChanged(m_invertColors);
-
-        s_settings->documentView().setInvertColors(m_invertColors);
+        return DarkenWithPaperColorMode;
+    }
+    else if(m_renderFlags.testFlag(LightenWithPaperColor))
+    {
+        return LightenWithPaperColorMode;
+    }
+    else
+    {
+        return DefaultCompositionMode;
     }
 }
 
-void DocumentView::setConvertToGrayscale(bool convertToGrayscale)
+void DocumentView::setCompositionMode(CompositionMode compositionMode)
 {
-    if(m_convertToGrayscale != convertToGrayscale)
+    switch(compositionMode)
     {
-        m_convertToGrayscale = convertToGrayscale;
-
-        foreach(PageItem* page, m_pageItems)
-        {
-            page->setConvertToGrayscale(m_convertToGrayscale);
-        }
-
-        foreach(ThumbnailItem* page, m_thumbnailItems)
-        {
-            page->setConvertToGrayscale(m_convertToGrayscale);
-        }
-
-        emit convertToGrayscaleChanged(m_convertToGrayscale);
-
-        s_settings->documentView().setConvertToGrayscale(m_convertToGrayscale);
-    }
-}
-
-void DocumentView::setTrimMargins(bool trimMargins)
-{
-    if(m_trimMargins != trimMargins)
-    {
-        m_trimMargins = trimMargins;
-
-        foreach(PageItem* page, m_pageItems)
-        {
-            page->setTrimMargins(m_trimMargins);
-        }
-
-        foreach(ThumbnailItem* page, m_thumbnailItems)
-        {
-            page->setTrimMargins(m_trimMargins);
-        }
-
-        emit trimMarginsChanged(m_trimMargins);
-
-        s_settings->documentView().setTrimMargins(m_trimMargins);
+    default:
+    case DefaultCompositionMode:
+        setRenderFlags((renderFlags() & ~DarkenWithPaperColor) & ~LightenWithPaperColor);
+        break;
+    case DarkenWithPaperColorMode:
+        setRenderFlags((renderFlags() | DarkenWithPaperColor) & ~LightenWithPaperColor);
+        break;
+    case LightenWithPaperColorMode:
+        setRenderFlags((renderFlags() & ~DarkenWithPaperColor) | LightenWithPaperColor);
+        break;
     }
 }
 
@@ -1263,7 +1265,9 @@ void DocumentView::zoomIn()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() * s_settings->documentView().zoomFactor(),
+        const qreal currentScaleFactor = m_pageItems.at(m_currentPage - 1)->renderParam().scaleFactor();
+
+        setScaleFactor(qMin(currentScaleFactor * s_settings->documentView().zoomFactor(),
                             s_settings->documentView().maximumScaleFactor()));
 
         setScaleMode(ScaleFactorMode);
@@ -1279,7 +1283,9 @@ void DocumentView::zoomOut()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() / s_settings->documentView().zoomFactor(),
+        const qreal currentScaleFactor = m_pageItems.at(m_currentPage - 1)->renderParam().scaleFactor();
+
+        setScaleFactor(qMax(currentScaleFactor / s_settings->documentView().zoomFactor(),
                             s_settings->documentView().minimumScaleFactor()));
 
         setScaleMode(ScaleFactorMode);
@@ -1352,7 +1358,7 @@ void DocumentView::startPresentation()
     connect(this, SIGNAL(documentChanged()), presentationView, SLOT(close()));
 
     presentationView->setRotation(rotation());
-    presentationView->setInvertColors(invertColors());
+    presentationView->setRenderFlags(renderFlags());
 
     presentationView->jumpToPage(currentPage(), false);
 
@@ -1600,11 +1606,10 @@ void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rec
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
 
-    const qreal displayedWidth = m_pageItems.at(page - 1)->displayedWidth();
-    const qreal displayedHeight = m_pageItems.at(page - 1)->displayedHeight();
+    const QSizeF displayedSize = m_pageItems.at(page - 1)->displayedSize();
 
-    setScaleFactor(qMin(qMin(visibleWidth / displayedWidth / rect.width(),
-                             visibleHeight / displayedHeight / rect.height()),
+    setScaleFactor(qMin(qMin(visibleWidth / displayedSize.width() / rect.width(),
+                             visibleHeight / displayedSize.height() / rect.height()),
                         Defaults::DocumentView::maximumScaleFactor()));
 
     setScaleMode(ScaleFactorMode);
@@ -2293,10 +2298,6 @@ void DocumentView::preparePages()
     {
         PageItem* page = new PageItem(m_pages.at(index), index);
 
-        page->setInvertColors(m_invertColors);
-        page->setConvertToGrayscale(m_convertToGrayscale);
-        page->setTrimMargins(m_trimMargins);
-
         page->setRubberBandMode(m_rubberBandMode);
 
         scene()->addItem(page);
@@ -2326,10 +2327,6 @@ void DocumentView::prepareThumbnails()
     {
         ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), pageLabelFromNumber(index + 1), index);
 
-        page->setInvertColors(m_invertColors);
-        page->setConvertToGrayscale(m_convertToGrayscale);
-        page->setTrimMargins(m_trimMargins);
-
         m_thumbnailsScene->addItem(page);
         m_thumbnailItems.append(page);
 
@@ -2351,7 +2348,7 @@ void DocumentView::prepareBackground()
     {
         backgroundColor = s_settings->pageItem().paperColor();
 
-        if(m_invertColors)
+        if(invertColors())
         {
             backgroundColor.setRgb(~backgroundColor.rgb());
         }
@@ -2382,16 +2379,15 @@ void DocumentView::prepareScene()
 
     foreach(PageItem* page, m_pageItems)
     {
-        const qreal displayedWidth = page->displayedWidth(renderParam);
-        const qreal displayedHeight = page->displayedHeight(renderParam);
+        const QSizeF displayedSize = page->displayedSize(renderParam);
 
         if(m_scaleMode == FitToPageWidthMode)
         {
-            adjustScaleFactor(renderParam, visibleWidth / displayedWidth);
+            adjustScaleFactor(renderParam, visibleWidth / displayedSize.width());
         }
         else if(m_scaleMode == FitToPageSizeMode)
         {
-            adjustScaleFactor(renderParam, qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
+            adjustScaleFactor(renderParam, qMin(visibleWidth / displayedSize.width(), visibleHeight / displayedSize.height()));
         }
 
         page->setRenderParam(renderParam);
@@ -2506,10 +2502,9 @@ void DocumentView::prepareThumbnailsScene()
 
     foreach(ThumbnailItem* page, m_thumbnailItems)
     {
-        const qreal displayedWidth = page->displayedWidth(renderParam);
-        const qreal displayedHeight = page->displayedHeight(renderParam);
+        const QSizeF displayedSize = page->displayedSize(renderParam);
 
-        adjustScaleFactor(renderParam, qMin(thumbnailSize / displayedWidth, thumbnailSize / displayedHeight));
+        adjustScaleFactor(renderParam, qMin(thumbnailSize / displayedSize.width(), thumbnailSize / displayedSize.height()));
 
         page->setRenderParam(renderParam);
     }

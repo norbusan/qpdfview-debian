@@ -33,7 +33,9 @@ enum RenderFlag
 {
     InvertColors = 1 << 0,
     ConvertToGrayscale = 1 << 1,
-    TrimMargins = 1 << 2
+    TrimMargins = 1 << 2,
+    DarkenWithPaperColor = 1 << 3,
+    LightenWithPaperColor = 1 << 4
 };
 
 Q_DECLARE_FLAGS(RenderFlags, RenderFlag)
@@ -92,6 +94,12 @@ public:
 
     bool trimMargins() const { return d->flags.testFlag(TrimMargins); }
     void setTrimMargins(bool trimMargins) { setFlag(TrimMargins, trimMargins); }
+
+    bool darkenWithPaperColor() const { return d->flags.testFlag(DarkenWithPaperColor); }
+    void setDarkenWithPaperColor(bool darkenWithPaperColor) { setFlag(DarkenWithPaperColor, darkenWithPaperColor); }
+
+    bool lightenWithPaperColor() const { return d->flags.testFlag(LightenWithPaperColor); }
+    void setLightenWithPaperColor(bool lightenWithPaperColor) { setFlag(LightenWithPaperColor, lightenWithPaperColor); }
 
     bool operator==(const RenderParam& other) const
     {
