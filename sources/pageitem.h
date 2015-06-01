@@ -72,11 +72,8 @@ public:
 
     const QSizeF& size() const { return m_size; }
 
-    qreal displayedWidth() const { return displayedWidth(renderParam()); }
-    qreal displayedHeight() const { return displayedHeight(renderParam()); }
-
-    qreal displayedWidth(const RenderParam& renderParam) const;
-    qreal displayedHeight(const RenderParam& renderParam) const;
+    QSizeF displayedSize() const { return displayedSize(renderParam()); }
+    QSizeF displayedSize(const RenderParam& renderParam) const;
 
     const QList< QRectF >& highlights() const { return m_highlights; }
     void setHighlights(const QList< QRectF >& highlights);

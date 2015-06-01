@@ -145,37 +145,26 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
     paintRubberBand(painter);
 }
 
-qreal PageItem::displayedWidth(const RenderParam& renderParam) const
+QSizeF PageItem::displayedSize(const RenderParam& renderParam) const
 {
-    const qreal cropWidth = m_cropRect.isNull() ? 1.0 : m_cropRect.width();
-    const qreal cropHeight = m_cropRect.isNull() ? 1.0 : m_cropRect.height();
+    const RenderFlags changedFlags = m_renderParam.flags() ^ renderParam.flags();
+
+    const bool useCropRect = !m_cropRect.isNull() && !changedFlags.testFlag(TrimMargins);
+
+    const qreal cropWidth = useCropRect ? m_cropRect.width() : 1.0;
+    const qreal cropHeight = useCropRect ? m_cropRect.height() : 1.0;
 
     switch(renderParam.rotation())
     {
     default:
     case RotateBy0:
     case RotateBy180:
-        return renderParam.resolutionX() / 72.0 * cropWidth * m_size.width();
+        return QSizeF(renderParam.resolutionX() / 72.0 * cropWidth * m_size.width(),
+                      renderParam.resolutionY() / 72.0 * cropHeight * m_size.height());
     case RotateBy90:
     case RotateBy270:
-        return renderParam.resolutionX() / 72.0 * cropHeight * m_size.height();
-    }
-}
-
-qreal PageItem::displayedHeight(const RenderParam& renderParam) const
-{
-    const qreal cropHeight = m_cropRect.isNull() ? 1.0 : m_cropRect.height();
-    const qreal cropWidth = m_cropRect.isNull() ? 1.0 : m_cropRect.width();
-
-    switch(renderParam.rotation())
-    {
-    default:
-    case RotateBy0:
-    case RotateBy180:
-        return renderParam.resolutionY() / 72.0 * cropHeight * m_size.height();
-    case RotateBy90:
-    case RotateBy270:
-        return renderParam.resolutionY() / 72.0 * cropWidth * m_size.width();
+        return QSizeF(renderParam.resolutionX() / 72.0 * cropHeight * m_size.height(),
+                      renderParam.resolutionY() / 72.0 * cropWidth * m_size.width());
     }
 }
 

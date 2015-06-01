@@ -590,16 +590,15 @@ void PresentationView::prepareScene()
 
     foreach(PageItem* page, m_pageItems)
     {
-        const qreal displayedWidth = page->displayedWidth(renderParam);
-        const qreal displayedHeight = page->displayedHeight(renderParam);
+        const QSizeF displayedSize = page->displayedSize(renderParam);
 
         if(m_scaleMode == FitToPageWidthMode)
         {
-            adjustScaleFactor(renderParam, visibleWidth / displayedWidth);
+            adjustScaleFactor(renderParam, visibleWidth / displayedSize.width());
         }
         else if(m_scaleMode == FitToPageSizeMode)
         {
-            adjustScaleFactor(renderParam, qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
+            adjustScaleFactor(renderParam, qMin(visibleWidth / displayedSize.width(), visibleHeight / displayedSize.height()));
         }
 
         page->setRenderParam(renderParam);

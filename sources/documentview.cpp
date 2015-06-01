@@ -1606,11 +1606,10 @@ void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rec
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
 
-    const qreal displayedWidth = m_pageItems.at(page - 1)->displayedWidth();
-    const qreal displayedHeight = m_pageItems.at(page - 1)->displayedHeight();
+    const QSizeF displayedSize = m_pageItems.at(page - 1)->displayedSize();
 
-    setScaleFactor(qMin(qMin(visibleWidth / displayedWidth / rect.width(),
-                             visibleHeight / displayedHeight / rect.height()),
+    setScaleFactor(qMin(qMin(visibleWidth / displayedSize.width() / rect.width(),
+                             visibleHeight / displayedSize.height() / rect.height()),
                         Defaults::DocumentView::maximumScaleFactor()));
 
     setScaleMode(ScaleFactorMode);
@@ -2380,16 +2379,15 @@ void DocumentView::prepareScene()
 
     foreach(PageItem* page, m_pageItems)
     {
-        const qreal displayedWidth = page->displayedWidth(renderParam);
-        const qreal displayedHeight = page->displayedHeight(renderParam);
+        const QSizeF displayedSize = page->displayedSize(renderParam);
 
         if(m_scaleMode == FitToPageWidthMode)
         {
-            adjustScaleFactor(renderParam, visibleWidth / displayedWidth);
+            adjustScaleFactor(renderParam, visibleWidth / displayedSize.width());
         }
         else if(m_scaleMode == FitToPageSizeMode)
         {
-            adjustScaleFactor(renderParam, qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
+            adjustScaleFactor(renderParam, qMin(visibleWidth / displayedSize.width(), visibleHeight / displayedSize.height()));
         }
 
         page->setRenderParam(renderParam);
@@ -2504,10 +2502,9 @@ void DocumentView::prepareThumbnailsScene()
 
     foreach(ThumbnailItem* page, m_thumbnailItems)
     {
-        const qreal displayedWidth = page->displayedWidth(renderParam);
-        const qreal displayedHeight = page->displayedHeight(renderParam);
+        const QSizeF displayedSize = page->displayedSize(renderParam);
 
-        adjustScaleFactor(renderParam, qMin(thumbnailSize / displayedWidth, thumbnailSize / displayedHeight));
+        adjustScaleFactor(renderParam, qMin(thumbnailSize / displayedSize.width(), thumbnailSize / displayedSize.height()));
 
         page->setRenderParam(renderParam);
     }
