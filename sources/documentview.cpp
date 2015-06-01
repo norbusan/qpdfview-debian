@@ -2252,11 +2252,11 @@ void DocumentView::prepareDocument(Model::Document* document, const QVector< Mod
     qDeleteAll(m_pageItems);
     qDeleteAll(m_thumbnailItems);
 
-    delete m_document;
-    m_document = document;
-
     qDeleteAll(m_pages);
     m_pages = pages;
+
+    delete m_document;
+    m_document = document;
 
     if(!m_autoRefreshWatcher->files().isEmpty())
     {
