@@ -145,7 +145,6 @@ private:
 
     QRectF m_cropRect;
 
-    void prepareCropRect();
     void updateCropRect();
 
     int m_index;

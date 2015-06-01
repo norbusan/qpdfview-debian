@@ -147,9 +147,11 @@ void PageItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
 
 QSizeF PageItem::displayedSize(const RenderParam& renderParam) const
 {
-    const RenderFlags changedFlags = m_renderParam.flags() ^ renderParam.flags();
+    const bool rotationChanged = m_renderParam.rotation() != renderParam.rotation();
 
-    const bool useCropRect = !m_cropRect.isNull() && !changedFlags.testFlag(TrimMargins);
+    const bool flagsChanged = m_renderParam.flags() != renderParam.flags();
+
+    const bool useCropRect = !m_cropRect.isNull() && !rotationChanged && !flagsChanged;
 
     const qreal cropWidth = useCropRect ? m_cropRect.width() : 1.0;
     const qreal cropHeight = useCropRect ? m_cropRect.height() : 1.0;
@@ -217,7 +219,7 @@ void PageItem::setRenderParam(const RenderParam& renderParam)
 
         if(changedFlags.testFlag(TrimMargins))
         {
-            prepareCropRect();
+            setFlag(QGraphicsItem::ItemClipsToShape, m_renderParam.trimMargins());
         }
     }
 }
@@ -238,6 +240,8 @@ void PageItem::refresh(bool keepObsoletePixmaps, bool dropCachedPixmaps)
 
     if(!keepObsoletePixmaps)
     {
+        prepareGeometryChange();
+
         m_cropRect = QRectF();
     }
 
@@ -667,22 +671,6 @@ void PageItem::loadInteractiveElements()
     }
 
     update();
-}
-
-void PageItem::prepareCropRect()
-{
-    setFlag(QGraphicsItem::ItemClipsToShape, m_renderParam.trimMargins());
-
-    foreach(TileItem* tile, m_tileItems)
-    {
-        tile->resetCropRect();
-    }
-
-    m_cropRect = QRectF();
-
-    prepareGeometryChange();
-
-    emit cropRectChanged();
 }
 
 void PageItem::updateCropRect()
