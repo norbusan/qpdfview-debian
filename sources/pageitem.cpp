@@ -214,11 +214,9 @@ void PageItem::setRenderParam(const RenderParam& renderParam)
 
         const bool rotationChanged = m_renderParam.rotation() != renderParam.rotation();
 
-        const bool flagsChanged = m_renderParam.flags() != renderParam.flags();
+        const RenderFlags changedFlags = m_renderParam.flags() ^ renderParam.flags();
 
-        const bool trimMarginsChanged = m_renderParam.trimMargins() != renderParam.trimMargins();
-
-        refresh(!rotationChanged && !flagsChanged, trimMarginsChanged);
+        refresh(!rotationChanged && changedFlags == 0);
 
         m_renderParam = renderParam;
 
@@ -228,7 +226,7 @@ void PageItem::setRenderParam(const RenderParam& renderParam)
             prepareGeometry();
         }
 
-        if(trimMarginsChanged)
+        if(changedFlags.testFlag(TrimMargins))
         {
             prepareCropRect();
         }
