@@ -537,6 +537,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     m_convertToGrayscaleAction->setEnabled(hasCurrent);
     m_trimMarginsAction->setEnabled(hasCurrent);
 
+    m_compositionModeMenu->setEnabled(hasCurrent);
     m_darkenWithPaperColorAction->setEnabled(hasCurrent);
     m_lightenWithPaperColorAction->setEnabled(hasCurrent);
 
@@ -3132,9 +3133,9 @@ void MainWindow::createMenus()
     m_viewMenu->addSeparator();
     m_viewMenu->addActions(QList< QAction* >() << m_invertColorsAction << m_convertToGrayscaleAction << m_trimMarginsAction);
 
-    QMenu* compositionModeMenu = m_viewMenu->addMenu(tr("Composition mode"));
-    compositionModeMenu->addAction(m_darkenWithPaperColorAction);
-    compositionModeMenu->addAction(m_lightenWithPaperColorAction);
+    m_compositionModeMenu = m_viewMenu->addMenu(tr("Composition mode"));
+    m_compositionModeMenu->addAction(m_darkenWithPaperColorAction);
+    m_compositionModeMenu->addAction(m_lightenWithPaperColorAction);
 
     m_viewMenu->addSeparator();
 

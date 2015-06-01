@@ -437,6 +437,7 @@ private:
     RecentlyUsedMenu* m_recentlyUsedMenu;
     QMenu* m_editMenu;
     QMenu* m_viewMenu;
+    QMenu* m_compositionModeMenu;
     SearchableMenu* m_tabsMenu;
     RecentlyClosedMenu* m_recentlyClosedMenu;
     SearchableMenu* m_bookmarksMenu;
