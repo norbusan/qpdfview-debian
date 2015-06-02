@@ -705,9 +705,9 @@ void PageItem::updateCropRect()
 
     if(m_cropRect.isNull() && !cropRect.isNull())
     {
-        m_cropRect = cropRect;
-
         prepareGeometryChange();
+
+        m_cropRect = cropRect;
 
         emit cropRectChanged();
     }
