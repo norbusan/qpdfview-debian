@@ -3133,7 +3133,7 @@ void MainWindow::createMenus()
     m_viewMenu->addSeparator();
     m_viewMenu->addActions(QList< QAction* >() << m_invertColorsAction << m_convertToGrayscaleAction << m_trimMarginsAction);
 
-    m_compositionModeMenu = m_viewMenu->addMenu(tr("Composition mode"));
+    m_compositionModeMenu = m_viewMenu->addMenu(tr("Composition"));
     m_compositionModeMenu->addAction(m_darkenWithPaperColorAction);
     m_compositionModeMenu->addAction(m_lightenWithPaperColorAction);
 
