@@ -394,12 +394,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="669"/>
         <source>Copy file path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Копіювати шлях до файла</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="670"/>
         <source>Select file path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вибрати шлях до файла</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="672"/>
@@ -763,17 +763,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2824"/>
         <source>Trim margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Обрізати поля</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2826"/>
         <source>Darken with paper color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Темніше з кольором паперу</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2827"/>
         <source>Lighten with paper color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Світліше з кольором паперу</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2829"/>
@@ -901,7 +901,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3136"/>
         <source>Composition</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Компонування</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3142"/>
@@ -1412,7 +1412,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="274"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished">Синхронізувати перегляд ескізу:</translation>
+        <translation type="unfinished">Синхронізувати перегляд змісту:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="278"/>
+        <source>Minimal scrolling:</source>
+        <translation type="unfinished">Мінімальне гортання:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
@@ -1468,11 +1473,6 @@
         <location filename="../sources/settingsdialog.cpp" line="365"/>
         <source>Use device pixel ratio:</source>
         <translation type="unfinished">Використовувати співвідношення у пікселях пристрою:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="278"/>
-        <source>Minimal scrolling:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="375"/>
@@ -1644,12 +1644,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="551"/>
         <source>Document context menu:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Контекстне меню документа:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="554"/>
         <source>Tab context menu:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Контекстне меню вкладки:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="557"/>

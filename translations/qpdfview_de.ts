@@ -394,12 +394,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="669"/>
         <source>Copy file path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dateipfad kopieren</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="670"/>
         <source>Select file path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dateipfad auswählen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="672"/>
@@ -763,17 +763,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2824"/>
         <source>Trim margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ränder abschneiden</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2826"/>
         <source>Darken with paper color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mit Papierfarbe abdunkeln</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2827"/>
         <source>Lighten with paper color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mit Papierfarbe aufhellen</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2829"/>
@@ -901,7 +901,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3136"/>
         <source>Composition</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Farbanpassung</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3142"/>
@@ -1415,6 +1415,11 @@
         <translation type="unfinished">Gliederung synchronisieren:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="278"/>
+        <source>Minimal scrolling:</source>
+        <translation type="unfinished">Minimaler Bildlauf:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>Zoom factor:</source>
         <translation type="unfinished">Vergrößerungsfaktor:</translation>
@@ -1468,11 +1473,6 @@
         <location filename="../sources/settingsdialog.cpp" line="365"/>
         <source>Use device pixel ratio:</source>
         <translation type="unfinished">Gerätepixelverhältnis nutzen:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="278"/>
-        <source>Minimal scrolling:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="375"/>
@@ -1644,12 +1644,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="551"/>
         <source>Document context menu:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dokumentenkontextmenü:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="554"/>
         <source>Tab context menu:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reiterkontextmenü:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="557"/>

@@ -763,7 +763,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2824"/>
         <source>Trim margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Trim margins</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2826"/>
@@ -1415,6 +1415,11 @@
         <translation type="unfinished">Synchronise outline view:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="278"/>
+        <source>Minimal scrolling:</source>
+        <translation type="unfinished">Minimal scrolling:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>Zoom factor:</source>
         <translation type="unfinished">Zoom factor:</translation>
@@ -1468,11 +1473,6 @@
         <location filename="../sources/settingsdialog.cpp" line="365"/>
         <source>Use device pixel ratio:</source>
         <translation type="unfinished">Use device pixel ratio:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="278"/>
-        <source>Minimal scrolling:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="375"/>

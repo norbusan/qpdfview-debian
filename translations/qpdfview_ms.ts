@@ -1415,6 +1415,11 @@
         <translation type="unfinished">Segerak paparan garis luar:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="278"/>
+        <source>Minimal scrolling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>Zoom factor:</source>
         <translation type="unfinished">Faktor zum:</translation>
@@ -1468,11 +1473,6 @@
         <location filename="../sources/settingsdialog.cpp" line="365"/>
         <source>Use device pixel ratio:</source>
         <translation type="unfinished">Guna nisbah piksel peranti:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="278"/>
-        <source>Minimal scrolling:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="375"/>

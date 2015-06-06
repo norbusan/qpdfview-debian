@@ -394,12 +394,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="669"/>
         <source>Copy file path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopírovat cestu souboru</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="670"/>
         <source>Select file path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vybrat cestu souboru</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="672"/>
@@ -763,7 +763,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2824"/>
         <source>Trim margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oříznout okraje</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2826"/>
@@ -1415,6 +1415,11 @@
         <translation type="unfinished">Zvýraznit položku osnovy:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="278"/>
+        <source>Minimal scrolling:</source>
+        <translation type="unfinished">Nejmenší posun obrazu:</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>Zoom factor:</source>
         <translation type="unfinished">Násobek zvětšení:</translation>
@@ -1468,11 +1473,6 @@
         <location filename="../sources/settingsdialog.cpp" line="365"/>
         <source>Use device pixel ratio:</source>
         <translation type="unfinished">Použít poměr pixelu zařízení:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="278"/>
-        <source>Minimal scrolling:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="375"/>
@@ -1644,12 +1644,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="551"/>
         <source>Document context menu:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Související nabídka k dokumentu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="554"/>
         <source>Tab context menu:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Související nabídka ke kartě</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="557"/>
@@ -1709,7 +1709,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="675"/>
         <source>Scroll:</source>
-        <translation type="unfinished">Pohyb obrazu:</translation>
+        <translation type="unfinished">Posun obrazu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="679"/>
