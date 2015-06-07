@@ -33,7 +33,7 @@ extern "C"
 
 typedef struct pdf_document_s pdf_document;
 
-pdf_document* pdf_specifics(fz_document*);
+pdf_document* pdf_specifics(fz_context*, fz_document*);
 
 }
 
@@ -274,7 +274,7 @@ bool FitzDocument::canBePrintedUsingCUPS() const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
-    return pdf_specifics(m_document) != 0;
+    return pdf_specifics(m_context, m_document) != 0;
 }
 
 void FitzDocument::setPaperColor(const QColor& paperColor)
