@@ -394,12 +394,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="669"/>
         <source>Copy file path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Copy file path</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="670"/>
         <source>Select file path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Select file path</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="672"/>
@@ -768,12 +768,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2826"/>
         <source>Darken with paper color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Darken with paper colour</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2827"/>
         <source>Lighten with paper color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lighten with paper colour</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2829"/>
@@ -901,7 +901,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3136"/>
         <source>Composition</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Composition</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3142"/>
@@ -1644,12 +1644,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="551"/>
         <source>Document context menu:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Document context menu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="554"/>
         <source>Tab context menu:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tab context menu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="557"/>
