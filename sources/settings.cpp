@@ -414,7 +414,7 @@ void Settings::DocumentView::setThumbnailSpacing(qreal thumbnailSpacing)
 
 void Settings::DocumentView::setThumbnailSize(qreal thumbnailSize)
 {
-    if(thumbnailSize > 0.0)
+    if(thumbnailSize >= 0.0)
     {
         m_thumbnailSize = thumbnailSize;
         m_settings->setValue("documentView/thumbnailSize", thumbnailSize);

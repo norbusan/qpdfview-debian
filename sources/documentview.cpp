@@ -874,7 +874,7 @@ int DocumentView::searchProgress() const
 
 void DocumentView::adjustThumbnails()
 {
-    if(s_settings->documentView().thumbnailSize() == 0)
+    if(s_settings->documentView().thumbnailSize() == 0.0)
     {
         prepareThumbnailsScene();
     }
@@ -2526,7 +2526,7 @@ void DocumentView::prepareThumbnailsScene()
     {
         const QSizeF displayedSize = page->displayedSize(renderParam);
 
-        if(thumbnailSize != 0)
+        if(thumbnailSize != 0.0)
         {
             adjustScaleFactor(renderParam, qMin(thumbnailSize / displayedSize.width(), thumbnailSize / displayedSize.height()));
         }
