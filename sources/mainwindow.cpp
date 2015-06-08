@@ -581,7 +581,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_bookmarksView->setModel(bookmarkModelForCurrentTab());
 
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
-        currentTab()->adjustThumbnails();
+        currentTab()->setThumbnailsViewportSize(m_thumbnailsView->viewport()->size());
 
         on_currentTab_documentChanged();
 
@@ -2320,7 +2320,7 @@ bool MainWindow::eventFilter(QObject* target, QEvent* event)
     {
         if(DocumentView* tab = currentTab())
         {
-            tab->adjustThumbnails();
+            tab->setThumbnailsViewportSize(m_thumbnailsView->viewport()->size());
         }
     }
 

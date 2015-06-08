@@ -326,6 +326,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_pageItems(),
     m_thumbnailItems(),
     m_highlight(0),
+    m_thumbnailsViewportSize(),
     m_thumbnailsOrientation(Qt::Vertical),
     m_thumbnailsScene(0),
     m_outlineModel(0),
@@ -872,10 +873,12 @@ int DocumentView::searchProgress() const
     return m_searchTask->progress();
 }
 
-void DocumentView::adjustThumbnails()
+void DocumentView::setThumbnailsViewportSize(const QSize& thumbnailsViewportSize)
 {
-    if(s_settings->documentView().thumbnailSize() == 0.0)
+    if(m_thumbnailsViewportSize != thumbnailsViewportSize)
     {
+        m_thumbnailsViewportSize = thumbnailsViewportSize;
+
         prepareThumbnailsScene();
     }
 }
@@ -2514,12 +2517,10 @@ void DocumentView::prepareThumbnailsScene()
     qreal visibleWidth = Defaults::DocumentView::thumbnailSize();
     qreal visibleHeight = Defaults::DocumentView::thumbnailSize();
 
-    const QList< QGraphicsView* >& views = m_thumbnailsScene->views();
-
-    if(!views.isEmpty())
+    if(!m_thumbnailsViewportSize.isNull())
     {
-        visibleWidth = views.first()->viewport()->width() - 3.0 * thumbnailSpacing;
-        visibleHeight = views.first()->viewport()->height() - 3.0 * thumbnailSpacing;
+        visibleWidth = m_thumbnailsViewportSize.width() - 3.0 * thumbnailSpacing;
+        visibleHeight = m_thumbnailsViewportSize.height() - 3.0 * thumbnailSpacing;
     }
 
     foreach(ThumbnailItem* page, m_thumbnailItems)
