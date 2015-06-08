@@ -404,7 +404,7 @@ void SettingsDialog::createGraphicsTab()
 
 
     m_thumbnailSizeSpinBox = addDoubleSpinBox(m_graphicsLayout, tr("Thumbnail size:"), QString(), tr(" px"), tr("Fit to view"),
-                                              0.0, 1000.0, 10.0, s_settings->documentView().thumbnailSize());
+                                              0.0, 1800.0, 25.0, s_settings->documentView().thumbnailSize());
 
 
     m_cacheSizeComboBox = addDataSizeComboBox(m_graphicsLayout, tr("Cache size:"), QString(),
