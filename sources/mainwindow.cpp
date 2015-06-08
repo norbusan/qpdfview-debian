@@ -579,7 +579,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_outlineView->setModel(currentTab()->outlineModel());
         m_propertiesView->setModel(currentTab()->propertiesModel());
         m_bookmarksView->setModel(bookmarkModelForCurrentTab());
+
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
+        currentTab()->adjustThumbnails();
 
         on_currentTab_documentChanged();
 
@@ -619,6 +621,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_outlineView->setModel(0);
         m_propertiesView->setModel(0);
         m_bookmarksView->setModel(0);
+
         m_thumbnailsView->setScene(0);
 
         setWindowTitleForCurrentTab();
@@ -2311,7 +2314,14 @@ bool MainWindow::eventFilter(QObject* target, QEvent* event)
             keyEvent->accept();
             return true;
         }
-
+    }
+    // This event filter is used to fit the thumbnails into the thumbnails view if this is enabled in the settings.
+    else if(target == m_thumbnailsView && event->type() == QEvent::Resize)
+    {
+        if(DocumentView* tab = currentTab())
+        {
+            tab->adjustThumbnails();
+        }
     }
 
     return QMainWindow::eventFilter(target, event);
@@ -3054,6 +3064,8 @@ void MainWindow::createDocks()
     connect(m_thumbnailsDock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), SLOT(on_thumbnails_dockLocationChanged(Qt::DockWidgetArea)));
 
     m_thumbnailsView = new QGraphicsView(this);
+
+    m_thumbnailsView->installEventFilter(this);
 
     connect(m_thumbnailsView->verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_thumbnails_verticalScrollBar_valueChanged(int)));
 

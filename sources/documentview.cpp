@@ -735,6 +735,8 @@ void DocumentView::setRenderFlags(qpdfview::RenderFlags renderFlags)
         prepareScene();
         prepareView(left, top);
 
+        prepareThumbnailsScene();
+
         if(changedFlags.testFlag(InvertColors))
         {
             prepareBackground();
@@ -868,6 +870,14 @@ bool DocumentView::searchWasCanceled() const
 int DocumentView::searchProgress() const
 {
     return m_searchTask->progress();
+}
+
+void DocumentView::adjustThumbnails()
+{
+    if(s_settings->documentView().thumbnailSize() == 0)
+    {
+        prepareThumbnailsScene();
+    }
 }
 
 void DocumentView::setThumbnailsOrientation(Qt::Orientation thumbnailsOrientation)
@@ -2499,19 +2509,43 @@ void DocumentView::prepareThumbnailsScene()
 #endif // QT_VERSION
 
     const qreal thumbnailSize = s_settings->documentView().thumbnailSize();
+    const qreal thumbnailSpacing = s_settings->documentView().thumbnailSpacing();
+
+    qreal visibleWidth = Defaults::DocumentView::thumbnailSize();
+    qreal visibleHeight = Defaults::DocumentView::thumbnailSize();
+
+    const QList< QGraphicsView* >& views = m_thumbnailsScene->views();
+
+    if(!views.isEmpty())
+    {
+        visibleWidth = views.first()->viewport()->width() - 3.0 * thumbnailSpacing;
+        visibleHeight = views.first()->viewport()->height() - 3.0 * thumbnailSpacing;
+    }
 
     foreach(ThumbnailItem* page, m_thumbnailItems)
     {
         const QSizeF displayedSize = page->displayedSize(renderParam);
 
-        adjustScaleFactor(renderParam, qMin(thumbnailSize / displayedSize.width(), thumbnailSize / displayedSize.height()));
+        if(thumbnailSize != 0)
+        {
+            adjustScaleFactor(renderParam, qMin(thumbnailSize / displayedSize.width(), thumbnailSize / displayedSize.height()));
+        }
+        else
+        {
+            if(m_thumbnailsOrientation == Qt::Vertical)
+            {
+                adjustScaleFactor(renderParam, visibleWidth / displayedSize.width());
+            }
+            else
+            {
+                adjustScaleFactor(renderParam, (visibleHeight - page->textHeight()) / displayedSize.height());
+            }
+        }
 
         page->setRenderParam(renderParam);
     }
 
     // prepare layout
-
-    const qreal thumbnailSpacing = s_settings->documentView().thumbnailSpacing();
 
     qreal left = 0.0;
     qreal right = m_thumbnailsOrientation == Qt::Vertical ? 0.0 : thumbnailSpacing;

@@ -129,6 +129,8 @@ public:
     bool searchWasCanceled() const;
     int searchProgress() const;
 
+    void adjustThumbnails();
+
     Qt::Orientation thumbnailsOrientation() const { return m_thumbnailsOrientation; }
     void setThumbnailsOrientation(Qt::Orientation thumbnailsOrientation);
 
