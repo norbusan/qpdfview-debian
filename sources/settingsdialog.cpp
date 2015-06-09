@@ -278,7 +278,7 @@ void SettingsDialog::createBehaviorTab()
     m_minimalScrollingCheckBox = addCheckBox(m_behaviorLayout, tr("Minimal scrolling:"), QString(),
                                                s_settings->documentView().minimalScrolling());
 
-    m_zoomFactorSpinBox = addDoubleSpinBox(m_behaviorLayout, tr("Zoom factor:"), QString(), QString(),
+    m_zoomFactorSpinBox = addDoubleSpinBox(m_behaviorLayout, tr("Zoom factor:"), QString(), QString(), QString(),
                                            1.0, 2.0, 0.05, s_settings->documentView().zoomFactor());
 
 
@@ -396,15 +396,15 @@ void SettingsDialog::createGraphicsTab()
                                       1, 10, 1, s_settings->documentView().pagesPerRow());
 
 
-    m_pageSpacingSpinBox = addDoubleSpinBox(m_graphicsLayout, tr("Page spacing:"), QString(), tr(" px"),
+    m_pageSpacingSpinBox = addDoubleSpinBox(m_graphicsLayout, tr("Page spacing:"), QString(), tr(" px"), QString(),
                                             0.0, 25.0, 0.25, s_settings->documentView().pageSpacing());
 
-    m_thumbnailSpacingSpinBox = addDoubleSpinBox(m_graphicsLayout, tr("Thumbnail spacing:"), QString(), tr(" px"),
+    m_thumbnailSpacingSpinBox = addDoubleSpinBox(m_graphicsLayout, tr("Thumbnail spacing:"), QString(), tr(" px"), QString(),
                                                  0.0, 25.0, 0.25, s_settings->documentView().thumbnailSpacing());
 
 
-    m_thumbnailSizeSpinBox = addDoubleSpinBox(m_graphicsLayout, tr("Thumbnail size:"), QString(), tr(" px"),
-                                              30.0, 300.0, 10.0, s_settings->documentView().thumbnailSize());
+    m_thumbnailSizeSpinBox = addDoubleSpinBox(m_graphicsLayout, tr("Thumbnail size:"), QString(), tr(" px"), tr("Fit to view"),
+                                              0.0, 1800.0, 25.0, s_settings->documentView().thumbnailSize());
 
 
     m_cacheSizeComboBox = addDataSizeComboBox(m_graphicsLayout, tr("Cache size:"), QString(),
@@ -746,7 +746,7 @@ QSpinBox* SettingsDialog::addSpinBox(QFormLayout* layout, const QString& label, 
     return spinBox;
 }
 
-QDoubleSpinBox* SettingsDialog::addDoubleSpinBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QString& suffix, double min, double max, double step, double val)
+QDoubleSpinBox* SettingsDialog::addDoubleSpinBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QString& suffix, const QString& special, double min, double max, double step, double val)
 {
     QDoubleSpinBox* spinBox = new QDoubleSpinBox(this);
     spinBox->setRange(min, max);
@@ -754,6 +754,7 @@ QDoubleSpinBox* SettingsDialog::addDoubleSpinBox(QFormLayout* layout, const QStr
     spinBox->setValue(val);
 
     spinBox->setSuffix(suffix);
+    spinBox->setSpecialValueText(special);
 
     spinBox->setToolTip(toolTip);
     layout->addRow(label, spinBox);
