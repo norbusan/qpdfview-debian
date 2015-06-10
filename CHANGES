@@ -1,3 +1,6 @@
+Release 0.4.16:
+  * Added function to dynamically fit thumbnails into the viewport.
+
 Release 0.4.15:
   * Fixed compatibility with MuPDF version 1.7. Thanks to Martin Banky.
   * Added keeping the page-relative position upon page change.
