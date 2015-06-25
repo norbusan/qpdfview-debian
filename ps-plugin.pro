@@ -11,7 +11,7 @@ TARGET_SHORT = qpdfps
 OBJECTS_DIR = objects-ps
 MOC_DIR = moc-ps
 
-HEADERS = sources/psmodel.h
+HEADERS = sources/model.h sources/psmodel.h
 SOURCES = sources/psmodel.cpp
 
 QT += core gui

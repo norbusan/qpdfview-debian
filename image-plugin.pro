@@ -11,7 +11,7 @@ TARGET_SHORT = qpdfimg
 OBJECTS_DIR = objects-image
 MOC_DIR = moc-image
 
-HEADERS = sources/imagemodel.h
+HEADERS = sources/model.h sources/imagemodel.h
 SOURCES = sources/imagemodel.cpp
 
 QT += core gui

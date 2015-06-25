@@ -11,7 +11,7 @@ TARGET_SHORT = qpdffitz
 OBJECTS_DIR = objects-fitz
 MOC_DIR = moc-fitz
 
-HEADERS = sources/fitzmodel.h
+HEADERS = sources/model.h sources/fitzmodel.h
 SOURCES = sources/fitzmodel.cpp
 
 QT += core gui

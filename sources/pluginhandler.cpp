@@ -102,12 +102,23 @@ Plugin* loadPlugin(const QString& fileName)
     return plugin;
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
 bool isSupportedImageFormat(const QMimeType& mimeType)
 {
     const QByteArray name = mimeType.name().toLocal8Bit();
 
     return QImageReader::supportedMimeTypes().contains(name);
 }
+
+#else
+
+bool isSupportedImageFormat(const QString& fileName)
+{
+    return !QImageReader::imageFormat(fileName).isEmpty();
+}
+
+#endif // QT_VERSION
 
 QStringList supportedImageFormats()
 {
@@ -174,6 +185,10 @@ PluginHandler::FileType matchFileType(const QString& filePath)
         {
             fileType = PluginHandler::DjVu;
         }
+        else if(isSupportedImageFormat(filePath))
+        {
+            fileType = PluginHandler::Image;
+        }
         else
         {
             qDebug() << "Unknown MIME type:" << mime_type;
@@ -197,6 +212,10 @@ PluginHandler::FileType matchFileType(const QString& filePath)
     else if(fileInfo.suffix().toLower() == QLatin1String("djvu") || fileInfo.suffix().toLower() == QLatin1String("djv"))
     {
         fileType = PluginHandler::DjVu;
+    }
+    else if(isSupportedImageFormat(fileName))
+    {
+        fileType = PluginHandler::Image;
     }
     else
     {
