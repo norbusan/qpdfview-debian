@@ -52,7 +52,8 @@ public:
         Unknown = 0,
         PDF = 1,
         PS = 2,
-        DjVu = 3
+        DjVu = 3,
+        Image = 4
     };
 
     static QString fileTypeName(FileType fileType)
@@ -68,6 +69,8 @@ public:
             return QLatin1String("PS");
         case PluginHandler::DjVu:
             return QLatin1String("DjVu");
+        case PluginHandler::Image:
+            return QLatin1String("Image");
         }
     }
 

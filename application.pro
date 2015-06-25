@@ -188,6 +188,23 @@ with_fitz {
     DEFINES += FITZ_PLUGIN_NAME=\\\"$${FITZ_PLUGIN_NAME}\\\"
 }
 
+with_image {
+    DEFINES += WITH_IMAGE
+
+    static_image_plugin {
+        isEmpty(IMAGE_PLUGIN_NAME):IMAGE_PLUGIN_NAME = libqpdfview_image.a
+
+        DEFINES += STATIC_IMAGE_PLUGIN
+        LIBS += $$IMAGE_PLUGIN_NAME
+        PRE_TARGETDEPS += $$IMAGE_PLUGIN_NAME
+    }
+    else {
+        isEmpty(IMAGE_PLUGIN_NAME):IMAGE_PLUGIN_NAME = libqpdfview_image.so
+    }
+
+    DEFINES += IMAGE_PLUGIN_NAME=\\\"$${IMAGE_PLUGIN_NAME}\\\"
+}
+
 !without_cups {
     DEFINES += WITH_CUPS
 

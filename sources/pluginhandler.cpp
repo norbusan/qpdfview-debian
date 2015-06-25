@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
+#include <QImageReader>
 #include <QMessageBox>
 #include <QPluginLoader>
 
@@ -101,6 +102,27 @@ Plugin* loadPlugin(const QString& fileName)
     return plugin;
 }
 
+bool isSupportedImageFormat(const QMimeType& mimeType)
+{
+    const QByteArray name = mimeType.name().toLocal8Bit();
+
+    return QImageReader::supportedMimeTypes().contains(name);
+}
+
+QStringList supportedImageFormats()
+{
+    QStringList formats;
+
+    foreach(const QByteArray& format, QImageReader::supportedImageFormats())
+    {
+        const QString name = QString::fromLocal8Bit(format);
+
+        formats.append(QLatin1String("*.") + name);
+    }
+
+    return formats;
+}
+
 PluginHandler::FileType matchFileType(const QString& filePath)
 {
     PluginHandler::FileType fileType = PluginHandler::Unknown;
@@ -120,6 +142,10 @@ PluginHandler::FileType matchFileType(const QString& filePath)
     else if(mimeType.name() == QLatin1String("image/vnd.djvu"))
     {
         fileType = PluginHandler::DjVu;
+    }
+    else if(isSupportedImageFormat(mimeType))
+    {
+        fileType = PluginHandler::Image;
     }
     else
     {
@@ -213,28 +239,36 @@ QStringList PluginHandler::openFilter()
 
 #if defined(WITH_PDF) || defined(WITH_FITZ)
 
-    openFilter.append("Portable document format (*.pdf)");
-    supportedFormats.append("*.pdf");
+    openFilter.append(QLatin1String("Portable document format (*.pdf)"));
+    supportedFormats.append(QLatin1String("*.pdf"));
 
 #endif // WITH_PDF // WITH_FITZ
 
 #ifdef WITH_PS
 
-    openFilter.append("PostScript (*.ps)");
-    openFilter.append("Encapsulated PostScript (*.eps)");
-    supportedFormats.append("*.ps *.eps");
+    openFilter.append(QLatin1String("PostScript (*.ps)"));
+    openFilter.append(QLatin1String("Encapsulated PostScript (*.eps)"));
+    supportedFormats.append(QLatin1String("*.ps *.eps"));
 
 #endif // WITH_PS
 
 #ifdef WITH_DJVU
 
-    openFilter.append("DjVu (*.djvu *.djv)");
-    supportedFormats.append("*.djvu");
-    supportedFormats.append("*.djv");
+    openFilter.append(QLatin1String("DjVu (*.djvu *.djv)"));
+    supportedFormats.append(QLatin1String("*.djvu *.djv"));
 
 #endif // WITH_DJVU
 
-    openFilter.prepend(tr("Supported formats (%1)").arg(supportedFormats.join(" ")));
+#ifdef WITH_IMAGE
+
+    const QStringList imageFormats = supportedImageFormats();
+
+    openFilter.append(tr("Image (%1)").arg(imageFormats.join(QLatin1String(" "))));
+    supportedFormats.append(imageFormats);
+
+#endif // WITH_IMAGE
+
+    openFilter.prepend(tr("Supported formats (%1)").arg(supportedFormats.join(QLatin1String(" "))));
 
     return openFilter;
 }
@@ -268,11 +302,19 @@ SettingsWidget* PluginHandler::createSettingsWidget(FileType fileType, QWidget* 
 PluginHandler::PluginHandler(QObject* parent) : QObject(parent),
     m_plugins()
 {
+#ifdef WITH_IMAGE
+#ifdef STATIC_IMAGE_PLUGIN
+    m_objectNames.insertMulti(Image, QLatin1String("ImagePlugin"));
+#else
+    m_fileNames.insertMulti(Image, QLatin1String(IMAGE_PLUGIN_NAME));
+#endif // STATIC_IMAGE_PLUGIN
+#endif // WITH_IMAGE
+
 #ifdef WITH_FITZ
 #ifdef STATIC_FITZ_PLUGIN
     m_objectNames.insertMulti(PDF, QLatin1String("FitzPlugin"));
 #else
-    m_fileNames.insertMulti(PDF, FITZ_PLUGIN_NAME);
+    m_fileNames.insertMulti(PDF, QLatin1String(FITZ_PLUGIN_NAME));
 #endif // STATIC_FITZ_PLUGIN
 #endif // WITH_FITZ
 
@@ -280,7 +322,7 @@ PluginHandler::PluginHandler(QObject* parent) : QObject(parent),
 #ifdef STATIC_PDF_PLUGIN
     m_objectNames.insertMulti(PDF, QLatin1String("PdfPlugin"));
 #else
-    m_fileNames.insertMulti(PDF, PDF_PLUGIN_NAME);
+    m_fileNames.insertMulti(PDF, QLatin1String(PDF_PLUGIN_NAME));
 #endif // STATIC_PDF_PLUGIN
 #endif // WITH_PDF
 
@@ -288,7 +330,7 @@ PluginHandler::PluginHandler(QObject* parent) : QObject(parent),
 #ifdef STATIC_PS_PLUGIN
     m_objectNames.insertMulti(PS, QLatin1String("PsPlugin"));
 #else
-    m_fileNames.insertMulti(PS, PS_PLUGIN_NAME);
+    m_fileNames.insertMulti(PS, QLatin1String(PS_PLUGIN_NAME));
 #endif // STATIC_PS_PLUGIN
 #endif // WITH_PS
 
@@ -296,7 +338,7 @@ PluginHandler::PluginHandler(QObject* parent) : QObject(parent),
 #ifdef STATIC_DJVU_PLUGIN
     m_objectNames.insertMulti(DjVu, QLatin1String("DjVuPlugin"));
 #else
-    m_fileNames.insertMulti(DjVu, DJVU_PLUGIN_NAME);
+    m_fileNames.insertMulti(DjVu, QLatin1String(DJVU_PLUGIN_NAME));
 #endif // STATIC_DJVU_PLUGIN
 #endif // WITH_DJVU
 }
@@ -336,6 +378,14 @@ bool PluginHandler::loadPlugin(FileType fileType)
 }
 
 } // qpdfview
+
+#ifdef STATIC_IMAGE_PLUGIN
+    #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+        Q_IMPORT_PLUGIN(qpdfview_image)
+    #else
+        Q_IMPORT_PLUGIN(qpdfview::ImagePlugin)
+    #endif // QT_VERSION
+#endif // STATIC_IMAGE_PLUGIN
 
 #ifdef STATIC_FITZ_PLUGIN
     #if QT_VERSION < QT_VERSION_CHECK(5,0,0)

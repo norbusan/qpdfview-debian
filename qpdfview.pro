@@ -23,6 +23,11 @@ with_fitz {
     application.pro.depends = fitz-plugin.pro
 }
 
+with_image {
+    SUBDIRS += image-plugin.pro
+    application.pro.depends = image-plugin.pro
+}
+
 SUBDIRS += application.pro
 
 TRANSLATIONS += \
