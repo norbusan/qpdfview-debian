@@ -185,11 +185,11 @@ QStringList PsDocument::saveFilter() const
 
     if(spectre_document_is_eps(m_document))
     {
-        return QStringList() << "Encapsulated PostScript (*.eps)";
+        return QStringList() << QLatin1String("Encapsulated PostScript (*.eps)");
     }
     else
     {
-        return QStringList() << "PostScript (*.ps)";
+        return QStringList() << QLatin1String("PostScript (*.ps)");
     }
 }
 
@@ -206,7 +206,7 @@ bool PsDocument::save(const QString& filePath, bool withChanges) const
 
     spectre_document_save(m_document, QFile::encodeName(filePath));
 
-    return (spectre_document_status(m_document) == SPECTRE_STATUS_SUCCESS);
+    return spectre_document_status(m_document) == SPECTRE_STATUS_SUCCESS;
 }
 
 bool PsDocument::canBePrintedUsingCUPS() const

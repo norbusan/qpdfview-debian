@@ -62,6 +62,11 @@ namespace Model
 
         Page* page(int index) const;
 
+        QStringList saveFilter() const;
+
+        bool canSave() const;
+        bool save(const QString& filePath, bool withChanges) const;
+
         void loadProperties(QStandardItemModel* propertiesModel) const;
 
     private:

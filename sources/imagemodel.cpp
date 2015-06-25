@@ -21,6 +21,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "imagemodel.h"
 
+#include <QDebug>
+#include <QImageWriter>
+
 namespace
 {
 
@@ -104,6 +107,41 @@ int ImageDocument::numberOfPages() const
 Page* ImageDocument::page(int index) const
 {
     return index == 0 ? new ImagePage(m_image) : 0;
+}
+
+QStringList ImageDocument::saveFilter() const
+{
+    QStringList formats;
+
+    foreach(const QByteArray& format, QImageWriter::supportedImageFormats())
+    {
+        const QString name = QString::fromLocal8Bit(format);
+
+        formats.append(QLatin1String("*.") + name);
+    }
+
+    return QStringList() << tr("Image (%1)").arg(formats.join(QLatin1String(" ")));
+}
+
+bool ImageDocument::canSave() const
+{
+    return true;
+}
+
+bool ImageDocument::save(const QString& filePath, bool withChanges) const
+{
+    Q_UNUSED(withChanges);
+
+    QImageWriter imageWriter(filePath);
+
+    if(!imageWriter.write(m_image))
+    {
+        qWarning() << imageWriter.errorString();
+
+        return false;
+    }
+
+    return true;
 }
 
 void ImageDocument::loadProperties(QStandardItemModel *propertiesModel) const
