@@ -167,42 +167,42 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="831"/>
+        <location filename="../sources/settingsdialog.cpp" line="832"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="832"/>
+        <location filename="../sources/settingsdialog.cpp" line="833"/>
         <source>Ctrl</source>
         <translation type="unfinished">Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="833"/>
+        <location filename="../sources/settingsdialog.cpp" line="834"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="834"/>
+        <location filename="../sources/settingsdialog.cpp" line="835"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished">Shift a Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="835"/>
+        <location filename="../sources/settingsdialog.cpp" line="836"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift a Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="836"/>
+        <location filename="../sources/settingsdialog.cpp" line="837"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished">Ctrl a Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="837"/>
+        <location filename="../sources/settingsdialog.cpp" line="838"/>
         <source>Right mouse button</source>
         <translation type="unfinished">Pravé tlačítko myši</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="838"/>
+        <location filename="../sources/settingsdialog.cpp" line="839"/>
         <source>Middle mouse button</source>
         <translation type="unfinished">Prostřední tlačítko myši</translation>
     </message>
@@ -264,42 +264,42 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="1545"/>
+        <location filename="../sources/documentview.cpp" line="1559"/>
         <source>Information</source>
         <translation type="unfinished">Informace</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1545"/>
+        <location filename="../sources/documentview.cpp" line="1559"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otevření adresy (URL) je v nastavení zakázáno.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1588"/>
+        <location filename="../sources/documentview.cpp" line="1602"/>
         <source>Warning</source>
         <translation type="unfinished">Varování</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1588"/>
+        <location filename="../sources/documentview.cpp" line="1602"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Nepodařilo se najít SyncTeX data pro &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2060"/>
+        <location filename="../sources/documentview.cpp" line="2085"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tiskne se &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2129"/>
+        <location filename="../sources/documentview.cpp" line="2159"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Odemknout %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2129"/>
+        <location filename="../sources/documentview.cpp" line="2159"/>
         <source>Password:</source>
         <translation type="unfinished">Heslo:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2171"/>
+        <location filename="../sources/documentview.cpp" line="2201"/>
         <source>Page %1</source>
         <translation type="unfinished">Strana %1</translation>
     </message>
@@ -375,13 +375,13 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="362"/>
         <location filename="../sources/mainwindow.cpp" line="445"/>
-        <location filename="../sources/mainwindow.cpp" line="1206"/>
-        <location filename="../sources/mainwindow.cpp" line="1223"/>
-        <location filename="../sources/mainwindow.cpp" line="1240"/>
-        <location filename="../sources/mainwindow.cpp" line="1276"/>
-        <location filename="../sources/mainwindow.cpp" line="1417"/>
-        <location filename="../sources/mainwindow.cpp" line="2492"/>
-        <location filename="../sources/mainwindow.cpp" line="2506"/>
+        <location filename="../sources/mainwindow.cpp" line="1209"/>
+        <location filename="../sources/mainwindow.cpp" line="1226"/>
+        <location filename="../sources/mainwindow.cpp" line="1243"/>
+        <location filename="../sources/mainwindow.cpp" line="1279"/>
+        <location filename="../sources/mainwindow.cpp" line="1420"/>
+        <location filename="../sources/mainwindow.cpp" line="2502"/>
+        <location filename="../sources/mainwindow.cpp" line="2516"/>
         <source>Warning</source>
         <translation type="unfinished">Varování</translation>
     </message>
@@ -392,539 +392,539 @@
         <translation type="unfinished">Nepodařilo se otevřít &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="669"/>
+        <location filename="../sources/mainwindow.cpp" line="672"/>
         <source>Copy file path</source>
         <translation type="unfinished">Kopírovat cestu souboru</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="670"/>
+        <location filename="../sources/mainwindow.cpp" line="673"/>
         <source>Select file path</source>
         <translation type="unfinished">Vybrat cestu souboru</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="672"/>
+        <location filename="../sources/mainwindow.cpp" line="675"/>
         <source>Close all tabs</source>
         <translation type="unfinished">Zavřít všechny karty</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="673"/>
+        <location filename="../sources/mainwindow.cpp" line="676"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished">Zavřít všechny karty kromě této</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="674"/>
+        <location filename="../sources/mainwindow.cpp" line="677"/>
         <source>Close all tabs to the left</source>
         <translation type="unfinished">Zavřít všechny karty nalevo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="675"/>
+        <location filename="../sources/mainwindow.cpp" line="678"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished">Zavřít všechny karty napravo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1161"/>
+        <location filename="../sources/mainwindow.cpp" line="1164"/>
         <source>Open</source>
         <translation type="unfinished">Otevřít</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1177"/>
+        <location filename="../sources/mainwindow.cpp" line="1180"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Otevřít v nové kartě</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1206"/>
-        <location filename="../sources/mainwindow.cpp" line="1417"/>
+        <location filename="../sources/mainwindow.cpp" line="1209"/>
+        <location filename="../sources/mainwindow.cpp" line="1420"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">Nepodařilo se obnovit &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1213"/>
+        <location filename="../sources/mainwindow.cpp" line="1216"/>
         <source>Save copy</source>
         <translation type="unfinished">Uložit kopii</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1223"/>
+        <location filename="../sources/mainwindow.cpp" line="1226"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">Nepodařilo se uložit kopii v &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1230"/>
-        <location filename="../sources/mainwindow.cpp" line="2496"/>
+        <location filename="../sources/mainwindow.cpp" line="1233"/>
+        <location filename="../sources/mainwindow.cpp" line="2506"/>
         <source>Save as</source>
         <translation type="unfinished">Uložit jako</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1240"/>
-        <location filename="../sources/mainwindow.cpp" line="2506"/>
+        <location filename="../sources/mainwindow.cpp" line="1243"/>
+        <location filename="../sources/mainwindow.cpp" line="2516"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">Nepodařilo se uložit jako &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1276"/>
+        <location filename="../sources/mainwindow.cpp" line="1279"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">Nepodařilo se vytisknout &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1313"/>
+        <location filename="../sources/mainwindow.cpp" line="1316"/>
         <source>Set first page</source>
         <translation type="unfinished">Nastavit první stranu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1313"/>
+        <location filename="../sources/mainwindow.cpp" line="1316"/>
         <source>Select the first page of the body matter:</source>
         <translation type="unfinished">Vybrat první stranu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1326"/>
+        <location filename="../sources/mainwindow.cpp" line="1329"/>
         <source>Jump to page</source>
         <translation type="unfinished">Přejít na stranu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1326"/>
+        <location filename="../sources/mainwindow.cpp" line="1329"/>
         <source>Page:</source>
         <translation type="unfinished">Strana:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1724"/>
+        <location filename="../sources/mainwindow.cpp" line="1727"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Skočit na stranu %1</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1875"/>
+        <location filename="../sources/mainwindow.cpp" line="1878"/>
         <source>About qpdfview</source>
         <translation type="unfinished">O programu qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1875"/>
+        <location filename="../sources/mainwindow.cpp" line="1878"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview je prohlížeč dokumentů s kartami používající Qt.&lt;/p&gt;&lt;p&gt;Tato verze zahrnuje:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1879"/>
+        <location filename="../sources/mainwindow.cpp" line="1882"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Podpora PDF pomocí Poppler %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1882"/>
+        <location filename="../sources/mainwindow.cpp" line="1885"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Podpora PS pomocí libspectre %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1885"/>
+        <location filename="../sources/mainwindow.cpp" line="1888"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Podpora DjVu pomocí DjVuLibre %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1888"/>
+        <location filename="../sources/mainwindow.cpp" line="1891"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Podpora PDF pomocí Fitz %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1891"/>
+        <location filename="../sources/mainwindow.cpp" line="1894"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Podpora tisku pomocí CUPS %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1893"/>
+        <location filename="../sources/mainwindow.cpp" line="1896"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Na další informace se podívejte na &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 Vývojáři qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2176"/>
-        <location filename="../sources/mainwindow.cpp" line="2856"/>
+        <location filename="../sources/mainwindow.cpp" line="2179"/>
+        <location filename="../sources/mainwindow.cpp" line="2866"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">&amp;Odstranit záložku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2177"/>
+        <location filename="../sources/mainwindow.cpp" line="2180"/>
         <source>&amp;Edit bookmark</source>
         <translation type="unfinished">&amp;Upravit záložku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2492"/>
+        <location filename="../sources/mainwindow.cpp" line="2502"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation type="unfinished">Dokument &apos;%1&apos; byl změněn. Chcete uložit své změny?</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2681"/>
+        <location filename="../sources/mainwindow.cpp" line="2691"/>
         <source>Page width</source>
         <translation type="unfinished">Šířka strany</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2682"/>
+        <location filename="../sources/mainwindow.cpp" line="2692"/>
         <source>Page size</source>
         <translation type="unfinished">Velikost strany</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2705"/>
+        <location filename="../sources/mainwindow.cpp" line="2715"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">Rozlišovat velká a malá &amp;písmena</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2706"/>
+        <location filename="../sources/mainwindow.cpp" line="2716"/>
         <source>Whole &amp;words</source>
         <translation type="unfinished">Celá &amp;slova</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2707"/>
+        <location filename="../sources/mainwindow.cpp" line="2717"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">Zvýraznit &amp;vše</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2769"/>
+        <location filename="../sources/mainwindow.cpp" line="2779"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Otevřít...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2770"/>
+        <location filename="../sources/mainwindow.cpp" line="2780"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Otevřít v nové &amp;kartě...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2771"/>
+        <location filename="../sources/mainwindow.cpp" line="2781"/>
         <source>Open &amp;copy in new tab</source>
         <translation type="unfinished">Otevřít &amp;kopii v nové kartě</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2772"/>
+        <location filename="../sources/mainwindow.cpp" line="2782"/>
         <source>Open containing &amp;folder</source>
         <translation type="unfinished">Otevřít obsahující &amp;složku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2773"/>
+        <location filename="../sources/mainwindow.cpp" line="2783"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Obnovit</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2774"/>
+        <location filename="../sources/mainwindow.cpp" line="2784"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">&amp;Uložit kopii...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2775"/>
+        <location filename="../sources/mainwindow.cpp" line="2785"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">Uložit &amp;jako...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2776"/>
+        <location filename="../sources/mainwindow.cpp" line="2786"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">&amp;Tisk...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2777"/>
+        <location filename="../sources/mainwindow.cpp" line="2787"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">&amp;Ukončit</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2781"/>
+        <location filename="../sources/mainwindow.cpp" line="2791"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Předchozí strana</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2782"/>
+        <location filename="../sources/mainwindow.cpp" line="2792"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Další strana</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2783"/>
+        <location filename="../sources/mainwindow.cpp" line="2793"/>
         <source>&amp;First page</source>
         <translation type="unfinished">P&amp;rvní strana</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2784"/>
+        <location filename="../sources/mainwindow.cpp" line="2794"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Pos&amp;lední strana</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2786"/>
+        <location filename="../sources/mainwindow.cpp" line="2796"/>
         <source>&amp;Set first page...</source>
         <translation type="unfinished">&amp;Nastavit první stranu...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2788"/>
+        <location filename="../sources/mainwindow.cpp" line="2798"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">Pře&amp;jít na stranu...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2790"/>
+        <location filename="../sources/mainwindow.cpp" line="2800"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished">Skočit &amp;zpět</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2791"/>
+        <location filename="../sources/mainwindow.cpp" line="2801"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished">Skočit &amp;vpřed</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2793"/>
+        <location filename="../sources/mainwindow.cpp" line="2803"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;Hledat...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2794"/>
+        <location filename="../sources/mainwindow.cpp" line="2804"/>
         <source>Find previous</source>
         <translation type="unfinished">Najít předchozí</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2795"/>
+        <location filename="../sources/mainwindow.cpp" line="2805"/>
         <source>Find next</source>
         <translation type="unfinished">Najít další</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2796"/>
+        <location filename="../sources/mainwindow.cpp" line="2806"/>
         <source>Cancel search</source>
         <translation type="unfinished">Zrušit hledání</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2798"/>
+        <location filename="../sources/mainwindow.cpp" line="2808"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">&amp;Kopírovat do schránky</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2799"/>
+        <location filename="../sources/mainwindow.cpp" line="2809"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">&amp;Přidat poznámku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2801"/>
+        <location filename="../sources/mainwindow.cpp" line="2811"/>
         <source>Settings...</source>
         <translation type="unfinished">Nastavení...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2805"/>
+        <location filename="../sources/mainwindow.cpp" line="2815"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">&amp;Průběžně</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2806"/>
+        <location filename="../sources/mainwindow.cpp" line="2816"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp;Dvě strany</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2807"/>
+        <location filename="../sources/mainwindow.cpp" line="2817"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">Dvě strany &amp;s titulní stranou</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2808"/>
+        <location filename="../sources/mainwindow.cpp" line="2818"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">&amp;Více stran</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2810"/>
+        <location filename="../sources/mainwindow.cpp" line="2820"/>
         <source>Right to left</source>
         <translation type="unfinished">Zprava doleva</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2812"/>
+        <location filename="../sources/mainwindow.cpp" line="2822"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">&amp;Přiblížit</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2813"/>
+        <location filename="../sources/mainwindow.cpp" line="2823"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">&amp;Oddálit</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2814"/>
+        <location filename="../sources/mainwindow.cpp" line="2824"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">Původní &amp;velikost</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2816"/>
+        <location filename="../sources/mainwindow.cpp" line="2826"/>
         <source>Fit to page width</source>
         <translation type="unfinished">Přizpůsobit šířce strany</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2817"/>
+        <location filename="../sources/mainwindow.cpp" line="2827"/>
         <source>Fit to page size</source>
         <translation type="unfinished">Přizpůsobit velikosti strany</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2819"/>
+        <location filename="../sources/mainwindow.cpp" line="2829"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">Otočit v&amp;levo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2820"/>
+        <location filename="../sources/mainwindow.cpp" line="2830"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Otočit v&amp;pravo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2822"/>
+        <location filename="../sources/mainwindow.cpp" line="2832"/>
         <source>Invert colors</source>
         <translation type="unfinished">Obrátit barvy</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2823"/>
+        <location filename="../sources/mainwindow.cpp" line="2833"/>
         <source>Convert to grayscale</source>
         <translation type="unfinished">Převést na odstíny šedi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2824"/>
+        <location filename="../sources/mainwindow.cpp" line="2834"/>
         <source>Trim margins</source>
         <translation type="unfinished">Oříznout okraje</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2826"/>
+        <location filename="../sources/mainwindow.cpp" line="2836"/>
         <source>Darken with paper color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ztmavit s barvou papíru</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2827"/>
+        <location filename="../sources/mainwindow.cpp" line="2837"/>
         <source>Lighten with paper color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zesvětlit s barvou papíru</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2829"/>
+        <location filename="../sources/mainwindow.cpp" line="2839"/>
         <source>Fonts...</source>
         <translation type="unfinished">Písma...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2831"/>
+        <location filename="../sources/mainwindow.cpp" line="2841"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">&amp;Celá obrazovka</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2832"/>
+        <location filename="../sources/mainwindow.cpp" line="2842"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">&amp;Promítání...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2836"/>
+        <location filename="../sources/mainwindow.cpp" line="2846"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">&amp;Předchozí karta</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2837"/>
+        <location filename="../sources/mainwindow.cpp" line="2847"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">&amp;Další karta</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2839"/>
+        <location filename="../sources/mainwindow.cpp" line="2849"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;Zavřít kartu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2840"/>
+        <location filename="../sources/mainwindow.cpp" line="2850"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">Zavřít &amp;všechny karty</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2841"/>
+        <location filename="../sources/mainwindow.cpp" line="2851"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">Zavřít všechny karty &amp;kromě nynější karty</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2852"/>
+        <location filename="../sources/mainwindow.cpp" line="2862"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">&amp;Předchozí záložka</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2853"/>
+        <location filename="../sources/mainwindow.cpp" line="2863"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">&amp;Další záložka</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2855"/>
+        <location filename="../sources/mainwindow.cpp" line="2865"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">&amp;Přidat záložku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2857"/>
+        <location filename="../sources/mainwindow.cpp" line="2867"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Odstranit všechny záložky</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2861"/>
+        <location filename="../sources/mainwindow.cpp" line="2871"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;Obsah</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2862"/>
+        <location filename="../sources/mainwindow.cpp" line="2872"/>
         <source>&amp;About</source>
         <translation type="unfinished">O &amp;programu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2866"/>
+        <location filename="../sources/mainwindow.cpp" line="2876"/>
         <source>Toggle tool bars</source>
         <translation type="unfinished">Přepnout nástrojové pruhy</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2867"/>
+        <location filename="../sources/mainwindow.cpp" line="2877"/>
         <source>Toggle menu bar</source>
         <translation type="unfinished">Přepnout pruh s nabídkou</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2890"/>
-        <location filename="../sources/mainwindow.cpp" line="3091"/>
+        <location filename="../sources/mainwindow.cpp" line="2900"/>
+        <location filename="../sources/mainwindow.cpp" line="3103"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Soubor</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2893"/>
-        <location filename="../sources/mainwindow.cpp" line="3112"/>
+        <location filename="../sources/mainwindow.cpp" line="2903"/>
+        <location filename="../sources/mainwindow.cpp" line="3124"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">Úp&amp;ravy</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2896"/>
-        <location filename="../sources/mainwindow.cpp" line="3125"/>
+        <location filename="../sources/mainwindow.cpp" line="2906"/>
+        <location filename="../sources/mainwindow.cpp" line="3137"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Pohled</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2931"/>
+        <location filename="../sources/mainwindow.cpp" line="2941"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Hledání</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3019"/>
+        <location filename="../sources/mainwindow.cpp" line="3029"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">&amp;Osnova</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3038"/>
+        <location filename="../sources/mainwindow.cpp" line="3048"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Vlastnosti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3052"/>
+        <location filename="../sources/mainwindow.cpp" line="3062"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished">&amp;Náhledy</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3064"/>
+        <location filename="../sources/mainwindow.cpp" line="3076"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished">&amp;Záložky</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3136"/>
+        <location filename="../sources/mainwindow.cpp" line="3148"/>
         <source>Composition</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Přizpůsobení barev</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3142"/>
+        <location filename="../sources/mainwindow.cpp" line="3154"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">&amp;Nástrojové panely</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3145"/>
+        <location filename="../sources/mainwindow.cpp" line="3157"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">Postranní p&amp;anely</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3159"/>
+        <location filename="../sources/mainwindow.cpp" line="3171"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Karty</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3181"/>
+        <location filename="../sources/mainwindow.cpp" line="3193"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Záložky</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3192"/>
+        <location filename="../sources/mainwindow.cpp" line="3204"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Nápověda</translation>
     </message>
@@ -1532,6 +1532,11 @@
         <translation type="unfinished">Velikost náhledů:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="406"/>
+        <source>Fit to viewport</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="410"/>
         <source>Cache size:</source>
         <translation type="unfinished">Velikost vyrovnávací paměti:</translation>
@@ -1727,7 +1732,6 @@
         <translation type="unfinished">Přiblížit výběr</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="785"/>
         <location filename="../sources/settingsdialog.cpp" line="786"/>
         <location filename="../sources/settingsdialog.cpp" line="787"/>
         <location filename="../sources/settingsdialog.cpp" line="788"/>
@@ -1737,7 +1741,8 @@
         <location filename="../sources/settingsdialog.cpp" line="792"/>
         <location filename="../sources/settingsdialog.cpp" line="793"/>
         <location filename="../sources/settingsdialog.cpp" line="794"/>
-        <location filename="../sources/settingsdialog.cpp" line="802"/>
+        <location filename="../sources/settingsdialog.cpp" line="795"/>
+        <location filename="../sources/settingsdialog.cpp" line="803"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MB</translation>
     </message>

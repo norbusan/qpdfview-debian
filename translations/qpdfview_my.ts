@@ -167,42 +167,42 @@
 <context>
     <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="831"/>
+        <location filename="../sources/settingsdialog.cpp" line="832"/>
         <source>Shift</source>
         <translation type="unfinished">Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="832"/>
+        <location filename="../sources/settingsdialog.cpp" line="833"/>
         <source>Ctrl</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="833"/>
+        <location filename="../sources/settingsdialog.cpp" line="834"/>
         <source>Alt</source>
         <translation type="unfinished">Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="834"/>
+        <location filename="../sources/settingsdialog.cpp" line="835"/>
         <source>Shift and Ctrl</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="835"/>
+        <location filename="../sources/settingsdialog.cpp" line="836"/>
         <source>Shift and Alt</source>
         <translation type="unfinished">Shift နှင့် Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="836"/>
+        <location filename="../sources/settingsdialog.cpp" line="837"/>
         <source>Ctrl and Alt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="837"/>
+        <location filename="../sources/settingsdialog.cpp" line="838"/>
         <source>Right mouse button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="838"/>
+        <location filename="../sources/settingsdialog.cpp" line="839"/>
         <source>Middle mouse button</source>
         <translation type="unfinished"></translation>
     </message>
@@ -264,42 +264,42 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="1545"/>
+        <location filename="../sources/documentview.cpp" line="1559"/>
         <source>Information</source>
         <translation type="unfinished">အချက်အလက်</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1545"/>
+        <location filename="../sources/documentview.cpp" line="1559"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Opening URL is disabled in the settings.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1588"/>
+        <location filename="../sources/documentview.cpp" line="1602"/>
         <source>Warning</source>
         <translation type="unfinished">သတိပေးချက်</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1588"/>
+        <location filename="../sources/documentview.cpp" line="1602"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">SyncTeX data for &apos;%1&apos; could not be found.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2060"/>
+        <location filename="../sources/documentview.cpp" line="2085"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; ကိုစာရွက်ထုတ်နေပါသည်</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2129"/>
+        <location filename="../sources/documentview.cpp" line="2159"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Unlock %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2129"/>
+        <location filename="../sources/documentview.cpp" line="2159"/>
         <source>Password:</source>
         <translation type="unfinished">စကားဝှက် −</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2171"/>
+        <location filename="../sources/documentview.cpp" line="2201"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -373,25 +373,25 @@
 <context>
     <name>qpdfview::MainWindow</name>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2866"/>
+        <location filename="../sources/mainwindow.cpp" line="2876"/>
         <source>Toggle tool bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2867"/>
+        <location filename="../sources/mainwindow.cpp" line="2877"/>
         <source>Toggle menu bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="362"/>
         <location filename="../sources/mainwindow.cpp" line="445"/>
-        <location filename="../sources/mainwindow.cpp" line="1206"/>
-        <location filename="../sources/mainwindow.cpp" line="1223"/>
-        <location filename="../sources/mainwindow.cpp" line="1240"/>
-        <location filename="../sources/mainwindow.cpp" line="1276"/>
-        <location filename="../sources/mainwindow.cpp" line="1417"/>
-        <location filename="../sources/mainwindow.cpp" line="2492"/>
-        <location filename="../sources/mainwindow.cpp" line="2506"/>
+        <location filename="../sources/mainwindow.cpp" line="1209"/>
+        <location filename="../sources/mainwindow.cpp" line="1226"/>
+        <location filename="../sources/mainwindow.cpp" line="1243"/>
+        <location filename="../sources/mainwindow.cpp" line="1279"/>
+        <location filename="../sources/mainwindow.cpp" line="1420"/>
+        <location filename="../sources/mainwindow.cpp" line="2502"/>
+        <location filename="../sources/mainwindow.cpp" line="2516"/>
         <source>Warning</source>
         <translation type="unfinished">သတိပေးချက်</translation>
     </message>
@@ -402,529 +402,529 @@
         <translation type="unfinished">&apos;%1&apos; ကိုမဖွင့်နိုင်ပါ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="669"/>
+        <location filename="../sources/mainwindow.cpp" line="672"/>
         <source>Copy file path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="670"/>
+        <location filename="../sources/mainwindow.cpp" line="673"/>
         <source>Select file path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="672"/>
+        <location filename="../sources/mainwindow.cpp" line="675"/>
         <source>Close all tabs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="673"/>
+        <location filename="../sources/mainwindow.cpp" line="676"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="674"/>
+        <location filename="../sources/mainwindow.cpp" line="677"/>
         <source>Close all tabs to the left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="675"/>
+        <location filename="../sources/mainwindow.cpp" line="678"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1161"/>
+        <location filename="../sources/mainwindow.cpp" line="1164"/>
         <source>Open</source>
         <translation type="unfinished">ဖွင့်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1177"/>
+        <location filename="../sources/mainwindow.cpp" line="1180"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Tab တစ်ခုတွင်ဖွင့်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1206"/>
-        <location filename="../sources/mainwindow.cpp" line="1417"/>
+        <location filename="../sources/mainwindow.cpp" line="1209"/>
+        <location filename="../sources/mainwindow.cpp" line="1420"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1213"/>
+        <location filename="../sources/mainwindow.cpp" line="1216"/>
         <source>Save copy</source>
         <translation type="unfinished">မိတ္ထူကိုသိမ်းမည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1223"/>
+        <location filename="../sources/mainwindow.cpp" line="1226"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; မှာ မိတ္ထူကိုမသိမ်းနိုင်ပါ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1230"/>
-        <location filename="../sources/mainwindow.cpp" line="2496"/>
+        <location filename="../sources/mainwindow.cpp" line="1233"/>
+        <location filename="../sources/mainwindow.cpp" line="2506"/>
         <source>Save as</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1240"/>
-        <location filename="../sources/mainwindow.cpp" line="2506"/>
+        <location filename="../sources/mainwindow.cpp" line="1243"/>
+        <location filename="../sources/mainwindow.cpp" line="2516"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1276"/>
+        <location filename="../sources/mainwindow.cpp" line="1279"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; ပရင့်မထုတ်နိုင်ပါ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1313"/>
+        <location filename="../sources/mainwindow.cpp" line="1316"/>
         <source>Set first page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1313"/>
+        <location filename="../sources/mainwindow.cpp" line="1316"/>
         <source>Select the first page of the body matter:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1326"/>
+        <location filename="../sources/mainwindow.cpp" line="1329"/>
         <source>Jump to page</source>
         <translation type="unfinished">စာမျက်နှာသို့သွားမည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1326"/>
+        <location filename="../sources/mainwindow.cpp" line="1329"/>
         <source>Page:</source>
         <translation type="unfinished">စာမျက်နှာ-</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1724"/>
+        <location filename="../sources/mainwindow.cpp" line="1727"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">%1 စာမျက်နှာသို့သွားမည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1875"/>
+        <location filename="../sources/mainwindow.cpp" line="1878"/>
         <source>About qpdfview</source>
         <translation type="unfinished">qpdfview အကြောင်း</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1875"/>
+        <location filename="../sources/mainwindow.cpp" line="1878"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1879"/>
+        <location filename="../sources/mainwindow.cpp" line="1882"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1882"/>
+        <location filename="../sources/mainwindow.cpp" line="1885"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1885"/>
+        <location filename="../sources/mainwindow.cpp" line="1888"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1888"/>
+        <location filename="../sources/mainwindow.cpp" line="1891"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1891"/>
+        <location filename="../sources/mainwindow.cpp" line="1894"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2177"/>
+        <location filename="../sources/mainwindow.cpp" line="2180"/>
         <source>&amp;Edit bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2492"/>
+        <location filename="../sources/mainwindow.cpp" line="2502"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2681"/>
+        <location filename="../sources/mainwindow.cpp" line="2691"/>
         <source>Page width</source>
         <translation type="unfinished">စာမျက်နှာအနံ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2682"/>
+        <location filename="../sources/mainwindow.cpp" line="2692"/>
         <source>Page size</source>
         <translation type="unfinished">စာမျက်နှာအရွယ်အစား</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2705"/>
+        <location filename="../sources/mainwindow.cpp" line="2715"/>
         <source>Match &amp;case</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2706"/>
+        <location filename="../sources/mainwindow.cpp" line="2716"/>
         <source>Whole &amp;words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2707"/>
+        <location filename="../sources/mainwindow.cpp" line="2717"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2769"/>
+        <location filename="../sources/mainwindow.cpp" line="2779"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Oဖွင့်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2770"/>
+        <location filename="../sources/mainwindow.cpp" line="2780"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">&amp;t Tab အသစ်တွင်ဖွင့်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2771"/>
+        <location filename="../sources/mainwindow.cpp" line="2781"/>
         <source>Open &amp;copy in new tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2773"/>
+        <location filename="../sources/mainwindow.cpp" line="2783"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Refresh</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2774"/>
+        <location filename="../sources/mainwindow.cpp" line="2784"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">&amp;S မိတ္ထူကိုသိမ်းမည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2775"/>
+        <location filename="../sources/mainwindow.cpp" line="2785"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2776"/>
+        <location filename="../sources/mainwindow.cpp" line="2786"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">&amp;P စာရွက်ထုတ်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2777"/>
+        <location filename="../sources/mainwindow.cpp" line="2787"/>
         <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2781"/>
+        <location filename="../sources/mainwindow.cpp" line="2791"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;P ယခင်စာမျက်နှာ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2782"/>
+        <location filename="../sources/mainwindow.cpp" line="2792"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;N နောက်စာမျက်နှာ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2783"/>
+        <location filename="../sources/mainwindow.cpp" line="2793"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;F ပထမစာမျက်နှာ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2784"/>
+        <location filename="../sources/mainwindow.cpp" line="2794"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;L နောက်ဆုံးစာမျက်နှာ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2786"/>
+        <location filename="../sources/mainwindow.cpp" line="2796"/>
         <source>&amp;Set first page...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2788"/>
+        <location filename="../sources/mainwindow.cpp" line="2798"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">&amp;J တခြားစာမျက်နှာသို့သွားမည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2790"/>
+        <location filename="../sources/mainwindow.cpp" line="2800"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2791"/>
+        <location filename="../sources/mainwindow.cpp" line="2801"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2793"/>
+        <location filename="../sources/mainwindow.cpp" line="2803"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;S ရှာမည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2794"/>
+        <location filename="../sources/mainwindow.cpp" line="2804"/>
         <source>Find previous</source>
         <translation type="unfinished">ရှေ့တွင်ရှာမည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2795"/>
+        <location filename="../sources/mainwindow.cpp" line="2805"/>
         <source>Find next</source>
         <translation type="unfinished">နောက်တွင်ရှာမည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2796"/>
+        <location filename="../sources/mainwindow.cpp" line="2806"/>
         <source>Cancel search</source>
         <translation type="unfinished">ရှာဖွေခြင်းကိုရပ်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2798"/>
+        <location filename="../sources/mainwindow.cpp" line="2808"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2799"/>
+        <location filename="../sources/mainwindow.cpp" line="2809"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">&amp;A မှတ်သားစာထည့်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2801"/>
+        <location filename="../sources/mainwindow.cpp" line="2811"/>
         <source>Settings...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2805"/>
+        <location filename="../sources/mainwindow.cpp" line="2815"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">&amp;C ဆက်လုပ်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2806"/>
+        <location filename="../sources/mainwindow.cpp" line="2816"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp; နှစ်မျက်နှာ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2807"/>
+        <location filename="../sources/mainwindow.cpp" line="2817"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">&amp;w အဖုံးစာမျက်နှာနှင့်နှစ်မျက်နှာ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2808"/>
+        <location filename="../sources/mainwindow.cpp" line="2818"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">&amp;M စာရွက်အမြောက်အများ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2810"/>
+        <location filename="../sources/mainwindow.cpp" line="2820"/>
         <source>Right to left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2812"/>
+        <location filename="../sources/mainwindow.cpp" line="2822"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">&amp;i ချုံ့မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2813"/>
+        <location filename="../sources/mainwindow.cpp" line="2823"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">&amp;o ချဲ့မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2814"/>
+        <location filename="../sources/mainwindow.cpp" line="2824"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">&amp;s မူလအရွယ်အစား</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2816"/>
+        <location filename="../sources/mainwindow.cpp" line="2826"/>
         <source>Fit to page width</source>
         <translation type="unfinished">စာမျက်နှာအနံနှင့်ဆန့်အောင်ထားမည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2817"/>
+        <location filename="../sources/mainwindow.cpp" line="2827"/>
         <source>Fit to page size</source>
         <translation type="unfinished">စာမျက်နှာအရွယ်အစားနှင့်ဆန့်အောင်ထားမည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2819"/>
+        <location filename="../sources/mainwindow.cpp" line="2829"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">&amp;l ဘယ်ဖက်သို့လှည့်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2820"/>
+        <location filename="../sources/mainwindow.cpp" line="2830"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">&amp;r ညာဖက်သို့လှည့်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2822"/>
+        <location filename="../sources/mainwindow.cpp" line="2832"/>
         <source>Invert colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2823"/>
+        <location filename="../sources/mainwindow.cpp" line="2833"/>
         <source>Convert to grayscale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2824"/>
+        <location filename="../sources/mainwindow.cpp" line="2834"/>
         <source>Trim margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2826"/>
+        <location filename="../sources/mainwindow.cpp" line="2836"/>
         <source>Darken with paper color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2827"/>
+        <location filename="../sources/mainwindow.cpp" line="2837"/>
         <source>Lighten with paper color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2829"/>
+        <location filename="../sources/mainwindow.cpp" line="2839"/>
         <source>Fonts...</source>
         <translation type="unfinished">စာလုံးပုံစံ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2831"/>
+        <location filename="../sources/mainwindow.cpp" line="2841"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">&amp;F စကရင်အပြည့်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2832"/>
+        <location filename="../sources/mainwindow.cpp" line="2842"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2836"/>
+        <location filename="../sources/mainwindow.cpp" line="2846"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">&amp;P ယခင် tab</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2837"/>
+        <location filename="../sources/mainwindow.cpp" line="2847"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">&amp;N နောက် tab</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2839"/>
+        <location filename="../sources/mainwindow.cpp" line="2849"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;C tab ကိုပိတ်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2840"/>
+        <location filename="../sources/mainwindow.cpp" line="2850"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">&amp;a tab များအားလုံးကိုပိတ်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2841"/>
+        <location filename="../sources/mainwindow.cpp" line="2851"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">&amp;b ယခု tab မှလွဲပြီး tab များအားလုံးကိုပိတ်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2852"/>
+        <location filename="../sources/mainwindow.cpp" line="2862"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">&amp;P ရှေ့ကမှတ်တမ်း</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2853"/>
+        <location filename="../sources/mainwindow.cpp" line="2863"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">&amp;N နောက်မှတ်တမ်း</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2855"/>
+        <location filename="../sources/mainwindow.cpp" line="2865"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">&amp;A မှတ်တမ်းထည့်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3052"/>
+        <location filename="../sources/mainwindow.cpp" line="3062"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3064"/>
+        <location filename="../sources/mainwindow.cpp" line="3076"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3136"/>
+        <location filename="../sources/mainwindow.cpp" line="3148"/>
         <source>Composition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2176"/>
-        <location filename="../sources/mainwindow.cpp" line="2856"/>
+        <location filename="../sources/mainwindow.cpp" line="2179"/>
+        <location filename="../sources/mainwindow.cpp" line="2866"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">&amp;Rမှတ်တမ်းဖြုတ်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1893"/>
+        <location filename="../sources/mainwindow.cpp" line="1896"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2772"/>
+        <location filename="../sources/mainwindow.cpp" line="2782"/>
         <source>Open containing &amp;folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2857"/>
+        <location filename="../sources/mainwindow.cpp" line="2867"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">မှတ်တမ်းများအားလုံးကိုဖျက်မည်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2861"/>
+        <location filename="../sources/mainwindow.cpp" line="2871"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;C မာတိကာ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2862"/>
+        <location filename="../sources/mainwindow.cpp" line="2872"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;A အကြောင်း</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2890"/>
-        <location filename="../sources/mainwindow.cpp" line="3091"/>
+        <location filename="../sources/mainwindow.cpp" line="2900"/>
+        <location filename="../sources/mainwindow.cpp" line="3103"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Fဖိုင်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2893"/>
-        <location filename="../sources/mainwindow.cpp" line="3112"/>
+        <location filename="../sources/mainwindow.cpp" line="2903"/>
+        <location filename="../sources/mainwindow.cpp" line="3124"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Eပြင်ဆင်ရန်</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2896"/>
-        <location filename="../sources/mainwindow.cpp" line="3125"/>
+        <location filename="../sources/mainwindow.cpp" line="2906"/>
+        <location filename="../sources/mainwindow.cpp" line="3137"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;V မြင်ကွင်း</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3019"/>
+        <location filename="../sources/mainwindow.cpp" line="3029"/>
         <source>&amp;Outline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3038"/>
+        <location filename="../sources/mainwindow.cpp" line="3048"/>
         <source>&amp;Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2931"/>
+        <location filename="../sources/mainwindow.cpp" line="2941"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Sရှာဖွေရေး</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3142"/>
+        <location filename="../sources/mainwindow.cpp" line="3154"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3145"/>
+        <location filename="../sources/mainwindow.cpp" line="3157"/>
         <source>&amp;Docks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3159"/>
+        <location filename="../sources/mainwindow.cpp" line="3171"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Tabs</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3181"/>
+        <location filename="../sources/mainwindow.cpp" line="3193"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;B မှတ်တမ်းများ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3192"/>
+        <location filename="../sources/mainwindow.cpp" line="3204"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;H အကူအညီ</translation>
     </message>
@@ -1511,6 +1511,11 @@
         <translation type="unfinished">Thumbnail အရွယ်အစား-</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="406"/>
+        <source>Fit to viewport</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="551"/>
         <source>Document context menu:</source>
         <translation type="unfinished"></translation>
@@ -1521,7 +1526,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="785"/>
         <location filename="../sources/settingsdialog.cpp" line="786"/>
         <location filename="../sources/settingsdialog.cpp" line="787"/>
         <location filename="../sources/settingsdialog.cpp" line="788"/>
@@ -1531,7 +1535,8 @@
         <location filename="../sources/settingsdialog.cpp" line="792"/>
         <location filename="../sources/settingsdialog.cpp" line="793"/>
         <location filename="../sources/settingsdialog.cpp" line="794"/>
-        <location filename="../sources/settingsdialog.cpp" line="802"/>
+        <location filename="../sources/settingsdialog.cpp" line="795"/>
+        <location filename="../sources/settingsdialog.cpp" line="803"/>
         <source>%1 MB</source>
         <translation type="unfinished">%1 MB</translation>
     </message>

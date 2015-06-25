@@ -1,5 +1,8 @@
 Release 0.4.16:
   * Added function to dynamically fit thumbnails into the viewport.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated Brazilian Portuguese translations. Thanks to Felipe Braga.
 
 Release 0.4.15:
   * Fixed compatibility with MuPDF version 1.7. Thanks to Martin Banky.

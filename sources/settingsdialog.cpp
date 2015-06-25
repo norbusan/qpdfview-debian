@@ -403,7 +403,7 @@ void SettingsDialog::createGraphicsTab()
                                                  0.0, 25.0, 0.25, s_settings->documentView().thumbnailSpacing());
 
 
-    m_thumbnailSizeSpinBox = addDoubleSpinBox(m_graphicsLayout, tr("Thumbnail size:"), QString(), tr(" px"), tr("Fit to view"),
+    m_thumbnailSizeSpinBox = addDoubleSpinBox(m_graphicsLayout, tr("Thumbnail size:"), QString(), tr(" px"), tr("Fit to viewport"),
                                               0.0, 1800.0, 25.0, s_settings->documentView().thumbnailSize());
 
 
