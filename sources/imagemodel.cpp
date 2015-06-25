@@ -132,11 +132,11 @@ bool ImageDocument::save(const QString& filePath, bool withChanges) const
 {
     Q_UNUSED(withChanges);
 
-    QImageWriter imageWriter(filePath);
+    QImageWriter writer(filePath);
 
-    if(!imageWriter.write(m_image))
+    if(!writer.write(m_image))
     {
-        qWarning() << imageWriter.errorString();
+        qWarning() << writer.errorString();
 
         return false;
     }

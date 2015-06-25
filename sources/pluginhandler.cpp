@@ -1,6 +1,6 @@
 /*
 
-Copyright 2012-2013 Adam Reichold
+Copyright 2012-2013, 2015 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -199,27 +199,27 @@ PluginHandler::FileType matchFileType(const QString& filePath)
 
 #else
 
-    const QFileInfo fileInfo(filePath);
+    const QString suffix = QFileInfo(filePath).suffix().toLower();
 
-    if(fileInfo.suffix().toLower() == QLatin1String("pdf"))
+    if(suffix == QLatin1String("pdf"))
     {
         fileType = PluginHandler::PDF;
     }
-    else if(fileInfo.suffix().toLower() == QLatin1String("ps") || fileInfo.suffix().toLower() == QLatin1String("eps"))
+    else if(suffix == QLatin1String("ps") || suffix == QLatin1String("eps"))
     {
         fileType = PluginHandler::PS;
     }
-    else if(fileInfo.suffix().toLower() == QLatin1String("djvu") || fileInfo.suffix().toLower() == QLatin1String("djv"))
+    else if(suffix == QLatin1String("djvu") || suffix == QLatin1String("djv"))
     {
         fileType = PluginHandler::DjVu;
     }
-    else if(isSupportedImageFormat(fileName))
+    else if(isSupportedImageFormat(filePath))
     {
         fileType = PluginHandler::Image;
     }
     else
     {
-        qDebug() << "Unkown file suffix:" << fileInfo.suffix().toLower();
+        qDebug() << "Unkown file suffix:" << suffix;
     }
 
 #endif // WITH_MAGIC
