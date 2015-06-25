@@ -21,6 +21,26 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "imagemodel.h"
 
+namespace
+{
+
+inline qreal dotsPerInchX(const QImage& image)
+{
+    return 0.0254 * image.dotsPerMeterX();
+}
+
+inline qreal dotsPerInchY(const QImage& image)
+{
+    return 0.0254 * image.dotsPerMeterY();
+}
+
+inline void appendRow(QStandardItemModel* model, const QString& key, const QString& value)
+{
+    model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
+}
+
+} // anonymous
+
 namespace qpdfview
 {
 
@@ -34,14 +54,16 @@ ImagePage::ImagePage(QImage image) :
 
 QSizeF ImagePage::size() const
 {
-    return QSizeF(m_image.width(), m_image.height());
+    return QSizeF(m_image.width() * 72.0 / dotsPerInchX(m_image),
+                  m_image.height() * 72.0 / dotsPerInchY(m_image));
 }
 
 QImage ImagePage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
 {
     QTransform transform;
 
-    transform.scale(horizontalResolution / 72.0, verticalResolution / 72.0);
+    transform.scale(horizontalResolution / dotsPerInchX(m_image),
+                    verticalResolution / dotsPerInchY(m_image));
 
     switch(rotation)
     {
@@ -82,6 +104,50 @@ int ImageDocument::numberOfPages() const
 Page* ImageDocument::page(int index) const
 {
     return index == 0 ? new ImagePage(m_image) : 0;
+}
+
+void ImageDocument::loadProperties(QStandardItemModel *propertiesModel) const
+{
+    Document::loadProperties(propertiesModel);
+
+    propertiesModel->setColumnCount(2);
+
+    appendRow(propertiesModel, tr("Size"), QString("%1 px x %2 px").arg(m_image.width()).arg(m_image.height()));
+    appendRow(propertiesModel, tr("Resolution"), QString("%1 dpi x %2 dpi").arg(dotsPerInchX(m_image), 0, 'f', 1).arg(dotsPerInchY(m_image), 0, 'f', 1));
+    appendRow(propertiesModel, tr("Depth"), QString("%1 bits").arg(m_image.depth()));
+
+    switch(m_image.format())
+    {
+    default:
+        break;
+    case QImage::Format_Mono:
+    case QImage::Format_MonoLSB:
+        appendRow(propertiesModel, tr("Format"), tr("Monochrome"));
+        break;
+    case QImage::Format_Indexed8:
+        appendRow(propertiesModel, tr("Format"), tr("Indexed"));
+        break;
+    case QImage::Format_RGB32:
+        appendRow(propertiesModel, tr("Format"), tr("32 bits RGB"));
+        break;
+    case QImage::Format_ARGB32:
+        appendRow(propertiesModel, tr("Format"), tr("32 bits ARGB"));
+        break;
+    case QImage::Format_RGB16:
+    case QImage::Format_RGB555:
+    case QImage::Format_RGB444:
+        appendRow(propertiesModel, tr("Format"), tr("16 bits RGB"));
+        break;
+    case QImage::Format_RGB666:
+    case QImage::Format_RGB888:
+        appendRow(propertiesModel, tr("Format"), tr("24 bits RGB"));
+        break;
+    }
+
+    foreach(const QString& key, m_image.textKeys())
+    {
+        appendRow(propertiesModel, key, m_image.text(key));
+    }
 }
 
 } // Model

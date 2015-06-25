@@ -62,6 +62,8 @@ namespace Model
 
         Page* page(int index) const;
 
+        void loadProperties(QStandardItemModel* propertiesModel) const;
+
     private:
         Q_DISABLE_COPY(ImageDocument)
 

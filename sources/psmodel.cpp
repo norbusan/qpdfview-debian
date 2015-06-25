@@ -30,6 +30,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <libspectre/spectre-document.h>
 
+namespace
+{
+
+inline void appendRow(QStandardItemModel* model, const QString& key, const QString& value)
+{
+    model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
+}
+
+} // anonymous
+
 namespace qpdfview
 {
 
@@ -219,12 +229,12 @@ void PsDocument::loadProperties(QStandardItemModel* propertiesModel) const
 
     propertiesModel->setColumnCount(2);
 
-    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Title")) << new QStandardItem(title));
-    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Created for")) << new QStandardItem(createdFor));
-    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Creator")) << new QStandardItem(creator));
-    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Creation date")) << new QStandardItem(creationDate));
-    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Format")) << new QStandardItem(format));
-    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Language level")) << new QStandardItem(languageLevel));
+    appendRow(propertiesModel, tr("Title"), title);
+    appendRow(propertiesModel, tr("Created for"), createdFor);
+    appendRow(propertiesModel, tr("Creator"), creator);
+    appendRow(propertiesModel, tr("Creation date"), creationDate);
+    appendRow(propertiesModel, tr("Format"), format);
+    appendRow(propertiesModel, tr("Language level"), languageLevel);
 }
 
 } // Model
