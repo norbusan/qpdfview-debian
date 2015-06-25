@@ -402,7 +402,7 @@ bool PluginHandler::loadPlugin(FileType fileType)
     #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
         Q_IMPORT_PLUGIN(qpdfview_image)
     #else
-        Q_IMPORT_PLUGIN(qpdfview::ImagePlugin)
+        Q_IMPORT_PLUGIN(ImagePlugin)
     #endif // QT_VERSION
 #endif // STATIC_IMAGE_PLUGIN
 
@@ -410,7 +410,7 @@ bool PluginHandler::loadPlugin(FileType fileType)
     #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
         Q_IMPORT_PLUGIN(qpdfview_fitz)
     #else
-        Q_IMPORT_PLUGIN(qpdfview::FitzPlugin)
+        Q_IMPORT_PLUGIN(FitzPlugin)
     #endif // QT_VERSION
 #endif // STATIC_FITZ_PLUGIN
 
@@ -418,7 +418,7 @@ bool PluginHandler::loadPlugin(FileType fileType)
     #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
         Q_IMPORT_PLUGIN(qpdfview_pdf)
     #else
-        Q_IMPORT_PLUGIN(qpdfview::PdfPlugin)
+        Q_IMPORT_PLUGIN(PdfPlugin)
     #endif // QT_VERSION
 #endif // STATIC_PDF_PLUGIN
 
@@ -426,7 +426,7 @@ bool PluginHandler::loadPlugin(FileType fileType)
     #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
         Q_IMPORT_PLUGIN(qpdfview_ps)
     #else
-        Q_IMPORT_PLUGIN(qpdfview::PsPlugin)
+        Q_IMPORT_PLUGIN(PsPlugin)
     #endif // QT_VERSION
 #endif // STATIC_PS_PLUGIN
 
@@ -434,6 +434,6 @@ bool PluginHandler::loadPlugin(FileType fileType)
     #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
         Q_IMPORT_PLUGIN(qpdfview_djvu)
     #else
-        Q_IMPORT_PLUGIN(qpdfview::DjvuPlugin)
+        Q_IMPORT_PLUGIN(DjvuPlugin)
     #endif // QT_VERSION
 #endif // STATIC_DJVU_PLUGIN
