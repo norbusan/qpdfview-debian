@@ -27,6 +27,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace
 {
 
+using namespace qpdfview;
+using namespace qpdfview::Model;
+
 inline qreal dotsPerInchX(const QImage& image)
 {
     return 0.0254 * image.dotsPerMeterX();
@@ -147,8 +150,6 @@ bool ImageDocument::save(const QString& filePath, bool withChanges) const
 void ImageDocument::loadProperties(QStandardItemModel *propertiesModel) const
 {
     Document::loadProperties(propertiesModel);
-
-    propertiesModel->setColumnCount(2);
 
     appendRow(propertiesModel, tr("Size"), QString("%1 px x %2 px").arg(m_image.width()).arg(m_image.height()));
     appendRow(propertiesModel, tr("Resolution"), QString("%1 dpi x %2 dpi").arg(dotsPerInchX(m_image), 0, 'f', 1).arg(dotsPerInchY(m_image), 0, 'f', 1));

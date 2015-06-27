@@ -64,6 +64,11 @@ namespace
 using namespace qpdfview;
 using namespace qpdfview::Model;
 
+inline void appendRow(QStandardItemModel* model, const QString& key, const QString& value)
+{
+    model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
+}
+
 void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardItem* parent)
 {
     const QDomElement element = node.toElement();
@@ -824,9 +829,7 @@ void PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
 
     LOCK_DOCUMENT
 
-    QDomDocument* toc = m_document->toc();
-
-    if(toc != 0)
+    if(QDomDocument* toc = m_document->toc())
     {
         ::loadOutline(m_document, toc->firstChild(), outlineModel->invisibleRootItem());
 
@@ -840,14 +843,8 @@ void PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
 
     LOCK_DOCUMENT
 
-    QStringList keys = m_document->infoKeys();
-
-    propertiesModel->setRowCount(keys.count());
-    propertiesModel->setColumnCount(2);
-
-    for(int index = 0; index < keys.count(); ++index)
+    foreach(const QString& key, m_document->infoKeys())
     {
-        const QString key = keys.at(index);
         QString value = m_document->info(key);
 
         if(value.startsWith("D:"))
@@ -855,25 +852,17 @@ void PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
             value = m_document->date(key).toString();
         }
 
-        propertiesModel->setItem(index, 0, new QStandardItem(key));
-        propertiesModel->setItem(index, 1, new QStandardItem(value));
+        appendRow(propertiesModel, key, value);
     }
 
     int pdfMajorVersion = 1;
     int pdfMinorVersion = 0;
     m_document->getPdfVersion(&pdfMajorVersion, &pdfMinorVersion);
 
-    propertiesModel->appendRow(QList< QStandardItem* >()
-                               << new QStandardItem(tr("PDF version"))
-                               << new QStandardItem(QString("%1.%2").arg(pdfMajorVersion).arg(pdfMinorVersion)));
+    appendRow(propertiesModel, tr("PDF version"), QString("%1.%2").arg(pdfMajorVersion).arg(pdfMinorVersion));
 
-    propertiesModel->appendRow(QList< QStandardItem* >()
-                               << new QStandardItem(tr("Encrypted"))
-                               << new QStandardItem(m_document->isEncrypted() ? tr("Yes") : tr("No")));
-
-    propertiesModel->appendRow(QList< QStandardItem* >()
-                               << new QStandardItem(tr("Linearized"))
-                               << new QStandardItem(m_document->isLinearized() ? tr("Yes") : tr("No")));
+    appendRow(propertiesModel, tr("Encrypted"), m_document->isEncrypted() ? tr("Yes") : tr("No"));
+    appendRow(propertiesModel, tr("Linearized"), m_document->isLinearized() ? tr("Yes") : tr("No"));
 }
 
 void PdfDocument::loadFonts(QStandardItemModel* fontsModel) const

@@ -160,7 +160,7 @@ namespace Model
         };
 
         virtual void loadOutline(QStandardItemModel* outlineModel) const { outlineModel->clear(); }
-        virtual void loadProperties(QStandardItemModel* propertiesModel) const { propertiesModel->clear(); }
+        virtual void loadProperties(QStandardItemModel* propertiesModel) const { propertiesModel->clear(); propertiesModel->setColumnCount(2); }
 
         virtual void loadFonts(QStandardItemModel* fontsModel) const { fontsModel->clear(); }
 

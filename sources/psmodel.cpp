@@ -33,6 +33,9 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace
 {
 
+using namespace qpdfview;
+using namespace qpdfview::Model;
+
 inline void appendRow(QStandardItemModel* model, const QString& key, const QString& value)
 {
     model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
@@ -226,8 +229,6 @@ void PsDocument::loadProperties(QStandardItemModel* propertiesModel) const
     const QString creationDate = QString::fromLocal8Bit(spectre_document_get_creation_date(m_document));
     const QString format = QString::fromLocal8Bit(spectre_document_get_format(m_document));
     const QString languageLevel = QString::number(spectre_document_get_language_level(m_document));
-
-    propertiesModel->setColumnCount(2);
 
     appendRow(propertiesModel, tr("Title"), title);
     appendRow(propertiesModel, tr("Created for"), createdFor);
