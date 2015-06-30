@@ -188,7 +188,7 @@ with_fitz {
     DEFINES += FITZ_PLUGIN_NAME=\\\"$${FITZ_PLUGIN_NAME}\\\"
 }
 
-with_image {
+!without_image {
     DEFINES += WITH_IMAGE
 
     static_image_plugin {

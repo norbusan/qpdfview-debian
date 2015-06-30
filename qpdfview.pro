@@ -23,7 +23,7 @@ with_fitz {
     application.pro.depends = fitz-plugin.pro
 }
 
-with_image {
+!without_image {
     SUBDIRS += image-plugin.pro
     application.pro.depends = image-plugin.pro
 }
