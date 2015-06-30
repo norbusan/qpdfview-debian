@@ -30,6 +30,19 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <libspectre/spectre-document.h>
 
+namespace
+{
+
+using namespace qpdfview;
+using namespace qpdfview::Model;
+
+inline void appendRow(QStandardItemModel* model, const QString& key, const QString& value)
+{
+    model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
+}
+
+} // anonymous
+
 namespace qpdfview
 {
 
@@ -175,11 +188,11 @@ QStringList PsDocument::saveFilter() const
 
     if(spectre_document_is_eps(m_document))
     {
-        return QStringList() << "Encapsulated PostScript (*.eps)";
+        return QStringList() << QLatin1String("Encapsulated PostScript (*.eps)");
     }
     else
     {
-        return QStringList() << "PostScript (*.ps)";
+        return QStringList() << QLatin1String("PostScript (*.ps)");
     }
 }
 
@@ -196,7 +209,7 @@ bool PsDocument::save(const QString& filePath, bool withChanges) const
 
     spectre_document_save(m_document, QFile::encodeName(filePath));
 
-    return (spectre_document_status(m_document) == SPECTRE_STATUS_SUCCESS);
+    return spectre_document_status(m_document) == SPECTRE_STATUS_SUCCESS;
 }
 
 bool PsDocument::canBePrintedUsingCUPS() const
@@ -217,14 +230,12 @@ void PsDocument::loadProperties(QStandardItemModel* propertiesModel) const
     const QString format = QString::fromLocal8Bit(spectre_document_get_format(m_document));
     const QString languageLevel = QString::number(spectre_document_get_language_level(m_document));
 
-    propertiesModel->setColumnCount(2);
-
-    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Title")) << new QStandardItem(title));
-    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Created for")) << new QStandardItem(createdFor));
-    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Creator")) << new QStandardItem(creator));
-    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Creation date")) << new QStandardItem(creationDate));
-    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Format")) << new QStandardItem(format));
-    propertiesModel->appendRow(QList< QStandardItem* >() << new QStandardItem(tr("Language level")) << new QStandardItem(languageLevel));
+    appendRow(propertiesModel, tr("Title"), title);
+    appendRow(propertiesModel, tr("Created for"), createdFor);
+    appendRow(propertiesModel, tr("Creator"), creator);
+    appendRow(propertiesModel, tr("Creation date"), creationDate);
+    appendRow(propertiesModel, tr("Format"), format);
+    appendRow(propertiesModel, tr("Language level"), languageLevel);
 }
 
 } // Model

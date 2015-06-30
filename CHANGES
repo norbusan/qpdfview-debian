@@ -1,5 +1,6 @@
 Release 0.4.16:
   * Added function to dynamically fit thumbnails into the viewport.
+  * Added support to open image formats supported by Qt.
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated Malay translations. Thanks to abuyop.
   * Updated Brazilian Portuguese translations. Thanks to Felipe Braga.

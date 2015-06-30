@@ -233,6 +233,11 @@ int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** o
 
 #endif // WITH_CUPS
 
+void adjustFileTemplateSuffix(QTemporaryFile& temporaryFile, const QString& suffix)
+{
+    temporaryFile.setFileTemplate(temporaryFile.fileTemplate() + QLatin1String(".") + suffix);
+}
+
 bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
 {
     return ((settings->documentView().zoomModifiers() | settings->documentView().rotateModifiers() | settings->documentView().scrollModifiers()) & mouseButton) != 0;
@@ -1042,6 +1047,8 @@ bool DocumentView::save(const QString& filePath, bool withChanges)
 {
     // Save document to temporary file...
     QTemporaryFile temporaryFile;
+
+    adjustFileTemplateSuffix(temporaryFile, QFileInfo(filePath).suffix());
 
     if(!temporaryFile.open())
     {
@@ -2045,6 +2052,8 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
     }
 
     QTemporaryFile temporaryFile;
+
+    adjustFileTemplateSuffix(temporaryFile, m_fileInfo.suffix());
 
     if(!temporaryFile.open())
     {
