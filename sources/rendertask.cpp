@@ -47,13 +47,17 @@ qreal scaledResolutionY(const RenderParam& renderParam)
             * renderParam.scaleFactor();
 }
 
+const QRgb alphaMask = 0xff << 24;
+
 bool columnHasPaperColor(int x, QRgb paperColor, const QImage& image)
 {
     const int height = image.height();
 
     for(int y = 0; y < height; ++y)
     {
-        if(paperColor != (image.pixel(x, y) | 0xff000000u))
+        const QRgb color = image.pixel(x, y);
+
+        if(qAlpha(color) != 0 && paperColor != (color | alphaMask))
         {
             return false;
         }
@@ -68,7 +72,9 @@ bool rowHasPaperColor(int y, QRgb paperColor, const QImage& image)
 
     for(int x = 0; x < width; ++x)
     {
-        if(paperColor != (image.pixel(x, y) | 0xff000000u))
+        const QRgb color = image.pixel(x, y);
+
+        if(qAlpha(color) != 0 && paperColor != (color | alphaMask))
         {
             return false;
         }
@@ -238,7 +244,7 @@ void RenderTask::run()
     {
         CANCELLATION_POINT
 
-        cropRect = trimMargins(s_settings->pageItem().paperColor().rgb(), image);
+        cropRect = trimMargins(s_settings->pageItem().paperColor().rgb() | alphaMask, image);
     }
 
     if(m_renderParam.convertToGrayscale())
