@@ -126,9 +126,6 @@ public:
     RubberBandMode rubberBandMode() const { return m_rubberBandMode; }
     void setRubberBandMode(RubberBandMode rubberBandMode);
 
-    bool searchWasCanceled() const;
-    int searchProgress() const;
-
     QSize thumbnailsViewportSize() const { return m_thumbnailsViewportSize; }
     void setThumbnailsViewportSize(const QSize& thumbnailsViewportSize);
 
@@ -142,6 +139,9 @@ public:
     QStandardItemModel* propertiesModel() const { return m_propertiesModel; }
 
     QStandardItemModel* fontsModel() const;
+
+    bool searchWasCanceled() const;
+    int searchProgress() const;
 
     QString searchText() const;
     bool searchMatchCase() const;

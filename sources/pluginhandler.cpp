@@ -303,14 +303,14 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
         return 0;
     }
 
-    if(loadPlugin(fileType))
+    if(!loadPlugin(fileType))
     {
-        return m_plugins.value(fileType)->loadDocument(filePath);
+        QMessageBox::critical(0, tr("Critical"), tr("Could not load plug-in for file type '%1'!").arg(fileTypeName(fileType)));
+
+        return 0;
     }
 
-    QMessageBox::critical(0, tr("Critical"), tr("Could not load plug-in for file type '%1'!").arg(fileTypeName(fileType)));
-
-    return 0;
+    return m_plugins.value(fileType)->loadDocument(filePath);
 }
 
 SettingsWidget* PluginHandler::createSettingsWidget(FileType fileType, QWidget* parent)
@@ -371,9 +371,7 @@ bool PluginHandler::loadPlugin(FileType fileType)
 
     foreach(const QString& objectName, m_objectNames.values(fileType))
     {
-        Plugin* plugin = ::loadStaticPlugin(objectName);
-
-        if(plugin != 0)
+        if(Plugin* plugin = ::loadStaticPlugin(objectName))
         {
             m_plugins.insert(fileType, plugin);
 
@@ -383,9 +381,7 @@ bool PluginHandler::loadPlugin(FileType fileType)
 
     foreach(const QString& fileName, m_fileNames.values(fileType))
     {
-        Plugin* plugin = ::loadPlugin(fileName);
-
-        if(plugin != 0)
+        if(Plugin* plugin = ::loadPlugin(fileName))
         {
             m_plugins.insert(fileType, plugin);
 

@@ -868,16 +868,6 @@ void DocumentView::setRubberBandMode(RubberBandMode rubberBandMode)
     }
 }
 
-bool DocumentView::searchWasCanceled() const
-{
-    return m_searchTask->wasCanceled();
-}
-
-int DocumentView::searchProgress() const
-{
-    return m_searchTask->progress();
-}
-
 void DocumentView::setThumbnailsViewportSize(const QSize& thumbnailsViewportSize)
 {
     if(m_thumbnailsViewportSize != thumbnailsViewportSize)
@@ -905,6 +895,16 @@ QStandardItemModel* DocumentView::fontsModel() const
     m_document->loadFonts(fontsModel);
 
     return fontsModel;
+}
+
+bool DocumentView::searchWasCanceled() const
+{
+    return m_searchTask->wasCanceled();
+}
+
+int DocumentView::searchProgress() const
+{
+    return m_searchTask->progress();
 }
 
 QString DocumentView::searchText() const
@@ -1816,28 +1816,25 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == Qt::NoModifier)
+    else if(event->modifiers() == Qt::NoModifier && !m_continuousMode)
     {
-        if(!m_continuousMode)
+        if(event->delta() > 0 && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
         {
-            if(event->delta() > 0 && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
-            {
-                previousPage();
+            previousPage();
 
-                verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+            verticalScrollBar()->setValue(verticalScrollBar()->maximum());
 
-                event->accept();
-                return;
-            }
-            else if(event->delta() < 0 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != m_layout->currentPage(m_pages.count()))
-            {
-                nextPage();
+            event->accept();
+            return;
+        }
+        else if(event->delta() < 0 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != m_layout->currentPage(m_pages.count()))
+        {
+            nextPage();
 
-                verticalScrollBar()->setValue(verticalScrollBar()->minimum());
+            verticalScrollBar()->setValue(verticalScrollBar()->minimum());
 
-                event->accept();
-                return;
-            }
+            event->accept();
+            return;
         }
     }
 
