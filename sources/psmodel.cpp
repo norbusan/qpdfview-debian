@@ -41,6 +41,14 @@ inline void appendRow(QStandardItemModel* model, const QString& key, const QStri
     model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
 }
 
+namespace Defaults
+{
+
+const int graphicsAntialiasBits = 4;
+const int textAntialiasBits = 2;
+
+} // Defaults
+
 } // anonymous
 
 namespace qpdfview
@@ -249,29 +257,29 @@ PsSettingsWidget::PsSettingsWidget(QSettings* settings, QWidget* parent) : Setti
 
     m_graphicsAntialiasBitsSpinBox = new QSpinBox(this);
     m_graphicsAntialiasBitsSpinBox->setRange(1, 4);
-    m_graphicsAntialiasBitsSpinBox->setValue(m_settings->value("graphicsAntialiasBits", 4).toInt());
+    m_graphicsAntialiasBitsSpinBox->setValue(m_settings->value("graphicsAntialiasBits", Defaults::graphicsAntialiasBits).toInt());
 
     m_layout->addRow(tr("Graphics antialias bits:"), m_graphicsAntialiasBitsSpinBox);
 
     // text antialias bits
 
-    m_textAntialisBitsSpinBox = new QSpinBox(this);
-    m_textAntialisBitsSpinBox->setRange(1, 2);
-    m_textAntialisBitsSpinBox->setValue(m_settings->value("textAntialiasBits", 2).toInt());
+    m_textAntialiasBitsSpinBox = new QSpinBox(this);
+    m_textAntialiasBitsSpinBox->setRange(1, 2);
+    m_textAntialiasBitsSpinBox->setValue(m_settings->value("textAntialiasBits", Defaults::textAntialiasBits).toInt());
 
-    m_layout->addRow(tr("Text antialias bits:"), m_textAntialisBitsSpinBox);
+    m_layout->addRow(tr("Text antialias bits:"), m_textAntialiasBitsSpinBox);
 }
 
 void PsSettingsWidget::accept()
 {
     m_settings->setValue("graphicsAntialiasBits", m_graphicsAntialiasBitsSpinBox->value());
-    m_settings->setValue("textAntialiasBits", m_textAntialisBitsSpinBox->value());
+    m_settings->setValue("textAntialiasBits", m_textAntialiasBitsSpinBox->value());
 }
 
 void PsSettingsWidget::reset()
 {
-    m_graphicsAntialiasBitsSpinBox->setValue(4);
-    m_textAntialisBitsSpinBox->setValue(2);
+    m_graphicsAntialiasBitsSpinBox->setValue(Defaults::graphicsAntialiasBits);
+    m_textAntialiasBitsSpinBox->setValue(Defaults::textAntialiasBits);
 }
 
 PsPlugin::PsPlugin(QObject* parent) : QObject(parent)
@@ -297,8 +305,8 @@ Model::Document* PsPlugin::loadDocument(const QString& filePath) const
     SpectreRenderContext* renderContext = spectre_render_context_new();
 
     spectre_render_context_set_antialias_bits(renderContext,
-                                              m_settings->value("graphicsAntialiasBits", 4).toInt(),
-                                              m_settings->value("textAntialiasBits", 2).toInt());
+                                              m_settings->value("graphicsAntialiasBits", Defaults::graphicsAntialiasBits).toInt(),
+                                              m_settings->value("textAntialiasBits", Defaults::textAntialiasBits).toInt());
 
     return new Model::PsDocument(document, renderContext);
 }

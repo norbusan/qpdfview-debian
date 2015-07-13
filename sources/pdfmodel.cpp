@@ -155,6 +155,44 @@ QMutex textCacheMutex;
 
 #define LOCK_TEXT_CACHE QMutexLocker mutexLocker(&textCacheMutex);
 
+namespace Defaults
+{
+
+const bool antialiasing = true;
+const bool textAntialiasing = true;
+
+#ifdef HAS_POPPLER_18
+
+const int textHinting = 0;
+
+#else
+
+const bool textHinting = false;
+
+#endif // HAS_POPPLER_18
+
+#ifdef HAS_POPPLER_35
+
+const bool ignorePaperColor = false;
+
+#endif // HAS_POPPLER_35
+
+#ifdef HAS_POPPLER_22
+
+const bool overprintPreview = false;
+
+#endif // HAS_POPPLER_22
+
+#ifdef HAS_POPPLER_24
+
+const int thinLineMode = 0;
+
+#endif // HAS_POPPLER_24
+
+const int backend = 0;
+
+} // Defaults
+
 } // anonymous
 
 namespace qpdfview
@@ -954,14 +992,14 @@ PdfSettingsWidget::PdfSettingsWidget(QSettings* settings, QWidget* parent) : Set
     // antialiasing
 
     m_antialiasingCheckBox = new QCheckBox(this);
-    m_antialiasingCheckBox->setChecked(m_settings->value("antialiasing", true).toBool());
+    m_antialiasingCheckBox->setChecked(m_settings->value("antialiasing", Defaults::antialiasing).toBool());
 
     m_layout->addRow(tr("Antialiasing:"), m_antialiasingCheckBox);
 
     // text antialising
 
     m_textAntialiasingCheckBox = new QCheckBox(this);
-    m_textAntialiasingCheckBox->setChecked(m_settings->value("textAntialiasing", true).toBool());
+    m_textAntialiasingCheckBox->setChecked(m_settings->value("textAntialiasing", Defaults::textAntialiasing).toBool());
 
     m_layout->addRow(tr("Text antialiasing:"), m_textAntialiasingCheckBox);
 
@@ -973,25 +1011,34 @@ PdfSettingsWidget::PdfSettingsWidget(QSettings* settings, QWidget* parent) : Set
     m_textHintingComboBox->addItem(tr("None"));
     m_textHintingComboBox->addItem(tr("Full"));
     m_textHintingComboBox->addItem(tr("Reduced"));
-    m_textHintingComboBox->setCurrentIndex(m_settings->value("textHinting", 0).toInt());
+    m_textHintingComboBox->setCurrentIndex(m_settings->value("textHinting", Defaults::textHinting).toInt());
 
     m_layout->addRow(tr("Text hinting:"), m_textHintingComboBox);
 
 #else
 
     m_textHintingCheckBox = new QCheckBox(this);
-    m_textHintingCheckBox->setChecked(m_settings->value("textHinting", false).toBool());
+    m_textHintingCheckBox->setChecked(m_settings->value("textHinting", Defaults::textHinting).toBool());
 
     m_layout->addRow(tr("Text hinting:"), m_textHintingCheckBox);
 
 #endif // HAS_POPPLER_18
+
+#ifdef HAS_POPPLER_35
+
+    m_ignorePaperColorCheckBox = new QCheckBox(this);
+    m_ignorePaperColorCheckBox->setChecked(m_settings->value("ignorePaperColor", Defaults::ignorePaperColor).toBool());
+
+    m_layout->addRow(tr("Ignore paper color:"), m_ignorePaperColorCheckBox);
+
+#endif // HAS_POPPLER_35
 
 #ifdef HAS_POPPLER_22
 
     // overprint preview
 
     m_overprintPreviewCheckBox = new QCheckBox(this);
-    m_overprintPreviewCheckBox->setChecked(m_settings->value("overprintPreview", false).toBool());
+    m_overprintPreviewCheckBox->setChecked(m_settings->value("overprintPreview", Defaults::overprintPreview).toBool());
 
     m_layout->addRow(tr("Overprint preview:"), m_overprintPreviewCheckBox);
 
@@ -1003,7 +1050,7 @@ PdfSettingsWidget::PdfSettingsWidget(QSettings* settings, QWidget* parent) : Set
     m_thinLineModeComboBox->addItem(tr("None"));
     m_thinLineModeComboBox->addItem(tr("Solid"));
     m_thinLineModeComboBox->addItem(tr("Shaped"));
-    m_thinLineModeComboBox->setCurrentIndex(m_settings->value("thinLineMode", 0).toInt());
+    m_thinLineModeComboBox->setCurrentIndex(m_settings->value("thinLineMode", Defaults::thinLineMode).toInt());
 
     m_layout->addRow(tr("Thin line mode:"), m_thinLineModeComboBox);
 
@@ -1012,7 +1059,7 @@ PdfSettingsWidget::PdfSettingsWidget(QSettings* settings, QWidget* parent) : Set
     m_backendComboBox = new QComboBox(this);
     m_backendComboBox->addItem(tr("Splash"));
     m_backendComboBox->addItem(tr("Arthur"));
-    m_backendComboBox->setCurrentIndex(m_settings->value("backend", 0).toInt());
+    m_backendComboBox->setCurrentIndex(m_settings->value("backend", Defaults::backend).toInt());
 
     m_layout->addRow(tr("Backend:"), m_backendComboBox);
 }
@@ -1032,6 +1079,11 @@ void PdfSettingsWidget::accept()
 
 #endif // HAS_POPPLER_18
 
+#ifdef HAS_POPPLER_35
+
+    m_settings->setValue("ignorePaperColor", m_ignorePaperColorCheckBox->isChecked());
+
+#endif // HAS_POPPLER_35
 
 #ifdef HAS_POPPLER_22
 
@@ -1050,32 +1102,38 @@ void PdfSettingsWidget::accept()
 
 void PdfSettingsWidget::reset()
 {
-    m_antialiasingCheckBox->setChecked(true);
-    m_textAntialiasingCheckBox->setChecked(true);
+    m_antialiasingCheckBox->setChecked(Defaults::antialiasing);
+    m_textAntialiasingCheckBox->setChecked(Defaults::textAntialiasing);
 
 #ifdef HAS_POPPLER_18
 
-    m_textHintingComboBox->setCurrentIndex(0);
+    m_textHintingComboBox->setCurrentIndex(Defaults::textHinting);
 
 #else
 
-    m_textHintingCheckBox->setChecked(false);
+    m_textHintingCheckBox->setChecked(Defaults::textHinting);
 
 #endif // HAS_POPPLER_18
 
+#ifdef HAS_POPPLER_35
+
+    m_ignorePaperColorCheckBox->setChecked(Defaults::ignorePaperColor);
+
+#endif // HAS_POPPLER_35
+
 #ifdef HAS_POPPLER_22
 
-    m_overprintPreviewCheckBox->setChecked(false);
+    m_overprintPreviewCheckBox->setChecked(Defaults::overprintPreview);
 
 #endif // HAS_POPPLER_22
 
 #ifdef HAS_POPPLER_24
 
-    m_thinLineModeComboBox->setCurrentIndex(0);
+    m_thinLineModeComboBox->setCurrentIndex(Defaults::thinLineMode);
 
 #endif // HAS_POPPLER_24
 
-    m_backendComboBox->setCurrentIndex(0);
+    m_backendComboBox->setCurrentIndex(Defaults::backend);
 }
 
 PdfPlugin::PdfPlugin(QObject* parent) : QObject(parent)
@@ -1091,12 +1149,12 @@ Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
 
     if(document != 0)
     {
-        document->setRenderHint(Poppler::Document::Antialiasing, m_settings->value("antialiasing", true).toBool());
-        document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings->value("textAntialiasing", true).toBool());
+        document->setRenderHint(Poppler::Document::Antialiasing, m_settings->value("antialiasing", Defaults::antialiasing).toBool());
+        document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings->value("textAntialiasing", Defaults::textAntialiasing).toBool());
 
 #if defined(HAS_POPPLER_18)
 
-        switch(m_settings->value("textHinting", 0).toInt())
+        switch(m_settings->value("textHinting", Defaults::textHinting).toInt())
         {
         default:
         case 0:
@@ -1114,19 +1172,25 @@ Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
 
 #elif defined(HAS_POPPLER_14)
 
-        document->setRenderHint(Poppler::Document::TextHinting, m_settings->value("textHinting", false).toBool());
+        document->setRenderHint(Poppler::Document::TextHinting, m_settings->value("textHinting", Defaults::textHinting).toBool());
 
 #endif // HAS_POPPLER_18 HAS_POPPLER_14
 
+#ifdef HAS_POPPLER_35
+
+        document->setRenderHint(Poppler::Document::IgnorePaperColor, m_settings->value("ignorePaperColor", Defaults::ignorePaperColor).toBool());
+
+#endif // HAS_POPPLER_35
+
 #ifdef HAS_POPPLER_22
 
-        document->setRenderHint(Poppler::Document::OverprintPreview, m_settings->value("overprintPreview", false).toBool());
+        document->setRenderHint(Poppler::Document::OverprintPreview, m_settings->value("overprintPreview", Defaults::overprintPreview).toBool());
 
 #endif // HAS_POPPLER_22
 
 #ifdef HAS_POPPLER_24
 
-        switch(m_settings->value("thinLineMode", 0).toInt())
+        switch(m_settings->value("thinLineMode", Defaults::thinLineMode).toInt())
         {
         default:
         case 0:
@@ -1145,7 +1209,7 @@ Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
 
 #endif // HAS_POPPLER_24
 
-        switch(m_settings->value("backend").toInt())
+        switch(m_settings->value("backend", Defaults::backend).toInt())
         {
         default:
         case 0:

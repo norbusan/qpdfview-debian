@@ -2025,7 +2025,7 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
         break;
     }
 
-#else // QT_VERSION
+#else
 
     {
         bool ok = false;

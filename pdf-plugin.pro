@@ -21,9 +21,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 !without_pkgconfig {
     poppler_qt_pkg = poppler-qt$${QT_MAJOR_VERSION}
 
-    CONFIG += link_pkgconfig
-    PKGCONFIG += $${poppler_qt_pkg}
-
     system(pkg-config --atleast-version=0.14 $${poppler_qt_pkg}):DEFINES += HAS_POPPLER_14
     system(pkg-config --atleast-version=0.18 $${poppler_qt_pkg}):DEFINES += HAS_POPPLER_18
     system(pkg-config --atleast-version=0.20.1 $${poppler_qt_pkg}):DEFINES += HAS_POPPLER_20
@@ -31,6 +28,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
     system(pkg-config --atleast-version=0.24 $${poppler_qt_pkg}):DEFINES += HAS_POPPLER_24
     system(pkg-config --atleast-version=0.26 $${poppler_qt_pkg}):DEFINES += HAS_POPPLER_26
     system(pkg-config --atleast-version=0.31 $${poppler_qt_pkg}):DEFINES += HAS_POPPLER_31
+    system(pkg-config --atleast-version=0.34 $${poppler_qt_pkg}):DEFINES += HAS_POPPLER_35
+
+    CONFIG += link_pkgconfig
+    PKGCONFIG += $${poppler_qt_pkg}
 } else {
     DEFINES += $$PDF_PLUGIN_DEFINES
     INCLUDEPATH += $$PDF_PLUGIN_INCLUDEPATH

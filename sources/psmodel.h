@@ -117,7 +117,7 @@ private:
     QFormLayout* m_layout;
 
     QSpinBox* m_graphicsAntialiasBitsSpinBox;
-    QSpinBox* m_textAntialisBitsSpinBox;
+    QSpinBox* m_textAntialiasBitsSpinBox;
 
 };
 
