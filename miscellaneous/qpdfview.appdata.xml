@@ -29,8 +29,8 @@
         </ul>    
     </description>
     <screenshots>
-        <screenshot type="default" width="800" height="485">http://screenshots.debian.net/screenshots/q/qpdfview/10731_large.png</screenshot>
-        <screenshot width="800" height="485">http://screenshots.debian.net/screenshots/q/qpdfview/9700_large.png</screenshot>
+        <screenshot type="default" width="800" height="600">http://screenshots.debian.net/image/13652_large.png</screenshot>
+        <screenshot width="800" height="600">http://screenshots.debian.net/screenshots/q/qpdfview/13653_large.png</screenshot>
         <screenshot width="426" height="503">http://screenshots.debian.net/screenshots/q/qpdfview/9701_large.png</screenshot>
         <screenshot width="707" height="600">http://screenshots.debian.net/screenshots/q/qpdfview/9399_large.png</screenshot>
     </screenshots>
