@@ -797,13 +797,19 @@ bool PdfDocument::unlock(const QString& password)
 
     restoreRenderHint(m_document, hints, Poppler::Document::TextHinting);
 
-#endif // HAS_POPPLER_18 HAS_POPPLER_14
+#endif // HAS_POPPLER_14
 
 #ifdef HAS_POPPLER_18
 
     restoreRenderHint(m_document, hints, Poppler::Document::TextSlightHinting);
 
 #endif // HAS_POPPLER_18
+
+#ifdef HAS_POPPLER_35
+
+    restoreRenderHint(m_document, hints, Poppler::Document::IgnorePaperColor);
+
+#endif // HAS_POPPLER_35
 
 #ifdef HAS_POPPLER_22
 
@@ -841,10 +847,14 @@ bool PdfDocument::save(const QString& filePath, bool withChanges) const
 
     pdfConverter->setOutputFileName(filePath);
 
+    Poppler::PDFConverter::PDFOptions options = pdfConverter->pdfOptions();
+
     if(withChanges)
     {
-        pdfConverter->setPDFOptions(pdfConverter->pdfOptions() | Poppler::PDFConverter::WithChanges);
+        options |= Poppler::PDFConverter::WithChanges;
     }
+
+    pdfConverter->setPDFOptions(options);
 
     return pdfConverter->convert();
 }
