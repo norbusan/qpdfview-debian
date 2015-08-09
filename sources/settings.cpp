@@ -701,6 +701,11 @@ void Settings::MainWindow::setRestorePerFileSettings(bool restorePerFileSettings
     m_settings->setValue("mainWindow/restorePerFileSettings", restorePerFileSettings);
 }
 
+int Settings::MainWindow::perFileSettingsLimit() const
+{
+    return m_settings->value("mainWindow/perFileSettingsLimit", Defaults::MainWindow::perFileSettingsLimit()).toInt();
+}
+
 int Settings::MainWindow::saveDatabaseInterval() const
 {
     return m_settings->value("mainWindow/saveDatabaseInterval", Defaults::MainWindow::saveDatabaseInterval()).toInt();

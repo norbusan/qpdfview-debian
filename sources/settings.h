@@ -317,6 +317,8 @@ public:
         bool restorePerFileSettings() const;
         void setRestorePerFileSettings(bool restorePerFileSettings);
 
+        int perFileSettingsLimit() const;
+
         int saveDatabaseInterval() const;
         void setSaveDatabaseInterval(int saveDatabaseInterval);
 
@@ -607,6 +609,8 @@ public:
         static bool restoreTabs() { return false; }
         static bool restoreBookmarks() { return false; }
         static bool restorePerFileSettings() { return false; }
+
+        static int perFileSettingsLimit() { return 1000; }
 
         static int saveDatabaseInterval() { return 5 * 60 * 1000; }
 

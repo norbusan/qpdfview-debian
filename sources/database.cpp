@@ -273,8 +273,6 @@ inline QByteArray hashFilePath(const QString& filePath)
     return QCryptographicHash::hash(filePath.toUtf8(), QCryptographicHash::Sha1).toBase64();
 }
 
-const int perFileSettingsLimit = 1000;
-
 } // anonymous
 
 #endif // WITH_SQL
@@ -1007,7 +1005,7 @@ void Database::limitPerFileSettings()
                           "  ORDER BY lastUsed DESC LIMIT ?"
                           " )");
 
-            query << perFileSettingsLimit;
+            query << Settings::instance()->mainWindow().perFileSettingsLimit();
 
             query.exec();
         }
