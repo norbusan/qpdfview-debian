@@ -234,6 +234,13 @@ public:
         m_bindValueIndex = 0;
     }
 
+    Query& operator <<(const QVariant& value)
+    {
+        m_query.bindValue(m_bindValueIndex++, value);
+
+        return *this;
+    }
+
     template< typename T >
     Query& operator <<(const T& value)
     {
