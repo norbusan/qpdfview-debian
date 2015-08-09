@@ -587,7 +587,7 @@ public:
         static Rotation rotation() { return RotateBy0; }
 
         static bool invertColors() { return false; }
-        static bool convertToGrayscale() { return false; }        
+        static bool convertToGrayscale() { return false; }
         static bool trimMargins() { return false; }
 
         static bool highlightAll() { return false; }
