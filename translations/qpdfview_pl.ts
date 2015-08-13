@@ -2,60 +2,123 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="pl_PL">
 <context>
+    <name>Model::ImageDocument</name>
+    <message>
+        <location filename="../sources/imagemodel.cpp" line="126"/>
+        <source>Image (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/imagemodel.cpp" line="154"/>
+        <source>Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/imagemodel.cpp" line="155"/>
+        <source>Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/imagemodel.cpp" line="156"/>
+        <source>Depth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/imagemodel.cpp" line="164"/>
+        <location filename="../sources/imagemodel.cpp" line="167"/>
+        <location filename="../sources/imagemodel.cpp" line="170"/>
+        <location filename="../sources/imagemodel.cpp" line="173"/>
+        <location filename="../sources/imagemodel.cpp" line="178"/>
+        <location filename="../sources/imagemodel.cpp" line="182"/>
+        <source>Format</source>
+        <translation type="unfinished">Format</translation>
+    </message>
+    <message>
+        <location filename="../sources/imagemodel.cpp" line="164"/>
+        <source>Monochrome</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/imagemodel.cpp" line="167"/>
+        <source>Indexed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/imagemodel.cpp" line="170"/>
+        <source>32 bits RGB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/imagemodel.cpp" line="173"/>
+        <source>32 bits ARGB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/imagemodel.cpp" line="178"/>
+        <source>16 bits RGB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/imagemodel.cpp" line="182"/>
+        <source>24 bits RGB</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="875"/>
+        <location filename="../sources/pdfmodel.cpp" line="913"/>
         <source>Linearized</source>
         <translation>Linearyzowane</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="890"/>
+        <location filename="../sources/pdfmodel.cpp" line="927"/>
         <source>Name</source>
         <translation>Nazwa</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="890"/>
+        <location filename="../sources/pdfmodel.cpp" line="927"/>
         <source>Type</source>
         <translation>Rodzaj</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="890"/>
+        <location filename="../sources/pdfmodel.cpp" line="927"/>
         <source>Embedded</source>
         <translation>Osadzony</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="890"/>
+        <location filename="../sources/pdfmodel.cpp" line="927"/>
         <source>Subset</source>
         <translation>Podzbiór</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="890"/>
+        <location filename="../sources/pdfmodel.cpp" line="927"/>
         <source>File</source>
         <translation>Plik</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="872"/>
-        <location filename="../sources/pdfmodel.cpp" line="876"/>
-        <location filename="../sources/pdfmodel.cpp" line="898"/>
-        <location filename="../sources/pdfmodel.cpp" line="899"/>
+        <location filename="../sources/pdfmodel.cpp" line="912"/>
+        <location filename="../sources/pdfmodel.cpp" line="913"/>
+        <location filename="../sources/pdfmodel.cpp" line="935"/>
+        <location filename="../sources/pdfmodel.cpp" line="936"/>
         <source>Yes</source>
         <translation>Tak</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="867"/>
+        <location filename="../sources/pdfmodel.cpp" line="910"/>
         <source>PDF version</source>
         <translation>Wersja PDF</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="871"/>
+        <location filename="../sources/pdfmodel.cpp" line="912"/>
         <source>Encrypted</source>
         <translation>Zaszyfrowane</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="872"/>
-        <location filename="../sources/pdfmodel.cpp" line="876"/>
-        <location filename="../sources/pdfmodel.cpp" line="898"/>
-        <location filename="../sources/pdfmodel.cpp" line="899"/>
+        <location filename="../sources/pdfmodel.cpp" line="912"/>
+        <location filename="../sources/pdfmodel.cpp" line="913"/>
+        <location filename="../sources/pdfmodel.cpp" line="935"/>
+        <location filename="../sources/pdfmodel.cpp" line="936"/>
         <source>No</source>
         <translation>Nie</translation>
     </message>
@@ -63,12 +126,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="556"/>
+        <location filename="../sources/pdfmodel.cpp" line="599"/>
         <source>Information</source>
         <translation>Informacja</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="556"/>
+        <location filename="../sources/pdfmodel.cpp" line="599"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation>Wersja 0.20.1 lub wyższa biblioteki Poppler jest wymagana by dodawać lub  usuwać adnotacje.</translation>
     </message>
@@ -76,32 +139,32 @@
 <context>
     <name>Model::PsDocument</name>
     <message>
-        <location filename="../sources/psmodel.cpp" line="222"/>
+        <location filename="../sources/psmodel.cpp" line="241"/>
         <source>Title</source>
         <translation>Tytuł</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="223"/>
+        <location filename="../sources/psmodel.cpp" line="242"/>
         <source>Created for</source>
         <translation>Utworzono dla</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="224"/>
+        <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Creator</source>
         <translation>Utworzył</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="225"/>
+        <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Creation date</source>
         <translation>Data utworzenia</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="226"/>
+        <location filename="../sources/psmodel.cpp" line="245"/>
         <source>Format</source>
         <translation>Format</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="227"/>
+        <location filename="../sources/psmodel.cpp" line="246"/>
         <source>Language level</source>
         <translation>Poziom języka</translation>
     </message>
@@ -256,7 +319,7 @@
 <context>
     <name>qpdfview::Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="730"/>
+        <location filename="../sources/database.cpp" line="909"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Przejdź do strony %1</translation>
     </message>
@@ -264,42 +327,42 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="1559"/>
+        <location filename="../sources/documentview.cpp" line="1566"/>
         <source>Information</source>
         <translation type="unfinished">Informacje</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1559"/>
+        <location filename="../sources/documentview.cpp" line="1566"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otwieranie adresów URL jest wyłączone w ustawieniach.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1602"/>
+        <location filename="../sources/documentview.cpp" line="1609"/>
         <source>Warning</source>
         <translation type="unfinished">Ostrzeżenie</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1602"/>
+        <location filename="../sources/documentview.cpp" line="1609"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished">Dane systemu SyncTeX dla &apos;%1&apos; nie zostały znalezione.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2085"/>
+        <location filename="../sources/documentview.cpp" line="2091"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Drukowanie &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2159"/>
+        <location filename="../sources/documentview.cpp" line="2165"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Odblokuj %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2159"/>
+        <location filename="../sources/documentview.cpp" line="2165"/>
         <source>Password:</source>
         <translation type="unfinished">Hasło:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2201"/>
+        <location filename="../sources/documentview.cpp" line="2207"/>
         <source>Page %1</source>
         <translation type="unfinished">Strona %1</translation>
     </message>
@@ -1015,69 +1078,74 @@
 <context>
     <name>qpdfview::PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="970"/>
+        <location filename="../sources/pdfmodel.cpp" line="1007"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Antyaliasing:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="977"/>
+        <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Antyaliasing tekstu:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="984"/>
-        <location filename="../sources/pdfmodel.cpp" line="1014"/>
+        <location filename="../sources/pdfmodel.cpp" line="1021"/>
+        <location filename="../sources/pdfmodel.cpp" line="1060"/>
         <source>None</source>
         <translation type="unfinished">Brak</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="985"/>
+        <location filename="../sources/pdfmodel.cpp" line="1022"/>
         <source>Full</source>
         <translation type="unfinished">Pełny</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="986"/>
+        <location filename="../sources/pdfmodel.cpp" line="1023"/>
         <source>Reduced</source>
         <translation type="unfinished">Zredukowano</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="989"/>
-        <location filename="../sources/pdfmodel.cpp" line="996"/>
+        <location filename="../sources/pdfmodel.cpp" line="1026"/>
+        <location filename="../sources/pdfmodel.cpp" line="1033"/>
         <source>Text hinting:</source>
         <translation type="unfinished">Tekst podpowiedzi:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1007"/>
+        <location filename="../sources/pdfmodel.cpp" line="1042"/>
+        <source>Ignore paper color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="1053"/>
         <source>Overprint preview:</source>
         <translation type="unfinished">Podgląd wydruku:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1015"/>
+        <location filename="../sources/pdfmodel.cpp" line="1061"/>
         <source>Solid</source>
         <translation type="unfinished">Jednolity</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1016"/>
+        <location filename="../sources/pdfmodel.cpp" line="1062"/>
         <source>Shaped</source>
         <translation type="unfinished">Uformowane</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1019"/>
+        <location filename="../sources/pdfmodel.cpp" line="1065"/>
         <source>Thin line mode:</source>
         <translation type="unfinished">Tryb cienkiej linii:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1024"/>
+        <location filename="../sources/pdfmodel.cpp" line="1070"/>
         <source>Splash</source>
         <translation type="unfinished">Ekran powitalny</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1025"/>
+        <location filename="../sources/pdfmodel.cpp" line="1071"/>
         <source>Arthur</source>
         <translation type="unfinished">Arthur</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1028"/>
+        <location filename="../sources/pdfmodel.cpp" line="1074"/>
         <source>Backend:</source>
         <translation type="unfinished">Mechanizm:</translation>
     </message>
@@ -1085,22 +1153,27 @@
 <context>
     <name>qpdfview::PluginHandler</name>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="237"/>
+        <location filename="../sources/pluginhandler.cpp" line="285"/>
+        <source>Image (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pluginhandler.cpp" line="290"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Wspierane formaty (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="248"/>
+        <location filename="../sources/pluginhandler.cpp" line="301"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
         <translation type="unfinished">Nie można dopasować typu pliku &apos;%1&apos;!</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="258"/>
+        <location filename="../sources/pluginhandler.cpp" line="308"/>
         <source>Critical</source>
         <translation type="unfinished">Krytyczny</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="258"/>
+        <location filename="../sources/pluginhandler.cpp" line="308"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
         <translation type="unfinished">Nie można wczytać wtyczki dla typu pliku &apos;%1&apos;!</translation>
     </message>
@@ -1226,12 +1299,12 @@
 <context>
     <name>qpdfview::PsSettingsWidget</name>
     <message>
-        <location filename="../sources/psmodel.cpp" line="243"/>
+        <location filename="../sources/psmodel.cpp" line="262"/>
         <source>Graphics antialias bits:</source>
         <translation type="unfinished">Antyaliasing grafiki:</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="251"/>
+        <location filename="../sources/psmodel.cpp" line="270"/>
         <source>Text antialias bits:</source>
         <translation type="unfinished">Antyaliasing tekstu:</translation>
     </message>
