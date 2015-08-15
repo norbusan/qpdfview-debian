@@ -262,7 +262,9 @@ Settings* MainWindow::s_settings = 0;
 Database* MainWindow::s_database = 0;
 ShortcutHandler* MainWindow::s_shortcutHandler = 0;
 
-MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
+    m_outlineView(0),
+    m_thumbnailsView(0)
 {
     if(s_settings == 0)
     {
