@@ -67,6 +67,32 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
+        <location filename="../sources/pdfmodel.cpp" line="910"/>
+        <source>PDF version</source>
+        <translation type="unfinished">Version PDF</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="912"/>
+        <source>Encrypted</source>
+        <translation type="unfinished">Encriptado</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="912"/>
+        <location filename="../sources/pdfmodel.cpp" line="913"/>
+        <location filename="../sources/pdfmodel.cpp" line="935"/>
+        <location filename="../sources/pdfmodel.cpp" line="936"/>
+        <source>Yes</source>
+        <translation type="unfinished">Sí</translation>
+    </message>
+    <message>
+        <location filename="../sources/pdfmodel.cpp" line="912"/>
+        <location filename="../sources/pdfmodel.cpp" line="913"/>
+        <location filename="../sources/pdfmodel.cpp" line="935"/>
+        <location filename="../sources/pdfmodel.cpp" line="936"/>
+        <source>No</source>
+        <translation type="unfinished">No</translation>
+    </message>
+    <message>
         <location filename="../sources/pdfmodel.cpp" line="913"/>
         <source>Linearized</source>
         <translation type="unfinished"></translation>
@@ -95,32 +121,6 @@
         <location filename="../sources/pdfmodel.cpp" line="927"/>
         <source>File</source>
         <translation type="unfinished">Archivo</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="912"/>
-        <location filename="../sources/pdfmodel.cpp" line="913"/>
-        <location filename="../sources/pdfmodel.cpp" line="935"/>
-        <location filename="../sources/pdfmodel.cpp" line="936"/>
-        <source>Yes</source>
-        <translation type="unfinished">Sí</translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="910"/>
-        <source>PDF version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="912"/>
-        <source>Encrypted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/pdfmodel.cpp" line="912"/>
-        <location filename="../sources/pdfmodel.cpp" line="913"/>
-        <location filename="../sources/pdfmodel.cpp" line="935"/>
-        <location filename="../sources/pdfmodel.cpp" line="936"/>
-        <source>No</source>
-        <translation type="unfinished">No</translation>
     </message>
 </context>
 <context>
@@ -275,7 +275,7 @@
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="39"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Marcador</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="48"/>
@@ -436,558 +436,558 @@
 <context>
     <name>qpdfview::MainWindow</name>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2876"/>
-        <source>Toggle tool bars</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2877"/>
-        <source>Toggle menu bar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="362"/>
-        <location filename="../sources/mainwindow.cpp" line="445"/>
-        <location filename="../sources/mainwindow.cpp" line="1209"/>
-        <location filename="../sources/mainwindow.cpp" line="1226"/>
-        <location filename="../sources/mainwindow.cpp" line="1243"/>
-        <location filename="../sources/mainwindow.cpp" line="1279"/>
-        <location filename="../sources/mainwindow.cpp" line="1420"/>
-        <location filename="../sources/mainwindow.cpp" line="2502"/>
-        <location filename="../sources/mainwindow.cpp" line="2516"/>
+        <location filename="../sources/mainwindow.cpp" line="364"/>
+        <location filename="../sources/mainwindow.cpp" line="447"/>
+        <location filename="../sources/mainwindow.cpp" line="1211"/>
+        <location filename="../sources/mainwindow.cpp" line="1228"/>
+        <location filename="../sources/mainwindow.cpp" line="1245"/>
+        <location filename="../sources/mainwindow.cpp" line="1281"/>
+        <location filename="../sources/mainwindow.cpp" line="1422"/>
+        <location filename="../sources/mainwindow.cpp" line="2504"/>
+        <location filename="../sources/mainwindow.cpp" line="2518"/>
         <source>Warning</source>
         <translation type="unfinished">Aviso</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="362"/>
-        <location filename="../sources/mainwindow.cpp" line="445"/>
+        <location filename="../sources/mainwindow.cpp" line="364"/>
+        <location filename="../sources/mainwindow.cpp" line="447"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">No se pudo abrir «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="672"/>
+        <location filename="../sources/mainwindow.cpp" line="674"/>
         <source>Copy file path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="673"/>
-        <source>Select file path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Copiar a la ruta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="675"/>
+        <source>Select file path</source>
+        <translation type="unfinished">Seleccione la ruta del archivo</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="677"/>
         <source>Close all tabs</source>
         <translation type="unfinished">Cerrar todas las pestañas</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="676"/>
+        <location filename="../sources/mainwindow.cpp" line="678"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished">Cerrar todas las pestañas excepto esta</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="677"/>
+        <location filename="../sources/mainwindow.cpp" line="679"/>
         <source>Close all tabs to the left</source>
         <translation type="unfinished">Cerrar las pestañas a la izquierda</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="678"/>
+        <location filename="../sources/mainwindow.cpp" line="680"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished">Cerrar las pestañas a la derecha</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1164"/>
+        <location filename="../sources/mainwindow.cpp" line="1166"/>
         <source>Open</source>
         <translation type="unfinished">Abrir</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1180"/>
+        <location filename="../sources/mainwindow.cpp" line="1182"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Abrir en una pestaña nueva</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1209"/>
-        <location filename="../sources/mainwindow.cpp" line="1420"/>
+        <location filename="../sources/mainwindow.cpp" line="1211"/>
+        <location filename="../sources/mainwindow.cpp" line="1422"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">No se pudo actualizar «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1216"/>
+        <location filename="../sources/mainwindow.cpp" line="1218"/>
         <source>Save copy</source>
         <translation type="unfinished">Guardar copia</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1226"/>
+        <location filename="../sources/mainwindow.cpp" line="1228"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished">No se pudo guardar una copia en «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1233"/>
-        <location filename="../sources/mainwindow.cpp" line="2506"/>
+        <location filename="../sources/mainwindow.cpp" line="1235"/>
+        <location filename="../sources/mainwindow.cpp" line="2508"/>
         <source>Save as</source>
         <translation type="unfinished">Guardar como</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1243"/>
-        <location filename="../sources/mainwindow.cpp" line="2516"/>
+        <location filename="../sources/mainwindow.cpp" line="1245"/>
+        <location filename="../sources/mainwindow.cpp" line="2518"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">No se pudo guardar como «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1279"/>
+        <location filename="../sources/mainwindow.cpp" line="1281"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">No se pudo imprimir «%1».</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1316"/>
+        <location filename="../sources/mainwindow.cpp" line="1318"/>
         <source>Set first page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Establecer primera página</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1316"/>
+        <location filename="../sources/mainwindow.cpp" line="1318"/>
         <source>Select the first page of the body matter:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1329"/>
+        <location filename="../sources/mainwindow.cpp" line="1331"/>
         <source>Jump to page</source>
         <translation type="unfinished">Ir a la página</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1329"/>
+        <location filename="../sources/mainwindow.cpp" line="1331"/>
         <source>Page:</source>
         <translation type="unfinished">Página:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1727"/>
+        <location filename="../sources/mainwindow.cpp" line="1729"/>
         <source>Jump to page %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1878"/>
+        <location filename="../sources/mainwindow.cpp" line="1880"/>
         <source>About qpdfview</source>
         <translation type="unfinished">Acerca de qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1878"/>
+        <location filename="../sources/mainwindow.cpp" line="1880"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview es un visor de documentos con pestañas que usa Qt.&lt;/p&gt;&lt;p&gt;Esta versión incluye:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1882"/>
+        <location filename="../sources/mainwindow.cpp" line="1884"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1885"/>
+        <location filename="../sources/mainwindow.cpp" line="1887"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1888"/>
+        <location filename="../sources/mainwindow.cpp" line="1890"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1891"/>
+        <location filename="../sources/mainwindow.cpp" line="1893"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1894"/>
+        <location filename="../sources/mainwindow.cpp" line="1896"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1896"/>
+        <location filename="../sources/mainwindow.cpp" line="1898"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Consulte &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para más información.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2014 de los desarrolladores de qpdfview&lt;/p&gt; {2012-2015 ?}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2179"/>
-        <location filename="../sources/mainwindow.cpp" line="2866"/>
+        <location filename="../sources/mainwindow.cpp" line="2181"/>
+        <location filename="../sources/mainwindow.cpp" line="2868"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">&amp;Eliminar marcador</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2180"/>
+        <location filename="../sources/mainwindow.cpp" line="2182"/>
         <source>&amp;Edit bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2502"/>
+        <location filename="../sources/mainwindow.cpp" line="2504"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation type="unfinished">Se ha modificado el documento «%1». ¿Quiere guardar los cambios?</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2691"/>
+        <location filename="../sources/mainwindow.cpp" line="2693"/>
         <source>Page width</source>
         <translation type="unfinished">Anchura de página</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2692"/>
+        <location filename="../sources/mainwindow.cpp" line="2694"/>
         <source>Page size</source>
         <translation type="unfinished">Tamaño de página</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2715"/>
+        <location filename="../sources/mainwindow.cpp" line="2717"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">Distinguir &amp;mayúsculas/minúsculas</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2716"/>
+        <location filename="../sources/mainwindow.cpp" line="2718"/>
         <source>Whole &amp;words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2717"/>
+        <location filename="../sources/mainwindow.cpp" line="2719"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">Resaltar &amp;todo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2779"/>
+        <location filename="../sources/mainwindow.cpp" line="2781"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Abrir</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2780"/>
+        <location filename="../sources/mainwindow.cpp" line="2782"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Abrir en una &amp;pestaña nueva…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2781"/>
+        <location filename="../sources/mainwindow.cpp" line="2783"/>
         <source>Open &amp;copy in new tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2782"/>
+        <location filename="../sources/mainwindow.cpp" line="2784"/>
         <source>Open containing &amp;folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Abrir carpeta c&amp;ontenedora</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2783"/>
+        <location filename="../sources/mainwindow.cpp" line="2785"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Recargar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2784"/>
+        <location filename="../sources/mainwindow.cpp" line="2786"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">&amp;Guardar una copia</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2785"/>
+        <location filename="../sources/mainwindow.cpp" line="2787"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">Guardar &amp;como…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2786"/>
+        <location filename="../sources/mainwindow.cpp" line="2788"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">Im&amp;primir...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2787"/>
+        <location filename="../sources/mainwindow.cpp" line="2789"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">&amp;Salir</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2791"/>
+        <location filename="../sources/mainwindow.cpp" line="2793"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">Página &amp;anterior</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2792"/>
+        <location filename="../sources/mainwindow.cpp" line="2794"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">Página &amp;siguiente</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2793"/>
+        <location filename="../sources/mainwindow.cpp" line="2795"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Primera página</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2794"/>
+        <location filename="../sources/mainwindow.cpp" line="2796"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Última página</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2796"/>
+        <location filename="../sources/mainwindow.cpp" line="2798"/>
         <source>&amp;Set first page...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2798"/>
+        <location filename="../sources/mainwindow.cpp" line="2800"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">&amp;Ir a la página…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2800"/>
+        <location filename="../sources/mainwindow.cpp" line="2802"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished">Saltar &amp;hacia atrás</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2801"/>
+        <location filename="../sources/mainwindow.cpp" line="2803"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished">Salta ade&amp;lante</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2803"/>
+        <location filename="../sources/mainwindow.cpp" line="2805"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">Bu&amp;scar...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2804"/>
+        <location filename="../sources/mainwindow.cpp" line="2806"/>
         <source>Find previous</source>
         <translation type="unfinished">Buscar anterior</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2805"/>
+        <location filename="../sources/mainwindow.cpp" line="2807"/>
         <source>Find next</source>
         <translation type="unfinished">Buscar siguiente</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2806"/>
+        <location filename="../sources/mainwindow.cpp" line="2808"/>
         <source>Cancel search</source>
         <translation type="unfinished">Cancelar la búsqueda</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2808"/>
+        <location filename="../sources/mainwindow.cpp" line="2810"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">&amp;Copiar al portapapeles</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2809"/>
+        <location filename="../sources/mainwindow.cpp" line="2811"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">&amp;Añadir anotación</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2811"/>
+        <location filename="../sources/mainwindow.cpp" line="2813"/>
         <source>Settings...</source>
         <translation type="unfinished">Configuración...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2815"/>
+        <location filename="../sources/mainwindow.cpp" line="2817"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">&amp;Continuo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2816"/>
+        <location filename="../sources/mainwindow.cpp" line="2818"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp;Doble página</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2817"/>
+        <location filename="../sources/mainwindow.cpp" line="2819"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">Doble página &amp;con portada</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2818"/>
+        <location filename="../sources/mainwindow.cpp" line="2820"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">Múltiples páginas</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2820"/>
+        <location filename="../sources/mainwindow.cpp" line="2822"/>
         <source>Right to left</source>
         <translation type="unfinished">De derecha a izquierda</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2822"/>
+        <location filename="../sources/mainwindow.cpp" line="2824"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">Acercar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2823"/>
+        <location filename="../sources/mainwindow.cpp" line="2825"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">Alejar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2824"/>
+        <location filename="../sources/mainwindow.cpp" line="2826"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">Tamaño &amp;original</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2826"/>
+        <location filename="../sources/mainwindow.cpp" line="2828"/>
         <source>Fit to page width</source>
         <translation type="unfinished">Ajustar a la anchura de página</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2827"/>
+        <location filename="../sources/mainwindow.cpp" line="2829"/>
         <source>Fit to page size</source>
         <translation type="unfinished">Ajustar al tamaño de página</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2829"/>
+        <location filename="../sources/mainwindow.cpp" line="2831"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">Rotar a la &amp;izquierda</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2830"/>
+        <location filename="../sources/mainwindow.cpp" line="2832"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Rotar a la &amp;derecha</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2832"/>
+        <location filename="../sources/mainwindow.cpp" line="2834"/>
         <source>Invert colors</source>
         <translation type="unfinished">Invertir colores</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2833"/>
+        <location filename="../sources/mainwindow.cpp" line="2835"/>
         <source>Convert to grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Convertir a escala de grises</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2834"/>
+        <location filename="../sources/mainwindow.cpp" line="2836"/>
         <source>Trim margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2836"/>
+        <location filename="../sources/mainwindow.cpp" line="2838"/>
         <source>Darken with paper color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2837"/>
+        <location filename="../sources/mainwindow.cpp" line="2839"/>
         <source>Lighten with paper color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aclarar con el color del papel</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2839"/>
+        <location filename="../sources/mainwindow.cpp" line="2841"/>
         <source>Fonts...</source>
         <translation type="unfinished">Tipografía...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2841"/>
+        <location filename="../sources/mainwindow.cpp" line="2843"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">&amp;Pantalla completa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2842"/>
+        <location filename="../sources/mainwindow.cpp" line="2844"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">&amp;Presentación…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2846"/>
+        <location filename="../sources/mainwindow.cpp" line="2848"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">&amp;Pestaña anterior</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2847"/>
+        <location filename="../sources/mainwindow.cpp" line="2849"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">&amp;Pestaña siguiente</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2849"/>
+        <location filename="../sources/mainwindow.cpp" line="2851"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;Cerrar pestaña</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2850"/>
+        <location filename="../sources/mainwindow.cpp" line="2852"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">Cerrar &amp;todas las pestañas</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2851"/>
+        <location filename="../sources/mainwindow.cpp" line="2853"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">Cerrar todas las pestañas &amp;excepto la actual</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2862"/>
+        <location filename="../sources/mainwindow.cpp" line="2864"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">&amp;Anterior marcador</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2863"/>
+        <location filename="../sources/mainwindow.cpp" line="2865"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">&amp;Siguiente marcador</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2865"/>
+        <location filename="../sources/mainwindow.cpp" line="2867"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">&amp;Añadir marcador</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2867"/>
+        <location filename="../sources/mainwindow.cpp" line="2869"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Eliminar todos los marcadores</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2871"/>
+        <location filename="../sources/mainwindow.cpp" line="2873"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;Contenido</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2872"/>
+        <location filename="../sources/mainwindow.cpp" line="2874"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Acerca de</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2900"/>
-        <location filename="../sources/mainwindow.cpp" line="3103"/>
+        <location filename="../sources/mainwindow.cpp" line="2878"/>
+        <source>Toggle tool bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2879"/>
+        <source>Toggle menu bar</source>
+        <translation type="unfinished">Indefinido</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2902"/>
+        <location filename="../sources/mainwindow.cpp" line="3105"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Archivo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2903"/>
-        <location filename="../sources/mainwindow.cpp" line="3124"/>
+        <location filename="../sources/mainwindow.cpp" line="2905"/>
+        <location filename="../sources/mainwindow.cpp" line="3126"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Editar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2906"/>
-        <location filename="../sources/mainwindow.cpp" line="3137"/>
+        <location filename="../sources/mainwindow.cpp" line="2908"/>
+        <location filename="../sources/mainwindow.cpp" line="3139"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Ver</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2941"/>
+        <location filename="../sources/mainwindow.cpp" line="2943"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Buscar</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3029"/>
+        <location filename="../sources/mainwindow.cpp" line="3031"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">Objetos</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3048"/>
+        <location filename="../sources/mainwindow.cpp" line="3050"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Propiedades</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3062"/>
+        <location filename="../sources/mainwindow.cpp" line="3064"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3076"/>
+        <location filename="../sources/mainwindow.cpp" line="3078"/>
         <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Marcadores</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3148"/>
+        <location filename="../sources/mainwindow.cpp" line="3150"/>
         <source>Composition</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Composición</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3154"/>
+        <location filename="../sources/mainwindow.cpp" line="3156"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Barras de &amp;herramientas</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3157"/>
+        <location filename="../sources/mainwindow.cpp" line="3159"/>
         <source>&amp;Docks</source>
         <translation type="unfinished">Vistas</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3171"/>
+        <location filename="../sources/mainwindow.cpp" line="3173"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Pestañas</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3193"/>
+        <location filename="../sources/mainwindow.cpp" line="3195"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Marcadores</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3204"/>
+        <location filename="../sources/mainwindow.cpp" line="3206"/>
         <source>&amp;Help</source>
         <translation type="unfinished">Ay&amp;uda</translation>
     </message>
@@ -1022,7 +1022,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="736"/>
         <source>&amp;Select text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Seleccione el texto</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="737"/>
@@ -1062,12 +1062,12 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="830"/>
         <source>&amp;Copy link address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cop&amp;iar direcciones de enlace</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="831"/>
         <source>&amp;Select link address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">S&amp;eleccionar las direcciones de enlace</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="854"/>
@@ -1160,7 +1160,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="290"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished">Formatos compatibles (%1)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="301"/>
@@ -1314,7 +1314,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="32"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Recientemente cerado</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
@@ -1361,7 +1361,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="104"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Configuración</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="107"/>
@@ -1415,6 +1415,11 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="238"/>
+        <source>Track recently used:</source>
+        <translation type="unfinished">Rastrear recientes</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="238"/>
         <location filename="../sources/settingsdialog.cpp" line="241"/>
         <location filename="../sources/settingsdialog.cpp" line="504"/>
         <location filename="../sources/settingsdialog.cpp" line="535"/>
@@ -1425,11 +1430,6 @@
         <location filename="../sources/settingsdialog.cpp" line="557"/>
         <source>Effective after restart.</source>
         <translation type="unfinished">Efectivo después de reiniciar</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="238"/>
-        <source>Track recently used:</source>
-        <translation type="unfinished">Rastrear recientes</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="241"/>
@@ -1453,6 +1453,11 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="254"/>
+        <source>Save database interval:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="254"/>
         <source> min</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1463,19 +1468,9 @@
         <translation type="unfinished">Nunca</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="254"/>
-        <source>Save database interval:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="267"/>
         <source>Synchronize presentation:</source>
         <translation type="unfinished">Sincronizar la presentación:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="270"/>
-        <source>Default</source>
-        <translation type="unfinished">Predeterminado</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="270"/>
@@ -1483,29 +1478,39 @@
         <translation type="unfinished">Pantalla de presentación:</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="270"/>
+        <source>Default</source>
+        <translation type="unfinished">Predeterminado</translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="274"/>
         <source>Synchronize outline view:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="278"/>
+        <source>Minimal scrolling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>Zoom factor:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="285"/>
-        <source> ms</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="285"/>
-        <source>None</source>
-        <translation type="unfinished">Nada</translation>
+        <translation type="unfinished">Factor de aumento:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="285"/>
         <source>Highlight duration:</source>
         <translation type="unfinished">Duración del resalte:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="285"/>
+        <source> ms</source>
+        <translation type="unfinished"> ms</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="285"/>
+        <source>None</source>
+        <translation type="unfinished">Nada</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="288"/>
@@ -1519,13 +1524,13 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
-        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished">&apos;%1&apos; se sustituye por la ruta de archivo absoluta. &apos;%2&apos; resp. &apos;%3&apos; se sustituye por el resp línea. columna número.</translation>
+        <source>Source editor:</source>
+        <translation type="unfinished">Editor de código</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
-        <source>Source editor:</source>
-        <translation type="unfinished">Editor de código</translation>
+        <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
+        <translation type="unfinished">&apos;%1&apos; se sustituye por la ruta de archivo absoluta. &apos;%2&apos; resp. &apos;%3&apos; se sustituye por el resp línea. columna número.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="359"/>
@@ -1579,15 +1584,15 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="399"/>
+        <source>Page spacing:</source>
+        <translation type="unfinished">Espaciado de página</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="399"/>
         <location filename="../sources/settingsdialog.cpp" line="402"/>
         <location filename="../sources/settingsdialog.cpp" line="406"/>
         <source> px</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="399"/>
-        <source>Page spacing:</source>
-        <translation type="unfinished">Espaciado de página</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="402"/>
@@ -1602,32 +1607,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="406"/>
         <source>Fit to viewport</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="551"/>
-        <source>Document context menu:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="554"/>
-        <source>Tab context menu:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="786"/>
-        <location filename="../sources/settingsdialog.cpp" line="787"/>
-        <location filename="../sources/settingsdialog.cpp" line="788"/>
-        <location filename="../sources/settingsdialog.cpp" line="789"/>
-        <location filename="../sources/settingsdialog.cpp" line="790"/>
-        <location filename="../sources/settingsdialog.cpp" line="791"/>
-        <location filename="../sources/settingsdialog.cpp" line="792"/>
-        <location filename="../sources/settingsdialog.cpp" line="793"/>
-        <location filename="../sources/settingsdialog.cpp" line="794"/>
-        <location filename="../sources/settingsdialog.cpp" line="795"/>
-        <location filename="../sources/settingsdialog.cpp" line="803"/>
-        <source>%1 MB</source>
-        <translation type="unfinished">%1 MB</translation>
+        <translation type="unfinished">Ajustar a ventana</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="410"/>
@@ -1652,12 +1632,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="507"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mostrar todas las notas:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="510"/>
         <source>Form field overlay:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="514"/>
+        <source>Tab position:</source>
+        <translation type="unfinished">Posición de las pestañas:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="515"/>
@@ -1680,9 +1665,9 @@
         <translation type="unfinished">Derecha</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="514"/>
-        <source>Tab position:</source>
-        <translation type="unfinished">Posición de las pestañas:</translation>
+        <location filename="../sources/settingsdialog.cpp" line="519"/>
+        <source>Tab visibility:</source>
+        <translation type="unfinished">Visibilidad de la pestaña:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="520"/>
@@ -1695,29 +1680,19 @@
         <translation type="unfinished">Siempre</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="519"/>
-        <source>Tab visibility:</source>
-        <translation type="unfinished">Visibilidad de la pestaña:</translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="278"/>
-        <source>Minimal scrolling:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="524"/>
         <source>Spread tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desplegar pestañas:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="528"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nueva pestaña en misma ventana:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="531"/>
         <source>Exit after last tab:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salir después de la última pestaña:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="535"/>
@@ -1727,7 +1702,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="538"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cerrados recientemente:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="542"/>
@@ -1743,6 +1718,16 @@
         <location filename="../sources/settingsdialog.cpp" line="548"/>
         <source>View tool bar:</source>
         <translation type="unfinished">Barra de herramientas Ver:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="551"/>
+        <source>Document context menu:</source>
+        <translation type="unfinished">Menú contextual del documento:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="554"/>
+        <source>Tab context menu:</source>
+        <translation type="unfinished">Menú contextual de la pestaña:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="557"/>
@@ -1762,17 +1747,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="568"/>
         <source>Use page label:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Usar etiqueta de página:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="571"/>
         <source>Document title as tab title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Título del documento como título de pestaña:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="575"/>
         <source>Current page in window title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Página actual en título de ventana:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="578"/>
@@ -1787,7 +1772,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="585"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Limitar miniaturas a resultados:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="669"/>
@@ -1817,7 +1802,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="685"/>
         <source>Zoom to selection:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ampliar la selección:</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="786"/>
+        <location filename="../sources/settingsdialog.cpp" line="787"/>
+        <location filename="../sources/settingsdialog.cpp" line="788"/>
+        <location filename="../sources/settingsdialog.cpp" line="789"/>
+        <location filename="../sources/settingsdialog.cpp" line="790"/>
+        <location filename="../sources/settingsdialog.cpp" line="791"/>
+        <location filename="../sources/settingsdialog.cpp" line="792"/>
+        <location filename="../sources/settingsdialog.cpp" line="793"/>
+        <location filename="../sources/settingsdialog.cpp" line="794"/>
+        <location filename="../sources/settingsdialog.cpp" line="795"/>
+        <location filename="../sources/settingsdialog.cpp" line="803"/>
+        <source>%1 MB</source>
+        <translation type="unfinished">%1 MB</translation>
     </message>
 </context>
 <context>
@@ -1835,7 +1835,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="269"/>
         <source>Skip backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ir atrás</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="276"/>
