@@ -217,10 +217,17 @@ with_fitz {
 
 !without_synctex {
     DEFINES += WITH_SYNCTEX
-    LIBS += -lz
 
-    INCLUDEPATH += synctex
-    SOURCES += synctex/synctex_parser.c synctex/synctex_parser_utils.c
+    !without_pkgconfig:system(pkg-config --exists synctex) {
+        CONFIG += link_pkgconfig
+        PKGCONFIG += synctex
+    } else {
+        HEADERS += synctex/synctex_parser.h synctex/synctex_parser_utils.h synctex/synctex_parser_local.h
+        SOURCES += synctex/synctex_parser.c synctex/synctex_parser_utils.c
+
+        INCLUDEPATH += synctex
+        LIBS += -lz
+    }
 }
 
 lessThan(QT_MAJOR_VERSION, 5) : !without_magic {
