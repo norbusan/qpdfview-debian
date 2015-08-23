@@ -64,10 +64,9 @@ public:
         m_database(database),
         m_committed(false)
     {
-        if(s_current)
+        if(s_current != 0)
         {
-           m_committed = true;
-           return;
+            return;
         }
 
         if(!m_database.transaction())
@@ -80,20 +79,22 @@ public:
 
     ~Transaction() throw()
     {
+        if(s_current != this)
+        {
+            return;
+        }
+
         if(!m_committed)
         {
             m_database.rollback();
         }
 
-        if(s_current == this)
-        {
-            s_current = 0;
-        }
+        s_current = 0;
     }
 
     void commit()
     {
-        if(m_committed)
+        if(s_current != this)
         {
             return;
         }
