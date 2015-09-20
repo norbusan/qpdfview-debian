@@ -2759,7 +2759,7 @@ QAction* MainWindow::createAction(const QString& text, const QString& objectName
     return action;
 }
 
-inline QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence shortcut, const char* member, bool checkable, bool checked)
+inline QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable, bool checked)
 {
     return createAction(text, objectName, icon, QList< QKeySequence >() << shortcut, member, checkable, checked);
 }

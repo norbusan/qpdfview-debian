@@ -208,7 +208,7 @@ void TileItem::on_renderTask_finished()
 
 void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
                                         const QRect& rect, bool prefetch,
-                                        QImage image, QRectF cropRect)
+                                        const QImage& image, const QRectF& cropRect)
 {
     if(m_page->m_renderParam != renderParam || m_rect != rect)
     {

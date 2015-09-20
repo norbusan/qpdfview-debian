@@ -61,7 +61,7 @@ signals:
 
     void imageReady(const RenderParam& renderParam,
                     const QRect& rect, bool prefetch,
-                    QImage image, QRectF cropRect);
+                    const QImage& image, const QRectF& cropRect);
 
 public slots:
     void start(const RenderParam& renderParam,

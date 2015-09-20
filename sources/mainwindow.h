@@ -394,7 +394,7 @@ private:
     QAction* m_aboutAction;
 
     QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QList< QKeySequence >& shortcuts, const char* member, bool checkable = false, bool checked = false);
-    QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence shortcut, const char* member, bool checkable = false, bool checked = false);
+    QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable = false, bool checked = false);
     QAction* createAction(const QString& text, const QString& objectName, const QString& iconName, const QList< QKeySequence >& shortcuts, const char* member, bool checkable = false, bool checked = false);
     QAction* createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable = false, bool checked = false);
 
