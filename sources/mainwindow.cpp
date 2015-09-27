@@ -2614,7 +2614,7 @@ QAction* MainWindow::sourceLinkActionForCurrentTab(QObject* parent, const QPoint
 {
     QAction* action = createTemporaryAction(parent, QString(), QLatin1String("openSourceLink"));
 
-    DocumentView::SourceLink sourceLink = currentTab()->sourceLink(pos);
+    const DocumentView::SourceLink sourceLink = currentTab()->sourceLink(pos);
 
     if(!sourceLink.name.isNull())
     {
