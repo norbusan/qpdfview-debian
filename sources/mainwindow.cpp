@@ -109,11 +109,9 @@ QModelIndex synchronizeOutlineView(int currentPage, const QAbstractItemModel* mo
     return QModelIndex();
 }
 
-void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
+inline void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
 {
-    QToolButton* toolButton = qobject_cast< QToolButton* >(toolBar->widgetForAction(action));
-
-    if(toolButton != 0)
+    if(QToolButton* toolButton = qobject_cast< QToolButton* >(toolBar->widgetForAction(action)))
     {
         toolButton->setMenu(menu);
     }
@@ -1075,6 +1073,8 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
     {
         QMenu menu;
 
+        QAction* sourceLinkAction = sourceLinkActionForCurrentTab(&menu, pos);
+
         QList< QAction* > actions;
 
         actions << m_openCopyInNewTabAction << m_openContainingFolderAction
@@ -1088,9 +1088,17 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
             actions << m_findPreviousAction << m_findNextAction << m_cancelSearchAction;
         }
 
+        menu.addAction(sourceLinkAction);
+        menu.addSeparator();
+
         addWidgetActions(&menu, s_settings->mainWindow().documentContextMenu(), actions);
 
-        menu.exec(currentTab()->mapToGlobal(pos));
+        const QAction* action = menu.exec(currentTab()->mapToGlobal(pos));
+
+        if(action == sourceLinkAction)
+        {
+            currentTab()->openInSourceEditor(sourceLinkAction->data().value< DocumentView::SourceLink >());
+        }
     }
 }
 
@@ -2600,6 +2608,28 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
 BookmarkModel* MainWindow::bookmarkModelForCurrentTab(bool create)
 {
     return BookmarkModel::fromPath(currentTab()->fileInfo().absoluteFilePath(), create);
+}
+
+QAction* MainWindow::sourceLinkActionForCurrentTab(QObject* parent, const QPoint& pos)
+{
+    QAction* action = createTemporaryAction(parent, QString(), QLatin1String("openSourceLink"));
+
+    DocumentView::SourceLink sourceLink = currentTab()->sourceLink(pos);
+
+    if(!sourceLink.name.isNull())
+    {
+        action->setText(tr("Open %1:%2:%3 in source editor...").arg(sourceLink.name).arg(sourceLink.line).arg(sourceLink.column));
+
+        QVariant data;
+        data.setValue(sourceLink);
+        action->setData(data);
+    }
+    else
+    {
+        action->setVisible(false);
+    }
+
+    return action;
 }
 
 void MainWindow::prepareDatabase()

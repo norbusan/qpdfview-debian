@@ -149,6 +149,17 @@ public:
 
     QPair< QString, QString > searchContext(int page, const QRectF& rect) const;
 
+    struct SourceLink
+    {
+        QString name;
+        int line;
+        int column;
+
+    };
+
+    SourceLink sourceLink(const QPoint& pos);
+    void openInSourceEditor(const SourceLink& sourceLink);
+
 signals:
     void documentChanged();
     void documentModified();
@@ -361,5 +372,7 @@ private:
 };
 
 } // qpdfview
+
+Q_DECLARE_METATYPE(qpdfview::DocumentView::SourceLink)
 
 #endif // DOCUMENTVIEW_H

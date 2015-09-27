@@ -90,6 +90,9 @@ public:
     const QTransform& transform() const { return m_transform; }
     const QTransform& normalizedTransform() const { return m_normalizedTransform; }
 
+    QPointF sourcePos(const QPointF& point) const { return m_transform.inverted().map(point); }
+    QPointF normalizedSourcePos(const QPointF& point) const { return m_normalizedTransform.inverted().map(point); }
+
 signals:
     void cropRectChanged();
 

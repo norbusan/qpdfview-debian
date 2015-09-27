@@ -942,6 +942,57 @@ QPair< QString, QString > DocumentView::searchContext(int page, const QRectF& re
     return qMakePair(matchedText, surroundingText);
 }
 
+DocumentView::SourceLink DocumentView::sourceLink(const QPoint& pos)
+{
+    SourceLink sourceLink;
+
+    if(s_settings->documentView().sourceEditor().isEmpty())
+    {
+        return sourceLink;
+    }
+
+#ifdef WITH_SYNCTEX
+
+    if(const PageItem* page = dynamic_cast< PageItem* >(itemAt(pos)))
+    {
+        if(synctex_scanner_t scanner = synctex_scanner_new_with_output_file(m_fileInfo.absoluteFilePath().toLocal8Bit(), 0, 1))
+        {
+            const int sourcePage = page->index() + 1;
+            const QPointF sourcePos = page->sourcePos(page->mapFromScene(mapToScene(pos)));
+
+            if(synctex_edit_query(scanner, sourcePage, sourcePos.x(), sourcePos.y()) > 0)
+            {
+                for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
+                {
+                    sourceLink.name = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
+                    sourceLink.line = qMax(synctex_node_line(node), 0);
+                    sourceLink.column = qMax(synctex_node_column(node), 0);
+
+                    break;
+                }
+            }
+
+            synctex_scanner_free(scanner);
+        }
+    }
+
+#else
+
+    Q_UNUSED(pos);
+
+#endif // WITH_SYNCTEX
+
+    return sourceLink;
+}
+
+void DocumentView::openInSourceEditor(const DocumentView::SourceLink& sourceLink)
+{
+    const QString absoluteFilePath = m_fileInfo.dir().absoluteFilePath(sourceLink.name);
+    const QString sourceEditorCommand = s_settings->documentView().sourceEditor().arg(absoluteFilePath, QString::number(sourceLink.line), QString::number(sourceLink.column));
+
+    QProcess::startDetached(sourceEditorCommand);
+}
+
 void DocumentView::show()
 {
     QGraphicsView::show();

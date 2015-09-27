@@ -288,6 +288,8 @@ private:
 
     BookmarkModel* bookmarkModelForCurrentTab(bool create = false);
 
+    QAction* sourceLinkActionForCurrentTab(QObject* parent, const QPoint& pos);
+
     class RestoreTab;
 
     QTimer* m_saveDatabaseTimer;
