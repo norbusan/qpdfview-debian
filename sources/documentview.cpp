@@ -1400,8 +1400,10 @@ void DocumentView::on_verticalScrollBar_valueChanged()
     int currentPage = -1;
     const QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
 
-    foreach(PageItem* page, m_pageItems)
+    for(int index = 0, count = m_pageItems.count(); index < count; ++index)
     {
+        PageItem* page = m_pageItems.at((m_currentPage - 1 + index) % count);
+
         const int pageNumber = page->index() + 1;
         const QRectF pageRect = page->boundingRect().translated(page->pos());
 
