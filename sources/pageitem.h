@@ -103,8 +103,7 @@ signals:
     void rubberBandStarted();
     void rubberBandFinished();
 
-    void editSourceRequested(int page, const QPointF& pos);
-    void zoomToSelectionRequested(int page, const QRectF& rect);
+    void zoomToSelection(int page, const QRectF& rect);
 
     void wasModified();
 
@@ -129,7 +128,6 @@ protected:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent*);
 
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 

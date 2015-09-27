@@ -1625,52 +1625,7 @@ void DocumentView::on_pages_rubberBandFinished()
     setRubberBandMode(ModifiersMode);
 }
 
-void DocumentView::on_pages_editSourceRequested(int page, const QPointF& pos)
-{
-#ifdef WITH_SYNCTEX
-
-    if(s_settings->documentView().sourceEditor().isEmpty())
-    {
-        return;
-    }
-
-    synctex_scanner_t scanner = synctex_scanner_new_with_output_file(m_fileInfo.absoluteFilePath().toLocal8Bit(), 0, 1);
-
-    if(scanner != 0)
-    {
-        if(synctex_edit_query(scanner, page, pos.x(), pos.y()) > 0)
-        {
-            for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
-            {
-                QString sourceName = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
-                int sourceLine = synctex_node_line(node);
-                int sourceColumn = synctex_node_column(node);
-
-                sourceLine = sourceLine >= 0 ? sourceLine : 0;
-                sourceColumn = sourceColumn >= 0 ? sourceColumn : 0;
-
-                QProcess::startDetached(s_settings->documentView().sourceEditor().arg(m_fileInfo.dir().absoluteFilePath(sourceName), QString::number(sourceLine), QString::number(sourceColumn)));
-
-                break;
-            }
-        }
-
-        synctex_scanner_free(scanner);
-    }
-    else
-    {
-        QMessageBox::warning(this, tr("Warning"), tr("SyncTeX data for '%1' could not be found.").arg(m_fileInfo.absoluteFilePath()));
-    }
-
-#else
-
-    Q_UNUSED(page);
-    Q_UNUSED(pos);
-
-#endif // WITH_SYNCTEX
-}
-
-void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rect)
+void DocumentView::on_pages_zoomToSelection(int page, const QRectF& rect)
 {
     if(rect.isEmpty())
     {
@@ -2400,8 +2355,7 @@ void DocumentView::preparePages()
 
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 
-        connect(page, SIGNAL(editSourceRequested(int,QPointF)), SLOT(on_pages_editSourceRequested(int,QPointF)));
-        connect(page, SIGNAL(zoomToSelectionRequested(int,QRectF)), SLOT(on_pages_zoomToSelectionRequested(int,QRectF)));
+        connect(page, SIGNAL(zoomToSelection(int,QRectF)), SLOT(on_pages_zoomToSelection(int,QRectF)));
 
         connect(page, SIGNAL(wasModified()), SLOT(on_pages_wasModified()));
     }

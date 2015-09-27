@@ -546,13 +546,6 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     event->ignore();
 }
 
-void PageItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
-{
-    emit editSourceRequested(m_index + 1, m_transform.inverted().map(event->pos()));
-
-    event->accept();
-}
-
 void PageItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
     if(!m_rubberBand.isNull())
@@ -589,7 +582,7 @@ void PageItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         }
         else if(m_rubberBandMode == ZoomToSelectionMode)
         {
-            emit zoomToSelectionRequested(m_index + 1, m_normalizedTransform.inverted().mapRect(m_rubberBand));
+            emit zoomToSelection(m_index + 1, m_normalizedTransform.inverted().mapRect(m_rubberBand));
         }
 
         m_rubberBandMode = ModifiersMode;
