@@ -2,6 +2,7 @@ Release 0.4.16:
   * Added function to dynamically fit thumbnails into the viewport.
   * Added support to use system SyncTeX parser library.
   * Added support to open image formats supported by Qt.
+  * SyncTeX is now available and discoverable with the main view's context menu.
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated Malay translations. Thanks to abuyop.
   * Updated Brazilian Portuguese translations. Thanks to Felipe Braga.
