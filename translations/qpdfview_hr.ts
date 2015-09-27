@@ -327,32 +327,38 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="1619"/>
+        <location filename="../sources/documentview.cpp" line="994"/>
+        <location filename="../sources/documentview.cpp" line="1621"/>
         <source>Information</source>
         <translation type="unfinished">Informacija</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1619"/>
+        <location filename="../sources/documentview.cpp" line="994"/>
+        <source>The source editor has not been set.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1621"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Otvaranje URL je onemogućeno u postavkama.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2099"/>
+        <location filename="../sources/documentview.cpp" line="2101"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Tiskanje &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2173"/>
+        <location filename="../sources/documentview.cpp" line="2175"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Otključaj %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2173"/>
+        <location filename="../sources/documentview.cpp" line="2175"/>
         <source>Password:</source>
         <translation type="unfinished">Lozinka:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2215"/>
+        <location filename="../sources/documentview.cpp" line="2217"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>

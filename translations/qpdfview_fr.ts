@@ -327,32 +327,38 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="1619"/>
+        <location filename="../sources/documentview.cpp" line="994"/>
+        <location filename="../sources/documentview.cpp" line="1621"/>
         <source>Information</source>
         <translation type="unfinished">Information</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1619"/>
+        <location filename="../sources/documentview.cpp" line="994"/>
+        <source>The source editor has not been set.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="1621"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">L&apos;ouverture d&apos;URL est désactivée dans les paramètres.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2099"/>
+        <location filename="../sources/documentview.cpp" line="2101"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Impression de « %1 »...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2173"/>
+        <location filename="../sources/documentview.cpp" line="2175"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Déverrouiller %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2173"/>
+        <location filename="../sources/documentview.cpp" line="2175"/>
         <source>Password:</source>
         <translation type="unfinished">Mot de passe :</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2215"/>
+        <location filename="../sources/documentview.cpp" line="2217"/>
         <source>Page %1</source>
         <translation type="unfinished">Page %1</translation>
     </message>

@@ -946,11 +946,6 @@ DocumentView::SourceLink DocumentView::sourceLink(const QPoint& pos)
 {
     SourceLink sourceLink;
 
-    if(s_settings->documentView().sourceEditor().isEmpty())
-    {
-        return sourceLink;
-    }
-
 #ifdef WITH_SYNCTEX
 
     if(const PageItem* page = dynamic_cast< PageItem* >(itemAt(pos)))
@@ -987,10 +982,17 @@ DocumentView::SourceLink DocumentView::sourceLink(const QPoint& pos)
 
 void DocumentView::openInSourceEditor(const DocumentView::SourceLink& sourceLink)
 {
-    const QString absoluteFilePath = m_fileInfo.dir().absoluteFilePath(sourceLink.name);
-    const QString sourceEditorCommand = s_settings->documentView().sourceEditor().arg(absoluteFilePath, QString::number(sourceLink.line), QString::number(sourceLink.column));
+    if(!s_settings->documentView().sourceEditor().isEmpty())
+    {
+        const QString absoluteFilePath = m_fileInfo.dir().absoluteFilePath(sourceLink.name);
+        const QString sourceEditorCommand = s_settings->documentView().sourceEditor().arg(absoluteFilePath, QString::number(sourceLink.line), QString::number(sourceLink.column));
 
-    QProcess::startDetached(sourceEditorCommand);
+        QProcess::startDetached(sourceEditorCommand);
+    }
+    else
+    {
+        QMessageBox::information(this, tr("Information"), tr("The source editor has not been set."));
+    }
 }
 
 void DocumentView::show()
