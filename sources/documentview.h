@@ -155,6 +155,8 @@ public:
         int line;
         int column;
 
+        operator bool() const { return !name.isNull(); }
+
     };
 
     SourceLink sourceLink(const QPoint& pos);

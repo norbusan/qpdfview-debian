@@ -2614,15 +2614,10 @@ QAction* MainWindow::sourceLinkActionForCurrentTab(QObject* parent, const QPoint
 {
     QAction* action = createTemporaryAction(parent, QString(), QLatin1String("openSourceLink"));
 
-    const DocumentView::SourceLink sourceLink = currentTab()->sourceLink(pos);
-
-    if(!sourceLink.name.isNull())
+    if(const DocumentView::SourceLink sourceLink = currentTab()->sourceLink(pos))
     {
         action->setText(tr("Edit '%1' at %2,%3...").arg(sourceLink.name).arg(sourceLink.line).arg(sourceLink.column));
-
-        QVariant data;
-        data.setValue(sourceLink);
-        action->setData(data);
+        action->setData(QVariant::fromValue(sourceLink));
     }
     else
     {
