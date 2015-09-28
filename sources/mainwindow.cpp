@@ -2618,7 +2618,7 @@ QAction* MainWindow::sourceLinkActionForCurrentTab(QObject* parent, const QPoint
 
     if(!sourceLink.name.isNull())
     {
-        action->setText(tr("Open %1:%2:%3 in source editor...").arg(sourceLink.name).arg(sourceLink.line).arg(sourceLink.column));
+        action->setText(tr("Edit '%1' at %2,%3...").arg(sourceLink.name).arg(sourceLink.line).arg(sourceLink.column));
 
         QVariant data;
         data.setValue(sourceLink);

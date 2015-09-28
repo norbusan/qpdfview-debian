@@ -327,38 +327,38 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="994"/>
-        <location filename="../sources/documentview.cpp" line="1621"/>
+        <location filename="../sources/documentview.cpp" line="993"/>
+        <location filename="../sources/documentview.cpp" line="1620"/>
         <source>Information</source>
         <translation type="unfinished">Informazioni</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="994"/>
+        <location filename="../sources/documentview.cpp" line="993"/>
         <source>The source editor has not been set.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1621"/>
+        <location filename="../sources/documentview.cpp" line="1620"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">Apertura degli URL disabilitata nelle impostazioni.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2101"/>
+        <location filename="../sources/documentview.cpp" line="2100"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">Stampa di «%1»...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2175"/>
+        <location filename="../sources/documentview.cpp" line="2174"/>
         <source>Unlock %1</source>
         <translation type="unfinished">Sblocca %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2175"/>
+        <location filename="../sources/documentview.cpp" line="2174"/>
         <source>Password:</source>
         <translation type="unfinished">Password:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2217"/>
+        <location filename="../sources/documentview.cpp" line="2216"/>
         <source>Page %1</source>
         <translation type="unfinished">Pagina %1</translation>
     </message>
@@ -616,7 +616,7 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2621"/>
-        <source>Open %1:%2:%3 in source editor...</source>
+        <source>Edit &apos;%1&apos; at %2,%3...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -327,38 +327,38 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="994"/>
-        <location filename="../sources/documentview.cpp" line="1621"/>
+        <location filename="../sources/documentview.cpp" line="993"/>
+        <location filename="../sources/documentview.cpp" line="1620"/>
         <source>Information</source>
         <translation type="unfinished">Маалымат</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="994"/>
+        <location filename="../sources/documentview.cpp" line="993"/>
         <source>The source editor has not been set.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1621"/>
+        <location filename="../sources/documentview.cpp" line="1620"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2101"/>
+        <location filename="../sources/documentview.cpp" line="2100"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; басуу...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2175"/>
+        <location filename="../sources/documentview.cpp" line="2174"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 тосмолоодон алуу</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2175"/>
+        <location filename="../sources/documentview.cpp" line="2174"/>
         <source>Password:</source>
         <translation type="unfinished">Сырсөз:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2217"/>
+        <location filename="../sources/documentview.cpp" line="2216"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -601,11 +601,6 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2512"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2621"/>
-        <source>Open %1:%2:%3 in source editor...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -912,6 +907,11 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1906"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2621"/>
+        <source>Edit &apos;%1&apos; at %2,%3...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

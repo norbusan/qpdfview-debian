@@ -962,7 +962,6 @@ DocumentView::SourceLink DocumentView::sourceLink(const QPoint& pos)
                     sourceLink.name = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
                     sourceLink.line = qMax(synctex_node_line(node), 0);
                     sourceLink.column = qMax(synctex_node_column(node), 0);
-
                     break;
                 }
             }
