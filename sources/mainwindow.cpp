@@ -1272,22 +1272,23 @@ void MainWindow::on_print_triggered()
 
 #endif // QT_VERSION
 
-    if(printDialog->exec() == QDialog::Accepted)
+    if(printDialog->exec() != QDialog::Accepted)
     {
+        return;
+    }
 
 #if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
 
-        if(printDialog->printRange() == QPrintDialog::CurrentPage)
-        {
-            printer->setFromTo(currentTab()->currentPage(), currentTab()->currentPage());
-        }
+    if(printDialog->printRange() == QPrintDialog::CurrentPage)
+    {
+        printer->setFromTo(currentTab()->currentPage(), currentTab()->currentPage());
+    }
 
 #endif // QT_VERSION
 
-        if(!currentTab()->print(printer.data(), printDialog->printOptions()))
-        {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not print '%1'.").arg(currentTab()->fileInfo().filePath()));
-        }
+    if(!currentTab()->print(printer.data(), printDialog->printOptions()))
+    {
+        QMessageBox::warning(this, tr("Warning"), tr("Could not print '%1'.").arg(currentTab()->fileInfo().filePath()));
     }
 }
 
@@ -1410,25 +1411,27 @@ void MainWindow::on_settings_triggered()
 {
     QScopedPointer< SettingsDialog > settingsDialog(new SettingsDialog(this));
 
-    if(settingsDialog->exec() == QDialog::Accepted)
+    if(settingsDialog->exec() != QDialog::Accepted)
     {
-        s_settings->sync();
+        return;
+    }
 
-        m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(s_settings->mainWindow().tabPosition()));
-        m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(s_settings->mainWindow().tabVisibility()));
-        m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
+    s_settings->sync();
 
-        m_tabsMenu->setSearchable(s_settings->mainWindow().searchableMenus());
-        m_bookmarksMenu->setSearchable(s_settings->mainWindow().searchableMenus());
+    m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(s_settings->mainWindow().tabPosition()));
+    m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(s_settings->mainWindow().tabVisibility()));
+    m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
 
-        m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
+    m_tabsMenu->setSearchable(s_settings->mainWindow().searchableMenus());
+    m_bookmarksMenu->setSearchable(s_settings->mainWindow().searchableMenus());
 
-        for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
+    m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
+
+    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
+    {
+        if(!tab(index)->refresh())
         {
-            if(!tab(index)->refresh())
-            {
-                QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->fileInfo().filePath()));
-            }
+            QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->fileInfo().filePath()));
         }
     }
 }
@@ -1668,9 +1671,7 @@ void MainWindow::on_tabShortcut_activated()
 
 void MainWindow::on_previousBookmark_triggered()
 {
-    const BookmarkModel* model = bookmarkModelForCurrentTab();
-
-    if(model != 0)
+    if(const BookmarkModel* model = bookmarkModelForCurrentTab())
     {
         QList< int > pages;
 
@@ -1699,9 +1700,7 @@ void MainWindow::on_previousBookmark_triggered()
 
 void MainWindow::on_nextBookmark_triggered()
 {
-    const BookmarkModel* model = bookmarkModelForCurrentTab();
-
-    if(model != 0)
+    if(const BookmarkModel* model = bookmarkModelForCurrentTab())
     {
         QList< int > pages;
 
@@ -1952,23 +1951,25 @@ void MainWindow::on_toggleMenuBar_triggered(bool checked)
 
 void MainWindow::on_searchInitiated(const QString& text, bool modified)
 {
-    if(!text.isEmpty())
+    if(text.isEmpty())
     {
-        const bool allTabs = s_settings->mainWindow().extendedSearchDock() ? !modified : modified;
-        const bool matchCase = m_matchCaseCheckBox->isChecked();
-        const bool wholeWords = m_wholeWordsCheckBox->isChecked();
+        return;
+    }
 
-        if(allTabs)
+    const bool allTabs = s_settings->mainWindow().extendedSearchDock() ? !modified : modified;
+    const bool matchCase = m_matchCaseCheckBox->isChecked();
+    const bool wholeWords = m_wholeWordsCheckBox->isChecked();
+
+    if(allTabs)
+    {
+        for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
         {
-            for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
-            {
-                tab(index)->startSearch(text, matchCase, wholeWords);
-            }
+            tab(index)->startSearch(text, matchCase, wholeWords);
         }
-        else
-        {
-            currentTab()->startSearch(text, matchCase, wholeWords);
-        }
+    }
+    else
+    {
+        currentTab()->startSearch(text, matchCase, wholeWords);
     }
 }
 
