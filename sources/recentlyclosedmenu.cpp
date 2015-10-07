@@ -49,11 +49,31 @@ void RecentlyClosedMenu::addTabAction(QAction* tabAction)
         removeAction(first);
         m_tabActionGroup->removeAction(first);
 
-        delete static_cast< DocumentView* >(first->parent());
+        first->parent()->deleteLater();
     }
 
     insertAction(actions().first(), tabAction);
     m_tabActionGroup->addAction(tabAction);
+}
+
+void RecentlyClosedMenu::triggerFirstTabAction()
+{
+    const QList< QAction* >& actions = m_tabActionGroup->actions();
+
+    if(!actions.isEmpty())
+    {
+        on_tabAction_triggered(actions.first());
+    }
+}
+
+void RecentlyClosedMenu::triggerLastTabAction()
+{
+    const QList< QAction* >& actions = m_tabActionGroup->actions();
+
+    if(!actions.isEmpty())
+    {
+        on_tabAction_triggered(actions.last());
+    }
 }
 
 void RecentlyClosedMenu::on_tabAction_triggered(QAction* tabAction)
@@ -68,7 +88,7 @@ void RecentlyClosedMenu::on_clearList_triggered()
 {
     foreach(QAction* action, m_tabActionGroup->actions())
     {
-        delete static_cast< DocumentView* >(action->parent());
+        action->parent()->deleteLater();
     }
 }
 
