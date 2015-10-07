@@ -200,6 +200,8 @@ protected slots:
     void on_closeAllTabs_triggered();
     void on_closeAllTabsButCurrentTab_triggered();
 
+    void on_restoreMostRecentlyClosedTab_triggered();
+
     void on_recentlyClosed_tabActionTriggered(QAction* tabAction);
 
     void on_tabAction_triggered();
@@ -382,6 +384,8 @@ private:
     QAction* m_closeTabAction;
     QAction* m_closeAllTabsAction;
     QAction* m_closeAllTabsButCurrentTabAction;
+
+    QAction* m_restoreMostRecentlyClosedTabAction;
 
     QShortcut* m_tabShortcuts[9];
 

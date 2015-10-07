@@ -1615,6 +1615,11 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
     reconnectCurrentTabChanged();
 }
 
+void MainWindow::on_restoreMostRecentlyClosedTab_triggered()
+{
+    m_recentlyClosedMenu->triggerLastTabAction();
+}
+
 void MainWindow::on_recentlyClosed_tabActionTriggered(QAction* tabAction)
 {
     DocumentView* tab = static_cast< DocumentView* >(tabAction->parent());
@@ -2861,6 +2866,8 @@ void MainWindow::createActions()
     m_closeAllTabsAction = createAction(tr("Close &all tabs"), QLatin1String("closeAllTabs"), QIcon(), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_W), SLOT(on_closeAllTabs_triggered()));
     m_closeAllTabsButCurrentTabAction = createAction(tr("Close all tabs &but current tab"), QLatin1String("closeAllTabsButCurrent"), QIcon(), QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_W), SLOT(on_closeAllTabsButCurrentTab_triggered()));
 
+    m_restoreMostRecentlyClosedTabAction = createAction(tr("Restore &most recently closed tab"), QLatin1String("restoreMostRecentlyClosedTab"), QIcon(), QKeySequence(Qt::ALT + Qt::SHIFT + Qt::Key_W), SLOT(on_restoreMostRecentlyClosedTab_triggered()));
+
     // tab shortcuts
 
     for(int index = 0; index < 9; ++index)
@@ -3195,6 +3202,7 @@ void MainWindow::createMenus()
     if(s_settings->mainWindow().keepRecentlyClosed())
     {
         m_tabsMenu->addMenu(m_recentlyClosedMenu);
+        m_tabsMenu->addAction(m_restoreMostRecentlyClosedTabAction);
     }
 
     m_tabsMenu->addSeparator();
