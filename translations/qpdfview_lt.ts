@@ -434,13 +434,13 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="362"/>
         <location filename="../sources/mainwindow.cpp" line="445"/>
+        <location filename="../sources/mainwindow.cpp" line="1202"/>
         <location filename="../sources/mainwindow.cpp" line="1219"/>
         <location filename="../sources/mainwindow.cpp" line="1236"/>
-        <location filename="../sources/mainwindow.cpp" line="1253"/>
-        <location filename="../sources/mainwindow.cpp" line="1289"/>
-        <location filename="../sources/mainwindow.cpp" line="1430"/>
-        <location filename="../sources/mainwindow.cpp" line="2512"/>
-        <location filename="../sources/mainwindow.cpp" line="2526"/>
+        <location filename="../sources/mainwindow.cpp" line="1274"/>
+        <location filename="../sources/mainwindow.cpp" line="1417"/>
+        <location filename="../sources/mainwindow.cpp" line="2501"/>
+        <location filename="../sources/mainwindow.cpp" line="2515"/>
         <source>Warning</source>
         <translation type="unfinished">Įspėjimas</translation>
     </message>
@@ -481,514 +481,519 @@
         <translation type="unfinished">Užverti visas korteles dešinėje</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1174"/>
+        <location filename="../sources/mainwindow.cpp" line="1157"/>
         <source>Open</source>
         <translation type="unfinished">Atverti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1190"/>
+        <location filename="../sources/mainwindow.cpp" line="1173"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Atverti naujoje kortelėje</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1219"/>
-        <location filename="../sources/mainwindow.cpp" line="1430"/>
+        <location filename="../sources/mainwindow.cpp" line="1202"/>
+        <location filename="../sources/mainwindow.cpp" line="1417"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">Nepavyko iš naujo įkelti &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1226"/>
+        <location filename="../sources/mainwindow.cpp" line="1209"/>
         <source>Save copy</source>
         <translation type="unfinished">Įrašyti kopiją</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1236"/>
+        <location filename="../sources/mainwindow.cpp" line="1219"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1243"/>
-        <location filename="../sources/mainwindow.cpp" line="2516"/>
+        <location filename="../sources/mainwindow.cpp" line="1226"/>
+        <location filename="../sources/mainwindow.cpp" line="2505"/>
         <source>Save as</source>
         <translation type="unfinished">Įrašyti kaip</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1253"/>
-        <location filename="../sources/mainwindow.cpp" line="2526"/>
+        <location filename="../sources/mainwindow.cpp" line="1236"/>
+        <location filename="../sources/mainwindow.cpp" line="2515"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1289"/>
+        <location filename="../sources/mainwindow.cpp" line="1274"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1326"/>
+        <location filename="../sources/mainwindow.cpp" line="1310"/>
         <source>Set first page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1326"/>
+        <location filename="../sources/mainwindow.cpp" line="1310"/>
         <source>Select the first page of the body matter:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1339"/>
+        <location filename="../sources/mainwindow.cpp" line="1323"/>
         <source>Jump to page</source>
         <translation type="unfinished">Pereiti į puslapį</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1339"/>
+        <location filename="../sources/mainwindow.cpp" line="1323"/>
         <source>Page:</source>
         <translation type="unfinished">Puslapis:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1737"/>
+        <location filename="../sources/mainwindow.cpp" line="1724"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">Pereiti į puslapį %1</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1888"/>
+        <location filename="../sources/mainwindow.cpp" line="1875"/>
         <source>About qpdfview</source>
         <translation type="unfinished">Apie qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1888"/>
+        <location filename="../sources/mainwindow.cpp" line="1875"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview yra korteles palaikanti dokumentų peržiūros programa, naudojanti Qt.&lt;/p&gt;&lt;p&gt;Į šią versiją įeina:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1892"/>
+        <location filename="../sources/mainwindow.cpp" line="1879"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;PDF palaikymas, naudojant Poppler %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1895"/>
+        <location filename="../sources/mainwindow.cpp" line="1882"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;PS palaikymas, naudojant libspectre %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1898"/>
+        <location filename="../sources/mainwindow.cpp" line="1885"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;DjVu palaikymas, naudojant DjVuLibre %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1901"/>
+        <location filename="../sources/mainwindow.cpp" line="1888"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;PDF palaikymas, naudojant Fitz %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1904"/>
+        <location filename="../sources/mainwindow.cpp" line="1891"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
         <translation type="unfinished">&lt;li&gt;Spausdinimo palaikymas, naudojant CUPS %1&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1906"/>
+        <location filename="../sources/mainwindow.cpp" line="1893"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Išsamesnei informacijai, žiūrėkite &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 qpdfview kūrėjai&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2189"/>
-        <location filename="../sources/mainwindow.cpp" line="2898"/>
+        <location filename="../sources/mainwindow.cpp" line="2178"/>
+        <location filename="../sources/mainwindow.cpp" line="2884"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">Ša&amp;linti žymę</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2190"/>
+        <location filename="../sources/mainwindow.cpp" line="2179"/>
         <source>&amp;Edit bookmark</source>
         <translation type="unfinished">R&amp;edaguoti žymę</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2512"/>
+        <location filename="../sources/mainwindow.cpp" line="2501"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2621"/>
+        <location filename="../sources/mainwindow.cpp" line="2608"/>
         <source>Edit &apos;%1&apos; at %2,%3...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2723"/>
+        <location filename="../sources/mainwindow.cpp" line="2707"/>
         <source>Page width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2724"/>
+        <location filename="../sources/mainwindow.cpp" line="2708"/>
         <source>Page size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2747"/>
+        <location filename="../sources/mainwindow.cpp" line="2731"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">Skirti didžiąsias ir mažąsias raides</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2748"/>
+        <location filename="../sources/mainwindow.cpp" line="2732"/>
         <source>Whole &amp;words</source>
         <translation type="unfinished">Ištisi ž&amp;odžiai</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2749"/>
+        <location filename="../sources/mainwindow.cpp" line="2733"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">Par&amp;yškinti visus</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2811"/>
+        <location filename="../sources/mainwindow.cpp" line="2795"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Atverti...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2812"/>
+        <location filename="../sources/mainwindow.cpp" line="2796"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Atverti naujoje kor&amp;telėje</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2813"/>
+        <location filename="../sources/mainwindow.cpp" line="2797"/>
         <source>Open &amp;copy in new tab</source>
         <translation type="unfinished">Atverti &amp;kopiją naujoje kortelėje</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2814"/>
+        <location filename="../sources/mainwindow.cpp" line="2798"/>
         <source>Open containing &amp;folder</source>
         <translation type="unfinished">Atverti vidinį apla&amp;nką</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2815"/>
+        <location filename="../sources/mainwindow.cpp" line="2799"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">Įkelti iš nau&amp;jo</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2816"/>
+        <location filename="../sources/mainwindow.cpp" line="2800"/>
         <source>&amp;Save copy...</source>
         <translation type="unfinished">Įrašyti k&amp;opiją...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2817"/>
+        <location filename="../sources/mainwindow.cpp" line="2801"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">Įrašyti &amp;kaip...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2818"/>
+        <location filename="../sources/mainwindow.cpp" line="2802"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">S&amp;pausdinti...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2819"/>
+        <location filename="../sources/mainwindow.cpp" line="2803"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">Iš&amp;eiti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2823"/>
+        <location filename="../sources/mainwindow.cpp" line="2807"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">Ankstesnis &amp;puslapis</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2824"/>
+        <location filename="../sources/mainwindow.cpp" line="2808"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Kitas puslapis</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2825"/>
+        <location filename="../sources/mainwindow.cpp" line="2809"/>
         <source>&amp;First page</source>
         <translation type="unfinished">P&amp;irmas puslapis</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2826"/>
+        <location filename="../sources/mainwindow.cpp" line="2810"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">Pask&amp;utinis puslapis</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2828"/>
+        <location filename="../sources/mainwindow.cpp" line="2812"/>
         <source>&amp;Set first page...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2830"/>
+        <location filename="../sources/mainwindow.cpp" line="2814"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">Pereiti į pu&amp;slapį</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2832"/>
+        <location filename="../sources/mainwindow.cpp" line="2816"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished">Pereiti a&amp;tgal</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2833"/>
+        <location filename="../sources/mainwindow.cpp" line="2817"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished">Pereiti pi&amp;rmyn</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2835"/>
+        <location filename="../sources/mainwindow.cpp" line="2819"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;Ieškoti...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2836"/>
+        <location filename="../sources/mainwindow.cpp" line="2820"/>
         <source>Find previous</source>
         <translation type="unfinished">Rasti ankstesnį</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2837"/>
+        <location filename="../sources/mainwindow.cpp" line="2821"/>
         <source>Find next</source>
         <translation type="unfinished">Rasti kitą</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2838"/>
+        <location filename="../sources/mainwindow.cpp" line="2822"/>
         <source>Cancel search</source>
         <translation type="unfinished">Atsisakyti paieškos</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2840"/>
+        <location filename="../sources/mainwindow.cpp" line="2824"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">&amp;Kopijuoti į iškarpinę</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2841"/>
+        <location filename="../sources/mainwindow.cpp" line="2825"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">Pridėti p&amp;astabą</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2843"/>
+        <location filename="../sources/mainwindow.cpp" line="2827"/>
         <source>Settings...</source>
         <translation type="unfinished">Nustatymai...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2847"/>
+        <location filename="../sources/mainwindow.cpp" line="2831"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2848"/>
+        <location filename="../sources/mainwindow.cpp" line="2832"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2849"/>
+        <location filename="../sources/mainwindow.cpp" line="2833"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2850"/>
+        <location filename="../sources/mainwindow.cpp" line="2834"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2852"/>
+        <location filename="../sources/mainwindow.cpp" line="2836"/>
         <source>Right to left</source>
         <translation type="unfinished">Iš dešinės į kairę</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2854"/>
+        <location filename="../sources/mainwindow.cpp" line="2838"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">Did&amp;inti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2855"/>
+        <location filename="../sources/mainwindow.cpp" line="2839"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">&amp;Mažinti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2856"/>
+        <location filename="../sources/mainwindow.cpp" line="2840"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">Originalo dydi&amp;s</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2858"/>
+        <location filename="../sources/mainwindow.cpp" line="2842"/>
         <source>Fit to page width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2859"/>
+        <location filename="../sources/mainwindow.cpp" line="2843"/>
         <source>Fit to page size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2861"/>
+        <location filename="../sources/mainwindow.cpp" line="2845"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">Pasukti &amp;kairėn</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2862"/>
+        <location filename="../sources/mainwindow.cpp" line="2846"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Pasukti &amp;dešinėn</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2864"/>
+        <location filename="../sources/mainwindow.cpp" line="2848"/>
         <source>Invert colors</source>
         <translation type="unfinished">Invertuoti spalvas</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2865"/>
+        <location filename="../sources/mainwindow.cpp" line="2849"/>
         <source>Convert to grayscale</source>
         <translation type="unfinished">Konvertuoti į pilkumo tonus</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2866"/>
+        <location filename="../sources/mainwindow.cpp" line="2850"/>
         <source>Trim margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2868"/>
+        <location filename="../sources/mainwindow.cpp" line="2852"/>
         <source>Darken with paper color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2869"/>
+        <location filename="../sources/mainwindow.cpp" line="2853"/>
         <source>Lighten with paper color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2871"/>
+        <location filename="../sources/mainwindow.cpp" line="2855"/>
         <source>Fonts...</source>
         <translation type="unfinished">Šriftai...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2873"/>
+        <location filename="../sources/mainwindow.cpp" line="2857"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">&amp;Visas ekranas</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2874"/>
+        <location filename="../sources/mainwindow.cpp" line="2858"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">&amp;Pateiktis...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2878"/>
+        <location filename="../sources/mainwindow.cpp" line="2862"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">&amp;Ankstesnė kortelė</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2879"/>
+        <location filename="../sources/mainwindow.cpp" line="2863"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">&amp;Kita kortelė</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2881"/>
+        <location filename="../sources/mainwindow.cpp" line="2865"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;Užverti kortelę</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2882"/>
+        <location filename="../sources/mainwindow.cpp" line="2866"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">Užverti &amp;visas korteles</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2883"/>
+        <location filename="../sources/mainwindow.cpp" line="2867"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">Užverti visas korteles, išskyrus &amp;esamą</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2894"/>
+        <location filename="../sources/mainwindow.cpp" line="2869"/>
+        <source>Restore &amp;most recently closed tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2880"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">&amp;Ankstesnė žymė</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2895"/>
+        <location filename="../sources/mainwindow.cpp" line="2881"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">&amp;Kita žymė</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2897"/>
+        <location filename="../sources/mainwindow.cpp" line="2883"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">&amp;Pridėti žymę</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2899"/>
+        <location filename="../sources/mainwindow.cpp" line="2885"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Šalinti visas žymes</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2903"/>
+        <location filename="../sources/mainwindow.cpp" line="2889"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;Turinys</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2904"/>
+        <location filename="../sources/mainwindow.cpp" line="2890"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Apie</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2908"/>
+        <location filename="../sources/mainwindow.cpp" line="2894"/>
         <source>Toggle tool bars</source>
         <translation type="unfinished">Perjungti įrankių juostas</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2909"/>
+        <location filename="../sources/mainwindow.cpp" line="2895"/>
         <source>Toggle menu bar</source>
         <translation type="unfinished">Perjungti meniu juostą</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2932"/>
-        <location filename="../sources/mainwindow.cpp" line="3135"/>
+        <location filename="../sources/mainwindow.cpp" line="2918"/>
+        <location filename="../sources/mainwindow.cpp" line="3121"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Failas</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2935"/>
-        <location filename="../sources/mainwindow.cpp" line="3156"/>
+        <location filename="../sources/mainwindow.cpp" line="2921"/>
+        <location filename="../sources/mainwindow.cpp" line="3142"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Taisa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2938"/>
-        <location filename="../sources/mainwindow.cpp" line="3169"/>
+        <location filename="../sources/mainwindow.cpp" line="2924"/>
+        <location filename="../sources/mainwindow.cpp" line="3155"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Rodinys</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2973"/>
+        <location filename="../sources/mainwindow.cpp" line="2959"/>
         <source>&amp;Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3061"/>
+        <location filename="../sources/mainwindow.cpp" line="3047"/>
         <source>&amp;Outline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3080"/>
+        <location filename="../sources/mainwindow.cpp" line="3066"/>
         <source>&amp;Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3094"/>
+        <location filename="../sources/mainwindow.cpp" line="3080"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished">Mi&amp;niatiūros</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3108"/>
+        <location filename="../sources/mainwindow.cpp" line="3094"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished">Žy&amp;mės</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3180"/>
+        <location filename="../sources/mainwindow.cpp" line="3166"/>
         <source>Composition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3186"/>
+        <location filename="../sources/mainwindow.cpp" line="3172"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">Įrankių juos&amp;tos</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3189"/>
+        <location filename="../sources/mainwindow.cpp" line="3175"/>
         <source>&amp;Docks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3203"/>
+        <location filename="../sources/mainwindow.cpp" line="3189"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3225"/>
+        <location filename="../sources/mainwindow.cpp" line="3212"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">Ž&amp;ymės</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3236"/>
+        <location filename="../sources/mainwindow.cpp" line="3223"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Pagalba</translation>
     </message>
