@@ -142,15 +142,15 @@ PluginHandler::FileType matchFileType(const QString& filePath)
 
     const QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filePath, QMimeDatabase::MatchContent);
 
-    if(mimeType.name() == QLatin1String("application/pdf"))
+    if(mimeType.inherits(QLatin1String("application/pdf")))
     {
         fileType = PluginHandler::PDF;
     }
-    else if(mimeType.name() == QLatin1String("application/postscript"))
+    else if(mimeType.inherits(QLatin1String("application/postscript")))
     {
         fileType = PluginHandler::PS;
     }
-    else if(mimeType.name() == QLatin1String("image/vnd.djvu"))
+    else if(mimeType.inherits(QLatin1String("image/vnd.djvu")))
     {
         fileType = PluginHandler::DjVu;
     }
@@ -294,7 +294,7 @@ QStringList PluginHandler::openFilter()
 
 Model::Document* PluginHandler::loadDocument(const QString& filePath)
 {
-    FileType fileType = matchFileType(filePath);
+    const FileType fileType = matchFileType(filePath);
 
     if(fileType == Unknown)
     {
