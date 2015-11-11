@@ -134,6 +134,10 @@ QStringList supportedImageFormats()
     return formats;
 }
 
+const char* pdfMimeType = "application/pdf";
+const char* psMimeType = "application/postscript";
+const char* djvuMimeType = "image/vnd.djvu";
+
 PluginHandler::FileType matchFileType(const QString& filePath)
 {
     PluginHandler::FileType fileType = PluginHandler::Unknown;
@@ -142,15 +146,15 @@ PluginHandler::FileType matchFileType(const QString& filePath)
 
     const QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filePath, QMimeDatabase::MatchContent);
 
-    if(mimeType.inherits(QLatin1String("application/pdf")))
+    if(mimeType.inherits(pdfMimeType))
     {
         fileType = PluginHandler::PDF;
     }
-    else if(mimeType.inherits(QLatin1String("application/postscript")))
+    else if(mimeType.inherits(psMimeType))
     {
         fileType = PluginHandler::PS;
     }
-    else if(mimeType.inherits(QLatin1String("image/vnd.djvu")))
+    else if(mimeType.inherits(djvuMimeType))
     {
         fileType = PluginHandler::DjVu;
     }
@@ -171,17 +175,17 @@ PluginHandler::FileType matchFileType(const QString& filePath)
 
     if(magic_load(cookie, 0) == 0)
     {
-        const char* mime_type = magic_file(cookie, QFile::encodeName(filePath));
+        const char* mimeType = magic_file(cookie, QFile::encodeName(filePath));
 
-        if(qstrcmp(mime_type, "application/pdf") == 0)
+        if(qstrncmp(mimeType, pdfMimeType, qstrlen(pdfMimeType)) == 0)
         {
             fileType = PluginHandler::PDF;
         }
-        else if(qstrcmp(mime_type, "application/postscript") == 0)
+        else if(qstrncmp(mimeType, psMimeType, qstrlen(psMimeType)) == 0)
         {
             fileType = PluginHandler::PS;
         }
-        else if(qstrcmp(mime_type, "image/vnd.djvu") == 0)
+        else if(qstrncmp(mimeType, djvuMimeType, qstrlen(djvuMimeType)) == 0)
         {
             fileType = PluginHandler::DjVu;
         }
@@ -191,7 +195,7 @@ PluginHandler::FileType matchFileType(const QString& filePath)
         }
         else
         {
-            qDebug() << "Unknown MIME type:" << mime_type;
+            qDebug() << "Unknown MIME type:" << mimeType;
         }
     }
 
@@ -249,6 +253,24 @@ PluginHandler* PluginHandler::instance()
 PluginHandler::~PluginHandler()
 {
     s_instance = 0;
+}
+
+QString PluginHandler::fileTypeName(PluginHandler::FileType fileType)
+{
+    switch(fileType)
+    {
+    default:
+    case PluginHandler::Unknown:
+        return QLatin1String("Unknown");
+    case PluginHandler::PDF:
+        return QLatin1String("PDF");
+    case PluginHandler::PS:
+        return QLatin1String("PS");
+    case PluginHandler::DjVu:
+        return QLatin1String("DjVu");
+    case PluginHandler::Image:
+        return QLatin1String("Image");
+    }
 }
 
 QStringList PluginHandler::openFilter()
