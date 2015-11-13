@@ -134,9 +134,9 @@ QStringList supportedImageFormats()
     return formats;
 }
 
-const char* pdfMimeType = "application/pdf";
-const char* psMimeType = "application/postscript";
-const char* djvuMimeType = "image/vnd.djvu";
+const char* const pdfMimeType = "application/pdf";
+const char* const psMimeType = "application/postscript";
+const char* const djvuMimeType = "image/vnd.djvu";
 
 PluginHandler::FileType matchFileType(const QString& filePath)
 {
