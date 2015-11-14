@@ -1,4 +1,5 @@
 Release 0.4.16:
+  * Fixed an incompatibility with FDo's shared MIME type database that broke opening DjVu documents.
   * Added function to dynamically fit thumbnails into the viewport.
   * Added support to use system SyncTeX parser library.
   * Added support to open image formats supported by Qt.
