@@ -100,7 +100,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="927"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pavadinimas</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="927"/>
@@ -141,7 +141,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="241"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Antraštė</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="242"/>
@@ -214,7 +214,7 @@
     <message>
         <location filename="../sources/main.cpp" line="269"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&quot;--search&quot; naudojimas reikalauja ieškomo teksto.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="347"/>
@@ -224,7 +224,7 @@
     <message>
         <location filename="../sources/main.cpp" line="446"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nepavyko paruošti signalo doroklės.</translation>
     </message>
 </context>
 <context>
@@ -602,7 +602,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2501"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dokumentas &quot;%1&quot; buvo modifikuotas. Ar norite įrašyti savo pakeitimus?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2608"/>
@@ -1159,27 +1159,27 @@
 <context>
     <name>qpdfview::PluginHandler</name>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="285"/>
+        <location filename="../sources/pluginhandler.cpp" line="307"/>
         <source>Image (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="290"/>
+        <location filename="../sources/pluginhandler.cpp" line="312"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Palaikomi formatai (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="301"/>
+        <location filename="../sources/pluginhandler.cpp" line="323"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="308"/>
+        <location filename="../sources/pluginhandler.cpp" line="330"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="308"/>
+        <location filename="../sources/pluginhandler.cpp" line="330"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
         <translation type="unfinished"></translation>
     </message>

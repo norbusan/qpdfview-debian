@@ -194,32 +194,32 @@
     <message>
         <location filename="../sources/main.cpp" line="220"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished">Option de ligne de commande &apos;%1&apos; inconnue.</translation>
+        <translation type="unfinished">Option de ligne de commande « %1 » inconnue.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="251"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished">Utiliser &apos;--instance&apos; nécessite un nom d&apos;instance.</translation>
+        <translation type="unfinished">Utiliser « --instance » nécessite un nom d&apos;instance.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="257"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished">Utiliser &apos;--instance&apos; n&apos;est pas autorisé sans utiliser &apos;--unique&apos;.</translation>
+        <translation type="unfinished">Utiliser « --instance » n&apos;est pas autorisé sans utiliser « --unique ».</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="263"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <translation type="unfinished">Un nom d&apos;instance ne doit contenir que les caractères &apos;[A-Z][a-z][0-9]_&apos; et ne doit pas commencer par un nombre.</translation>
+        <translation type="unfinished">Un nom d&apos;instance ne doit contenir que les caractères « [A-Z][a-z][0-9]_ » et ne doit pas commencer par un nombre.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="269"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished">L&apos;utilisation de &apos;--search&apos; nécessite un texte de recherche.</translation>
+        <translation type="unfinished">L&apos;utilisation de « --search » nécessite un texte de recherche.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="347"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished">Impossible de trouver les données SyncTeX pour &apos;%1&apos;.</translation>
+        <translation type="unfinished">Impossible de trouver les données SyncTeX pour « %1 ».</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="446"/>
@@ -345,7 +345,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="2100"/>
         <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Impression de &apos;%1&apos;...</translation>
+        <translation type="unfinished">Impression de « %1 » ...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="2174"/>
@@ -389,12 +389,12 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <translation type="unfinished">Impossible d&apos;ouvrir la pièce jointe enregistrée vers &apos;%1&apos;.</translation>
+        <translation type="unfinished">Impossible d&apos;ouvrir la pièce jointe enregistrée vers « %1 ».</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="182"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished">Impossible d&apos;enregistrer la pièce jointe vers &apos;%1&apos;.</translation>
+        <translation type="unfinished">Impossible d&apos;enregistrer la pièce jointe vers « %1 ».</translation>
     </message>
 </context>
 <context>
@@ -448,7 +448,7 @@
         <location filename="../sources/mainwindow.cpp" line="362"/>
         <location filename="../sources/mainwindow.cpp" line="445"/>
         <source>Could not open &apos;%1&apos;.</source>
-        <translation type="unfinished">Impossible d&apos;ouvrir &apos;%1&apos;.</translation>
+        <translation type="unfinished">Impossible d&apos;ouvrir « %1 ».</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="672"/>
@@ -494,7 +494,7 @@
         <location filename="../sources/mainwindow.cpp" line="1202"/>
         <location filename="../sources/mainwindow.cpp" line="1417"/>
         <source>Could not refresh &apos;%1&apos;.</source>
-        <translation type="unfinished">Impossible d&apos;actualiser &apos;%1&apos;.</translation>
+        <translation type="unfinished">Impossible d&apos;actualiser « %1 ».</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1209"/>
@@ -504,7 +504,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1219"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
-        <translation type="unfinished">Impossible d&apos;enregistrer la copie à &apos;%1&apos;.</translation>
+        <translation type="unfinished">Impossible d&apos;enregistrer la copie à « %1 ».</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1226"/>
@@ -516,12 +516,12 @@
         <location filename="../sources/mainwindow.cpp" line="1236"/>
         <location filename="../sources/mainwindow.cpp" line="2515"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <translation type="unfinished">Impossible d&apos;enregistrer en tant que &apos;%1&apos;.</translation>
+        <translation type="unfinished">Impossible d&apos;enregistrer en tant que « %1 ».</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1274"/>
         <source>Could not print &apos;%1&apos;.</source>
-        <translation type="unfinished">Impossible d&apos;imprimer &apos;%1&apos;.</translation>
+        <translation type="unfinished">Impossible d&apos;imprimer « %1 ».</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1310"/>
@@ -602,12 +602,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2501"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished">Le document &apos;%1&apos; a été modifié. Voulez-vous enregistrer vos changements ?</translation>
+        <translation type="unfinished">Le document « %1 » a été modifié. Voulez-vous enregistrer vos changements ?</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2608"/>
         <source>Edit &apos;%1&apos; at %2,%3...</source>
-        <translation type="unfinished">Éditer &apos;%1&apos; à %2, %3...</translation>
+        <translation type="unfinished">Éditer « %1 » à %2, %3...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2707"/>
@@ -1008,17 +1008,17 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="366"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <translation type="unfinished">Aller à la page %1 du fichier &apos;%2&apos;.</translation>
+        <translation type="unfinished">Aller à la page %1 du fichier « %2 ».</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="374"/>
         <source>Open &apos;%1&apos;.</source>
-        <translation type="unfinished">Ouvrir &apos;%1&apos;.</translation>
+        <translation type="unfinished">Ouvrir « %1 ».</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="409"/>
         <source>Edit form field &apos;%1&apos;.</source>
-        <translation type="unfinished">Éditer le champ du formulaire &apos;%1&apos;.</translation>
+        <translation type="unfinished">Éditer le champ du formulaire « %1 ».</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="728"/>
@@ -1053,7 +1053,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="770"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
-        <translation type="unfinished">Impossible d&apos;enregistrer l&apos;image dans le fichier &apos;%1&apos;.</translation>
+        <translation type="unfinished">Impossible d&apos;enregistrer l&apos;image dans le fichier « %1 ».</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="783"/>
@@ -1159,29 +1159,29 @@
 <context>
     <name>qpdfview::PluginHandler</name>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="285"/>
+        <location filename="../sources/pluginhandler.cpp" line="307"/>
         <source>Image (%1)</source>
         <translation type="unfinished">Image (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="290"/>
+        <location filename="../sources/pluginhandler.cpp" line="312"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Formats supportés (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="301"/>
+        <location filename="../sources/pluginhandler.cpp" line="323"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
-        <translation type="unfinished">Correspondance impossible pour le type de fichier de &apos;%1&apos; !</translation>
+        <translation type="unfinished">Correspondance impossible pour le type de fichier de « %1 » !</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="308"/>
+        <location filename="../sources/pluginhandler.cpp" line="330"/>
         <source>Critical</source>
         <translation type="unfinished">Critique</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="308"/>
+        <location filename="../sources/pluginhandler.cpp" line="330"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
-        <translation type="unfinished">Impossible de charger le greffon pour le type de fichier &apos;%1&apos; !</translation>
+        <translation type="unfinished">Impossible de charger le greffon pour le type de fichier « %1 » !</translation>
     </message>
 </context>
 <context>
@@ -1359,7 +1359,7 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="181"/>
         <source>Search for &apos;%1&apos;...</source>
-        <translation type="unfinished">Recherche de &apos;%1&apos;...</translation>
+        <translation type="unfinished">Recherche de « %1 »...</translation>
     </message>
 </context>
 <context>
@@ -1486,7 +1486,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="270"/>
         <source>Default</source>
-        <translation type="unfinished">Défaut</translation>
+        <translation type="unfinished">Par défaut</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="274"/>
@@ -1536,7 +1536,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished">&apos;%1&apos; est remplacé par le chemin d&apos;accès absolu. &apos;%2&apos; et &apos;%3&apos; sont remplacés respectivement par le numéro de ligne et le numéro de colonne.</translation>
+        <translation type="unfinished">« %1 » est remplacé par le chemin d&apos;accès absolu. « %2 » et « %3 » sont remplacés respectivement par le numéro de ligne et le numéro de colonne.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="359"/>

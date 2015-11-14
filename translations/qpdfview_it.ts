@@ -1159,27 +1159,27 @@
 <context>
     <name>qpdfview::PluginHandler</name>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="285"/>
+        <location filename="../sources/pluginhandler.cpp" line="307"/>
         <source>Image (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="290"/>
+        <location filename="../sources/pluginhandler.cpp" line="312"/>
         <source>Supported formats (%1)</source>
         <translation type="unfinished">Formati supportati (%1)</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="301"/>
+        <location filename="../sources/pluginhandler.cpp" line="323"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
         <translation type="unfinished">Impossibile confrontare il tipo di file per &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="308"/>
+        <location filename="../sources/pluginhandler.cpp" line="330"/>
         <source>Critical</source>
         <translation type="unfinished">Attenzione</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="308"/>
+        <location filename="../sources/pluginhandler.cpp" line="330"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
         <translation type="unfinished">Impossibile caricare il plugin per il tipo di file &quot;%1&quot;.</translation>
     </message>
