@@ -31,6 +31,7 @@ class QComboBox;
 class QDialogButtonBox;
 class QDoubleSpinBox;
 class QFormLayout;
+class QGroupBox;
 class QLineEdit;
 class QSpinBox;
 class QTableView;
@@ -76,7 +77,12 @@ private:
 
     QFormLayout* m_behaviorLayout;
     QFormLayout* m_interfaceLayout;
-    QFormLayout* m_modifiersLayout;
+
+    QGroupBox* m_wheelModifiersGroupBox;
+    QFormLayout* m_wheelModifiersLayout;
+
+    QGroupBox* m_buttonModifiersGroupBox;
+    QFormLayout* m_buttonModifiersLayout;
 
     // behavior
 

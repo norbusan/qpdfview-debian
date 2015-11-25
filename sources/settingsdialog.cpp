@@ -28,6 +28,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopWidget>
 #include <QDialogButtonBox>
 #include <QFormLayout>
+#include <QGroupBox>
 #include <QHeaderView>
 #include <QPushButton>
 #include <QShortcut>
@@ -155,11 +156,24 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
     m_behaviorLayout = new QFormLayout(m_tabWidget->widget(0));
     m_interfaceLayout = new QFormLayout(m_tabWidget->widget(2));
-    m_modifiersLayout = new QFormLayout(m_tabWidget->widget(4));
 
-    setLayout(new QVBoxLayout(this));
-    layout()->addWidget(m_tabWidget);
-    layout()->addWidget(m_dialogButtonBox);
+    m_wheelModifiersGroupBox = new QGroupBox(tr("Mouse wheel modifiers"));
+    m_wheelModifiersLayout = new QFormLayout(m_wheelModifiersGroupBox);
+
+    m_buttonModifiersGroupBox = new QGroupBox(tr("Mouse button modifiers"));
+    m_buttonModifiersLayout = new QFormLayout(m_buttonModifiersGroupBox);
+
+    QWidget* modifiersTab = m_tabWidget->widget(4);
+    QVBoxLayout* modifiersLayout = new QVBoxLayout(modifiersTab);
+    modifiersTab->setLayout(modifiersLayout);
+    modifiersLayout->addWidget(m_wheelModifiersGroupBox);
+    modifiersLayout->addWidget(m_buttonModifiersGroupBox);
+    modifiersLayout->addStretch();
+
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    setLayout(layout);
+    layout->addWidget(m_tabWidget);
+    layout->addWidget(m_dialogButtonBox);
 
     resize(s_settings->mainWindow().settingsDialogSize(sizeHint()));
 
@@ -666,26 +680,25 @@ void SettingsDialog::resetInterfaceTab()
 
 void SettingsDialog::createModifiersTab()
 {
-    m_zoomModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Zoom:"), QString(),
+    m_zoomModifiersComboBox = addModifiersComboBox(m_wheelModifiersLayout, tr("Zoom:"), QString(),
                                                    s_settings->documentView().zoomModifiers());
 
-    m_rotateModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Rotate:"), QString(),
+    m_rotateModifiersComboBox = addModifiersComboBox(m_wheelModifiersLayout, tr("Rotate:"), QString(),
                                                      s_settings->documentView().rotateModifiers());
 
-    m_scrollModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Scroll:"), QString(),
+    m_scrollModifiersComboBox = addModifiersComboBox(m_wheelModifiersLayout, tr("Scroll:"), QString(),
                                                      s_settings->documentView().scrollModifiers());
 
-
-    m_copyToClipboardModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Copy to clipboard:"), QString(),
+    m_copyToClipboardModifiersComboBox = addModifiersComboBox(m_buttonModifiersLayout, tr("Copy to clipboard:"), QString(),
                                                               s_settings->pageItem().copyToClipboardModifiers());
 
-    m_addAnnotationModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Add annotation:"), QString(),
+    m_addAnnotationModifiersComboBox = addModifiersComboBox(m_buttonModifiersLayout, tr("Add annotation:"), QString(),
                                                             s_settings->pageItem().addAnnotationModifiers());
 
-    m_zoomToSelectionModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Zoom to selection:"), QString(),
+    m_zoomToSelectionModifiersComboBox = addModifiersComboBox(m_buttonModifiersLayout, tr("Zoom to selection:"), QString(),
                                                               s_settings->pageItem().zoomToSelectionModifiers());
 
-    m_openInSourceEditorModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Open in source editor:"), QString(),
+    m_openInSourceEditorModifiersComboBox = addModifiersComboBox(m_buttonModifiersLayout, tr("Open in source editor:"), QString(),
                                                                  s_settings->pageItem().openInSourceEditorModifiers());
 
 #ifndef WITH_SYNCTEX
