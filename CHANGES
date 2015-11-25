@@ -1,9 +1,13 @@
+Release 0.4.17:
+  * Added triggering SyncTeX reverse search using a keyboard modifier.
+  * Keyboard modifiers for mouse interaction can be disabled.
+
 Release 0.4.16:
   * Fixed an incompatibility with FDo's shared MIME type database that broke opening DjVu documents.
   * Added function to dynamically fit thumbnails into the viewport.
   * Added support to use system SyncTeX parser library.
   * Added support to open image formats supported by Qt.
-  * SyncTeX is now available and discoverable with the main view's context menu.
+  * SyncTeX is available and discoverable within the main view's context menu.
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated Malay translations. Thanks to abuyop.
   * Updated Brazilian Portuguese translations. Thanks to Felipe Braga.

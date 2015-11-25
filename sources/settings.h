@@ -103,6 +103,9 @@ public:
         Qt::KeyboardModifiers zoomToSelectionModifiers() const;
         void setZoomToSelectionModifiers(const Qt::KeyboardModifiers& modifiers);
 
+        Qt::KeyboardModifiers openInSourceEditorModifiers() const;
+        void setOpenInSourceEditorModifiers(const Qt::KeyboardModifiers& modifiers);
+
         bool annotationOverlay() const;
         void setAnnotationOverlay(bool overlay);
 
@@ -511,6 +514,7 @@ public:
         static Qt::KeyboardModifiers copyToClipboardModifiers() { return Qt::ShiftModifier; }
         static Qt::KeyboardModifiers addAnnotationModifiers() { return Qt::ControlModifier; }
         static Qt::KeyboardModifiers zoomToSelectionModifiers() { return Qt::ShiftModifier | Qt::ControlModifier; }
+        static Qt::KeyboardModifiers openInSourceEditorModifiers() { return Qt::NoModifier; }
 
         static bool annotationOverlay() { return false; }
         static bool formFieldOverlay() { return true; }

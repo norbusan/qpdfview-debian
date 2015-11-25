@@ -190,6 +190,7 @@ private:
     QComboBox* m_copyToClipboardModifiersComboBox;
     QComboBox* m_addAnnotationModifiersComboBox;
     QComboBox* m_zoomToSelectionModifiersComboBox;
+    QComboBox* m_openInSourceEditorModifiersComboBox;
 
     void createModifiersTab();
     void acceptModifiersTab();

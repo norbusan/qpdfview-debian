@@ -233,6 +233,33 @@ int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** o
 
 #endif // WITH_CUPS
 
+#ifdef WITH_SYNCTEX
+
+DocumentView::SourceLink scanForSourceLink(const QString& filePath, const int page, const QPointF& pos)
+{
+    DocumentView::SourceLink sourceLink;
+
+    if(synctex_scanner_t scanner = synctex_scanner_new_with_output_file(filePath.toLocal8Bit(), 0, 1))
+    {
+        if(synctex_edit_query(scanner, page, pos.x(), pos.y()) > 0)
+        {
+            for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
+            {
+                sourceLink.name = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
+                sourceLink.line = qMax(synctex_node_line(node), 0);
+                sourceLink.column = qMax(synctex_node_column(node), 0);
+                break;
+            }
+        }
+
+        synctex_scanner_free(scanner);
+    }
+
+    return sourceLink;
+}
+
+#endif // WITH_SYNCTEX
+
 void adjustFileTemplateSuffix(QTemporaryFile& temporaryFile, const QString& suffix)
 {
     temporaryFile.setFileTemplate(temporaryFile.fileTemplate() + QLatin1String(".") + suffix);
@@ -950,24 +977,10 @@ DocumentView::SourceLink DocumentView::sourceLink(const QPoint& pos)
 
     if(const PageItem* page = dynamic_cast< PageItem* >(itemAt(pos)))
     {
-        if(synctex_scanner_t scanner = synctex_scanner_new_with_output_file(m_fileInfo.absoluteFilePath().toLocal8Bit(), 0, 1))
-        {
-            const int sourcePage = page->index() + 1;
-            const QPointF sourcePos = page->sourcePos(page->mapFromScene(mapToScene(pos)));
+        const int sourcePage = page->index() + 1;
+        const QPointF sourcePos = page->sourcePos(page->mapFromScene(mapToScene(pos)));
 
-            if(synctex_edit_query(scanner, sourcePage, sourcePos.x(), sourcePos.y()) > 0)
-            {
-                for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
-                {
-                    sourceLink.name = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
-                    sourceLink.line = qMax(synctex_node_line(node), 0);
-                    sourceLink.column = qMax(synctex_node_column(node), 0);
-                    break;
-                }
-            }
-
-            synctex_scanner_free(scanner);
-        }
+        sourceLink = scanForSourceLink(m_fileInfo.absoluteFilePath(), sourcePage, sourcePos);
     }
 
 #else
@@ -1647,6 +1660,27 @@ void DocumentView::on_pages_zoomToSelection(int page, const QRectF& rect)
     jumpToPage(page, false, rect.left(), rect.top());
 }
 
+void DocumentView::on_pages_openInSourceEditor(int page, const QPointF& pos)
+{
+#ifdef WITH_SYNCTEX
+
+    if(const DocumentView::SourceLink sourceLink = scanForSourceLink(m_fileInfo.absoluteFilePath(), page, pos))
+    {
+        openInSourceEditor(sourceLink);
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Warning"), tr("SyncTeX data for '%1' could not be found.").arg(m_fileInfo.absoluteFilePath()));
+    }
+
+#else
+
+    Q_UNUSED(page);
+    Q_UNUSED(pos);
+
+#endif // WITH_SYNCTEX
+}
+
 void DocumentView::on_pages_wasModified()
 {
     m_wasModified = true;
@@ -1789,7 +1823,14 @@ void DocumentView::wheelEvent(QWheelEvent* event)
     const Qt::KeyboardModifiers rotateModifiers = s_settings->documentView().rotateModifiers();
     const Qt::KeyboardModifiers scrollModifiers = s_settings->documentView().scrollModifiers();
 
-    if(event->modifiers() == zoomModifiers || event->buttons() == zoomModifiers)
+    const bool zoomModifiersActive = zoomModifiers != Qt::NoModifier
+            && (event->modifiers() == zoomModifiers || event->buttons() == zoomModifiers);
+    const bool rotateModifiersActive = rotateModifiers != Qt::NoModifier
+            && (event->modifiers() == rotateModifiers || event->buttons() == rotateModifiers);
+    const bool scrollModifiersActive = scrollModifiers != Qt::NoModifier
+            && (event->modifiers() == scrollModifiers || event->buttons() == scrollModifiers);
+
+    if(zoomModifiersActive)
     {
         if(event->delta() > 0)
         {
@@ -1803,7 +1844,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == rotateModifiers || event->buttons() == rotateModifiers)
+    else if(rotateModifiersActive)
     {
         if(event->delta() > 0)
         {
@@ -1817,7 +1858,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == scrollModifiers || event->buttons() == scrollModifiers)
+    else if(scrollModifiersActive)
     {
         QWheelEvent wheelEvent(event->pos(), event->delta(), event->buttons(), Qt::AltModifier, Qt::Horizontal);
         QGraphicsView::wheelEvent(&wheelEvent);
@@ -2357,6 +2398,7 @@ void DocumentView::preparePages()
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 
         connect(page, SIGNAL(zoomToSelection(int,QRectF)), SLOT(on_pages_zoomToSelection(int,QRectF)));
+        connect(page, SIGNAL(openInSourceEditor(int,QPointF)), SLOT(on_pages_openInSourceEditor(int,QPointF)));
 
         connect(page, SIGNAL(wasModified()), SLOT(on_pages_wasModified()));
     }

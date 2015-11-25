@@ -426,10 +426,16 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     const Qt::KeyboardModifiers copyToClipboardModifiers = s_settings->pageItem().copyToClipboardModifiers();
     const Qt::KeyboardModifiers addAnnotationModifiers = s_settings->pageItem().addAnnotationModifiers();
     const Qt::KeyboardModifiers zoomToSelectionModifiers = s_settings->pageItem().zoomToSelectionModifiers();
+    const Qt::KeyboardModifiers openInSourceEditorModifiers = s_settings->pageItem().openInSourceEditorModifiers();
 
-    const bool copyToClipboardModifiersActive = event->modifiers() == copyToClipboardModifiers || ((event->buttons() & copyToClipboardModifiers) != 0);
-    const bool addAnnotationModifiersActive = event->modifiers() == addAnnotationModifiers || ((event->buttons() & addAnnotationModifiers) != 0);
-    const bool zoomToSelectionModifiersActive = event->modifiers() == zoomToSelectionModifiers || ((event->buttons() & zoomToSelectionModifiers) != 0);
+    const bool copyToClipboardModifiersActive = copyToClipboardModifiers != Qt::NoModifier
+            && (event->modifiers() == copyToClipboardModifiers || ((event->buttons() & copyToClipboardModifiers) != 0));
+    const bool addAnnotationModifiersActive = addAnnotationModifiers != Qt::NoModifier
+            && (event->modifiers() == addAnnotationModifiers || ((event->buttons() & addAnnotationModifiers) != 0));
+    const bool zoomToSelectionModifiersActive = zoomToSelectionModifiers != Qt::NoModifier
+            && (event->modifiers() == zoomToSelectionModifiers || ((event->buttons() & zoomToSelectionModifiers) != 0));
+    const bool openInSourceEditorModifiersActive = openInSourceEditorModifiers != Qt::NoModifier
+            && (event->modifiers() == openInSourceEditorModifiers || ((event->buttons() & openInSourceEditorModifiers) != 0));
 
     // rubber band
 
@@ -460,6 +466,14 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         emit rubberBandStarted();
 
         update();
+
+        event->accept();
+        return;
+    }
+
+    if(!presentationMode() && openInSourceEditorModifiersActive && event->button() == Qt::LeftButton)
+    {
+        emit openInSourceEditor(m_index + 1, sourcePos(event->pos()));
 
         event->accept();
         return;

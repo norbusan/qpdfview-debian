@@ -104,6 +104,7 @@ signals:
     void rubberBandFinished();
 
     void zoomToSelection(int page, const QRectF& rect);
+    void openInSourceEditor(int page, const QPointF& pos);
 
     void wasModified();
 

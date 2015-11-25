@@ -684,6 +684,15 @@ void SettingsDialog::createModifiersTab()
 
     m_zoomToSelectionModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Zoom to selection:"), QString(),
                                                               s_settings->pageItem().zoomToSelectionModifiers());
+
+    m_openInSourceEditorModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Open in source editor:"), QString(),
+                                                                 s_settings->pageItem().openInSourceEditorModifiers());
+
+#ifndef WITH_SYNCTEX
+
+    m_openInSourceEditorModifiersComboBox->setEnabled(false);
+
+#endif // WITH_SYNCTEX
 }
 
 void SettingsDialog::acceptModifiersTab()
@@ -695,6 +704,7 @@ void SettingsDialog::acceptModifiersTab()
     s_settings->pageItem().setCopyToClipboardModifiers(keyboardModifierFromCurrentIndex(m_copyToClipboardModifiersComboBox));
     s_settings->pageItem().setAddAnnotationModifiers(keyboardModifierFromCurrentIndex(m_addAnnotationModifiersComboBox));
     s_settings->pageItem().setZoomToSelectionModifiers(keyboardModifierFromCurrentIndex(m_zoomToSelectionModifiersComboBox));
+    s_settings->pageItem().setOpenInSourceEditorModifiers(keyboardModifierFromCurrentIndex(m_openInSourceEditorModifiersComboBox));
 }
 
 void SettingsDialog::resetModifiersTab()
@@ -706,6 +716,7 @@ void SettingsDialog::resetModifiersTab()
     setCurrentIndexFromKeyboardModifiers(m_copyToClipboardModifiersComboBox, Defaults::PageItem::copyToClipboardModifiers());
     setCurrentIndexFromKeyboardModifiers(m_addAnnotationModifiersComboBox, Defaults::PageItem::addAnnotationModifiers());
     setCurrentIndexFromKeyboardModifiers(m_zoomToSelectionModifiersComboBox, Defaults::PageItem::zoomToSelectionModifiers());
+    setCurrentIndexFromKeyboardModifiers(m_openInSourceEditorModifiersComboBox, Defaults::PageItem::openInSourceEditorModifiers());
 }
 
 QCheckBox* SettingsDialog::addCheckBox(QFormLayout* layout, const QString& label, const QString& toolTip, bool checked)
@@ -837,6 +848,7 @@ QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QStri
     comboBox->addItem(QShortcut::tr("Ctrl and Alt"), static_cast< int >(Qt::ControlModifier | Qt::AltModifier));
     comboBox->addItem(QShortcut::tr("Right mouse button"), static_cast< int >(Qt::RightButton));
     comboBox->addItem(QShortcut::tr("Middle mouse button"), static_cast< int >(Qt::MidButton));
+    comboBox->addItem(QShortcut::tr("None"), static_cast< int >(Qt::NoModifier));
 
     setCurrentIndexFromKeyboardModifiers(comboBox, modifiers);
 
