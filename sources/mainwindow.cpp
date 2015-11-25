@@ -2605,7 +2605,9 @@ QAction* MainWindow::sourceLinkActionForCurrentTab(QObject* parent, const QPoint
 
     if(const DocumentView::SourceLink sourceLink = currentTab()->sourceLink(pos))
     {
-        action->setText(tr("Edit '%1' at %2,%3...").arg(sourceLink.name).arg(sourceLink.line).arg(sourceLink.column));
+        const QString fileName = QFileInfo(sourceLink.name).fileName();
+
+        action->setText(tr("Edit '%1' at %2,%3...").arg(fileName).arg(sourceLink.line).arg(sourceLink.column));
         action->setData(QVariant::fromValue(sourceLink));
     }
     else
