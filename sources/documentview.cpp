@@ -177,6 +177,11 @@ bool copyFile(QFile& source, QFile& destination)
     return true;
 }
 
+inline void adjustFileTemplateSuffix(QTemporaryFile& temporaryFile, const QString& suffix)
+{
+    temporaryFile.setFileTemplate(temporaryFile.fileTemplate() + QLatin1String(".") + suffix);
+}
+
 #ifdef WITH_CUPS
 
 struct RemovePpdFileDeleter
@@ -260,24 +265,9 @@ DocumentView::SourceLink scanForSourceLink(const QString& filePath, const int pa
 
 #endif // WITH_SYNCTEX
 
-void adjustFileTemplateSuffix(QTemporaryFile& temporaryFile, const QString& suffix)
-{
-    temporaryFile.setFileTemplate(temporaryFile.fileTemplate() + QLatin1String(".") + suffix);
-}
-
-bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
+inline bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
 {
     return ((settings->documentView().zoomModifiers() | settings->documentView().rotateModifiers() | settings->documentView().scrollModifiers()) & mouseButton) != 0;
-}
-
-inline int pageOfResult(const QModelIndex& index)
-{
-    return index.data(SearchModel::PageRole).toInt();
-}
-
-inline QRectF rectOfResult(const QModelIndex& index)
-{
-    return index.data(SearchModel::RectRole).toRectF();
 }
 
 inline void adjustScaleFactor(RenderParam& renderParam, qreal scaleFactor)
@@ -294,6 +284,16 @@ inline void setValueIfNotVisible(QScrollBar* scrollBar, int value)
     {
         scrollBar->setValue(value);
     }
+}
+
+inline int pageOfResult(const QModelIndex& index)
+{
+    return index.data(SearchModel::PageRole).toInt();
+}
+
+inline QRectF rectOfResult(const QModelIndex& index)
+{
+    return index.data(SearchModel::RectRole).toRectF();
 }
 
 void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, const QModelIndex& index, QString path)
