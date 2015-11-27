@@ -90,6 +90,7 @@ public slots:
 protected slots:
     void on_tabWidget_currentChanged(int index);
     void on_tabWidget_tabCloseRequested(int index);
+    void on_tabWidget_tabDragRequested(int index);
     void on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, int index);
 
     void on_currentTab_documentChanged();

@@ -181,7 +181,8 @@ void SearchableMenu::keyPressEvent(QKeyEvent* event)
     QToolTip::showText(mapToGlobal(rect().topLeft()), tr("Search for '%1'...").arg(m_text), this);
 }
 
-TabBar::TabBar(QWidget* parent) : QTabBar(parent)
+TabBar::TabBar(QWidget* parent) : QTabBar(parent),
+    m_dragIndex(-1)
 {
 }
 
@@ -212,8 +213,6 @@ QSize TabBar::tabSizeHint(int index) const
 
 void TabBar::mousePressEvent(QMouseEvent* event)
 {
-    QTabBar::mousePressEvent(event);
-
     if(event->button() == Qt::MidButton)
     {
         const int index = tabAt(event->pos());
@@ -221,19 +220,62 @@ void TabBar::mousePressEvent(QMouseEvent* event)
         if(index != -1)
         {
             emit tabCloseRequested(index);
+
+            event->accept();
+            return;
         }
     }
+    else if(event->modifiers() == Qt::ShiftModifier && event->button() == Qt::LeftButton)
+    {
+        const int index = tabAt(event->pos());
+
+        if(index != -1)
+        {
+            m_dragIndex = index;
+            m_dragPos = event->pos();
+
+            event->accept();
+            return;
+        }
+    }
+
+    QTabBar::mousePressEvent(event);
+}
+
+void TabBar::mouseMoveEvent(QMouseEvent* event)
+{
+    QTabBar::mouseMoveEvent(event);
+
+    if(m_dragIndex != -1)
+    {
+        if((event->pos() - m_dragPos).manhattanLength() >= QApplication::startDragDistance())
+        {
+            emit tabDragRequested(m_dragIndex);
+
+            m_dragIndex = -1;
+        }
+    }
+}
+
+void TabBar::mouseReleaseEvent(QMouseEvent* event)
+{
+    QTabBar::mouseReleaseEvent(event);
+
+    m_dragIndex = -1;
 }
 
 TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent),
     m_tabBarPolicy(TabBarAsNeeded),
     m_spreadTabs(false)
 {
-    setTabBar(new TabBar(this));
+    TabBar* tabBar = new TabBar(this);
 
-    tabBar()->setContextMenuPolicy(Qt::CustomContextMenu);
+    tabBar->setContextMenuPolicy(Qt::CustomContextMenu);
 
-    connect(tabBar(), SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_tabBar_customContextMenuRequested(QPoint)));
+    connect(tabBar, SIGNAL(tabDragRequested(int)), SIGNAL(tabDragRequested(int)));
+    connect(tabBar, SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_tabBar_customContextMenuRequested(QPoint)));
+
+    setTabBar(tabBar);
 }
 
 TabWidget::TabBarPolicy TabWidget::tabBarPolicy() const

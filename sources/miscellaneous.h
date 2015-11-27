@@ -107,13 +107,21 @@ class TabBar : public QTabBar
 public:
     explicit TabBar(QWidget* parent = 0);
 
+signals:
+    void tabDragRequested(int index);
+
 protected:
     QSize tabSizeHint(int index) const;
 
     void mousePressEvent(QMouseEvent* event);
+    void mouseMoveEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent* event);
 
 private:
     Q_DISABLE_COPY(TabBar)
+
+    int m_dragIndex;
+    QPoint m_dragPos;
 
 };
 
@@ -140,6 +148,7 @@ public:
     void setSpreadTabs(bool spreadTabs);
 
 signals:
+    void tabDragRequested(int index);
     void tabContextMenuRequested(const QPoint& globalPos, int index);
 
 protected slots:

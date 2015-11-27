@@ -32,6 +32,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QDesktopServices>
 #include <QDockWidget>
+#include <QDrag>
 #include <QDragEnterEvent>
 #include <QFileDialog>
 #include <QHeaderView>
@@ -659,6 +660,16 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     {
         closeTab(tab(index));
     }
+}
+
+void MainWindow::on_tabWidget_tabDragRequested(int index)
+{
+    QMimeData* mimeData = new QMimeData();
+    mimeData->setUrls(QList< QUrl >() << QUrl::fromLocalFile(tab(index)->fileInfo().absoluteFilePath()));
+
+    QDrag* drag = new QDrag(this);
+    drag->setMimeData(mimeData);
+    drag->exec();
 }
 
 void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, int index)
@@ -2681,6 +2692,7 @@ void MainWindow::createWidgets()
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), SLOT(on_tabWidget_currentChanged(int)));
     connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), SLOT(on_tabWidget_tabCloseRequested(int)));
+    connect(m_tabWidget, SIGNAL(tabDragRequested(int)), SLOT(on_tabWidget_tabDragRequested(int)));
     connect(m_tabWidget, SIGNAL(tabContextMenuRequested(QPoint,int)), SLOT(on_tabWidget_tabContextMenuRequested(QPoint,int)));
 
     // current page
