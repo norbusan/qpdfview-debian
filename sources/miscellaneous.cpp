@@ -319,7 +319,12 @@ void TabWidget::setSpreadTabs(bool spreadTabs)
 
 void TabWidget::on_tabBar_customContextMenuRequested(const QPoint& pos)
 {
-    emit tabContextMenuRequested(tabBar()->mapToGlobal(pos), tabBar()->tabAt(pos));
+    const int index = tabBar()->tabAt(pos);
+
+    if(index != -1)
+    {
+        emit tabContextMenuRequested(tabBar()->mapToGlobal(pos), tabBar()->tabAt(pos));
+    }
 }
 
 void TabWidget::tabInserted(int index)

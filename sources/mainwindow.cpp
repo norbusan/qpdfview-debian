@@ -706,26 +706,22 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
     if(action == m_openCopyInNewTabAction)
     {
-        openInNewTab(selectedTab->fileInfo().filePath(), selectedTab->currentPage());
-
+        on_openCopyInNewTab_triggered(selectedTab);
         return;
     }
     else if(action == m_openContainingFolderAction)
     {
-        QDesktopServices::openUrl(QUrl::fromLocalFile(selectedTab->fileInfo().absolutePath()));
-
+        on_openCopyInNewTab_triggered(selectedTab);
         return;
     }
     else if(action == copyFilePathAction)
     {
         QApplication::clipboard()->setText(selectedTab->fileInfo().absoluteFilePath());
-
         return;
     }
     else if(action == selectFilePathAction)
     {
         QApplication::clipboard()->setText(selectedTab->fileInfo().absoluteFilePath(), QClipboard::Selection);
-
         return;
     }
     else if(action == closeAllTabsAction)
@@ -1198,12 +1194,22 @@ void MainWindow::on_openInNewTab_triggered()
 
 void MainWindow::on_openCopyInNewTab_triggered()
 {
-    openInNewTab(currentTab()->fileInfo().filePath(), currentTab()->currentPage());
+    on_openCopyInNewTab_triggered(currentTab());
+}
+
+void MainWindow::on_openCopyInNewTab_triggered(const DocumentView* tab)
+{
+    openInNewTab(tab->fileInfo().filePath(), tab->currentPage());
 }
 
 void MainWindow::on_openContainingFolder_triggered()
 {
-    QDesktopServices::openUrl(QUrl::fromLocalFile(currentTab()->fileInfo().absolutePath()));
+    on_openContainingFolder_triggered(currentTab());
+}
+
+void MainWindow::on_openContainingFolder_triggered(const DocumentView* tab)
+{
+    QDesktopServices::openUrl(QUrl::fromLocalFile(tab->fileInfo().absolutePath()));
 }
 
 void MainWindow::on_refresh_triggered()

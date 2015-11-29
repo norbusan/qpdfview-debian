@@ -137,7 +137,9 @@ protected slots:
     void on_open_triggered();
     void on_openInNewTab_triggered();
     void on_openCopyInNewTab_triggered();
+    void on_openCopyInNewTab_triggered(const DocumentView* tab);
     void on_openContainingFolder_triggered();
+    void on_openContainingFolder_triggered(const DocumentView* tab);
     void on_refresh_triggered();
     void on_saveCopy_triggered();
     void on_saveAs_triggered();
