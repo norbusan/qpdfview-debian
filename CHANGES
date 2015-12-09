@@ -1,6 +1,7 @@
 Release 0.4.17:
   * Added triggering SyncTeX reverse search using a keyboard modifier.
   * Keyboard modifiers for mouse interaction can be disabled.
+  * Optimizations of the search dock layout w.r.t. vertical/horizontal positioning.
 
 Release 0.4.16:
   * Fixed an incompatibility with FDo's shared MIME type database that broke opening DjVu documents.

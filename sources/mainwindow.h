@@ -42,6 +42,7 @@ class QFileInfo;
 class QModelIndex;
 class QShortcut;
 class QTableView;
+class QToolButton;
 class QTreeView;
 class QWidgetAction;
 
@@ -250,6 +251,7 @@ protected slots:
     void on_bookmarks_contextMenuRequested(const QPoint& pos);
 
     void on_search_sectionCountChanged();
+    void on_search_dockLocationChanged(Qt::DockWidgetArea area);
     void on_search_visibilityChanged(bool visible);
     void on_search_clicked(const QModelIndex& index);
 
@@ -318,6 +320,9 @@ private:
     QCheckBox* m_matchCaseCheckBox;
     QCheckBox* m_wholeWordsCheckBox;
     QCheckBox* m_highlightAllCheckBox;
+    QToolButton* m_findPreviousButton;
+    QToolButton* m_findNextButton;
+    QToolButton* m_cancelSearchButton;
 
     void createWidgets();
 

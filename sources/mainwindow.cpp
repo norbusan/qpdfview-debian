@@ -2265,6 +2265,49 @@ void MainWindow::on_search_sectionCountChanged()
     m_searchView->header()->setVisible(false);
 }
 
+void MainWindow::on_search_dockLocationChanged(Qt::DockWidgetArea area)
+{
+    delete m_searchWidget->layout();
+    QGridLayout* searchLayout = new QGridLayout(m_searchWidget);
+
+    if(area == Qt::TopDockWidgetArea || area == Qt::BottomDockWidgetArea)
+    {
+        searchLayout->setRowStretch(2, 1);
+        searchLayout->setColumnStretch(3, 1);
+
+        searchLayout->addWidget(m_searchLineEdit, 0, 0, 1, 7);
+        searchLayout->addWidget(m_matchCaseCheckBox, 1, 0);
+        searchLayout->addWidget(m_wholeWordsCheckBox, 1, 1);
+        searchLayout->addWidget(m_highlightAllCheckBox, 1, 2);
+        searchLayout->addWidget(m_findPreviousButton, 1, 4, Qt::AlignRight);
+        searchLayout->addWidget(m_findNextButton, 1, 5, Qt::AlignRight);
+        searchLayout->addWidget(m_cancelSearchButton, 1, 6, Qt::AlignRight);
+
+        if(s_settings->mainWindow().extendedSearchDock())
+        {
+            searchLayout->addWidget(m_searchView, 2, 0, 1, 7);
+        }
+    }
+    else
+    {
+        searchLayout->setRowStretch(4, 1);
+        searchLayout->setColumnStretch(1, 1);
+
+        searchLayout->addWidget(m_searchLineEdit, 0, 0, 1, 5);
+        searchLayout->addWidget(m_matchCaseCheckBox, 1, 0);
+        searchLayout->addWidget(m_wholeWordsCheckBox, 2, 0);
+        searchLayout->addWidget(m_highlightAllCheckBox, 3, 0);
+        searchLayout->addWidget(m_findPreviousButton, 1, 2, 3, 1, Qt::AlignTop);
+        searchLayout->addWidget(m_findNextButton, 1, 3, 3, 1, Qt::AlignTop);
+        searchLayout->addWidget(m_cancelSearchButton, 1, 4, 3, 1, Qt::AlignTop);
+
+        if(s_settings->mainWindow().extendedSearchDock())
+        {
+            searchLayout->addWidget(m_searchView, 4, 0, 1, 5);
+        }
+    }
+}
+
 void MainWindow::on_search_visibilityChanged(bool visible)
 {
     if(!visible)
@@ -2989,34 +3032,23 @@ void MainWindow::createSearchDock()
     addDockWidget(Qt::BottomDockWidgetArea, m_searchDock);
 
     connect(m_searchDock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), SLOT(on_dock_dockLocationChanged(Qt::DockWidgetArea)));
+    connect(m_searchDock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), SLOT(on_search_dockLocationChanged(Qt::DockWidgetArea)));
     connect(m_searchDock, SIGNAL(visibilityChanged(bool)), SLOT(on_search_visibilityChanged(bool)));
 
     m_searchWidget = new QWidget(this);
-
-    QToolButton* findPreviousButton = new QToolButton(m_searchWidget);
-    findPreviousButton->setAutoRaise(true);
-    findPreviousButton->setDefaultAction(m_findPreviousAction);
-
-    QToolButton* findNextButton = new QToolButton(m_searchWidget);
-    findNextButton->setAutoRaise(true);
-    findNextButton->setDefaultAction(m_findNextAction);
-
-    QToolButton* cancelSearchButton = new QToolButton(m_searchWidget);
-    cancelSearchButton->setAutoRaise(true);
-    cancelSearchButton->setDefaultAction(m_cancelSearchAction);
-
-    QGridLayout* searchLayout = new QGridLayout(m_searchWidget);
-    searchLayout->setRowStretch(2, 1);
-    searchLayout->setColumnStretch(2, 1);
-    searchLayout->addWidget(m_searchLineEdit, 0, 0, 1, 7);
-    searchLayout->addWidget(m_matchCaseCheckBox, 1, 0);
-    searchLayout->addWidget(m_wholeWordsCheckBox, 1, 1);
-    searchLayout->addWidget(m_highlightAllCheckBox, 1, 2);
-    searchLayout->addWidget(findPreviousButton, 1, 4);
-    searchLayout->addWidget(findNextButton, 1, 5);
-    searchLayout->addWidget(cancelSearchButton, 1, 6);
-
     m_searchDock->setWidget(m_searchWidget);
+
+    m_findPreviousButton = new QToolButton(m_searchWidget);
+    m_findPreviousButton->setAutoRaise(true);
+    m_findPreviousButton->setDefaultAction(m_findPreviousAction);
+
+    m_findNextButton = new QToolButton(m_searchWidget);
+    m_findNextButton->setAutoRaise(true);
+    m_findNextButton->setDefaultAction(m_findNextAction);
+
+    m_cancelSearchButton = new QToolButton(m_searchWidget);
+    m_cancelSearchButton->setAutoRaise(true);
+    m_cancelSearchButton->setDefaultAction(m_cancelSearchAction);
 
     connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_findPreviousAction, SLOT(setEnabled(bool)));
     connect(m_searchDock, SIGNAL(visibilityChanged(bool)), m_findNextAction, SLOT(setEnabled(bool)));
@@ -3051,13 +3083,13 @@ void MainWindow::createSearchDock()
 
         m_searchView->setItemDelegate(new SearchItemDelegate(m_searchView));
         m_searchView->setModel(SearchModel::instance());
-
-        searchLayout->addWidget(m_searchView, 2, 0, 1, 6);
     }
     else
     {
         m_searchView = 0;
     }
+
+    on_search_dockLocationChanged(Qt::BottomDockWidgetArea);
 }
 
 void MainWindow::createDocks()
