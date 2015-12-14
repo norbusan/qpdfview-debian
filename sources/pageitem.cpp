@@ -823,7 +823,10 @@ void PageItem::addAnnotation(const QPoint& screenPos)
             refresh(false, true);
             emit wasModified();
 
-            showAnnotationOverlay(annotation);
+            if(action == addTextAction)
+            {
+                showAnnotationOverlay(annotation);
+            }
         }
     }
 }
