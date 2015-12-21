@@ -265,6 +265,16 @@ DocumentView::SourceLink scanForSourceLink(const QString& filePath, const int pa
 
 #endif // WITH_SYNCTEX
 
+inline bool modifiersAreActive(const QWheelEvent* event, const Qt::KeyboardModifiers& modifiers)
+{
+    if(modifiers == Qt::NoModifier)
+    {
+        return false;
+    }
+
+    return event->modifiers() == modifiers || (event->buttons() & modifiers) != 0;
+}
+
 inline bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
 {
     return ((settings->documentView().zoomModifiers() | settings->documentView().rotateModifiers() | settings->documentView().scrollModifiers()) & mouseButton) != 0;
@@ -1716,6 +1726,19 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     const QKeySequence keySequence(event->modifiers() + event->key());
 
     int maskedKey = -1;
+    bool maskedKeyActive = false;
+
+    switch(event->key())
+    {
+    case Qt::Key_PageUp:
+    case Qt::Key_PageDown:
+    case Qt::Key_Up:
+    case Qt::Key_Down:
+    case Qt::Key_Left:
+    case Qt::Key_Right:
+        maskedKeyActive = true;
+        break;
+    }
 
     if(s_shortcutHandler->matchesSkipBackward(keySequence))
     {
@@ -1741,9 +1764,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     {
         maskedKey = Qt::Key_Right;
     }
-    else if(event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown ||
-            event->key() == Qt::Key_Up || event->key() == Qt::Key_Down ||
-            event->key() == Qt::Key_Left || event->key() == Qt::Key_Right)
+    else if(maskedKeyActive)
     {
         event->ignore();
         return;
@@ -1819,16 +1840,10 @@ void DocumentView::mousePressEvent(QMouseEvent* event)
 
 void DocumentView::wheelEvent(QWheelEvent* event)
 {
-    const Qt::KeyboardModifiers zoomModifiers = s_settings->documentView().zoomModifiers();
-    const Qt::KeyboardModifiers rotateModifiers = s_settings->documentView().rotateModifiers();
-    const Qt::KeyboardModifiers scrollModifiers = s_settings->documentView().scrollModifiers();
-
-    const bool zoomModifiersActive = zoomModifiers != Qt::NoModifier
-            && (event->modifiers() == zoomModifiers || event->buttons() == zoomModifiers);
-    const bool rotateModifiersActive = rotateModifiers != Qt::NoModifier
-            && (event->modifiers() == rotateModifiers || event->buttons() == rotateModifiers);
-    const bool scrollModifiersActive = scrollModifiers != Qt::NoModifier
-            && (event->modifiers() == scrollModifiers || event->buttons() == scrollModifiers);
+    const bool noModifiersActive = event->modifiers() == Qt::NoModifier;
+    const bool zoomModifiersActive = modifiersAreActive(event, s_settings->documentView().zoomModifiers());
+    const bool rotateModifiersActive = modifiersAreActive(event, s_settings->documentView().rotateModifiers());
+    const bool scrollModifiersActive = modifiersAreActive(event, s_settings->documentView().scrollModifiers());
 
     if(zoomModifiersActive)
     {
@@ -1866,7 +1881,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == Qt::NoModifier && !m_continuousMode)
+    else if(noModifiersActive && !m_continuousMode)
     {
         if(event->delta() > 0 && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
         {

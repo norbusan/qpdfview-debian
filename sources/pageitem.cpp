@@ -51,7 +51,17 @@ const int veryLargeTilesThreshold = 16;
 
 const qreal proxyPadding = 2.0;
 
-bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
+inline bool modifiersAreActive(const QGraphicsSceneMouseEvent* event, const Qt::KeyboardModifiers& modifiers)
+{
+    if(modifiers == Qt::NoModifier)
+    {
+        return false;
+    }
+
+    return event->modifiers() == modifiers || (event->buttons() & modifiers) != 0;
+}
+
+inline bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
 {
     return ((settings->pageItem().copyToClipboardModifiers() | settings->pageItem().addAnnotationModifiers()) & mouseButton) != 0;
 }
@@ -423,39 +433,37 @@ void PageItem::hoverLeaveEvent(QGraphicsSceneHoverEvent*)
 
 void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-    const Qt::KeyboardModifiers copyToClipboardModifiers = s_settings->pageItem().copyToClipboardModifiers();
-    const Qt::KeyboardModifiers addAnnotationModifiers = s_settings->pageItem().addAnnotationModifiers();
-    const Qt::KeyboardModifiers zoomToSelectionModifiers = s_settings->pageItem().zoomToSelectionModifiers();
-    const Qt::KeyboardModifiers openInSourceEditorModifiers = s_settings->pageItem().openInSourceEditorModifiers();
+    const bool leftButtonActive = event->button() == Qt::LeftButton;
+    const bool middleButtonActive = event->button() == Qt::MidButton;
+    const bool anyButtonActive = leftButtonActive || middleButtonActive;
 
-    const bool copyToClipboardModifiersActive = copyToClipboardModifiers != Qt::NoModifier
-            && (event->modifiers() == copyToClipboardModifiers || ((event->buttons() & copyToClipboardModifiers) != 0));
-    const bool addAnnotationModifiersActive = addAnnotationModifiers != Qt::NoModifier
-            && (event->modifiers() == addAnnotationModifiers || ((event->buttons() & addAnnotationModifiers) != 0));
-    const bool zoomToSelectionModifiersActive = zoomToSelectionModifiers != Qt::NoModifier
-            && (event->modifiers() == zoomToSelectionModifiers || ((event->buttons() & zoomToSelectionModifiers) != 0));
-    const bool openInSourceEditorModifiersActive = openInSourceEditorModifiers != Qt::NoModifier
-            && (event->modifiers() == openInSourceEditorModifiers || ((event->buttons() & openInSourceEditorModifiers) != 0));
+    const bool noModifiersActive = event->modifiers() == Qt::NoModifier;
+    const bool copyToClipboardModifiersActive = modifiersAreActive(event, s_settings->pageItem().copyToClipboardModifiers());
+    const bool addAnnotationModifiersActive = modifiersAreActive(event, s_settings->pageItem().addAnnotationModifiers());
+    const bool zoomToSelectionModifiersActive = modifiersAreActive(event, s_settings->pageItem().zoomToSelectionModifiers());
+    const bool rubberBandModifiersActive = copyToClipboardModifiersActive || addAnnotationModifiersActive || zoomToSelectionModifiersActive;
+    const bool openInSourceEditorModifiersActive = modifiersAreActive(event, s_settings->pageItem().openInSourceEditorModifiers());
 
     // rubber band
 
-    if(m_rubberBandMode == ModifiersMode && !presentationMode()
-            && (copyToClipboardModifiersActive || addAnnotationModifiersActive || zoomToSelectionModifiersActive)
-            && event->button() == Qt::LeftButton)
+    if(rubberBandModifiersActive && leftButtonActive && !presentationMode())
     {
-        setCursor(Qt::CrossCursor);
+        if(m_rubberBandMode == ModifiersMode)
+        {
+            setCursor(Qt::CrossCursor);
 
-        if(copyToClipboardModifiersActive)
-        {
-            m_rubberBandMode = CopyToClipboardMode;
-        }
-        else if(addAnnotationModifiersActive)
-        {
-            m_rubberBandMode = AddAnnotationMode;
-        }
-        else if(zoomToSelectionModifiersActive)
-        {
-            m_rubberBandMode = ZoomToSelectionMode;
+            if(copyToClipboardModifiersActive)
+            {
+                m_rubberBandMode = CopyToClipboardMode;
+            }
+            else if(addAnnotationModifiersActive)
+            {
+                m_rubberBandMode = AddAnnotationMode;
+            }
+            else if(zoomToSelectionModifiersActive)
+            {
+                m_rubberBandMode = ZoomToSelectionMode;
+            }
         }
     }
 
@@ -471,7 +479,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         return;
     }
 
-    if(!presentationMode() && openInSourceEditorModifiersActive && event->button() == Qt::LeftButton)
+    if(openInSourceEditorModifiersActive && leftButtonActive && !presentationMode())
     {
         emit openInSourceEditor(m_index + 1, sourcePos(event->pos()));
 
@@ -479,8 +487,7 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         return;
     }
 
-    if(event->modifiers() == Qt::NoModifier
-            && (event->button() == Qt::LeftButton || event->button() == Qt::MidButton))
+    if(noModifiersActive && anyButtonActive)
     {
         // links
 
@@ -492,15 +499,13 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
                 if(link->page != -1 && (link->urlOrFileName.isNull() || !presentationMode()))
                 {
-                    const bool newTab = event->button() == Qt::MidButton;
-
                     if(link->urlOrFileName.isNull())
                     {
-                        emit linkClicked(newTab, link->page, link->left, link->top);
+                        emit linkClicked(middleButtonActive, link->page, link->left, link->top);
                     }
                     else
                     {
-                        emit linkClicked(newTab, link->urlOrFileName, link->page);
+                        emit linkClicked(middleButtonActive, link->urlOrFileName, link->page);
                     }
 
                     event->accept();
@@ -515,13 +520,10 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 }
             }
         }
+    }
 
-        if(event->button() == Qt::MidButton || presentationMode())
-        {
-            event->ignore();
-            return;
-        }
-
+    if(noModifiersActive && leftButtonActive && !presentationMode())
+    {
         // annotations
 
         foreach(Model::Annotation* annotation, m_annotations)
