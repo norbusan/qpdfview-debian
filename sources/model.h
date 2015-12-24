@@ -156,6 +156,7 @@ namespace Model
             PageRole = Qt::UserRole + 1,
             LeftRole,
             TopRole,
+            FileNameRole,
             ExpansionRole
         };
 

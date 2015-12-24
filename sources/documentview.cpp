@@ -979,6 +979,28 @@ QPair< QString, QString > DocumentView::searchContext(int page, const QRectF& re
     return qMakePair(matchedText, surroundingText);
 }
 
+QString DocumentView::resolveFileName(QString fileName) const
+{
+    if(QFileInfo(fileName).isRelative())
+    {
+        fileName = m_fileInfo.dir().filePath(fileName);
+    }
+
+    return fileName;
+}
+
+QUrl DocumentView::resolveUrl(QUrl url) const
+{
+    const QString path = url.path();
+
+    if(url.isRelative() && QFileInfo(path).isRelative())
+    {
+        url.setPath(m_fileInfo.dir().filePath(path));
+    }
+
+    return url;
+}
+
 DocumentView::SourceLink DocumentView::sourceLink(const QPoint& pos)
 {
     SourceLink sourceLink;
@@ -1620,23 +1642,14 @@ void DocumentView::on_pages_linkClicked(bool newTab, int page, qreal left, qreal
 
 void DocumentView::on_pages_linkClicked(bool newTab, const QString& fileName, int page)
 {
-    const QString filePath = QFileInfo(fileName).isAbsolute() ? fileName : m_fileInfo.dir().filePath(fileName);
-
-    emit linkClicked(newTab, filePath, page);
+    emit linkClicked(newTab, resolveFileName(fileName), page);
 }
 
 void DocumentView::on_pages_linkClicked(const QString& url)
 {
     if(s_settings->documentView().openUrl())
     {
-        QUrl resolvedUrl(url);
-
-        if(resolvedUrl.isRelative() && QFileInfo(url).isRelative())
-        {
-            resolvedUrl.setPath(m_fileInfo.dir().filePath(url));
-        }
-
-        QDesktopServices::openUrl(resolvedUrl);
+        QDesktopServices::openUrl(resolveUrl(url));
     }
     else
     {

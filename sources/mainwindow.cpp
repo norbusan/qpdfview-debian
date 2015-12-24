@@ -2043,12 +2043,23 @@ void MainWindow::on_outline_clicked(const QModelIndex& index)
 {
     bool ok = false;
     const int page = index.data(Model::Document::PageRole).toInt(&ok);
+
+    if(!ok)
+    {
+        return;
+    }
+
     const qreal left = index.data(Model::Document::LeftRole).toReal();
     const qreal top = index.data(Model::Document::TopRole).toReal();
+    const QString fileName = index.data(Model::Document::FileNameRole).toString();
 
-    if(ok)
+    if(fileName.isEmpty())
     {
         currentTab()->jumpToPage(page, true, left, top);
+    }
+    else
+    {
+        jumpToPageOrOpenInNewTab(currentTab()->resolveFileName(fileName), page, true);
     }
 }
 

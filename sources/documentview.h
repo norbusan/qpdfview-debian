@@ -149,6 +149,9 @@ public:
 
     QPair< QString, QString > searchContext(int page, const QRectF& rect) const;
 
+    QString resolveFileName(QString fileName) const;
+    QUrl resolveUrl(QUrl url) const;
+
     struct SourceLink
     {
         QString name;

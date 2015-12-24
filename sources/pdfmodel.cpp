@@ -118,6 +118,13 @@ void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardIte
         item->setData(left, Document::LeftRole);
         item->setData(top, Document::TopRole);
 
+        const QString fileName = element.attribute("ExternalFileName");
+
+        if(!fileName.isEmpty())
+        {
+            item->setData(fileName, Document::FileNameRole);
+        }
+
         QStandardItem* pageItem = item->clone();
         pageItem->setText(QString::number(page));
         pageItem->setTextAlignment(Qt::AlignRight);
