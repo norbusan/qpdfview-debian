@@ -118,6 +118,38 @@ inline void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
     }
 }
 
+inline void setSectionResizeMode(QHeaderView* header, QHeaderView::ResizeMode mode)
+{
+    if(header->count() > 0)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        header->setSectionResizeMode(mode);
+
+#else
+
+        header->setResizeMode(mode);
+
+#endif // QT_VERSION
+    }
+}
+
+inline void setSectionResizeMode(QHeaderView* header, int index, QHeaderView::ResizeMode mode)
+{
+    if(header->count() > index)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+        header->setSectionResizeMode(index, mode);
+
+#else
+
+        header->setResizeMode(index, mode);
+
+#endif // QT_VERSION
+    }
+}
+
 inline QAction* createTemporaryAction(QObject* parent, const QString& text, const QString& objectName)
 {
     QAction* action = new QAction(text, parent);
@@ -2008,31 +2040,8 @@ void MainWindow::on_dock_dockLocationChanged(Qt::DockWidgetArea area)
 
 void MainWindow::on_outline_sectionCountChanged()
 {
-    if(m_outlineView->header()->count() > 0)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_outlineView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
-
-#else
-
-        m_outlineView->header()->setResizeMode(0, QHeaderView::Stretch);
-
-#endif // QT_VERSION
-    }
-
-    if(m_outlineView->header()->count() > 1)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_outlineView->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-
-#else
-
-        m_outlineView->header()->setResizeMode(1, QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-    }
+    setSectionResizeMode(m_outlineView->header(), 0, QHeaderView::Stretch);
+    setSectionResizeMode(m_outlineView->header(), 1, QHeaderView::ResizeToContents);
 
     m_outlineView->header()->setMinimumSectionSize(0);
     m_outlineView->header()->setStretchLastSection(false);
@@ -2065,47 +2074,12 @@ void MainWindow::on_outline_clicked(const QModelIndex& index)
 
 void MainWindow::on_properties_sectionCountChanged()
 {
-    if(m_propertiesView->horizontalHeader()->count() > 0)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_propertiesView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
-
-#else
-
-        m_propertiesView->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
-
-#endif // QT_VERSION
-    }
-
-    if(m_propertiesView->horizontalHeader()->count() > 1)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_propertiesView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
-
-#else
-
-        m_propertiesView->horizontalHeader()->setResizeMode(1, QHeaderView::Stretch);
-
-#endif // QT_VERSION
-    }
+    setSectionResizeMode(m_propertiesView->horizontalHeader(), 0, QHeaderView::Stretch);
+    setSectionResizeMode(m_propertiesView->horizontalHeader(), 1, QHeaderView::Stretch);
 
     m_propertiesView->horizontalHeader()->setVisible(false);
 
-
-    if(m_propertiesView->verticalHeader()->count() > 0)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_propertiesView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-
-#else
-
-        m_propertiesView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-    }
+    setSectionResizeMode(m_propertiesView->verticalHeader(), QHeaderView::ResizeToContents);
 
     m_propertiesView->verticalHeader()->setVisible(false);
 }
@@ -2138,48 +2112,14 @@ void MainWindow::on_thumbnails_verticalScrollBar_valueChanged(int value)
 
 void MainWindow::on_bookmarks_sectionCountChanged()
 {
-    if(m_bookmarksView->horizontalHeader()->count() > 0)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_bookmarksView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
-
-#else
-
-        m_bookmarksView->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
-
-#endif // QT_VERSION
-    }
-
-    if(m_bookmarksView->horizontalHeader()->count() > 1)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_bookmarksView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-
-#else
-
-        m_bookmarksView->horizontalHeader()->setResizeMode(1, QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-    }
+    setSectionResizeMode(m_bookmarksView->horizontalHeader(), 0, QHeaderView::Stretch);
+    setSectionResizeMode(m_bookmarksView->horizontalHeader(), 1, QHeaderView::ResizeToContents);
 
     m_bookmarksView->horizontalHeader()->setMinimumSectionSize(0);
     m_bookmarksView->horizontalHeader()->setStretchLastSection(false);
     m_bookmarksView->horizontalHeader()->setVisible(false);
 
-    if(m_bookmarksView->verticalHeader()->count() > 0)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_bookmarksView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-
-#else
-
-        m_bookmarksView->verticalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-
-#endif // QT_VERSION
-    }
+    setSectionResizeMode(m_bookmarksView->verticalHeader(), QHeaderView::ResizeToContents);
 
     m_bookmarksView->verticalHeader()->setVisible(false);
 }
@@ -2258,18 +2198,7 @@ void MainWindow::on_bookmarks_contextMenuRequested(const QPoint& pos)
 
 void MainWindow::on_search_sectionCountChanged()
 {
-    if(m_searchView->header()->count() > 0)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-        m_searchView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
-
-#else
-
-        m_searchView->header()->setResizeMode(0, QHeaderView::Stretch);
-
-#endif // QT_VERSION
-    }
+    setSectionResizeMode(m_searchView->header(), 0, QHeaderView::Stretch);
 
     m_searchView->header()->setMinimumSectionSize(0);
     m_searchView->header()->setStretchLastSection(false);
