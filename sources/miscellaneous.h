@@ -354,7 +354,7 @@ inline QIcon loadIconWithFallback(const QString& name)
 
     if(icon.isNull())
     {
-        icon = QIcon(QLatin1String(":icons/") + name + QLatin1String(".svg"));
+        icon = QIcon(QLatin1String(":icons/") + name);
     }
 
     return icon;

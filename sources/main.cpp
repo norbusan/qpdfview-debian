@@ -467,7 +467,7 @@ int main(int argc, char** argv)
 
     QApplication::setApplicationVersion(APPLICATION_VERSION);
 
-    QApplication::setWindowIcon(QIcon(":icons/qpdfview.svg"));
+    QApplication::setWindowIcon(QIcon(":icons/qpdfview"));
 
     loadTranslators();
 

@@ -114,7 +114,7 @@ FileAttachmentAnnotationWidget::FileAttachmentAnnotationWidget(QMutex* mutex, Po
 
     setMenu(m_menu);
     setPopupMode(QToolButton::InstantPopup);
-    setIcon(QIcon::fromTheme(QLatin1String("mail-attachment"), QIcon(QLatin1String(":icons/mail-attachment.svg"))));
+    setIcon(QIcon::fromTheme(QLatin1String("mail-attachment"), QIcon(QLatin1String(":icons/mail-attachment"))));
 
     connect(m_menu, SIGNAL(aboutToShow()), SLOT(on_aboutToShow()));
     connect(m_menu, SIGNAL(aboutToHide()), SLOT(on_aboutToHide()));
