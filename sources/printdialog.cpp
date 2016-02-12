@@ -37,11 +37,12 @@ QPrinter* PrintDialog::createPrinter()
 {
     QPrinter* printer = new QPrinter();
 
-    printer->setCollateCopies(Settings::instance()->printDialog().collateCopies());
-    printer->setPageOrder(Settings::instance()->printDialog().pageOrder());
-    printer->setOrientation(Settings::instance()->printDialog().orientation());
-    printer->setColorMode(Settings::instance()->printDialog().colorMode());
-    printer->setDuplex(Settings::instance()->printDialog().duplex());
+    const Settings::PrintDialog& settings = Settings::instance()->printDialog();
+    printer->setCollateCopies(settings.collateCopies());
+    printer->setPageOrder(settings.pageOrder());
+    printer->setOrientation(settings.orientation());
+    printer->setColorMode(settings.colorMode());
+    printer->setDuplex(settings.duplex());
 
     return printer;
 }
