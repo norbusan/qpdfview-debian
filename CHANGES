@@ -1,4 +1,5 @@
 Release 0.4.17:
+  * Fixed query to populate the instance list for the choose instance dialog.
   * Added support for external document links to the outline view.
   * Added triggering SyncTeX reverse search using a keyboard modifier.
   * Keyboard modifiers for mouse interaction can be disabled.
