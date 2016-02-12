@@ -88,6 +88,8 @@ public slots:
 
     void startSearch(const QString& text);
 
+    void saveDatabase();
+
 protected slots:
     void on_tabWidget_currentChanged(int index);
     void on_tabWidget_tabCloseRequested(int index);
@@ -493,6 +495,8 @@ public slots:
     bool jumpToPageOrOpenInNewTab(const QString& absoluteFilePath, int page = -1, bool refreshBeforeJump = false, const QRectF& highlight = QRectF(), bool quiet = false);
 
     Q_NOREPLY void startSearch(const QString& text);
+
+    Q_NOREPLY void saveDatabase();
 
 
     Q_NOREPLY void previousPage();

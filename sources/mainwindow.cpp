@@ -528,6 +528,11 @@ void MainWindow::startSearch(const QString& text)
     }
 }
 
+void MainWindow::saveDatabase()
+{
+    QTimer::singleShot(0, this, SLOT(on_saveDatabase_timeout()));
+}
+
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
     const bool hasCurrent = index != -1;
@@ -3246,6 +3251,11 @@ bool MainWindowAdaptor::jumpToPageOrOpenInNewTab(const QString& absoluteFilePath
 void MainWindowAdaptor::startSearch(const QString& text)
 {
     mainWindow()->startSearch(text);
+}
+
+void MainWindowAdaptor::saveDatabase()
+{
+    mainWindow()->saveDatabase();
 }
 
 #define ONLY_IF_CURRENT_TAB if(mainWindow()->m_tabWidget->currentIndex() == -1) { return; }

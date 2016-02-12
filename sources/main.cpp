@@ -386,6 +386,11 @@ void activateUniqueInstance()
                 }
             }
 
+            if(!files.isEmpty())
+            {
+                interface->call("saveDatabase");
+            }
+
             if(!searchText.isEmpty())
             {
                 interface->call("startSearch", searchText);
@@ -485,6 +490,11 @@ int main(int argc, char** argv)
     foreach(const File& file, files)
     {
         mainWindow->jumpToPageOrOpenInNewTab(file.filePath, file.page, true, file.enclosingBox, quiet);
+    }
+
+    if(!files.isEmpty())
+    {
+        mainWindow->saveDatabase();
     }
 
     if(!searchText.isEmpty())
