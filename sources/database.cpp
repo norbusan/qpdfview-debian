@@ -316,7 +316,7 @@ QStringList Database::loadInstanceNames()
         Transaction transaction(m_database);
         Query query(m_database);
 
-        query.exec("SELECT DISTINCT(instanceName) FROM tabs_v2");
+        query.exec("SELECT DISTINCT(instanceName) FROM tabs_v4");
 
         while(query.nextRecord())
         {
