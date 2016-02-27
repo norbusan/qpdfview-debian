@@ -70,22 +70,27 @@ Plugin* loadStaticPlugin(const QString& objectName)
 
 Plugin* loadPlugin(const QString& fileName)
 {
-    QPluginLoader pluginLoader(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
+    QPluginLoader pluginLoader;
+
+    const QString localFileName = QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName);
+    pluginLoader.setFileName(localFileName);
 
     if(!pluginLoader.load())
     {
-        const QString firstFileName = pluginLoader.fileName();
-        const QString firstErrorString = pluginLoader.errorString();
+        const QString localErrorString = pluginLoader.errorString();
 
-        pluginLoader.setFileName(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName));
+        const QString globalFileName =QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName);
+        pluginLoader.setFileName(globalFileName);
 
         if(!pluginLoader.load())
         {
-            qCritical() << "Could not load plug-in in first attempt:" << firstFileName;
-            qCritical() << firstErrorString;
+            const QString globalErrorString = pluginLoader.errorString();
 
-            qCritical() << "Could not load plug-in in second attempt:" << pluginLoader.fileName();
-            qCritical() << pluginLoader.errorString();
+            qCritical() << "Could not load local plug-in:" << localFileName;
+            qCritical() << localErrorString;
+
+            qCritical() << "Could not load global plug-in:" << globalFileName;
+            qCritical() << globalErrorString;
 
             return 0;
         }
