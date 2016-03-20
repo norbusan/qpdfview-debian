@@ -112,13 +112,6 @@ PageItem::PageItem(Model::Page* page, int index, PaintMode paintMode, QGraphicsI
         m_tileItems.replace(0, new TileItem(this));
     }
 
-    if(!thumbnailMode())
-    {
-        m_loadInteractiveElements = new QFutureWatcher< void >(this);
-        connect(m_loadInteractiveElements, SIGNAL(finished()), SLOT(on_loadInteractiveElements_finished()));
-        m_loadInteractiveElements->setFuture(QtConcurrent::run(this, &PageItem::loadInteractiveElements));
-    }
-
     prepareGeometry();
 }
 
@@ -126,9 +119,7 @@ PageItem::~PageItem()
 {
     if(m_loadInteractiveElements != 0)
     {
-        m_loadInteractiveElements->cancel();
         m_loadInteractiveElements->waitForFinished();
-
         delete m_loadInteractiveElements;
         m_loadInteractiveElements = 0;
     }
@@ -294,6 +285,8 @@ int PageItem::startRender(bool prefetch)
             cost += tile->startRender(prefetch);
         }
     }
+
+    startLoadInteractiveElements();
 
     return cost;
 }
@@ -674,42 +667,8 @@ void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
     event->ignore();
 }
 
-void PageItem::loadInteractiveElements()
-{
-    m_links = m_page->links();
-
-    if(!presentationMode())
-    {
-        PageItem* const parent = this;
-        QThread* const parentThread = parent->thread();
-
-        const QList< Model::Annotation* > annotations = m_page->annotations();
-
-        foreach(Model::Annotation* annotation, annotations)
-        {
-            annotation->moveToThread(parentThread);
-            connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
-        }
-
-        m_annotations = annotations;
-
-        const QList< Model::FormField* > formFields = m_page->formFields();
-
-        foreach(Model::FormField* formField, formFields)
-        {
-            formField->moveToThread(parentThread);
-            connect(formField, SIGNAL(wasModified()), SIGNAL(wasModified()));
-        }
-
-        m_formFields = formFields;
-    }
-}
-
 void PageItem::on_loadInteractiveElements_finished()
 {
-    m_loadInteractiveElements->deleteLater();
-    m_loadInteractiveElements = 0;
-
     update();
 }
 
@@ -766,6 +725,51 @@ inline bool PageItem::thumbnailMode() const
 bool PageItem::useTiling() const
 {
     return m_paintMode != ThumbnailMode && s_settings->pageItem().useTiling();
+}
+
+void PageItem::startLoadInteractiveElements()
+{
+    if(thumbnailMode() || m_loadInteractiveElements != 0)
+    {
+        return;
+    }
+
+    m_loadInteractiveElements = new QFutureWatcher< void >(this);
+    connect(m_loadInteractiveElements, SIGNAL(finished()), SLOT(on_loadInteractiveElements_finished()));
+    m_loadInteractiveElements->setFuture(QtConcurrent::run(this, &PageItem::loadInteractiveElements));
+}
+
+void PageItem::loadInteractiveElements()
+{
+    m_links = m_page->links();
+
+    if(presentationMode())
+    {
+        return;
+    }
+
+    PageItem* const parent = this;
+    QThread* const parentThread = parent->thread();
+
+    const QList< Model::Annotation* > annotations = m_page->annotations();
+
+    foreach(Model::Annotation* annotation, annotations)
+    {
+        annotation->moveToThread(parentThread);
+        connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
+    }
+
+    m_annotations = annotations;
+
+    const QList< Model::FormField* > formFields = m_page->formFields();
+
+    foreach(Model::FormField* formField, formFields)
+    {
+        formField->moveToThread(parentThread);
+        connect(formField, SIGNAL(wasModified()), SIGNAL(wasModified()));
+    }
+
+    m_formFields = formFields;
 }
 
 void PageItem::copyToClipboard(const QPoint& screenPos)

@@ -136,7 +136,6 @@ protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
 
 private slots:
-    void loadInteractiveElements();
     void on_loadInteractiveElements_finished();
 
 private:
@@ -164,6 +163,9 @@ private:
     // interactive elements
 
     QFutureWatcher< void >* m_loadInteractiveElements;
+
+    void startLoadInteractiveElements();
+    void loadInteractiveElements();
 
     QList< Model::Link* > m_links;
     QList< Model::Annotation* > m_annotations;
