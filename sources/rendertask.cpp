@@ -286,7 +286,7 @@ void RenderTask::start(const RenderParam& renderParam,
 
     resetCancellation();
 
-    QThreadPool::globalInstance()->start(this, prefetch ? 0 : 1);
+    QThreadPool::globalInstance()->start(this, prefetch ? 1 : 2);
 }
 
 void RenderTask::finish()

@@ -34,6 +34,8 @@ ThumbnailItem::ThumbnailItem(Model::Page* page, const QString& text, int index, 
     m_isHighlighted(false)
 {
     setAcceptHoverEvents(false);
+
+    prepareToolTip();
 }
 
 QRectF ThumbnailItem::boundingRect() const
@@ -142,7 +144,7 @@ void ThumbnailItem::contextMenuEvent(QGraphicsSceneContextMenuEvent*)
 {
 }
 
-void ThumbnailItem::loadInteractiveElements()
+void ThumbnailItem::prepareToolTip()
 {
     const qreal width = size().width() / 72.0 * 25.4;
     const qreal height = size().height() / 72.0 * 25.4;
@@ -164,16 +166,16 @@ void ThumbnailItem::loadInteractiveElements()
         qreal longEdgeB = 1414.0;
         qreal shortEdgeB = 1000.0;
 
-        for(int i = 0; i <= 10; ++i)
+        for(int size = 0; size <= 10; ++size)
         {
             if(qAbs(longEdge - longEdgeA) <= 1.0 && qAbs(shortEdge - shortEdgeA) <= 1.0)
             {
-                paperSize = QString(" (A%1)").arg(i);
+                paperSize = QString(" (A%1)").arg(size);
                 break;
             }
             else if(qAbs(longEdge - longEdgeB) <= 1.0 && qAbs(shortEdge - shortEdgeB) <= 1.0)
             {
-                paperSize = QString(" (B%1)").arg(i);
+                paperSize = QString(" (B%1)").arg(size);
                 break;
             }
 

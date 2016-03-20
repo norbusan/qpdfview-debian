@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QClipboard>
+#include <QtConcurrentRun>
 #include <QFileDialog>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsScene>
@@ -80,6 +81,7 @@ PageItem::PageItem(Model::Page* page, int index, PaintMode paintMode, QGraphicsI
     m_index(index),
     m_paintMode(paintMode),
     m_highlights(),
+    m_loadInteractiveElements(0),
     m_links(),
     m_annotations(),
     m_formFields(),
@@ -110,13 +112,27 @@ PageItem::PageItem(Model::Page* page, int index, PaintMode paintMode, QGraphicsI
         m_tileItems.replace(0, new TileItem(this));
     }
 
-    QTimer::singleShot(0, this, SLOT(loadInteractiveElements()));
+    if(!thumbnailMode())
+    {
+        m_loadInteractiveElements = new QFutureWatcher< void >(this);
+        connect(m_loadInteractiveElements, SIGNAL(finished()), SLOT(on_loadInteractiveElements_finished()));
+        m_loadInteractiveElements->setFuture(QtConcurrent::run(this, &PageItem::loadInteractiveElements));
+    }
 
     prepareGeometry();
 }
 
 PageItem::~PageItem()
 {
+    if(m_loadInteractiveElements != 0)
+    {
+        m_loadInteractiveElements->cancel();
+        m_loadInteractiveElements->waitForFinished();
+
+        delete m_loadInteractiveElements;
+        m_loadInteractiveElements = 0;
+    }
+
     hideAnnotationOverlay(false);
     hideFormFieldOverlay(false);
 
@@ -664,20 +680,35 @@ void PageItem::loadInteractiveElements()
 
     if(!presentationMode())
     {
-        m_annotations = m_page->annotations();
+        PageItem* const parent = this;
+        QThread* const parentThread = parent->thread();
 
-        foreach(const Model::Annotation* annotation, m_annotations)
+        const QList< Model::Annotation* > annotations = m_page->annotations();
+
+        foreach(Model::Annotation* annotation, annotations)
         {
+            annotation->moveToThread(parentThread);
             connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
         }
 
-        m_formFields = m_page->formFields();
+        m_annotations = annotations;
 
-        foreach(const Model::FormField* formField, m_formFields)
+        const QList< Model::FormField* > formFields = m_page->formFields();
+
+        foreach(Model::FormField* formField, formFields)
         {
+            formField->moveToThread(parentThread);
             connect(formField, SIGNAL(wasModified()), SIGNAL(wasModified()));
         }
+
+        m_formFields = formFields;
     }
+}
+
+void PageItem::on_loadInteractiveElements_finished()
+{
+    m_loadInteractiveElements->deleteLater();
+    m_loadInteractiveElements = 0;
 
     update();
 }

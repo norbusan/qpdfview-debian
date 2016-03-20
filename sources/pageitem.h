@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define PAGEITEM_H
 
 #include <QCache>
+#include <QFutureWatcher>
 #include <QGraphicsObject>
 #include <QIcon>
 #include <QSet>
@@ -135,7 +136,8 @@ protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
 
 private slots:
-    virtual void loadInteractiveElements();
+    void loadInteractiveElements();
+    void on_loadInteractiveElements_finished();
 
 private:
     Q_DISABLE_COPY(PageItem)
@@ -160,6 +162,8 @@ private:
     QList< QRectF > m_highlights;
 
     // interactive elements
+
+    QFutureWatcher< void >* m_loadInteractiveElements;
 
     QList< Model::Link* > m_links;
     QList< Model::Annotation* > m_annotations;

@@ -75,9 +75,6 @@ protected:
 
     void contextMenuEvent(QGraphicsSceneContextMenuEvent*);
 
-private slots:
-    void loadInteractiveElements();
-
 private:
     Q_DISABLE_COPY(ThumbnailItem)
 
@@ -92,6 +89,8 @@ private:
 #endif // QT_VERSION
 
     bool m_isHighlighted;
+
+    void prepareToolTip();
 
 };
 
