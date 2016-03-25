@@ -64,90 +64,157 @@ namespace
 using namespace qpdfview;
 using namespace qpdfview::Model;
 
-inline void appendRow(QStandardItemModel* model, const QString& key, const QString& value)
+Outline loadOutline(const QDomNode& parent, Poppler::Document* document)
 {
-    model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
+    Outline outline;
+
+    const QDomNodeList nodes = parent.childNodes();
+
+    outline.resize(nodes.size());
+
+    for(int index = 0, count = nodes.size(); index < count; ++index)
+    {
+        const QDomNode node = nodes.at(index);
+        const QDomElement element = node.toElement();
+
+        Section& section = outline[index];
+        section.title = element.tagName();
+
+        QScopedPointer< Poppler::LinkDestination > destination;
+
+        if(element.hasAttribute("Destination"))
+        {
+            destination.reset(new Poppler::LinkDestination(element.attribute("Destination")));
+        }
+        else if(element.hasAttribute("DestinationName"))
+        {
+            destination.reset(document->linkDestination(element.attribute("DestinationName")));
+        }
+
+        if(destination)
+        {
+            int page = destination->pageNumber();
+            qreal left = qQNaN();
+            qreal top = qQNaN();
+
+            page = page >= 1 ? page : 1;
+            page = page <= document->numPages() ? page : document->numPages();
+
+            if(destination->isChangeLeft())
+            {
+                left = destination->left();
+
+                left = left >= 0.0 ? left : 0.0;
+                left = left <= 1.0 ? left : 1.0;
+            }
+
+            if(destination->isChangeTop())
+            {
+                top = destination->top();
+
+                top = top >= 0.0 ? top : 0.0;
+                top = top <= 1.0 ? top : 1.0;
+            }
+
+            Link& link = section.link;
+            link.page = page;
+            link.left = left;
+            link.top = top;
+
+            const QString fileName = element.attribute("ExternalFileName");
+
+            if(!fileName.isEmpty())
+            {
+                link.urlOrFileName = fileName;
+            }
+        }
+
+        if(node.hasChildNodes())
+        {
+            section.children = loadOutline(node, document);
+        }
+    }
+
+    return outline;
 }
 
-void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardItem* parent)
+class FontsModel : public QAbstractTableModel
 {
-    const QDomElement element = node.toElement();
-
-    QStandardItem* item = new QStandardItem(element.tagName());
-    item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-
-    Poppler::LinkDestination* linkDestination = 0;
-
-    if(element.hasAttribute("Destination"))
+public:
+    FontsModel(const QList< Poppler::FontInfo >& fonts) :
+        m_fonts(fonts)
     {
-        linkDestination = new Poppler::LinkDestination(element.attribute("Destination"));
-    }
-    else if(element.hasAttribute("DestinationName"))
-    {
-        linkDestination = document->linkDestination(element.attribute("DestinationName"));
     }
 
-    if(linkDestination != 0)
+    int columnCount(const QModelIndex&) const
     {
-        int page = linkDestination->pageNumber();
-        qreal left = qQNaN();
-        qreal top = qQNaN();
+        return 5;
+    }
 
-        page = page >= 1 ? page : 1;
-        page = page <= document->numPages() ? page : document->numPages();
-
-        if(linkDestination->isChangeLeft())
+    int rowCount(const QModelIndex& parent) const
+    {
+        if(parent.isValid())
         {
-            left = linkDestination->left();
-
-            left = left >= 0.0 ? left : 0.0;
-            left = left <= 1.0 ? left : 1.0;
+            return 0;
         }
 
-        if(linkDestination->isChangeTop())
-        {
-            top = linkDestination->top();
+        return m_fonts.size();
+    }
 
-            top = top >= 0.0 ? top : 0.0;
-            top = top <= 1.0 ? top : 1.0;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const
+    {
+        if(orientation != Qt::Horizontal || role != Qt::DisplayRole)
+        {
+            return QVariant();
         }
 
-        delete linkDestination;
-
-        item->setData(page, Document::PageRole);
-        item->setData(left, Document::LeftRole);
-        item->setData(top, Document::TopRole);
-
-        const QString fileName = element.attribute("ExternalFileName");
-
-        if(!fileName.isEmpty())
+        switch(section)
         {
-            item->setData(fileName, Document::FileNameRole);
+        case 0:
+            return PdfDocument::tr("Name");
+        case 1:
+            return PdfDocument::tr("Type");
+        case 2:
+            return PdfDocument::tr("Embedded");
+        case 3:
+            return PdfDocument::tr("Subset");
+        case 4:
+            return PdfDocument::tr("File");
+        default:
+            return QVariant();
+        }
+    }
+
+    QVariant data(const QModelIndex& index, int role) const
+    {
+        if(!index.isValid() || role != Qt::DisplayRole)
+        {
+            return QVariant();
         }
 
-        QStandardItem* pageItem = item->clone();
-        pageItem->setText(QString::number(page));
-        pageItem->setTextAlignment(Qt::AlignRight);
+        const Poppler::FontInfo& font = m_fonts[index.row()];
 
-        parent->appendRow(QList< QStandardItem* >() << item << pageItem);
-    }
-    else
-    {
-        parent->appendRow(item);
+        switch (index.column())
+        {
+        case 0:
+            return font.name();
+        case 1:
+            return font.typeName();
+        case 2:
+            return font.isEmbedded() ? PdfDocument::tr("Yes") : PdfDocument::tr("No");
+        case 3:
+            return font.isSubset() ? PdfDocument::tr("Yes") : PdfDocument::tr("No");
+        case 4:
+            return font.file();
+        default:
+            return QVariant();
+        }
     }
 
-    const QDomNode& siblingNode = node.nextSibling();
-    if(!siblingNode.isNull())
-    {
-        loadOutline(document, siblingNode, parent);
-    }
+private:
+    const QList< Poppler::FontInfo > m_fonts;
 
-    const QDomNode& childNode = node.firstChild();
-    if(!childNode.isNull())
-    {
-        loadOutline(document, childNode, item);
-    }
-}
+};
 
 inline void restoreRenderHint(Poppler::Document* document, const Poppler::Document::RenderHints hints, const Poppler::Document::RenderHint hint)
 {
@@ -878,23 +945,25 @@ void PdfDocument::setPaperColor(const QColor& paperColor)
     m_document->setPaperColor(paperColor);
 }
 
-void PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
+Outline PdfDocument::loadOutline() const
 {
-    Document::loadOutline(outlineModel);
+    Outline outline;
 
     LOCK_DOCUMENT
 
-    if(QDomDocument* toc = m_document->toc())
-    {
-        ::loadOutline(m_document, toc->firstChild(), outlineModel->invisibleRootItem());
+    QScopedPointer< QDomDocument > toc(m_document->toc());
 
-        delete toc;
+    if(toc)
+    {
+        outline = ::loadOutline(*toc, m_document);
     }
+
+    return outline;
 }
 
-void PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
+Properties PdfDocument::loadProperties() const
 {
-    Document::loadProperties(propertiesModel);
+    Properties properties;
 
     LOCK_DOCUMENT
 
@@ -907,42 +976,26 @@ void PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
             value = m_document->date(key).toString();
         }
 
-        appendRow(propertiesModel, key, value);
+        properties.push_back(qMakePair(key, value));
     }
 
     int pdfMajorVersion = 1;
     int pdfMinorVersion = 0;
     m_document->getPdfVersion(&pdfMajorVersion, &pdfMinorVersion);
 
-    appendRow(propertiesModel, tr("PDF version"), QString("%1.%2").arg(pdfMajorVersion).arg(pdfMinorVersion));
+    properties.push_back(qMakePair(tr("PDF version"), QString("%1.%2").arg(pdfMajorVersion).arg(pdfMinorVersion)));
 
-    appendRow(propertiesModel, tr("Encrypted"), m_document->isEncrypted() ? tr("Yes") : tr("No"));
-    appendRow(propertiesModel, tr("Linearized"), m_document->isLinearized() ? tr("Yes") : tr("No"));
+    properties.push_back(qMakePair(tr("Encrypted"), m_document->isEncrypted() ? tr("Yes") : tr("No")));
+    properties.push_back(qMakePair(tr("Linearized"), m_document->isLinearized() ? tr("Yes") : tr("No")));
+
+    return properties;
 }
 
-void PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
+QAbstractItemModel* PdfDocument::loadFonts() const
 {
-    Document::loadFonts(fontsModel);
-
     LOCK_DOCUMENT
 
-    const QList< Poppler::FontInfo > fonts = m_document->fonts();
-
-    fontsModel->setRowCount(fonts.count());
-    fontsModel->setColumnCount(5);
-
-    fontsModel->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Type") << tr("Embedded") << tr("Subset") << tr("File"));
-
-    for(int index = 0; index < fonts.count(); ++index)
-    {
-        const Poppler::FontInfo& font = fonts[index];
-
-        fontsModel->setItem(index, 0, new QStandardItem(font.name()));
-        fontsModel->setItem(index, 1, new QStandardItem(font.typeName()));
-        fontsModel->setItem(index, 2, new QStandardItem(font.isEmbedded() ? tr("Yes") : tr("No")));
-        fontsModel->setItem(index, 3, new QStandardItem(font.isSubset() ? tr("Yes") : tr("No")));
-        fontsModel->setItem(index, 4, new QStandardItem(font.file()));
-    }
+    return new FontsModel(m_document->fonts());
 }
 
 bool PdfDocument::wantsContinuousMode() const

@@ -40,11 +40,6 @@ inline qreal dotsPerInchY(const QImage& image)
     return 0.0254 * image.dotsPerMeterY();
 }
 
-inline void appendRow(QStandardItemModel* model, const QString& key, const QString& value)
-{
-    model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
-}
-
 } // anonymous
 
 namespace qpdfview
@@ -147,13 +142,13 @@ bool ImageDocument::save(const QString& filePath, bool withChanges) const
     return true;
 }
 
-void ImageDocument::loadProperties(QStandardItemModel *propertiesModel) const
+Properties ImageDocument::loadProperties() const
 {
-    Document::loadProperties(propertiesModel);
+    Properties properties;
 
-    appendRow(propertiesModel, tr("Size"), QString("%1 px x %2 px").arg(m_image.width()).arg(m_image.height()));
-    appendRow(propertiesModel, tr("Resolution"), QString("%1 dpi x %2 dpi").arg(dotsPerInchX(m_image), 0, 'f', 1).arg(dotsPerInchY(m_image), 0, 'f', 1));
-    appendRow(propertiesModel, tr("Depth"), QString("%1 bits").arg(m_image.depth()));
+    properties.push_back(qMakePair(tr("Size"), QString("%1 px x %2 px").arg(m_image.width()).arg(m_image.height())));
+    properties.push_back(qMakePair(tr("Resolution"), QString("%1 dpi x %2 dpi").arg(dotsPerInchX(m_image), 0, 'f', 1).arg(dotsPerInchY(m_image), 0, 'f', 1)));
+    properties.push_back(qMakePair(tr("Depth"), QString("%1 bits").arg(m_image.depth())));
 
     switch(m_image.format())
     {
@@ -161,32 +156,34 @@ void ImageDocument::loadProperties(QStandardItemModel *propertiesModel) const
         break;
     case QImage::Format_Mono:
     case QImage::Format_MonoLSB:
-        appendRow(propertiesModel, tr("Format"), tr("Monochrome"));
+        properties.push_back(qMakePair(tr("Format"), tr("Monochrome")));
         break;
     case QImage::Format_Indexed8:
-        appendRow(propertiesModel, tr("Format"), tr("Indexed"));
+        properties.push_back(qMakePair(tr("Format"), tr("Indexed")));
         break;
     case QImage::Format_RGB32:
-        appendRow(propertiesModel, tr("Format"), tr("32 bits RGB"));
+        properties.push_back(qMakePair(tr("Format"), tr("32 bits RGB")));
         break;
     case QImage::Format_ARGB32:
-        appendRow(propertiesModel, tr("Format"), tr("32 bits ARGB"));
+        properties.push_back(qMakePair(tr("Format"), tr("32 bits ARGB")));
         break;
     case QImage::Format_RGB16:
     case QImage::Format_RGB555:
     case QImage::Format_RGB444:
-        appendRow(propertiesModel, tr("Format"), tr("16 bits RGB"));
+        properties.push_back(qMakePair(tr("Format"), tr("16 bits RGB")));
         break;
     case QImage::Format_RGB666:
     case QImage::Format_RGB888:
-        appendRow(propertiesModel, tr("Format"), tr("24 bits RGB"));
+        properties.push_back(qMakePair(tr("Format"), tr("24 bits RGB")));
         break;
     }
 
     foreach(const QString& key, m_image.textKeys())
     {
-        appendRow(propertiesModel, key, m_image.text(key));
+        properties.push_back(qMakePair(key, m_image.text(key)));
     }
+
+    return properties;
 }
 
 } // Model

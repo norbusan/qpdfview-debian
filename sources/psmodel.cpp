@@ -36,11 +36,6 @@ namespace
 using namespace qpdfview;
 using namespace qpdfview::Model;
 
-inline void appendRow(QStandardItemModel* model, const QString& key, const QString& value)
-{
-    model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
-}
-
 namespace Defaults
 {
 
@@ -225,9 +220,9 @@ bool PsDocument::canBePrintedUsingCUPS() const
     return true;
 }
 
-void PsDocument::loadProperties(QStandardItemModel* propertiesModel) const
+Properties PsDocument::loadProperties() const
 {
-    Document::loadProperties(propertiesModel);
+    Properties properties;
 
     QMutexLocker mutexLocker(&m_mutex);
 
@@ -238,12 +233,14 @@ void PsDocument::loadProperties(QStandardItemModel* propertiesModel) const
     const QString format = QString::fromLocal8Bit(spectre_document_get_format(m_document));
     const QString languageLevel = QString::number(spectre_document_get_language_level(m_document));
 
-    appendRow(propertiesModel, tr("Title"), title);
-    appendRow(propertiesModel, tr("Created for"), createdFor);
-    appendRow(propertiesModel, tr("Creator"), creator);
-    appendRow(propertiesModel, tr("Creation date"), creationDate);
-    appendRow(propertiesModel, tr("Format"), format);
-    appendRow(propertiesModel, tr("Language level"), languageLevel);
+    properties.push_back(qMakePair(tr("Title"), title));
+    properties.push_back(qMakePair(tr("Created for"), createdFor));
+    properties.push_back(qMakePair(tr("Creator"), creator));
+    properties.push_back(qMakePair(tr("Creation date"), creationDate));
+    properties.push_back(qMakePair(tr("Format"), format));
+    properties.push_back(qMakePair(tr("Language level"), languageLevel));
+
+    return properties;
 }
 
 } // Model

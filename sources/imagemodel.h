@@ -67,7 +67,7 @@ namespace Model
         bool canSave() const;
         bool save(const QString& filePath, bool withChanges) const;
 
-        void loadProperties(QStandardItemModel* propertiesModel) const;
+        Properties loadProperties() const;
 
     private:
         Q_DISABLE_COPY(ImageDocument)

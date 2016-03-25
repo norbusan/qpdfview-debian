@@ -99,6 +99,7 @@ QModelIndex synchronizeOutlineView(int currentPage, const QAbstractItemModel* mo
     for(int row = 0, rowCount = model->rowCount(parent); row < rowCount; ++row)
     {
         const QModelIndex index = model->index(row, 0, parent);
+
         const QModelIndex match = synchronizeOutlineView(currentPage, model, index);
 
         if(match.isValid())
@@ -614,8 +615,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
             m_searchLineEdit->setProgress(currentTab()->searchProgress());
         }
 
-        m_outlineView->setModel(currentTab()->outlineModel());
-        m_propertiesView->setModel(currentTab()->propertiesModel());
         m_bookmarksView->setModel(bookmarkModelForCurrentTab());
 
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
@@ -838,11 +837,13 @@ void MainWindow::on_currentTab_documentChanged()
 
     ONLY_IF_SENDER_IS_CURRENT_TAB
 
+    m_outlineView->setModel(currentTab()->outlineModel());
+    m_propertiesView->setModel(currentTab()->propertiesModel());
+
     m_outlineView->restoreExpansion();
 
     setWindowTitleForCurrentTab();
-
-    setWindowModified(currentTab() != 0 ? currentTab()->wasModified() : false);
+    setWindowModified(currentTab()->wasModified());
 }
 
 void MainWindow::on_currentTab_documentModified()
@@ -1560,7 +1561,7 @@ void MainWindow::on_lightenWithPaperColor_triggered(bool checked)
 
 void MainWindow::on_fonts_triggered()
 {
-    QScopedPointer< QStandardItemModel > fontsModel(currentTab()->fontsModel());
+    QScopedPointer< QAbstractItemModel > fontsModel(currentTab()->fontsModel());
     QScopedPointer< FontsDialog > dialog(new FontsDialog(fontsModel.data(), this));
 
     dialog->exec();

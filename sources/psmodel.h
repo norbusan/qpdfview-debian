@@ -85,7 +85,7 @@ namespace Model
 
         bool canBePrintedUsingCUPS() const;
 
-        void loadProperties(QStandardItemModel* propertiesModel) const;
+        Properties loadProperties() const;
 
     private:
         Q_DISABLE_COPY(PsDocument)

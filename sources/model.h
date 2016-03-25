@@ -25,11 +25,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QList>
 #include <QtPlugin>
-#include <QRect>
-#include <QStandardItemModel>
-#include <QString>
 #include <QWidget>
+#include <QVector>
 
+class QAbstractItemModel;
 class QColor;
 class QImage;
 class QPrinter;
@@ -64,6 +63,21 @@ namespace Model
         Link(const QRectF& boundingRect, const QString& fileName, int page) : boundary(), page(page), left(qQNaN()), top(qQNaN()), urlOrFileName(fileName) { boundary.addRect(boundingRect); }
 
     };
+
+    struct Section;
+
+    typedef QVector< Section > Outline;
+
+    struct Section
+    {
+        QString title;
+        Link link;
+
+        Outline children;
+
+    };
+
+    typedef QVector< QPair< QString, QString > > Properties;
 
     class Annotation : public QObject
     {
@@ -160,10 +174,10 @@ namespace Model
             ExpansionRole
         };
 
-        virtual void loadOutline(QStandardItemModel* outlineModel) const { outlineModel->clear(); }
-        virtual void loadProperties(QStandardItemModel* propertiesModel) const { propertiesModel->clear(); propertiesModel->setColumnCount(2); }
+        virtual Outline loadOutline() const { return Outline(); }
+        virtual Properties loadProperties() const { return Properties(); }
 
-        virtual void loadFonts(QStandardItemModel* fontsModel) const { fontsModel->clear(); }
+        virtual QAbstractItemModel* loadFonts() const { return 0; }
 
         virtual bool wantsContinuousMode() const { return false; }
         virtual bool wantsSinglePageMode() const { return false; }

@@ -135,10 +135,10 @@ public:
     const QVector< ThumbnailItem* >& thumbnailItems() const { return m_thumbnailItems; }
     QGraphicsScene* thumbnailsScene() const { return m_thumbnailsScene; }
 
-    QStandardItemModel* outlineModel() const { return m_outlineModel; }
-    QStandardItemModel* propertiesModel() const { return m_propertiesModel; }
+    QAbstractItemModel* outlineModel() const { return m_outlineModel.data(); }
+    QAbstractItemModel* propertiesModel() const { return m_propertiesModel.data(); }
 
-    QStandardItemModel* fontsModel() const;
+    QAbstractItemModel* fontsModel() const;
 
     bool searchWasCanceled() const;
     int searchProgress() const;
@@ -339,12 +339,11 @@ private:
 
     QGraphicsScene* m_thumbnailsScene;
 
-    QStandardItemModel* m_outlineModel;
-    QStandardItemModel* m_propertiesModel;
+    QScopedPointer< QAbstractItemModel > m_outlineModel;
+    QScopedPointer< QAbstractItemModel > m_propertiesModel;
 
     bool checkDocument(const QString& filePath, Model::Document* document, QVector< Model::Page* >& pages);
 
-    void loadFallbackOutline();
     void loadDocumentDefaults();
 
     void adjustScrollBarPolicy();

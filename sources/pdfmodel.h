@@ -163,10 +163,10 @@ namespace Model
 
         void setPaperColor(const QColor& paperColor);
 
-        void loadOutline(QStandardItemModel* outlineModel) const;
-        void loadProperties(QStandardItemModel* propertiesModel) const;
+        Outline loadOutline() const;
+        Properties loadProperties() const;
 
-        void loadFonts(QStandardItemModel* fontsModel) const;
+        QAbstractItemModel* loadFonts() const;
 
         bool wantsContinuousMode() const;
         bool wantsSinglePageMode() const;

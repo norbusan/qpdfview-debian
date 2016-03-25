@@ -306,6 +306,290 @@ inline QRectF rectOfResult(const QModelIndex& index)
     return index.data(SearchModel::RectRole).toRectF();
 }
 
+class OutlineModel : public QAbstractItemModel
+{
+public:
+    OutlineModel(const DocumentView* parent, const Model::Outline& outline) :
+        m_parent(parent),
+        m_outline(outline)
+    {
+    }
+
+    QModelIndex index(int row, int column, const QModelIndex& parent) const
+    {
+        if(!hasIndex(row, column, parent))
+        {
+            return QModelIndex();
+        }
+
+        if(parent.isValid())
+        {
+            const Model::Section* section = resolveIndex(parent);
+
+            return createIndex(row, column, &section->children);
+        }
+        else
+        {
+            return createIndex(row, column, &m_outline);
+        }
+    }
+
+    QModelIndex parent(const QModelIndex& child) const
+    {
+        if(!child.isValid())
+        {
+            return QModelIndex();
+        }
+
+        const Model::Outline* children = static_cast< const Model::Outline* >(child.internalPointer());
+
+        if(&m_outline != children)
+        {
+            return findParent(&m_outline, children);
+        }
+
+        return QModelIndex();
+    }
+
+    int columnCount(const QModelIndex&) const
+    {
+        return 2;
+    }
+
+    int rowCount(const QModelIndex& parent) const
+    {
+        if(parent.isValid())
+        {
+            const Model::Section* section = resolveIndex(parent);
+
+            return section->children.size();
+        }
+        else
+        {
+            return m_outline.size();
+        }
+    }
+
+    QVariant data(const QModelIndex& index, int role) const
+    {
+        if(!index.isValid())
+        {
+            return QVariant();
+        }
+
+        const Model::Section* section = resolveIndex(index);
+
+        switch(role)
+        {
+        case Qt::DisplayRole:
+            switch(index.column())
+            {
+            case 0:
+                return section->title;
+            case 1:
+                return m_parent->pageLabelFromNumber(section->link.page);
+            default:
+                return QVariant();
+            }
+        case Model::Document::PageRole:
+            return section->link.page;
+        case Model::Document::LeftRole:
+            return section->link.left;
+        case Model::Document::TopRole:
+            return section->link.top;
+        case Model::Document::FileNameRole:
+            return section->link.urlOrFileName;
+        case Model::Document::ExpansionRole:
+            return m_expanded.contains(section);
+        default:
+            return QVariant();
+        }
+    }
+
+    bool setData(const QModelIndex& index, const QVariant& value, int role)
+    {
+        if(!index.isValid() || role != Model::Document::ExpansionRole)
+        {
+            return false;
+        }
+
+        const Model::Section* section = resolveIndex(index);
+
+        if(value.toBool())
+        {
+            m_expanded.insert(section);
+        }
+        else
+        {
+            m_expanded.remove(section);
+        }
+
+        return true;
+    }
+
+private:
+    const DocumentView* const m_parent;
+    const Model::Outline m_outline;
+
+    QSet< const Model::Section* > m_expanded;
+
+    const Model::Section* resolveIndex(const QModelIndex& index) const
+    {
+        return &static_cast< const Model::Outline* >(index.internalPointer())->at(index.row());
+    }
+
+    QModelIndex createIndex(int row, int column, const Model::Outline* outline) const
+    {
+        return QAbstractItemModel::createIndex(row, column, const_cast< void* >(static_cast< const void* >(outline)));
+    }
+
+    QModelIndex findParent(const Model::Outline* outline, const Model::Outline* children) const
+    {
+        for(Model::Outline::const_iterator section = outline->begin(); section != outline->end(); ++section)
+        {
+            if(&section->children == children)
+            {
+                return createIndex(section - outline->begin(), 0, outline);
+            }
+        }
+
+        for(Model::Outline::const_iterator section = outline->begin(); section != outline->end(); ++section)
+        {
+            const QModelIndex parent = findParent(&section->children, children);
+
+            if(parent.isValid())
+            {
+                return parent;
+            }
+        }
+
+        return QModelIndex();
+    }
+
+};
+
+class FallbackOutlineModel : public QAbstractTableModel
+{
+public:
+    FallbackOutlineModel(const DocumentView* parent) :
+        m_parent(parent)
+    {
+    }
+
+    int columnCount(const QModelIndex&) const
+    {
+        return 2;
+    }
+
+    int rowCount(const QModelIndex& parent) const
+    {
+        if(parent.isValid())
+        {
+            return 0;
+        }
+
+        return m_parent->numberOfPages();
+    }
+
+    QVariant data(const QModelIndex& index, int role) const
+    {
+        if(!index.isValid())
+        {
+            return QVariant();
+        }
+
+        switch(role)
+        {
+        case Qt::DisplayRole:
+            switch(index.column())
+            {
+            case 0:
+                return DocumentView::tr("Page %1").arg(m_parent->pageLabelFromNumber(index.row() + 1));
+            case 1:
+                return m_parent->pageLabelFromNumber(index.row() + 1);
+            default:
+                return QVariant();
+            }
+        case Model::Document::PageRole:
+            return index.row() + 1;
+        case Model::Document::LeftRole:
+        case Model::Document::TopRole:
+            return qQNaN();
+        default:
+            return QVariant();
+        }
+    }
+
+private:
+    const DocumentView* const m_parent;
+
+};
+
+class PropertiesModel : public QAbstractTableModel
+{
+public:
+    PropertiesModel(const DocumentView* parent, const Model::Properties& properties) :
+        m_parent(parent),
+        m_properties(properties)
+    {
+    }
+
+    int columnCount(const QModelIndex&) const
+    {
+        return 2;
+    }
+
+    int rowCount(const QModelIndex& parent) const
+    {
+        if(parent.isValid())
+        {
+            return 0;
+        }
+
+        return m_properties.size();
+    }
+
+    QVariant data(const QModelIndex& index, int role) const
+    {
+        if(!index.isValid() || role != Qt::DisplayRole)
+        {
+            return QVariant();
+        }
+
+        switch (index.column())
+        {
+        case 0:
+            return m_properties[index.row()].first;
+        case 1:
+            return m_properties[index.row()].second;
+        default:
+            return QVariant();
+        }
+    }
+
+private:
+    const DocumentView* const m_parent;
+    const Model::Properties m_properties;
+
+};
+
+QAbstractItemModel* makeOutlineModel(const DocumentView* parent, const Model::Outline& outline = Model::Outline())
+{
+    if(!outline.empty())
+    {
+        return new OutlineModel(parent, outline);
+    }
+    else
+    {
+        return new FallbackOutlineModel(parent);
+    }
+}
+
+QAbstractItemModel* makePropertiesModel(const DocumentView* parent, const Model::Properties& properties = Model::Properties())
+{
+    return new PropertiesModel(parent, properties);
+}
+
 void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, const QModelIndex& index, QString path)
 {
     path += index.data(Qt::DisplayRole).toString();
@@ -400,8 +684,8 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     m_thumbnailsScene = new QGraphicsScene(this);
 
-    m_outlineModel = new QStandardItemModel(this);
-    m_propertiesModel = new QStandardItemModel(this);
+    m_outlineModel.reset(makeOutlineModel(this));
+    m_propertiesModel.reset(makePropertiesModel(this));
 
     // highlight
 
@@ -515,11 +799,7 @@ void DocumentView::setFirstPage(int firstPage)
 
         prepareThumbnailsScene();
 
-        if(m_outlineModel->invisibleRootItem()->data().toBool())
-        {
-            loadFallbackOutline();
-        }
-
+        emit numberOfPagesChanged(m_pages.count());
         emit currentPageChanged(m_currentPage);
     }
 }
@@ -611,12 +891,12 @@ QString DocumentView::title() const
     {
         for(int row = 0, rowCount = m_propertiesModel->rowCount(); row < rowCount; ++row)
         {
-            const QStandardItem* keyItem = m_propertiesModel->item(row, 0);
-            const QStandardItem* valueItem = m_propertiesModel->item(row, 1);
+            const QString key = m_propertiesModel->index(row, 0).data().toString();
+            const QString value = m_propertiesModel->index(row, 1).data().toString();
 
-            if(keyItem != 0 && valueItem != 0 && QLatin1String("Title") == keyItem->text())
+            if(QLatin1String("Title") == key)
             {
-                title = valueItem->text();
+                title = value;
                 break;
             }
         }
@@ -925,13 +1205,9 @@ void DocumentView::setThumbnailsOrientation(Qt::Orientation thumbnailsOrientatio
     }
 }
 
-QStandardItemModel* DocumentView::fontsModel() const
+QAbstractItemModel* DocumentView::fontsModel() const
 {
-    QStandardItemModel* fontsModel = new QStandardItemModel();
-
-    m_document->loadFonts(fontsModel);
-
-    return fontsModel;
+    return m_document->loadFonts();
 }
 
 bool DocumentView::searchWasCanceled() const
@@ -1120,11 +1396,11 @@ bool DocumentView::refresh()
         m_currentPage = qMin(m_currentPage, document->numberOfPages());
 
         QSet< QString > expandedPaths;
-        saveExpandedPaths(m_outlineModel, expandedPaths, QModelIndex(), QString());
+        saveExpandedPaths(m_outlineModel.data(), expandedPaths, QModelIndex(), QString());
 
         prepareDocument(document, pages);
 
-        restoreExpandedPaths(m_outlineModel, expandedPaths, QModelIndex(), QString());
+        restoreExpandedPaths(m_outlineModel.data(), expandedPaths, QModelIndex(), QString());
 
         prepareScene();
         prepareView(left, top);
@@ -2276,29 +2552,6 @@ bool DocumentView::checkDocument(const QString& filePath, Model::Document* docum
     return true;
 }
 
-void DocumentView::loadFallbackOutline()
-{
-    m_outlineModel->clear();
-
-    for(int page = 1; page <= m_pages.count(); ++page)
-    {
-        QStandardItem* item = new QStandardItem(tr("Page %1").arg(pageLabelFromNumber(page)));
-        item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-
-        item->setData(page, Model::Document::PageRole);
-        item->setData(qQNaN(), Model::Document::LeftRole);
-        item->setData(qQNaN(), Model::Document::TopRole);
-
-        QStandardItem* pageItem = item->clone();
-        pageItem->setText(QString::number(page));
-        pageItem->setTextAlignment(Qt::AlignRight);
-
-        m_outlineModel->appendRow(QList< QStandardItem* >() << item << pageItem);
-    }
-
-    m_outlineModel->invisibleRootItem()->setData(true); // Flags this as a fallback outline.
-}
-
 void DocumentView::loadDocumentDefaults()
 {
     if(m_document->wantsContinuousMode())
@@ -2388,13 +2641,8 @@ void DocumentView::prepareDocument(Model::Document* document, const QVector< Mod
     prepareThumbnails();
     prepareBackground();
 
-    m_document->loadOutline(m_outlineModel);
-    m_document->loadProperties(m_propertiesModel);
-
-    if(m_outlineModel->rowCount() == 0)
-    {
-        loadFallbackOutline();
-    }
+    m_outlineModel.reset(makeOutlineModel(this, m_document->loadOutline()));
+    m_propertiesModel.reset(makePropertiesModel(this, m_document->loadProperties()));
 
     if(s_settings->documentView().prefetch())
     {

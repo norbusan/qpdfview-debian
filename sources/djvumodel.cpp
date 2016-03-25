@@ -391,8 +391,10 @@ QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTrans
     return results;
 }
 
-void loadOutline(miniexp_t outlineExp, QStandardItem* parent, const QHash< QString, int >& indexByName)
+Outline loadOutline(miniexp_t outlineExp, const QHash< QString, int >& indexByName)
 {
+    Outline outline;
+
     for(miniexp_t outlineItem = miniexp_nil; miniexp_consp(outlineExp); outlineExp = miniexp_cdr(outlineExp))
     {
         outlineItem = miniexp_car(outlineExp);
@@ -403,53 +405,55 @@ void loadOutline(miniexp_t outlineExp, QStandardItem* parent, const QHash< QStri
         }
 
         const QString title = QString::fromUtf8(miniexp_to_str(miniexp_car(outlineItem)));
+
+        if(title.isEmpty())
+        {
+            continue;
+        }
+
+        outline.resize(outline.size() + 1);
+        Section& section = outline.back();
+        section.title = title;
+
         QString destination = QString::fromUtf8(miniexp_to_str(miniexp_cadr(outlineItem)));
 
-        if(!title.isEmpty() && !destination.isEmpty())
+        if(!destination.isEmpty() && destination.at(0) == QLatin1Char('#'))
         {
-            if(destination.at(0) == QLatin1Char('#'))
+            destination.remove(0, 1);
+
+            bool ok = false;
+            int page = destination.toInt(&ok);
+
+            if(!ok)
             {
-                destination.remove(0,1);
+                const QHash< QString, int >::const_iterator index = indexByName.find(destination);
 
-                bool ok = false;
-                int destinationPage = destination.toInt(&ok);
-
-                if(!ok)
+                if(index != indexByName.end())
                 {
-                    if(indexByName.contains(destination))
-                    {
-                        destinationPage = indexByName[destination] + 1;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-
-                QStandardItem* item = new QStandardItem(title);
-                item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-
-                item->setData(destinationPage, Document::PageRole);
-                item->setData(qQNaN(), Document::LeftRole);
-                item->setData(qQNaN(), Document::TopRole);
-
-                QStandardItem* pageItem = item->clone();
-                pageItem->setText(QString::number(destinationPage));
-                pageItem->setTextAlignment(Qt::AlignRight);
-
-                parent->appendRow(QList< QStandardItem* >() << item << pageItem);
-
-                if(miniexp_length(outlineItem) > 2)
-                {
-                    loadOutline(skip(outlineItem, 2), item, indexByName);
+                    ok = true;
+                    page = *index + 1;
                 }
             }
+
+            if(ok)
+            {
+                section.link.page = page;
+            }
+        }
+
+        if(miniexp_length(outlineItem) > 2)
+        {
+            section.children = loadOutline(skip(outlineItem, 2), indexByName);
         }
     }
+
+    return outline;
 }
 
-void loadProperties(miniexp_t annoExp, QStandardItemModel* model)
+Properties loadProperties(miniexp_t annoExp)
 {
+    Properties properties;
+
     for(miniexp_t annoItem = miniexp_nil; miniexp_consp(annoExp); annoExp = miniexp_cdr(annoExp))
     {
         annoItem = miniexp_car(annoExp);
@@ -475,10 +479,12 @@ void loadProperties(miniexp_t annoExp, QStandardItemModel* model)
 
             if(!key.isEmpty() && !value.isEmpty())
             {
-                model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
+                properties.push_back(qMakePair(key, value));
             }
         }
     }
+
+    return properties;
 }
 
 } // anonymous
@@ -821,9 +827,9 @@ bool DjVuDocument::save(const QString& filePath, bool withChanges) const
     return !ddjvu_job_error(job);
 }
 
-void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
+Outline DjVuDocument::loadOutline() const
 {
-    Document::loadOutline(outlineModel);
+    Outline outline;
 
     LOCK_DOCUMENT
 
@@ -847,23 +853,23 @@ void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
         }
     }
 
-    if(miniexp_length(outlineExp) < 2 || qstrcmp(miniexp_to_name(miniexp_car(outlineExp)), "bookmarks") != 0)
+    if(miniexp_length(outlineExp) > 1 && qstrcmp(miniexp_to_name(miniexp_car(outlineExp)), "bookmarks") == 0)
     {
-        return;
+        outline = ::loadOutline(skip(outlineExp, 1), m_indexByName);
     }
-
-    ::loadOutline(skip(outlineExp, 1), outlineModel->invisibleRootItem(), m_indexByName);
 
     {
         LOCK_DOCUMENT_GLOBAL
 
         ddjvu_miniexp_release(m_document, outlineExp);
     }
+
+    return outline;
 }
 
-void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
+Properties DjVuDocument::loadProperties() const
 {
-    Document::loadProperties(propertiesModel);
+    Properties properties;
 
     LOCK_DOCUMENT
 
@@ -887,13 +893,15 @@ void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
         }
     }
 
-    ::loadProperties(annoExp, propertiesModel);
+    properties = ::loadProperties(annoExp);
 
     {
         LOCK_DOCUMENT_GLOBAL
 
         ddjvu_miniexp_release(m_document, annoExp);
     }
+
+    return properties;
 }
 
 void DjVuDocument::prepareIndexByName()
