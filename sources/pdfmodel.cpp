@@ -70,14 +70,15 @@ Outline loadOutline(const QDomNode& parent, Poppler::Document* document)
 
     const QDomNodeList nodes = parent.childNodes();
 
-    outline.resize(nodes.size());
+    outline.reserve(nodes.size());
 
     for(int index = 0, count = nodes.size(); index < count; ++index)
     {
         const QDomNode node = nodes.at(index);
         const QDomElement element = node.toElement();
 
-        Section& section = outline[index];
+        outline.push_back(Section());
+        Section& section = outline.back();
         section.title = element.tagName();
 
         QScopedPointer< Poppler::LinkDestination > destination;

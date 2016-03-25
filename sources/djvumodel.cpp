@@ -411,7 +411,7 @@ Outline loadOutline(miniexp_t outlineExp, const QHash< QString, int >& indexByNa
             continue;
         }
 
-        outline.resize(outline.size() + 1);
+        outline.push_back(Section());
         Section& section = outline.back();
         section.title = title;
 
