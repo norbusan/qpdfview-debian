@@ -309,8 +309,7 @@ inline QRectF rectOfResult(const QModelIndex& index)
 class OutlineModel : public QAbstractItemModel
 {
 public:
-    OutlineModel(const DocumentView* parent, const Model::Outline& outline) :
-        m_parent(parent),
+    OutlineModel(const Model::Outline& outline, DocumentView* parent) : QAbstractItemModel(parent),
         m_outline(outline)
     {
     }
@@ -387,7 +386,7 @@ public:
             case 0:
                 return section->title;
             case 1:
-                return m_parent->pageLabelFromNumber(section->link.page);
+                return pageLabel(section->link.page);
             default:
                 return QVariant();
             }
@@ -428,8 +427,17 @@ public:
     }
 
 private:
-    const DocumentView* const m_parent;
     const Model::Outline m_outline;
+
+    DocumentView* documentView() const
+    {
+        return static_cast< DocumentView* >(QObject::parent());
+    }
+
+    QString pageLabel(int pageNumber) const
+    {
+        return documentView()->pageLabelFromNumber(pageNumber);
+    }
 
     QSet< const Model::Section* > m_expanded;
 
@@ -471,8 +479,7 @@ private:
 class FallbackOutlineModel : public QAbstractTableModel
 {
 public:
-    FallbackOutlineModel(const DocumentView* parent) :
-        m_parent(parent)
+    FallbackOutlineModel(DocumentView* parent) : QAbstractTableModel(parent)
     {
     }
 
@@ -488,7 +495,7 @@ public:
             return 0;
         }
 
-        return m_parent->numberOfPages();
+        return numberOfPages();
     }
 
     QVariant data(const QModelIndex& index, int role) const
@@ -498,20 +505,22 @@ public:
             return QVariant();
         }
 
+        const int pageNumber = index.row() + 1;
+
         switch(role)
         {
         case Qt::DisplayRole:
             switch(index.column())
             {
             case 0:
-                return DocumentView::tr("Page %1").arg(m_parent->pageLabelFromNumber(index.row() + 1));
+                return DocumentView::tr("Page %1").arg(pageLabel(pageNumber));
             case 1:
-                return m_parent->pageLabelFromNumber(index.row() + 1);
+                return pageLabel(pageNumber);
             default:
                 return QVariant();
             }
         case Model::Document::PageRole:
-            return index.row() + 1;
+            return pageNumber;
         case Model::Document::LeftRole:
         case Model::Document::TopRole:
             return qQNaN();
@@ -521,15 +530,27 @@ public:
     }
 
 private:
-    const DocumentView* const m_parent;
+    DocumentView* documentView() const
+    {
+        return static_cast< DocumentView* >(QObject::parent());
+    }
+
+    int numberOfPages() const
+    {
+        return documentView()->numberOfPages();
+    }
+
+    QString pageLabel(int pageNumber) const
+    {
+        return documentView()->pageLabelFromNumber(pageNumber);
+    }
 
 };
 
 class PropertiesModel : public QAbstractTableModel
 {
 public:
-    PropertiesModel(const DocumentView* parent, const Model::Properties& properties) :
-        m_parent(parent),
+    PropertiesModel(const Model::Properties& properties, DocumentView* parent = 0) : QAbstractTableModel(parent),
         m_properties(properties)
     {
     }
@@ -568,27 +589,9 @@ public:
     }
 
 private:
-    const DocumentView* const m_parent;
     const Model::Properties m_properties;
 
 };
-
-QAbstractItemModel* makeOutlineModel(const DocumentView* parent, const Model::Outline& outline = Model::Outline())
-{
-    if(!outline.empty())
-    {
-        return new OutlineModel(parent, outline);
-    }
-    else
-    {
-        return new FallbackOutlineModel(parent);
-    }
-}
-
-QAbstractItemModel* makePropertiesModel(const DocumentView* parent, const Model::Properties& properties = Model::Properties())
-{
-    return new PropertiesModel(parent, properties);
-}
 
 void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, const QModelIndex& index, QString path)
 {
@@ -683,9 +686,6 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     reconnectVerticalScrollBar();
 
     m_thumbnailsScene = new QGraphicsScene(this);
-
-    m_outlineModel.reset(makeOutlineModel(this));
-    m_propertiesModel.reset(makePropertiesModel(this));
 
     // highlight
 
@@ -2641,8 +2641,18 @@ void DocumentView::prepareDocument(Model::Document* document, const QVector< Mod
     prepareThumbnails();
     prepareBackground();
 
-    m_outlineModel.reset(makeOutlineModel(this, m_document->loadOutline()));
-    m_propertiesModel.reset(makePropertiesModel(this, m_document->loadProperties()));
+    const Model::Outline outline = m_document->loadOutline();
+
+    if(!outline.empty())
+    {
+        m_outlineModel.reset(new OutlineModel(outline, this));
+    }
+    else
+    {
+        m_outlineModel.reset(new FallbackOutlineModel(this));
+    }
+
+    m_propertiesModel.reset(new PropertiesModel(m_document->loadProperties(), this));
 
     if(s_settings->documentView().prefetch())
     {
