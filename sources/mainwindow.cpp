@@ -293,6 +293,7 @@ public:
 Settings* MainWindow::s_settings = 0;
 Database* MainWindow::s_database = 0;
 ShortcutHandler* MainWindow::s_shortcutHandler = 0;
+SearchModel* MainWindow::s_searchModel = 0;
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
     m_outlineView(0),
@@ -306,6 +307,11 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
     if(s_shortcutHandler == 0)
     {
         s_shortcutHandler = ShortcutHandler::instance();
+    }
+
+    if(s_searchModel == 0)
+    {
+        s_searchModel = SearchModel::instance();
     }
 
     prepareStyle();
@@ -2283,6 +2289,24 @@ void MainWindow::on_search_clicked(const QModelIndex& index)
     tab->findResult(index);
 }
 
+void MainWindow::on_search_rowsInserted(const QModelIndex& parent, int first, int last)
+{
+    if(parent.isValid())
+    {
+        return;
+    }
+
+    for(int row = first; row <= last; ++row)
+    {
+        const QModelIndex index = s_searchModel->index(row, 0, parent);
+
+        if(!m_searchView->isExpanded(index) && s_searchModel->viewForIndex(index) == currentTab())
+        {
+            m_searchView->expand(index);
+        }
+    }
+}
+
 void MainWindow::on_saveDatabase_timeout()
 {
     if(s_settings->mainWindow().restoreTabs())
@@ -3022,13 +3046,15 @@ void MainWindow::createSearchDock()
         m_searchView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
         m_searchView->setSelectionMode(QAbstractItemView::SingleSelection);
         m_searchView->setSelectionBehavior(QAbstractItemView::SelectRows);
+        m_searchView->setItemDelegate(new SearchItemDelegate(m_searchView));
 
         connect(m_searchView->header(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_search_sectionCountChanged()));
         connect(m_searchView, SIGNAL(clicked(QModelIndex)), SLOT(on_search_clicked(QModelIndex)));
         connect(m_searchView, SIGNAL(activated(QModelIndex)), SLOT(on_search_clicked(QModelIndex)));
 
-        m_searchView->setItemDelegate(new SearchItemDelegate(m_searchView));
-        m_searchView->setModel(SearchModel::instance());
+        m_searchView->setModel(s_searchModel);
+
+        connect(s_searchModel, SIGNAL(rowsInserted(QModelIndex,int,int)), SLOT(on_search_rowsInserted(QModelIndex,int,int)));
     }
     else
     {

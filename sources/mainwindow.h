@@ -64,6 +64,7 @@ class RecentlyClosedMenu;
 class BookmarkModel;
 class Database;
 class ShortcutHandler;
+class SearchModel;
 class HelpDialog;
 
 class MainWindow : public QMainWindow
@@ -256,6 +257,7 @@ protected slots:
     void on_search_dockLocationChanged(Qt::DockWidgetArea area);
     void on_search_visibilityChanged(bool visible);
     void on_search_clicked(const QModelIndex& index);
+    void on_search_rowsInserted(const QModelIndex& parent, int first, int last);
 
     void on_saveDatabase_timeout();
 
@@ -273,6 +275,7 @@ private:
     static Settings* s_settings;
     static Database* s_database;
     static ShortcutHandler* s_shortcutHandler;
+    static SearchModel* s_searchModel;
 
     void prepareStyle();
 
