@@ -738,6 +738,7 @@ int getMappedNumber(MappingSpinBox::TextValueMapper* mapper,
     MappingSpinBox* mappingSpinBox = new MappingSpinBox(mapper, dialog);
     mappingSpinBox->setRange(min, max);
     mappingSpinBox->setValue(value);
+    mappingSpinBox->selectAll();
 
     QDialogButtonBox* dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, dialog);
     QObject::connect(dialogButtonBox, SIGNAL(accepted()), dialog, SLOT(accept()));

@@ -1,5 +1,6 @@
 Release 0.4.17:
   * Fixed query to populate the instance list for the choose instance dialog.
+  * Fixed selecting the complete text upon opening a page number dialog.
   * Moved loading of interactive elements out of the main event loop.
   * The results of the current tab are now automatically expanded in the extended search dock.
   * Added support for external document links to the outline view.
