@@ -1280,12 +1280,7 @@ void MainWindow::on_moveToInstance_triggered(DocumentView* tab)
     bool ok = false;
     const QString instanceName = QInputDialog::getItem(this, tr("Choose instance"), tr("Instance:"), s_database->knownInstanceNames(), 0, true, &ok);
 
-    if(!ok)
-    {
-        return;
-    }
-
-    if(instanceName == qApp->objectName())
+    if(!ok || instanceName == qApp->objectName())
     {
         return;
     }
@@ -1308,7 +1303,7 @@ void MainWindow::on_moveToInstance_triggered(DocumentView* tab)
 
     QDBusReply< bool > reply = interface->call("jumpToPageOrOpenInNewTab", tab->fileInfo().absoluteFilePath(), tab->currentPage(), true, QRectF(), false);
 
-    if(!reply.isValid())
+    if(!reply.isValid() || !reply.value())
     {
         QMessageBox::warning(this, tr("Move to instance"), tr("Failed to access instance '%1'.").arg(instanceName));
         qCritical() << QDBusConnection::sessionBus().lastError().message();
