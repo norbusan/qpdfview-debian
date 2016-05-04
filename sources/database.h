@@ -48,7 +48,7 @@ public:
     static Database* instance();
     ~Database();
 
-    QStringList loadInstanceNames();
+    QStringList knownInstanceNames();
 
     struct RestoreTab
     {

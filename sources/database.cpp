@@ -305,7 +305,7 @@ Database::~Database()
     s_instance = 0;
 }
 
-QStringList Database::loadInstanceNames()
+QStringList Database::knownInstanceNames()
 {
     QStringList instanceNames;
 
@@ -790,7 +790,14 @@ Database::Database(QObject* parent) : QObject(parent)
 
 QString Database::instanceName()
 {
-    return !qApp->objectName().isNull() ? qApp->objectName() : QString("");
+    QString instanceName = qApp->objectName();
+
+    if(instanceName.isNull())
+    {
+        instanceName = QLatin1String("");
+    }
+
+    return instanceName;
 }
 
 #ifdef WITH_SQL

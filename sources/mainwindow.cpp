@@ -57,6 +57,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif // QT_VERSION
 
+#ifdef WITH_DBUS
+
+#include <QDBusInterface>
+#include <QDBusReply>
+
+#endif // WITH_DBUS
+
 #include "model.h"
 #include "settings.h"
 #include "shortcuthandler.h"
@@ -546,6 +553,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
     m_openCopyInNewTabAction->setEnabled(hasCurrent);
     m_openContainingFolderAction->setEnabled(hasCurrent);
+    m_moveToInstanceAction->setEnabled(hasCurrent);
     m_refreshAction->setEnabled(hasCurrent);
     m_printAction->setEnabled(hasCurrent);
 
@@ -721,6 +729,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     // We block their signals since we need to handle them using the selected instead of the current tab.
     SignalBlocker openCopyInNewTabSignalBlocker(m_openCopyInNewTabAction);
     SignalBlocker openContainingFolderSignalBlocker(m_openContainingFolderAction);
+    SignalBlocker moveToInstanceSignalBlocker(m_moveToInstanceAction);
 
     QAction* copyFilePathAction = createTemporaryAction(&menu, tr("Copy file path"), QLatin1String("copyFilePath"));
     QAction* selectFilePathAction = createTemporaryAction(&menu, tr("Select file path"), QLatin1String("selectFilePath"));
@@ -734,7 +743,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
     QList< QAction* > actions;
 
-    actions << m_openCopyInNewTabAction << m_openContainingFolderAction
+    actions << m_openCopyInNewTabAction << m_openContainingFolderAction << m_moveToInstanceAction
             << copyFilePathAction << selectFilePathAction
             << closeAllTabsAction << closeAllTabsButThisOneAction
             << closeAllTabsToTheLeftAction << closeAllTabsToTheRightAction;
@@ -743,7 +752,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
     const QAction* action = menu.exec(globalPos);
 
-    const DocumentView* selectedTab = tab(index);
+    DocumentView* selectedTab = tab(index);
     QList< DocumentView* > tabsToClose;
 
     if(action == m_openCopyInNewTabAction)
@@ -754,6 +763,11 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     else if(action == m_openContainingFolderAction)
     {
         on_openCopyInNewTab_triggered(selectedTab);
+        return;
+    }
+    else if(action == m_moveToInstanceAction)
+    {
+        on_moveToInstance_triggered(selectedTab);
         return;
     }
     else if(action == copyFilePathAction)
@@ -1110,7 +1124,7 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
 
     QList< QAction* > actions;
 
-    actions << m_openCopyInNewTabAction << m_openContainingFolderAction
+    actions << m_openCopyInNewTabAction << m_openContainingFolderAction << m_moveToInstanceAction
             << m_previousPageAction << m_nextPageAction
             << m_firstPageAction << m_lastPageAction
             << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction
@@ -1254,6 +1268,56 @@ void MainWindow::on_openContainingFolder_triggered()
 void MainWindow::on_openContainingFolder_triggered(const DocumentView* tab)
 {
     QDesktopServices::openUrl(QUrl::fromLocalFile(tab->fileInfo().absolutePath()));
+}
+
+void MainWindow::on_moveToInstance_triggered()
+{
+    on_moveToInstance_triggered(currentTab());
+}
+
+void MainWindow::on_moveToInstance_triggered(DocumentView* tab)
+{
+    bool ok = false;
+    const QString instanceName = QInputDialog::getItem(this, tr("Choose instance"), tr("Instance:"), s_database->knownInstanceNames(), 0, true, &ok);
+
+    if(!ok)
+    {
+        return;
+    }
+
+    if(instanceName == qApp->objectName())
+    {
+        return;
+    }
+
+    if(!saveModifications(tab))
+    {
+        return;
+    }
+
+    QScopedPointer< QDBusInterface > interface(MainWindowAdaptor::createInterface(instanceName));
+
+    if(!interface->isValid())
+    {
+        QMessageBox::warning(this, tr("Move to instance"), tr("Failed to access instance '%1'.").arg(instanceName));
+        qCritical() << QDBusConnection::sessionBus().lastError().message();
+        return;
+    }
+
+    interface->call("raiseAndActivate");
+
+    QDBusReply< bool > reply = interface->call("jumpToPageOrOpenInNewTab", tab->fileInfo().absoluteFilePath(), tab->currentPage(), true, QRectF(), false);
+
+    if(!reply.isValid())
+    {
+        QMessageBox::warning(this, tr("Move to instance"), tr("Failed to access instance '%1'.").arg(instanceName));
+        qCritical() << QDBusConnection::sessionBus().lastError().message();
+        return;
+    }
+
+    interface->call("saveDatabase");
+
+    closeTab(tab);
 }
 
 void MainWindow::on_refresh_triggered()
@@ -2571,12 +2635,13 @@ void MainWindow::reconnectCurrentTabChanged()
 
 void MainWindow::setWindowTitleForCurrentTab()
 {
-    QString currentPage;
     QString tabText;
-    QString instanceName;
+    QString instanceText;
 
     if(m_tabWidget->currentIndex() != -1)
     {
+        QString currentPage;
+
         if(s_settings->mainWindow().currentPageInWindowTitle())
         {
             currentPage = QString(" (%1 / %2)").arg(currentTab()->currentPage()).arg(currentTab()->numberOfPages());
@@ -2585,12 +2650,14 @@ void MainWindow::setWindowTitleForCurrentTab()
         tabText = m_tabWidget->tabText(m_tabWidget->currentIndex()) + currentPage + QLatin1String("[*] - ");
     }
 
-    if(s_settings->mainWindow().instanceNameInWindowTitle() && !qApp->objectName().isEmpty())
+    const QString instanceName = qApp->objectName();
+
+    if(s_settings->mainWindow().instanceNameInWindowTitle() && !instanceName.isEmpty())
     {
-        instanceName = QLatin1String(" (") + qApp->objectName() + QLatin1String(")");
+        instanceText = QLatin1String(" (") + instanceName + QLatin1String(")");
     }
 
-    setWindowTitle(tabText + QLatin1String("qpdfview") + instanceName);
+    setWindowTitle(tabText + QLatin1String("qpdfview") + instanceText);
 }
 
 void MainWindow::setCurrentPageSuffixForCurrentTab()
@@ -2829,6 +2896,7 @@ void MainWindow::createActions()
     m_openInNewTabAction = createAction(tr("Open in new &tab..."), QLatin1String("openInNewTab"), QLatin1String("tab-new"), QKeySequence::AddTab, SLOT(on_openInNewTab_triggered()));
     m_openCopyInNewTabAction = createAction(tr("Open &copy in new tab"), QLatin1String("openCopyInNewTab"), QLatin1String("tab-new"), QKeySequence(), SLOT(on_openCopyInNewTab_triggered()));
     m_openContainingFolderAction = createAction(tr("Open containing &folder"), QLatin1String("openContainingFolder"), QLatin1String("folder"), QKeySequence(), SLOT(on_openContainingFolder_triggered()));
+    m_moveToInstanceAction = createAction(tr("Move to &instance..."), QLatin1String("moveToInstance"), QIcon(), QKeySequence(), SLOT(on_moveToInstance_triggered()));
     m_refreshAction = createAction(tr("&Refresh"), QLatin1String("refresh"), QLatin1String("view-refresh"), QKeySequence::Refresh, SLOT(on_refresh_triggered()));
     m_saveCopyAction = createAction(tr("&Save copy..."), QLatin1String("saveCopy"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_saveCopy_triggered()));
     m_saveAsAction = createAction(tr("Save &as..."), QLatin1String("saveAs"), QLatin1String("document-save-as"), QKeySequence::SaveAs, SLOT(on_saveAs_triggered()));
@@ -3254,6 +3322,28 @@ MainWindowAdaptor::MainWindowAdaptor(MainWindow* mainWindow) : QDBusAbstractAdap
 {
 }
 
+QDBusInterface* MainWindowAdaptor::createInterface(const QString& instanceName)
+{
+    return new QDBusInterface(serviceName(instanceName), QLatin1String("/MainWindow"), QLatin1String("local.qpdfview.MainWindow"), QDBusConnection::sessionBus());
+}
+
+MainWindowAdaptor* MainWindowAdaptor::createAdaptor(MainWindow* mainWindow)
+{
+    QScopedPointer< MainWindowAdaptor > adaptor(new MainWindowAdaptor(mainWindow));
+
+    if(!QDBusConnection::sessionBus().registerService(serviceName()))
+    {
+        return 0;
+    }
+
+    if(!QDBusConnection::sessionBus().registerObject(QLatin1String("/MainWindow"), mainWindow))
+    {
+        return 0;
+    }
+
+    return adaptor.take();
+}
+
 void MainWindowAdaptor::raiseAndActivate()
 {
     mainWindow()->raise();
@@ -3468,6 +3558,24 @@ bool MainWindowAdaptor::closeTab(const QString& absoluteFilePath)
 inline MainWindow* MainWindowAdaptor::mainWindow() const
 {
     return qobject_cast< MainWindow* >(parent());
+}
+
+QString MainWindowAdaptor::serviceName(QString instanceName)
+{
+    QString serviceName = QApplication::organizationDomain();
+
+    if(instanceName.isNull())
+    {
+        instanceName = qApp->objectName();
+    }
+
+    if(!instanceName.isEmpty())
+    {
+        serviceName.append('.');
+        serviceName.append(instanceName);
+    }
+
+    return serviceName;
 }
 
 # endif // WITH_DBUS

@@ -188,7 +188,7 @@ void parseCommandLineArguments()
             else if(argument == QLatin1String("--choose-instance"))
             {
                 bool ok = false;
-                const QString chosenInstanceName = QInputDialog::getItem(0, QObject::tr("Choose instance"), QObject::tr("Instance:"), Database::instance()->loadInstanceNames(), 0, true, &ok);
+                const QString chosenInstanceName = QInputDialog::getItem(0, MainWindow::tr("Choose instance"), MainWindow::tr("Instance:"), Database::instance()->knownInstanceNames(), 0, true, &ok);
 
                 if(ok)
                 {
@@ -344,7 +344,7 @@ void resolveSourceReferences()
             }
             else
             {
-                qWarning() << QObject::tr("SyncTeX data for '%1' could not be found.").arg(file.filePath);
+                qWarning() << DocumentView::tr("SyncTeX data for '%1' could not be found.").arg(file.filePath);
             }
         }
     }
@@ -360,15 +360,7 @@ void activateUniqueInstance()
 
     if(unique)
     {
-        QString serviceName = QApplication::organizationDomain();
-
-        if(!instanceName.isEmpty())
-        {
-            serviceName.append('.');
-            serviceName.append(instanceName);
-        }
-
-        QScopedPointer< QDBusInterface > interface(new QDBusInterface(serviceName, "/MainWindow", "local.qpdfview.MainWindow", QDBusConnection::sessionBus()));
+        QScopedPointer< QDBusInterface > interface(MainWindowAdaptor::createInterface());
 
         if(interface->isValid())
         {
@@ -402,17 +394,7 @@ void activateUniqueInstance()
         {
             mainWindow = new MainWindow();
 
-            new MainWindowAdaptor(mainWindow);
-
-            if(!QDBusConnection::sessionBus().registerService(serviceName))
-            {
-                qCritical() << QDBusConnection::sessionBus().lastError().message();
-
-                delete mainWindow;
-                exit(ExitDBusError);
-            }
-
-            if(!QDBusConnection::sessionBus().registerObject("/MainWindow", mainWindow))
+            if(MainWindowAdaptor::createAdaptor(mainWindow) == 0)
             {
                 qCritical() << QDBusConnection::sessionBus().lastError().message();
 
@@ -420,8 +402,6 @@ void activateUniqueInstance()
                 exit(ExitDBusError);
             }
         }
-
-        return;
     }
     else
     {

@@ -33,6 +33,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QDBusAbstractAdaptor>
 
+class QDBusInterface;
+
 #endif // WITH_DBUS
 
 class QCheckBox;
@@ -144,6 +146,8 @@ protected slots:
     void on_openCopyInNewTab_triggered(const DocumentView* tab);
     void on_openContainingFolder_triggered();
     void on_openContainingFolder_triggered(const DocumentView* tab);
+    void on_moveToInstance_triggered();
+    void on_moveToInstance_triggered(DocumentView* tab);
     void on_refresh_triggered();
     void on_saveCopy_triggered();
     void on_saveAs_triggered();
@@ -335,6 +339,7 @@ private:
     QAction* m_openInNewTabAction;
     QAction* m_openCopyInNewTabAction;
     QAction* m_openContainingFolderAction;
+    QAction* m_moveToInstanceAction;
     QAction* m_refreshAction;
     QAction* m_saveCopyAction;
     QAction* m_saveAsAction;
@@ -486,8 +491,11 @@ class MainWindowAdaptor : public QDBusAbstractAdaptor
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "local.qpdfview.MainWindow")
 
-public:
     explicit MainWindowAdaptor(MainWindow* mainWindow);
+
+public:
+    static QDBusInterface* createInterface(const QString& instanceName = QString());
+    static MainWindowAdaptor* createAdaptor(MainWindow* mainWindow);
 
 public slots:
     Q_NOREPLY void raiseAndActivate();
@@ -536,6 +544,8 @@ public slots:
 
 private:
     MainWindow* mainWindow() const;
+
+    static QString serviceName(QString instanceName = QString());
 
 };
 

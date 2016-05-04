@@ -7,6 +7,7 @@ Release 0.4.17:
   * Added triggering SyncTeX reverse search using a keyboard modifier.
   * Keyboard modifiers for mouse interaction can be disabled.
   * Optimizations of the search dock layout w.r.t. vertical/horizontal positioning.
+  * Added context menu action to move document to a different instance.
   * Added Japanese translations. Thanks to Koji Yokota.
   * Updated British English translations. Thanks to Anthony Harrington.
   * Updated Russian translations. Thanks to ned.
