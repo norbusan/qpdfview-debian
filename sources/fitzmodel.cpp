@@ -28,6 +28,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 extern "C"
 {
 
+#include <mupdf/fitz/bidi.h>
+#include <mupdf/fitz/output.h>
 #include <mupdf/fitz/display-list.h>
 #include <mupdf/fitz/document.h>
 
@@ -43,37 +45,28 @@ namespace
 using namespace qpdfview;
 using namespace qpdfview::Model;
 
-void loadOutline(fz_outline* outline, QStandardItem* parent)
+Outline loadOutline(fz_outline* item)
 {
-    QStandardItem* item = new QStandardItem(QString::fromUtf8(outline->title));
-    item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+    Outline outline;
 
-    if(outline->dest.kind != FZ_LINK_NONE)
+    for(; item; item = item->next)
     {
-        const int page = outline->dest.ld.gotor.page + 1;
+        outline.push_back(Section());
+        Section& section = outline.back();
+        section.title = QString::fromUtf8(item->title);
 
-        item->setData(page, Document::PageRole);
+        if(item->dest.kind != FZ_LINK_NONE)
+        {
+            section.link.page = item->dest.ld.gotor.page + 1;
+        }
 
-        QStandardItem* pageItem = item->clone();
-        pageItem->setText(QString::number(page));
-        pageItem->setTextAlignment(Qt::AlignRight);
-
-        parent->appendRow(QList< QStandardItem* >() << item << pageItem);
-    }
-    else
-    {
-        parent->appendRow(item);
-    }
-
-    if(outline->next != 0)
-    {
-        loadOutline(outline->next, parent);
+        if(fz_outline* childItem = item->down)
+        {
+            section.children = loadOutline(childItem);
+        }
     }
 
-    if(outline->down != 0)
-    {
-        loadOutline(outline->down, item);
-    }
+    return outline;
 }
 
 } // anonymous
@@ -282,20 +275,20 @@ void FitzDocument::setPaperColor(const QColor& paperColor)
     m_paperColor = paperColor;
 }
 
-void FitzDocument::loadOutline(QStandardItemModel* outlineModel) const
+Outline FitzDocument::loadOutline() const
 {
-    Document::loadOutline(outlineModel);
+    Outline outline;
 
     QMutexLocker mutexLocker(&m_mutex);
 
-    fz_outline* outline = fz_load_outline(m_context, m_document);
-
-    if(outline != 0)
+    if(fz_outline* rootItem = fz_load_outline(m_context, m_document))
     {
-        ::loadOutline(outline, outlineModel->invisibleRootItem());
+        outline = ::loadOutline(rootItem);
 
-        fz_drop_outline(m_context, outline);
+        fz_drop_outline(m_context, rootItem);
     }
+
+    return outline;
 }
 
 } // Model

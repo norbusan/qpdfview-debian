@@ -83,7 +83,7 @@ namespace Model
 
         void setPaperColor(const QColor& paperColor);
 
-        void loadOutline(QStandardItemModel* outlineModel) const;
+        Outline loadOutline() const;
 
     private:
         Q_DISABLE_COPY(FitzDocument)

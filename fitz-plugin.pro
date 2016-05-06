@@ -22,7 +22,7 @@ DEFINES += $$FITZ_PLUGIN_DEFINES
 INCLUDEPATH += $$FITZ_PLUGIN_INCLUDEPATH
 
 isEmpty(FITZ_PLUGIN_LIBS) {
-    LIBS += -lmupdf -lfreetype -ljbig2dec -lopenjp2 -ljpeg -lz -lm -lcrypto
+    LIBS += -lmupdf -lfreetype -ljpeg -lz -lm -lcrypto
 } else {
     LIBS += $$FITZ_PLUGIN_LIBS
 }
