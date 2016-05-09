@@ -2902,8 +2902,20 @@ void MainWindow::createActions()
 
     m_previousPageAction = createAction(tr("&Previous page"), QLatin1String("previousPage"), QLatin1String("go-previous"), QKeySequence(Qt::Key_Backspace), SLOT(on_previousPage_triggered()));
     m_nextPageAction = createAction(tr("&Next page"), QLatin1String("nextPage"), QLatin1String("go-next"), QKeySequence(Qt::Key_Space), SLOT(on_nextPage_triggered()));
-    m_firstPageAction = createAction(tr("&First page"), QLatin1String("firstPage"), QLatin1String("go-first"), QList< QKeySequence >() << QKeySequence(Qt::Key_Home) << QKeySequence(Qt::KeypadModifier + Qt::Key_Home), SLOT(on_firstPage_triggered()));
-    m_lastPageAction = createAction(tr("&Last page"), QLatin1String("lastPage"), QLatin1String("go-last"), QList< QKeySequence >() << QKeySequence(Qt::Key_End) << QKeySequence(Qt::KeypadModifier + Qt::Key_End), SLOT(on_lastPage_triggered()));
+
+    const QList< QKeySequence > firstPageShortcuts = QList< QKeySequence >()
+            << QKeySequence(Qt::Key_Home)
+            << QKeySequence(Qt::KeypadModifier + Qt::Key_Home)
+            << QKeySequence(Qt::ControlModifier + Qt::Key_Home)
+            << QKeySequence(Qt::ControlModifier + Qt::KeypadModifier + Qt::Key_Home);
+    m_firstPageAction = createAction(tr("&First page"), QLatin1String("firstPage"), QLatin1String("go-first"), firstPageShortcuts, SLOT(on_firstPage_triggered()));
+
+    const QList< QKeySequence > lastPageShortcuts = QList< QKeySequence >()
+            << QKeySequence(Qt::Key_End)
+            << QKeySequence(Qt::KeypadModifier + Qt::Key_End)
+            << QKeySequence(Qt::ControlModifier + Qt::Key_End)
+            << QKeySequence(Qt::ControlModifier + Qt::KeypadModifier + Qt::Key_End);
+    m_lastPageAction = createAction(tr("&Last page"), QLatin1String("lastPage"), QLatin1String("go-last"), lastPageShortcuts, SLOT(on_lastPage_triggered()));
 
     m_setFirstPageAction = createAction(tr("&Set first page..."), QLatin1String("setFirstPage"), QIcon(), QKeySequence(), SLOT(on_setFirstPage_triggered()));
 
