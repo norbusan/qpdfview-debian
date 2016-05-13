@@ -1,7 +1,7 @@
 /*
 
 Copyright 2014-2015 S. Razi Alavizadeh
-Copyright 2012-2015 Adam Reichold
+Copyright 2012-2016 Adam Reichold
 Copyright 2014 Dorian Scholz
 Copyright 2012 Michał Trybus
 Copyright 2012 Alexander Volkov
@@ -2011,7 +2011,7 @@ void MainWindow::on_about_triggered()
                                                       + tr("<li>Printing support using CUPS %1</li>").arg(CUPS_VERSION)
 #endif // WITH_CUPS
                                                       + tr("</ul>"
-                                                           "<p>See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2015 The qpdfview developers</p>")));
+                                                           "<p>See <a href=\"https://launchpad.net/qpdfview\">launchpad.net/qpdfview</a> for more information.</p><p>&copy; 2012-2016 The qpdfview developers</p>")));
 }
 
 void MainWindow::on_focusCurrentPage_activated()

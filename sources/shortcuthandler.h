@@ -1,6 +1,6 @@
 /*
 
-Copyright 2013 Adam Reichold
+Copyright 2013, 2016 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -75,8 +75,9 @@ private:
 
     QList< QAction* > m_actions;
 
-    QHash< QAction*, QList< QKeySequence > > m_shortcuts;
-    QHash< QAction*, QList< QKeySequence > > m_defaultShortcuts;
+    typedef QHash< QAction*, QList< QKeySequence > > Shortcuts;
+    Shortcuts m_shortcuts;
+    Shortcuts m_defaultShortcuts;
 
     QAction* m_skipBackwardAction;
     QAction* m_skipForwardAction;
@@ -85,6 +86,8 @@ private:
     QAction* m_moveDownAction;
     QAction* m_moveLeftAction;
     QAction* m_moveRightAction;
+
+    QAction* createAction(const QString& text, const QString& objectName, const QList< QKeySequence >& shortcuts);
 
 };
 

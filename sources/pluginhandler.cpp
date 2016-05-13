@@ -1,6 +1,6 @@
 /*
 
-Copyright 2012-2013, 2015 Adam Reichold
+Copyright 2012-2013, 2015-2016 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -79,7 +79,7 @@ Plugin* loadPlugin(const QString& fileName)
     {
         const QString localErrorString = pluginLoader.errorString();
 
-        const QString globalFileName =QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName);
+        const QString globalFileName = QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName);
         pluginLoader.setFileName(globalFileName);
 
         if(!pluginLoader.load())

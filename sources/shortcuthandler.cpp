@@ -1,6 +1,6 @@
 /*
 
-Copyright 2013 Adam Reichold
+Copyright 2013, 2016 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -127,10 +127,8 @@ Qt::ItemFlags ShortcutHandler::flags(const QModelIndex& index) const
     {
     case 0:
         return Qt::ItemIsEnabled;
-        break;
     case 1:
         return Qt::ItemIsEnabled | Qt::ItemIsEditable;
-        break;
     }
 
     return Qt::NoItemFlags;
@@ -146,10 +144,8 @@ QVariant ShortcutHandler::headerData(int section, Qt::Orientation orientation, i
         {
         case 0:
             return tr("Action");
-            break;
         case 1:
             return tr("Key sequence");
-            break;
         }
     }
 
@@ -166,10 +162,8 @@ QVariant ShortcutHandler::data(const QModelIndex& index, int role) const
         {
         case 0:
             return action->text().remove(QLatin1Char('&'));
-            break;
         case 1:
             return toStringList(m_shortcuts.value(action), QKeySequence::NativeText).join(";");
-            break;
         }
     }
 
@@ -227,7 +221,7 @@ bool ShortcutHandler::matchesMoveRight(const QKeySequence& keySequence) const
 
 bool ShortcutHandler::submit()
 {
-    for(QHash< QAction*, QList< QKeySequence > >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
+    for(Shortcuts::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
     {
         iterator.key()->setShortcuts(iterator.value());
     }
@@ -242,7 +236,7 @@ bool ShortcutHandler::submit()
 
 void ShortcutHandler::revert()
 {
-    for(QHash< QAction*, QList< QKeySequence > >::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
+    for(Shortcuts::iterator iterator = m_shortcuts.begin(); iterator != m_shortcuts.end(); ++iterator)
     {
         iterator.value() = iterator.key()->shortcuts();
     }
@@ -250,7 +244,7 @@ void ShortcutHandler::revert()
 
 void ShortcutHandler::reset()
 {
-    for(QHash< QAction*, QList< QKeySequence > >::iterator iterator = m_defaultShortcuts.begin(); iterator != m_defaultShortcuts.end(); ++iterator)
+    for(Shortcuts::iterator iterator = m_defaultShortcuts.begin(); iterator != m_defaultShortcuts.end(); ++iterator)
     {
         m_shortcuts.insert(iterator.key(), iterator.value());
     }
@@ -264,47 +258,40 @@ ShortcutHandler::ShortcutHandler(QObject* parent) : QAbstractTableModel(parent),
     m_shortcuts(),
     m_defaultShortcuts()
 {
-    // skip backward shortcut
+    m_skipBackwardAction = createAction(
+                tr("Skip backward"), QLatin1String("skipBackward"),
+                QList< QKeySequence >() << QKeySequence(Qt::Key_PageUp) << QKeySequence(Qt::KeypadModifier + Qt::Key_PageUp));
 
-    m_skipBackwardAction = new QAction(tr("Skip backward"), this);
-    m_skipBackwardAction->setObjectName(QLatin1String("skipBackward"));
-    m_skipBackwardAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_PageUp) << QKeySequence(Qt::KeypadModifier + Qt::Key_PageUp));
-    registerAction(m_skipBackwardAction);
+    m_skipForwardAction = createAction(
+                tr("Skip forward"), QLatin1String("skipForward"),
+                QList< QKeySequence >() << QKeySequence(Qt::Key_PageDown) << QKeySequence(Qt::KeypadModifier + Qt::Key_PageDown));
 
-    // skip forward shortcut
+    m_moveUpAction = createAction(
+                tr("Move up"), QLatin1String("moveUp"),
+                QList< QKeySequence >() << QKeySequence(Qt::Key_Up) << QKeySequence(Qt::KeypadModifier + Qt::Key_Up));
 
-    m_skipForwardAction = new QAction(tr("Skip forward"), this);
-    m_skipForwardAction->setObjectName(QLatin1String("skipForward"));
-    m_skipForwardAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_PageDown) << QKeySequence(Qt::KeypadModifier + Qt::Key_PageDown));
-    registerAction(m_skipForwardAction);
+    m_moveDownAction = createAction(
+                tr("Move down"), QLatin1String("moveDown"),
+                QList< QKeySequence >() << QKeySequence(Qt::Key_Down) << QKeySequence(Qt::KeypadModifier + Qt::Key_Down));
 
-    // move up shortcut
+    m_moveLeftAction = createAction(
+                tr("Move left"), QLatin1String("moveLeft"),
+                QList< QKeySequence >() << QKeySequence(Qt::Key_Left) << QKeySequence(Qt::KeypadModifier + Qt::Key_Left));
 
-    m_moveUpAction = new QAction(tr("Move up"), this);
-    m_moveUpAction->setObjectName(QLatin1String("moveUp"));
-    m_moveUpAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_Up) << QKeySequence(Qt::KeypadModifier + Qt::Key_Up));
-    registerAction(m_moveUpAction);
+    m_moveRightAction = createAction(
+                tr("Move right"), QLatin1String("moveRight"),
+                QList< QKeySequence >() << QKeySequence(Qt::Key_Right) << QKeySequence(Qt::KeypadModifier + Qt::Key_Right));
+}
 
-    // move down shortcut
+QAction* ShortcutHandler::createAction(const QString& text, const QString& objectName, const QList<QKeySequence>& shortcuts)
+{
+    QAction* action = new QAction(text, this);
+    action->setObjectName(objectName);
+    action->setShortcuts(shortcuts);
 
-    m_moveDownAction = new QAction(tr("Move down"), this);
-    m_moveDownAction->setObjectName(QLatin1String("moveDown"));
-    m_moveDownAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_Down) << QKeySequence(Qt::KeypadModifier + Qt::Key_Down));
-    registerAction(m_moveDownAction);
+    registerAction(action);
 
-    // move left shortcut
-
-    m_moveLeftAction = new QAction(tr("Move left"), this);
-    m_moveLeftAction->setObjectName(QLatin1String("moveLeft"));
-    m_moveLeftAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_Left) << QKeySequence(Qt::KeypadModifier + Qt::Key_Left));
-    registerAction(m_moveLeftAction);
-
-    // move right shortcut
-
-    m_moveRightAction = new QAction(tr("Move right"), this);
-    m_moveRightAction->setObjectName(QLatin1String("moveRight"));
-    m_moveRightAction->setShortcuts(QList< QKeySequence >() << QKeySequence(Qt::Key_Right) << QKeySequence(Qt::KeypadModifier + Qt::Key_Right));
-    registerAction(m_moveRightAction);
+    return action;
 }
 
 } // qpdfview
