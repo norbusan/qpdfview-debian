@@ -83,10 +83,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "bookmarkdialog.h"
 #include "database.h"
 
-namespace
+
+namespace qpdfview
 {
 
-using namespace qpdfview;
+namespace
+{
 
 QModelIndex synchronizeOutlineView(int currentPage, const QAbstractItemModel* model, const QModelIndex& parent)
 {
@@ -214,9 +216,6 @@ private:
 };
 
 } // anonymous
-
-namespace qpdfview
-{
 
 class MainWindow::RestoreTab : public Database::RestoreTab
 {
@@ -990,19 +989,18 @@ void MainWindow::on_currentTab_scaleModeChanged(ScaleMode scaleMode)
 
 void MainWindow::on_currentTab_scaleFactorChanged(qreal scaleFactor)
 {
-    if(senderIsCurrentTab())
+    scheduleSaveTabs();
+    scheduleSavePerFileSettings();
+
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    if(currentTab()->scaleMode() == ScaleFactorMode)
     {
-        if(currentTab()->scaleMode() == ScaleFactorMode)
-        {
-            m_scaleFactorComboBox->setCurrentIndex(m_scaleFactorComboBox->findData(scaleFactor));
-            m_scaleFactorComboBox->lineEdit()->setText(QString("%1 %").arg(qRound(scaleFactor * 100.0)));
+        m_scaleFactorComboBox->setCurrentIndex(m_scaleFactorComboBox->findData(scaleFactor));
+        m_scaleFactorComboBox->lineEdit()->setText(QString("%1 %").arg(qRound(scaleFactor * 100.0)));
 
-            m_zoomInAction->setDisabled(qFuzzyCompare(scaleFactor, s_settings->documentView().maximumScaleFactor()));
-            m_zoomOutAction->setDisabled(qFuzzyCompare(scaleFactor, s_settings->documentView().minimumScaleFactor()));
-        }
-
-        scheduleSaveTabs();
-        scheduleSavePerFileSettings();
+        m_zoomInAction->setDisabled(qFuzzyCompare(scaleFactor, s_settings->documentView().maximumScaleFactor()));
+        m_zoomOutAction->setDisabled(qFuzzyCompare(scaleFactor, s_settings->documentView().minimumScaleFactor()));
     }
 }
 
@@ -1010,11 +1008,8 @@ void MainWindow::on_currentTab_rotationChanged(Rotation rotation)
 {
     Q_UNUSED(rotation);
 
-    if(senderIsCurrentTab())
-    {
-        scheduleSaveTabs();
-        scheduleSavePerFileSettings();
-    }
+    scheduleSaveTabs();
+    scheduleSavePerFileSettings();
 }
 
 void MainWindow::on_currentTab_linkClicked(int page)

@@ -37,14 +37,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "searchmodel.h"
 
+namespace qpdfview
+{
+
 namespace
 {
 
-using namespace qpdfview;
-
 inline bool isPrintable(const QString& string)
 {
-    foreach(QChar character, string)
+    foreach(const QChar& character, string)
     {
         if(!character.isPrint())
         {
@@ -61,9 +62,6 @@ inline QModelIndex firstIndex(const QModelIndexList& indexes)
 }
 
 } // anonymous
-
-namespace qpdfview
-{
 
 GraphicsCompositionModeEffect::GraphicsCompositionModeEffect(QPainter::CompositionMode compositionMode, QObject* parent) : QGraphicsEffect(parent),
     m_compositionMode(compositionMode)
@@ -161,7 +159,7 @@ void SearchableMenu::keyPressEvent(QKeyEvent* event)
         return;
     }
 
-    setActiveAction(0);
+    QAction* firstVisibleAction = 0;
 
     foreach(QAction* action, actions())
     {
@@ -171,12 +169,14 @@ void SearchableMenu::keyPressEvent(QKeyEvent* event)
 
             action->setVisible(visible);
 
-            if(visible && activeAction() == 0)
+            if(visible && firstVisibleAction == 0)
             {
-                setActiveAction(action);
+                firstVisibleAction = action;
             }
         }
     }
+
+    setActiveAction(firstVisibleAction);
 
     QToolTip::showText(mapToGlobal(rect().topLeft()), tr("Search for '%1'...").arg(m_text), this);
 }
@@ -707,14 +707,14 @@ QString MappingSpinBox::textFromValue(int val) const
 int MappingSpinBox::valueFromText(const QString& text) const
 {
     bool ok = false;
-    int val = m_mapper->valueFromText(text, ok);
+    int value = m_mapper->valueFromText(text, ok);
 
     if(!ok)
     {
-        val = SpinBox::valueFromText(text);
+        value = SpinBox::valueFromText(text);
     }
 
-    return val;
+    return value;
 }
 
 QValidator::State MappingSpinBox::validate(QString& input, int& pos) const
