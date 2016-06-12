@@ -258,9 +258,12 @@ Page* FitzDocument::page(int index) const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
-    fz_page* page = fz_load_page(m_context, m_document, index);
+    if(fz_page* page = fz_load_page(m_context, m_document, index))
+    {
+        return new FitzPage(this, page);
+    }
 
-    return page != 0 ? new FitzPage(this, page) : 0;
+    return 0;
 }
 
 bool FitzDocument::canBePrintedUsingCUPS() const

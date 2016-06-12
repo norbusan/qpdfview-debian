@@ -842,9 +842,12 @@ Page* PdfDocument::page(int index) const
 {
     LOCK_DOCUMENT
 
-    Poppler::Page* page = m_document->page(index);
+    if(Poppler::Page* page = m_document->page(index))
+    {
+        return new PdfPage(&m_mutex, page);
+    }
 
-    return page != 0 ? new PdfPage(&m_mutex, page) : 0;
+    return 0;
 }
 
 bool PdfDocument::isLocked() const
@@ -1216,9 +1219,7 @@ PdfPlugin::PdfPlugin(QObject* parent) : QObject(parent)
 
 Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
 {
-    Poppler::Document* document = Poppler::Document::load(filePath);
-
-    if(document != 0)
+    if(Poppler::Document* document = Poppler::Document::load(filePath))
     {
         document->setRenderHint(Poppler::Document::Antialiasing, m_settings->value("antialiasing", Defaults::antialiasing).toBool());
         document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings->value("textAntialiasing", Defaults::textAntialiasing).toBool());
@@ -1290,9 +1291,11 @@ Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
             document->setRenderBackend(Poppler::Document::ArthurBackend);
             break;
         }
+
+        return new Model::PdfDocument(document);
     }
 
-    return document != 0 ? new Model::PdfDocument(document) : 0;
+    return 0;
 }
 
 SettingsWidget* PdfPlugin::createSettingsWidget(QWidget* parent) const

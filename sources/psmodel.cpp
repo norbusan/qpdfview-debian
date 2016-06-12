@@ -180,9 +180,12 @@ Page* PsDocument::page(int index) const
 {
     QMutexLocker mutexLocker(&m_mutex);
 
-    SpectrePage* page = spectre_document_get_page(m_document, index);
+    if(SpectrePage* page = spectre_document_get_page(m_document, index))
+    {
+        return new PsPage(&m_mutex, page, m_renderContext);
+    }
 
-    return page != 0 ? new PsPage(&m_mutex, page, m_renderContext) : 0;
+    return 0;
 }
 
 QStringList PsDocument::saveFilter() const
