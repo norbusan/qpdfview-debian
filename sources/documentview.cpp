@@ -2286,9 +2286,11 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
     {
     case QPrinter::Color:
         num_options = addCMYKorRGBColorModel(dest, num_options, &options);
+        num_options = cupsAddOption("Ink", "COLOR", num_options, &options);
         break;
     case QPrinter::GrayScale:
         num_options = cupsAddOption("ColorModel", "Gray", num_options, &options);
+        num_options = cupsAddOption("Ink", "MONO", num_options, &options);
         break;
     }
 
