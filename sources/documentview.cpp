@@ -26,6 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QInputDialog>
+#include <QDateTime>
 #include <QDebug>
 #include <QDesktopWidget>
 #include <QDesktopServices>
@@ -592,6 +593,36 @@ private:
     const Model::Properties m_properties;
 
 };
+
+void addProperty( Model::Properties& properties, const char* name, const QString& value )
+{
+    properties.append(qMakePair(DocumentView::tr(name), value));
+}
+
+QString formatFileSize( qint64 size )
+{
+    static const char* const units[] = { "B", "kB", "MB", "GB" };
+    static const char* const* const lastUnit = &units[sizeof(units) / sizeof(units[0]) - 1];
+    const char* const* unit = &units[0];
+
+    while(size > 2048 && unit < lastUnit)
+    {
+        size /= 1024;
+        unit++;
+    }
+
+    return QString("%1 %2").arg(size).arg(*unit);
+}
+
+void addFileProperties( Model::Properties& properties, const QFileInfo& fileInfo )
+{
+    addProperty(properties, "File path", fileInfo.absoluteFilePath());
+    addProperty(properties, "File size", formatFileSize(fileInfo.size()));
+    addProperty(properties, "File created", fileInfo.created().toString());
+    addProperty(properties, "File last modified", fileInfo.lastModified().toString());
+    addProperty(properties, "File owner", fileInfo.owner());
+    addProperty(properties, "File group", fileInfo.owner());
+}
 
 void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, const QModelIndex& index, QString path)
 {
@@ -2654,7 +2685,11 @@ void DocumentView::prepareDocument(Model::Document* document, const QVector< Mod
         m_outlineModel.reset(new FallbackOutlineModel(this));
     }
 
-    m_propertiesModel.reset(new PropertiesModel(m_document->loadProperties(), this));
+    Model::Properties properties = m_document->loadProperties();
+
+    addFileProperties(properties, m_fileInfo);
+
+    m_propertiesModel.reset(new PropertiesModel(properties, this));
 
     if(s_settings->documentView().prefetch())
     {
