@@ -594,12 +594,12 @@ private:
 
 };
 
-void addProperty( Model::Properties& properties, const char* name, const QString& value )
+void addProperty(Model::Properties& properties, const char* name, const QString& value)
 {
     properties.append(qMakePair(DocumentView::tr(name), value));
 }
 
-QString formatFileSize( qint64 size )
+QString formatFileSize(qint64 size)
 {
     static const char* const units[] = { "B", "kB", "MB", "GB" };
     static const char* const* const lastUnit = &units[sizeof(units) / sizeof(units[0]) - 1];
@@ -614,7 +614,7 @@ QString formatFileSize( qint64 size )
     return QString("%1 %2").arg(size).arg(*unit);
 }
 
-void addFileProperties( Model::Properties& properties, const QFileInfo& fileInfo )
+void addFileProperties(Model::Properties& properties, const QFileInfo& fileInfo)
 {
     addProperty(properties, "File path", fileInfo.absoluteFilePath());
     addProperty(properties, "File size", formatFileSize(fileInfo.size()));
