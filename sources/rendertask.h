@@ -39,12 +39,53 @@ class Page;
 
 class Settings;
 
-class RenderTask : public QObject, QRunnable
+class RenderTaskDispatcher : public QObject
 {
     Q_OBJECT
 
+    friend class RenderTask;
+
+    struct DeleteLaterEvent;
+    struct FinishedEvent;
+    struct ImageReadyEvent;
+
 public:
-    explicit RenderTask(Model::Page* page, QObject* parent = 0);
+    class Parent
+    {
+        friend struct DeleteLaterEvent;
+        friend struct FinishedEvent;
+        friend struct ImageReadyEvent;
+
+    public:
+        virtual ~Parent();
+
+    private:
+        virtual void on_finished() = 0;
+        virtual void on_imageReady(const RenderParam& renderParam,
+                                   const QRect& rect, bool prefetch,
+                                   const QImage& image, const QRectF& cropRect) = 0;
+    };
+
+private:
+    RenderTaskDispatcher(QObject* parent = 0);
+
+    void deleteLater(Parent* parent);
+
+    void finished(Parent* parent);
+    void imageReady(Parent* parent,
+                    const RenderParam& renderParam,
+                    const QRect& rect, bool prefetch,
+                    const QImage& image, const QRectF& cropRect);
+
+public:
+    bool event(QEvent* event);
+
+};
+
+class RenderTask : public QRunnable
+{
+public:
+    explicit RenderTask(Model::Page* page, RenderTaskDispatcher::Parent* parent = 0);
 
     void wait();
 
@@ -56,21 +97,18 @@ public:
 
     void run();
 
-signals:
-    void finished();
-
-    void imageReady(const RenderParam& renderParam,
-                    const QRect& rect, bool prefetch,
-                    const QImage& image, const QRectF& cropRect);
-
-public slots:
     void start(const RenderParam& renderParam,
                const QRect& rect, bool prefetch);
 
     void cancel(bool force = false) { setCancellation(force); }
 
+    void deleteParentLater();
+
 private:
     Q_DISABLE_COPY(RenderTask)
+
+    static RenderTaskDispatcher* s_dispatcher;
+    RenderTaskDispatcher::Parent* m_parent;
 
     static Settings* s_settings;
 

@@ -24,7 +24,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 
 #include "settings.h"
-#include "rendertask.h"
 #include "pageitem.h"
 
 namespace qpdfview
@@ -34,7 +33,7 @@ Settings* TileItem::s_settings = 0;
 
 QCache< TileItem::CacheKey, TileItem::CacheObject > TileItem::s_cache;
 
-TileItem::TileItem(PageItem* page) : QObject(page),
+TileItem::TileItem(PageItem* page) :
     m_page(page),
     m_rect(),
     m_cropRect(),
@@ -52,15 +51,15 @@ TileItem::TileItem(PageItem* page) : QObject(page),
     s_cache.setMaxCost(s_settings->pageItem().cacheSize());
 
     m_renderTask = new RenderTask(m_page->m_page, this);
-
-    connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
-    connect(m_renderTask, SIGNAL(imageReady(RenderParam,QRect,bool,QImage,QRectF)), SLOT(on_renderTask_imageReady(RenderParam,QRect,bool,QImage,QRectF)));
 }
 
 TileItem::~TileItem()
 {
     m_renderTask->cancel(true);
     m_renderTask->wait();
+
+    delete m_renderTask;
+    m_renderTask = 0;
 }
 
 void TileItem::setCropRect(const QRectF& cropRect)
@@ -184,7 +183,7 @@ void TileItem::deleteAfterRender()
 {
     if(!m_renderTask->isRunning())
     {
-        deleteLater();
+        m_renderTask->deleteParentLater();
     }
     else
     {
@@ -194,11 +193,11 @@ void TileItem::deleteAfterRender()
     }
 }
 
-void TileItem::on_renderTask_finished()
+void TileItem::on_finished()
 {
     if(m_deleteAfterRender)
     {
-        deleteLater();
+        m_renderTask->deleteParentLater();
     }
     else if(!m_page->useTiling() || m_page->m_exposedTileItems.contains(this))
     {
@@ -206,9 +205,9 @@ void TileItem::on_renderTask_finished()
     }
 }
 
-void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
-                                        const QRect& rect, bool prefetch,
-                                        const QImage& image, const QRectF& cropRect)
+void TileItem::on_imageReady(const RenderParam& renderParam,
+                             const QRect& rect, bool prefetch,
+                             const QImage& image, const QRectF& cropRect)
 {
     if(m_page->m_renderParam != renderParam || m_rect != rect)
     {

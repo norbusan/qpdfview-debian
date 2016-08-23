@@ -27,19 +27,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPixmap>
 
 #include "global.h"
+#include "rendertask.h"
 
 namespace qpdfview
 {
 
-class Settings;
-class RenderParam;
-class RenderTask;
 class PageItem;
 
-class TileItem : public QObject
+class TileItem : public RenderTaskDispatcher::Parent
 {
-    Q_OBJECT
-
 public:
     TileItem(PageItem* page);
     ~TileItem();
@@ -58,7 +54,7 @@ public:
 
     bool paint(QPainter* painter, const QPointF& topLeft);
 
-public slots:
+public:
     void refresh(bool keepObsoletePixmaps = false);
 
     int startRender(bool prefetch = false);
@@ -66,11 +62,11 @@ public slots:
 
     void deleteAfterRender();
 
-protected slots:
-    void on_renderTask_finished();
-    void on_renderTask_imageReady(const RenderParam& renderParam,
-                                  const QRect& rect, bool prefetch,
-                                  const QImage& image, const QRectF& cropRect);
+private:
+    void on_finished();
+    void on_imageReady(const RenderParam& renderParam,
+                       const QRect& rect, bool prefetch,
+                       const QImage& image, const QRectF& cropRect);
 
 private:
     Q_DISABLE_COPY(TileItem)

@@ -42,10 +42,11 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "rendertask.h"
 #include "tileitem.h"
 
-namespace
+namespace qpdfview
 {
 
-using namespace qpdfview;
+namespace
+{
 
 const int largeTilesThreshold = 8;
 const int veryLargeTilesThreshold = 16;
@@ -68,9 +69,6 @@ inline bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseBut
 }
 
 } // anonymous
-
-namespace qpdfview
-{
 
 Settings* PageItem::s_settings = 0;
 
@@ -132,6 +130,8 @@ PageItem::~PageItem()
     qDeleteAll(m_links);
     qDeleteAll(m_annotations);
     qDeleteAll(m_formFields);
+
+    qDeleteAll(m_tileItems);
 }
 
 QRectF PageItem::boundingRect() const
