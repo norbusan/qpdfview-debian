@@ -107,10 +107,10 @@ public:
 private:
     Q_DISABLE_COPY(RenderTask)
 
+    static Settings* s_settings;
+
     static RenderTaskDispatcher* s_dispatcher;
     RenderTaskDispatcher::Parent* m_parent;
-
-    static Settings* s_settings;
 
     mutable QMutex m_mutex;
     QWaitCondition m_waitCondition;

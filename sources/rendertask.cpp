@@ -35,6 +35,14 @@ namespace qpdfview
 namespace
 {
 
+void registerEventType(QEvent::Type& registeredType)
+{
+    if(registeredType == QEvent::None)
+    {
+        registeredType = QEvent::Type(QEvent::registerEventType());
+    }
+}
+
 qreal scaledResolutionX(const RenderParam& renderParam)
 {
     return renderParam.devicePixelRatio()
@@ -167,14 +175,6 @@ void composeWithColor(QPainter::CompositionMode mode, const QColor& color, QImag
 
     painter.setCompositionMode(mode);
     painter.fillRect(image.rect(), color);
-}
-
-void registerEventType(QEvent::Type& registeredType)
-{
-    if(registeredType == QEvent::None)
-    {
-        registeredType = QEvent::Type(QEvent::registerEventType());
-    }
 }
 
 } // anonymous
@@ -335,14 +335,14 @@ RenderTask::RenderTask(Model::Page* page, RenderTaskDispatcher::Parent* parent) 
     m_rect(),
     m_prefetch(false)
 {
-    if(s_dispatcher == 0)
-    {
-        s_dispatcher = new RenderTaskDispatcher(qApp);
-    }
-
     if(s_settings == 0)
     {
         s_settings = Settings::instance();
+    }
+
+    if(s_dispatcher == 0)
+    {
+        s_dispatcher = new RenderTaskDispatcher(qApp);
     }
 
     setAutoDelete(false);

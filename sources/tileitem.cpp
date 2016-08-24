@@ -33,7 +33,7 @@ Settings* TileItem::s_settings = 0;
 
 QCache< TileItem::CacheKey, TileItem::CacheObject > TileItem::s_cache;
 
-TileItem::TileItem(PageItem* page) :
+TileItem::TileItem(PageItem* page) : RenderTaskDispatcher::Parent(),
     m_page(page),
     m_rect(),
     m_cropRect(),
@@ -41,7 +41,7 @@ TileItem::TileItem(PageItem* page) :
     m_pixmap(),
     m_obsoletePixmap(),
     m_deleteAfterRender(false),
-    m_renderTask(0)
+    m_renderTask(m_page->m_page, this)
 {
     if(s_settings == 0)
     {
@@ -49,17 +49,12 @@ TileItem::TileItem(PageItem* page) :
     }
 
     s_cache.setMaxCost(s_settings->pageItem().cacheSize());
-
-    m_renderTask = new RenderTask(m_page->m_page, this);
 }
 
 TileItem::~TileItem()
 {
-    m_renderTask->cancel(true);
-    m_renderTask->wait();
-
-    delete m_renderTask;
-    m_renderTask = 0;
+    m_renderTask.cancel(true);
+    m_renderTask.wait();
 }
 
 void TileItem::setCropRect(const QRectF& cropRect)
@@ -153,7 +148,7 @@ void TileItem::refresh(bool keepObsoletePixmaps)
         m_cropRect = QRectF();
     }
 
-    m_renderTask->cancel(true);
+    m_renderTask.cancel(true);
 
     m_pixmapError = false;
     m_pixmap = QPixmap();
@@ -161,19 +156,19 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 
 int TileItem::startRender(bool prefetch)
 {
-    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(cacheKey())))
+    if(m_pixmapError || m_renderTask.isRunning() || (prefetch && s_cache.contains(cacheKey())))
     {
         return 0;
     }
 
-    m_renderTask->start(m_page->m_renderParam, m_rect, prefetch);
+    m_renderTask.start(m_page->m_renderParam, m_rect, prefetch);
 
     return 1;
 }
 
 void TileItem::cancelRender()
 {
-    m_renderTask->cancel();
+    m_renderTask.cancel();
 
     m_pixmap = QPixmap();
     m_obsoletePixmap = QPixmap();
@@ -181,13 +176,13 @@ void TileItem::cancelRender()
 
 void TileItem::deleteAfterRender()
 {
-    if(!m_renderTask->isRunning())
+    if(!m_renderTask.isRunning())
     {
-        m_renderTask->deleteParentLater();
+        m_renderTask.deleteParentLater();
     }
     else
     {
-        m_renderTask->cancel(true);
+        m_renderTask.cancel(true);
 
         m_deleteAfterRender = true;
     }
@@ -197,7 +192,7 @@ void TileItem::on_finished()
 {
     if(m_deleteAfterRender)
     {
-        m_renderTask->deleteParentLater();
+        m_renderTask.deleteParentLater();
     }
     else if(!m_page->useTiling() || m_page->m_exposedTileItems.contains(this))
     {
@@ -223,14 +218,14 @@ void TileItem::on_imageReady(const RenderParam& renderParam,
         return;
     }
 
-    if(prefetch && !m_renderTask->wasCanceledForcibly())
+    if(prefetch && !m_renderTask.wasCanceledForcibly())
     {
         const int cost = qMax(1, image.width() * image.height() * image.depth() / 8);
         s_cache.insert(cacheKey(), new CacheObject(QPixmap::fromImage(image), cropRect), cost);
 
         setCropRect(cropRect);
     }
-    else if(!m_renderTask->wasCanceled())
+    else if(!m_renderTask.wasCanceled())
     {
         m_pixmap = QPixmap::fromImage(image);
 
