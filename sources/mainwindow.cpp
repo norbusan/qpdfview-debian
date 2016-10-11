@@ -761,7 +761,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     }
     else if(action == m_openContainingFolderAction)
     {
-        on_openCopyInNewTab_triggered(selectedTab);
+        on_openContainingFolder_triggered(selectedTab);
         return;
     }
     else if(action == m_moveToInstanceAction)
