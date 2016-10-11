@@ -9,6 +9,7 @@ Release 0.4.17:
   * Optimizations of the search dock layout w.r.t. vertical/horizontal positioning.
   * Added context menu action to move document to a different instance.
   * Changed cache size tracking from byte to kilobyte granularity to support more than 2 GB cache.
+  * Added a save in addition to the save-as action to simplify modifying documents in-place.
   * Added Japanese translations. Thanks to Koji Yokota.
   * Updated British English translations. Thanks to Anthony Harrington.
   * Updated Russian translations. Thanks to ned.

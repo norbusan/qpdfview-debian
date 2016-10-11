@@ -619,8 +619,10 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
     if(hasCurrent)
     {
-        m_saveCopyAction->setEnabled(currentTab()->canSave());
-        m_saveAsAction->setEnabled(currentTab()->canSave());
+        const bool canSave = currentTab()->canSave();
+        m_saveAction->setEnabled(canSave);
+        m_saveAsAction->setEnabled(canSave);
+        m_saveCopyAction->setEnabled(canSave);
 
         if(m_searchDock->isVisible())
         {
@@ -657,8 +659,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     }
     else
     {
-        m_saveCopyAction->setEnabled(false);
+        m_saveAction->setEnabled(false);
         m_saveAsAction->setEnabled(false);
+        m_saveCopyAction->setEnabled(false);
 
         if(m_searchDock->isVisible())
         {
@@ -1318,6 +1321,38 @@ void MainWindow::on_refresh_triggered()
     }
 }
 
+void MainWindow::on_save_triggered()
+{
+    if(!currentTab()->save(currentTab()->fileInfo().filePath(), true))
+    {
+        QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(currentTab()->fileInfo().filePath()));
+        return;
+    }
+
+    if(!currentTab()->refresh())
+    {
+        QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->fileInfo().filePath()));
+    }
+}
+
+void MainWindow::on_saveAs_triggered()
+{
+    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), currentTab()->fileInfo().filePath(), currentTab()->saveFilter().join(";;"));
+
+    if(filePath.isEmpty())
+    {
+        return;
+    }
+
+    if(!currentTab()->save(filePath, true))
+    {
+        QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(filePath));
+        return;
+    }
+
+    open(filePath, currentTab()->currentPage());
+}
+
 void MainWindow::on_saveCopy_triggered()
 {
     const QDir dir = QDir(s_settings->mainWindow().savePath());
@@ -1332,23 +1367,6 @@ void MainWindow::on_saveCopy_triggered()
         else
         {
             QMessageBox::warning(this, tr("Warning"), tr("Could not save copy at '%1'.").arg(filePath));
-        }
-    }
-}
-
-void MainWindow::on_saveAs_triggered()
-{
-    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), currentTab()->fileInfo().filePath(), currentTab()->saveFilter().join(";;"));
-
-    if(!filePath.isEmpty())
-    {
-        if(currentTab()->save(filePath, true))
-        {
-            open(filePath, currentTab()->currentPage());
-        }
-        else
-        {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(filePath));
         }
     }
 }
@@ -2888,8 +2906,9 @@ void MainWindow::createActions()
     m_openContainingFolderAction = createAction(tr("Open containing &folder"), QLatin1String("openContainingFolder"), QLatin1String("folder"), QKeySequence(), SLOT(on_openContainingFolder_triggered()));
     m_moveToInstanceAction = createAction(tr("Move to &instance..."), QLatin1String("moveToInstance"), QIcon(), QKeySequence(), SLOT(on_moveToInstance_triggered()));
     m_refreshAction = createAction(tr("&Refresh"), QLatin1String("refresh"), QLatin1String("view-refresh"), QKeySequence::Refresh, SLOT(on_refresh_triggered()));
-    m_saveCopyAction = createAction(tr("&Save copy..."), QLatin1String("saveCopy"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_saveCopy_triggered()));
+    m_saveAction = createAction(tr("&Save"), QLatin1String("save"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_save_triggered()));
     m_saveAsAction = createAction(tr("Save &as..."), QLatin1String("saveAs"), QLatin1String("document-save-as"), QKeySequence::SaveAs, SLOT(on_saveAs_triggered()));
+    m_saveCopyAction = createAction(tr("Save &copy..."), QLatin1String("saveCopy"), QIcon(), QKeySequence(), SLOT(on_saveCopy_triggered()));
     m_printAction = createAction(tr("&Print..."), QLatin1String("print"), QLatin1String("document-print"), QKeySequence::Print, SLOT(on_print_triggered()));
     m_exitAction = createAction(tr("E&xit"), QLatin1String("exit"), QIcon::fromTheme("application-exit"), QKeySequence::Quit, SLOT(close()));
 
@@ -3019,7 +3038,7 @@ QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectNa
 void MainWindow::createToolBars()
 {
     m_fileToolBar = createToolBar(tr("&File"), QLatin1String("fileToolBar"), s_settings->mainWindow().fileToolBar(),
-                                  QList< QAction* >() << m_openAction << m_openInNewTabAction << m_openContainingFolderAction << m_refreshAction << m_saveCopyAction << m_saveAsAction << m_printAction);
+                                  QList< QAction* >() << m_openAction << m_openInNewTabAction << m_openContainingFolderAction << m_refreshAction << m_saveAction << m_saveAsAction << m_saveCopyAction << m_printAction);
 
     m_editToolBar = createToolBar(tr("&Edit"), QLatin1String("editToolBar"), s_settings->mainWindow().editToolBar(),
                                   QList< QAction* >() << m_currentPageAction << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction << m_jumpToPageAction << m_searchAction << m_jumpBackwardAction << m_jumpForwardAction << m_copyToClipboardModeAction << m_addAnnotationModeAction);
@@ -3227,7 +3246,7 @@ void MainWindow::createMenus()
         setToolButtonMenu(m_fileToolBar, m_openInNewTabAction, m_recentlyUsedMenu);
     }
 
-    m_fileMenu->addActions(QList< QAction* >() << m_refreshAction << m_saveCopyAction << m_saveAsAction << m_printAction);
+    m_fileMenu->addActions(QList< QAction* >() << m_refreshAction << m_saveAction << m_saveAsAction << m_saveCopyAction << m_printAction);
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_exitAction);
 
