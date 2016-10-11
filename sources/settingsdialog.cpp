@@ -807,16 +807,10 @@ QComboBox* SettingsDialog::addDataSizeComboBox(QFormLayout* layout, const QStrin
 {
     QComboBox* comboBox = new QComboBox(this);
 
-    comboBox->addItem(tr("%1 MB").arg(0), 0);
-    comboBox->addItem(tr("%1 MB").arg(8), 8 << 20);
-    comboBox->addItem(tr("%1 MB").arg(16), 16 << 20);
-    comboBox->addItem(tr("%1 MB").arg(32), 32 << 20);
-    comboBox->addItem(tr("%1 MB").arg(64), 64 << 20);
-    comboBox->addItem(tr("%1 MB").arg(128), 128 << 20);
-    comboBox->addItem(tr("%1 MB").arg(256), 256 << 20);
-    comboBox->addItem(tr("%1 MB").arg(512), 512 << 20);
-    comboBox->addItem(tr("%1 MB").arg(1024), 1024 << 20);
-    comboBox->addItem(tr("%1 MB").arg(2048), INT_MAX);
+    for(int dataSize = 8; dataSize <= 8192; dataSize *= 2)
+    {
+        comboBox->addItem(tr("%1 MB").arg(dataSize), dataSize * 1024);
+    }
 
     int currentIndex = comboBox->findData(dataSize);
 
@@ -824,7 +818,7 @@ QComboBox* SettingsDialog::addDataSizeComboBox(QFormLayout* layout, const QStrin
     {
         currentIndex = comboBox->count();
 
-        comboBox->addItem(tr("%1 MB").arg(dataSize >> 20), dataSize);
+        comboBox->addItem(tr("%1 MB").arg(dataSize / 1024), dataSize);
     }
 
     comboBox->setCurrentIndex(currentIndex);

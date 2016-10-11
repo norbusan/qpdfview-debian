@@ -29,6 +29,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace qpdfview
 {
 
+namespace
+{
+
+inline int cacheCost(const QPixmap& pixmap)
+{
+    return qMax(1, pixmap.width() * pixmap.height() * pixmap.depth() / 8 / 1024);
+}
+
+} // anonymous
+
 Settings* TileItem::s_settings = 0;
 
 QCache< TileItem::CacheKey, TileItem::CacheObject > TileItem::s_cache;
@@ -220,8 +230,9 @@ void TileItem::on_imageReady(const RenderParam& renderParam,
 
     if(prefetch && !m_renderTask.wasCanceledForcibly())
     {
-        const int cost = qMax(1, image.width() * image.height() * image.depth() / 8);
-        s_cache.insert(cacheKey(), new CacheObject(QPixmap::fromImage(image), cropRect), cost);
+        const QPixmap pixmap = QPixmap::fromImage(image);
+
+        s_cache.insert(cacheKey(), new CacheObject(pixmap, cropRect), cacheCost(pixmap));
 
         setCropRect(cropRect);
     }
@@ -259,8 +270,7 @@ QPixmap TileItem::takePixmap()
 
     if(!m_pixmap.isNull())
     {
-        const int cost = qMax(1, m_pixmap.width() * m_pixmap.height() * m_pixmap.depth() / 8);
-        s_cache.insert(key, new CacheObject(m_pixmap, m_cropRect), cost);
+        s_cache.insert(key, new CacheObject(m_pixmap, m_cropRect), cacheCost(m_pixmap));
 
         pixmap = m_pixmap;
     }

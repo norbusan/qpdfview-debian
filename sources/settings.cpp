@@ -53,6 +53,40 @@ inline QStringList trimmed(const QStringList& list)
     return trimmedList;
 }
 
+int toInt(const QString& text, int defaultValue)
+{
+    bool ok = false;
+    const int value = text.toInt(&ok);
+    return ok ? value : defaultValue;
+}
+
+int dataSize(const QSettings* settings, const QString& key, int defaultValue)
+{
+    QString text = settings->value(key, QString("%1K").arg(defaultValue)).toString().trimmed();
+
+    if(*text.rbegin() == 'M')
+    {
+        text.chop(1);
+
+        return toInt(text, defaultValue / 1024) * 1024;
+    }
+    else if(*text.rbegin() == 'K')
+    {
+        text.chop(1);
+
+        return toInt(text, defaultValue);
+    }
+    else
+    {
+        return toInt(text, defaultValue * 1024) / 1024;
+    }
+}
+
+void setDataSize(QSettings* settings, const QString& key, int value)
+{
+    settings->setValue(key, QString("%1K").arg(value));
+}
+
 } // anonymous
 
 namespace qpdfview
@@ -81,7 +115,7 @@ Settings::~Settings()
 
 void Settings::PageItem::sync()
 {
-    m_cacheSize = m_settings->value("pageItem/cacheSize", Defaults::PageItem::cacheSize()).toInt();
+    m_cacheSize = dataSize(m_settings, "pageItem/cacheSize", Defaults::PageItem::cacheSize());
 
     m_useTiling = m_settings->value("pageItem/useTiling", Defaults::PageItem::useTiling()).toBool();
     m_tileSize = m_settings->value("pageItem/tileSize", Defaults::PageItem::tileSize()).toInt();
@@ -104,7 +138,7 @@ void Settings::PageItem::setCacheSize(int cacheSize)
     if(cacheSize >= 0)
     {
         m_cacheSize = cacheSize;
-        m_settings->setValue("pageItem/cacheSize", cacheSize);
+        setDataSize(m_settings, "pageItem/cacheSize", cacheSize);
     }
 }
 

@@ -493,7 +493,7 @@ public:
     class PageItem
     {
     public:
-        static int cacheSize() { return 32 * 1024 * 1024; }
+        static int cacheSize() { return 32 * 1024; }
 
         static bool useTiling() { return false; }
         static int tileSize() { return 1024; }
