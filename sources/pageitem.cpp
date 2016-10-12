@@ -756,7 +756,7 @@ void PageItem::loadInteractiveElements()
     foreach(Model::Annotation* annotation, annotations)
     {
         annotation->moveToThread(parentThread);
-        connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
+        connect(annotation, SIGNAL(wasModified()), parent, SIGNAL(wasModified()));
     }
 
     m_annotations = annotations;
@@ -766,7 +766,7 @@ void PageItem::loadInteractiveElements()
     foreach(Model::FormField* formField, formFields)
     {
         formField->moveToThread(parentThread);
-        connect(formField, SIGNAL(wasModified()), SIGNAL(wasModified()));
+        connect(formField, SIGNAL(wasModified()), parent, SIGNAL(wasModified()));
     }
 
     m_formFields = formFields;

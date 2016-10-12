@@ -64,13 +64,13 @@ int dataSize(const QSettings* settings, const QString& key, int defaultValue)
 {
     QString text = settings->value(key, QString("%1K").arg(defaultValue)).toString().trimmed();
 
-    if(*text.rbegin() == 'M')
+    if(text.endsWith('M'))
     {
         text.chop(1);
 
         return toInt(text, defaultValue / 1024) * 1024;
     }
-    else if(*text.rbegin() == 'K')
+    else if(text.endsWith('K'))
     {
         text.chop(1);
 
