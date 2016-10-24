@@ -374,12 +374,27 @@ void RenderTask::run()
     QImage image;
     QRectF cropRect;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    const qreal devicePixelRatio = m_renderParam.devicePixelRatio();
+
+    const QRect rect =
+            qFuzzyCompare(1.0, devicePixelRatio)
+            ? m_rect
+            : QTransform().scale(devicePixelRatio, devicePixelRatio).mapRect(m_rect);
+
+#else
+
+    const QRect& rect = m_rect;
+
+#endif // QT_VERSION
+
     image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
-                           m_renderParam.rotation(), m_rect);
+                           m_renderParam.rotation(), rect);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    image.setDevicePixelRatio(m_renderParam.devicePixelRatio());
+    image.setDevicePixelRatio(devicePixelRatio);
 
 #endif // QT_VERSION
 
