@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QImage>
 #include <QMutex>
 #include <QRunnable>
+#include <QSet>
 #include <QWaitCondition>
 
 #include "renderparam.h"
@@ -80,12 +81,22 @@ private:
 public:
     bool event(QEvent* event);
 
+private:
+    QSet< Parent* > m_activeParents;
+
+    template< typename RenderTaskEvent >
+    void dispatchIfActive(QEvent* event);
+
+    void makeActive(Parent* parent);
+    void makeInactive(Parent* parent);
+
 };
 
 class RenderTask : public QRunnable
 {
 public:
     explicit RenderTask(Model::Page* page, RenderTaskDispatcher::Parent* parent = 0);
+    ~RenderTask();
 
     void wait();
 

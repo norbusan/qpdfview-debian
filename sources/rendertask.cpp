@@ -303,21 +303,42 @@ bool RenderTaskDispatcher::event(QEvent* event)
 {
     if(event->type() == DeleteLaterEvent::registeredType)
     {
-        static_cast< DeleteLaterEvent* >(event)->dispatch();
+        dispatchIfActive< DeleteLaterEvent >(event);
         return true;
     }
     else if(event->type() == FinishedEvent::registeredType)
     {
-        static_cast< FinishedEvent* >(event)->dispatch();
+        dispatchIfActive< FinishedEvent >(event);
         return true;
     }
     else if(event->type() == ImageReadyEvent::registeredType)
     {
-        static_cast< ImageReadyEvent* >(event)->dispatch();
+        dispatchIfActive< ImageReadyEvent >(event);
         return true;
     }
 
     return QObject::event(event);
+}
+
+template< typename RenderTaskEvent >
+inline void RenderTaskDispatcher::dispatchIfActive(QEvent* event)
+{
+    RenderTaskEvent* const renderTaskEvent = static_cast< RenderTaskEvent* >(event);
+
+    if(m_activeParents.contains(renderTaskEvent->parent))
+    {
+        renderTaskEvent->dispatch();
+    }
+}
+
+void RenderTaskDispatcher::makeActive(Parent* parent)
+{
+    m_activeParents.insert(parent);
+}
+
+void RenderTaskDispatcher::makeInactive(Parent* parent)
+{
+    m_activeParents.remove(parent);
 }
 
 RenderTaskDispatcher* RenderTask::s_dispatcher = 0;
@@ -346,6 +367,13 @@ RenderTask::RenderTask(Model::Page* page, RenderTaskDispatcher::Parent* parent) 
     }
 
     setAutoDelete(false);
+
+    s_dispatcher->makeActive(m_parent);
+}
+
+RenderTask::~RenderTask()
+{
+    s_dispatcher->makeInactive(m_parent);
 }
 
 void RenderTask::wait()
