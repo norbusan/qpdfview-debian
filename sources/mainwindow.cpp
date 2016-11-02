@@ -2417,7 +2417,7 @@ bool MainWindow::eventFilter(QObject* target, QEvent* event)
         }
     }
     // This event filter is used to fit the thumbnails into the thumbnails view if this is enabled in the settings.
-    else if(target == m_thumbnailsView && event->type() == QEvent::Resize)
+    else if(target == m_thumbnailsView && (event->type() == QEvent::Resize || event->type() == QEvent::Show))
     {
         if(DocumentView* tab = currentTab())
         {
