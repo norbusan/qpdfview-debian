@@ -3396,6 +3396,26 @@ void MainWindowAdaptor::saveDatabase()
     mainWindow()->saveDatabase();
 }
 
+int MainWindowAdaptor::currentPage() const
+{
+    if(DocumentView* tab = mainWindow()->currentTab())
+    {
+        return tab->currentPage();
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+void MainWindowAdaptor::jumpToPage(int page)
+{
+    if(DocumentView* tab = mainWindow()->currentTab())
+    {
+        tab->jumpToPage(page);
+    }
+}
+
 #define ONLY_IF_CURRENT_TAB if(mainWindow()->m_tabWidget->currentIndex() == -1) { return; }
 
 void MainWindowAdaptor::previousPage()
@@ -3464,63 +3484,70 @@ bool MainWindowAdaptor::jumpToBookmark(const QString& label)
     return false;
 }
 
-void MainWindowAdaptor::continuousModeAction(bool checked)
+void MainWindowAdaptor::continuousMode(bool checked)
 {
     ONLY_IF_CURRENT_TAB
 
     mainWindow()->on_continuousMode_triggered(checked);
 }
 
-void MainWindowAdaptor::twoPagesModeAction(bool checked)
+void MainWindowAdaptor::twoPagesMode(bool checked)
 {
     ONLY_IF_CURRENT_TAB
 
     mainWindow()->on_twoPagesMode_triggered(checked);
 }
 
-void MainWindowAdaptor::twoPagesWithCoverPageModeAction(bool checked)
+void MainWindowAdaptor::twoPagesWithCoverPageMode(bool checked)
 {
     ONLY_IF_CURRENT_TAB
 
     mainWindow()->on_twoPagesWithCoverPageMode_triggered(checked);
 }
 
-void MainWindowAdaptor::multiplePagesModeAction(bool checked)
+void MainWindowAdaptor::multiplePagesMode(bool checked)
 {
     ONLY_IF_CURRENT_TAB
 
     mainWindow()->on_multiplePagesMode_triggered(checked);
 }
 
-void MainWindowAdaptor::fitToPageWidthModeAction(bool checked)
+void MainWindowAdaptor::fitToPageWidthMode(bool checked)
 {
     ONLY_IF_CURRENT_TAB
 
     mainWindow()->on_fitToPageWidthMode_triggered(checked);
 }
 
-void MainWindowAdaptor::fitToPageSizeModeAction(bool checked)
+void MainWindowAdaptor::fitToPageSizeMode(bool checked)
 {
     ONLY_IF_CURRENT_TAB
 
     mainWindow()->on_fitToPageSizeMode_triggered(checked);
 }
 
-void MainWindowAdaptor::convertToGrayscaleAction(bool checked)
-{
-    ONLY_IF_CURRENT_TAB
-
-    mainWindow()->on_convertToGrayscale_triggered(checked);
-}
-
-void MainWindowAdaptor::invertColorsAction(bool checked)
+void MainWindowAdaptor::invertColors(bool checked)
 {
     ONLY_IF_CURRENT_TAB
 
     mainWindow()->on_invertColors_triggered(checked);
 }
 
-void MainWindowAdaptor::fullscreenAction(bool checked)
+void MainWindowAdaptor::convertToGrayscale(bool checked)
+{
+    ONLY_IF_CURRENT_TAB
+
+    mainWindow()->on_convertToGrayscale_triggered(checked);
+}
+
+void MainWindowAdaptor::trimMargins(bool checked)
+{
+    ONLY_IF_CURRENT_TAB
+
+    mainWindow()->on_trimMargins_triggered(checked);
+}
+
+void MainWindowAdaptor::fullscreen(bool checked)
 {
     if(mainWindow()->m_fullscreenAction->isChecked() != checked)
     {
@@ -3528,7 +3555,7 @@ void MainWindowAdaptor::fullscreenAction(bool checked)
     }
 }
 
-void MainWindowAdaptor::presentationAction()
+void MainWindowAdaptor::presentation()
 {
     ONLY_IF_CURRENT_TAB
 

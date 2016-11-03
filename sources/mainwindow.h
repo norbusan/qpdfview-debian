@@ -512,6 +512,9 @@ public slots:
     Q_NOREPLY void saveDatabase();
 
 
+    int currentPage() const;
+    Q_NOREPLY void jumpToPage(int page);
+
     Q_NOREPLY void previousPage();
     Q_NOREPLY void nextPage();
     Q_NOREPLY void firstPage();
@@ -523,19 +526,20 @@ public slots:
     bool jumpToBookmark(const QString& label);
 
 
-    Q_NOREPLY void continuousModeAction(bool checked);
-    Q_NOREPLY void twoPagesModeAction(bool checked);
-    Q_NOREPLY void twoPagesWithCoverPageModeAction(bool checked);
-    Q_NOREPLY void multiplePagesModeAction(bool checked);
+    Q_NOREPLY void continuousMode(bool checked);
+    Q_NOREPLY void twoPagesMode(bool checked);
+    Q_NOREPLY void twoPagesWithCoverPageMode(bool checked);
+    Q_NOREPLY void multiplePagesMode(bool checked);
 
-    Q_NOREPLY void fitToPageWidthModeAction(bool checked);
-    Q_NOREPLY void fitToPageSizeModeAction(bool checked);
+    Q_NOREPLY void fitToPageWidthMode(bool checked);
+    Q_NOREPLY void fitToPageSizeMode(bool checked);
 
-    Q_NOREPLY void convertToGrayscaleAction(bool checked);
-    Q_NOREPLY void invertColorsAction(bool checked);
+    Q_NOREPLY void invertColors(bool checked);
+    Q_NOREPLY void convertToGrayscale(bool checked);
+    Q_NOREPLY void trimMargins(bool checked);
 
-    Q_NOREPLY void fullscreenAction(bool checked);
-    Q_NOREPLY void presentationAction();
+    Q_NOREPLY void fullscreen(bool checked);
+    Q_NOREPLY void presentation();
 
 
     Q_NOREPLY void closeTab();
