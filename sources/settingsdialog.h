@@ -209,7 +209,7 @@ private:
     QSpinBox* addSpinBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QString& suffix, const QString& special, int min, int max, int step, int val);
     QDoubleSpinBox* addDoubleSpinBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QString& suffix, const QString& special, double min, double max, double step, double val);
     QComboBox* addComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QStringList& text, const QList< int >& data, int value);
-    QComboBox* addDataSizeComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, int dataSize);
+    QComboBox* addDataSizeComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, int initialDataSize);
     QComboBox* addColorComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QColor& color);
     QComboBox* addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const Qt::KeyboardModifiers& modifiers);
 

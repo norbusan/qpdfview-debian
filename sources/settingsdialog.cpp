@@ -803,7 +803,7 @@ QComboBox* SettingsDialog::addComboBox(QFormLayout* layout, const QString& label
     return comboBox;
 }
 
-QComboBox* SettingsDialog::addDataSizeComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, int dataSize)
+QComboBox* SettingsDialog::addDataSizeComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, int initialDataSize)
 {
     QComboBox* comboBox = new QComboBox(this);
 
@@ -812,13 +812,13 @@ QComboBox* SettingsDialog::addDataSizeComboBox(QFormLayout* layout, const QStrin
         comboBox->addItem(tr("%1 MB").arg(dataSize), dataSize * 1024);
     }
 
-    int currentIndex = comboBox->findData(dataSize);
+    int currentIndex = comboBox->findData(initialDataSize);
 
     if(currentIndex == -1)
     {
         currentIndex = comboBox->count();
 
-        comboBox->addItem(tr("%1 MB").arg(dataSize / 1024), dataSize);
+        comboBox->addItem(tr("%1 MB").arg(initialDataSize / 1024), initialDataSize);
     }
 
     comboBox->setCurrentIndex(currentIndex);
