@@ -39,7 +39,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settings.h"
 #include "model.h"
-#include "rendertask.h"
 #include "tileitem.h"
 
 namespace qpdfview

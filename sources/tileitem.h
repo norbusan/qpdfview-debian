@@ -26,7 +26,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include <QPixmap>
 
-#include "global.h"
 #include "rendertask.h"
 
 namespace qpdfview

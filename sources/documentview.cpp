@@ -61,7 +61,6 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "model.h"
 #include "pluginhandler.h"
 #include "shortcuthandler.h"
-#include "pageitem.h"
 #include "thumbnailitem.h"
 #include "presentationview.h"
 #include "searchmodel.h"
