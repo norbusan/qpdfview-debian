@@ -166,6 +166,8 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 
 int TileItem::startRender(bool prefetch)
 {
+    m_page->startLoadInteractiveElements();
+
     if(m_pixmapError || m_renderTask.isRunning() || (prefetch && s_cache.contains(cacheKey())))
     {
         return 0;

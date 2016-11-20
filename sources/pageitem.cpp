@@ -117,6 +117,7 @@ PageItem::~PageItem()
     if(m_loadInteractiveElements != 0)
     {
         m_loadInteractiveElements->waitForFinished();
+
         delete m_loadInteractiveElements;
         m_loadInteractiveElements = 0;
     }
@@ -284,8 +285,6 @@ int PageItem::startRender(bool prefetch)
             cost += tile->startRender(prefetch);
         }
     }
-
-    startLoadInteractiveElements();
 
     return cost;
 }
