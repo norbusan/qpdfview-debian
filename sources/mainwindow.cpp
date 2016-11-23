@@ -1275,6 +1275,8 @@ void MainWindow::on_moveToInstance_triggered()
 
 void MainWindow::on_moveToInstance_triggered(DocumentView* tab)
 {
+#ifdef WITH_DBUS
+
     bool ok = false;
     const QString instanceName = QInputDialog::getItem(this, tr("Choose instance"), tr("Instance:"), s_database->knownInstanceNames(), 0, true, &ok);
 
@@ -1311,6 +1313,12 @@ void MainWindow::on_moveToInstance_triggered(DocumentView* tab)
     interface->call("saveDatabase");
 
     closeTab(tab);
+
+#else
+
+    QMessageBox::information(this, tr("Information"), tr("Instance-to-instance communication requires D-Bus support."));
+
+#endif // WITH_DBUS
 }
 
 void MainWindow::on_refresh_triggered()
