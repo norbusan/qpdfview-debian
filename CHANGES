@@ -3,6 +3,7 @@ Release 0.4.17:
   * Fixed selecting the complete text upon opening a page number dialog.
   * Fixed computation of tile sub rect w.r.t. non-unit device pixel ratios.
   * Moved loading of interactive elements out of the main event loop.
+  * Optimize tile rendering event handling by centralizing dispatch.
   * The results of the current tab are now automatically expanded in the extended search dock.
   * Added support for external document links to the outline view.
   * Added triggering SyncTeX reverse search using a keyboard modifier.

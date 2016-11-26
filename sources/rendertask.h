@@ -40,24 +40,24 @@ class Page;
 
 class Settings;
 
-struct DeleteLaterEvent;
-struct FinishedEvent;
-struct ImageReadyEvent;
+struct RenderTaskFinishedEvent;
+struct RenderTaskCanceledEvent;
+struct DeleteParentLaterEvent;
 
 class RenderTaskParent
 {
-    friend struct DeleteLaterEvent;
-    friend struct FinishedEvent;
-    friend struct ImageReadyEvent;
+    friend struct RenderTaskFinishedEvent;
+    friend struct RenderTaskCanceledEvent;
+    friend struct DeleteParentLaterEvent;
 
 public:
     virtual ~RenderTaskParent();
 
 private:
-    virtual void on_finished() = 0;
-    virtual void on_imageReady(const RenderParam& renderParam,
-                               const QRect& rect, bool prefetch,
-                               const QImage& image, const QRectF& cropRect) = 0;
+    virtual void on_finished(const RenderParam& renderParam,
+                             const QRect& rect, bool prefetch,
+                             const QImage& image, const QRectF& cropRect) = 0;
+    virtual void on_canceled() = 0;
 };
 
 class RenderTaskDispatcher : public QObject
@@ -71,13 +71,14 @@ private:
 
     RenderTaskDispatcher(QObject* parent = 0);
 
-    void deleteLater(RenderTaskParent* parent);
 
-    void finished(RenderTaskParent* parent);
-    void imageReady(RenderTaskParent* parent,
-                    const RenderParam& renderParam,
-                    const QRect& rect, bool prefetch,
-                    const QImage& image, const QRectF& cropRect);
+    void finished(RenderTaskParent* parent,
+                  const RenderParam& renderParam,
+                  const QRect& rect, bool prefetch,
+                  const QImage& image, const QRectF& cropRect);
+    void canceled(RenderTaskParent* parent);
+
+    void deleteParentLater(RenderTaskParent* parent);
 
 public:
     bool event(QEvent* event);
@@ -139,7 +140,7 @@ private:
     bool testCancellation();
     int loadCancellation() const;
 
-    void finish();
+    void finish(bool canceled);
 
 
     Model::Page* m_page;

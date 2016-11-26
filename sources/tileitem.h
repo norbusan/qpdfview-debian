@@ -62,10 +62,11 @@ public:
     void deleteAfterRender();
 
 private:
-    void on_finished();
-    void on_imageReady(const RenderParam& renderParam,
-                       const QRect& rect, bool prefetch,
-                       const QImage& image, const QRectF& cropRect);
+    void on_finished(const RenderParam& renderParam,
+                     const QRect& rect, bool prefetch,
+                     const QImage& image, const QRectF& cropRect);
+    void on_canceled();
+    void on_finishedOrCanceled();
 
 private:
     Q_DISABLE_COPY(TileItem)
