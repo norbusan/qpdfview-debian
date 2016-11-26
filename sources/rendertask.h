@@ -40,40 +40,41 @@ class Page;
 
 class Settings;
 
+struct DeleteLaterEvent;
+struct FinishedEvent;
+struct ImageReadyEvent;
+
+class RenderTaskParent
+{
+    friend struct DeleteLaterEvent;
+    friend struct FinishedEvent;
+    friend struct ImageReadyEvent;
+
+public:
+    virtual ~RenderTaskParent();
+
+private:
+    virtual void on_finished() = 0;
+    virtual void on_imageReady(const RenderParam& renderParam,
+                               const QRect& rect, bool prefetch,
+                               const QImage& image, const QRectF& cropRect) = 0;
+};
+
 class RenderTaskDispatcher : public QObject
 {
     Q_OBJECT
 
     friend class RenderTask;
 
-    struct DeleteLaterEvent;
-    struct FinishedEvent;
-    struct ImageReadyEvent;
-
-public:
-    class Parent
-    {
-        friend struct DeleteLaterEvent;
-        friend struct FinishedEvent;
-        friend struct ImageReadyEvent;
-
-    public:
-        virtual ~Parent();
-
-    private:
-        virtual void on_finished() = 0;
-        virtual void on_imageReady(const RenderParam& renderParam,
-                                   const QRect& rect, bool prefetch,
-                                   const QImage& image, const QRectF& cropRect) = 0;
-    };
-
 private:
+    Q_DISABLE_COPY(RenderTaskDispatcher)
+
     RenderTaskDispatcher(QObject* parent = 0);
 
-    void deleteLater(Parent* parent);
+    void deleteLater(RenderTaskParent* parent);
 
-    void finished(Parent* parent);
-    void imageReady(Parent* parent,
+    void finished(RenderTaskParent* parent);
+    void imageReady(RenderTaskParent* parent,
                     const RenderParam& renderParam,
                     const QRect& rect, bool prefetch,
                     const QImage& image, const QRectF& cropRect);
@@ -82,20 +83,20 @@ public:
     bool event(QEvent* event);
 
 private:
-    QSet< Parent* > m_activeParents;
+    QSet< RenderTaskParent* > m_activeParents;
 
     template< typename RenderTaskEvent >
     void dispatchIfActive(QEvent* event);
 
-    void makeActive(Parent* parent);
-    void makeInactive(Parent* parent);
+    void addActiveParent(RenderTaskParent* parent);
+    void removeActiveParent(RenderTaskParent* parent);
 
 };
 
 class RenderTask : public QRunnable
 {
 public:
-    explicit RenderTask(Model::Page* page, RenderTaskDispatcher::Parent* parent = 0);
+    explicit RenderTask(Model::Page* page, RenderTaskParent* parent = 0);
     ~RenderTask();
 
     void wait();
@@ -121,7 +122,7 @@ private:
     static Settings* s_settings;
 
     static RenderTaskDispatcher* s_dispatcher;
-    RenderTaskDispatcher::Parent* m_parent;
+    RenderTaskParent* m_parent;
 
     mutable QMutex m_mutex;
     QWaitCondition m_waitCondition;

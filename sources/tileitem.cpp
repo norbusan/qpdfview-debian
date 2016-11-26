@@ -43,7 +43,7 @@ Settings* TileItem::s_settings = 0;
 
 QCache< TileItem::CacheKey, TileItem::CacheObject > TileItem::s_cache;
 
-TileItem::TileItem(PageItem* page) : RenderTaskDispatcher::Parent(),
+TileItem::TileItem(PageItem* page) : RenderTaskParent(),
     m_page(page),
     m_rect(),
     m_cropRect(),

@@ -33,7 +33,7 @@ namespace qpdfview
 
 class PageItem;
 
-class TileItem : public RenderTaskDispatcher::Parent
+class TileItem : public RenderTaskParent
 {
 public:
     TileItem(PageItem* page);

@@ -179,15 +179,15 @@ void composeWithColor(QPainter::CompositionMode mode, const QColor& color, QImag
 
 } // anonymous
 
-RenderTaskDispatcher::Parent::~Parent()
+RenderTaskParent::~RenderTaskParent()
 {
 }
 
-struct RenderTaskDispatcher::DeleteLaterEvent : public QEvent
+struct DeleteLaterEvent : public QEvent
 {
     static QEvent::Type registeredType;
 
-    DeleteLaterEvent(Parent* parent)
+    DeleteLaterEvent(RenderTaskParent* parent)
         : QEvent(registeredType)
         , parent(parent)
     {
@@ -199,20 +199,20 @@ struct RenderTaskDispatcher::DeleteLaterEvent : public QEvent
         delete parent;
     }
 
-    Parent* parent;
+    RenderTaskParent* parent;
 };
 
-QEvent::Type RenderTaskDispatcher::DeleteLaterEvent::registeredType = QEvent::None;
+QEvent::Type DeleteLaterEvent::registeredType = QEvent::None;
 
-RenderTaskDispatcher::DeleteLaterEvent::~DeleteLaterEvent()
+DeleteLaterEvent::~DeleteLaterEvent()
 {
 }
 
-struct RenderTaskDispatcher::FinishedEvent : public QEvent
+struct FinishedEvent : public QEvent
 {
     static QEvent::Type registeredType;
 
-    FinishedEvent(Parent* parent)
+    FinishedEvent(RenderTaskParent* parent)
         : QEvent(registeredType)
         , parent(parent)
     {
@@ -224,20 +224,20 @@ struct RenderTaskDispatcher::FinishedEvent : public QEvent
         parent->on_finished();
     }
 
-    Parent* parent;
+    RenderTaskParent* parent;
 };
 
-QEvent::Type RenderTaskDispatcher::FinishedEvent::registeredType = QEvent::None;
+QEvent::Type FinishedEvent::registeredType = QEvent::None;
 
-RenderTaskDispatcher::FinishedEvent::~FinishedEvent()
+FinishedEvent::~FinishedEvent()
 {
 }
 
-struct RenderTaskDispatcher::ImageReadyEvent : public QEvent
+struct ImageReadyEvent : public QEvent
 {
     static QEvent::Type registeredType;
 
-    ImageReadyEvent(Parent* parent)
+    ImageReadyEvent(RenderTaskParent* parent)
         : QEvent(registeredType)
         , parent(parent)
     {
@@ -251,7 +251,7 @@ struct RenderTaskDispatcher::ImageReadyEvent : public QEvent
                               image, cropRect);
     }
 
-    Parent* parent;
+    RenderTaskParent* parent;
 
     RenderParam renderParam;
     QRect rect;
@@ -260,9 +260,9 @@ struct RenderTaskDispatcher::ImageReadyEvent : public QEvent
     QRectF cropRect;
 };
 
-QEvent::Type RenderTaskDispatcher::ImageReadyEvent::registeredType = QEvent::None;
+QEvent::Type ImageReadyEvent::registeredType = QEvent::None;
 
-RenderTaskDispatcher::ImageReadyEvent::~ImageReadyEvent()
+ImageReadyEvent::~ImageReadyEvent()
 {
 }
 
@@ -273,17 +273,17 @@ RenderTaskDispatcher::RenderTaskDispatcher(QObject* parent) : QObject(parent)
     registerEventType(ImageReadyEvent::registeredType);
 }
 
-void RenderTaskDispatcher::deleteLater(Parent* parent)
+void RenderTaskDispatcher::deleteLater(RenderTaskParent* parent)
 {
     QApplication::postEvent(this, new DeleteLaterEvent(parent), Qt::LowEventPriority);
 }
 
-void RenderTaskDispatcher::finished(Parent* parent)
+void RenderTaskDispatcher::finished(RenderTaskParent* parent)
 {
     QApplication::postEvent(this, new FinishedEvent(parent), Qt::HighEventPriority);
 }
 
-void RenderTaskDispatcher::imageReady(Parent* parent,
+void RenderTaskDispatcher::imageReady(RenderTaskParent* parent,
                                       const RenderParam& renderParam,
                                       const QRect& rect, bool prefetch,
                                       const QImage& image, const QRectF& cropRect )
@@ -331,12 +331,12 @@ inline void RenderTaskDispatcher::dispatchIfActive(QEvent* event)
     }
 }
 
-void RenderTaskDispatcher::makeActive(Parent* parent)
+void RenderTaskDispatcher::addActiveParent(RenderTaskParent* parent)
 {
     m_activeParents.insert(parent);
 }
 
-void RenderTaskDispatcher::makeInactive(Parent* parent)
+void RenderTaskDispatcher::removeActiveParent(RenderTaskParent* parent)
 {
     m_activeParents.remove(parent);
 }
@@ -347,7 +347,7 @@ Settings* RenderTask::s_settings = 0;
 
 RenderParam RenderTask::s_defaultRenderParam;
 
-RenderTask::RenderTask(Model::Page* page, RenderTaskDispatcher::Parent* parent) : QRunnable(),
+RenderTask::RenderTask(Model::Page* page, RenderTaskParent* parent) : QRunnable(),
     m_parent(parent),
     m_isRunning(false),
     m_wasCanceled(NotCanceled),
@@ -368,12 +368,12 @@ RenderTask::RenderTask(Model::Page* page, RenderTaskDispatcher::Parent* parent) 
 
     setAutoDelete(false);
 
-    s_dispatcher->makeActive(m_parent);
+    s_dispatcher->addActiveParent(m_parent);
 }
 
 RenderTask::~RenderTask()
 {
-    s_dispatcher->makeInactive(m_parent);
+    s_dispatcher->removeActiveParent(m_parent);
 }
 
 void RenderTask::wait()
