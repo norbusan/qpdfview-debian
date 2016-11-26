@@ -367,7 +367,7 @@ RenderTaskDispatcher* RenderTask::s_dispatcher = 0;
 
 Settings* RenderTask::s_settings = 0;
 
-RenderParam RenderTask::s_defaultRenderParam;
+const RenderParam RenderTask::s_defaultRenderParam;
 
 RenderTask::RenderTask(Model::Page* page, RenderTaskParent* parent) : QRunnable(),
     m_parent(parent),
