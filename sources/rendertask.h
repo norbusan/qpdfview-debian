@@ -40,10 +40,6 @@ class Page;
 
 class Settings;
 
-struct RenderTaskFinishedEvent;
-struct RenderTaskCanceledEvent;
-struct DeleteParentLaterEvent;
-
 class RenderTaskParent
 {
     friend struct RenderTaskFinishedEvent;

@@ -280,17 +280,17 @@ DeleteParentLaterEvent::~DeleteParentLaterEvent()
 namespace
 {
 
-class EventDispatcher
+class DispatchChain
 {
 public:
-    EventDispatcher(const QEvent* const event, const QSet< RenderTaskParent* >& activeParents) :
+    DispatchChain(const QEvent* const event, const QSet< RenderTaskParent* >& activeParents) :
         m_event(event),
         m_activeParents(activeParents)
     {
     }
 
     template< typename Event >
-    EventDispatcher& dispatch()
+    DispatchChain& dispatch()
     {
         if(m_event != 0 && m_event->type() == Event::registeredType)
         {
@@ -351,14 +351,13 @@ void RenderTaskDispatcher::deleteParentLater(RenderTaskParent* parent)
 
 bool RenderTaskDispatcher::event(QEvent* event)
 {
-    EventDispatcher dispatcher(event, m_activeParents);
+    DispatchChain chain(event, m_activeParents);
 
-    dispatcher
-            .dispatch< RenderTaskFinishedEvent >()
-            .dispatch< RenderTaskCanceledEvent >()
-            .dispatch< DeleteParentLaterEvent >();
+    chain.dispatch< RenderTaskFinishedEvent >()
+        .dispatch< RenderTaskCanceledEvent >()
+        .dispatch< DeleteParentLaterEvent >();
 
-    return dispatcher.wasDispatched() || QObject::event(event);
+    return chain.wasDispatched() || QObject::event(event);
 }
 
 void RenderTaskDispatcher::addActiveParent(RenderTaskParent* parent)
