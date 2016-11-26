@@ -194,7 +194,7 @@ struct DeleteLaterEvent : public QEvent
     }
     ~DeleteLaterEvent();
 
-    void dispatch()
+    void dispatch() const
     {
         delete parent;
     }
@@ -219,7 +219,7 @@ struct FinishedEvent : public QEvent
     }
     ~FinishedEvent();
 
-    void dispatch()
+    void dispatch() const
     {
         parent->on_finished();
     }
@@ -244,7 +244,7 @@ struct ImageReadyEvent : public QEvent
     }
     ~ImageReadyEvent();
 
-    void dispatch()
+    void dispatch() const
     {
         parent->on_imageReady(renderParam,
                               rect, prefetch,
@@ -265,6 +265,48 @@ QEvent::Type ImageReadyEvent::registeredType = QEvent::None;
 ImageReadyEvent::~ImageReadyEvent()
 {
 }
+
+namespace
+{
+
+class EventDispatcher
+{
+public:
+    EventDispatcher(const QEvent* const event, const QSet< RenderTaskParent* >& activeParents) :
+        m_event(event),
+        m_activeParents(activeParents)
+    {
+    }
+
+    template< typename Event >
+    EventDispatcher& dispatch()
+    {
+        if(m_event != 0 && m_event->type() == Event::registeredType)
+        {
+            const Event* const event = static_cast< const Event* >(m_event);
+
+            m_event = 0;
+
+            if(m_activeParents.contains(event->parent))
+            {
+                event->dispatch();
+            }
+        }
+
+        return *this;
+    }
+
+    bool wasDispatched() const
+    {
+        return m_event == 0;
+    }
+
+private:
+    const QEvent* m_event;
+    const QSet< RenderTaskParent* >& m_activeParents;
+};
+
+} // anonymous
 
 RenderTaskDispatcher::RenderTaskDispatcher(QObject* parent) : QObject(parent)
 {
@@ -301,34 +343,14 @@ void RenderTaskDispatcher::imageReady(RenderTaskParent* parent,
 
 bool RenderTaskDispatcher::event(QEvent* event)
 {
-    if(event->type() == DeleteLaterEvent::registeredType)
-    {
-        dispatchIfActive< DeleteLaterEvent >(event);
-        return true;
-    }
-    else if(event->type() == FinishedEvent::registeredType)
-    {
-        dispatchIfActive< FinishedEvent >(event);
-        return true;
-    }
-    else if(event->type() == ImageReadyEvent::registeredType)
-    {
-        dispatchIfActive< ImageReadyEvent >(event);
-        return true;
-    }
+    EventDispatcher dispatcher(event, m_activeParents);
 
-    return QObject::event(event);
-}
+    dispatcher
+            .dispatch< DeleteLaterEvent >()
+            .dispatch< FinishedEvent >()
+            .dispatch< ImageReadyEvent >();
 
-template< typename RenderTaskEvent >
-inline void RenderTaskDispatcher::dispatchIfActive(QEvent* event)
-{
-    RenderTaskEvent* const renderTaskEvent = static_cast< RenderTaskEvent* >(event);
-
-    if(m_activeParents.contains(renderTaskEvent->parent))
-    {
-        renderTaskEvent->dispatch();
-    }
+    return dispatcher.wasDispatched() || QObject::event(event);
 }
 
 void RenderTaskDispatcher::addActiveParent(RenderTaskParent* parent)

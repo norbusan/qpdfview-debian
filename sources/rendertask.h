@@ -85,9 +85,6 @@ public:
 private:
     QSet< RenderTaskParent* > m_activeParents;
 
-    template< typename RenderTaskEvent >
-    void dispatchIfActive(QEvent* event);
-
     void addActiveParent(RenderTaskParent* parent);
     void removeActiveParent(RenderTaskParent* parent);
 
