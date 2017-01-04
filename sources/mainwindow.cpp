@@ -356,6 +356,11 @@ QMenu* MainWindow::createPopupMenu()
     menu->addAction(m_thumbnailsDock->toggleViewAction());
     menu->addAction(m_bookmarksDock->toggleViewAction());
 
+    if(s_settings->mainWindow().extendedSearchDock())
+    {
+        menu->addAction(m_searchDock->toggleViewAction());
+    }
+
     return menu;
 }
 
