@@ -57,7 +57,8 @@ signals:
 
 public slots:
     void start(const QVector< Model::Page* >& pages,
-               const QString& text, bool matchCase, bool wholeWords, int beginAtPage = 1);
+               const QString& text, bool matchCase, bool wholeWords,
+               int beginAtPage = 1, bool parallelExecution = false);
 
     void cancel() { setCancellation(); }
 
@@ -82,6 +83,9 @@ private:
     int acquireProgress() const;
     int loadProgress() const;
 
+    template< typename Future >
+    void processResults(Future future);
+
 
     QVector< Model::Page* > m_pages;
 
@@ -89,6 +93,7 @@ private:
     bool m_matchCase;
     bool m_wholeWords;
     int m_beginAtPage;
+    bool m_parallelExecution;
 
 };
 
