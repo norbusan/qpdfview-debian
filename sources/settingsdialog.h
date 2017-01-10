@@ -105,6 +105,7 @@ private:
 
     QCheckBox* m_minimalScrollingCheckBox;
     QDoubleSpinBox* m_zoomFactorSpinBox;
+    QCheckBox* m_parallelSearchExecutionCheckBox;
 
     QSpinBox* m_highlightDurationSpinBox;
     QComboBox* m_highlightColorComboBox;

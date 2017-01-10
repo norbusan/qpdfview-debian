@@ -218,6 +218,9 @@ public:
         bool wholeWords() const;
         void setWholeWords(bool wholeWords);
 
+        bool parallelSearchExecution() const;
+        void setParallelSearchExecution(bool parallelSearchExecution);
+
         int highlightDuration() const;
         void setHighlightDuration(int highlightDuration);
 
@@ -572,6 +575,7 @@ public:
 
         static bool matchCase() { return false; }
         static bool wholeWords() { return false; }
+        static bool parallelSearchExecution() { return false; }
 
         static int highlightDuration() { return 5 * 1000; }
         static QString sourceEditor() { return QString(); }

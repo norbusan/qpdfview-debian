@@ -485,6 +485,16 @@ void Settings::DocumentView::setWholeWords(bool wholeWords)
     m_settings->setValue("documentView/wholeWords", wholeWords);
 }
 
+bool Settings::DocumentView::parallelSearchExecution() const
+{
+    return m_settings->value("documentView/parallelSearchExecution", Defaults::DocumentView::parallelSearchExecution()).toBool();
+}
+
+void Settings::DocumentView::setParallelSearchExecution(bool parallelSearchExecution)
+{
+    m_settings->setValue("documentView/parallelSearchExecution", parallelSearchExecution);
+}
+
 int Settings::DocumentView::highlightDuration() const
 {
     return m_settings->value("documentView/highlightDuration", Defaults::DocumentView::highlightDuration()).toInt();

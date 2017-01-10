@@ -1621,7 +1621,7 @@ void DocumentView::startSearch(const QString& text, bool matchCase, bool wholeWo
     cancelSearch();
     clearResults();
 
-    m_searchTask->start(m_pages, text, matchCase, wholeWords, m_currentPage);
+    m_searchTask->start(m_pages, text, matchCase, wholeWords, m_currentPage, s_settings->documentView().parallelSearchExecution());
 }
 
 void DocumentView::cancelSearch()

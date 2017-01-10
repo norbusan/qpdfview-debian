@@ -290,10 +290,13 @@ void SettingsDialog::createBehaviorTab()
 
 
     m_minimalScrollingCheckBox = addCheckBox(m_behaviorLayout, tr("Minimal scrolling:"), QString(),
-                                               s_settings->documentView().minimalScrolling());
+                                             s_settings->documentView().minimalScrolling());
 
     m_zoomFactorSpinBox = addDoubleSpinBox(m_behaviorLayout, tr("Zoom factor:"), QString(), QString(), QString(),
                                            1.0, 2.0, 0.05, s_settings->documentView().zoomFactor());
+
+    m_parallelSearchExecutionCheckBox = addCheckBox(m_behaviorLayout, tr("Parallel search execution:"), QString(),
+                                                    s_settings->documentView().parallelSearchExecution());
 
 
     m_highlightDurationSpinBox = addSpinBox(m_behaviorLayout, tr("Highlight duration:"), QString(), tr(" ms"), tr("None"),
@@ -331,6 +334,7 @@ void SettingsDialog::acceptBehaivorTab()
 
     s_settings->documentView().setMinimalScrolling(m_minimalScrollingCheckBox->isChecked());
     s_settings->documentView().setZoomFactor(m_zoomFactorSpinBox->value());
+    s_settings->documentView().setParallelSearchExecution(m_parallelSearchExecutionCheckBox->isChecked());
 
     s_settings->documentView().setHighlightDuration(m_highlightDurationSpinBox->value());
     s_settings->pageItem().setHighlightColor(validColorFromCurrentText(m_highlightColorComboBox, Defaults::PageItem::highlightColor()));
@@ -360,6 +364,7 @@ void SettingsDialog::resetBehaviorTab()
 
     m_minimalScrollingCheckBox->setChecked(Defaults::DocumentView::minimalScrolling());
     m_zoomFactorSpinBox->setValue(Defaults::DocumentView::zoomFactor());
+    m_parallelSearchExecutionCheckBox->setChecked(Defaults::DocumentView::parallelSearchExecution());
 
     m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
     setCurrentTextToColorName(m_highlightColorComboBox, Defaults::PageItem::highlightColor());
