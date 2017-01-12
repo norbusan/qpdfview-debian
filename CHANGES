@@ -6,6 +6,7 @@ Release 0.4.17:
   * Optimize tile rendering event handling by centralizing dispatch.
   * The results of the current tab are now automatically expanded in the extended search dock.
   * Added support for external document links to the outline view.
+  * Added optional page-parallel execution of text search.
   * Added triggering SyncTeX reverse search using a keyboard modifier.
   * Keyboard modifiers for mouse interaction can be disabled.
   * Optimizations of the search dock layout w.r.t. vertical/horizontal positioning.

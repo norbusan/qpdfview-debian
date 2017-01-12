@@ -52,9 +52,9 @@ struct Search
     }
 };
 
-struct SerialFuture
+struct FutureWrapper
 {
-    SerialFuture(const QVector< const Model::Page* >& pages, const Search& search) :
+    FutureWrapper(const QVector< const Model::Page* >& pages, const Search& search) :
         pages(pages),
         search(search)
     {
@@ -106,7 +106,7 @@ void SearchTask::run()
     }
     else
     {
-        processResults(SerialFuture(pages, search));
+        processResults(FutureWrapper(pages, search));
     }
 }
 
