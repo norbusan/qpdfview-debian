@@ -1,3 +1,4 @@
+
 /*
 
 Copyright 2014-2015 S. Razi Alavizadeh
@@ -2103,7 +2104,16 @@ void MainWindow::on_searchInitiated(const QString& text, bool modified)
     }
     else
     {
-        currentTab()->startSearch(text, matchCase, wholeWords);
+        DocumentView* const tab = currentTab();
+
+        if(tab->searchText() != text)
+        {
+            tab->startSearch(text, matchCase, wholeWords);
+        }
+        else
+        {
+            tab->findNext();
+        }
     }
 }
 
