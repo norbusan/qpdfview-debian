@@ -2106,7 +2106,7 @@ void MainWindow::on_searchInitiated(const QString& text, bool modified)
     {
         DocumentView* const tab = currentTab();
 
-        if(tab->searchText() != text)
+        if(tab->searchText() != text || tab->searchWasCanceled())
         {
             tab->startSearch(text, matchCase, wholeWords);
         }
