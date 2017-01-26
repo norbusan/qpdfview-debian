@@ -104,7 +104,29 @@ int ProxyStyle::styleHint(StyleHint hint, const QStyleOption* option, const QWid
     return QProxyStyle::styleHint(hint, option, widget, returnData);
 }
 
-SearchableMenu::SearchableMenu(const QString& title, QWidget* parent) : QMenu(title, parent),
+ToolTipMenu::ToolTipMenu(QWidget* parent) : QMenu(parent)
+{
+}
+
+ToolTipMenu::ToolTipMenu(const QString& title, QWidget* parent) : QMenu(title, parent)
+{
+}
+
+bool ToolTipMenu::event(QEvent* event)
+{
+    if(event->type() == QEvent::ToolTip && activeAction() != 0)
+    {
+        QToolTip::showText(static_cast< QHelpEvent* >(event)->globalPos(), activeAction()->toolTip());
+    }
+    else
+    {
+        QToolTip::hideText();
+    }
+
+    return QMenu::event(event);
+}
+
+SearchableMenu::SearchableMenu(const QString& title, QWidget* parent) : ToolTipMenu(title, parent),
     m_searchable(false),
     m_text()
 {

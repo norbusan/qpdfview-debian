@@ -22,12 +22,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef RECENTLYCLOSEDMENU_H
 #define RECENTLYCLOSEDMENU_H
 
-#include <QMenu>
+#include "miscellaneous.h"
 
 namespace qpdfview
 {
 
-class RecentlyClosedMenu : public QMenu
+class RecentlyClosedMenu : public ToolTipMenu
 {
     Q_OBJECT
 

@@ -76,9 +76,24 @@ private:
 
 };
 
+// tool tip menu
+
+class ToolTipMenu : public QMenu
+{
+    Q_OBJECT
+
+public:
+    explicit ToolTipMenu(QWidget* parent = 0);
+    ToolTipMenu(const QString& title, QWidget* parent = 0);
+
+protected:
+    bool event(QEvent* event);
+
+};
+
 // searchable menu
 
-class SearchableMenu : public QMenu
+class SearchableMenu : public ToolTipMenu
 {
     Q_OBJECT
 

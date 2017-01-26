@@ -26,7 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace qpdfview
 {
 
-RecentlyClosedMenu::RecentlyClosedMenu(int count, QWidget* parent) : QMenu(parent),
+RecentlyClosedMenu::RecentlyClosedMenu(int count, QWidget* parent) : ToolTipMenu(parent),
     m_count(count)
 {
     menuAction()->setText(tr("&Recently closed"));

@@ -431,6 +431,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         const int index = addTab(newTab);
 
         QAction* tabAction = new QAction(m_tabWidget->tabText(index), newTab);
+        tabAction->setToolTip(newTab->fileInfo().absoluteFilePath());
         connect(tabAction, SIGNAL(triggered()), SLOT(on_tabAction_triggered()));
 
         tabAction->setData(true); // Flag action for search-as-you-type
