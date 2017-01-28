@@ -31,10 +31,12 @@ namespace qpdfview
 
 BookmarkMenu::BookmarkMenu(const QFileInfo& fileInfo, QWidget* parent) : QMenu(parent)
 {
-    menuAction()->setText(fileInfo.completeBaseName());
-    menuAction()->setToolTip(fileInfo.absoluteFilePath());
+    QAction* const action = menuAction();
 
-    menuAction()->setData(fileInfo.absoluteFilePath());
+    action->setText(fileInfo.completeBaseName());
+    action->setToolTip(fileInfo.absoluteFilePath());
+
+    action->setData(fileInfo.absoluteFilePath());
 
     m_openAction = addAction(tr("&Open"));
     m_openAction->setIcon(loadIconWithFallback(QLatin1String("document-open")));

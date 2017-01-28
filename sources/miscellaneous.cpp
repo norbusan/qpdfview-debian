@@ -114,9 +114,11 @@ ToolTipMenu::ToolTipMenu(const QString& title, QWidget* parent) : QMenu(title, p
 
 bool ToolTipMenu::event(QEvent* event)
 {
-    if(event->type() == QEvent::ToolTip && activeAction() != 0)
+    const QAction* const action = activeAction();
+
+    if(event->type() == QEvent::ToolTip && action != 0 && !action->data().isNull())
     {
-        QToolTip::showText(static_cast< QHelpEvent* >(event)->globalPos(), activeAction()->toolTip());
+        QToolTip::showText(static_cast< QHelpEvent* >(event)->globalPos(), action->toolTip());
     }
     else
     {
@@ -185,16 +187,18 @@ void SearchableMenu::keyPressEvent(QKeyEvent* event)
 
     foreach(QAction* action, actions())
     {
-        if(!action->data().isNull()) // Modify only flagged actions
+        if(action->data().isNull()) // Modify only flagged actions
         {
-            const bool visible = action->text().contains(m_text, Qt::CaseInsensitive);
+            continue;
+        }
 
-            action->setVisible(visible);
+        const bool visible = action->text().contains(m_text, Qt::CaseInsensitive);
 
-            if(visible && firstVisibleAction == 0)
-            {
-                firstVisibleAction = action;
-            }
+        action->setVisible(visible);
+
+        if(visible && firstVisibleAction == 0)
+        {
+            firstVisibleAction = action;
         }
     }
 
