@@ -54,9 +54,7 @@ Plugin* loadStaticPlugin(const QString& objectName)
     {
         if(object->objectName() == objectName)
         {
-            Plugin* plugin = qobject_cast< Plugin* >(object);
-
-            if(plugin != 0)
+            if(Plugin* plugin = qobject_cast< Plugin* >(object))
             {
                 return plugin;
             }
@@ -133,7 +131,8 @@ QStringList supportedImageFormats()
     {
         const QString name = QString::fromLocal8Bit(format);
 
-        formats.append(QLatin1String("*.") + name);
+        formats.append(QLatin1String("*.") + name.toLower());
+        formats.append(QLatin1String("*.") + name.toUpper());
     }
 
     return formats;
@@ -285,23 +284,23 @@ QStringList PluginHandler::openFilter()
 
 #if defined(WITH_PDF) || defined(WITH_FITZ)
 
-    openFilter.append(QLatin1String("Portable document format (*.pdf)"));
-    supportedFormats.append(QLatin1String("*.pdf"));
+    openFilter.append(QLatin1String("Portable document format (*.pdf *.PDF)"));
+    supportedFormats.append(QLatin1String("*.pdf *.PDF"));
 
 #endif // WITH_PDF // WITH_FITZ
 
 #ifdef WITH_PS
 
-    openFilter.append(QLatin1String("PostScript (*.ps)"));
-    openFilter.append(QLatin1String("Encapsulated PostScript (*.eps)"));
-    supportedFormats.append(QLatin1String("*.ps *.eps"));
+    openFilter.append(QLatin1String("PostScript (*.ps *.PS)"));
+    openFilter.append(QLatin1String("Encapsulated PostScript (*.eps *.EPS)"));
+    supportedFormats.append(QLatin1String("*.ps *.PS *.eps *.EPS"));
 
 #endif // WITH_PS
 
 #ifdef WITH_DJVU
 
-    openFilter.append(QLatin1String("DjVu (*.djvu *.djv)"));
-    supportedFormats.append(QLatin1String("*.djvu *.djv"));
+    openFilter.append(QLatin1String("DjVu (*.djvu *.DJVU *.djv *.DJV)"));
+    supportedFormats.append(QLatin1String("*.djvu *.DJVU *.djv *.DJV"));
 
 #endif // WITH_DJVU
 
