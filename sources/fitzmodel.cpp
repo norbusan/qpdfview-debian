@@ -278,7 +278,7 @@ void FitzDocument::setPaperColor(const QColor& paperColor)
     m_paperColor = paperColor;
 }
 
-Outline FitzDocument::loadOutline() const
+Outline FitzDocument::outline() const
 {
     Outline outline;
 
@@ -286,7 +286,7 @@ Outline FitzDocument::loadOutline() const
 
     if(fz_outline* rootItem = fz_load_outline(m_context, m_document))
     {
-        outline = ::loadOutline(rootItem);
+        outline = loadOutline(rootItem);
 
         fz_drop_outline(m_context, rootItem);
     }

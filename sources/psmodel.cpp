@@ -223,7 +223,7 @@ bool PsDocument::canBePrintedUsingCUPS() const
     return true;
 }
 
-Properties PsDocument::loadProperties() const
+Properties PsDocument::properties() const
 {
     Properties properties;
 

@@ -1237,7 +1237,7 @@ void DocumentView::setThumbnailsOrientation(Qt::Orientation thumbnailsOrientatio
 
 QAbstractItemModel* DocumentView::fontsModel() const
 {
-    return m_document->loadFonts();
+    return m_document->fonts();
 }
 
 bool DocumentView::searchWasCanceled() const
@@ -2673,7 +2673,7 @@ void DocumentView::prepareDocument(Model::Document* document, const QVector< Mod
     prepareThumbnails();
     prepareBackground();
 
-    const Model::Outline outline = m_document->loadOutline();
+    const Model::Outline outline = m_document->outline();
 
     if(!outline.empty())
     {
@@ -2684,7 +2684,7 @@ void DocumentView::prepareDocument(Model::Document* document, const QVector< Mod
         m_outlineModel.reset(new FallbackOutlineModel(this));
     }
 
-    Model::Properties properties = m_document->loadProperties();
+    Model::Properties properties = m_document->properties();
 
     addFileProperties(properties, m_fileInfo);
 

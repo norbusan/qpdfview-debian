@@ -91,8 +91,8 @@ namespace Model
         bool canSave() const;
         bool save(const QString& filePath, bool withChanges) const;
 
-        Outline loadOutline() const;
-        Properties loadProperties() const;
+        Outline outline() const;
+        Properties properties() const;
 
     private:
         Q_DISABLE_COPY(DjVuDocument)

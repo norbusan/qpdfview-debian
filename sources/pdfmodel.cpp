@@ -949,7 +949,7 @@ void PdfDocument::setPaperColor(const QColor& paperColor)
     m_document->setPaperColor(paperColor);
 }
 
-Outline PdfDocument::loadOutline() const
+Outline PdfDocument::outline() const
 {
     Outline outline;
 
@@ -959,13 +959,13 @@ Outline PdfDocument::loadOutline() const
 
     if(toc)
     {
-        outline = ::loadOutline(*toc, m_document);
+        outline = loadOutline(*toc, m_document);
     }
 
     return outline;
 }
 
-Properties PdfDocument::loadProperties() const
+Properties PdfDocument::properties() const
 {
     Properties properties;
 
@@ -995,7 +995,7 @@ Properties PdfDocument::loadProperties() const
     return properties;
 }
 
-QAbstractItemModel* PdfDocument::loadFonts() const
+QAbstractItemModel* PdfDocument::fonts() const
 {
     LOCK_DOCUMENT
 

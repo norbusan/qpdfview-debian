@@ -142,7 +142,7 @@ bool ImageDocument::save(const QString& filePath, bool withChanges) const
     return true;
 }
 
-Properties ImageDocument::loadProperties() const
+Properties ImageDocument::properties() const
 {
     Properties properties;
 

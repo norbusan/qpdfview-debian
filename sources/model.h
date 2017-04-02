@@ -174,10 +174,10 @@ namespace Model
             ExpansionRole
         };
 
-        virtual Outline loadOutline() const { return Outline(); }
-        virtual Properties loadProperties() const { return Properties(); }
+        virtual Outline outline() const { return Outline(); }
+        virtual Properties properties() const { return Properties(); }
 
-        virtual QAbstractItemModel* loadFonts() const { return 0; }
+        virtual QAbstractItemModel* fonts() const { return 0; }
 
         virtual bool wantsContinuousMode() const { return false; }
         virtual bool wantsSinglePageMode() const { return false; }

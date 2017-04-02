@@ -835,7 +835,7 @@ bool DjVuDocument::save(const QString& filePath, bool withChanges) const
     return !ddjvu_job_error(job);
 }
 
-Outline DjVuDocument::loadOutline() const
+Outline DjVuDocument::outline() const
 {
     Outline outline;
 
@@ -863,7 +863,7 @@ Outline DjVuDocument::loadOutline() const
 
     if(miniexp_length(outlineExp) > 1 && qstrcmp(miniexp_to_name(miniexp_car(outlineExp)), "bookmarks") == 0)
     {
-        outline = ::loadOutline(skip(outlineExp, 1), m_pageByName);
+        outline = loadOutline(skip(outlineExp, 1), m_pageByName);
     }
 
     {
@@ -875,7 +875,7 @@ Outline DjVuDocument::loadOutline() const
     return outline;
 }
 
-Properties DjVuDocument::loadProperties() const
+Properties DjVuDocument::properties() const
 {
     Properties properties;
 
@@ -901,7 +901,7 @@ Properties DjVuDocument::loadProperties() const
         }
     }
 
-    properties = ::loadProperties(annoExp);
+    properties = loadProperties(annoExp);
 
     {
         LOCK_DOCUMENT_GLOBAL

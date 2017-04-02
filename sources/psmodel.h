@@ -85,7 +85,7 @@ namespace Model
 
         bool canBePrintedUsingCUPS() const;
 
-        Properties loadProperties() const;
+        Properties properties() const;
 
     private:
         Q_DISABLE_COPY(PsDocument)
