@@ -53,6 +53,8 @@ namespace Model
 
         QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
 
+        QString label() const;
+
         QList< Link* > links() const;
 
         QString text(const QRectF& rect) const;
@@ -104,9 +106,10 @@ namespace Model
         ddjvu_document_t* m_document;
         ddjvu_format_t* m_format;
 
-        QHash< QString, int > m_indexByName;
+        QHash< QString, int > m_pageByName;
+        QHash< int, QString > m_titleByIndex;
 
-        void prepareIndexByName();
+        void prepareFileInfo();
 
     };
 }
