@@ -710,6 +710,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     setScene(new QGraphicsScene(this));
 
+    setFocusPolicy(Qt::StrongFocus);
     setAcceptDrops(false);
     setDragMode(QGraphicsView::ScrollHandDrag);
 

@@ -133,6 +133,11 @@ protected slots:
 
     void on_currentTab_customContextMenuRequested(const QPoint& pos);
 
+    void on_splitView_splitHorizontally_triggered();
+    void on_splitView_splitVertically_triggered();
+    void on_splitView_split_triggered(Qt::Orientation orientation, int index);
+    void on_splitView_currentChanged(QWidget* currentWidget);
+
     void on_currentPage_editingFinished();
     void on_currentPage_returnPressed();
 
@@ -341,6 +346,8 @@ private:
     QAction* m_openCopyInNewTabAction;
     QAction* m_openContainingFolderAction;
     QAction* m_moveToInstanceAction;
+    QAction* m_splitViewHorizontallyAction;
+    QAction* m_splitViewVerticallyAction;
     QAction* m_refreshAction;
     QAction* m_saveAction;
     QAction* m_saveAsAction;

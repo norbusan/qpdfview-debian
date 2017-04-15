@@ -216,6 +216,21 @@ private:
 
 };
 
+DocumentView* fromDocumentOrSplitView(QWidget* const widget)
+{
+    if(DocumentView* const documentView = qobject_cast< DocumentView* >(widget))
+    {
+        return documentView;
+    }
+
+    if(SplitView* const splitView = qobject_cast< SplitView* >(widget))
+    {
+        return fromDocumentOrSplitView(splitView->currentWidget());
+    }
+
+    return 0;
+}
+
 } // anonymous
 
 class MainWindow::RestoreTab : public Database::RestoreTab
@@ -438,8 +453,6 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         m_tabsMenu->addAction(tabAction);
 
-        on_thumbnails_dockLocationChanged(dockWidgetArea(m_thumbnailsDock));
-
         connect(newTab, SIGNAL(documentChanged()), SLOT(on_currentTab_documentChanged()));
         connect(newTab, SIGNAL(documentModified()), SLOT(on_currentTab_documentModified()));
 
@@ -558,6 +571,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     const bool hasCurrent = index != -1;
 
     m_openCopyInNewTabAction->setEnabled(hasCurrent);
+    m_splitViewHorizontallyAction->setEnabled(hasCurrent);
+    m_splitViewVerticallyAction->setEnabled(hasCurrent);
     m_openContainingFolderAction->setEnabled(hasCurrent);
     m_moveToInstanceAction->setEnabled(hasCurrent);
     m_refreshAction->setEnabled(hasCurrent);
@@ -638,6 +653,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         }
 
         m_bookmarksView->setModel(bookmarkModelForCurrentTab());
+
+        on_thumbnails_dockLocationChanged(dockWidgetArea(m_thumbnailsDock));
 
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
         currentTab()->setThumbnailsViewportSize(m_thumbnailsView->viewport()->size());
@@ -739,6 +756,8 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     SignalBlocker openCopyInNewTabSignalBlocker(m_openCopyInNewTabAction);
     SignalBlocker openContainingFolderSignalBlocker(m_openContainingFolderAction);
     SignalBlocker moveToInstanceSignalBlocker(m_moveToInstanceAction);
+    SignalBlocker splitViewHorizontallySignalBlocker(m_splitViewHorizontallyAction);
+    SignalBlocker splitViewVerticallySignalBlocker(m_splitViewVerticallyAction);
 
     QAction* copyFilePathAction = createTemporaryAction(&menu, tr("Copy file path"), QLatin1String("copyFilePath"));
     QAction* selectFilePathAction = createTemporaryAction(&menu, tr("Select file path"), QLatin1String("selectFilePath"));
@@ -753,6 +772,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     QList< QAction* > actions;
 
     actions << m_openCopyInNewTabAction << m_openContainingFolderAction << m_moveToInstanceAction
+            << m_splitViewHorizontallyAction << m_splitViewVerticallyAction
             << copyFilePathAction << selectFilePathAction
             << closeAllTabsAction << closeAllTabsButThisOneAction
             << closeAllTabsToTheLeftAction << closeAllTabsToTheRightAction;
@@ -777,6 +797,16 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     else if(action == m_moveToInstanceAction)
     {
         on_moveToInstance_triggered(selectedTab);
+        return;
+    }
+    else if(action == m_splitViewHorizontallyAction)
+    {
+        on_splitView_split_triggered(Qt::Horizontal, index);
+        return;
+    }
+    else if(action == m_splitViewVerticallyAction)
+    {
+        on_splitView_split_triggered(Qt::Vertical, index);
         return;
     }
     else if(action == copyFilePathAction)
@@ -1130,6 +1160,7 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
     QList< QAction* > actions;
 
     actions << m_openCopyInNewTabAction << m_openContainingFolderAction << m_moveToInstanceAction
+            << m_splitViewHorizontallyAction << m_splitViewVerticallyAction
             << m_previousPageAction << m_nextPageAction
             << m_firstPageAction << m_lastPageAction
             << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction
@@ -1150,6 +1181,63 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
     if(action == sourceLinkAction)
     {
         currentTab()->openInSourceEditor(sourceLinkAction->data().value< DocumentView::SourceLink >());
+    }
+}
+
+void MainWindow::on_splitView_splitHorizontally_triggered()
+{
+    on_splitView_split_triggered(Qt::Horizontal, m_tabWidget->currentIndex());
+}
+
+void MainWindow::on_splitView_splitVertically_triggered()
+{
+    on_splitView_split_triggered(Qt::Vertical, m_tabWidget->currentIndex());
+}
+
+void MainWindow::on_splitView_split_triggered(Qt::Orientation orientation, int index)
+{
+    const QString path = s_settings->mainWindow().openPath();
+    const QString filePath = QFileDialog::getOpenFileName(this, tr("Open"), path, DocumentView::openFilter().join(";;"));
+
+    if(filePath.isEmpty())
+    {
+        return;
+    }
+
+    DocumentView* const newTab = new DocumentView(this);
+
+    if(!newTab->open(filePath))
+    {
+        delete newTab;
+        return;
+    }
+
+    SplitView* splitView = new SplitView(orientation, this);
+    connect(splitView, SIGNAL(currentChanged(QWidget*)), this, SLOT(on_splitView_currentChanged(QWidget*)));
+
+    QWidget* const tab = m_tabWidget->widget(index);
+    const QString tabText = m_tabWidget->tabText(index);
+    const QString tabToolTip = m_tabWidget->tabToolTip(index);
+
+    m_tabWidget->removeTab(index);
+
+    splitView->addWidget(tab);
+    splitView->addWidget(newTab);
+
+    m_tabWidget->insertTab(index, splitView, tabText);
+    m_tabWidget->setTabToolTip(index, tabToolTip);
+    m_tabWidget->setCurrentIndex(index);
+
+    splitView->setUniformSizes();
+    tab->show();
+    newTab->show();
+}
+
+void MainWindow::on_splitView_currentChanged(QWidget* currentWidget)
+{
+    if(currentWidget->parentWidget() == m_tabWidget->currentWidget())
+    {
+        on_tabWidget_currentChanged(m_tabWidget->currentIndex());
     }
 }
 
@@ -2549,12 +2637,12 @@ void MainWindow::prepareStyle()
 
 inline DocumentView* MainWindow::currentTab() const
 {
-    return qobject_cast< DocumentView* >(m_tabWidget->currentWidget());
+    return fromDocumentOrSplitView(m_tabWidget->currentWidget());
 }
 
 inline DocumentView* MainWindow::tab(int index) const
 {
-    return qobject_cast< DocumentView* >(m_tabWidget->widget(index));
+    return fromDocumentOrSplitView(m_tabWidget->widget(index));
 }
 
 QList< DocumentView* > MainWindow::tabs() const
@@ -2571,7 +2659,7 @@ QList< DocumentView* > MainWindow::tabs() const
 
 bool MainWindow::senderIsCurrentTab() const
 {
-     return sender() == m_tabWidget->currentWidget() || qobject_cast< DocumentView* >(sender()) == 0;
+     return sender() == currentTab() || qobject_cast< DocumentView* >(sender()) == 0;
 }
 
 int MainWindow::addTab(DocumentView* tab)
@@ -2929,6 +3017,8 @@ void MainWindow::createActions()
     m_openCopyInNewTabAction = createAction(tr("Open &copy in new tab"), QLatin1String("openCopyInNewTab"), QLatin1String("tab-new"), QKeySequence(), SLOT(on_openCopyInNewTab_triggered()));
     m_openContainingFolderAction = createAction(tr("Open containing &folder"), QLatin1String("openContainingFolder"), QLatin1String("folder"), QKeySequence(), SLOT(on_openContainingFolder_triggered()));
     m_moveToInstanceAction = createAction(tr("Move to &instance..."), QLatin1String("moveToInstance"), QIcon(), QKeySequence(), SLOT(on_moveToInstance_triggered()));
+    m_splitViewHorizontallyAction = createAction(tr("Split view horizontally..."), QLatin1String("splitViewHorizontally"), QIcon(), QKeySequence(), SLOT(on_splitView_splitHorizontally_triggered()));
+    m_splitViewVerticallyAction = createAction(tr("Split view vertically..."), QLatin1String("splitViewHorizontally"), QIcon(), QKeySequence(), SLOT(on_splitView_splitVertically_triggered()));
     m_refreshAction = createAction(tr("&Refresh"), QLatin1String("refresh"), QLatin1String("view-refresh"), QKeySequence::Refresh, SLOT(on_refresh_triggered()));
     m_saveAction = createAction(tr("&Save"), QLatin1String("save"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_save_triggered()));
     m_saveAsAction = createAction(tr("Save &as..."), QLatin1String("saveAs"), QLatin1String("document-save-as"), QKeySequence::SaveAs, SLOT(on_saveAs_triggered()));

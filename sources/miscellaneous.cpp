@@ -872,4 +872,73 @@ void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
 }
 
+SplitView::SplitView(Qt::Orientation orientation, QWidget* parent) : QSplitter(orientation, parent),
+    m_currentIndex(0)
+{
+    connect(qApp, SIGNAL(focusChanged(QWidget*,QWidget*)), this, SLOT(on_focusChanged(QWidget*,QWidget*)));
+}
+
+QWidget* SplitView::currentWidget() const
+{
+    return widget(m_currentIndex);
+}
+
+void SplitView::setCurrentWidget(QWidget* const currentWidget)
+{
+    for(int index = 0, count = this->count(); index < count; ++index)
+    {
+        QWidget* const widget = this->widget(index);
+
+        if(currentWidget == widget)
+        {
+            if(m_currentIndex != index)
+            {
+                m_currentIndex = index;
+
+                emit currentChanged(currentWidget);
+            }
+
+            return;
+        }
+    }
+}
+
+void SplitView::setUniformSizes()
+{
+    int size;
+
+    switch(orientation())
+    {
+    default:
+    case Qt::Horizontal:
+        size = width();
+        break;
+    case Qt::Vertical:
+        size = height();
+        break;
+    }
+
+    QList< int > sizes;
+
+    for(int index = 0, count = this->count(); index < count; ++index)
+    {
+        sizes.append(size / count);
+    }
+
+    setSizes(sizes);
+}
+
+void SplitView::on_focusChanged(QWidget* /* old */, QWidget* now)
+{
+    for(QWidget* current = now; current != 0; current = current->parentWidget())
+    {
+        if(current->parentWidget() == this)
+        {
+            setCurrentWidget(current);
+
+            return;
+        }
+    }
+}
+
 } // qpdfview

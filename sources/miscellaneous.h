@@ -31,6 +31,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 #include <QProxyStyle>
 #include <QSpinBox>
+#include <QSplitter>
 #include <QTreeView>
 
 class QTextLayout;
@@ -358,6 +359,33 @@ private:
     Q_DISABLE_COPY(SearchLineEdit)
 
     QTimer* m_timer;
+
+};
+
+// split view
+
+class SplitView : public QSplitter
+{
+    Q_OBJECT
+
+public:
+    explicit SplitView(Qt::Orientation orientation, QWidget* parent = 0);
+
+    QWidget* currentWidget() const;
+    void setCurrentWidget(QWidget* const currentWidget);
+
+    void setUniformSizes();
+
+signals:
+    void currentChanged(QWidget* currentWidget);
+
+protected slots:
+    void on_focusChanged(QWidget* old, QWidget* now);
+
+private:
+    Q_DISABLE_COPY(SplitView)
+
+    int m_currentIndex;
 
 };
 
