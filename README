@@ -27,6 +27,7 @@ The following build-time options are available:
     * 'without_synctex' disables SyncTeX support, i.e. the program will not perform forward and inverse search for sources.
     * 'without_magic' disables libmagic support, i.e. the program will determine file type using the file suffix.
     * 'without_signals' disabled support for UNIX signals, i.e. the program will not save bookmarks, tabs and per-file settings on receiving SIGINT or SIGTERM.
+    * 'with_lto' enables link time optimizations for the application binary to reduce its size and improve its performance.
 
 For example, if one wants to build the program without support for CUPS and PostScript, one could run "qmake CONFIG+="without_cups without_ps" qpdfview.pro" instead of "qmake qpdfview.pro".
 

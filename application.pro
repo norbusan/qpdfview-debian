@@ -67,6 +67,12 @@ SOURCES += \
 
 DEFINES += APPLICATION_VERSION=\\\"$${APPLICATION_VERSION}\\\"
 
+with_lto {
+    QMAKE_CFLAG += -flto
+    QMAKE_CXXFLAGS += -flto
+    QMAKE_LFLAGS += -flto
+}
+
 QT += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
