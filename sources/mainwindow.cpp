@@ -231,6 +231,23 @@ DocumentView* currentView(QWidget* const widget)
     return 0;
 }
 
+QList< DocumentView* > allViews(QWidget* const widget)
+{
+    QList< DocumentView* > views;
+
+    if(DocumentView* const documentView = qobject_cast< DocumentView* >(widget))
+    {
+        views.append(documentView);
+    }
+
+    if(SplitView* const splitView = qobject_cast< SplitView* >(widget))
+    {
+        views.append(allViews(splitView->currentWidget()));
+    }
+
+    return views;
+}
+
 } // anonymous
 
 class MainWindow::RestoreTab : public Database::RestoreTab
@@ -521,27 +538,30 @@ bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, boo
 
     for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
-        if(tab(index)->fileInfo() == fileInfo)
+        foreach(DocumentView* tab, allTabs(index))
         {
-            m_tabWidget->setCurrentIndex(index);
-
-            if(refreshBeforeJump)
+            if(tab->fileInfo() == fileInfo)
             {
-                if(!currentTab()->refresh())
+                m_tabWidget->setCurrentIndex(index);
+
+                if(refreshBeforeJump)
                 {
-                    return false;
+                    if(!tab->refresh())
+                    {
+                        return false;
+                    }
                 }
+
+                tab->jumpToPage(page);
+                tab->setFocus();
+
+                if(!highlight.isNull())
+                {
+                    tab->temporaryHighlight(page, highlight);
+                }
+
+                return true;
             }
-
-            currentTab()->jumpToPage(page);
-            currentTab()->setFocus();
-
-            if(!highlight.isNull())
-            {
-                currentTab()->temporaryHighlight(page, highlight);
-            }
-
-            return true;
         }
     }
 
@@ -732,16 +752,19 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-    if(saveModifications(tab(index)))
+    foreach(DocumentView* tab, allTabs(index))
     {
-        closeTab(tab(index));
+        if(saveModifications(tab))
+        {
+            closeTab(tab);
+        }
     }
 }
 
 void MainWindow::on_tabWidget_tabDragRequested(int index)
 {
     QMimeData* mimeData = new QMimeData();
-    mimeData->setUrls(QList< QUrl >() << QUrl::fromLocalFile(tab(index)->fileInfo().absoluteFilePath()));
+    mimeData->setUrls(QList< QUrl >() << QUrl::fromLocalFile(currentTab(index)->fileInfo().absoluteFilePath()));
 
     QDrag* drag = new QDrag(this);
     drag->setMimeData(mimeData);
@@ -781,7 +804,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
     const QAction* action = menu.exec(globalPos);
 
-    DocumentView* selectedTab = tab(index);
+    DocumentView* selectedTab = currentTab(index);
     QList< DocumentView* > tabsToClose;
 
     if(action == m_openCopyInNewTabAction)
@@ -821,7 +844,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     }
     else if(action == closeAllTabsAction)
     {
-        tabsToClose = tabs();
+        tabsToClose = allTabs();
     }
     else if(action == closeAllTabsButThisOneAction)
     {
@@ -831,7 +854,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
         {
             if(indexToClose != index)
             {
-                tabsToClose.append(tab(indexToClose));
+                tabsToClose.append(allTabs(indexToClose));
             }
         }
     }
@@ -839,7 +862,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     {
         for(int indexToClose = 0; indexToClose < index; ++indexToClose)
         {
-            tabsToClose.append(tab(indexToClose));
+            tabsToClose.append(allTabs(indexToClose));
         }
     }
     else if(action == closeAllTabsToTheRightAction)
@@ -848,7 +871,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
         for(int indexToClose = count - 1; indexToClose > index; --indexToClose)
         {
-            tabsToClose.append(tab(indexToClose));
+            tabsToClose.append(allTabs(indexToClose));
         }
     }
     else
@@ -875,14 +898,16 @@ void MainWindow::on_currentTab_documentChanged()
 {
     for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
-        if(sender() == m_tabWidget->widget(index))
+        DocumentView* const tab = currentTab(index);
+
+        if(sender() == tab)
         {
-            m_tabWidget->setTabText(index, tab(index)->title());
-            m_tabWidget->setTabToolTip(index, tab(index)->fileInfo().absoluteFilePath());
+            m_tabWidget->setTabText(index, tab->title());
+            m_tabWidget->setTabToolTip(index, tab->fileInfo().absoluteFilePath());
 
             foreach(QAction* tabAction, m_tabsMenu->actions())
             {
-                if(tabAction->parent() == m_tabWidget->widget(index))
+                if(tabAction->parent() == tab)
                 {
                     tabAction->setText(m_tabWidget->tabText(index));
 
@@ -1614,9 +1639,9 @@ void MainWindow::on_cancelSearch_triggered()
     m_searchLineEdit->stopTimer();
     m_searchLineEdit->setProgress(0);
 
-    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
+    foreach(DocumentView* tab, allTabs())
     {
-        tab(index)->cancelSearch();
+        tab->cancelSearch();
     }
 
     if(!s_settings->mainWindow().extendedSearchDock())
@@ -1655,9 +1680,9 @@ void MainWindow::on_settings_triggered()
 
     m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
 
-    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
+    foreach(DocumentView* tab, allTabs())
     {
-        if(!tab(index)->refresh())
+        if(!tab->refresh())
         {
             QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->fileInfo().filePath()));
         }
@@ -1812,9 +1837,12 @@ void MainWindow::on_nextTab_triggered()
 
 void MainWindow::on_closeTab_triggered()
 {
-    if(saveModifications(currentTab()))
+    foreach(DocumentView* tab, allTabs(m_tabWidget->currentIndex()))
     {
-        closeTab(currentTab());
+        if(saveModifications(tab))
+        {
+            closeTab(tab);
+        }
     }
 }
 
@@ -1822,7 +1850,7 @@ void MainWindow::on_closeAllTabs_triggered()
 {
     disconnectCurrentTabChanged();
 
-    foreach(DocumentView* tab, tabs())
+    foreach(DocumentView* tab, allTabs())
     {
         if(saveModifications(tab))
         {
@@ -1835,27 +1863,28 @@ void MainWindow::on_closeAllTabs_triggered()
 
 void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 {
+    QList< DocumentView* > tabsToClose;
+
+    const int count = m_tabWidget->count();
+    const int currentIndex = m_tabWidget->currentIndex();
+
+    for(int index = 0; index < count; ++index)
+    {
+        if(index != currentIndex)
+        {
+            tabsToClose.append(allTabs(index));
+        }
+    }
+
     disconnectCurrentTabChanged();
 
-    DocumentView* tab = currentTab();
-
-    const int oldIndex = m_tabWidget->currentIndex();
-    const QString tabText = m_tabWidget->tabText(oldIndex);
-    const QString tabToolTip = m_tabWidget->tabToolTip(oldIndex);
-
-    m_tabWidget->removeTab(oldIndex);
-
-    foreach(DocumentView* tab, tabs())
+    foreach(DocumentView* tab, tabsToClose)
     {
         if(saveModifications(tab))
         {
             closeTab(tab);
         }
     }
-
-    const int newIndex = m_tabWidget->addTab(tab, tabText);
-    m_tabWidget->setTabToolTip(newIndex, tabToolTip);
-    m_tabWidget->setCurrentIndex(newIndex);
 
     reconnectCurrentTabChanged();
 }
@@ -1880,7 +1909,7 @@ void MainWindow::on_tabAction_triggered()
 {
     for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
-        if(sender()->parent() == m_tabWidget->widget(index))
+        if(sender()->parent() == currentTab(index))
         {
             m_tabWidget->setCurrentIndex(index);
 
@@ -2189,15 +2218,15 @@ void MainWindow::on_searchInitiated(const QString& text, bool modified)
         return;
     }
 
-    const bool allTabs = s_settings->mainWindow().extendedSearchDock() ? !modified : modified;
+    const bool forAllTabs = s_settings->mainWindow().extendedSearchDock() ? !modified : modified;
     const bool matchCase = m_matchCaseCheckBox->isChecked();
     const bool wholeWords = m_wholeWordsCheckBox->isChecked();
 
-    if(allTabs)
+    if(forAllTabs)
     {
-        for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
+        foreach(DocumentView* tab, allTabs())
         {
-            tab(index)->startSearch(text, matchCase, wholeWords);
+            tab->startSearch(text, matchCase, wholeWords);
         }
     }
     else
@@ -2291,9 +2320,9 @@ void MainWindow::on_properties_sectionCountChanged()
 
 void MainWindow::on_thumbnails_dockLocationChanged(Qt::DockWidgetArea area)
 {
-    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
+    foreach(DocumentView* tab, allTabs())
     {
-        tab(index)->setThumbnailsOrientation(area == Qt::TopDockWidgetArea || area == Qt::BottomDockWidgetArea ? Qt::Horizontal : Qt::Vertical);
+        tab->setThumbnailsOrientation(area == Qt::TopDockWidgetArea || area == Qt::BottomDockWidgetArea ? Qt::Horizontal : Qt::Vertical);
     }
 }
 
@@ -2460,26 +2489,38 @@ void MainWindow::on_search_visibilityChanged(bool visible)
         m_searchLineEdit->stopTimer();
         m_searchLineEdit->setProgress(0);
 
-        for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
+        foreach(DocumentView* tab, allTabs())
         {
-            tab(index)->cancelSearch();
-            tab(index)->clearResults();
+            tab->cancelSearch();
+            tab->clearResults();
         }
 
-        if(m_tabWidget->currentWidget() != 0)
+        if(DocumentView* tab = currentTab())
         {
-            m_tabWidget->currentWidget()->setFocus();
+            tab->setFocus();
         }
     }
 }
 
-void MainWindow::on_search_clicked(const QModelIndex& index)
+void MainWindow::on_search_clicked(const QModelIndex& clickedIndex)
 {
-    DocumentView* tab = SearchModel::instance()->viewForIndex(index);
+    DocumentView* const clickedTab = SearchModel::instance()->viewForIndex(clickedIndex);
 
-    m_tabWidget->setCurrentWidget(tab);
+    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
+    {
+        foreach(DocumentView* tab, allTabs(index))
+        {
+            if(tab == clickedTab)
+            {
+                m_tabWidget->setCurrentIndex(index);
+                tab->setFocus();
 
-    tab->findResult(index);
+                clickedTab->findResult(clickedIndex);
+
+                return;
+            }
+        }
+    }
 }
 
 void MainWindow::on_search_rowsInserted(const QModelIndex& parent, int first, int last)
@@ -2504,7 +2545,7 @@ void MainWindow::on_saveDatabase_timeout()
 {
     if(s_settings->mainWindow().restoreTabs())
     {
-        s_database->saveTabs(tabs());
+        s_database->saveTabs(allTabs());
     }
 
     if(s_settings->mainWindow().restoreBookmarks())
@@ -2514,7 +2555,7 @@ void MainWindow::on_saveDatabase_timeout()
 
     if(s_settings->mainWindow().restorePerFileSettings())
     {
-        foreach(DocumentView* tab, tabs())
+        foreach(DocumentView* tab, allTabs())
         {
             s_database->savePerFileSettings(tab);
         }
@@ -2555,18 +2596,22 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
-        if(!saveModifications(tab(index)))
+        foreach(DocumentView* tab, allTabs(index))
         {
-            m_tabWidget->setCurrentIndex(index);
+            if(!saveModifications(tab))
+            {
+                m_tabWidget->setCurrentIndex(index);
+                tab->setFocus();
 
-            event->setAccepted(false);
-            return;
+                event->setAccepted(false);
+                return;
+            }
         }
     }
 
     if(s_settings->mainWindow().restoreTabs())
     {
-        s_database->saveTabs(tabs());
+        s_database->saveTabs(allTabs());
     }
     else
     {
@@ -2649,18 +2694,23 @@ inline DocumentView* MainWindow::currentTab() const
     return currentView(m_tabWidget->currentWidget());
 }
 
-inline DocumentView* MainWindow::tab(int index) const
+inline DocumentView* MainWindow::currentTab(int index) const
 {
     return currentView(m_tabWidget->widget(index));
 }
 
-QList< DocumentView* > MainWindow::tabs() const
+inline QList< DocumentView* > MainWindow::allTabs(int index) const
+{
+    return allViews(m_tabWidget->widget(index));
+}
+
+QList< DocumentView* > MainWindow::allTabs() const
 {
     QList< DocumentView* > tabs;
 
     for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
-        tabs.append(tab(index));
+        tabs.append(allTabs(index));
     }
 
     return tabs;
@@ -2685,14 +2735,16 @@ int MainWindow::addTab(DocumentView* tab)
 
 void MainWindow::closeTab(DocumentView* tab)
 {
-    if(s_settings->mainWindow().keepRecentlyClosed())
+    const int tabIndex = m_tabWidget->indexOf(tab);
+
+    if(s_settings->mainWindow().keepRecentlyClosed() && tabIndex != -1)
     {
         foreach(QAction* tabAction, m_tabsMenu->actions())
         {
             if(tabAction->parent() == tab)
             {
                 m_tabsMenu->removeAction(tabAction);
-                m_tabWidget->removeTab(m_tabWidget->indexOf(tab));
+                m_tabWidget->removeTab(tabIndex);
 
                 tab->setParent(this);
                 tab->setVisible(false);
@@ -2705,12 +2757,19 @@ void MainWindow::closeTab(DocumentView* tab)
     }
     else
     {
-        delete tab;
-    }
+        SplitView* const parentTab = qobject_cast< SplitView* >(tab->parentWidget());
 
-    if(s_settings->mainWindow().exitAfterLastTab() && m_tabWidget->count() == 0)
-    {
-        close();
+        delete tab;
+
+        if(parentTab != 0 && parentTab->count() == 0)
+        {
+            delete parentTab;
+        }
+
+        if(s_settings->mainWindow().exitAfterLastTab() && m_tabWidget->count() == 0)
+        {
+            close();
+        }
     }
 }
 
@@ -3708,7 +3767,7 @@ bool MainWindowAdaptor::closeTab(const QString& absoluteFilePath)
 
     const QFileInfo fileInfo(absoluteFilePath);
 
-    foreach(DocumentView* tab, mainWindow()->tabs())
+    foreach(DocumentView* tab, mainWindow()->allTabs())
     {
         if(tab->fileInfo() == fileInfo)
         {

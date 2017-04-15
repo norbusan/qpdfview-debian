@@ -292,8 +292,9 @@ private:
     TabWidget* m_tabWidget;
 
     DocumentView* currentTab() const;
-    DocumentView* tab(int index) const;
-    QList< DocumentView* > tabs() const;
+    DocumentView* currentTab(int index) const;
+    QList< DocumentView* > allTabs(int index) const;
+    QList< DocumentView* > allTabs() const;
 
     bool senderIsCurrentTab() const;
 
