@@ -1251,7 +1251,9 @@ void MainWindow::on_splitView_split_triggered(Qt::Orientation orientation, int i
 
     m_tabWidget->insertTab(index, splitView, tabText);
     m_tabWidget->setTabToolTip(index, tabToolTip);
+
     m_tabWidget->setCurrentIndex(index);
+    tab->setFocus();
 
     splitView->setUniformSizes();
     tab->show();
@@ -2761,9 +2763,16 @@ void MainWindow::closeTab(DocumentView* tab)
 
         delete tab;
 
-        if(parentTab != 0 && parentTab->count() == 0)
+        if(parentTab != 0)
         {
-            delete parentTab;
+            if(parentTab->count() > 0)
+            {
+                parentTab->widget(0)->setFocus();
+            }
+            else
+            {
+                delete parentTab;
+            }
         }
 
         if(s_settings->mainWindow().exitAfterLastTab() && m_tabWidget->count() == 0)
