@@ -216,7 +216,7 @@ private:
 
 };
 
-DocumentView* fromDocumentOrSplitView(QWidget* const widget)
+DocumentView* currentView(QWidget* const widget)
 {
     if(DocumentView* const documentView = qobject_cast< DocumentView* >(widget))
     {
@@ -225,7 +225,7 @@ DocumentView* fromDocumentOrSplitView(QWidget* const widget)
 
     if(SplitView* const splitView = qobject_cast< SplitView* >(widget))
     {
-        return fromDocumentOrSplitView(splitView->currentWidget());
+        return currentView(splitView->currentWidget());
     }
 
     return 0;
@@ -1231,6 +1231,15 @@ void MainWindow::on_splitView_split_triggered(Qt::Orientation orientation, int i
     splitView->setUniformSizes();
     tab->show();
     newTab->show();
+
+    if(s_settings->mainWindow().synchronizeSplitViews())
+    {
+        DocumentView* const oldTab = currentView(tab);
+
+        connect(oldTab, SIGNAL(currentPageChanged(int,bool)), newTab, SLOT(jumpToPage(int,bool)));
+        connect(oldTab->horizontalScrollBar(), SIGNAL(valueChanged(int)), newTab->horizontalScrollBar(), SLOT(setValue(int)));
+        connect(oldTab->verticalScrollBar(), SIGNAL(valueChanged(int)), newTab->verticalScrollBar(), SLOT(setValue(int)));
+    }
 }
 
 void MainWindow::on_splitView_currentChanged(QWidget* currentWidget)
@@ -2637,12 +2646,12 @@ void MainWindow::prepareStyle()
 
 inline DocumentView* MainWindow::currentTab() const
 {
-    return fromDocumentOrSplitView(m_tabWidget->currentWidget());
+    return currentView(m_tabWidget->currentWidget());
 }
 
 inline DocumentView* MainWindow::tab(int index) const
 {
-    return fromDocumentOrSplitView(m_tabWidget->widget(index));
+    return currentView(m_tabWidget->widget(index));
 }
 
 QList< DocumentView* > MainWindow::tabs() const

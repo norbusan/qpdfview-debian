@@ -886,6 +886,16 @@ void Settings::MainWindow::setSynchronizeOutlineView(bool synchronizeOutlineView
     m_settings->setValue("mainWindow/synchronizeOutlineView", synchronizeOutlineView);
 }
 
+bool Settings::MainWindow::synchronizeSplitViews() const
+{
+    return m_settings->value("mainWindow/synchronizeSplitViews", Defaults::MainWindow::synchronizeSplitViews()).toBool();
+}
+
+void Settings::MainWindow::setSynchronizeSplitViews(bool synchronizeSplitViews)
+{
+    m_settings->setValue("mainWindow/synchronizeSplitViews", synchronizeSplitViews);
+}
+
 QStringList Settings::MainWindow::fileToolBar() const
 {
     return m_settings->value("mainWindow/fileToolBar", Defaults::MainWindow::fileToolBar()).toStringList();

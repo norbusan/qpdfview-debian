@@ -361,6 +361,9 @@ public:
         bool synchronizeOutlineView() const;
         void setSynchronizeOutlineView(bool synchronizeOutlineView);
 
+        bool synchronizeSplitViews() const;
+        void setSynchronizeSplitViews(bool synchronizeSplitViews);
+
         QStringList fileToolBar() const;
         void setFileToolBar(const QStringList& fileToolBar);
 
@@ -640,6 +643,7 @@ public:
         static bool usePageLabel() { return true; }
 
         static bool synchronizeOutlineView() { return false; }
+        static bool synchronizeSplitViews() { return true; }
 
         static QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh"; }
         static QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }

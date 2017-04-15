@@ -288,6 +288,9 @@ void SettingsDialog::createBehaviorTab()
     m_synchronizeOutlineViewCheckBox = addCheckBox(m_behaviorLayout, tr("Synchronize outline view:"), QString(),
                                                    s_settings->mainWindow().synchronizeOutlineView());
 
+    m_synchronizeSplitViewsCheckBox = addCheckBox(m_behaviorLayout, tr("Synchronize split views:"), QString(),
+                                                  s_settings->mainWindow().synchronizeSplitViews());
+
 
     m_minimalScrollingCheckBox = addCheckBox(m_behaviorLayout, tr("Minimal scrolling:"), QString(),
                                              s_settings->documentView().minimalScrolling());
@@ -331,6 +334,7 @@ void SettingsDialog::acceptBehaivorTab()
     s_settings->presentationView().setScreen(m_presentationScreenSpinBox->value());
 
     s_settings->mainWindow().setSynchronizeOutlineView(m_synchronizeOutlineViewCheckBox->isChecked());
+    s_settings->mainWindow().setSynchronizeSplitViews(m_synchronizeSplitViewsCheckBox->isChecked());
 
     s_settings->documentView().setMinimalScrolling(m_minimalScrollingCheckBox->isChecked());
     s_settings->documentView().setZoomFactor(m_zoomFactorSpinBox->value());
@@ -361,6 +365,7 @@ void SettingsDialog::resetBehaviorTab()
     m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
 
     m_synchronizeOutlineViewCheckBox->setChecked(Defaults::MainWindow::synchronizeOutlineView());
+    m_synchronizeSplitViewsCheckBox->setChecked(Defaults::MainWindow::synchronizeSplitViews());
 
     m_minimalScrollingCheckBox->setChecked(Defaults::DocumentView::minimalScrolling());
     m_zoomFactorSpinBox->setValue(Defaults::DocumentView::zoomFactor());

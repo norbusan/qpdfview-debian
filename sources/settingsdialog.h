@@ -102,6 +102,7 @@ private:
     QSpinBox* m_presentationScreenSpinBox;
 
     QCheckBox* m_synchronizeOutlineViewCheckBox;
+    QCheckBox* m_synchronizeSplitViewsCheckBox;
 
     QCheckBox* m_minimalScrollingCheckBox;
     QDoubleSpinBox* m_zoomFactorSpinBox;
