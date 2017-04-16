@@ -299,14 +299,15 @@ private:
 
     bool senderIsCurrentTab() const;
 
+    bool m_currentTabChangedBlocked;
+
+    class CurrentTabChangeBlocker;
+
     void addTab(DocumentView* tab);
     void addTabAction(DocumentView* tab);
 
     bool saveModifications(DocumentView* tab);
     void closeTab(DocumentView* tab);
-
-    void disconnectCurrentTabChanged();
-    void reconnectCurrentTabChanged();
 
     void setWindowTitleForCurrentTab();
     void setCurrentPageSuffixForCurrentTab();

@@ -347,8 +347,10 @@ private:
     void loadDocumentDefaults();
 
     void adjustScrollBarPolicy();
-    void disconnectVerticalScrollBar();
-    void reconnectVerticalScrollBar();
+
+    bool m_verticalScrollBarChangedBlocked;
+
+    class VerticalScrollBarChangedBlocker;
 
     void prepareDocument(Model::Document* document, const QVector< Model::Page* >& pages);
     void preparePages();

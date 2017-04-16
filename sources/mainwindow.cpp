@@ -252,10 +252,30 @@ QVector< DocumentView* > findAllTabs(QObject* const object)
 
 } // anonymous
 
+class MainWindow::CurrentTabChangeBlocker
+{
+private:
+    MainWindow* const that;
+
+public:
+    CurrentTabChangeBlocker(MainWindow* const that) : that(that)
+    {
+        that->m_currentTabChangedBlocked = true;
+    }
+
+    ~CurrentTabChangeBlocker()
+    {
+        that->m_currentTabChangedBlocked = false;
+
+        that->on_tabWidget_currentChanged(that->m_tabWidget->currentIndex());
+    }
+
+};
+
 class MainWindow::RestoreTab : public Database::RestoreTab
 {
 private:
-    MainWindow* that;
+    MainWindow* const that;
 
 public:
     RestoreTab(MainWindow* that) : that(that) {}
@@ -277,7 +297,7 @@ public:
 class MainWindow::TextValueMapper : public MappingSpinBox::TextValueMapper
 {
 private:
-    MainWindow* that;
+    MainWindow* const that;
 
 public:
     TextValueMapper(MainWindow* that) : that(that) {}
@@ -583,6 +603,11 @@ void MainWindow::saveDatabase()
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
+    if(m_currentTabChangedBlocked)
+    {
+        return;
+    }
+
     const bool hasCurrent = index != -1;
 
     m_openCopyInNewTabAction->setEnabled(hasCurrent);
@@ -1352,14 +1377,12 @@ void MainWindow::on_openInNewTab_triggered()
 
     if(!filePaths.isEmpty())
     {
-        disconnectCurrentTabChanged();
+        CurrentTabChangeBlocker currentTabChangeBlocker(this);
 
         foreach(const QString& filePath, filePaths)
         {
             openInNewTab(filePath);
         }
-
-        reconnectCurrentTabChanged();
     }
 }
 
@@ -1837,7 +1860,7 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 
 void MainWindow::on_closeTabs_triggered(const QVector<DocumentView *>& tabs)
 {
-    disconnectCurrentTabChanged();
+    CurrentTabChangeBlocker currentTabChangeBlocker(this);
 
     foreach(DocumentView* tab, tabs)
     {
@@ -1846,8 +1869,6 @@ void MainWindow::on_closeTabs_triggered(const QVector<DocumentView *>& tabs)
             closeTab(tab);
         }
     }
-
-    reconnectCurrentTabChanged();
 }
 
 void MainWindow::on_restoreMostRecentlyClosedTab_triggered()
@@ -2616,7 +2637,7 @@ void MainWindow::dropEvent(QDropEvent* event)
     {
         event->acceptProposedAction();
 
-        disconnectCurrentTabChanged();
+        CurrentTabChangeBlocker currentTabChangeBlocker(this);
 
         foreach(const QUrl& url, event->mimeData()->urls())
         {
@@ -2629,8 +2650,6 @@ void MainWindow::dropEvent(QDropEvent* event)
                 openInNewTab(url.toLocalFile());
             }
         }
-
-        reconnectCurrentTabChanged();
     }
 }
 
@@ -2785,18 +2804,6 @@ void MainWindow::closeTab(DocumentView* tab)
     }
 }
 
-void MainWindow::disconnectCurrentTabChanged()
-{
-    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-}
-
-void MainWindow::reconnectCurrentTabChanged()
-{
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
-}
-
 void MainWindow::setWindowTitleForCurrentTab()
 {
     QString tabText;
@@ -2939,6 +2946,8 @@ void MainWindow::createWidgets()
     m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
 
     setCentralWidget(m_tabWidget);
+
+    m_currentTabChangedBlocked = false;
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), SLOT(on_tabWidget_currentChanged(int)));
     connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), SLOT(on_tabWidget_tabCloseRequested(int)));

@@ -658,6 +658,25 @@ void restoreExpandedPaths(QAbstractItemModel* model, const QSet< QString >& path
 namespace qpdfview
 {
 
+class DocumentView::VerticalScrollBarChangedBlocker
+{
+private:
+    DocumentView* const that;
+
+public:
+
+    VerticalScrollBarChangedBlocker(DocumentView* that) : that(that)
+    {
+        that->m_verticalScrollBarChangedBlocked = true;
+    }
+
+    ~VerticalScrollBarChangedBlocker()
+    {
+        that->m_verticalScrollBarChangedBlocked = false;
+    }
+
+};
+
 Settings* DocumentView::s_settings = 0;
 ShortcutHandler* DocumentView::s_shortcutHandler = 0;
 SearchModel* DocumentView::s_searchModel = 0;
@@ -690,6 +709,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_thumbnailsScene(0),
     m_outlineModel(0),
     m_propertiesModel(0),
+    m_verticalScrollBarChangedBlocked(false),
     m_currentResult(),
     m_searchTask(0)
 {
@@ -714,7 +734,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     setAcceptDrops(false);
     setDragMode(QGraphicsView::ScrollHandDrag);
 
-    reconnectVerticalScrollBar();
+    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
 
     m_thumbnailsScene = new QGraphicsScene(this);
 
@@ -1796,7 +1816,7 @@ void DocumentView::startPresentation()
 
 void DocumentView::on_verticalScrollBar_valueChanged()
 {
-    if(!m_continuousMode)
+    if(m_verticalScrollBarChangedBlocked || !m_continuousMode)
     {
         return;
     }
@@ -2631,16 +2651,6 @@ void DocumentView::adjustScrollBarPolicy()
     }
 }
 
-void DocumentView::disconnectVerticalScrollBar()
-{
-    disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
-}
-
-void DocumentView::reconnectVerticalScrollBar()
-{
-    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
-}
-
 void DocumentView::prepareDocument(Model::Document* document, const QVector< Model::Page* >& pages)
 {
     m_prefetchTimer->blockSignals(true);
@@ -3007,9 +3017,11 @@ void DocumentView::prepareHighlight(int index, const QRectF& rect)
 
     m_highlight->setVisible(true);
 
-    disconnectVerticalScrollBar();
-    centerOn(m_highlight);
-    reconnectVerticalScrollBar();
+    {
+        VerticalScrollBarChangedBlocker verticalScrollBarChangedBlocker(this);
+
+        centerOn(m_highlight);
+    }
 
     viewport()->update();
 }
