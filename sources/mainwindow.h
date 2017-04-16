@@ -1,7 +1,7 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2012-2015 Adam Reichold
+Copyright 2012-2017 Adam Reichold
 Copyright 2012 Michał Trybus
 Copyright 2012 Alexander Volkov
 
@@ -216,7 +216,7 @@ protected slots:
     void on_closeTab_triggered();
     void on_closeAllTabs_triggered();
     void on_closeAllTabsButCurrentTab_triggered();
-    void on_closeTabs_triggered(const QList< DocumentView* >& tabs);
+    void on_closeTabs_triggered(const QVector< DocumentView* >& tabs);
 
     void on_restoreMostRecentlyClosedTab_triggered();
 
@@ -294,15 +294,16 @@ private:
 
     DocumentView* currentTab() const;
     DocumentView* currentTab(int index) const;
-    QList< DocumentView* > allTabs(int index) const;
-    QList< DocumentView* > allTabs() const;
+    QVector< DocumentView* > allTabs(int index) const;
+    QVector< DocumentView* > allTabs() const;
 
     bool senderIsCurrentTab() const;
 
-    int addTab(DocumentView* tab);
-    void closeTab(DocumentView* tab);
+    void addTab(DocumentView* tab);
+    void addTabAction(DocumentView* tab);
 
     bool saveModifications(DocumentView* tab);
+    void closeTab(DocumentView* tab);
 
     void disconnectCurrentTabChanged();
     void reconnectCurrentTabChanged();

@@ -1,7 +1,7 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2013-2015 Adam Reichold
+Copyright 2013-2017 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -56,7 +56,7 @@ public:
     };
 
     void restoreTabs(const RestoreTab& restoreTab);
-    void saveTabs(const QList< DocumentView* >& tabs);
+    void saveTabs(const QVector< DocumentView* >& tabs);
     void clearTabs();
 
     void restoreBookmarks();

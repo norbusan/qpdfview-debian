@@ -1,7 +1,7 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2012-2015 Adam Reichold
+Copyright 2012-2017 Adam Reichold
 Copyright 2012 Michał Trybus
 
 This file is part of qpdfview.
@@ -392,7 +392,7 @@ void Database::restoreTabs(const RestoreTab& restoreTab)
 #endif // WITH_SQL
 }
 
-void Database::saveTabs(const QList< DocumentView* >& tabs)
+void Database::saveTabs(const QVector< DocumentView* >& tabs)
 {
 #ifdef WITH_SQL
 

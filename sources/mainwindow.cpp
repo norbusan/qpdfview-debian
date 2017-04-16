@@ -1,8 +1,7 @@
-
 /*
 
 Copyright 2014-2015 S. Razi Alavizadeh
-Copyright 2012-2016 Adam Reichold
+Copyright 2012-2017 Adam Reichold
 Copyright 2014 Dorian Scholz
 Copyright 2012 Michał Trybus
 Copyright 2012 Alexander Volkov
@@ -216,35 +215,35 @@ private:
 
 };
 
-DocumentView* findCurrentTab(QWidget* const widget)
+DocumentView* findCurrentTab(QObject* const object)
 {
-    if(DocumentView* const tab = qobject_cast< DocumentView* >(widget))
+    if(DocumentView* const tab = qobject_cast< DocumentView* >(object))
     {
         return tab;
     }
 
-    if(Splitter* const parentTab = qobject_cast< Splitter* >(widget))
+    if(Splitter* const splitter = qobject_cast< Splitter* >(object))
     {
-        return findCurrentTab(parentTab->currentWidget());
+        return findCurrentTab(splitter->currentWidget());
     }
 
     return 0;
 }
 
-QList< DocumentView* > findAllTabs(QWidget* const widget)
+QVector< DocumentView* > findAllTabs(QObject* const object)
 {
-    QList< DocumentView* > tabs;
+    QVector< DocumentView* > tabs;
 
-    if(DocumentView* const tab = qobject_cast< DocumentView* >(widget))
+    if(DocumentView* const tab = qobject_cast< DocumentView* >(object))
     {
         tabs.append(tab);
     }
 
-    if(Splitter* const parentTab = qobject_cast< Splitter* >(widget))
+    if(Splitter* const splitter = qobject_cast< Splitter* >(object))
     {
-        for(int index = 0, count = parentTab->count(); index < count; ++index)
+        for(int index = 0, count = splitter->count(); index < count; ++index)
         {
-            tabs.append(findAllTabs(parentTab->widget(index)));
+            tabs.append(findAllTabs(splitter->widget(index)));
         }
     }
 
@@ -463,15 +462,8 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         s_settings->mainWindow().setOpenPath(newTab->fileInfo().absolutePath());
         m_recentlyUsedMenu->addOpenAction(newTab->fileInfo());
 
-        const int index = addTab(newTab);
-
-        QAction* tabAction = new QAction(m_tabWidget->tabText(index), newTab);
-        tabAction->setToolTip(newTab->fileInfo().absoluteFilePath());
-        connect(tabAction, SIGNAL(triggered()), SLOT(on_tabAction_triggered()));
-
-        tabAction->setData(true); // Flag action for search-as-you-type
-
-        m_tabsMenu->addAction(tabAction);
+        addTab(newTab);
+        addTabAction(newTab);
 
         connect(newTab, SIGNAL(documentChanged()), SLOT(on_currentTab_documentChanged()));
         connect(newTab, SIGNAL(documentModified()), SLOT(on_currentTab_documentModified()));
@@ -802,7 +794,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     const QAction* action = menu.exec(globalPos);
 
     DocumentView* selectedTab = currentTab(index);
-    QList< DocumentView* > tabsToClose;
+    QVector< DocumentView* > tabsToClose;
 
     if(action == m_openCopyInNewTabAction)
     {
@@ -879,7 +871,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
 void MainWindow::on_currentTab_documentChanged()
 {
-    DocumentView* const senderTab = findCurrentTab(qobject_cast< QWidget* >(sender()));
+    DocumentView* const senderTab = findCurrentTab(sender());
 
     for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
@@ -1237,6 +1229,8 @@ void MainWindow::on_splitView_split_triggered(Qt::Orientation orientation, int i
     m_tabWidget->insertTab(index, splitter, tabText);
     m_tabWidget->setTabToolTip(index, tabToolTip);
 
+    addTabAction(newTab);
+
     m_tabWidget->setCurrentIndex(index);
     tab->setFocus();
 
@@ -1260,21 +1254,6 @@ void MainWindow::on_splitView_currentWidgetChanged(QWidget* currentWidget)
     {
         if(parentWidget == m_tabWidget->currentWidget())
         {
-            const QList< DocumentView* > tabs = allTabs(m_tabWidget->currentIndex());
-            DocumentView* const newParentTab = currentTab();
-
-            foreach(QAction* tabAction, m_tabsMenu->actions())
-            {
-                DocumentView* const oldParentTab = static_cast< DocumentView* >(tabAction->parent());
-
-                if(tabs.contains(oldParentTab))
-                {
-                    tabAction->setParent(newParentTab);
-
-                    break;
-                }
-            }
-
             on_tabWidget_currentChanged(m_tabWidget->currentIndex());
 
             return;
@@ -1840,7 +1819,7 @@ void MainWindow::on_closeAllTabs_triggered()
 
 void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 {
-    QList< DocumentView* > tabs;
+    QVector< DocumentView* > tabs;
 
     const int count = m_tabWidget->count();
     const int currentIndex = m_tabWidget->currentIndex();
@@ -1856,7 +1835,7 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
     on_closeTabs_triggered(tabs);
 }
 
-void MainWindow::on_closeTabs_triggered(const QList<DocumentView *>& tabs)
+void MainWindow::on_closeTabs_triggered(const QVector<DocumentView *>& tabs)
 {
     disconnectCurrentTabChanged();
 
@@ -1893,9 +1872,10 @@ void MainWindow::on_tabAction_triggered()
 
     for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
-        if(senderTab == currentTab(index))
+        if(allTabs(index).contains(senderTab))
         {
             m_tabWidget->setCurrentIndex(index);
+            senderTab->setFocus();
 
             break;
         }
@@ -2683,14 +2663,14 @@ inline DocumentView* MainWindow::currentTab(int index) const
     return findCurrentTab(m_tabWidget->widget(index));
 }
 
-inline QList< DocumentView* > MainWindow::allTabs(int index) const
+inline QVector< DocumentView* > MainWindow::allTabs(int index) const
 {
     return findAllTabs(m_tabWidget->widget(index));
 }
 
-QList< DocumentView* > MainWindow::allTabs() const
+QVector< DocumentView* > MainWindow::allTabs() const
 {
-    QList< DocumentView* > tabs;
+    QVector< DocumentView* > tabs;
 
     for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
@@ -2705,57 +2685,21 @@ bool MainWindow::senderIsCurrentTab() const
      return sender() == currentTab() || qobject_cast< DocumentView* >(sender()) == 0;
 }
 
-int MainWindow::addTab(DocumentView* tab)
+void MainWindow::addTab(DocumentView* tab)
 {
-    return m_tabWidget->addTab(tab, s_settings->mainWindow().newTabNextToCurrentTab(),
-                               tab->title(), tab->fileInfo().absoluteFilePath());
+    m_tabWidget->addTab(tab, s_settings->mainWindow().newTabNextToCurrentTab(),
+                        tab->title(), tab->fileInfo().absoluteFilePath());
 }
 
-void MainWindow::closeTab(DocumentView* tab)
+void MainWindow::addTabAction(DocumentView* tab)
 {
-    const int tabIndex = m_tabWidget->indexOf(tab);
+    QAction* tabAction = new QAction(tab->title(), tab);
+    tabAction->setToolTip(tab->fileInfo().absoluteFilePath());
+    tabAction->setData(true); // Flag action for search-as-you-type
 
-    if(s_settings->mainWindow().keepRecentlyClosed() && tabIndex != -1)
-    {
-        foreach(QAction* tabAction, m_tabsMenu->actions())
-        {
-            if(tabAction->parent() == tab)
-            {
-                m_tabsMenu->removeAction(tabAction);
-                m_tabWidget->removeTab(tabIndex);
+    connect(tabAction, SIGNAL(triggered()), SLOT(on_tabAction_triggered()));
 
-                tab->setParent(this);
-                tab->setVisible(false);
-
-                m_recentlyClosedMenu->addTabAction(tabAction);
-
-                break;
-            }
-        }
-    }
-    else
-    {
-        Splitter* const parentTab = qobject_cast< Splitter* >(tab->parentWidget());
-
-        delete tab;
-
-        if(parentTab != 0)
-        {
-            if(parentTab->count() > 0)
-            {
-                parentTab->widget(0)->setFocus();
-            }
-            else
-            {
-                delete parentTab;
-            }
-        }
-
-        if(s_settings->mainWindow().exitAfterLastTab() && m_tabWidget->count() == 0)
-        {
-            close();
-        }
-    }
+    m_tabsMenu->addAction(tabAction);
 }
 
 bool MainWindow::saveModifications(DocumentView* tab)
@@ -2792,6 +2736,53 @@ bool MainWindow::saveModifications(DocumentView* tab)
     }
 
     return true;
+}
+
+void MainWindow::closeTab(DocumentView* tab)
+{
+    const int tabIndex = m_tabWidget->indexOf(tab);
+
+    if(s_settings->mainWindow().keepRecentlyClosed() && tabIndex != -1)
+    {
+        foreach(QAction* tabAction, m_tabsMenu->actions())
+        {
+            if(tabAction->parent() == tab)
+            {
+                m_tabsMenu->removeAction(tabAction);
+                m_tabWidget->removeTab(tabIndex);
+
+                tab->setParent(this);
+                tab->setVisible(false);
+
+                m_recentlyClosedMenu->addTabAction(tabAction);
+
+                break;
+            }
+        }
+    }
+    else
+    {
+        Splitter* const splitter = qobject_cast< Splitter* >(tab->parentWidget());
+
+        delete tab;
+
+        if(splitter != 0)
+        {
+            if(splitter->count() > 0)
+            {
+                splitter->widget(0)->setFocus();
+            }
+            else
+            {
+                delete splitter;
+            }
+        }
+
+        if(s_settings->mainWindow().exitAfterLastTab() && m_tabWidget->count() == 0)
+        {
+            close();
+        }
+    }
 }
 
 void MainWindow::disconnectCurrentTabChanged()
