@@ -136,7 +136,7 @@ protected slots:
     void on_splitView_splitHorizontally_triggered();
     void on_splitView_splitVertically_triggered();
     void on_splitView_split_triggered(Qt::Orientation orientation, int index);
-    void on_splitView_currentChanged(QWidget* currentWidget);
+    void on_splitView_currentWidgetChanged(QWidget* currentWidget);
 
     void on_currentPage_editingFinished();
     void on_currentPage_returnPressed();
@@ -216,6 +216,7 @@ protected slots:
     void on_closeTab_triggered();
     void on_closeAllTabs_triggered();
     void on_closeAllTabsButCurrentTab_triggered();
+    void on_closeTabs_triggered(const QList< DocumentView* >& tabs);
 
     void on_restoreMostRecentlyClosedTab_triggered();
 

@@ -304,6 +304,19 @@ TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent),
     setTabBar(tabBar);
 }
 
+int TabWidget::addTab(QWidget* const widget, const bool nextToCurrent,
+                      const QString& label, const QString& toolTip)
+{
+    const int index = nextToCurrent
+            ? insertTab(currentIndex() + 1, widget, label)
+            : QTabWidget::addTab(widget, label);
+
+    setTabToolTip(index, toolTip);
+    setCurrentIndex(index);
+
+    return index;
+}
+
 TabWidget::TabBarPolicy TabWidget::tabBarPolicy() const
 {
     return m_tabBarPolicy;
@@ -341,6 +354,30 @@ void TabWidget::setSpreadTabs(bool spreadTabs)
         QResizeEvent resizeEvent(tabBar()->size(), tabBar()->size());
         QApplication::sendEvent(tabBar(), &resizeEvent);
     }
+}
+
+void TabWidget::previousTab()
+{
+    int index = currentIndex();
+
+    if(index < 0)
+    {
+        index = count() - 1;
+    }
+
+    setCurrentIndex(index);
+}
+
+void TabWidget::nextTab()
+{
+    int index = currentIndex();
+
+    if(index >= count())
+    {
+        index = 0;
+    }
+
+    setCurrentIndex(index);
 }
 
 void TabWidget::on_tabBar_customContextMenuRequested(const QPoint& pos)
@@ -872,18 +909,18 @@ void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
 }
 
-SplitView::SplitView(Qt::Orientation orientation, QWidget* parent) : QSplitter(orientation, parent),
+Splitter::Splitter(Qt::Orientation orientation, QWidget* parent) : QSplitter(orientation, parent),
     m_currentIndex(0)
 {
     connect(qApp, SIGNAL(focusChanged(QWidget*,QWidget*)), this, SLOT(on_focusChanged(QWidget*,QWidget*)));
 }
 
-QWidget* SplitView::currentWidget() const
+QWidget* Splitter::currentWidget() const
 {
     return widget(m_currentIndex);
 }
 
-void SplitView::setCurrentWidget(QWidget* const currentWidget)
+void Splitter::setCurrentWidget(QWidget* const currentWidget)
 {
     for(int index = 0, count = this->count(); index < count; ++index)
     {
@@ -895,7 +932,7 @@ void SplitView::setCurrentWidget(QWidget* const currentWidget)
             {
                 m_currentIndex = index;
 
-                emit currentChanged(currentWidget);
+                emit currentWidgetChanged(currentWidget);
             }
 
             return;
@@ -903,7 +940,7 @@ void SplitView::setCurrentWidget(QWidget* const currentWidget)
     }
 }
 
-void SplitView::setUniformSizes()
+void Splitter::setUniformSizes()
 {
     int size;
 
@@ -928,13 +965,13 @@ void SplitView::setUniformSizes()
     setSizes(sizes);
 }
 
-void SplitView::on_focusChanged(QWidget* /* old */, QWidget* now)
+void Splitter::on_focusChanged(QWidget* /* old */, QWidget* now)
 {
-    for(QWidget* current = now; current != 0; current = current->parentWidget())
+    for(QWidget* currentWidget = now; currentWidget != 0; currentWidget = currentWidget->parentWidget())
     {
-        if(current->parentWidget() == this)
+        if(currentWidget->parentWidget() == this)
         {
-            setCurrentWidget(current);
+            setCurrentWidget(currentWidget);
 
             return;
         }

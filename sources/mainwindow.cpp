@@ -216,36 +216,39 @@ private:
 
 };
 
-DocumentView* currentView(QWidget* const widget)
+DocumentView* findCurrentTab(QWidget* const widget)
 {
-    if(DocumentView* const documentView = qobject_cast< DocumentView* >(widget))
+    if(DocumentView* const tab = qobject_cast< DocumentView* >(widget))
     {
-        return documentView;
+        return tab;
     }
 
-    if(SplitView* const splitView = qobject_cast< SplitView* >(widget))
+    if(Splitter* const parentTab = qobject_cast< Splitter* >(widget))
     {
-        return currentView(splitView->currentWidget());
+        return findCurrentTab(parentTab->currentWidget());
     }
 
     return 0;
 }
 
-QList< DocumentView* > allViews(QWidget* const widget)
+QList< DocumentView* > findAllTabs(QWidget* const widget)
 {
-    QList< DocumentView* > views;
+    QList< DocumentView* > tabs;
 
-    if(DocumentView* const documentView = qobject_cast< DocumentView* >(widget))
+    if(DocumentView* const tab = qobject_cast< DocumentView* >(widget))
     {
-        views.append(documentView);
+        tabs.append(tab);
     }
 
-    if(SplitView* const splitView = qobject_cast< SplitView* >(widget))
+    if(Splitter* const parentTab = qobject_cast< Splitter* >(widget))
     {
-        views.append(allViews(splitView->currentWidget()));
+        for(int index = 0, count = parentTab->count(); index < count; ++index)
+        {
+            tabs.append(findAllTabs(parentTab->widget(index)));
+        }
     }
 
-    return views;
+    return tabs;
 }
 
 } // anonymous
@@ -414,27 +417,27 @@ void MainWindow::show()
 
 bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight, bool quiet)
 {
-    if(m_tabWidget->currentIndex() != -1)
+    if(DocumentView* const tab = currentTab())
     {
-        saveModifications(currentTab());
+        saveModifications(tab);
 
-        if(currentTab()->open(filePath))
+        if(tab->open(filePath))
         {
-            s_settings->mainWindow().setOpenPath(currentTab()->fileInfo().absolutePath());
-            m_recentlyUsedMenu->addOpenAction(currentTab()->fileInfo());
+            s_settings->mainWindow().setOpenPath(tab->fileInfo().absolutePath());
+            m_recentlyUsedMenu->addOpenAction(tab->fileInfo());
 
-            m_tabWidget->setTabText(m_tabWidget->currentIndex(), currentTab()->title());
-            m_tabWidget->setTabToolTip(m_tabWidget->currentIndex(), currentTab()->fileInfo().absoluteFilePath());
+            m_tabWidget->setCurrentTabText(tab->title());
+            m_tabWidget->setCurrentTabToolTip(tab->fileInfo().absoluteFilePath());
 
-            s_database->restorePerFileSettings(currentTab());
+            s_database->restorePerFileSettings(tab);
             scheduleSaveTabs();
 
-            currentTab()->jumpToPage(page, false);
-            currentTab()->setFocus();
+            tab->jumpToPage(page, false);
+            tab->setFocus();
 
             if(!highlight.isNull())
             {
-                currentTab()->temporaryHighlight(page, highlight);
+                tab->temporaryHighlight(page, highlight);
             }
 
             return true;
@@ -453,7 +456,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 
 bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& highlight, bool quiet)
 {
-    DocumentView* newTab = new DocumentView(this);
+    DocumentView* const newTab = new DocumentView(this);
 
     if(newTab->open(filePath))
     {
@@ -570,14 +573,14 @@ bool MainWindow::jumpToPageOrOpenInNewTab(const QString& filePath, int page, boo
 
 void MainWindow::startSearch(const QString& text)
 {
-    if(m_tabWidget->currentIndex() != -1)
+    if(DocumentView* const tab = currentTab())
     {
         m_searchDock->setVisible(true);
 
         m_searchLineEdit->setText(text);
         m_searchLineEdit->startSearch();
 
-        currentTab()->setFocus();
+        tab->setFocus();
     }
 }
 
@@ -752,13 +755,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-    foreach(DocumentView* tab, allTabs(index))
-    {
-        if(saveModifications(tab))
-        {
-            closeTab(tab);
-        }
-    }
+    on_closeTabs_triggered(allTabs(index));
 }
 
 void MainWindow::on_tabWidget_tabDragRequested(int index)
@@ -848,9 +845,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     }
     else if(action == closeAllTabsButThisOneAction)
     {
-        const int count = m_tabWidget->count();
-
-        for(int indexToClose = 0; indexToClose < count; ++indexToClose)
+        for(int indexToClose = 0, count = m_tabWidget->count(); indexToClose < count; ++indexToClose)
         {
             if(indexToClose != index)
             {
@@ -867,9 +862,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     }
     else if(action == closeAllTabsToTheRightAction)
     {
-        const int count = m_tabWidget->count();
-
-        for(int indexToClose = count - 1; indexToClose > index; --indexToClose)
+        for(int indexToClose = m_tabWidget->count() - 1; indexToClose > index; --indexToClose)
         {
             tabsToClose.append(allTabs(indexToClose));
         }
@@ -879,28 +872,20 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
         return;
     }
 
-    disconnectCurrentTabChanged();
-
-    foreach(DocumentView* tab, tabsToClose)
-    {
-        if(saveModifications(tab))
-        {
-            closeTab(tab);
-        }
-    }
-
-    reconnectCurrentTabChanged();
+    on_closeTabs_triggered(tabsToClose);
 }
 
 #define ONLY_IF_SENDER_IS_CURRENT_TAB if(!senderIsCurrentTab()) { return; }
 
 void MainWindow::on_currentTab_documentChanged()
 {
+    DocumentView* const senderTab = findCurrentTab(qobject_cast< QWidget* >(sender()));
+
     for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
         DocumentView* const tab = currentTab(index);
 
-        if(sender() == tab)
+        if(senderTab == tab)
         {
             m_tabWidget->setTabText(index, tab->title());
             m_tabWidget->setTabToolTip(index, tab->fileInfo().absoluteFilePath());
@@ -1237,8 +1222,8 @@ void MainWindow::on_splitView_split_triggered(Qt::Orientation orientation, int i
         return;
     }
 
-    SplitView* splitView = new SplitView(orientation, this);
-    connect(splitView, SIGNAL(currentChanged(QWidget*)), this, SLOT(on_splitView_currentChanged(QWidget*)));
+    Splitter* splitter = new Splitter(orientation, this);
+    connect(splitter, SIGNAL(currentWidgetChanged(QWidget*)), this, SLOT(on_splitView_currentWidgetChanged(QWidget*)));
 
     QWidget* const tab = m_tabWidget->widget(index);
     const QString tabText = m_tabWidget->tabText(index);
@@ -1246,22 +1231,22 @@ void MainWindow::on_splitView_split_triggered(Qt::Orientation orientation, int i
 
     m_tabWidget->removeTab(index);
 
-    splitView->addWidget(tab);
-    splitView->addWidget(newTab);
+    splitter->addWidget(tab);
+    splitter->addWidget(newTab);
 
-    m_tabWidget->insertTab(index, splitView, tabText);
+    m_tabWidget->insertTab(index, splitter, tabText);
     m_tabWidget->setTabToolTip(index, tabToolTip);
 
     m_tabWidget->setCurrentIndex(index);
     tab->setFocus();
 
-    splitView->setUniformSizes();
+    splitter->setUniformSizes();
     tab->show();
     newTab->show();
 
     if(s_settings->mainWindow().synchronizeSplitViews())
     {
-        DocumentView* const oldTab = currentView(tab);
+        DocumentView* const oldTab = findCurrentTab(tab);
 
         connect(oldTab, SIGNAL(currentPageChanged(int,bool)), newTab, SLOT(jumpToPage(int,bool)));
         connect(oldTab->horizontalScrollBar(), SIGNAL(valueChanged(int)), newTab->horizontalScrollBar(), SLOT(setValue(int)));
@@ -1269,11 +1254,31 @@ void MainWindow::on_splitView_split_triggered(Qt::Orientation orientation, int i
     }
 }
 
-void MainWindow::on_splitView_currentChanged(QWidget* currentWidget)
+void MainWindow::on_splitView_currentWidgetChanged(QWidget* currentWidget)
 {
-    if(currentWidget->parentWidget() == m_tabWidget->currentWidget())
+    for(QWidget* parentWidget = currentWidget->parentWidget(); parentWidget != 0; parentWidget = parentWidget->parentWidget())
     {
-        on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+        if(parentWidget == m_tabWidget->currentWidget())
+        {
+            const QList< DocumentView* > tabs = allTabs(m_tabWidget->currentIndex());
+            DocumentView* const newParentTab = currentTab();
+
+            foreach(QAction* tabAction, m_tabsMenu->actions())
+            {
+                DocumentView* const oldParentTab = static_cast< DocumentView* >(tabAction->parent());
+
+                if(tabs.contains(oldParentTab))
+                {
+                    tabAction->setParent(newParentTab);
+
+                    break;
+                }
+            }
+
+            on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+
+            return;
+        }
     }
 }
 
@@ -1281,7 +1286,7 @@ void MainWindow::on_splitView_currentChanged(QWidget* currentWidget)
 
 void MainWindow::on_currentPage_editingFinished()
 {
-    if(m_tabWidget->currentIndex() != -1)
+    if(m_tabWidget->hasCurrent())
     {
         currentTab()->jumpToPage(m_currentPageSpinBox->value());
     }
@@ -1319,7 +1324,7 @@ void MainWindow::on_scaleFactor_activated(int index)
 
 void MainWindow::on_scaleFactor_editingFinished()
 {
-    if(m_tabWidget->currentIndex() != -1)
+    if(m_tabWidget->hasCurrent())
     {
         bool ok = false;
         qreal scaleFactor = m_scaleFactorComboBox->lineEdit()->text().toInt(&ok) / 100.0;
@@ -1345,7 +1350,7 @@ void MainWindow::on_scaleFactor_returnPressed()
 
 void MainWindow::on_open_triggered()
 {
-    if(m_tabWidget->currentIndex() != -1)
+    if(m_tabWidget->hasCurrent())
     {
         const QString path = s_settings->mainWindow().openPath();
         const QString filePath = QFileDialog::getOpenFileName(this, tr("Open"), path, DocumentView::openFilter().join(";;"));
@@ -1815,57 +1820,27 @@ void MainWindow::on_presentation_triggered()
 
 void MainWindow::on_previousTab_triggered()
 {
-    if(m_tabWidget->currentIndex() > 0)
-    {
-        m_tabWidget->setCurrentIndex(m_tabWidget->currentIndex() - 1);
-    }
-    else
-    {
-        m_tabWidget->setCurrentIndex(m_tabWidget->count() - 1);
-    }
+    m_tabWidget->previousTab();
 }
 
 void MainWindow::on_nextTab_triggered()
 {
-    if(m_tabWidget->currentIndex() < m_tabWidget->count() - 1)
-    {
-        m_tabWidget->setCurrentIndex(m_tabWidget->currentIndex() + 1);
-    }
-    else
-    {
-        m_tabWidget->setCurrentIndex(0);
-    }
+    m_tabWidget->nextTab();
 }
 
 void MainWindow::on_closeTab_triggered()
 {
-    foreach(DocumentView* tab, allTabs(m_tabWidget->currentIndex()))
-    {
-        if(saveModifications(tab))
-        {
-            closeTab(tab);
-        }
-    }
+    on_closeTabs_triggered(allTabs(m_tabWidget->currentIndex()));
 }
 
 void MainWindow::on_closeAllTabs_triggered()
 {
-    disconnectCurrentTabChanged();
-
-    foreach(DocumentView* tab, allTabs())
-    {
-        if(saveModifications(tab))
-        {
-            closeTab(tab);
-        }
-    }
-
-    reconnectCurrentTabChanged();
+    on_closeTabs_triggered(allTabs());
 }
 
 void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 {
-    QList< DocumentView* > tabsToClose;
+    QList< DocumentView* > tabs;
 
     const int count = m_tabWidget->count();
     const int currentIndex = m_tabWidget->currentIndex();
@@ -1874,13 +1849,18 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
     {
         if(index != currentIndex)
         {
-            tabsToClose.append(allTabs(index));
+            tabs.append(allTabs(index));
         }
     }
 
+    on_closeTabs_triggered(tabs);
+}
+
+void MainWindow::on_closeTabs_triggered(const QList<DocumentView *>& tabs)
+{
     disconnectCurrentTabChanged();
 
-    foreach(DocumentView* tab, tabsToClose)
+    foreach(DocumentView* tab, tabs)
     {
         if(saveModifications(tab))
         {
@@ -1909,9 +1889,11 @@ void MainWindow::on_recentlyClosed_tabActionTriggered(QAction* tabAction)
 
 void MainWindow::on_tabAction_triggered()
 {
+    DocumentView* const senderTab = static_cast< DocumentView* >(sender()->parent());
+
     for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
-        if(sender()->parent() == currentTab(index))
+        if(senderTab == currentTab(index))
         {
             m_tabWidget->setCurrentIndex(index);
 
@@ -2095,7 +2077,7 @@ void MainWindow::on_bookmarksMenu_aboutToShow()
 
 void MainWindow::on_bookmark_openTriggered(const QString& absoluteFilePath)
 {
-    if(m_tabWidget->currentIndex() != -1)
+    if(m_tabWidget->hasCurrent())
     {
         open(absoluteFilePath);
     }
@@ -2693,17 +2675,17 @@ void MainWindow::prepareStyle()
 
 inline DocumentView* MainWindow::currentTab() const
 {
-    return currentView(m_tabWidget->currentWidget());
+    return findCurrentTab(m_tabWidget->currentWidget());
 }
 
 inline DocumentView* MainWindow::currentTab(int index) const
 {
-    return currentView(m_tabWidget->widget(index));
+    return findCurrentTab(m_tabWidget->widget(index));
 }
 
 inline QList< DocumentView* > MainWindow::allTabs(int index) const
 {
-    return allViews(m_tabWidget->widget(index));
+    return findAllTabs(m_tabWidget->widget(index));
 }
 
 QList< DocumentView* > MainWindow::allTabs() const
@@ -2725,14 +2707,8 @@ bool MainWindow::senderIsCurrentTab() const
 
 int MainWindow::addTab(DocumentView* tab)
 {
-    const int index = s_settings->mainWindow().newTabNextToCurrentTab() ?
-                m_tabWidget->insertTab(m_tabWidget->currentIndex() + 1, tab, tab->title()) :
-                m_tabWidget->addTab(tab, tab->title());
-
-    m_tabWidget->setTabToolTip(index, tab->fileInfo().absoluteFilePath());
-    m_tabWidget->setCurrentIndex(index);
-
-    return index;
+    return m_tabWidget->addTab(tab, s_settings->mainWindow().newTabNextToCurrentTab(),
+                               tab->title(), tab->fileInfo().absoluteFilePath());
 }
 
 void MainWindow::closeTab(DocumentView* tab)
@@ -2759,7 +2735,7 @@ void MainWindow::closeTab(DocumentView* tab)
     }
     else
     {
-        SplitView* const parentTab = qobject_cast< SplitView* >(tab->parentWidget());
+        Splitter* const parentTab = qobject_cast< Splitter* >(tab->parentWidget());
 
         delete tab;
 
@@ -2835,16 +2811,16 @@ void MainWindow::setWindowTitleForCurrentTab()
     QString tabText;
     QString instanceText;
 
-    if(m_tabWidget->currentIndex() != -1)
+    if(DocumentView* tab = currentTab())
     {
         QString currentPage;
 
         if(s_settings->mainWindow().currentPageInWindowTitle())
         {
-            currentPage = QString(" (%1 / %2)").arg(currentTab()->currentPage()).arg(currentTab()->numberOfPages());
+            currentPage = QString(" (%1 / %2)").arg(tab->currentPage()).arg(tab->numberOfPages());
         }
 
-        tabText = m_tabWidget->tabText(m_tabWidget->currentIndex()) + currentPage + QLatin1String("[*] - ");
+        tabText = m_tabWidget->currentTabText() + currentPage + QLatin1String("[*] - ");
     }
 
     const QString instanceName = qApp->objectName();
@@ -2861,17 +2837,17 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
 {
     QString suffix;
 
-    if(m_tabWidget->currentIndex() != -1)
+    if(DocumentView* tab = currentTab())
     {
-        const int currentPage = currentTab()->currentPage();
-        const int numberOfPages = currentTab()->numberOfPages();
+        const int currentPage = tab->currentPage();
+        const int numberOfPages = tab->numberOfPages();
 
-        const QString& defaultPageLabel = currentTab()->defaultPageLabelFromNumber(currentPage);
-        const QString& pageLabel = currentTab()->pageLabelFromNumber(currentPage);
+        const QString& defaultPageLabel = tab->defaultPageLabelFromNumber(currentPage);
+        const QString& pageLabel = tab->pageLabelFromNumber(currentPage);
 
-        const QString& lastDefaultPageLabel = currentTab()->defaultPageLabelFromNumber(numberOfPages);
+        const QString& lastDefaultPageLabel = tab->defaultPageLabelFromNumber(numberOfPages);
 
-        if((s_settings->mainWindow().usePageLabel() || currentTab()->hasFrontMatter()) && defaultPageLabel != pageLabel)
+        if((s_settings->mainWindow().usePageLabel() || tab->hasFrontMatter()) && defaultPageLabel != pageLabel)
         {
             suffix = QString(" (%1 / %2)").arg(defaultPageLabel).arg(lastDefaultPageLabel);
         }

@@ -150,6 +150,17 @@ class TabWidget : public QTabWidget
 public:
     explicit TabWidget(QWidget* parent = 0);
 
+    bool hasCurrent() const { return currentIndex() != -1; }
+
+    QString currentTabText() const { return tabText(currentIndex()); }
+    void setCurrentTabText(const QString& text) { setTabText(currentIndex(), text); }
+
+    QString currentTabToolTip() const { return tabToolTip(currentIndex()); }
+    void setCurrentTabToolTip(const QString& toolTip) { setTabToolTip(currentIndex(), toolTip); }
+
+    int addTab(QWidget* const widget, const bool nextToCurrent,
+               const QString& label, const QString& toolTip);
+
     enum TabBarPolicy
     {
         TabBarAsNeeded = 0,
@@ -162,6 +173,10 @@ public:
 
     bool spreadTabs() const;
     void setSpreadTabs(bool spreadTabs);
+
+public slots:
+    void previousTab();
+    void nextTab();
 
 signals:
     void tabDragRequested(int index);
@@ -362,14 +377,14 @@ private:
 
 };
 
-// split view
+// splitter
 
-class SplitView : public QSplitter
+class Splitter : public QSplitter
 {
     Q_OBJECT
 
 public:
-    explicit SplitView(Qt::Orientation orientation, QWidget* parent = 0);
+    explicit Splitter(Qt::Orientation orientation, QWidget* parent = 0);
 
     QWidget* currentWidget() const;
     void setCurrentWidget(QWidget* const currentWidget);
@@ -377,13 +392,13 @@ public:
     void setUniformSizes();
 
 signals:
-    void currentChanged(QWidget* currentWidget);
+    void currentWidgetChanged(QWidget* currentWidget);
 
 protected slots:
     void on_focusChanged(QWidget* old, QWidget* now);
 
 private:
-    Q_DISABLE_COPY(SplitView)
+    Q_DISABLE_COPY(Splitter)
 
     int m_currentIndex;
 
