@@ -879,18 +879,18 @@ void MainWindow::on_currentTab_documentChanged()
 
         if(senderTab == tab)
         {
-            m_tabWidget->setTabText(index, tab->title());
-            m_tabWidget->setTabToolTip(index, tab->fileInfo().absoluteFilePath());
+            m_tabWidget->setTabText(index, senderTab->title());
+            m_tabWidget->setTabToolTip(index, senderTab->fileInfo().absoluteFilePath());
 
-            foreach(QAction* tabAction, m_tabsMenu->actions())
-            {
-                if(tabAction->parent() == tab)
-                {
-                    tabAction->setText(m_tabWidget->tabText(index));
+            break;
+        }
+    }
 
-                    break;
-                }
-            }
+    foreach(QAction* tabAction, m_tabsMenu->actions())
+    {
+        if(senderTab == tabAction->parent())
+        {
+            tabAction->setText(senderTab->title());
 
             break;
         }
