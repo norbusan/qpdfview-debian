@@ -136,6 +136,8 @@ protected slots:
     void on_splitView_splitHorizontally_triggered();
     void on_splitView_splitVertically_triggered();
     void on_splitView_split_triggered(Qt::Orientation orientation, int index);
+    void on_splitView_closeCurrent_triggered();
+    void on_splitView_closeCurrent_triggered(int index);
     void on_splitView_currentWidgetChanged(QWidget* currentWidget);
 
     void on_currentPage_editingFinished();
@@ -305,6 +307,7 @@ private:
 
     void addTab(DocumentView* tab);
     void addTabAction(DocumentView* tab);
+    void connectTab(DocumentView* tab);
 
     bool saveModifications(DocumentView* tab);
     void closeTab(DocumentView* tab);
@@ -347,11 +350,6 @@ private:
 
     QAction* m_openAction;
     QAction* m_openInNewTabAction;
-    QAction* m_openCopyInNewTabAction;
-    QAction* m_openContainingFolderAction;
-    QAction* m_moveToInstanceAction;
-    QAction* m_splitViewHorizontallyAction;
-    QAction* m_splitViewVerticallyAction;
     QAction* m_refreshAction;
     QAction* m_saveAction;
     QAction* m_saveAsAction;
@@ -429,6 +427,13 @@ private:
 
     QAction* m_contentsAction;
     QAction* m_aboutAction;
+
+    QAction* m_openCopyInNewTabAction;
+    QAction* m_openContainingFolderAction;
+    QAction* m_moveToInstanceAction;
+    QAction* m_splitViewHorizontallyAction;
+    QAction* m_splitViewVerticallyAction;
+    QAction* m_closeCurrentViewAction;
 
     QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QList< QKeySequence >& shortcuts, const char* member, bool checkable = false, bool checked = false);
     QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable = false, bool checked = false);

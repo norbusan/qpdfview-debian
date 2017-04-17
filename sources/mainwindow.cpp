@@ -438,7 +438,10 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
 {
     if(DocumentView* const tab = currentTab())
     {
-        saveModifications(tab);
+        if(!saveModifications(tab))
+        {
+            return false;
+        }
 
         if(tab->open(filePath))
         {
@@ -484,40 +487,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         addTab(newTab);
         addTabAction(newTab);
-
-        connect(newTab, SIGNAL(documentChanged()), SLOT(on_currentTab_documentChanged()));
-        connect(newTab, SIGNAL(documentModified()), SLOT(on_currentTab_documentModified()));
-
-        connect(newTab, SIGNAL(numberOfPagesChanged(int)), SLOT(on_currentTab_numberOfPagesChaned(int)));
-        connect(newTab, SIGNAL(currentPageChanged(int)), SLOT(on_currentTab_currentPageChanged(int)));
-
-        connect(newTab, SIGNAL(canJumpChanged(bool,bool)), SLOT(on_currentTab_canJumpChanged(bool,bool)));
-
-        connect(newTab, SIGNAL(continuousModeChanged(bool)), SLOT(on_currentTab_continuousModeChanged(bool)));
-        connect(newTab, SIGNAL(layoutModeChanged(LayoutMode)), SLOT(on_currentTab_layoutModeChanged(LayoutMode)));
-        connect(newTab, SIGNAL(rightToLeftModeChanged(bool)), SLOT(on_currentTab_rightToLeftModeChanged(bool)));
-        connect(newTab, SIGNAL(scaleModeChanged(ScaleMode)), SLOT(on_currentTab_scaleModeChanged(ScaleMode)));
-        connect(newTab, SIGNAL(scaleFactorChanged(qreal)), SLOT(on_currentTab_scaleFactorChanged(qreal)));
-        connect(newTab, SIGNAL(rotationChanged(Rotation)), SLOT(on_currentTab_rotationChanged(Rotation)));
-
-        connect(newTab, SIGNAL(linkClicked(int)), SLOT(on_currentTab_linkClicked(int)));
-        connect(newTab, SIGNAL(linkClicked(bool,QString,int)), SLOT(on_currentTab_linkClicked(bool,QString,int)));
-
-        connect(newTab, SIGNAL(renderFlagsChanged(qpdfview::RenderFlags)), SLOT(on_currentTab_renderFlagsChanged(qpdfview::RenderFlags)));
-
-        connect(newTab, SIGNAL(invertColorsChanged(bool)), SLOT(on_currentTab_invertColorsChanged(bool)));
-        connect(newTab, SIGNAL(convertToGrayscaleChanged(bool)), SLOT(on_currentTab_convertToGrayscaleChanged(bool)));
-        connect(newTab, SIGNAL(trimMarginsChanged(bool)), SLOT(on_currentTab_trimMarginsChanged(bool)));
-
-        connect(newTab, SIGNAL(compositionModeChanged(CompositionMode)), SLOT(on_currentTab_compositionModeChanged(CompositionMode)));
-
-        connect(newTab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
-        connect(newTab, SIGNAL(rubberBandModeChanged(RubberBandMode)), SLOT(on_currentTab_rubberBandModeChanged(RubberBandMode)));
-
-        connect(newTab, SIGNAL(searchFinished()), SLOT(on_currentTab_searchFinished()));
-        connect(newTab, SIGNAL(searchProgressChanged(int)), SLOT(on_currentTab_searchProgressChanged(int)));
-
-        connect(newTab, SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_currentTab_customContextMenuRequested(QPoint)));
+        connectTab(newTab);
 
         newTab->show();
 
@@ -610,11 +580,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
     const bool hasCurrent = index != -1;
 
-    m_openCopyInNewTabAction->setEnabled(hasCurrent);
-    m_splitViewHorizontallyAction->setEnabled(hasCurrent);
-    m_splitViewVerticallyAction->setEnabled(hasCurrent);
-    m_openContainingFolderAction->setEnabled(hasCurrent);
-    m_moveToInstanceAction->setEnabled(hasCurrent);
     m_refreshAction->setEnabled(hasCurrent);
     m_printAction->setEnabled(hasCurrent);
 
@@ -676,6 +641,13 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     m_matchCaseCheckBox->setEnabled(hasCurrent);
     m_wholeWordsCheckBox->setEnabled(hasCurrent);
     m_highlightAllCheckBox->setEnabled(hasCurrent);
+
+    m_openCopyInNewTabAction->setEnabled(hasCurrent);
+    m_openContainingFolderAction->setEnabled(hasCurrent);
+    m_moveToInstanceAction->setEnabled(hasCurrent);
+    m_splitViewHorizontallyAction->setEnabled(hasCurrent);
+    m_splitViewVerticallyAction->setEnabled(hasCurrent);
+    m_closeCurrentViewAction->setEnabled(hasCurrent);
 
     m_searchDock->toggleViewAction()->setEnabled(hasCurrent);
 
@@ -795,6 +767,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     SignalBlocker moveToInstanceSignalBlocker(m_moveToInstanceAction);
     SignalBlocker splitViewHorizontallySignalBlocker(m_splitViewHorizontallyAction);
     SignalBlocker splitViewVerticallySignalBlocker(m_splitViewVerticallyAction);
+    SignalBlocker closeCurrentViewSignalBlocker(m_closeCurrentViewAction);
 
     QAction* copyFilePathAction = createTemporaryAction(&menu, tr("Copy file path"), QLatin1String("copyFilePath"));
     QAction* selectFilePathAction = createTemporaryAction(&menu, tr("Select file path"), QLatin1String("selectFilePath"));
@@ -809,7 +782,7 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     QList< QAction* > actions;
 
     actions << m_openCopyInNewTabAction << m_openContainingFolderAction << m_moveToInstanceAction
-            << m_splitViewHorizontallyAction << m_splitViewVerticallyAction
+            << m_splitViewHorizontallyAction << m_splitViewVerticallyAction << m_closeCurrentViewAction
             << copyFilePathAction << selectFilePathAction
             << closeAllTabsAction << closeAllTabsButThisOneAction
             << closeAllTabsToTheLeftAction << closeAllTabsToTheRightAction;
@@ -844,6 +817,11 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     else if(action == m_splitViewVerticallyAction)
     {
         on_splitView_split_triggered(Qt::Vertical, index);
+        return;
+    }
+    else if(action == m_closeCurrentViewAction)
+    {
+        on_splitView_closeCurrent_triggered(index);
         return;
     }
     else if(action == copyFilePathAction)
@@ -1187,7 +1165,7 @@ void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
     QList< QAction* > actions;
 
     actions << m_openCopyInNewTabAction << m_openContainingFolderAction << m_moveToInstanceAction
-            << m_splitViewHorizontallyAction << m_splitViewVerticallyAction
+            << m_splitViewHorizontallyAction << m_splitViewVerticallyAction << m_closeCurrentViewAction
             << m_previousPageAction << m_nextPageAction
             << m_firstPageAction << m_lastPageAction
             << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction
@@ -1255,6 +1233,7 @@ void MainWindow::on_splitView_split_triggered(Qt::Orientation orientation, int i
     m_tabWidget->setTabToolTip(index, tabToolTip);
 
     addTabAction(newTab);
+    connectTab(newTab);
 
     m_tabWidget->setCurrentIndex(index);
     tab->setFocus();
@@ -1270,6 +1249,21 @@ void MainWindow::on_splitView_split_triggered(Qt::Orientation orientation, int i
         connect(oldTab, SIGNAL(currentPageChanged(int,bool)), newTab, SLOT(jumpToPage(int,bool)));
         connect(oldTab->horizontalScrollBar(), SIGNAL(valueChanged(int)), newTab->horizontalScrollBar(), SLOT(setValue(int)));
         connect(oldTab->verticalScrollBar(), SIGNAL(valueChanged(int)), newTab->verticalScrollBar(), SLOT(setValue(int)));
+    }
+}
+
+void MainWindow::on_splitView_closeCurrent_triggered()
+{
+    on_splitView_closeCurrent_triggered(m_tabWidget->currentIndex());
+}
+
+void MainWindow::on_splitView_closeCurrent_triggered(int index)
+{
+    DocumentView* const tab = currentTab(index);
+
+    if(saveModifications(tab))
+    {
+        closeTab(tab);
     }
 }
 
@@ -2721,6 +2715,43 @@ void MainWindow::addTabAction(DocumentView* tab)
     m_tabsMenu->addAction(tabAction);
 }
 
+void MainWindow::connectTab(DocumentView* tab)
+{
+    connect(tab, SIGNAL(documentChanged()), SLOT(on_currentTab_documentChanged()));
+    connect(tab, SIGNAL(documentModified()), SLOT(on_currentTab_documentModified()));
+
+    connect(tab, SIGNAL(numberOfPagesChanged(int)), SLOT(on_currentTab_numberOfPagesChaned(int)));
+    connect(tab, SIGNAL(currentPageChanged(int)), SLOT(on_currentTab_currentPageChanged(int)));
+
+    connect(tab, SIGNAL(canJumpChanged(bool,bool)), SLOT(on_currentTab_canJumpChanged(bool,bool)));
+
+    connect(tab, SIGNAL(continuousModeChanged(bool)), SLOT(on_currentTab_continuousModeChanged(bool)));
+    connect(tab, SIGNAL(layoutModeChanged(LayoutMode)), SLOT(on_currentTab_layoutModeChanged(LayoutMode)));
+    connect(tab, SIGNAL(rightToLeftModeChanged(bool)), SLOT(on_currentTab_rightToLeftModeChanged(bool)));
+    connect(tab, SIGNAL(scaleModeChanged(ScaleMode)), SLOT(on_currentTab_scaleModeChanged(ScaleMode)));
+    connect(tab, SIGNAL(scaleFactorChanged(qreal)), SLOT(on_currentTab_scaleFactorChanged(qreal)));
+    connect(tab, SIGNAL(rotationChanged(Rotation)), SLOT(on_currentTab_rotationChanged(Rotation)));
+
+    connect(tab, SIGNAL(linkClicked(int)), SLOT(on_currentTab_linkClicked(int)));
+    connect(tab, SIGNAL(linkClicked(bool,QString,int)), SLOT(on_currentTab_linkClicked(bool,QString,int)));
+
+    connect(tab, SIGNAL(renderFlagsChanged(qpdfview::RenderFlags)), SLOT(on_currentTab_renderFlagsChanged(qpdfview::RenderFlags)));
+
+    connect(tab, SIGNAL(invertColorsChanged(bool)), SLOT(on_currentTab_invertColorsChanged(bool)));
+    connect(tab, SIGNAL(convertToGrayscaleChanged(bool)), SLOT(on_currentTab_convertToGrayscaleChanged(bool)));
+    connect(tab, SIGNAL(trimMarginsChanged(bool)), SLOT(on_currentTab_trimMarginsChanged(bool)));
+
+    connect(tab, SIGNAL(compositionModeChanged(CompositionMode)), SLOT(on_currentTab_compositionModeChanged(CompositionMode)));
+
+    connect(tab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
+    connect(tab, SIGNAL(rubberBandModeChanged(RubberBandMode)), SLOT(on_currentTab_rubberBandModeChanged(RubberBandMode)));
+
+    connect(tab, SIGNAL(searchFinished()), SLOT(on_currentTab_searchFinished()));
+    connect(tab, SIGNAL(searchProgressChanged(int)), SLOT(on_currentTab_searchProgressChanged(int)));
+
+    connect(tab, SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_currentTab_customContextMenuRequested(QPoint)));
+}
+
 bool MainWindow::saveModifications(DocumentView* tab)
 {
     s_database->savePerFileSettings(tab);
@@ -3067,11 +3098,6 @@ void MainWindow::createActions()
 
     m_openAction = createAction(tr("&Open..."), QLatin1String("open"), QLatin1String("document-open"), QKeySequence::Open, SLOT(on_open_triggered()));
     m_openInNewTabAction = createAction(tr("Open in new &tab..."), QLatin1String("openInNewTab"), QLatin1String("tab-new"), QKeySequence::AddTab, SLOT(on_openInNewTab_triggered()));
-    m_openCopyInNewTabAction = createAction(tr("Open &copy in new tab"), QLatin1String("openCopyInNewTab"), QLatin1String("tab-new"), QKeySequence(), SLOT(on_openCopyInNewTab_triggered()));
-    m_openContainingFolderAction = createAction(tr("Open containing &folder"), QLatin1String("openContainingFolder"), QLatin1String("folder"), QKeySequence(), SLOT(on_openContainingFolder_triggered()));
-    m_moveToInstanceAction = createAction(tr("Move to &instance..."), QLatin1String("moveToInstance"), QIcon(), QKeySequence(), SLOT(on_moveToInstance_triggered()));
-    m_splitViewHorizontallyAction = createAction(tr("Split view horizontally..."), QLatin1String("splitViewHorizontally"), QIcon(), QKeySequence(), SLOT(on_splitView_splitHorizontally_triggered()));
-    m_splitViewVerticallyAction = createAction(tr("Split view vertically..."), QLatin1String("splitViewVertically"), QIcon(), QKeySequence(), SLOT(on_splitView_splitVertically_triggered()));
     m_refreshAction = createAction(tr("&Refresh"), QLatin1String("refresh"), QLatin1String("view-refresh"), QKeySequence::Refresh, SLOT(on_refresh_triggered()));
     m_saveAction = createAction(tr("&Save"), QLatin1String("save"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_save_triggered()));
     m_saveAsAction = createAction(tr("Save &as..."), QLatin1String("saveAs"), QLatin1String("document-save-as"), QKeySequence::SaveAs, SLOT(on_saveAs_triggered()));
@@ -3177,6 +3203,15 @@ void MainWindow::createActions()
 
     m_contentsAction = createAction(tr("&Contents"), QLatin1String("contents"), QIcon::fromTheme("help-contents"), QKeySequence::HelpContents, SLOT(on_contents_triggered()));
     m_aboutAction = createAction(tr("&About"), QString(), QIcon::fromTheme("help-about"), QKeySequence(), SLOT(on_about_triggered()));
+
+    // context
+
+    m_openCopyInNewTabAction = createAction(tr("Open &copy in new tab"), QLatin1String("openCopyInNewTab"), QLatin1String("tab-new"), QKeySequence(), SLOT(on_openCopyInNewTab_triggered()));
+    m_openContainingFolderAction = createAction(tr("Open containing &folder"), QLatin1String("openContainingFolder"), QLatin1String("folder"), QKeySequence(), SLOT(on_openContainingFolder_triggered()));
+    m_moveToInstanceAction = createAction(tr("Move to &instance..."), QLatin1String("moveToInstance"), QIcon(), QKeySequence(), SLOT(on_moveToInstance_triggered()));
+    m_splitViewHorizontallyAction = createAction(tr("Split view horizontally..."), QLatin1String("splitViewHorizontally"), QIcon(), QKeySequence(), SLOT(on_splitView_splitHorizontally_triggered()));
+    m_splitViewVerticallyAction = createAction(tr("Split view vertically..."), QLatin1String("splitViewVertically"), QIcon(), QKeySequence(), SLOT(on_splitView_splitVertically_triggered()));
+    m_closeCurrentViewAction = createAction(tr("Close current view"), QLatin1String("closeCurrentView"), QIcon(), QKeySequence(), SLOT(on_splitView_closeCurrent_triggered()));
 
     // tool bars and menu bar
 

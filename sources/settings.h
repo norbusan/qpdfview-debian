@@ -650,7 +650,7 @@ public:
         static QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
 
         static QStringList documentContextMenu() { return QStringList() << "previousPage" << "nextPage" << "firstPage" << "lastPage" << "separator" << "jumpToPage" << "jumpBackward" << "jumpForward" << "separator" << "setFirstPage" << "separator" << "findPrevious" << "findNext" << "cancelSearch"; }
-        static QStringList tabContexntMenu() { return QStringList() << "openCopyInNewTab" << "openContainingFolder" << "separator" << "closeAllTabs" << "closeAllTabsButThisOne" << "closeAllTabsToTheLeft" << "closeAllTabsToTheRight"; }
+        static QStringList tabContexntMenu() { return QStringList() << "openCopyInNewTab" << "openContainingFolder" << "separator" << "splitViewHorizontally" << "splitViewVertically" << "closeCurrentView" << "separator" << "closeAllTabs" << "closeAllTabsButThisOne" << "closeAllTabsToTheLeft" << "closeAllTabsToTheRight"; }
 
         static bool scrollableMenus() { return false; }
         static bool searchableMenus() { return false; }
