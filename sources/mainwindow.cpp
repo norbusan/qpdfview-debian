@@ -791,83 +791,56 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 
     const QAction* action = menu.exec(globalPos);
 
-    DocumentView* selectedTab = currentTab(index);
-    QVector< DocumentView* > tabsToClose;
+    DocumentView* const tab = currentTab(index);
 
     if(action == m_openCopyInNewTabAction)
     {
-        on_openCopyInNewTab_triggered(selectedTab);
-        return;
+        on_openCopyInNewTab_triggered(tab);
     }
     else if(action == m_openContainingFolderAction)
     {
-        on_openContainingFolder_triggered(selectedTab);
-        return;
+        on_openContainingFolder_triggered(tab);
     }
     else if(action == m_moveToInstanceAction)
     {
-        on_moveToInstance_triggered(selectedTab);
-        return;
+        on_moveToInstance_triggered(tab);
     }
     else if(action == m_splitViewHorizontallyAction)
     {
         on_splitView_split_triggered(Qt::Horizontal, index);
-        return;
     }
     else if(action == m_splitViewVerticallyAction)
     {
         on_splitView_split_triggered(Qt::Vertical, index);
-        return;
     }
     else if(action == m_closeCurrentViewAction)
     {
         on_splitView_closeCurrent_triggered(index);
-        return;
     }
     else if(action == copyFilePathAction)
     {
-        QApplication::clipboard()->setText(selectedTab->fileInfo().absoluteFilePath());
-        return;
+        QApplication::clipboard()->setText(tab->fileInfo().absoluteFilePath());
     }
     else if(action == selectFilePathAction)
     {
-        QApplication::clipboard()->setText(selectedTab->fileInfo().absoluteFilePath(), QClipboard::Selection);
-        return;
+        QApplication::clipboard()->setText(tab->fileInfo().absoluteFilePath(), QClipboard::Selection);
     }
     else if(action == closeAllTabsAction)
     {
-        tabsToClose = allTabs();
+        on_closeAllTabs_triggered();
     }
     else if(action == closeAllTabsButThisOneAction)
     {
-        for(int indexToClose = 0, count = m_tabWidget->count(); indexToClose < count; ++indexToClose)
-        {
-            if(indexToClose != index)
-            {
-                tabsToClose.append(allTabs(indexToClose));
-            }
-        }
+        on_closeAllTabsButThisOne_triggered(index);
     }
     else if(action == closeAllTabsToTheLeftAction)
     {
-        for(int indexToClose = 0; indexToClose < index; ++indexToClose)
-        {
-            tabsToClose.append(allTabs(indexToClose));
-        }
+        on_closeAllTabsToTheLeft_triggered(index);
     }
     else if(action == closeAllTabsToTheRightAction)
     {
-        for(int indexToClose = m_tabWidget->count() - 1; indexToClose > index; --indexToClose)
-        {
-            tabsToClose.append(allTabs(indexToClose));
-        }
+        on_closeAllTabsToTheRight_triggered(index);
     }
-    else
-    {
-        return;
-    }
-
-    on_closeTabs_triggered(tabsToClose);
 }
 
 #define ONLY_IF_SENDER_IS_CURRENT_TAB if(!senderIsCurrentTab()) { return; }
@@ -878,9 +851,7 @@ void MainWindow::on_currentTab_documentChanged()
 
     for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
-        DocumentView* const tab = currentTab(index);
-
-        if(senderTab == tab)
+        if(senderTab == currentTab(index))
         {
             m_tabWidget->setTabText(index, senderTab->title());
             m_tabWidget->setTabToolTip(index, senderTab->fileInfo().absoluteFilePath());
@@ -1836,14 +1807,16 @@ void MainWindow::on_closeAllTabs_triggered()
 
 void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 {
+    on_closeAllTabsButThisOne_triggered(m_tabWidget->currentIndex());
+}
+
+void MainWindow::on_closeAllTabsButThisOne_triggered(int thisIndex)
+{
     QVector< DocumentView* > tabs;
 
-    const int count = m_tabWidget->count();
-    const int currentIndex = m_tabWidget->currentIndex();
-
-    for(int index = 0; index < count; ++index)
+    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
-        if(index != currentIndex)
+        if(index != thisIndex)
         {
             tabs.append(allTabs(index));
         }
@@ -1852,7 +1825,31 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
     on_closeTabs_triggered(tabs);
 }
 
-void MainWindow::on_closeTabs_triggered(const QVector<DocumentView *>& tabs)
+void MainWindow::on_closeAllTabsToTheLeft_triggered(int ofIndex)
+{
+    QVector< DocumentView* > tabs;
+
+    for(int index = 0; index < ofIndex; ++index)
+    {
+        tabs.append(allTabs(index));
+    }
+
+    on_closeTabs_triggered(tabs);
+}
+
+void MainWindow::on_closeAllTabsToTheRight_triggered(int ofIndex)
+{
+    QVector< DocumentView* > tabs;
+
+    for(int index = ofIndex + 1, count = m_tabWidget->count(); index < count; ++index)
+    {
+        tabs.append(allTabs(index));
+    }
+
+    on_closeTabs_triggered(tabs);
+}
+
+void MainWindow::on_closeTabs_triggered(const QVector< DocumentView* >& tabs)
 {
     CurrentTabChangeBlocker currentTabChangeBlocker(this);
 

@@ -218,6 +218,9 @@ protected slots:
     void on_closeTab_triggered();
     void on_closeAllTabs_triggered();
     void on_closeAllTabsButCurrentTab_triggered();
+    void on_closeAllTabsButThisOne_triggered(int thisIndex);
+    void on_closeAllTabsToTheLeft_triggered(int ofIndex);
+    void on_closeAllTabsToTheRight_triggered(int ofIndex);
     void on_closeTabs_triggered(const QVector< DocumentView* >& tabs);
 
     void on_restoreMostRecentlyClosedTab_triggered();
