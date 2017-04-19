@@ -118,7 +118,7 @@ void waitForMessageTag(ddjvu_context_t* context, ddjvu_message_tag_t tag)
     }
 }
 
-QPainterPath loadLinkBoundary(const QString& type, miniexp_t boundaryExp, const QSizeF& size)
+QPainterPath loadLinkBoundary(const QString& type, miniexp_t boundaryExp, QSizeF size)
 {
     QPainterPath boundary;
 
@@ -215,7 +215,7 @@ Link* loadLinkTarget(const QPainterPath& boundary, miniexp_t targetExp, int inde
     }
 }
 
-QList< Link* > loadLinks(miniexp_t linkExp, const QSizeF& size, int index, const QHash< QString, int >& pageByName)
+QList< Link* > loadLinks(miniexp_t linkExp, QSizeF size, int index, const QHash< QString, int >& pageByName)
 {
     QList< Link* > links;
 
@@ -257,7 +257,7 @@ QList< Link* > loadLinks(miniexp_t linkExp, const QSizeF& size, int index, const
     return links;
 }
 
-QString loadText(miniexp_t textExp, const QSizeF& size, const QRectF& rect)
+QString loadText(miniexp_t textExp, QSizeF size, const QRectF& rect)
 {
     if(miniexp_length(textExp) < 6 && !miniexp_symbolp(miniexp_car(textExp)))
     {
@@ -297,7 +297,7 @@ QString loadText(miniexp_t textExp, const QSizeF& size, const QRectF& rect)
     return QString();
 }
 
-QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTransform& transform, const QStringList& words, bool matchCase, bool wholeWords)
+QList< QRectF > findText(miniexp_t pageTextExp, QSizeF size, const QTransform& transform, const QStringList& words, bool matchCase, bool wholeWords)
 {
     if(words.isEmpty())
     {
@@ -514,7 +514,7 @@ QSizeF DjVuPage::size() const
     return 72.0 / m_resolution * m_size;
 }
 
-QImage DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const
 {
     LOCK_PAGE
 

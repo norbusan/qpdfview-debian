@@ -180,10 +180,10 @@ public slots:
 
 signals:
     void tabDragRequested(int index);
-    void tabContextMenuRequested(const QPoint& globalPos, int index);
+    void tabContextMenuRequested(QPoint globalPos, int index);
 
 protected slots:
-    void on_tabBar_customContextMenuRequested(const QPoint& pos);
+    void on_tabBar_customContextMenuRequested(QPoint pos);
 
 protected:
     void tabInserted(int index);
@@ -335,7 +335,7 @@ public:
     void setProgress(int progress);
 
 signals:
-    void returnPressed(const Qt::KeyboardModifiers& modifiers);
+    void returnPressed(Qt::KeyboardModifiers modifiers);
 
 protected:
     void paintEvent(QPaintEvent* event);
@@ -368,7 +368,7 @@ signals:
 
 protected slots:
     void on_timeout();
-    void on_returnPressed(const Qt::KeyboardModifiers& modifiers);
+    void on_returnPressed(Qt::KeyboardModifiers modifiers);
 
 private:
     Q_DISABLE_COPY(SearchLineEdit)

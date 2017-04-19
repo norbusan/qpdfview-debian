@@ -38,13 +38,20 @@ struct BookmarkItem
     QString comment;
     QDateTime modified;
 
-    BookmarkItem(int page, const QString& label = QString(), const QString& comment = QString(), const QDateTime& modified = QDateTime::currentDateTime()) :
+    BookmarkItem(int page = -1, const QString& label = QString(), const QString& comment = QString(), const QDateTime& modified = QDateTime::currentDateTime()) :
         page(page),
         label(label),
         comment(comment),
         modified(modified) {}
 
 };
+
+} // namespace qpdfview
+
+Q_DECLARE_TYPEINFO(qpdfview::BookmarkItem, Q_MOVABLE_TYPE);
+
+namespace qpdfview
+{
 
 class BookmarkModel : public QAbstractListModel
 {
@@ -88,7 +95,7 @@ private:
     static QHash< QString, BookmarkModel* > s_instances;
     BookmarkModel(QObject* parent = 0);
 
-    QList< BookmarkItem > m_bookmarks;
+    QVector< BookmarkItem > m_bookmarks;
 
 };
 

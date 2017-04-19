@@ -213,7 +213,7 @@ private:
     QComboBox* addComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QStringList& text, const QList< int >& data, int value);
     QComboBox* addDataSizeComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, int initialDataSize);
     QComboBox* addColorComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QColor& color);
-    QComboBox* addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const Qt::KeyboardModifiers& modifiers);
+    QComboBox* addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, Qt::KeyboardModifiers modifiers);
 
 };
 

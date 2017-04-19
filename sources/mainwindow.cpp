@@ -254,6 +254,8 @@ QVector< DocumentView* > findAllTabs(QObject* const object)
 
 class MainWindow::CurrentTabChangeBlocker
 {
+    Q_DISABLE_COPY(CurrentTabChangeBlocker)
+
 private:
     MainWindow* const that;
 
@@ -757,7 +759,7 @@ void MainWindow::on_tabWidget_tabDragRequested(int index)
     drag->exec();
 }
 
-void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, int index)
+void MainWindow::on_tabWidget_tabContextMenuRequested(QPoint globalPos, int index)
 {
     QMenu menu;
 
@@ -1125,7 +1127,7 @@ void MainWindow::on_currentTab_searchProgressChanged(int progress)
     m_searchLineEdit->setProgress(progress);
 }
 
-void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
+void MainWindow::on_currentTab_customContextMenuRequested(QPoint pos)
 {
     ONLY_IF_SENDER_IS_CURRENT_TAB
 
@@ -2345,7 +2347,7 @@ void MainWindow::on_bookmarks_clicked(const QModelIndex& index)
     }
 }
 
-void MainWindow::on_bookmarks_contextMenuRequested(const QPoint& pos)
+void MainWindow::on_bookmarks_contextMenuRequested(QPoint pos)
 {
     QMenu menu;
 
@@ -2875,7 +2877,7 @@ void MainWindow::setCurrentPageSuffixForCurrentTab()
 
         if((s_settings->mainWindow().usePageLabel() || tab->hasFrontMatter()) && defaultPageLabel != pageLabel)
         {
-            suffix = QString(" (%1 / %2)").arg(defaultPageLabel).arg(lastDefaultPageLabel);
+            suffix = QString(" (%1 / %2)").arg(defaultPageLabel, lastDefaultPageLabel);
         }
         else
         {
@@ -2895,7 +2897,7 @@ BookmarkModel* MainWindow::bookmarkModelForCurrentTab(bool create)
     return BookmarkModel::fromPath(currentTab()->fileInfo().absoluteFilePath(), create);
 }
 
-QAction* MainWindow::sourceLinkActionForCurrentTab(QObject* parent, const QPoint& pos)
+QAction* MainWindow::sourceLinkActionForCurrentTab(QObject* parent, QPoint pos)
 {
     QAction* action = createTemporaryAction(parent, QString(), QLatin1String("openSourceLink"));
 

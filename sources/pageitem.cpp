@@ -52,7 +52,7 @@ const int veryLargeTilesThreshold = 16;
 
 const qreal proxyPadding = 2.0;
 
-inline bool modifiersAreActive(const QGraphicsSceneMouseEvent* event, const Qt::KeyboardModifiers& modifiers)
+inline bool modifiersAreActive(const QGraphicsSceneMouseEvent* event, Qt::KeyboardModifiers modifiers)
 {
     if(modifiers == Qt::NoModifier)
     {
@@ -770,7 +770,7 @@ void PageItem::loadInteractiveElements()
     m_formFields = formFields;
 }
 
-void PageItem::copyToClipboard(const QPoint& screenPos)
+void PageItem::copyToClipboard(QPoint screenPos)
 {
     QMenu menu;
 
@@ -823,7 +823,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     }
 }
 
-void PageItem::addAnnotation(const QPoint& screenPos)
+void PageItem::addAnnotation(QPoint screenPos)
 {
     if(m_page->canAddAndRemoveAnnotations())
     {
@@ -866,7 +866,7 @@ void PageItem::addAnnotation(const QPoint& screenPos)
     }
 }
 
-void PageItem::showLinkContextMenu(Model::Link* link, const QPoint& screenPos)
+void PageItem::showLinkContextMenu(Model::Link* link, QPoint screenPos)
 {
     if(link->page == -1)
     {
@@ -890,7 +890,7 @@ void PageItem::showLinkContextMenu(Model::Link* link, const QPoint& screenPos)
     }
 }
 
-void PageItem::showAnnotationContextMenu(Model::Annotation* annotation, const QPoint& screenPos)
+void PageItem::showAnnotationContextMenu(Model::Annotation* annotation, QPoint screenPos)
 {
     if(m_page->canAddAndRemoveAnnotations())
     {

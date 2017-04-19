@@ -225,10 +225,46 @@ inline void restoreRenderHint(Poppler::Document* document, const Poppler::Docume
 typedef QSharedPointer< Poppler::TextBox > TextBox;
 typedef QList< TextBox > TextBoxList;
 
-QCache< const PdfPage*,  TextBoxList > textCache(1 << 12);
-QMutex textCacheMutex;
+class TextCache
+{
+public:
+    TextCache() : m_mutex(), m_cache(1 << 12) {}
 
-#define LOCK_TEXT_CACHE QMutexLocker mutexLocker(&textCacheMutex);
+    bool object(const PdfPage* page, TextBoxList& textBoxes) const
+    {
+        QMutexLocker mutexLocker(&m_mutex);
+
+        if(TextBoxList* const object = m_cache.object(page))
+        {
+            textBoxes = *object;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    void insert(const PdfPage* page, const TextBoxList& textBoxes)
+    {
+        QMutexLocker mutexLocker(&m_mutex);
+
+        m_cache.insert(page, new TextBoxList(textBoxes), textBoxes.count());
+    }
+
+    void remove(const PdfPage* page)
+    {
+        QMutexLocker mutexLocker(&m_mutex);
+
+        m_cache.remove(page);
+    }
+
+private:
+    mutable QMutex m_mutex;
+    QCache< const PdfPage*, TextBoxList > m_cache;
+
+};
+
+Q_GLOBAL_STATIC(TextCache, textCache)
 
 namespace Defaults
 {
@@ -403,11 +439,7 @@ PdfPage::PdfPage(QMutex* mutex, Poppler::Page* page) :
 
 PdfPage::~PdfPage()
 {
-    {
-        LOCK_TEXT_CACHE
-
-        textCache.remove(this);
-    }
+    textCache->remove(this);
 
     delete m_page;
 }
@@ -419,7 +451,7 @@ QSizeF PdfPage::size() const
     return m_page->pageSizeF();
 }
 
-QImage PdfPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage PdfPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const
 {
     LOCK_PAGE
 
@@ -540,21 +572,9 @@ QString PdfPage::text(const QRectF& rect) const
 
 QString PdfPage::cachedText(const QRectF& rect) const
 {
-    bool wasCached = false;
     TextBoxList textBoxes;
 
-    {
-        LOCK_TEXT_CACHE
-
-        if(const TextBoxList* object = textCache.object(this))
-        {
-            wasCached = true;
-
-            textBoxes = *object;
-        }
-    }
-
-    if(!wasCached)
+    if(!textCache->object(this, textBoxes))
     {
         {
             LOCK_PAGE
@@ -565,9 +585,7 @@ QString PdfPage::cachedText(const QRectF& rect) const
             }
         }
 
-        LOCK_TEXT_CACHE
-
-        textCache.insert(this, new TextBoxList(textBoxes), textBoxes.count());
+        textCache->insert(this, textBoxes);
     }
 
     QString text;

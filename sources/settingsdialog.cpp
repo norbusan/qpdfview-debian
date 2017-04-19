@@ -78,7 +78,7 @@ QColor validColorFromCurrentText(const QComboBox* comboBox, const QColor& defaul
     return color.isValid() ? color : defaultColor;
 }
 
-void setCurrentIndexFromKeyboardModifiers(QComboBox* comboBox, const Qt::KeyboardModifiers& modifiers)
+void setCurrentIndexFromKeyboardModifiers(QComboBox* comboBox, Qt::KeyboardModifiers modifiers)
 {
     comboBox->setCurrentIndex(comboBox->findData(static_cast< int >(modifiers)));
 }
@@ -854,7 +854,7 @@ QComboBox* SettingsDialog::addColorComboBox(QFormLayout* layout, const QString& 
     return comboBox;
 }
 
-QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const Qt::KeyboardModifiers& modifiers)
+QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, Qt::KeyboardModifiers modifiers)
 {
     QComboBox* comboBox = new QComboBox(this);
     comboBox->addItem(QShortcut::tr("Shift"), static_cast< int >(Qt::ShiftModifier));

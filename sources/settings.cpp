@@ -211,7 +211,7 @@ Qt::KeyboardModifiers Settings::PageItem::copyToClipboardModifiers() const
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("pageItem/copyToClipboardModifiers", static_cast< int >(Defaults::PageItem::copyToClipboardModifiers())).toInt());
 }
 
-void Settings::PageItem::setCopyToClipboardModifiers(const Qt::KeyboardModifiers& modifiers)
+void Settings::PageItem::setCopyToClipboardModifiers(Qt::KeyboardModifiers modifiers)
 {
     m_settings->setValue("pageItem/copyToClipboardModifiers", static_cast< int >(modifiers));
 }
@@ -221,7 +221,7 @@ Qt::KeyboardModifiers Settings::PageItem::addAnnotationModifiers() const
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("pageItem/addAnnotationModifiers", static_cast< int >(Defaults::PageItem::addAnnotationModifiers())).toInt());
 }
 
-void Settings::PageItem::setAddAnnotationModifiers(const Qt::KeyboardModifiers& modifiers)
+void Settings::PageItem::setAddAnnotationModifiers(Qt::KeyboardModifiers modifiers)
 {
     m_settings->setValue("pageItem/addAnnotationModifiers", static_cast< int >(modifiers));
 }
@@ -231,7 +231,7 @@ Qt::KeyboardModifiers Settings::PageItem::zoomToSelectionModifiers() const
     return static_cast< Qt::KeyboardModifiers>(m_settings->value("pageItem/zoomToSelectionModifiers", static_cast< int >(Defaults::PageItem::zoomToSelectionModifiers())).toInt());
 }
 
-void Settings::PageItem::setZoomToSelectionModifiers(const Qt::KeyboardModifiers& modifiers)
+void Settings::PageItem::setZoomToSelectionModifiers(Qt::KeyboardModifiers modifiers)
 {
     m_settings->setValue("pageItem/zoomToSelectionModifiers", static_cast< int >(modifiers));
 }
@@ -241,7 +241,7 @@ Qt::KeyboardModifiers Settings::PageItem::openInSourceEditorModifiers() const
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("pageItem/openInSourceEditorModifiers", static_cast< int >(Defaults::PageItem::openInSourceEditorModifiers())).toInt());
 }
 
-void Settings::PageItem::setOpenInSourceEditorModifiers(const Qt::KeyboardModifiers& modifiers)
+void Settings::PageItem::setOpenInSourceEditorModifiers(Qt::KeyboardModifiers modifiers)
 {
     m_settings->setValue("pageItem/openInSourceEditorModifiers", static_cast< int >(modifiers));
 }
@@ -523,7 +523,7 @@ Qt::KeyboardModifiers Settings::DocumentView::zoomModifiers() const
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("documentView/zoomModifiers", static_cast< int >(Defaults::DocumentView::zoomModifiers())).toInt());
 }
 
-void Settings::DocumentView::setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers)
+void Settings::DocumentView::setZoomModifiers(Qt::KeyboardModifiers zoomModifiers)
 {
     m_settings->setValue("documentView/zoomModifiers", static_cast< int >(zoomModifiers));
 }
@@ -533,7 +533,7 @@ Qt::KeyboardModifiers Settings::DocumentView::rotateModifiers() const
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("documentView/rotateModifiers", static_cast< int >(Defaults::DocumentView::rotateModifiers())).toInt());
 }
 
-void Settings::DocumentView::setRotateModifiers(const Qt::KeyboardModifiers& rotateModifiers)
+void Settings::DocumentView::setRotateModifiers(Qt::KeyboardModifiers rotateModifiers)
 {
     m_settings->setValue("documentView/rotateModifiers", static_cast< int >(rotateModifiers));
 }
@@ -543,7 +543,7 @@ Qt::KeyboardModifiers Settings::DocumentView::scrollModifiers() const
     return static_cast< Qt::KeyboardModifiers >(m_settings->value("documentView/scrollModifiers", static_cast< int >(Defaults::DocumentView::scrollModifiers())).toInt());
 }
 
-void Settings::DocumentView::setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers)
+void Settings::DocumentView::setScrollModifiers(Qt::KeyboardModifiers scrollModifiers)
 {
     m_settings->setValue("documentView/scrollModifiers", static_cast< int >(scrollModifiers));
 }
@@ -863,7 +863,7 @@ bool Settings::MainWindow::extendedSearchDock() const
 
 void Settings::MainWindow::setExtendedSearchDock(bool extendedSearchDock)
 {
-    return m_settings->setValue("mainWindow/extendedSearchDock", extendedSearchDock);
+    m_settings->setValue("mainWindow/extendedSearchDock", extendedSearchDock);
 }
 
 bool Settings::MainWindow::usePageLabel() const
@@ -1036,32 +1036,32 @@ void Settings::MainWindow::setSavePath(const QString& savePath)
     m_settings->setValue("mainWindow/savePath", savePath);
 }
 
-QSize Settings::MainWindow::settingsDialogSize(const QSize& sizeHint) const
+QSize Settings::MainWindow::settingsDialogSize(QSize sizeHint) const
 {
     return m_settings->value("mainWindow/settingsDialogSize", sizeHint).toSize();
 }
 
-void Settings::MainWindow::setSettingsDialogSize(const QSize& settingsDialogSize)
+void Settings::MainWindow::setSettingsDialogSize(QSize settingsDialogSize)
 {
     m_settings->setValue("mainWindow/settingsDialogSize", settingsDialogSize);
 }
 
-QSize Settings::MainWindow::fontsDialogSize(const QSize& sizeHint) const
+QSize Settings::MainWindow::fontsDialogSize(QSize sizeHint) const
 {
     return m_settings->value("mainWindow/fontsDialogSize", sizeHint).toSize();
 }
 
-void Settings::MainWindow::setFontsDialogSize(const QSize& fontsDialogSize)
+void Settings::MainWindow::setFontsDialogSize(QSize fontsDialogSize)
 {
     m_settings->setValue("mainWindow/fontsDialogSize", fontsDialogSize);
 }
 
-QSize Settings::MainWindow::contentsDialogSize(const QSize& sizeHint) const
+QSize Settings::MainWindow::contentsDialogSize(QSize sizeHint) const
 {
     return m_settings->value("mainWindow/contentsDialogSize", sizeHint).toSize();
 }
 
-void Settings::MainWindow::setContentsDialogSize(const QSize& contentsDialogSize)
+void Settings::MainWindow::setContentsDialogSize(QSize contentsDialogSize)
 {
     m_settings->setValue("mainWindow/contentsDialogSize", contentsDialogSize);
 }

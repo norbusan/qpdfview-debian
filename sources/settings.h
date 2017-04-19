@@ -95,16 +95,16 @@ public:
         void setAnnotationColor(const QColor& annotationColor);
 
         Qt::KeyboardModifiers copyToClipboardModifiers() const;
-        void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& modifiers);
+        void setCopyToClipboardModifiers(Qt::KeyboardModifiers modifiers);
 
         Qt::KeyboardModifiers addAnnotationModifiers() const;
-        void setAddAnnotationModifiers(const Qt::KeyboardModifiers& modifiers);
+        void setAddAnnotationModifiers(Qt::KeyboardModifiers modifiers);
 
         Qt::KeyboardModifiers zoomToSelectionModifiers() const;
-        void setZoomToSelectionModifiers(const Qt::KeyboardModifiers& modifiers);
+        void setZoomToSelectionModifiers(Qt::KeyboardModifiers modifiers);
 
         Qt::KeyboardModifiers openInSourceEditorModifiers() const;
-        void setOpenInSourceEditorModifiers(const Qt::KeyboardModifiers& modifiers);
+        void setOpenInSourceEditorModifiers(Qt::KeyboardModifiers modifiers);
 
         bool annotationOverlay() const;
         void setAnnotationOverlay(bool overlay);
@@ -228,13 +228,13 @@ public:
         void setSourceEditor(const QString& sourceEditor);
 
         Qt::KeyboardModifiers zoomModifiers() const;
-        void setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers);
+        void setZoomModifiers(Qt::KeyboardModifiers zoomModifiers);
 
         Qt::KeyboardModifiers rotateModifiers() const;
-        void setRotateModifiers(const Qt::KeyboardModifiers& rotateModifiers);
+        void setRotateModifiers(Qt::KeyboardModifiers rotateModifiers);
 
         Qt::KeyboardModifiers scrollModifiers() const;
-        void setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers);
+        void setScrollModifiers(Qt::KeyboardModifiers scrollModifiers);
 
         // per-tab settings
 
@@ -406,14 +406,14 @@ public:
         QString savePath() const;
         void setSavePath(const QString& savePath);
 
-        QSize settingsDialogSize(const QSize& sizeHint) const;
-        void setSettingsDialogSize(const QSize& settingsDialogSize);
+        QSize settingsDialogSize(QSize sizeHint) const;
+        void setSettingsDialogSize(QSize settingsDialogSize);
 
-        QSize fontsDialogSize(const QSize& sizeHint) const;
-        void setFontsDialogSize(const QSize& fontsDialogSize);
+        QSize fontsDialogSize(QSize sizeHint) const;
+        void setFontsDialogSize(QSize fontsDialogSize);
 
-        QSize contentsDialogSize(const QSize& sizeHint) const;
-        void setContentsDialogSize(const QSize& contentsDialogSize);
+        QSize contentsDialogSize(QSize sizeHint) const;
+        void setContentsDialogSize(QSize contentsDialogSize);
 
     private:
         MainWindow(QSettings* settings);

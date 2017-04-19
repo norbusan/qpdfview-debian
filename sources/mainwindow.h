@@ -97,7 +97,7 @@ protected slots:
     void on_tabWidget_currentChanged(int index);
     void on_tabWidget_tabCloseRequested(int index);
     void on_tabWidget_tabDragRequested(int index);
-    void on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, int index);
+    void on_tabWidget_tabContextMenuRequested(QPoint globalPos, int index);
 
     void on_currentTab_documentChanged();
     void on_currentTab_documentModified();
@@ -131,7 +131,7 @@ protected slots:
     void on_currentTab_searchFinished();
     void on_currentTab_searchProgressChanged(int progress);
 
-    void on_currentTab_customContextMenuRequested(const QPoint& pos);
+    void on_currentTab_customContextMenuRequested(QPoint pos);
 
     void on_splitView_splitHorizontally_triggered();
     void on_splitView_splitVertically_triggered();
@@ -267,7 +267,7 @@ protected slots:
 
     void on_bookmarks_sectionCountChanged();
     void on_bookmarks_clicked(const QModelIndex& index);
-    void on_bookmarks_contextMenuRequested(const QPoint& pos);
+    void on_bookmarks_contextMenuRequested(QPoint pos);
 
     void on_search_sectionCountChanged();
     void on_search_dockLocationChanged(Qt::DockWidgetArea area);
@@ -320,7 +320,7 @@ private:
 
     BookmarkModel* bookmarkModelForCurrentTab(bool create = false);
 
-    QAction* sourceLinkActionForCurrentTab(QObject* parent, const QPoint& pos);
+    QAction* sourceLinkActionForCurrentTab(QObject* parent, QPoint pos);
 
     class RestoreTab;
 

@@ -380,7 +380,7 @@ void TabWidget::nextTab()
     setCurrentIndex(index);
 }
 
-void TabWidget::on_tabBar_customContextMenuRequested(const QPoint& pos)
+void TabWidget::on_tabBar_customContextMenuRequested(QPoint pos)
 {
     const int index = tabBar()->tabAt(pos);
 
@@ -902,7 +902,7 @@ void SearchLineEdit::on_timeout()
     emit searchInitiated(text());
 }
 
-void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
+void SearchLineEdit::on_returnPressed(Qt::KeyboardModifiers modifiers)
 {
     stopTimer();
 
