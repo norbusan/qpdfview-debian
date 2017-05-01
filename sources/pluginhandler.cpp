@@ -276,17 +276,17 @@ QStringList supportedCompressedFormats()
 
     if(execute(process, "gzip") >= 0)
     {
-        formats.append("*.gz");
+        formats.append("*.gz *.GZ");
     }
 
     if(execute(process, "bzip2") >= 0)
     {
-        formats.append("*.bz2");
+        formats.append("*.bz2 *.BZ2");
     }
 
     if(execute(process, "xz") >= 0)
     {
-        formats.append("*.xz");
+        formats.append("*.xz *.XZ");
     }
 
     return formats;
