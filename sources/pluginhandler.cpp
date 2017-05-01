@@ -251,10 +251,7 @@ PluginHandler::FileType matchFileType(const QString& filePath)
 
 int execute(QProcess& process, const QString& program, const QStringList& arguments = QStringList())
 {
-    process.setProgram(program);
-    process.setArguments(arguments);
-
-    process.start(QIODevice::NotOpen);
+    process.start(program, arguments, QIODevice::NotOpen);
 
     if(!process.waitForStarted())
     {
@@ -275,6 +272,7 @@ QStringList supportedCompressedFormats()
 
     QProcess process;
     process.setStandardInputFile("/dev/null");
+    process.setStandardOutputFile("/dev/null");
 
     if(execute(process, "gzip") >= 0)
     {
