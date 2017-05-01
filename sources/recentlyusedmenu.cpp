@@ -56,7 +56,7 @@ void RecentlyUsedMenu::addOpenAction(const QFileInfo& fileInfo)
             removeAction(action);
             m_openActionGroup->removeAction(action);
 
-            insertAction(actions().constFirst(), action);
+            insertAction(actions().at(0), action);
             m_openActionGroup->addAction(action);
 
             return;
@@ -65,7 +65,7 @@ void RecentlyUsedMenu::addOpenAction(const QFileInfo& fileInfo)
 
     if(m_openActionGroup->actions().count() >= m_count)
     {
-        QAction* first = m_openActionGroup->actions().constFirst();
+        QAction* first = m_openActionGroup->actions().at(0);
 
         removeAction(first);
         m_openActionGroup->removeAction(first);
@@ -77,7 +77,7 @@ void RecentlyUsedMenu::addOpenAction(const QFileInfo& fileInfo)
     action->setToolTip(fileInfo.absoluteFilePath());
     action->setData(fileInfo.absoluteFilePath());
 
-    insertAction(actions().constFirst(), action);
+    insertAction(actions().at(0), action);
     m_openActionGroup->addAction(action);
 }
 

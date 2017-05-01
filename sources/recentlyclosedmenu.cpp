@@ -44,7 +44,7 @@ void RecentlyClosedMenu::addTabAction(QAction* tabAction)
 {
     if(m_tabActionGroup->actions().count() >= m_count)
     {
-        QAction* first = m_tabActionGroup->actions().constFirst();
+        QAction* first = m_tabActionGroup->actions().at(0);
 
         removeAction(first);
         m_tabActionGroup->removeAction(first);
@@ -52,7 +52,7 @@ void RecentlyClosedMenu::addTabAction(QAction* tabAction)
         first->parent()->deleteLater();
     }
 
-    insertAction(actions().constFirst(), tabAction);
+    insertAction(actions().at(0), tabAction);
     m_tabActionGroup->addAction(tabAction);
 }
 

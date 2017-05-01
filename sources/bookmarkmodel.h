@@ -26,6 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QDateTime>
 #include <QHash>
+#include <QVector>
 
 namespace qpdfview
 {

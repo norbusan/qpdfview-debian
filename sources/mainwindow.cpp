@@ -243,7 +243,7 @@ QVector< DocumentView* > findAllTabs(QObject* const object)
     {
         for(int index = 0, count = splitter->count(); index < count; ++index)
         {
-            tabs.append(findAllTabs(splitter->widget(index)));
+            tabs += findAllTabs(splitter->widget(index));
         }
     }
 
@@ -1820,7 +1820,7 @@ void MainWindow::on_closeAllTabsButThisOne_triggered(int thisIndex)
     {
         if(index != thisIndex)
         {
-            tabs.append(allTabs(index));
+            tabs += allTabs(index);
         }
     }
 
@@ -1833,7 +1833,7 @@ void MainWindow::on_closeAllTabsToTheLeft_triggered(int ofIndex)
 
     for(int index = 0; index < ofIndex; ++index)
     {
-        tabs.append(allTabs(index));
+        tabs += allTabs(index);
     }
 
     on_closeTabs_triggered(tabs);
@@ -1845,7 +1845,7 @@ void MainWindow::on_closeAllTabsToTheRight_triggered(int ofIndex)
 
     for(int index = ofIndex + 1, count = m_tabWidget->count(); index < count; ++index)
     {
-        tabs.append(allTabs(index));
+        tabs += allTabs(index);
     }
 
     on_closeTabs_triggered(tabs);
@@ -2686,7 +2686,7 @@ QVector< DocumentView* > MainWindow::allTabs() const
 
     for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
     {
-        tabs.append(allTabs(index));
+        tabs += allTabs(index);
     }
 
     return tabs;

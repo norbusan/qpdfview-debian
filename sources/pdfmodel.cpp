@@ -439,7 +439,7 @@ PdfPage::PdfPage(QMutex* mutex, Poppler::Page* page) :
 
 PdfPage::~PdfPage()
 {
-    textCache->remove(this);
+    textCache()->remove(this);
 
     delete m_page;
 }
@@ -574,7 +574,7 @@ QString PdfPage::cachedText(const QRectF& rect) const
 {
     TextBoxList textBoxes;
 
-    if(!textCache->object(this, textBoxes))
+    if(!textCache()->object(this, textBoxes))
     {
         {
             LOCK_PAGE
@@ -585,7 +585,7 @@ QString PdfPage::cachedText(const QRectF& rect) const
             }
         }
 
-        textCache->insert(this, textBoxes);
+        textCache()->insert(this, textBoxes);
     }
 
     QString text;
