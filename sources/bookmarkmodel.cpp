@@ -70,10 +70,10 @@ void BookmarkModel::forgetAllPaths()
 
 void BookmarkModel::addBookmark(const BookmarkItem& bookmark)
 {
-    QList< BookmarkItem >::iterator at = qBinaryFind(m_bookmarks.begin(), m_bookmarks.end(), bookmark.page);
-    int row = at - m_bookmarks.begin();
+    const QVector< BookmarkItem >::iterator at = qLowerBound(m_bookmarks.begin(), m_bookmarks.end(), bookmark.page);
+    const int row = at - m_bookmarks.begin();
 
-    if(at != m_bookmarks.end())
+    if(at != m_bookmarks.end() && at->page == bookmark.page)
     {
         *at = bookmark;
 
@@ -81,9 +81,6 @@ void BookmarkModel::addBookmark(const BookmarkItem& bookmark)
     }
     else
     {
-        at = qUpperBound(m_bookmarks.begin(), m_bookmarks.end(), bookmark.page);
-        row = at - m_bookmarks.begin();
-
         beginInsertRows(QModelIndex(), row, row);
 
         m_bookmarks.insert(at, bookmark);
@@ -94,7 +91,7 @@ void BookmarkModel::addBookmark(const BookmarkItem& bookmark)
 
 void BookmarkModel::removeBookmark(const BookmarkItem& bookmark)
 {
-    const QList< BookmarkItem >::iterator at = qBinaryFind(m_bookmarks.begin(), m_bookmarks.end(), bookmark.page);
+    const QVector< BookmarkItem >::iterator at = qBinaryFind(m_bookmarks.begin(), m_bookmarks.end(), bookmark.page);
     const int row = at - m_bookmarks.begin();
 
     if(at != m_bookmarks.end())
@@ -109,7 +106,7 @@ void BookmarkModel::removeBookmark(const BookmarkItem& bookmark)
 
 void BookmarkModel::findBookmark(BookmarkItem& bookmark) const
 {
-    const QList< BookmarkItem >::const_iterator at = qBinaryFind(m_bookmarks.constBegin(), m_bookmarks.constEnd(), bookmark.page);
+    const QVector< BookmarkItem >::const_iterator at = qBinaryFind(m_bookmarks.constBegin(), m_bookmarks.constEnd(), bookmark.page);
 
     if(at != m_bookmarks.constEnd())
     {

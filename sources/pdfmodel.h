@@ -108,7 +108,7 @@ namespace Model
 
         QSizeF size() const;
 
-        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
+        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const;
 
         QString label() const;
 

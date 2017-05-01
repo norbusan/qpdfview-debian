@@ -40,7 +40,7 @@ public:
     ~TileItem();
 
     const QRect& rect() const { return m_rect; }
-    void setRect(const QRect& rect) { m_rect = rect; }
+    void setRect(QRect rect) { m_rect = rect; }
 
     const QRectF& cropRect() const { return m_cropRect; }
     void resetCropRect() { m_cropRect = QRectF(); }
@@ -51,7 +51,7 @@ public:
 
     static void dropCachedPixmaps(PageItem* page);
 
-    bool paint(QPainter* painter, const QPointF& topLeft);
+    bool paint(QPainter* painter, QPointF topLeft);
 
 public:
     void refresh(bool keepObsoletePixmaps = false);

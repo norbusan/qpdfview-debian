@@ -78,7 +78,7 @@ QColor validColorFromCurrentText(const QComboBox* comboBox, const QColor& defaul
     return color.isValid() ? color : defaultColor;
 }
 
-void setCurrentIndexFromKeyboardModifiers(QComboBox* comboBox, const Qt::KeyboardModifiers& modifiers)
+void setCurrentIndexFromKeyboardModifiers(QComboBox* comboBox, Qt::KeyboardModifiers modifiers)
 {
     comboBox->setCurrentIndex(comboBox->findData(static_cast< int >(modifiers)));
 }
@@ -288,6 +288,9 @@ void SettingsDialog::createBehaviorTab()
     m_synchronizeOutlineViewCheckBox = addCheckBox(m_behaviorLayout, tr("Synchronize outline view:"), QString(),
                                                    s_settings->mainWindow().synchronizeOutlineView());
 
+    m_synchronizeSplitViewsCheckBox = addCheckBox(m_behaviorLayout, tr("Synchronize split views:"), QString(),
+                                                  s_settings->mainWindow().synchronizeSplitViews());
+
 
     m_minimalScrollingCheckBox = addCheckBox(m_behaviorLayout, tr("Minimal scrolling:"), QString(),
                                              s_settings->documentView().minimalScrolling());
@@ -331,6 +334,7 @@ void SettingsDialog::acceptBehaivorTab()
     s_settings->presentationView().setScreen(m_presentationScreenSpinBox->value());
 
     s_settings->mainWindow().setSynchronizeOutlineView(m_synchronizeOutlineViewCheckBox->isChecked());
+    s_settings->mainWindow().setSynchronizeSplitViews(m_synchronizeSplitViewsCheckBox->isChecked());
 
     s_settings->documentView().setMinimalScrolling(m_minimalScrollingCheckBox->isChecked());
     s_settings->documentView().setZoomFactor(m_zoomFactorSpinBox->value());
@@ -361,6 +365,7 @@ void SettingsDialog::resetBehaviorTab()
     m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
 
     m_synchronizeOutlineViewCheckBox->setChecked(Defaults::MainWindow::synchronizeOutlineView());
+    m_synchronizeSplitViewsCheckBox->setChecked(Defaults::MainWindow::synchronizeSplitViews());
 
     m_minimalScrollingCheckBox->setChecked(Defaults::DocumentView::minimalScrolling());
     m_zoomFactorSpinBox->setValue(Defaults::DocumentView::zoomFactor());
@@ -849,7 +854,7 @@ QComboBox* SettingsDialog::addColorComboBox(QFormLayout* layout, const QString& 
     return comboBox;
 }
 
-QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const Qt::KeyboardModifiers& modifiers)
+QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, Qt::KeyboardModifiers modifiers)
 {
     QComboBox* comboBox = new QComboBox(this);
     comboBox->addItem(QShortcut::tr("Shift"), static_cast< int >(Qt::ShiftModifier));

@@ -91,8 +91,8 @@ public:
     const QTransform& transform() const { return m_transform; }
     const QTransform& normalizedTransform() const { return m_normalizedTransform; }
 
-    QPointF sourcePos(const QPointF& point) const { return m_transform.inverted().map(point); }
-    QPointF normalizedSourcePos(const QPointF& point) const { return m_normalizedTransform.inverted().map(point); }
+    QPointF sourcePos(QPointF point) const { return m_transform.inverted().map(point); }
+    QPointF normalizedSourcePos(QPointF point) const { return m_normalizedTransform.inverted().map(point); }
 
 signals:
     void cropRectChanged();
@@ -105,7 +105,7 @@ signals:
     void rubberBandFinished();
 
     void zoomToSelection(int page, const QRectF& rect);
-    void openInSourceEditor(int page, const QPointF& pos);
+    void openInSourceEditor(int page, QPointF pos);
 
     void wasModified();
 
@@ -174,11 +174,11 @@ private:
     RubberBandMode m_rubberBandMode;
     QRectF m_rubberBand;
 
-    void copyToClipboard(const QPoint& screenPos);
-    void addAnnotation(const QPoint& screenPos);
+    void copyToClipboard(QPoint screenPos);
+    void addAnnotation(QPoint screenPos);
 
-    void showLinkContextMenu(Model::Link* link, const QPoint& screenPos);
-    void showAnnotationContextMenu(Model::Annotation* annotation, const QPoint& screenPos);
+    void showLinkContextMenu(Model::Link* link, QPoint screenPos);
+    void showAnnotationContextMenu(Model::Annotation* annotation, QPoint screenPos);
 
     // overlay
 

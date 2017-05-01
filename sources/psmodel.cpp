@@ -77,7 +77,7 @@ QSizeF PsPage::size() const
     return QSizeF(w, h);
 }
 
-QImage PsPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage PsPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const
 {
     QMutexLocker mutexLocker(m_mutex);
 

@@ -95,16 +95,16 @@ public:
         void setAnnotationColor(const QColor& annotationColor);
 
         Qt::KeyboardModifiers copyToClipboardModifiers() const;
-        void setCopyToClipboardModifiers(const Qt::KeyboardModifiers& modifiers);
+        void setCopyToClipboardModifiers(Qt::KeyboardModifiers modifiers);
 
         Qt::KeyboardModifiers addAnnotationModifiers() const;
-        void setAddAnnotationModifiers(const Qt::KeyboardModifiers& modifiers);
+        void setAddAnnotationModifiers(Qt::KeyboardModifiers modifiers);
 
         Qt::KeyboardModifiers zoomToSelectionModifiers() const;
-        void setZoomToSelectionModifiers(const Qt::KeyboardModifiers& modifiers);
+        void setZoomToSelectionModifiers(Qt::KeyboardModifiers modifiers);
 
         Qt::KeyboardModifiers openInSourceEditorModifiers() const;
-        void setOpenInSourceEditorModifiers(const Qt::KeyboardModifiers& modifiers);
+        void setOpenInSourceEditorModifiers(Qt::KeyboardModifiers modifiers);
 
         bool annotationOverlay() const;
         void setAnnotationOverlay(bool overlay);
@@ -228,13 +228,13 @@ public:
         void setSourceEditor(const QString& sourceEditor);
 
         Qt::KeyboardModifiers zoomModifiers() const;
-        void setZoomModifiers(const Qt::KeyboardModifiers& zoomModifiers);
+        void setZoomModifiers(Qt::KeyboardModifiers zoomModifiers);
 
         Qt::KeyboardModifiers rotateModifiers() const;
-        void setRotateModifiers(const Qt::KeyboardModifiers& rotateModifiers);
+        void setRotateModifiers(Qt::KeyboardModifiers rotateModifiers);
 
         Qt::KeyboardModifiers scrollModifiers() const;
-        void setScrollModifiers(const Qt::KeyboardModifiers& scrollModifiers);
+        void setScrollModifiers(Qt::KeyboardModifiers scrollModifiers);
 
         // per-tab settings
 
@@ -361,6 +361,9 @@ public:
         bool synchronizeOutlineView() const;
         void setSynchronizeOutlineView(bool synchronizeOutlineView);
 
+        bool synchronizeSplitViews() const;
+        void setSynchronizeSplitViews(bool synchronizeSplitViews);
+
         QStringList fileToolBar() const;
         void setFileToolBar(const QStringList& fileToolBar);
 
@@ -403,14 +406,14 @@ public:
         QString savePath() const;
         void setSavePath(const QString& savePath);
 
-        QSize settingsDialogSize(const QSize& sizeHint) const;
-        void setSettingsDialogSize(const QSize& settingsDialogSize);
+        QSize settingsDialogSize(QSize sizeHint) const;
+        void setSettingsDialogSize(QSize settingsDialogSize);
 
-        QSize fontsDialogSize(const QSize& sizeHint) const;
-        void setFontsDialogSize(const QSize& fontsDialogSize);
+        QSize fontsDialogSize(QSize sizeHint) const;
+        void setFontsDialogSize(QSize fontsDialogSize);
 
-        QSize contentsDialogSize(const QSize& sizeHint) const;
-        void setContentsDialogSize(const QSize& contentsDialogSize);
+        QSize contentsDialogSize(QSize sizeHint) const;
+        void setContentsDialogSize(QSize contentsDialogSize);
 
     private:
         MainWindow(QSettings* settings);
@@ -640,13 +643,14 @@ public:
         static bool usePageLabel() { return true; }
 
         static bool synchronizeOutlineView() { return false; }
+        static bool synchronizeSplitViews() { return true; }
 
         static QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh"; }
         static QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }
         static QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
 
         static QStringList documentContextMenu() { return QStringList() << "previousPage" << "nextPage" << "firstPage" << "lastPage" << "separator" << "jumpToPage" << "jumpBackward" << "jumpForward" << "separator" << "setFirstPage" << "separator" << "findPrevious" << "findNext" << "cancelSearch"; }
-        static QStringList tabContexntMenu() { return QStringList() << "openCopyInNewTab" << "openContainingFolder" << "separator" << "closeAllTabs" << "closeAllTabsButThisOne" << "closeAllTabsToTheLeft" << "closeAllTabsToTheRight"; }
+        static QStringList tabContexntMenu() { return QStringList() << "openCopyInNewTab" << "openContainingFolder" << "separator" << "splitViewHorizontally" << "splitViewVertically" << "closeCurrentView" << "separator" << "closeAllTabs" << "closeAllTabsButThisOne" << "closeAllTabsToTheLeft" << "closeAllTabsToTheRight"; }
 
         static bool scrollableMenus() { return false; }
         static bool searchableMenus() { return false; }

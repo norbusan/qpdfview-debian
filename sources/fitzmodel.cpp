@@ -98,7 +98,7 @@ QSizeF FitzPage::size() const
     return QSizeF(rect.x1 - rect.x0, rect.y1 - rect.y0);
 }
 
-QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const
 {
     QMutexLocker mutexLocker(&m_parent->m_mutex);
 

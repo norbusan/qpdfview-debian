@@ -1,7 +1,7 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2012-2015 Adam Reichold
+Copyright 2012-2017 Adam Reichold
 Copyright 2014 Dorian Scholz
 
 This file is part of qpdfview.
@@ -31,6 +31,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 #include <QProxyStyle>
 #include <QSpinBox>
+#include <QSplitter>
 #include <QTreeView>
 
 class QTextLayout;
@@ -149,6 +150,17 @@ class TabWidget : public QTabWidget
 public:
     explicit TabWidget(QWidget* parent = 0);
 
+    bool hasCurrent() const { return currentIndex() != -1; }
+
+    QString currentTabText() const { return tabText(currentIndex()); }
+    void setCurrentTabText(const QString& text) { setTabText(currentIndex(), text); }
+
+    QString currentTabToolTip() const { return tabToolTip(currentIndex()); }
+    void setCurrentTabToolTip(const QString& toolTip) { setTabToolTip(currentIndex(), toolTip); }
+
+    int addTab(QWidget* const widget, const bool nextToCurrent,
+               const QString& label, const QString& toolTip);
+
     enum TabBarPolicy
     {
         TabBarAsNeeded = 0,
@@ -162,12 +174,16 @@ public:
     bool spreadTabs() const;
     void setSpreadTabs(bool spreadTabs);
 
+public slots:
+    void previousTab();
+    void nextTab();
+
 signals:
     void tabDragRequested(int index);
-    void tabContextMenuRequested(const QPoint& globalPos, int index);
+    void tabContextMenuRequested(QPoint globalPos, int index);
 
 protected slots:
-    void on_tabBar_customContextMenuRequested(const QPoint& pos);
+    void on_tabBar_customContextMenuRequested(QPoint pos);
 
 protected:
     void tabInserted(int index);
@@ -319,7 +335,7 @@ public:
     void setProgress(int progress);
 
 signals:
-    void returnPressed(const Qt::KeyboardModifiers& modifiers);
+    void returnPressed(Qt::KeyboardModifiers modifiers);
 
 protected:
     void paintEvent(QPaintEvent* event);
@@ -352,12 +368,39 @@ signals:
 
 protected slots:
     void on_timeout();
-    void on_returnPressed(const Qt::KeyboardModifiers& modifiers);
+    void on_returnPressed(Qt::KeyboardModifiers modifiers);
 
 private:
     Q_DISABLE_COPY(SearchLineEdit)
 
     QTimer* m_timer;
+
+};
+
+// splitter
+
+class Splitter : public QSplitter
+{
+    Q_OBJECT
+
+public:
+    explicit Splitter(Qt::Orientation orientation, QWidget* parent = 0);
+
+    QWidget* currentWidget() const;
+    void setCurrentWidget(QWidget* const currentWidget);
+
+    void setUniformSizes();
+
+signals:
+    void currentWidgetChanged(QWidget* currentWidget);
+
+protected slots:
+    void on_focusChanged(QWidget* old, QWidget* now);
+
+private:
+    Q_DISABLE_COPY(Splitter)
+
+    int m_currentIndex;
 
 };
 

@@ -127,7 +127,7 @@ public:
     void setRubberBandMode(RubberBandMode rubberBandMode);
 
     QSize thumbnailsViewportSize() const { return m_thumbnailsViewportSize; }
-    void setThumbnailsViewportSize(const QSize& thumbnailsViewportSize);
+    void setThumbnailsViewportSize(QSize thumbnailsViewportSize);
 
     Qt::Orientation thumbnailsOrientation() const { return m_thumbnailsOrientation; }
     void setThumbnailsOrientation(Qt::Orientation thumbnailsOrientation);
@@ -162,7 +162,7 @@ public:
 
     };
 
-    SourceLink sourceLink(const QPoint& pos);
+    SourceLink sourceLink(QPoint pos);
     void openInSourceEditor(const SourceLink& sourceLink);
 
 signals:
@@ -260,7 +260,7 @@ protected slots:
     void on_pages_rubberBandFinished();
 
     void on_pages_zoomToSelection(int page, const QRectF& rect);
-    void on_pages_openInSourceEditor(int page, const QPointF& pos);
+    void on_pages_openInSourceEditor(int page, QPointF pos);
 
     void on_pages_wasModified();
 
@@ -347,8 +347,10 @@ private:
     void loadDocumentDefaults();
 
     void adjustScrollBarPolicy();
-    void disconnectVerticalScrollBar();
-    void reconnectVerticalScrollBar();
+
+    bool m_verticalScrollBarChangedBlocked;
+
+    class VerticalScrollBarChangedBlocker;
 
     void prepareDocument(Model::Document* document, const QVector< Model::Page* >& pages);
     void preparePages();

@@ -1,7 +1,7 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2012-2015 Adam Reichold
+Copyright 2012-2017 Adam Reichold
 Copyright 2014 Dorian Scholz
 
 This file is part of qpdfview.
@@ -304,6 +304,19 @@ TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent),
     setTabBar(tabBar);
 }
 
+int TabWidget::addTab(QWidget* const widget, const bool nextToCurrent,
+                      const QString& label, const QString& toolTip)
+{
+    const int index = nextToCurrent
+            ? insertTab(currentIndex() + 1, widget, label)
+            : QTabWidget::addTab(widget, label);
+
+    setTabToolTip(index, toolTip);
+    setCurrentIndex(index);
+
+    return index;
+}
+
 TabWidget::TabBarPolicy TabWidget::tabBarPolicy() const
 {
     return m_tabBarPolicy;
@@ -343,7 +356,31 @@ void TabWidget::setSpreadTabs(bool spreadTabs)
     }
 }
 
-void TabWidget::on_tabBar_customContextMenuRequested(const QPoint& pos)
+void TabWidget::previousTab()
+{
+    int index = currentIndex();
+
+    if(index < 0)
+    {
+        index = count() - 1;
+    }
+
+    setCurrentIndex(index);
+}
+
+void TabWidget::nextTab()
+{
+    int index = currentIndex();
+
+    if(index >= count())
+    {
+        index = 0;
+    }
+
+    setCurrentIndex(index);
+}
+
+void TabWidget::on_tabBar_customContextMenuRequested(QPoint pos)
 {
     const int index = tabBar()->tabAt(pos);
 
@@ -865,11 +902,80 @@ void SearchLineEdit::on_timeout()
     emit searchInitiated(text());
 }
 
-void SearchLineEdit::on_returnPressed(const Qt::KeyboardModifiers& modifiers)
+void SearchLineEdit::on_returnPressed(Qt::KeyboardModifiers modifiers)
 {
     stopTimer();
 
     emit searchInitiated(text(), modifiers == Qt::ShiftModifier);
+}
+
+Splitter::Splitter(Qt::Orientation orientation, QWidget* parent) : QSplitter(orientation, parent),
+    m_currentIndex(0)
+{
+    connect(qApp, SIGNAL(focusChanged(QWidget*,QWidget*)), this, SLOT(on_focusChanged(QWidget*,QWidget*)));
+}
+
+QWidget* Splitter::currentWidget() const
+{
+    return widget(m_currentIndex);
+}
+
+void Splitter::setCurrentWidget(QWidget* const currentWidget)
+{
+    for(int index = 0, count = this->count(); index < count; ++index)
+    {
+        QWidget* const widget = this->widget(index);
+
+        if(currentWidget == widget)
+        {
+            if(m_currentIndex != index)
+            {
+                m_currentIndex = index;
+
+                emit currentWidgetChanged(currentWidget);
+            }
+
+            return;
+        }
+    }
+}
+
+void Splitter::setUniformSizes()
+{
+    int size;
+
+    switch(orientation())
+    {
+    default:
+    case Qt::Horizontal:
+        size = width();
+        break;
+    case Qt::Vertical:
+        size = height();
+        break;
+    }
+
+    QList< int > sizes;
+
+    for(int index = 0, count = this->count(); index < count; ++index)
+    {
+        sizes.append(size / count);
+    }
+
+    setSizes(sizes);
+}
+
+void Splitter::on_focusChanged(QWidget* /* old */, QWidget* now)
+{
+    for(QWidget* currentWidget = now; currentWidget != 0; currentWidget = currentWidget->parentWidget())
+    {
+        if(currentWidget->parentWidget() == this)
+        {
+            setCurrentWidget(currentWidget);
+
+            return;
+        }
+    }
 }
 
 } // qpdfview

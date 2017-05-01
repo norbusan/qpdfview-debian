@@ -240,7 +240,7 @@ int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** o
 
 #ifdef WITH_SYNCTEX
 
-DocumentView::SourceLink scanForSourceLink(const QString& filePath, const int page, const QPointF& pos)
+DocumentView::SourceLink scanForSourceLink(const QString& filePath, const int page, QPointF pos)
 {
     DocumentView::SourceLink sourceLink;
 
@@ -265,7 +265,7 @@ DocumentView::SourceLink scanForSourceLink(const QString& filePath, const int pa
 
 #endif // WITH_SYNCTEX
 
-inline bool modifiersAreActive(const QWheelEvent* event, const Qt::KeyboardModifiers& modifiers)
+inline bool modifiersAreActive(const QWheelEvent* event, Qt::KeyboardModifiers modifiers)
 {
     if(modifiers == Qt::NoModifier)
     {
@@ -658,6 +658,27 @@ void restoreExpandedPaths(QAbstractItemModel* model, const QSet< QString >& path
 namespace qpdfview
 {
 
+class DocumentView::VerticalScrollBarChangedBlocker
+{
+    Q_DISABLE_COPY(VerticalScrollBarChangedBlocker)
+
+private:
+    DocumentView* const that;
+
+public:
+
+    VerticalScrollBarChangedBlocker(DocumentView* that) : that(that)
+    {
+        that->m_verticalScrollBarChangedBlocked = true;
+    }
+
+    ~VerticalScrollBarChangedBlocker()
+    {
+        that->m_verticalScrollBarChangedBlocked = false;
+    }
+
+};
+
 Settings* DocumentView::s_settings = 0;
 ShortcutHandler* DocumentView::s_shortcutHandler = 0;
 SearchModel* DocumentView::s_searchModel = 0;
@@ -690,6 +711,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_thumbnailsScene(0),
     m_outlineModel(0),
     m_propertiesModel(0),
+    m_verticalScrollBarChangedBlocked(false),
     m_currentResult(),
     m_searchTask(0)
 {
@@ -710,10 +732,11 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     setScene(new QGraphicsScene(this));
 
+    setFocusPolicy(Qt::StrongFocus);
     setAcceptDrops(false);
     setDragMode(QGraphicsView::ScrollHandDrag);
 
-    reconnectVerticalScrollBar();
+    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
 
     m_thumbnailsScene = new QGraphicsScene(this);
 
@@ -1215,7 +1238,7 @@ void DocumentView::setRubberBandMode(RubberBandMode rubberBandMode)
     }
 }
 
-void DocumentView::setThumbnailsViewportSize(const QSize& thumbnailsViewportSize)
+void DocumentView::setThumbnailsViewportSize(QSize thumbnailsViewportSize)
 {
     if(m_thumbnailsViewportSize != thumbnailsViewportSize)
     {
@@ -1307,7 +1330,7 @@ QUrl DocumentView::resolveUrl(QUrl url) const
     return url;
 }
 
-DocumentView::SourceLink DocumentView::sourceLink(const QPoint& pos)
+DocumentView::SourceLink DocumentView::sourceLink(QPoint pos)
 {
     SourceLink sourceLink;
 
@@ -1795,7 +1818,7 @@ void DocumentView::startPresentation()
 
 void DocumentView::on_verticalScrollBar_valueChanged()
 {
-    if(!m_continuousMode)
+    if(m_verticalScrollBarChangedBlocked || !m_continuousMode)
     {
         return;
     }
@@ -1989,7 +2012,7 @@ void DocumentView::on_pages_zoomToSelection(int page, const QRectF& rect)
     jumpToPage(page, false, rect.left(), rect.top());
 }
 
-void DocumentView::on_pages_openInSourceEditor(int page, const QPointF& pos)
+void DocumentView::on_pages_openInSourceEditor(int page, QPointF pos)
 {
 #ifdef WITH_SYNCTEX
 
@@ -2630,16 +2653,6 @@ void DocumentView::adjustScrollBarPolicy()
     }
 }
 
-void DocumentView::disconnectVerticalScrollBar()
-{
-    disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
-}
-
-void DocumentView::reconnectVerticalScrollBar()
-{
-    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
-}
-
 void DocumentView::prepareDocument(Model::Document* document, const QVector< Model::Page* >& pages)
 {
     m_prefetchTimer->blockSignals(true);
@@ -3006,9 +3019,11 @@ void DocumentView::prepareHighlight(int index, const QRectF& rect)
 
     m_highlight->setVisible(true);
 
-    disconnectVerticalScrollBar();
-    centerOn(m_highlight);
-    reconnectVerticalScrollBar();
+    {
+        VerticalScrollBarChangedBlocker verticalScrollBarChangedBlocker(this);
+
+        centerOn(m_highlight);
+    }
 
     viewport()->update();
 }

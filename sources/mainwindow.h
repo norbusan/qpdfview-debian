@@ -1,7 +1,7 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2012-2015 Adam Reichold
+Copyright 2012-2017 Adam Reichold
 Copyright 2012 Michał Trybus
 Copyright 2012 Alexander Volkov
 
@@ -97,7 +97,7 @@ protected slots:
     void on_tabWidget_currentChanged(int index);
     void on_tabWidget_tabCloseRequested(int index);
     void on_tabWidget_tabDragRequested(int index);
-    void on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, int index);
+    void on_tabWidget_tabContextMenuRequested(QPoint globalPos, int index);
 
     void on_currentTab_documentChanged();
     void on_currentTab_documentModified();
@@ -131,7 +131,14 @@ protected slots:
     void on_currentTab_searchFinished();
     void on_currentTab_searchProgressChanged(int progress);
 
-    void on_currentTab_customContextMenuRequested(const QPoint& pos);
+    void on_currentTab_customContextMenuRequested(QPoint pos);
+
+    void on_splitView_splitHorizontally_triggered();
+    void on_splitView_splitVertically_triggered();
+    void on_splitView_split_triggered(Qt::Orientation orientation, int index);
+    void on_splitView_closeCurrent_triggered();
+    void on_splitView_closeCurrent_triggered(int index);
+    void on_splitView_currentWidgetChanged(QWidget* currentWidget);
 
     void on_currentPage_editingFinished();
     void on_currentPage_returnPressed();
@@ -211,6 +218,10 @@ protected slots:
     void on_closeTab_triggered();
     void on_closeAllTabs_triggered();
     void on_closeAllTabsButCurrentTab_triggered();
+    void on_closeAllTabsButThisOne_triggered(int thisIndex);
+    void on_closeAllTabsToTheLeft_triggered(int ofIndex);
+    void on_closeAllTabsToTheRight_triggered(int ofIndex);
+    void on_closeTabs_triggered(const QVector< DocumentView* >& tabs);
 
     void on_restoreMostRecentlyClosedTab_triggered();
 
@@ -256,7 +267,7 @@ protected slots:
 
     void on_bookmarks_sectionCountChanged();
     void on_bookmarks_clicked(const QModelIndex& index);
-    void on_bookmarks_contextMenuRequested(const QPoint& pos);
+    void on_bookmarks_contextMenuRequested(QPoint pos);
 
     void on_search_sectionCountChanged();
     void on_search_dockLocationChanged(Qt::DockWidgetArea area);
@@ -287,25 +298,29 @@ private:
     TabWidget* m_tabWidget;
 
     DocumentView* currentTab() const;
-    DocumentView* tab(int index) const;
-    QList< DocumentView* > tabs() const;
+    DocumentView* currentTab(int index) const;
+    QVector< DocumentView* > allTabs(int index) const;
+    QVector< DocumentView* > allTabs() const;
 
     bool senderIsCurrentTab() const;
 
-    int addTab(DocumentView* tab);
-    void closeTab(DocumentView* tab);
+    bool m_currentTabChangedBlocked;
+
+    class CurrentTabChangeBlocker;
+
+    void addTab(DocumentView* tab);
+    void addTabAction(DocumentView* tab);
+    void connectTab(DocumentView* tab);
 
     bool saveModifications(DocumentView* tab);
-
-    void disconnectCurrentTabChanged();
-    void reconnectCurrentTabChanged();
+    void closeTab(DocumentView* tab);
 
     void setWindowTitleForCurrentTab();
     void setCurrentPageSuffixForCurrentTab();
 
     BookmarkModel* bookmarkModelForCurrentTab(bool create = false);
 
-    QAction* sourceLinkActionForCurrentTab(QObject* parent, const QPoint& pos);
+    QAction* sourceLinkActionForCurrentTab(QObject* parent, QPoint pos);
 
     class RestoreTab;
 
@@ -338,9 +353,6 @@ private:
 
     QAction* m_openAction;
     QAction* m_openInNewTabAction;
-    QAction* m_openCopyInNewTabAction;
-    QAction* m_openContainingFolderAction;
-    QAction* m_moveToInstanceAction;
     QAction* m_refreshAction;
     QAction* m_saveAction;
     QAction* m_saveAsAction;
@@ -418,6 +430,13 @@ private:
 
     QAction* m_contentsAction;
     QAction* m_aboutAction;
+
+    QAction* m_openCopyInNewTabAction;
+    QAction* m_openContainingFolderAction;
+    QAction* m_moveToInstanceAction;
+    QAction* m_splitViewHorizontallyAction;
+    QAction* m_splitViewVerticallyAction;
+    QAction* m_closeCurrentViewAction;
 
     QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QList< QKeySequence >& shortcuts, const char* member, bool checkable = false, bool checked = false);
     QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable = false, bool checked = false);

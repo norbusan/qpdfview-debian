@@ -84,7 +84,7 @@ void TileItem::setCropRect(const QRectF& cropRect)
 
 void TileItem::dropCachedPixmaps(PageItem* page)
 {
-    foreach(CacheKey key, s_cache.keys())
+    foreach(const CacheKey& key, s_cache.keys())
     {
         if(key.first == page)
         {
@@ -93,7 +93,7 @@ void TileItem::dropCachedPixmaps(PageItem* page)
     }
 }
 
-bool TileItem::paint(QPainter* painter, const QPointF& topLeft)
+bool TileItem::paint(QPainter* painter, QPointF topLeft)
 {
     const QPixmap& pixmap = takePixmap();
 
@@ -201,8 +201,8 @@ void TileItem::deleteAfterRender()
 }
 
 void TileItem::on_finished(const RenderParam& renderParam,
-                             const QRect& rect, bool prefetch,
-                             const QImage& image, const QRectF& cropRect)
+                           const QRect& rect, bool prefetch,
+                           const QImage& image, const QRectF& cropRect)
 {
     if(m_page->m_renderParam != renderParam || m_rect != rect)
     {

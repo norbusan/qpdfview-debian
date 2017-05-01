@@ -48,7 +48,7 @@ namespace qpdfview
 namespace Model
 {
 
-ImagePage::ImagePage(QImage image) :
+ImagePage::ImagePage(const QImage& image) :
     m_image(image)
 {
 }
@@ -59,7 +59,7 @@ QSizeF ImagePage::size() const
                   m_image.height() * 72.0 / dotsPerInchY(m_image));
 }
 
-QImage ImagePage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage ImagePage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const
 {
     QTransform transform;
 
@@ -92,7 +92,7 @@ QImage ImagePage::render(qreal horizontalResolution, qreal verticalResolution, R
     return image;
 }
 
-ImageDocument::ImageDocument(QImage image) :
+ImageDocument::ImageDocument(const QImage& image) :
     m_image(image)
 {
 }
