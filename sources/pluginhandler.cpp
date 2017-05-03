@@ -158,7 +158,7 @@ const MimeTypeMapping mimeTypeMappings[] =
     { "application/x-xz", PluginHandler::XZ, "xz", 0 }
 };
 
-const MimeTypeMapping* const endOfMimeTypeMappings = mimeTypeMappings + sizeof(mimeTypeMappings);
+const MimeTypeMapping* const endOfMimeTypeMappings = mimeTypeMappings + sizeof(mimeTypeMappings) / sizeof(mimeTypeMappings[0]);
 
 PluginHandler::FileType matchFileType(const QString& filePath)
 {
