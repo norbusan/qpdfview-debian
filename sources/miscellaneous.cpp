@@ -358,7 +358,7 @@ void TabWidget::setSpreadTabs(bool spreadTabs)
 
 void TabWidget::previousTab()
 {
-    int index = currentIndex();
+    int index = currentIndex() - 1;
 
     if(index < 0)
     {
@@ -370,7 +370,7 @@ void TabWidget::previousTab()
 
 void TabWidget::nextTab()
 {
-    int index = currentIndex();
+    int index = currentIndex() + 1;
 
     if(index >= count())
     {
