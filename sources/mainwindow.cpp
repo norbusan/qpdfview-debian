@@ -2012,7 +2012,7 @@ void MainWindow::on_removeBookmark_triggered()
         {
             m_bookmarksView->setModel(0);
 
-            BookmarkModel::forgetPath(currentTab()->fileInfo().absoluteFilePath());
+            BookmarkModel::removePath(currentTab()->fileInfo().absoluteFilePath());
         }
 
         m_bookmarksMenuIsDirty = true;
@@ -2024,7 +2024,7 @@ void MainWindow::on_removeAllBookmarks_triggered()
 {
     m_bookmarksView->setModel(0);
 
-    BookmarkModel::forgetAllPaths();
+    BookmarkModel::removeAllPaths();
 
     m_bookmarksMenuIsDirty = true;
     scheduleSaveBookmarks();
@@ -2047,7 +2047,7 @@ void MainWindow::on_bookmarksMenu_aboutToShow()
     m_bookmarksMenu->addActions(QList< QAction* >() << m_addBookmarkAction << m_removeBookmarkAction << m_removeAllBookmarksAction);
     m_bookmarksMenu->addSeparator();
 
-    foreach(const QString& absoluteFilePath, BookmarkModel::knownPaths())
+    foreach(const QString& absoluteFilePath, BookmarkModel::paths())
     {
         const BookmarkModel* model = BookmarkModel::fromPath(absoluteFilePath);
 
@@ -2100,7 +2100,7 @@ void MainWindow::on_bookmark_removeBookmarkTriggered(const QString& absoluteFile
         m_bookmarksView->setModel(0);
     }
 
-    BookmarkModel::forgetPath(absoluteFilePath);
+    BookmarkModel::removePath(absoluteFilePath);
 
     m_bookmarksMenuIsDirty = true;
     scheduleSaveBookmarks();
@@ -2377,7 +2377,7 @@ void MainWindow::on_bookmarks_contextMenuRequested(QPoint pos)
             {
                 m_bookmarksView->setModel(0);
 
-                BookmarkModel::forgetPath(currentTab()->fileInfo().absoluteFilePath());
+                BookmarkModel::removePath(currentTab()->fileInfo().absoluteFilePath());
             }
 
             m_bookmarksMenuIsDirty = true;

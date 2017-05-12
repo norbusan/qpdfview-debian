@@ -530,7 +530,7 @@ void Database::saveBookmarks()
                           " (filePath,page,label,comment,modified)"
                           " VALUES (?,?,?,?,?)");
 
-            foreach(const QString& filePath, BookmarkModel::knownPaths())
+            foreach(const QString& filePath, BookmarkModel::paths())
             {
                 const BookmarkModel* model = BookmarkModel::fromPath(filePath);
 

@@ -61,10 +61,10 @@ class BookmarkModel : public QAbstractListModel
 public:
     static BookmarkModel* fromPath(const QString& path, bool create = false);
 
-    static QList< QString > knownPaths();
+    static QList< QString > paths();
 
-    static void forgetPath(const QString& path);
-    static void forgetAllPaths();
+    static void removePath(const QString& path);
+    static void removeAllPaths();
 
 
     bool isEmpty() const { return m_bookmarks.isEmpty(); }

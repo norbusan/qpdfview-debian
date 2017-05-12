@@ -45,24 +45,17 @@ BookmarkModel* BookmarkModel::fromPath(const QString& path, bool create)
     return model;
 }
 
-QList< QString > BookmarkModel::knownPaths()
+QList< QString > BookmarkModel::paths()
 {
     return s_instances.keys();
 }
 
-void BookmarkModel::forgetPath(const QString& path)
+void BookmarkModel::removePath(const QString& path)
 {
-    QHash< QString, BookmarkModel* >::iterator at = s_instances.find(path);
-
-    if(at != s_instances.end())
-    {
-        delete at.value();
-
-        s_instances.erase(at);
-    }
+    delete s_instances.take(path);
 }
 
-void BookmarkModel::forgetAllPaths()
+void BookmarkModel::removeAllPaths()
 {
     qDeleteAll(s_instances);
     s_instances.clear();
