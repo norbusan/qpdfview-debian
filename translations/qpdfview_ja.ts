@@ -1055,9 +1055,9 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1893"/>
-        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview developers&lt;/p&gt;</source>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2017 The qpdfview developers&lt;/p&gt;</source>
         <comment>MainWindow|</comment>
-        <translation>&lt;/ul&gt;&lt;p&gt;詳しくは&lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; を参照。&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2015 The qpdfview開発陣&lt;/p&gt;</translation>
+        <translation>&lt;/ul&gt;&lt;p&gt;詳しくは&lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; を参照。&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2017 The qpdfview開発陣&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2608"/>
