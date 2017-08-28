@@ -53,7 +53,7 @@ inline QStringList trimmed(const QStringList& list)
     return trimmedList;
 }
 
-int toInt(const QString& text, int defaultValue)
+inline int toInt(const QString& text, int defaultValue)
 {
     bool ok = false;
     const int value = text.toInt(&ok);
@@ -768,6 +768,16 @@ int Settings::MainWindow::saveDatabaseInterval() const
 void Settings::MainWindow::setSaveDatabaseInterval(int saveDatabaseInterval)
 {
     m_settings->setValue("mainWindow/saveDatabaseInterval", saveDatabaseInterval);
+}
+
+int Settings::MainWindow::currentTabIndex() const
+{
+    return m_settings->value("mainWindow/currentTabIndex", -1).toInt();
+}
+
+void Settings::MainWindow::setCurrentTabIndex(int currentTabIndex)
+{
+    m_settings->setValue("mainWindow/currentTabIndex", currentTabIndex);
 }
 
 int Settings::MainWindow::tabPosition() const

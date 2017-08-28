@@ -428,6 +428,13 @@ void MainWindow::show()
     if(s_settings->mainWindow().restoreTabs())
     {
         s_database->restoreTabs(RestoreTab(this));
+
+        const int currentTabIndex = s_settings->mainWindow().currentTabIndex();
+
+        if(currentTabIndex != -1)
+        {
+            m_tabWidget->setCurrentIndex(currentTabIndex);
+        }
     }
 
     if(s_settings->mainWindow().restoreBookmarks())
@@ -2524,6 +2531,8 @@ void MainWindow::on_saveDatabase_timeout()
     if(s_settings->mainWindow().restoreTabs())
     {
         s_database->saveTabs(allTabs());
+
+        s_settings->mainWindow().setCurrentTabIndex(m_tabWidget->currentIndex());
     }
 
     if(s_settings->mainWindow().restoreBookmarks())
@@ -2590,6 +2599,8 @@ void MainWindow::closeEvent(QCloseEvent* event)
     if(s_settings->mainWindow().restoreTabs())
     {
         s_database->saveTabs(allTabs());
+
+        s_settings->mainWindow().setCurrentTabIndex(m_tabWidget->currentIndex());
     }
     else
     {
