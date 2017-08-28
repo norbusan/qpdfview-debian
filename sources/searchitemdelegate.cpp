@@ -39,6 +39,11 @@ void SearchItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
 {
     QStyledItemDelegate::paint(painter, option, index);
 
+    if(index.column() != 0)
+    {
+        return;
+    }
+
     const int progress = index.data(SearchModel::ProgressRole).toInt();
 
     if(progress != 0)
