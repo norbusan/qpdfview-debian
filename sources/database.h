@@ -76,13 +76,14 @@ private:
 
 #ifdef WITH_SQL
 
-    bool prepareTabs_v4();
+    bool prepareTabs_v5();
     bool prepareBookmarks_v3();
     bool preparePerFileSettings_v4();
 
-    void migrateTabs_v3_v4();
-    void migrateTabs_v2_v4();
-    void migrateTabs_v1_v4();
+    void migrateTabs_v4_v5();
+    void migrateTabs_v3_v5();
+    void migrateTabs_v2_v5();
+    void migrateTabs_v1_v5();
     void migrateBookmarks_v2_v3();
     void migrateBookmarks_v1_v3();
     void migratePerFileSettings_v3_v4();

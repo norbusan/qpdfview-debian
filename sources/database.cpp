@@ -316,7 +316,7 @@ QStringList Database::knownInstanceNames()
         Transaction transaction(m_database);
         Query query(m_database);
 
-        query.exec("SELECT DISTINCT(instanceName) FROM tabs_v4");
+        query.exec("SELECT DISTINCT(instanceName) FROM tabs_v5");
 
         while(query.nextRecord())
         {
@@ -350,7 +350,7 @@ void Database::restoreTabs(const RestoreTab& restoreTab)
         Query query(m_database);
 
         query.prepare("SELECT filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage"
-                      " FROM tabs_v4 WHERE instanceName==?");
+                      " FROM tabs_v5 WHERE instanceName==? ORDER BY tabIndex");
 
         query << instanceName();
 
@@ -401,20 +401,23 @@ void Database::saveTabs(const QVector< DocumentView* >& tabs)
         Transaction transaction(m_database);
         Query query(m_database);
 
-        query.prepare("DELETE FROM tabs_v4 WHERE instanceName==?");
+        query.prepare("DELETE FROM tabs_v5 WHERE instanceName==?");
 
         query << instanceName();
 
         query.exec();
 
-        query.prepare("INSERT INTO tabs_v4"
-                      " (filePath,instanceName,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage)"
-                      " VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+        query.prepare("INSERT INTO tabs_v5"
+                      " (filePath,instanceName,tabIndex,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage)"
+                      " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 
-        foreach(const DocumentView* tab, tabs)
+        for(int tabIndex = 0; tabIndex < tabs.size(); ++tabIndex)
         {
+            const DocumentView* const tab = tabs.at(tabIndex);
+
             query << tab->fileInfo().absoluteFilePath()
                   << instanceName()
+                  << tabIndex
                   << tab->currentPage()
 
                   << tab->continuousMode()
@@ -455,7 +458,7 @@ void Database::clearTabs()
         Transaction transaction(m_database);
         Query query(m_database);
 
-        query.exec("DELETE FROM tabs_v4");
+        query.exec("DELETE FROM tabs_v5");
 
         transaction.commit();
     }
@@ -726,21 +729,25 @@ Database::Database(QObject* parent) : QObject(parent)
 
     // tabs
 
-    if(!tables.contains("tabs_v4"))
+    if(!tables.contains("tabs_v5"))
     {
-        if(prepareTabs_v4())
+        if(prepareTabs_v5())
         {
-            if(tables.contains("tabs_v3"))
+            if(tables.contains("tabs_v4"))
             {
-                migrateTabs_v3_v4();
+                migrateTabs_v4_v5();
+            }
+            else if(tables.contains("tabs_v3"))
+            {
+                migrateTabs_v3_v5();
             }
             else if(tables.contains("tabs_v2"))
             {
-                migrateTabs_v2_v4();
+                migrateTabs_v2_v5();
             }
             else if(tables.contains("tabs_v1"))
             {
-                migrateTabs_v1_v4();
+                migrateTabs_v1_v5();
             }
         }
     }
@@ -802,11 +809,12 @@ QString Database::instanceName()
 
 #ifdef WITH_SQL
 
-bool Database::prepareTabs_v4()
+bool Database::prepareTabs_v5()
 {
-    return prepareTable("CREATE TABLE tabs_v4 ("
+    return prepareTable("CREATE TABLE tabs_v5 ("
                         " filePath TEXT"
                         " ,instanceName TEXT"
+                        " ,tabIndex INTEGER"
                         " ,currentPage INTEGER"
                         " ,continuousMode INTEGER"
                         " ,layoutMode INTEGER"
@@ -816,6 +824,7 @@ bool Database::prepareTabs_v4()
                         " ,rotation INTEGER"
                         " ,renderFlags INTEGER"
                         " ,firstPage INTEGER"
+                        " ,PRIMARY KEY (instanceName, tabIndex)"
                         " )");
 }
 
@@ -847,37 +856,48 @@ bool Database::preparePerFileSettings_v4()
                         " )");
 }
 
-void Database::migrateTabs_v3_v4()
+void Database::migrateTabs_v4_v5()
 {
-    migrateTable("INSERT INTO tabs_v4"
-                 " SELECT filePath,instanceName,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,-1"
+    migrateTable("INSERT INTO tabs_v5"
+                 " SELECT filePath,instanceName,(SELECT MAX(tabIndex)+1 FROM tabs_v5 WHERE tabs_v5.instanceName=tabs_v4.instanceName),currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,-1"
+                 " FROM tabs_v4",
+
+                 "DROP TABLE tabs_v4",
+
+                 "Migrated tabs from v4 to v5, dropping v4.");
+}
+
+void Database::migrateTabs_v3_v5()
+{
+    migrateTable("INSERT INTO tabs_v5"
+                 " SELECT filePath,instanceName,(SELECT MAX(tabIndex)+1 FROM tabs_v5 WHERE tabs_v5.instanceName=tabs_v3.instanceName),currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,-1"
                  " FROM tabs_v3",
 
                  "DROP TABLE tabs_v3",
 
-                 "Migrated tabs from v3 to v4, dropping v3.");
+                 "Migrated tabs from v3 to v5, dropping v3.");
 }
 
-void Database::migrateTabs_v2_v4()
+void Database::migrateTabs_v2_v5()
 {
-    migrateTable("INSERT INTO tabs_v4"
-                 " SELECT filePath,instanceName,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1"
+    migrateTable("INSERT INTO tabs_v5"
+                 " SELECT filePath,instanceName,(SELECT MAX(tabIndex)+1 FROM tabs_v5 WHERE tabs_v5.instanceName=tabs_v2.instanceName),currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1"
                  " FROM tabs_v2",
 
                  "DROP TABLE tabs_v2"  ,
 
-                 "Migrated tabs from v2 to v4, dropping v2.");
+                 "Migrated tabs from v2 to v5, dropping v2.");
 }
 
-void Database::migrateTabs_v1_v4()
+void Database::migrateTabs_v1_v5()
 {
-    migrateTable("INSERT INTO tabs_v4"
-                 " SELECT filePath,?,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1"
+    migrateTable("INSERT INTO tabs_v5"
+                 " SELECT filePath,'',(SELECT MAX(tabIndex)+1 FROM tabs_v5 WHERE tabs_v5.instanceName=''),currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1"
                  " FROM tabs_v1",
 
                  "DROP TABLE tabs_v1",
 
-                 "Migrated tabs from v1 to v4, dropping v1.");
+                 "Migrated tabs from v1 to v5, dropping v1.");
 }
 
 void Database::migrateBookmarks_v2_v3()
