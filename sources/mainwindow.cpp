@@ -1661,8 +1661,6 @@ void MainWindow::on_settings_triggered()
     m_tabsMenu->setSearchable(s_settings->mainWindow().searchableMenus());
     m_bookmarksMenu->setSearchable(s_settings->mainWindow().searchableMenus());
 
-    m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
-
     foreach(DocumentView* tab, allTabs())
     {
         if(!tab->refresh())
@@ -2937,16 +2935,17 @@ void MainWindow::prepareDatabase()
 
     m_saveDatabaseTimer = new QTimer(this);
     m_saveDatabaseTimer->setSingleShot(true);
-    m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
 
     connect(m_saveDatabaseTimer, SIGNAL(timeout()), SLOT(on_saveDatabase_timeout()));
 }
 
 void MainWindow::scheduleSaveDatabase()
 {
-    if(!m_saveDatabaseTimer->isActive() && m_saveDatabaseTimer->interval() > 0)
+    const int interval = s_settings->mainWindow().saveDatabaseInterval();
+
+    if(!m_saveDatabaseTimer->isActive() && interval >= 0)
     {
-        m_saveDatabaseTimer->start();
+        m_saveDatabaseTimer->start(interval);
     }
 }
 

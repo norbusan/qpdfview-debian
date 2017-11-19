@@ -266,7 +266,7 @@ void SettingsDialog::createBehaviorTab()
                                                    s_settings->mainWindow().restorePerFileSettings());
 
     m_saveDatabaseInterval = addSpinBox(m_behaviorLayout, tr("Save database interval:"), QString(), tr(" min"), tr("Never"),
-                                        0, 60, 1, s_settings->mainWindow().saveDatabaseInterval() / 1000 / 60);
+                                        -1, 60, 1, s_settings->mainWindow().saveDatabaseInterval() / 1000 / 60);
 
 #ifndef WITH_SQL
 
