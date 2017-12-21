@@ -94,7 +94,7 @@ public slots:
     void saveDatabase();
 
 protected slots:
-    void on_tabWidget_currentChanged(int index);
+    void on_tabWidget_currentChanged();
     void on_tabWidget_tabCloseRequested(int index);
     void on_tabWidget_tabDragRequested(int index);
     void on_tabWidget_tabContextMenuRequested(QPoint globalPos, int index);

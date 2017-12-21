@@ -1308,6 +1308,11 @@ QPair< QString, QString > DocumentView::searchContext(int page, const QRectF& re
     return qMakePair(matchedText, surroundingText);
 }
 
+bool DocumentView::hasSearchResults()
+{
+    return s_searchModel->hasResults(this);
+}
+
 QString DocumentView::resolveFileName(QString fileName) const
 {
     if(QFileInfo(fileName).isRelative())

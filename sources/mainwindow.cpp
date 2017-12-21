@@ -269,7 +269,7 @@ public:
     {
         that->m_currentTabChangedBlocked = false;
 
-        that->on_tabWidget_currentChanged(that->m_tabWidget->currentIndex());
+        that->on_tabWidget_currentChanged();
     }
 
 };
@@ -392,7 +392,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
 
     prepareDatabase();
 
-    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+    on_tabWidget_currentChanged();
 }
 
 QSize MainWindow::sizeHint() const
@@ -580,14 +580,15 @@ void MainWindow::saveDatabase()
     QTimer::singleShot(0, this, SLOT(on_saveDatabase_timeout()));
 }
 
-void MainWindow::on_tabWidget_currentChanged(int index)
+void MainWindow::on_tabWidget_currentChanged()
 {
     if(m_currentTabChangedBlocked)
     {
         return;
     }
 
-    const bool hasCurrent = index != -1;
+    DocumentView* const tab = currentTab();
+    const bool hasCurrent = tab != 0;
 
     m_refreshAction->setEnabled(hasCurrent);
     m_printAction->setEnabled(hasCurrent);
@@ -662,7 +663,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
     if(hasCurrent)
     {
-        const bool canSave = currentTab()->canSave();
+        const bool canSave = tab->canSave();
         m_saveAction->setEnabled(canSave);
         m_saveAsAction->setEnabled(canSave);
         m_saveCopyAction->setEnabled(canSave);
@@ -670,37 +671,44 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         if(m_searchDock->isVisible())
         {
             m_searchLineEdit->stopTimer();
-            m_searchLineEdit->setProgress(currentTab()->searchProgress());
+            m_searchLineEdit->setProgress(tab->searchProgress());
+
+            if(tab->hasSearchResults())
+            {
+                m_searchLineEdit->setText(tab->searchText());
+                m_matchCaseCheckBox->setChecked(tab->searchMatchCase());
+                m_wholeWordsCheckBox->setChecked(tab->searchWholeWords());
+            }
         }
 
         m_bookmarksView->setModel(bookmarkModelForCurrentTab());
 
         on_thumbnails_dockLocationChanged(dockWidgetArea(m_thumbnailsDock));
 
-        m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
-        currentTab()->setThumbnailsViewportSize(m_thumbnailsView->viewport()->size());
+        m_thumbnailsView->setScene(tab->thumbnailsScene());
+        tab->setThumbnailsViewportSize(m_thumbnailsView->viewport()->size());
 
         on_currentTab_documentChanged();
 
-        on_currentTab_numberOfPagesChaned(currentTab()->numberOfPages());
-        on_currentTab_currentPageChanged(currentTab()->currentPage());
+        on_currentTab_numberOfPagesChaned(tab->numberOfPages());
+        on_currentTab_currentPageChanged(tab->currentPage());
 
-        on_currentTab_canJumpChanged(currentTab()->canJumpBackward(), currentTab()->canJumpForward());
+        on_currentTab_canJumpChanged(tab->canJumpBackward(), tab->canJumpForward());
 
-        on_currentTab_continuousModeChanged(currentTab()->continuousMode());
-        on_currentTab_layoutModeChanged(currentTab()->layoutMode());
-        on_currentTab_rightToLeftModeChanged(currentTab()->rightToLeftMode());
-        on_currentTab_scaleModeChanged(currentTab()->scaleMode());
-        on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
+        on_currentTab_continuousModeChanged(tab->continuousMode());
+        on_currentTab_layoutModeChanged(tab->layoutMode());
+        on_currentTab_rightToLeftModeChanged(tab->rightToLeftMode());
+        on_currentTab_scaleModeChanged(tab->scaleMode());
+        on_currentTab_scaleFactorChanged(tab->scaleFactor());
 
-        on_currentTab_invertColorsChanged(currentTab()->invertColors());
-        on_currentTab_convertToGrayscaleChanged(currentTab()->convertToGrayscale());
-        on_currentTab_trimMarginsChanged(currentTab()->trimMargins());
+        on_currentTab_invertColorsChanged(tab->invertColors());
+        on_currentTab_convertToGrayscaleChanged(tab->convertToGrayscale());
+        on_currentTab_trimMarginsChanged(tab->trimMargins());
 
-        on_currentTab_compositionModeChanged(currentTab()->compositionMode());
+        on_currentTab_compositionModeChanged(tab->compositionMode());
 
-        on_currentTab_highlightAllChanged(currentTab()->highlightAll());
-        on_currentTab_rubberBandModeChanged(currentTab()->rubberBandMode());
+        on_currentTab_highlightAllChanged(tab->highlightAll());
+        on_currentTab_rubberBandModeChanged(tab->rubberBandMode());
     }
     else
     {
@@ -1253,7 +1261,7 @@ void MainWindow::on_splitView_currentWidgetChanged(QWidget* currentWidget)
     {
         if(parentWidget == m_tabWidget->currentWidget())
         {
-            on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+            on_tabWidget_currentChanged();
 
             return;
         }
@@ -2990,7 +2998,7 @@ void MainWindow::createWidgets()
 
     m_currentTabChangedBlocked = false;
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), SLOT(on_tabWidget_currentChanged(int)));
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), SLOT(on_tabWidget_currentChanged()));
     connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), SLOT(on_tabWidget_tabCloseRequested(int)));
     connect(m_tabWidget, SIGNAL(tabDragRequested(int)), SLOT(on_tabWidget_tabDragRequested(int)));
     connect(m_tabWidget, SIGNAL(tabContextMenuRequested(QPoint,int)), SLOT(on_tabWidget_tabContextMenuRequested(QPoint,int)));
