@@ -1,7 +1,8 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2012-2017 Adam Reichold
+Copyright 2012-2018 Adam Reichold
+Copyright 2018 Pavel Sanda
 Copyright 2012 Michał Trybus
 Copyright 2012 Alexander Volkov
 
@@ -151,6 +152,8 @@ protected slots:
     void on_openInNewTab_triggered();
     void on_openCopyInNewTab_triggered();
     void on_openCopyInNewTab_triggered(const DocumentView* tab);
+    void on_openCopyInNewWindow_triggered();
+    void on_openCopyInNewWindow_triggered(const DocumentView* tab);
     void on_openContainingFolder_triggered();
     void on_openContainingFolder_triggered(const DocumentView* tab);
     void on_moveToInstance_triggered();
@@ -432,6 +435,7 @@ private:
     QAction* m_aboutAction;
 
     QAction* m_openCopyInNewTabAction;
+    QAction* m_openCopyInNewWindowAction;
     QAction* m_openContainingFolderAction;
     QAction* m_moveToInstanceAction;
     QAction* m_splitViewHorizontallyAction;

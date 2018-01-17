@@ -1,7 +1,8 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2012-2017 Adam Reichold
+Copyright 2012-2018 Adam Reichold
+Copyright 2018 Pavel Sanda
 Copyright 2014 Dorian Scholz
 
 This file is part of qpdfview.
@@ -417,6 +418,8 @@ inline QIcon loadIconWithFallback(const QString& name)
 
     return icon;
 }
+
+void openInNewWindow(const QString& filePath, int page);
 
 } // qpdfview
 

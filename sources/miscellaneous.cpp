@@ -1,7 +1,8 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2012-2017 Adam Reichold
+Copyright 2012-2018 Adam Reichold
+Copyright 2018 Pavel Sanda
 Copyright 2014 Dorian Scholz
 
 This file is part of qpdfview.
@@ -30,6 +31,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QLabel>
 #include <QMenu>
 #include <QMouseEvent>
+#include <QProcess>
 #include <QScrollBar>
 #include <QTimer>
 #include <QToolTip>
@@ -976,6 +978,14 @@ void Splitter::on_focusChanged(QWidget* /* old */, QWidget* now)
             return;
         }
     }
+}
+
+void openInNewWindow(const QString& filePath, int page)
+{
+    QProcess::startDetached(
+        QApplication::applicationFilePath(),
+        QStringList() << QString("%2#%1").arg(page).arg(filePath)
+    );
 }
 
 } // qpdfview

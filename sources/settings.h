@@ -1,7 +1,7 @@
 /*
 
 Copyright 2015 S. Razi Alavizadeh
-Copyright 2012-2015 Adam Reichold
+Copyright 2012-2015, 2018 Adam Reichold
 Copyright 2012 Alexander Volkov
 
 This file is part of qpdfview.
@@ -653,7 +653,7 @@ public:
         static QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
 
         static QStringList documentContextMenu() { return QStringList() << "previousPage" << "nextPage" << "firstPage" << "lastPage" << "separator" << "jumpToPage" << "jumpBackward" << "jumpForward" << "separator" << "setFirstPage" << "separator" << "findPrevious" << "findNext" << "cancelSearch"; }
-        static QStringList tabContexntMenu() { return QStringList() << "openCopyInNewTab" << "openContainingFolder" << "separator" << "splitViewHorizontally" << "splitViewVertically" << "closeCurrentView" << "separator" << "closeAllTabs" << "closeAllTabsButThisOne" << "closeAllTabsToTheLeft" << "closeAllTabsToTheRight"; }
+        static QStringList tabContexntMenu() { return QStringList() << "openCopyInNewTab" << "openCopyInNewWindow" << "openContainingFolder" << "separator" << "splitViewHorizontally" << "splitViewVertically" << "closeCurrentView" << "separator" << "closeAllTabs" << "closeAllTabsButThisOne" << "closeAllTabsToTheLeft" << "closeAllTabsToTheRight"; }
 
         static bool scrollableMenus() { return false; }
         static bool searchableMenus() { return false; }
