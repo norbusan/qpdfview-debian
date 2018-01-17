@@ -1392,7 +1392,7 @@ void MainWindow::on_openCopyInNewWindow_triggered()
 
 void MainWindow::on_openCopyInNewWindow_triggered(const DocumentView* tab)
 {
-    openInNewWindow(tab->fileInfo().filePath(), tab->currentPage());
+    openInNewWindow(tab->fileInfo().absoluteFilePath(), tab->currentPage());
 }
 
 void MainWindow::on_openContainingFolder_triggered()
