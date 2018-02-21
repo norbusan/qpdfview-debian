@@ -392,8 +392,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
     restoreState(s_settings->mainWindow().state());
 
     prepareDatabase();
-
-    on_tabWidget_currentChanged();
 }
 
 QSize MainWindow::sizeHint() const
@@ -442,6 +440,8 @@ void MainWindow::show()
     {
         s_database->restoreBookmarks();
     }
+
+    on_tabWidget_currentChanged();
 }
 
 bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight, bool quiet)
