@@ -1258,6 +1258,16 @@ void DocumentView::setThumbnailsOrientation(Qt::Orientation thumbnailsOrientatio
     }
 }
 
+QSet<QString> DocumentView::saveOutline() const {
+    QSet<QString> paths;
+    saveExpandedPaths(m_outlineModel.data(), paths, QModelIndex(), QString());
+    return paths;
+}
+void DocumentView::restoreOutline(QSet<QString>& paths) {
+    restoreExpandedPaths(m_outlineModel.data(), paths, QModelIndex(), QString());
+    refresh();
+}
+
 QAbstractItemModel* DocumentView::fontsModel() const
 {
     return m_document->fonts();
