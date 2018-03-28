@@ -462,6 +462,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
             m_tabWidget->setCurrentTabToolTip(tab->fileInfo().absoluteFilePath());
 
             s_database->restorePerFileSettings(tab);
+            m_outlineView->restoreExpansion();
             scheduleSaveTabs();
 
             tab->jumpToPage(page, false);
@@ -502,6 +503,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         newTab->show();
 
         s_database->restorePerFileSettings(newTab);
+        m_outlineView->restoreExpansion();
         scheduleSaveTabs();
 
         newTab->jumpToPage(page, false);

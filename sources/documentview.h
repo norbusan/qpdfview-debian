@@ -138,8 +138,8 @@ public:
     QAbstractItemModel* outlineModel() const { return m_outlineModel.data(); }
     QAbstractItemModel* propertiesModel() const { return m_propertiesModel.data(); }
 
-    QSet<QString> saveOutline() const;
-    void restoreOutline(QSet<QString>& paths);
+    QSet<QByteArray> saveOutline() const;
+    void restoreOutline(const QSet<QByteArray> &paths);
 
     QAbstractItemModel* fontsModel() const;
 

@@ -78,7 +78,8 @@ private:
 
     bool prepareTabs_v5();
     bool prepareBookmarks_v3();
-    bool preparePerFileSettings_v5();
+    bool preparePerFileSettings_v4();
+    bool prepareOutlines_v1();
 
     void migrateTabs_v4_v5();
     void migrateTabs_v3_v5();
@@ -86,10 +87,9 @@ private:
     void migrateTabs_v1_v5();
     void migrateBookmarks_v2_v3();
     void migrateBookmarks_v1_v3();
-    void migratePerFileSettings_v4_v5();
-    void migratePerFileSettings_v3_v5();
-    void migratePerFileSettings_v2_v5();
-    void migratePerFileSettings_v1_v5();
+    void migratePerFileSettings_v3_v4();
+    void migratePerFileSettings_v2_v4();
+    void migratePerFileSettings_v1_v4();
 
     bool prepareTable(const QString& prepare);
     void migrateTable(const QString& migrate, const QString& prune, const QString& warning);

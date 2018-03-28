@@ -598,10 +598,11 @@ void Database::restorePerFileSettings(DocumentView* tab)
         Transaction transaction(m_database);
         Query query(m_database);
 
-        query.prepare("SELECT currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage,outlineStates"
-                      " FROM perfilesettings_v5 WHERE filePath==?");
+        query.prepare("SELECT currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage"
+                      " FROM perfilesettings_v4 WHERE filePath==?");
 
-        query << hashFilePath(tab->fileInfo().absoluteFilePath());
+        QByteArray filePath = hashFilePath(tab->fileInfo().absoluteFilePath());
+        query << filePath;
 
         query.exec();
 
@@ -623,15 +624,17 @@ void Database::restorePerFileSettings(DocumentView* tab)
             tab->setFirstPage(query.nextValue());
 
             tab->jumpToPage(page, false);
-
-            QString outlineStates = query.nextValue();
-
-            if (!outlineStates.isEmpty()) {
-                QSet<QString> outline = outlineStates.split(',', QString::SplitBehavior::SkipEmptyParts).toSet();
-                tab->restoreOutline(outline);
-                tab->refresh();
-            }
         }
+
+        query.prepare("SELECT outlinePath FROM outlines_v1 WHERE filePath==?");
+        query << filePath;
+        query.exec();
+
+        QSet<QByteArray> outlines;
+        while (query.nextRecord()) {
+            outlines.insert(query.nextValue());
+        }
+        tab->restoreOutline(outlines);
 
         transaction.commit();
     }
@@ -661,13 +664,12 @@ void Database::savePerFileSettings(const DocumentView* tab)
         Transaction transaction(m_database);
         Query query(m_database);
 
-        query.prepare("INSERT OR REPLACE INTO perfilesettings_v5"
-                      " (lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage,outlineStates)"
-                      " VALUES (strftime('%s','now'),?,?,?,?,?,?,?,?,?,?,?)");
+        query.prepare("INSERT OR REPLACE INTO perfilesettings_v4"
+                      " (lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage)"
+                      " VALUES (strftime('%s','now'),?,?,?,?,?,?,?,?,?,?)");
 
-        QString outline = tab->saveOutline().toList().join(',');
-
-        query << hashFilePath(tab->fileInfo().absoluteFilePath())
+        QByteArray filePath = hashFilePath(tab->fileInfo().absoluteFilePath());
+        query << filePath
               << tab->currentPage()
 
               << tab->continuousMode()
@@ -680,11 +682,24 @@ void Database::savePerFileSettings(const DocumentView* tab)
               << tab->rotation()
               << tab->renderFlags()
 
-              << tab->firstPage()
-
-              << outline;
+              << tab->firstPage();
 
         query.exec();
+
+        QSet<QByteArray> outlines = tab->saveOutline();
+
+        query.prepare("DELETE FROM outlines_v1 WHERE filePath==?");
+        query << filePath;
+        query.exec();
+
+        query.prepare("INSERT INTO outlines_v1"
+                      " (filePath,outlinePath)"
+                      " VALUES (?,?)");
+        foreach (const QByteArray& outlinePath, outlines)
+        {
+            query << filePath << outlinePath;
+            query.exec();
+        }
 
         transaction.commit();
     }
@@ -783,27 +798,28 @@ Database::Database(QObject* parent) : QObject(parent)
 
     // per-file settings
 
-    if(!tables.contains("perfilesettings_v5"))
+    if(!tables.contains("perfilesettings_v4"))
     {
-        if(preparePerFileSettings_v5())
+        if(preparePerFileSettings_v4())
         {
-            if(tables.contains("perfilesettings_v4"))
-            {
-                migratePerFileSettings_v4_v5();
-            }
             if(tables.contains("perfilesettings_v3"))
             {
-                migratePerFileSettings_v3_v5();
+                migratePerFileSettings_v3_v4();
             }
             else if(tables.contains("perfilesettings_v2"))
             {
-                migratePerFileSettings_v2_v5();
+                migratePerFileSettings_v2_v4();
             }
             else if(tables.contains("perfilesettings_v1"))
             {
-                migratePerFileSettings_v1_v5();
+                migratePerFileSettings_v1_v4();
             }
         }
+    }
+
+    if(!tables.contains("outlines_v1"))
+    {
+        prepareOutlines_v1();
     }
 
     limitPerFileSettings();
@@ -855,9 +871,9 @@ bool Database::prepareBookmarks_v3()
                         " )");
 }
 
-bool Database::preparePerFileSettings_v5()
+bool Database::preparePerFileSettings_v4()
 {
-    return prepareTable("CREATE TABLE perfilesettings_v5 ("
+    return prepareTable("CREATE TABLE perfilesettings_v4 ("
                         " lastUsed INTEGER"
                         " ,filePath TEXT PRIMARY KEY"
                         " ,currentPage INTEGER"
@@ -869,7 +885,16 @@ bool Database::preparePerFileSettings_v5()
                         " ,rotation INTEGER"
                         " ,renderFlags INTEGER"
                         " ,firstPage INTEGER"
-                        " ,outlineStates TEXT"
+                        " )");
+}
+
+bool Database::prepareOutlines_v1()
+{
+    return prepareTable("CREATE TABLE outlines_v1 ("
+                        " filePath TEXT"
+                        " ,outlinePath TEXT"
+                        " ,FOREIGN KEY(filePath) REFERENCES perfilesettings_v5(filePath)"
+                        " ,PRIMARY KEY(filePath, outlinePath)"
                         " )");
 }
 
@@ -969,48 +994,37 @@ void Database::migrateBookmarks_v1_v3()
     }
 }
 
-void Database::migratePerFileSettings_v4_v5() {
-    migrateTable("INSERT INTO perfilesettings_v5"
-                 " SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage,''"
-                 " FROM perfilesettings_v4",
-
-                 "DROP TABLE perfilesettings_v4",
-
-                 "Migrated per-file settings from v4 to v5, dropping v4."
-                 );
-}
-
-void Database::migratePerFileSettings_v3_v5()
+void Database::migratePerFileSettings_v3_v4()
 {
-    migrateTable("INSERT INTO perfilesettings_v5"
-                 " SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,firstPage,''"
+    migrateTable("INSERT INTO perfilesettings_v4"
+                 " SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,firstPage"
                  " FROM perfilesettings_v3",
 
                  "DROP TABLE perfilesettings_v3",
 
-                 "Migrated per-file settings from v3 to v5, dropping v3.");
+                 "Migrated per-file settings from v3 to v4, dropping v3.");
 }
 
-void Database::migratePerFileSettings_v2_v5()
+void Database::migratePerFileSettings_v2_v4()
 {
-    migrateTable("INSERT INTO perfilesettings_v5"
-                 " SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,-1,''"
+    migrateTable("INSERT INTO perfilesettings_v4"
+                 " SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,0,-1"
                  " FROM perfilesettings_v2",
 
                  "DROP TABLE perfilesettings_v2",
 
-                 "Migrated per-file settings from v2 to v5, dropping v2.");
+                 "Migrated per-file settings from v2 to v4, dropping v2.");
 }
 
-void Database::migratePerFileSettings_v1_v5()
+void Database::migratePerFileSettings_v1_v4()
 {
-    migrateTable("INSERT INTO perfilesettings_v5"
-                 " SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1,''"
+    migrateTable("INSERT INTO perfilesettings_v4"
+                 " SELECT lastUsed,filePath,currentPage,continuousMode,layoutMode,0,scaleMode,scaleFactor,rotation,0,-1"
                  " FROM perfilesettings_v1",
 
                  "DROP TABLE perfilesettings_v1",
 
-                 "Migrated per-file settings from v1 to v5, dropping v1.");
+                 "Migrated per-file settings from v1 to v4, dropping v1.");
 }
 
 bool Database::prepareTable(const QString& prepare)
