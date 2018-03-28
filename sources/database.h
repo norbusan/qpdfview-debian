@@ -1,7 +1,8 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2013-2017 Adam Reichold
+Copyright 2013-2018 Adam Reichold
+Copyright 2018 Egor Zenkov
 
 This file is part of qpdfview.
 
@@ -79,6 +80,7 @@ private:
     bool prepareTabs_v5();
     bool prepareBookmarks_v3();
     bool preparePerFileSettings_v4();
+    bool preparePerFileSettings_Outline_v1();
 
     void migrateTabs_v4_v5();
     void migrateTabs_v3_v5();

@@ -1,8 +1,9 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2012-2017 Adam Reichold
+Copyright 2012-2018 Adam Reichold
 Copyright 2012 Michał Trybus
+Copyright 2018 Egor Zenkov
 
 This file is part of qpdfview.
 
@@ -595,13 +596,15 @@ void Database::restorePerFileSettings(DocumentView* tab)
 
     try
     {
+        const QByteArray filePath = hashFilePath(tab->fileInfo().absoluteFilePath());
+
         Transaction transaction(m_database);
         Query query(m_database);
 
         query.prepare("SELECT currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage"
                       " FROM perfilesettings_v4 WHERE filePath==?");
 
-        query << hashFilePath(tab->fileInfo().absoluteFilePath());
+        query << filePath;
 
         query.exec();
 
@@ -624,6 +627,21 @@ void Database::restorePerFileSettings(DocumentView* tab)
 
             tab->jumpToPage(page, false);
         }
+
+        query.prepare("SELECT expandedPath FROM perfilesettings_outline_v1 WHERE filePath==?");
+
+        query << filePath;
+
+        query.exec();
+
+        QSet< QByteArray > expandedPaths;
+
+        while(query.nextRecord())
+        {
+            expandedPaths.insert(query.nextValue());
+        }
+
+        tab->restoreExpandedPaths(expandedPaths);
 
         transaction.commit();
     }
@@ -650,6 +668,8 @@ void Database::savePerFileSettings(const DocumentView* tab)
 
     try
     {
+        const QByteArray filePath = hashFilePath(tab->fileInfo().absoluteFilePath());
+
         Transaction transaction(m_database);
         Query query(m_database);
 
@@ -657,7 +677,7 @@ void Database::savePerFileSettings(const DocumentView* tab)
                       " (lastUsed,filePath,currentPage,continuousMode,layoutMode,rightToLeftMode,scaleMode,scaleFactor,rotation,renderFlags,firstPage)"
                       " VALUES (strftime('%s','now'),?,?,?,?,?,?,?,?,?,?)");
 
-        query << hashFilePath(tab->fileInfo().absoluteFilePath())
+        query << filePath
               << tab->currentPage()
 
               << tab->continuousMode()
@@ -673,6 +693,23 @@ void Database::savePerFileSettings(const DocumentView* tab)
               << tab->firstPage();
 
         query.exec();
+
+        query.prepare("DELETE FROM perfilesettings_outline_v1 WHERE filePath==?");
+
+        query << filePath;
+
+        query.exec();
+
+        query.prepare("INSERT INTO perfilesettings_outline_v1"
+                      " (filePath,expandedPath)"
+                      " VALUES (?,?)");
+
+        foreach(const QByteArray& expandedPath, tab->saveExpandedPaths())
+        {
+            query << filePath << expandedPath;
+
+            query.exec();
+        }
 
         transaction.commit();
     }
@@ -790,6 +827,11 @@ Database::Database(QObject* parent) : QObject(parent)
         }
     }
 
+    if(!tables.contains("perfilesettings_outline_v1"))
+    {
+        preparePerFileSettings_Outline_v1();
+    }
+
     limitPerFileSettings();
 
 #endif // WITH_SQL
@@ -853,6 +895,15 @@ bool Database::preparePerFileSettings_v4()
                         " ,rotation INTEGER"
                         " ,renderFlags INTEGER"
                         " ,firstPage INTEGER"
+                        " )");
+}
+
+bool Database::preparePerFileSettings_Outline_v1()
+{
+    return prepareTable("CREATE TABLE perfilesettings_outline_v1 ("
+                        " filePath TEXT"
+                        " ,expandedPath TEXT"
+                        " ,FOREIGN KEY (filePath) REFERENCES perfilesettings_v4 (filePath) ON DELETE CASCADE"
                         " )");
 }
 

@@ -1,8 +1,9 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2012-2014 Adam Reichold
+Copyright 2012-2014, 2018 Adam Reichold
 Copyright 2014 Dorian Scholz
+Copyright 2018 Egor Zenkov
 
 This file is part of qpdfview.
 
@@ -137,6 +138,9 @@ public:
 
     QAbstractItemModel* outlineModel() const { return m_outlineModel.data(); }
     QAbstractItemModel* propertiesModel() const { return m_propertiesModel.data(); }
+
+    QSet< QByteArray > saveExpandedPaths() const;
+    void restoreExpandedPaths(const QSet< QByteArray >& expandedPaths);
 
     QAbstractItemModel* fontsModel() const;
 

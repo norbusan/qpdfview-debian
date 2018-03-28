@@ -2,8 +2,9 @@
 
 Copyright 2014 S. Razi Alavizadeh
 Copyright 2013 Thomas Etter
-Copyright 2012-2015 Adam Reichold
+Copyright 2012-2015, 2018 Adam Reichold
 Copyright 2014 Dorian Scholz
+Copyright 2018 Egor Zenkov
 
 This file is part of qpdfview.
 
@@ -623,9 +624,14 @@ void addFileProperties(Model::Properties& properties, const QFileInfo& fileInfo)
     addProperty(properties, "File group", fileInfo.owner());
 }
 
-void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, const QModelIndex& index, QString path)
+void appendToPath(const QModelIndex& index, QByteArray& path)
 {
-    path += index.data(Qt::DisplayRole).toString();
+    path.append(index.data(Qt::DisplayRole).toByteArray()).append('\0');
+}
+
+void saveExpandedPaths(const QAbstractItemModel* model, QSet< QByteArray >& paths, const QModelIndex& index = QModelIndex(), QByteArray path = QByteArray())
+{
+    appendToPath(index, path);
 
     if(model->data(index, Model::Document::ExpansionRole).toBool())
     {
@@ -638,9 +644,9 @@ void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, 
     }
 }
 
-void restoreExpandedPaths(QAbstractItemModel* model, const QSet< QString >& paths, const QModelIndex& index, QString path)
+void restoreExpandedPaths(QAbstractItemModel* model, const QSet< QByteArray >& paths, const QModelIndex& index = QModelIndex(), QByteArray path = QByteArray())
 {
-    path += index.data(Qt::DisplayRole).toString();
+    appendToPath(index, path);
 
     if(paths.contains(path))
     {
@@ -1258,6 +1264,20 @@ void DocumentView::setThumbnailsOrientation(Qt::Orientation thumbnailsOrientatio
     }
 }
 
+QSet< QByteArray > DocumentView::saveExpandedPaths() const
+{
+    QSet< QByteArray > expandedPaths;
+
+    ::saveExpandedPaths(m_outlineModel.data(), expandedPaths);
+
+    return expandedPaths;
+}
+
+void DocumentView::restoreExpandedPaths(const QSet< QByteArray >& expandedPaths)
+{
+    ::restoreExpandedPaths(m_outlineModel.data(), expandedPaths);
+}
+
 QAbstractItemModel* DocumentView::fontsModel() const
 {
     return m_document->fonts();
@@ -1453,12 +1473,12 @@ bool DocumentView::refresh()
 
         m_currentPage = qMin(m_currentPage, document->numberOfPages());
 
-        QSet< QString > expandedPaths;
-        saveExpandedPaths(m_outlineModel.data(), expandedPaths, QModelIndex(), QString());
+        QSet< QByteArray > expandedPaths;
+        ::saveExpandedPaths(m_outlineModel.data(), expandedPaths);
 
         prepareDocument(document, pages);
 
-        restoreExpandedPaths(m_outlineModel.data(), expandedPaths, QModelIndex(), QString());
+        ::restoreExpandedPaths(m_outlineModel.data(), expandedPaths);
 
         prepareScene();
         prepareView(left, top);
