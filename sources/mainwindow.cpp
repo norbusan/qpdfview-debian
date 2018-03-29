@@ -461,8 +461,7 @@ bool MainWindow::open(const QString& filePath, int page, const QRectF& highlight
             m_tabWidget->setCurrentTabText(tab->title());
             m_tabWidget->setCurrentTabToolTip(tab->fileInfo().absoluteFilePath());
 
-            s_database->restorePerFileSettings(tab);
-            m_outlineView->restoreExpansion();
+            restorePerFileSettings(tab);
             scheduleSaveTabs();
 
             tab->jumpToPage(page, false);
@@ -502,7 +501,7 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
 
         newTab->show();
 
-        s_database->restorePerFileSettings(newTab);
+        restorePerFileSettings(newTab);
         scheduleSaveTabs();
 
         newTab->jumpToPage(page, false);
@@ -2785,6 +2784,16 @@ void MainWindow::connectTab(DocumentView* tab)
     connect(tab, SIGNAL(searchProgressChanged(int)), SLOT(on_currentTab_searchProgressChanged(int)));
 
     connect(tab, SIGNAL(customContextMenuRequested(QPoint)), SLOT(on_currentTab_customContextMenuRequested(QPoint)));
+}
+
+void MainWindow::restorePerFileSettings(DocumentView* tab)
+{
+    s_database->restorePerFileSettings(tab);
+
+    if(m_outlineView->model() == tab->outlineModel())
+    {
+        m_outlineView->restoreExpansion();
+    }
 }
 
 bool MainWindow::saveModifications(DocumentView* tab)

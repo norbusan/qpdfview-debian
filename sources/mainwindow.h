@@ -315,6 +315,8 @@ private:
     void addTabAction(DocumentView* tab);
     void connectTab(DocumentView* tab);
 
+    void restorePerFileSettings(DocumentView* tab);
+
     bool saveModifications(DocumentView* tab);
     void closeTab(DocumentView* tab);
 
