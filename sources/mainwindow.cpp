@@ -2807,7 +2807,7 @@ bool MainWindow::saveModifications(DocumentView* tab)
 
         if(button == QMessageBox::Save)
         {
-            const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), tab->fileInfo().filePath(), tab->saveFilter().join(";;"));
+            const QString filePath = tab->fileInfo().filePath();
 
             if(!filePath.isEmpty())
             {
