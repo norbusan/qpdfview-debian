@@ -4,6 +4,7 @@ Copyright 2014-2015 S. Razi Alavizadeh
 Copyright 2012-2018 Adam Reichold
 Copyright 2018 Pavel Sanda
 Copyright 2014 Dorian Scholz
+Copyright 2018 Martin Spacek
 Copyright 2012 Michał Trybus
 Copyright 2012 Alexander Volkov
 
@@ -1468,34 +1469,38 @@ void MainWindow::on_refresh_triggered()
 
 void MainWindow::on_save_triggered()
 {
-    if(!currentTab()->save(currentTab()->fileInfo().filePath(), true))
+    DocumentView* const tab = currentTab();
+    const QString filePath = tab->fileInfo().filePath();
+
+    if(!tab->save(filePath, true))
     {
-        QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(currentTab()->fileInfo().filePath()));
+        QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(filePath));
         return;
     }
 
-    if(!currentTab()->refresh())
+    if(!tab->refresh())
     {
-        QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->fileInfo().filePath()));
+        QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(filePath));
     }
 }
 
 void MainWindow::on_saveAs_triggered()
 {
-    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), currentTab()->fileInfo().filePath(), currentTab()->saveFilter().join(";;"));
+    DocumentView* const tab = currentTab();
+    const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), tab->fileInfo().filePath(), tab->saveFilter().join(";;"));
 
     if(filePath.isEmpty())
     {
         return;
     }
 
-    if(!currentTab()->save(filePath, true))
+    if(!tab->save(filePath, true))
     {
         QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(filePath));
         return;
     }
 
-    open(filePath, currentTab()->currentPage());
+    open(filePath, tab->currentPage());
 }
 
 void MainWindow::on_saveCopy_triggered()
@@ -2807,18 +2812,13 @@ bool MainWindow::saveModifications(DocumentView* tab)
 
         if(button == QMessageBox::Save)
         {
-            const QString filePath = QFileDialog::getSaveFileName(this, tr("Save as"), tab->fileInfo().filePath(), tab->saveFilter().join(";;"));
-
-            if(!filePath.isEmpty())
+            if(tab->save(tab->fileInfo().filePath(), true))
             {
-                if(tab->save(filePath, true))
-                {
-                    return true;
-                }
-                else
-                {
-                    QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(filePath));
-                }
+                return true;
+            }
+            else
+            {
+                QMessageBox::warning(this, tr("Warning"), tr("Could not save as '%1'.").arg(tab->fileInfo().filePath()));
             }
         }
         else if(button == QMessageBox::Discard)
