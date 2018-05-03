@@ -1,7 +1,8 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2013-2014 Adam Reichold
+Copyright 2018 Marshall Banana
+Copyright 2013-2014, 2018 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -622,21 +623,23 @@ QList< QRectF > PdfPage::search(const QString& text, bool matchCase, bool wholeW
 
     QList< QRectF > results;
 
-#if defined(HAS_POPPLER_31)
+#ifdef HAS_POPPLER_31
 
     const Poppler::Page::SearchFlags flags((matchCase ? 0 : Poppler::Page::IgnoreCase) | (wholeWords ? Poppler::Page::WholeWords : 0));
 
     results = m_page->search(text, flags);
 
-#elif defined(HAS_POPPLER_22)
+#else
+
+    Q_UNUSED(wholeWords);
 
     const Poppler::Page::SearchMode mode = matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive;
+
+#if defined(HAS_POPPLER_22)
 
     results = m_page->search(text, mode);
 
 #elif defined(HAS_POPPLER_14)
-
-    const Poppler::Page::SearchMode mode = matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive;
 
     double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0;
 
@@ -647,8 +650,6 @@ QList< QRectF > PdfPage::search(const QString& text, bool matchCase, bool wholeW
 
 #else
 
-    const Poppler::Page::SearchMode mode = matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive;
-
     QRectF rect;
 
     while(m_page->search(text, rect, Poppler::Page::NextResult, mode))
@@ -656,7 +657,9 @@ QList< QRectF > PdfPage::search(const QString& text, bool matchCase, bool wholeW
         results.append(rect);
     }
 
-#endif // HAS_POPPLER_31 HAS_POPPLER_22 HAS_POPPLER_14
+#endif // HAS_POPPLER_22 HAS_POPPLER_14
+
+#endif // HAS_POPPLER_31
 
     return results;
 }
