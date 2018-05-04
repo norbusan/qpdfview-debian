@@ -1,7 +1,8 @@
 /*
 
+Copyright 2018 Marshall Banana
 Copyright 2013 Benjamin Eltzner
-Copyright 2013 Adam Reichold
+Copyright 2013, 2018 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -41,7 +42,7 @@ HelpDialog::HelpDialog(QWidget* parent) : QDialog(parent)
 
     m_textBrowser = new QTextBrowser(this);
     m_textBrowser->setTextInteractionFlags(Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard);
-    m_textBrowser->setSearchPaths(QStringList() << QDir(QApplication::applicationDirPath()).filePath("data") << DATA_INSTALL_PATH);
+    m_textBrowser->setSearchPaths(QStringList() << QDir(QApplication::applicationDirPath()).filePath("data") << DATA_INSTALL_PATH << ":/");
 
     //: Please replace by file name of localized help if available, e.g. "help_fr.html".
     m_textBrowser->setSource(QUrl::fromLocalFile(tr("help.html")));
