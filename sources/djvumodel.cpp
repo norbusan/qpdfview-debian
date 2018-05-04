@@ -1,8 +1,9 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2013-2014 Adam Reichold
+Copyright 2013-2014, 2018 Adam Reichold
 Copyright 2013 Alexander Volkov
+Copyright 2018 Marshall Banana
 
 This file is part of qpdfview.
 
@@ -29,6 +30,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFile>
 #include <qmath.h>
+
+#if defined(Q_OS_WIN) && defined(DJVU_STATIC)
+
+#define DDJVUAPI /**/
+#define MINILISPAPI /**/
+
+#endif // Q_OS_WIN DJVU_STATIC
 
 #include <libdjvu/ddjvuapi.h>
 #include <libdjvu/miniexp.h>
