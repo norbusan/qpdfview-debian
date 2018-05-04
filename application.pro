@@ -106,7 +106,7 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
         isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = libqpdfview_pdf.a
 
         DEFINES += STATIC_PDF_PLUGIN
-        LIBS += $$PDF_PLUGIN_NAME
+        LIBS += $$PDF_PLUGIN_NAME $$PDF_PLUGIN_LIBS
         PRE_TARGETDEPS += $$PDF_PLUGIN_NAME
 
         QT += xml
@@ -132,7 +132,7 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
         isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = libqpdfview_ps.a
 
         DEFINES += STATIC_PS_PLUGIN
-        LIBS += $$PS_PLUGIN_NAME
+        LIBS += $$PS_PLUGIN_NAME $$PS_PLUGIN_LIBS
         PRE_TARGETDEPS += $$PS_PLUGIN_NAME
 
         !without_pkgconfig {
@@ -156,7 +156,7 @@ DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
         isEmpty(DJVU_PLUGIN_NAME):DJVU_PLUGIN_NAME = libqpdfview_djvu.a
 
         DEFINES += STATIC_DJVU_PLUGIN
-        LIBS += $$DJVU_PLUGIN_NAME
+        LIBS += $$DJVU_PLUGIN_NAME $$DJVU_PLUGIN_LIBS
         PRE_TARGETDEPS += $$DJVU_PLUGIN_NAME
 
         !without_pkgconfig {
@@ -179,7 +179,7 @@ with_fitz {
         isEmpty(FITZ_PLUGIN_NAME):FITZ_PLUGIN_NAME = libqpdfview_fitz.a
 
         DEFINES += STATIC_FITZ_PLUGIN
-        LIBS += $$FITZ_PLUGIN_NAME
+        LIBS += $$FITZ_PLUGIN_NAME $$FITZ_PLUGIN_LIBS
         PRE_TARGETDEPS += $$FITZ_PLUGIN_NAME
 
         isEmpty(FITZ_PLUGIN_LIBS) {
@@ -201,7 +201,7 @@ with_fitz {
         isEmpty(IMAGE_PLUGIN_NAME):IMAGE_PLUGIN_NAME = libqpdfview_image.a
 
         DEFINES += STATIC_IMAGE_PLUGIN
-        LIBS += $$IMAGE_PLUGIN_NAME
+        LIBS += $$IMAGE_PLUGIN_NAME $$IMAGE_PLUGIN_LIBS
         PRE_TARGETDEPS += $$IMAGE_PLUGIN_NAME
     }
     else {
