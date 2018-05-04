@@ -248,6 +248,11 @@ lessThan(QT_MAJOR_VERSION, 5) : !without_magic {
     SOURCES += sources/signalhandler.cpp
 }
 
+
+static_resources {
+    RESOURCES += help.qrc translations.qrc
+}
+
 DEFINES += DATA_INSTALL_PATH=\\\"$${DATA_INSTALL_PATH}\\\"
 
 

@@ -1,0 +1,29 @@
+<RCC>
+    <qresource>
+        <file alias="help_az.html">help/help_az.html</file>
+        <file alias="help_bg.html">help/help_bg.html</file>
+        <file alias="help_cs.html">help/help_cs.html</file>
+        <file alias="help_de.html">help/help_de.html</file>
+        <file alias="help_en_GB.html">help/help_en_GB.html</file>
+        <file alias="help_es.html">help/help_es.html</file>
+        <file alias="help_fa.html">help/help_fa.html</file>
+        <file alias="help_fi.html">help/help_fi.html</file>
+        <file alias="help_fr.html">help/help_fr.html</file>
+        <file alias="help_gl.html">help/help_gl.html</file>
+        <file alias="help.html">help/help.html</file>
+        <file alias="help_it.html">help/help_it.html</file>
+        <file alias="help_ja.html">help/help_ja.html</file>
+        <file alias="help_ko.html">help/help_ko.html</file>
+        <file alias="help_lt.html">help/help_lt.html</file>
+        <file alias="help_ms.html">help/help_ms.html</file>
+        <file alias="help_pl.html">help/help_pl.html</file>
+        <file alias="help_pt_BR.html">help/help_pt_BR.html</file>
+        <file alias="help_pt.html">help/help_pt.html</file>
+        <file alias="help_ru.html">help/help_ru.html</file>
+        <file alias="help_sk.html">help/help_sk.html</file>
+        <file alias="help_sv.html">help/help_sv.html</file>
+        <file alias="help_uk.html">help/help_uk.html</file>
+        <file alias="help_vi.html">help/help_vi.html</file>
+        <file alias="help_zh_CN.html">help/help_zh_CN.html</file>
+    </qresource>
+</RCC>
