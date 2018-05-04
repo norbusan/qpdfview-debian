@@ -103,26 +103,34 @@ QList< File > files;
 
 MainWindow* mainWindow = 0;
 
-void loadTranslators()
+bool loadTranslator(QTranslator* const translator, const QString& fileName, const QString& path)
 {
-    QTranslator* toolkitTranslator = new QTranslator(qApp);
-    QTranslator* applicationTranslator = new QTranslator(qApp);
-
 #if QT_VERSION >= QT_VERSION_CHECK(4,8,0)
 
-    if(toolkitTranslator->load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath))) { qApp->installTranslator(toolkitTranslator); }
-
-    if(applicationTranslator->load(QLocale::system(), "qpdfview", "_", QDir(QApplication::applicationDirPath()).filePath("data"))) { qApp->installTranslator(applicationTranslator); }
-    else if(applicationTranslator->load(QLocale::system(), "qpdfview", "_", DATA_INSTALL_PATH)) { qApp->installTranslator(applicationTranslator); }
+    const bool ok = translator->load(QLocale::system(), fileName, "_", path);
 
 #else
 
-    if(toolkitTranslator->load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) { qApp->installTranslator(toolkitTranslator); }
-
-    if(applicationTranslator->load("qpdfview_" + QLocale::system().name(), QDir(QApplication::applicationDirPath()).filePath("data"))) { qApp->installTranslator(applicationTranslator); }
-    else if(applicationTranslator->load("qpdfview_" + QLocale::system().name(), DATA_INSTALL_PATH)) { qApp->installTranslator(applicationTranslator); }
+    const bool ok = translator->load(fileName + "_" + QLocale::system().name(), path);
 
 #endif // QT_VERSION
+
+    if(ok)
+    {
+        qApp->installTranslator(translator);
+    }
+
+    return ok;
+}
+
+void loadTranslators()
+{
+    QTranslator* toolkitTranslator = new QTranslator(qApp);
+    loadTranslator(toolkitTranslator, "qt", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+
+    QTranslator* applicationTranslator = new QTranslator(qApp);
+    if(loadTranslator(applicationTranslator, "qpdfview", QDir(QApplication::applicationDirPath()).filePath("data"))) {}
+    else if(loadTranslator(applicationTranslator, "qpdfview", DATA_INSTALL_PATH)) {}
 }
 
 void parseCommandLineArguments()
