@@ -1,9 +1,9 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
+Copyright 2018 Marshall Banana
 Copyright 2013-2014, 2018 Adam Reichold
 Copyright 2013 Alexander Volkov
-Copyright 2018 Marshall Banana
 
 This file is part of qpdfview.
 

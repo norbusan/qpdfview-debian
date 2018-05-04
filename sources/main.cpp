@@ -1,6 +1,7 @@
 /*
 
-Copyright 2012-2013 Adam Reichold
+Copyright 2018 Marshall Banana
+Copyright 2012-2013, 2018 Adam Reichold
 Copyright 2014 Dorian Scholz
 Copyright 2012 Michał Trybus
 Copyright 2013 Chris Young
@@ -131,6 +132,7 @@ void loadTranslators()
     QTranslator* applicationTranslator = new QTranslator(qApp);
     if(loadTranslator(applicationTranslator, "qpdfview", QDir(QApplication::applicationDirPath()).filePath("data"))) {}
     else if(loadTranslator(applicationTranslator, "qpdfview", DATA_INSTALL_PATH)) {}
+    else if(loadTranslator(applicationTranslator, "qpdfview", ":/")) {}
 }
 
 void parseCommandLineArguments()
