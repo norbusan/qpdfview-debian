@@ -56,6 +56,15 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <synctex_parser.h>
 
+#ifndef HAS_SYNCTEX_2
+
+typedef synctex_scanner_t synctex_scanner_p;
+typedef synctex_node_t synctex_node_p;
+
+#define synctex_scanner_next_result(scanner) synctex_next_result(scanner)
+
+#endif // HAS_SYNCTEX_2
+
 #endif // WITH_SYNCTEX
 
 #include "settings.h"
@@ -245,11 +254,11 @@ DocumentView::SourceLink scanForSourceLink(const QString& filePath, const int pa
 {
     DocumentView::SourceLink sourceLink;
 
-    if(synctex_scanner_t scanner = synctex_scanner_new_with_output_file(filePath.toLocal8Bit(), 0, 1))
+    if(synctex_scanner_p scanner = synctex_scanner_new_with_output_file(filePath.toLocal8Bit(), 0, 1))
     {
         if(synctex_edit_query(scanner, page, pos.x(), pos.y()) > 0)
         {
-            for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
+            for(synctex_node_p node = synctex_scanner_next_result(scanner); node != 0; node = synctex_scanner_next_result(scanner))
             {
                 sourceLink.name = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
                 sourceLink.line = qMax(synctex_node_line(node), 0);

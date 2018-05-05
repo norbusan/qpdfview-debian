@@ -227,6 +227,8 @@ with_fitz {
     !without_pkgconfig:system(pkg-config --exists synctex) {
         CONFIG += link_pkgconfig
         PKGCONFIG += synctex
+
+        system(pkg-config --atleast-version=2.0.0 synctex):DEFINES += HAS_SYNCTEX_2
     } else {
         HEADERS += synctex/synctex_parser.h synctex/synctex_parser_utils.h synctex/synctex_parser_local.h
         SOURCES += synctex/synctex_parser.c synctex/synctex_parser_utils.c

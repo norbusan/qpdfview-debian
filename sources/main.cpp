@@ -45,6 +45,16 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <synctex_parser.h>
 
+#ifndef HAS_SYNCTEX_2
+
+typedef synctex_scanner_t synctex_scanner_p;
+typedef synctex_node_t synctex_node_p;
+
+#define synctex_scanner_next_result(scanner) synctex_next_result(scanner)
+#define synctex_display_query(scanner, file, line, column, page) synctex_display_query(scanner, file, line, column)
+
+#endif // HAS_SYNCTEX_2
+
 #endif // WITH_SYNCTEX
 
 #include "documentview.h"
@@ -326,13 +336,11 @@ void resolveSourceReferences()
 
         if(!file.sourceName.isNull())
         {
-            synctex_scanner_t scanner = synctex_scanner_new_with_output_file(file.filePath.toLocal8Bit(), 0, 1);
-
-            if(scanner != 0)
+            if(synctex_scanner_p scanner = synctex_scanner_new_with_output_file(file.filePath.toLocal8Bit(), 0, 1))
             {
-                if(synctex_display_query(scanner, file.sourceName.toLocal8Bit(), file.sourceLine, file.sourceColumn) > 0)
+                if(synctex_display_query(scanner, file.sourceName.toLocal8Bit(), file.sourceLine, file.sourceColumn, -1) > 0)
                 {
-                    for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
+                    for(synctex_node_p node = synctex_scanner_next_result(scanner); node != 0; node = synctex_scanner_next_result(scanner))
                     {
                         int page = synctex_node_page(node);
                         QRectF enclosingBox(synctex_node_box_visible_h(node), synctex_node_box_visible_v(node), synctex_node_box_visible_width(node), synctex_node_box_visible_height(node));
