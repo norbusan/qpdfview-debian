@@ -1455,6 +1455,8 @@ void MainWindow::on_moveToInstance_triggered(DocumentView* tab)
 
 #else
 
+    Q_UNUSED(tab);
+
     QMessageBox::information(this, tr("Information"), tr("Instance-to-instance communication requires D-Bus support."));
 
 #endif // WITH_DBUS

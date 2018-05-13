@@ -1,5 +1,6 @@
 /*
 
+Copyright 2018 S. Razi Alavizadeh
 Copyright 2015 Adam Reichold
 
 This file is part of qpdfview.
@@ -100,7 +101,7 @@ void SearchItemDelegate::paintText(QPainter* painter, const QStyleOptionViewItem
 
     QList< QTextLayout::FormatRange > additionalFormats;
 
-    for(int index = 0; (index = elidedText.indexOf(matchedText, index)) != -1; index += matchedText.length())
+    for(int index = 0; (index = surroundingText.indexOf(matchedText, index)) != -1; index += matchedText.length())
     {
         QTextLayout::FormatRange formatRange;
         formatRange.start = index;
