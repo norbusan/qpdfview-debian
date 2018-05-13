@@ -72,6 +72,12 @@ Plugin* loadPlugin(const QString& fileName)
 {
     QPluginLoader pluginLoader;
 
+#ifdef PLUGIN_RESOLVE_ALL
+
+    pluginLoader.setLoadHints(QLibrary::ResolveAllSymbolsHint);
+
+#endif // PLUGIN_RESOLVE_ALL
+
     const QString localFileName = QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName);
     pluginLoader.setFileName(localFileName);
 

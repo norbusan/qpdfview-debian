@@ -96,6 +96,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
 
 DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 
+plugin_resolve_all {
+    DEFINES += PLUGIN_RESOLVE_ALL
+}
+
 !without_pdf {
     DEFINES += WITH_PDF
 
