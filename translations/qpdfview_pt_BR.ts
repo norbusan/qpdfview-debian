@@ -674,8 +674,8 @@
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2145"/>
-        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2017 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Consulte &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para mais informações.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2017 Desenvolvedores do qpdfview&lt;/p&gt;</translation>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-%1 The qpdfview developers&lt;/p&gt;</source>
+        <translation type="unfinished">&lt;/ul&gt;&lt;p&gt;Consulte &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para mais informações.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-%1 Desenvolvedores do qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3210"/>
