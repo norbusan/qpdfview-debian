@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.0">
 <context>
     <name>Model::ImageDocument</name>
     <message>
@@ -67,58 +67,58 @@
 <context>
     <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1008"/>
+        <location filename="../sources/pdfmodel.cpp" line="1011"/>
         <source>PDF version</source>
         <translation type="unfinished">PDF verzió</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1010"/>
+        <location filename="../sources/pdfmodel.cpp" line="1013"/>
         <source>Encrypted</source>
         <translation type="unfinished">Titkosított</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="205"/>
-        <location filename="../sources/pdfmodel.cpp" line="207"/>
-        <location filename="../sources/pdfmodel.cpp" line="1010"/>
-        <location filename="../sources/pdfmodel.cpp" line="1011"/>
+        <location filename="../sources/pdfmodel.cpp" line="206"/>
+        <location filename="../sources/pdfmodel.cpp" line="208"/>
+        <location filename="../sources/pdfmodel.cpp" line="1013"/>
+        <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>Yes</source>
         <translation type="unfinished">Igen</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="205"/>
-        <location filename="../sources/pdfmodel.cpp" line="207"/>
-        <location filename="../sources/pdfmodel.cpp" line="1010"/>
-        <location filename="../sources/pdfmodel.cpp" line="1011"/>
+        <location filename="../sources/pdfmodel.cpp" line="206"/>
+        <location filename="../sources/pdfmodel.cpp" line="208"/>
+        <location filename="../sources/pdfmodel.cpp" line="1013"/>
+        <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>No</source>
         <translation type="unfinished">Nem</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1011"/>
+        <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>Linearized</source>
         <translation type="unfinished">linearizált</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="175"/>
+        <location filename="../sources/pdfmodel.cpp" line="176"/>
         <source>Name</source>
         <translation type="unfinished">Név</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="177"/>
+        <location filename="../sources/pdfmodel.cpp" line="178"/>
         <source>Type</source>
         <translation type="unfinished">Típus</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="179"/>
+        <location filename="../sources/pdfmodel.cpp" line="180"/>
         <source>Embedded</source>
         <translation type="unfinished">Beágyazott</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="181"/>
+        <location filename="../sources/pdfmodel.cpp" line="182"/>
         <source>Subset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="183"/>
+        <location filename="../sources/pdfmodel.cpp" line="184"/>
         <source>File</source>
         <translation type="unfinished">Fájl</translation>
     </message>
@@ -126,12 +126,12 @@
 <context>
     <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="692"/>
+        <location filename="../sources/pdfmodel.cpp" line="695"/>
         <source>Information</source>
         <translation type="unfinished">Információ</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="692"/>
+        <location filename="../sources/pdfmodel.cpp" line="695"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
         <translation type="unfinished">Kommentár hozzáadásához vagy eltávolításához a Poppler függvénytár 0.20.1 vagy magasabb verziója szükséges.</translation>
     </message>
@@ -172,42 +172,42 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="151"/>
+        <location filename="../sources/main.cpp" line="171"/>
         <source>An empty instance name is not allowed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="162"/>
+        <location filename="../sources/main.cpp" line="182"/>
         <source>An empty search text is not allowed.</source>
         <translation type="unfinished">Üres keresendő szöveg nem megengedett.</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="219"/>
+        <location filename="../sources/main.cpp" line="239"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="250"/>
+        <location filename="../sources/main.cpp" line="270"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="256"/>
+        <location filename="../sources/main.cpp" line="276"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="262"/>
+        <location filename="../sources/main.cpp" line="282"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="268"/>
+        <location filename="../sources/main.cpp" line="288"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="430"/>
+        <location filename="../sources/main.cpp" line="448"/>
         <source>Could not prepare signal handler.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -309,7 +309,7 @@
 <context>
     <name>qpdfview::Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="917"/>
+        <location filename="../sources/database.cpp" line="988"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">%1. oldalra ugrás</translation>
     </message>
@@ -317,49 +317,49 @@
 <context>
     <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="1367"/>
-        <location filename="../sources/documentview.cpp" line="1985"/>
+        <location filename="../sources/documentview.cpp" line="1401"/>
+        <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Information</source>
         <translation type="unfinished">Információ</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1367"/>
+        <location filename="../sources/documentview.cpp" line="1401"/>
         <source>The source editor has not been set.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1985"/>
+        <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Opening URL is disabled in the settings.</source>
         <translation type="unfinished">URL menyitása nincs engedélyezve a beállításokban.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2025"/>
+        <location filename="../sources/documentview.cpp" line="2059"/>
         <source>Warning</source>
         <translation type="unfinished">Figyelmeztetés</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2025"/>
-        <location filename="../sources/main.cpp" line="346"/>
+        <location filename="../sources/documentview.cpp" line="2059"/>
+        <location filename="../sources/main.cpp" line="364"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2500"/>
+        <location filename="../sources/documentview.cpp" line="2534"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos;  nyomtatása...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2574"/>
+        <location filename="../sources/documentview.cpp" line="2608"/>
         <source>Unlock %1</source>
         <translation type="unfinished">%1 feloldása</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2574"/>
+        <location filename="../sources/documentview.cpp" line="2608"/>
         <source>Password:</source>
         <translation type="unfinished">Jelszó:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="516"/>
+        <location filename="../sources/documentview.cpp" line="526"/>
         <source>Page %1</source>
         <translation type="unfinished">%1. oldal</translation>
     </message>
@@ -409,23 +409,23 @@
 <context>
     <name>qpdfview::HelpDialog</name>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="40"/>
+        <location filename="../sources/helpdialog.cpp" line="41"/>
         <source>Help</source>
         <translation type="unfinished">Segítség</translation>
     </message>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="47"/>
+        <location filename="../sources/helpdialog.cpp" line="48"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="62"/>
+        <location filename="../sources/helpdialog.cpp" line="63"/>
         <source>Find previous</source>
         <translation type="unfinished">Előző keresése</translation>
     </message>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="66"/>
+        <location filename="../sources/helpdialog.cpp" line="67"/>
         <source>Find next</source>
         <translation type="unfinished">Következő keresése</translation>
     </message>
@@ -433,632 +433,636 @@
 <context>
     <name>qpdfview::MainWindow</name>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="473"/>
-        <location filename="../sources/mainwindow.cpp" line="515"/>
-        <location filename="../sources/mainwindow.cpp" line="1433"/>
-        <location filename="../sources/mainwindow.cpp" line="1441"/>
-        <location filename="../sources/mainwindow.cpp" line="1447"/>
-        <location filename="../sources/mainwindow.cpp" line="1462"/>
-        <location filename="../sources/mainwindow.cpp" line="1482"/>
-        <location filename="../sources/mainwindow.cpp" line="1520"/>
-        <location filename="../sources/mainwindow.cpp" line="1663"/>
-        <location filename="../sources/mainwindow.cpp" line="2761"/>
-        <location filename="../sources/mainwindow.cpp" line="2775"/>
+        <location filename="../sources/mainwindow.cpp" line="482"/>
+        <location filename="../sources/mainwindow.cpp" line="524"/>
+        <location filename="../sources/mainwindow.cpp" line="1466"/>
+        <location filename="../sources/mainwindow.cpp" line="1477"/>
+        <location filename="../sources/mainwindow.cpp" line="1483"/>
+        <location filename="../sources/mainwindow.cpp" line="1499"/>
+        <location filename="../sources/mainwindow.cpp" line="1519"/>
+        <location filename="../sources/mainwindow.cpp" line="1557"/>
+        <location filename="../sources/mainwindow.cpp" line="1698"/>
+        <location filename="../sources/mainwindow.cpp" line="2812"/>
+        <location filename="../sources/mainwindow.cpp" line="2822"/>
         <source>Warning</source>
         <translation type="unfinished">Figyelmeztetés</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="473"/>
-        <location filename="../sources/mainwindow.cpp" line="515"/>
+        <location filename="../sources/mainwindow.cpp" line="482"/>
+        <location filename="../sources/mainwindow.cpp" line="524"/>
         <source>Could not open &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; nem nyitható meg.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="774"/>
+        <location filename="../sources/mainwindow.cpp" line="793"/>
         <source>Copy file path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="775"/>
+        <location filename="../sources/mainwindow.cpp" line="794"/>
         <source>Select file path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="777"/>
+        <location filename="../sources/mainwindow.cpp" line="796"/>
         <source>Close all tabs</source>
         <translation type="unfinished">Minden lap bezárása</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="778"/>
+        <location filename="../sources/mainwindow.cpp" line="797"/>
         <source>Close all tabs but this one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="779"/>
+        <location filename="../sources/mainwindow.cpp" line="798"/>
         <source>Close all tabs to the left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="780"/>
+        <location filename="../sources/mainwindow.cpp" line="799"/>
         <source>Close all tabs to the right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1178"/>
-        <location filename="../sources/mainwindow.cpp" line="1327"/>
+        <location filename="../sources/mainwindow.cpp" line="1201"/>
+        <location filename="../sources/mainwindow.cpp" line="1350"/>
         <source>Open</source>
         <translation type="unfinished">Megnyitás</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1343"/>
+        <location filename="../sources/mainwindow.cpp" line="1366"/>
         <source>Open in new tab</source>
         <translation type="unfinished">Megnyitás új lapon</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1433"/>
-        <location filename="../sources/mainwindow.cpp" line="1447"/>
-        <location filename="../sources/mainwindow.cpp" line="1663"/>
+        <location filename="../sources/mainwindow.cpp" line="1466"/>
+        <location filename="../sources/mainwindow.cpp" line="1483"/>
+        <location filename="../sources/mainwindow.cpp" line="1698"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; nem frissíthető.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1472"/>
+        <location filename="../sources/mainwindow.cpp" line="1509"/>
         <source>Save copy</source>
         <translation type="unfinished">Másolat mentése</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1482"/>
+        <location filename="../sources/mainwindow.cpp" line="1519"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1453"/>
-        <location filename="../sources/mainwindow.cpp" line="2765"/>
+        <location filename="../sources/mainwindow.cpp" line="1490"/>
         <source>Save as</source>
         <translation type="unfinished">Mentés másként</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1402"/>
-        <location filename="../sources/mainwindow.cpp" line="1413"/>
+        <location filename="../sources/mainwindow.cpp" line="1435"/>
+        <location filename="../sources/mainwindow.cpp" line="1446"/>
         <source>Move to instance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1402"/>
-        <location filename="../sources/mainwindow.cpp" line="1413"/>
+        <location filename="../sources/mainwindow.cpp" line="1435"/>
+        <location filename="../sources/mainwindow.cpp" line="1446"/>
         <source>Failed to access instance &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1441"/>
-        <location filename="../sources/mainwindow.cpp" line="1462"/>
-        <location filename="../sources/mainwindow.cpp" line="2775"/>
+        <location filename="../sources/mainwindow.cpp" line="1477"/>
+        <location filename="../sources/mainwindow.cpp" line="1499"/>
+        <location filename="../sources/mainwindow.cpp" line="2822"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation type="unfinished">Nem menthető, mint &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1520"/>
+        <location filename="../sources/mainwindow.cpp" line="1557"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation type="unfinished">&apos;%1&apos; nem nyomtatható.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1556"/>
+        <location filename="../sources/mainwindow.cpp" line="1593"/>
         <source>Set first page</source>
         <translation type="unfinished">Első oldal beállítása</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1556"/>
+        <location filename="../sources/mainwindow.cpp" line="1593"/>
         <source>Select the first page of the body matter:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1569"/>
+        <location filename="../sources/mainwindow.cpp" line="1606"/>
         <source>Jump to page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1569"/>
+        <location filename="../sources/mainwindow.cpp" line="1606"/>
         <source>Page:</source>
         <translation type="unfinished">Oldal:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1976"/>
+        <location filename="../sources/mainwindow.cpp" line="2011"/>
         <source>Jump to page %1</source>
         <translation type="unfinished">%1. oldalra ugrás</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2127"/>
+        <location filename="../sources/mainwindow.cpp" line="2162"/>
         <source>About qpdfview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2127"/>
+        <location filename="../sources/mainwindow.cpp" line="2162"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2131"/>
+        <location filename="../sources/mainwindow.cpp" line="2166"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2134"/>
+        <location filename="../sources/mainwindow.cpp" line="2169"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2137"/>
+        <location filename="../sources/mainwindow.cpp" line="2172"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2140"/>
+        <location filename="../sources/mainwindow.cpp" line="2175"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2143"/>
+        <location filename="../sources/mainwindow.cpp" line="2178"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2358"/>
-        <location filename="../sources/mainwindow.cpp" line="3198"/>
+        <location filename="../sources/mainwindow.cpp" line="2394"/>
+        <location filename="../sources/mainwindow.cpp" line="3245"/>
         <source>&amp;Remove bookmark</source>
         <translation type="unfinished">Könyvjelző &amp;törlése</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2359"/>
+        <location filename="../sources/mainwindow.cpp" line="2395"/>
         <source>&amp;Edit bookmark</source>
         <translation type="unfinished">Könyvjelző &amp;szerkesztése</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2761"/>
+        <location filename="../sources/mainwindow.cpp" line="2812"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation type="unfinished">&apos;%1&apos; dokumentum megváltozott. Kívánja menteni a változásokat?</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2908"/>
+        <location filename="../sources/mainwindow.cpp" line="2954"/>
         <source>Edit &apos;%1&apos; at %2,%3...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3010"/>
+        <location filename="../sources/mainwindow.cpp" line="3057"/>
         <source>Page width</source>
         <translation type="unfinished">Oldalszélesség</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3011"/>
+        <location filename="../sources/mainwindow.cpp" line="3058"/>
         <source>Page size</source>
         <translation type="unfinished">Oldalméret</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3034"/>
+        <location filename="../sources/mainwindow.cpp" line="3081"/>
         <source>Match &amp;case</source>
         <translation type="unfinished">Nagybetűér&amp;zékeny</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3035"/>
+        <location filename="../sources/mainwindow.cpp" line="3082"/>
         <source>Whole &amp;words</source>
         <translation type="unfinished">Teljes szavak</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3036"/>
+        <location filename="../sources/mainwindow.cpp" line="3083"/>
         <source>Highlight &amp;all</source>
         <translation type="unfinished">Összes &amp;kiemelése</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3098"/>
+        <location filename="../sources/mainwindow.cpp" line="3145"/>
         <source>&amp;Open...</source>
         <translation type="unfinished">&amp;Megnyitás…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3099"/>
+        <location filename="../sources/mainwindow.cpp" line="3146"/>
         <source>Open in new &amp;tab...</source>
         <translation type="unfinished">Megnyitás új &amp;lapon</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3208"/>
+        <location filename="../sources/mainwindow.cpp" line="3255"/>
         <source>Open &amp;copy in new tab</source>
         <translation type="unfinished">Másolat &amp;megnyitása új lapon</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3209"/>
+        <location filename="../sources/mainwindow.cpp" line="3257"/>
         <source>Open containing &amp;folder</source>
         <translation type="unfinished">A &amp;fájlt tartalmazó mappa megnyitása</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3100"/>
+        <location filename="../sources/mainwindow.cpp" line="3147"/>
         <source>&amp;Refresh</source>
         <translation type="unfinished">&amp;Frissítés</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2145"/>
-        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-2017 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3210"/>
+        <location filename="../sources/mainwindow.cpp" line="3258"/>
         <source>Move to &amp;instance...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3101"/>
+        <location filename="../sources/mainwindow.cpp" line="3148"/>
         <source>&amp;Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1424"/>
+        <location filename="../sources/mainwindow.cpp" line="1457"/>
         <source>Information</source>
         <translation type="unfinished">Információ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1424"/>
+        <location filename="../sources/mainwindow.cpp" line="1457"/>
         <source>Instance-to-instance communication requires D-Bus support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3102"/>
+        <location filename="../sources/mainwindow.cpp" line="2180"/>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; %1 The qpdfview developers&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3149"/>
         <source>Save &amp;as...</source>
         <translation type="unfinished">Mentés má&amp;sként...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3103"/>
+        <location filename="../sources/mainwindow.cpp" line="3150"/>
         <source>Save &amp;copy...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3104"/>
+        <location filename="../sources/mainwindow.cpp" line="3151"/>
         <source>&amp;Print...</source>
         <translation type="unfinished">&amp;Nyomtatás...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3105"/>
+        <location filename="../sources/mainwindow.cpp" line="3152"/>
         <source>E&amp;xit</source>
         <translation type="unfinished">&amp;Kilépés</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3109"/>
+        <location filename="../sources/mainwindow.cpp" line="3156"/>
         <source>&amp;Previous page</source>
         <translation type="unfinished">&amp;Előző oldal</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3110"/>
+        <location filename="../sources/mainwindow.cpp" line="3157"/>
         <source>&amp;Next page</source>
         <translation type="unfinished">&amp;Következő oldal</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3117"/>
+        <location filename="../sources/mainwindow.cpp" line="3164"/>
         <source>&amp;First page</source>
         <translation type="unfinished">&amp;Első oldal</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3124"/>
+        <location filename="../sources/mainwindow.cpp" line="3171"/>
         <source>&amp;Last page</source>
         <translation type="unfinished">&amp;Utolsó oldal</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3126"/>
+        <location filename="../sources/mainwindow.cpp" line="3173"/>
         <source>&amp;Set first page...</source>
         <translation type="unfinished">Első oldal &amp;beállítása...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3128"/>
+        <location filename="../sources/mainwindow.cpp" line="3175"/>
         <source>&amp;Jump to page...</source>
         <translation type="unfinished">U&amp;grás oldalra...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3130"/>
+        <location filename="../sources/mainwindow.cpp" line="3177"/>
         <source>Jump &amp;backward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3131"/>
+        <location filename="../sources/mainwindow.cpp" line="3178"/>
         <source>Jump for&amp;ward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3133"/>
+        <location filename="../sources/mainwindow.cpp" line="3180"/>
         <source>&amp;Search...</source>
         <translation type="unfinished">&amp;Keresés…</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3134"/>
+        <location filename="../sources/mainwindow.cpp" line="3181"/>
         <source>Find previous</source>
         <translation type="unfinished">Előző keresése</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3135"/>
+        <location filename="../sources/mainwindow.cpp" line="3182"/>
         <source>Find next</source>
         <translation type="unfinished">Következő keresése</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3136"/>
+        <location filename="../sources/mainwindow.cpp" line="3183"/>
         <source>Cancel search</source>
         <translation type="unfinished">Keresés leállítása</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3138"/>
+        <location filename="../sources/mainwindow.cpp" line="3185"/>
         <source>&amp;Copy to clipboard</source>
         <translation type="unfinished">Másolás a &amp;vágólapra</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3139"/>
+        <location filename="../sources/mainwindow.cpp" line="3186"/>
         <source>&amp;Add annotation</source>
         <translation type="unfinished">Kommentár &amp;hozzáadása</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3141"/>
+        <location filename="../sources/mainwindow.cpp" line="3188"/>
         <source>Settings...</source>
         <translation type="unfinished">Beállítások...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3145"/>
+        <location filename="../sources/mainwindow.cpp" line="3192"/>
         <source>&amp;Continuous</source>
         <translation type="unfinished">&amp;Folyamatos</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3146"/>
+        <location filename="../sources/mainwindow.cpp" line="3193"/>
         <source>&amp;Two pages</source>
         <translation type="unfinished">&amp;Két oldal</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3147"/>
+        <location filename="../sources/mainwindow.cpp" line="3194"/>
         <source>Two pages &amp;with cover page</source>
         <translation type="unfinished">Két oldal &amp;fedőlappal</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3148"/>
+        <location filename="../sources/mainwindow.cpp" line="3195"/>
         <source>&amp;Multiple pages</source>
         <translation type="unfinished">&amp;Több oldal</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3150"/>
+        <location filename="../sources/mainwindow.cpp" line="3197"/>
         <source>Right to left</source>
         <translation type="unfinished">Jobbról balra</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3152"/>
+        <location filename="../sources/mainwindow.cpp" line="3199"/>
         <source>Zoom &amp;in</source>
         <translation type="unfinished">&amp;Nagyítás</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3153"/>
+        <location filename="../sources/mainwindow.cpp" line="3200"/>
         <source>Zoom &amp;out</source>
         <translation type="unfinished">&amp;Kicsinyítés</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3154"/>
+        <location filename="../sources/mainwindow.cpp" line="3201"/>
         <source>Original &amp;size</source>
         <translation type="unfinished">&amp;Eredeti méret</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3156"/>
+        <location filename="../sources/mainwindow.cpp" line="3203"/>
         <source>Fit to page width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3157"/>
+        <location filename="../sources/mainwindow.cpp" line="3204"/>
         <source>Fit to page size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3159"/>
+        <location filename="../sources/mainwindow.cpp" line="3206"/>
         <source>Rotate &amp;left</source>
         <translation type="unfinished">Forgatás &amp;balra</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3160"/>
+        <location filename="../sources/mainwindow.cpp" line="3207"/>
         <source>Rotate &amp;right</source>
         <translation type="unfinished">Forgatás &amp;jobbra</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3162"/>
+        <location filename="../sources/mainwindow.cpp" line="3209"/>
         <source>Invert colors</source>
         <translation type="unfinished">Színek invertálása</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3163"/>
+        <location filename="../sources/mainwindow.cpp" line="3210"/>
         <source>Convert to grayscale</source>
         <translation type="unfinished">Átalakítás szürkeárnyalatosra</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3164"/>
+        <location filename="../sources/mainwindow.cpp" line="3211"/>
         <source>Trim margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3166"/>
+        <location filename="../sources/mainwindow.cpp" line="3213"/>
         <source>Darken with paper color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3167"/>
+        <location filename="../sources/mainwindow.cpp" line="3214"/>
         <source>Lighten with paper color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3169"/>
+        <location filename="../sources/mainwindow.cpp" line="3216"/>
         <source>Fonts...</source>
         <translation type="unfinished">Betűkészletek...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3171"/>
+        <location filename="../sources/mainwindow.cpp" line="3218"/>
         <source>&amp;Fullscreen</source>
         <translation type="unfinished">&amp;Teljes képernyő</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3172"/>
+        <location filename="../sources/mainwindow.cpp" line="3219"/>
         <source>&amp;Presentation...</source>
         <translation type="unfinished">&amp;Prezentáció...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3176"/>
+        <location filename="../sources/mainwindow.cpp" line="3223"/>
         <source>&amp;Previous tab</source>
         <translation type="unfinished">&amp;Előző lap</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3177"/>
+        <location filename="../sources/mainwindow.cpp" line="3224"/>
         <source>&amp;Next tab</source>
         <translation type="unfinished">&amp;Következő lap</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3179"/>
+        <location filename="../sources/mainwindow.cpp" line="3226"/>
         <source>&amp;Close tab</source>
         <translation type="unfinished">&amp;Lap bezárása</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3180"/>
+        <location filename="../sources/mainwindow.cpp" line="3227"/>
         <source>Close &amp;all tabs</source>
         <translation type="unfinished">&amp;Minden lap bezárása</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3181"/>
+        <location filename="../sources/mainwindow.cpp" line="3228"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation type="unfinished">Minden lap bezárása az aktuális &amp;kivételével</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3183"/>
+        <location filename="../sources/mainwindow.cpp" line="3230"/>
         <source>Restore &amp;most recently closed tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3194"/>
+        <location filename="../sources/mainwindow.cpp" line="3241"/>
         <source>&amp;Previous bookmark</source>
         <translation type="unfinished">&amp;Előző könyvjelző</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3195"/>
+        <location filename="../sources/mainwindow.cpp" line="3242"/>
         <source>&amp;Next bookmark</source>
         <translation type="unfinished">&amp;Következő könyvjelző</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3197"/>
+        <location filename="../sources/mainwindow.cpp" line="3244"/>
         <source>&amp;Add bookmark</source>
         <translation type="unfinished">Könyvjelző &amp;hozzáadása</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3199"/>
+        <location filename="../sources/mainwindow.cpp" line="3246"/>
         <source>Remove all bookmarks</source>
         <translation type="unfinished">Összes könyvjelző törlése</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3203"/>
+        <location filename="../sources/mainwindow.cpp" line="3250"/>
         <source>&amp;Contents</source>
         <translation type="unfinished">&amp;Tartalom</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3204"/>
+        <location filename="../sources/mainwindow.cpp" line="3251"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Névjegy</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3211"/>
+        <location filename="../sources/mainwindow.cpp" line="3256"/>
+        <source>Open copy in new &amp;window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3259"/>
         <source>Split view horizontally...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3212"/>
+        <location filename="../sources/mainwindow.cpp" line="3260"/>
         <source>Split view vertically...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3213"/>
+        <location filename="../sources/mainwindow.cpp" line="3261"/>
         <source>Close current view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3217"/>
+        <location filename="../sources/mainwindow.cpp" line="3265"/>
         <source>Toggle tool bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3218"/>
+        <location filename="../sources/mainwindow.cpp" line="3266"/>
         <source>Toggle menu bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3241"/>
-        <location filename="../sources/mainwindow.cpp" line="3435"/>
+        <location filename="../sources/mainwindow.cpp" line="3289"/>
+        <location filename="../sources/mainwindow.cpp" line="3483"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Fájl</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3244"/>
-        <location filename="../sources/mainwindow.cpp" line="3456"/>
+        <location filename="../sources/mainwindow.cpp" line="3292"/>
+        <location filename="../sources/mainwindow.cpp" line="3504"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Szerkesztés</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3247"/>
-        <location filename="../sources/mainwindow.cpp" line="3469"/>
+        <location filename="../sources/mainwindow.cpp" line="3295"/>
+        <location filename="../sources/mainwindow.cpp" line="3517"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Nézet</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3282"/>
+        <location filename="../sources/mainwindow.cpp" line="3330"/>
         <source>&amp;Search</source>
         <translation type="unfinished">&amp;Keresés</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3361"/>
+        <location filename="../sources/mainwindow.cpp" line="3409"/>
         <source>&amp;Outline</source>
         <translation type="unfinished">Á&amp;ttekintés</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3380"/>
+        <location filename="../sources/mainwindow.cpp" line="3428"/>
         <source>&amp;Properties</source>
         <translation type="unfinished">&amp;Tulajdonságok</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3394"/>
+        <location filename="../sources/mainwindow.cpp" line="3442"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished">Bélye&amp;gképek</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3408"/>
+        <location filename="../sources/mainwindow.cpp" line="3456"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished">Könyv&amp;jelzők</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3480"/>
+        <location filename="../sources/mainwindow.cpp" line="3528"/>
         <source>Composition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3486"/>
+        <location filename="../sources/mainwindow.cpp" line="3534"/>
         <source>&amp;Tool bars</source>
         <translation type="unfinished">&amp;Eszköztárak</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3489"/>
+        <location filename="../sources/mainwindow.cpp" line="3537"/>
         <source>&amp;Docks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3503"/>
+        <location filename="../sources/mainwindow.cpp" line="3551"/>
         <source>&amp;Tabs</source>
         <translation type="unfinished">&amp;Lapok</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3526"/>
+        <location filename="../sources/mainwindow.cpp" line="3574"/>
         <source>&amp;Bookmarks</source>
         <translation type="unfinished">&amp;Könyvjelzők</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3537"/>
+        <location filename="../sources/mainwindow.cpp" line="3585"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Súgó</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="190"/>
-        <location filename="../sources/mainwindow.cpp" line="1386"/>
+        <location filename="../sources/main.cpp" line="210"/>
+        <location filename="../sources/mainwindow.cpp" line="1419"/>
         <source>Choose instance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="190"/>
-        <location filename="../sources/mainwindow.cpp" line="1386"/>
+        <location filename="../sources/main.cpp" line="210"/>
+        <location filename="../sources/mainwindow.cpp" line="1419"/>
         <source>Instance:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1149,74 +1153,74 @@
 <context>
     <name>qpdfview::PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1089"/>
+        <location filename="../sources/pdfmodel.cpp" line="1092"/>
         <source>Antialiasing:</source>
         <translation type="unfinished">Élsimítás:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1096"/>
+        <location filename="../sources/pdfmodel.cpp" line="1099"/>
         <source>Text antialiasing:</source>
         <translation type="unfinished">Szöveg élsimítás:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1103"/>
-        <location filename="../sources/pdfmodel.cpp" line="1142"/>
+        <location filename="../sources/pdfmodel.cpp" line="1106"/>
+        <location filename="../sources/pdfmodel.cpp" line="1145"/>
         <source>None</source>
         <translation type="unfinished">Nincs</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1104"/>
+        <location filename="../sources/pdfmodel.cpp" line="1107"/>
         <source>Full</source>
         <translation type="unfinished">Teljes</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1105"/>
+        <location filename="../sources/pdfmodel.cpp" line="1108"/>
         <source>Reduced</source>
         <translation type="unfinished">Csökkentett</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1108"/>
-        <location filename="../sources/pdfmodel.cpp" line="1115"/>
+        <location filename="../sources/pdfmodel.cpp" line="1111"/>
+        <location filename="../sources/pdfmodel.cpp" line="1118"/>
         <source>Text hinting:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1124"/>
+        <location filename="../sources/pdfmodel.cpp" line="1127"/>
         <source>Ignore paper color:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1135"/>
+        <location filename="../sources/pdfmodel.cpp" line="1138"/>
         <source>Overprint preview:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1143"/>
+        <location filename="../sources/pdfmodel.cpp" line="1146"/>
         <source>Solid</source>
         <translation type="unfinished">Egyszerű</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1144"/>
+        <location filename="../sources/pdfmodel.cpp" line="1147"/>
         <source>Shaped</source>
         <translation type="unfinished">Formázott</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1147"/>
+        <location filename="../sources/pdfmodel.cpp" line="1150"/>
         <source>Thin line mode:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1152"/>
+        <location filename="../sources/pdfmodel.cpp" line="1155"/>
         <source>Splash</source>
         <translation type="unfinished">Indítókép</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1153"/>
+        <location filename="../sources/pdfmodel.cpp" line="1156"/>
         <source>Arthur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1156"/>
+        <location filename="../sources/pdfmodel.cpp" line="1159"/>
         <source>Backend:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1419,12 +1423,12 @@
 <context>
     <name>qpdfview::SearchModel</name>
     <message>
-        <location filename="../sources/searchmodel.cpp" line="148"/>
+        <location filename="../sources/searchmodel.cpp" line="151"/>
         <source>&lt;b&gt;%1&lt;/b&gt; occurrences</source>
         <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; találat</translation>
     </message>
     <message>
-        <location filename="../sources/searchmodel.cpp" line="182"/>
+        <location filename="../sources/searchmodel.cpp" line="193"/>
         <source>&lt;b&gt;%1&lt;/b&gt; occurrences on page &lt;b&gt;%2&lt;/b&gt;</source>
         <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; találat a(z) &lt;b&gt;%2&lt;/b&gt; oldalon</translation>
     </message>
@@ -1432,7 +1436,7 @@
 <context>
     <name>qpdfview::SearchableMenu</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="207"/>
+        <location filename="../sources/miscellaneous.cpp" line="209"/>
         <source>Search for &apos;%1&apos;...</source>
         <translation type="unfinished">&apos;%1&apos; keresése...</translation>
     </message>
@@ -1963,12 +1967,12 @@
 <context>
     <name>qpdfview::TreeView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="695"/>
+        <location filename="../sources/miscellaneous.cpp" line="697"/>
         <source>&amp;Expand all</source>
         <translation type="unfinished">&amp;Mindet kibont</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="696"/>
+        <location filename="../sources/miscellaneous.cpp" line="698"/>
         <source>&amp;Collapse all</source>
         <translation type="unfinished">&amp;Mindet összecsukja</translation>
     </message>
