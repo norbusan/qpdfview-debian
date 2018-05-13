@@ -2852,6 +2852,8 @@ void MainWindow::closeTab(DocumentView* tab)
                 tab->setParent(this);
                 tab->setVisible(false);
 
+                tab->clearResults();
+
                 m_recentlyClosedMenu->addTabAction(tabAction);
 
                 break;
