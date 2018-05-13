@@ -1,5 +1,6 @@
 /*
 
+Copyright 2018 S. Razi Alavizadeh
 Copyright 2014-2015 Adam Reichold
 
 This file is part of qpdfview.
@@ -141,8 +142,9 @@ QVariant BookmarkModel::data(const QModelIndex& index, int role) const
     case Qt::DisplayRole:
         return index.column() == 0 ? bookmark.label : QString::number(bookmark.page);
     case CommentRole:
-    case Qt::ToolTipRole:
         return bookmark.comment;
+    case Qt::ToolTipRole:
+        return QString("<p>%1</p>").arg(bookmark.comment);
     case ModifiedRole:
         return bookmark.modified;
     case Qt::TextAlignmentRole:

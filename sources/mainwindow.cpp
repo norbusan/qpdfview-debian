@@ -1,6 +1,6 @@
 /*
 
-Copyright 2014-2015 S. Razi Alavizadeh
+Copyright 2014-2015, 2018 S. Razi Alavizadeh
 Copyright 2018 Marshall Banana
 Copyright 2012-2018 Adam Reichold
 Copyright 2018 Pavel Sanda
