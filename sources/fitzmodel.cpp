@@ -55,9 +55,9 @@ Outline loadOutline(fz_outline* item)
         Section& section = outline.back();
         section.title = QString::fromUtf8(item->title);
 
-        if(item->dest.kind != FZ_LINK_NONE)
+        if(item->page != -1)
         {
-            section.link.page = item->dest.ld.gotor.page + 1;
+            section.link.page = item->page + 1;
         }
 
         if(fz_outline* childItem = item->down)
@@ -132,10 +132,11 @@ QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
 
 
     fz_context* context = fz_clone_context(m_parent->m_context);
-    fz_display_list* display_list = fz_new_display_list(context);
+    fz_display_list* display_list = fz_new_display_list(context, &rect);
 
     fz_device* device = fz_new_list_device(context, display_list);
     fz_run_page(m_parent->m_context, m_page, device, &matrix, 0);
+    fz_close_device(m_parent->m_context, device);
     fz_drop_device(m_parent->m_context, device);
 
 
@@ -164,10 +165,17 @@ QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
     QImage image(tileWidth, tileHeight, QImage::Format_RGB32);
     image.fill(m_parent->m_paperColor);
 
-    fz_pixmap* pixmap = fz_new_pixmap_with_data(context, fz_device_bgr(context), image.width(), image.height(), image.bits());
+    int imageWidth = image.width();
+    fz_colorspace* colorSpace = fz_device_bgr(context);
 
-    device = fz_new_draw_device(context, pixmap);
+    int n = fz_colorspace_n(context, colorSpace);
+    int stride = (n + 1) * imageWidth;
+
+    fz_pixmap* pixmap = fz_new_pixmap_with_data(context, colorSpace, imageWidth, image.height(), NULL, 1, stride, image.bits());
+
+    device = fz_new_draw_device(context, &tileMatrix, pixmap);
     fz_run_display_list(context, display_list, device, &tileMatrix, &tileRect, 0);
+    fz_close_device(context, device);
     fz_drop_device(context, device);
 
     fz_drop_pixmap(context, pixmap);
@@ -195,36 +203,20 @@ QList< Link* > FitzPage::links() const
     {
         const QRectF boundary = QRectF(link->rect.x0 / width, link->rect.y0 / height, (link->rect.x1 - link->rect.x0) / width, (link->rect.y1 - link->rect.y0) / height).normalized();
 
-        if(link->dest.kind == FZ_LINK_GOTO)
+        if (link->uri != NULL)
         {
-            const int page = link->dest.ld.gotor.page + 1;
+            const QString url = QString::fromUtf8(link->uri);
 
-            links.append(new Link(boundary, page));
-        }
-        else if(link->dest.kind == FZ_LINK_GOTOR)
-        {
-            const int page = link->dest.ld.gotor.page + 1;
-
-            if(link->dest.ld.gotor.file_spec != 0)
+            if (url.startsWith("#"))
             {
-                links.append(new Link(boundary, QString::fromUtf8(link->dest.ld.gotor.file_spec), page));
+                const int page = url.mid(1, url.indexOf(',') - 1).toInt();
+
+                links.append(new Link(boundary, page));
             }
             else
             {
-                links.append(new Link(boundary, page));
+                links.append(new Link(boundary, url));
             }
-        }
-        else if(link->dest.kind == FZ_LINK_URI)
-        {
-            const QString url = QString::fromUtf8(link->dest.ld.uri.uri);
-
-            links.append(new Link(boundary, url));
-        }
-        else if(link->dest.kind == FZ_LINK_LAUNCH)
-        {
-            const QString url = QString::fromUtf8(link->dest.ld.launch.file_spec);
-
-            links.append(new Link(boundary, url));
         }
     }
 
