@@ -56,7 +56,12 @@ public:
         Image,
         GZip,
         BZip2,
-        XZ
+        XZ,
+        EPUB,
+        FB2,
+        ZIP,
+        CBZ,
+        XPS
     };
 
     static QLatin1String fileTypeName(FileType fileType);
