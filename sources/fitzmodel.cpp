@@ -32,6 +32,8 @@ extern "C"
 #include <mupdf/fitz/output.h>
 #include <mupdf/fitz/display-list.h>
 #include <mupdf/fitz/document.h>
+#include <mupdf/fitz/pool.h>
+#include <mupdf/fitz/structured-text.h>
 
 typedef struct pdf_document_s pdf_document;
 
@@ -223,6 +225,38 @@ QList< Link* > FitzPage::links() const
     fz_drop_link(m_parent->m_context, first_link);
 
     return links;
+}
+
+QString FitzPage::text(const QRectF &rect) const
+{
+    QMutexLocker mutexLocker(&m_parent->m_mutex);
+
+    fz_rect mediabox;
+    mediabox.x0 = rect.x();
+    mediabox.y0 = rect.y();
+    mediabox.x1 = rect.right();
+    mediabox.y1 = rect.bottom();
+
+    fz_stext_page* stext_page = fz_new_stext_page(m_parent->m_context, &mediabox);
+    fz_device* device = fz_new_stext_device(m_parent->m_context, stext_page, NULL);
+    fz_run_page(m_parent->m_context, m_page, device, &fz_identity, NULL);
+    fz_close_device(m_parent->m_context, device);
+    fz_drop_device(m_parent->m_context, device);
+
+    fz_point topLeft;
+    topLeft.x = rect.x();
+    topLeft.y = rect.y();
+
+    fz_point bottomRight;
+    bottomRight.x = rect.right();
+    bottomRight.y = rect.bottom();
+
+    char* selection = fz_copy_selection(m_parent->m_context, stext_page, topLeft, bottomRight, 0);
+    QString text = QString::fromUtf8(selection);
+
+    fz_drop_stext_page(m_parent->m_context, stext_page);
+
+    return text;
 }
 
 FitzDocument::FitzDocument(fz_context* context, fz_document* document) :

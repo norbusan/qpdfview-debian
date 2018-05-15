@@ -56,6 +56,8 @@ namespace Model
 
         QList< Link* > links() const;
 
+        QString text(const QRectF& rect) const;
+
     private:
         Q_DISABLE_COPY(FitzPage)
 
