@@ -44,6 +44,8 @@ pdf_document* pdf_specifics(fz_context*, fz_document*);
 namespace
 {
 
+const int maxSearchResultPerPage = 20;
+
 using namespace qpdfview;
 using namespace qpdfview::Model;
 
@@ -257,6 +259,39 @@ QString FitzPage::text(const QRectF &rect) const
     fz_drop_stext_page(m_parent->m_context, stext_page);
 
     return text;
+}
+
+QList<QRectF> FitzPage::search(const QString& text, bool matchCase, bool wholeWords) const
+{
+    Q_UNUSED(matchCase);
+    Q_UNUSED(wholeWords);
+
+    QMutexLocker mutexLocker(&m_parent->m_mutex);
+
+    fz_rect rect;
+    fz_bound_page(m_parent->m_context, m_page, &rect);
+
+    fz_stext_page* stext_page = fz_new_stext_page(m_parent->m_context, &rect);
+    fz_device* device = fz_new_stext_device(m_parent->m_context, stext_page, NULL);
+    fz_run_page(m_parent->m_context, m_page, device, &fz_identity, NULL);
+    fz_close_device(m_parent->m_context, device);
+    fz_drop_device(m_parent->m_context, device);
+
+    fz_rect rects[maxSearchResultPerPage];
+
+    int resultCount = fz_search_stext_page(m_parent->m_context, stext_page, text.toUtf8().constData(), rects, maxSearchResultPerPage);
+
+    fz_drop_stext_page(m_parent->m_context, stext_page);
+
+    QList< QRectF > results;
+    results.reserve(resultCount);
+
+    for(int i = 0; i < resultCount; ++i)
+    {
+        results.append(QRectF(rects[i].x0, rects[i].y0, (rects[i].x1 - rects[i].x0), (rects[i].y1 - rects[i].y0)));
+    }
+
+    return results;
 }
 
 FitzDocument::FitzDocument(fz_context* context, fz_document* document) :

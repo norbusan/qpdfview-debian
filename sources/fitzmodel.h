@@ -58,6 +58,8 @@ namespace Model
 
         QString text(const QRectF& rect) const;
 
+        QList< QRectF > search(const QString& text, bool matchCase, bool wholeWords) const;
+
     private:
         Q_DISABLE_COPY(FitzPage)
 
