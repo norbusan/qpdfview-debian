@@ -28,6 +28,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 extern "C"
 {
 
+#include <mupdf/fitz/stream.h>
 #include <mupdf/fitz/bidi.h>
 #include <mupdf/fitz/output.h>
 #include <mupdf/fitz/display-list.h>
