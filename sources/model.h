@@ -25,11 +25,10 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QList>
 #include <QtPlugin>
-#include <QRect>
-#include <QStandardItemModel>
-#include <QString>
 #include <QWidget>
+#include <QVector>
 
+class QAbstractItemModel;
 class QColor;
 class QImage;
 class QPrinter;
@@ -65,12 +64,27 @@ namespace Model
 
     };
 
+    struct Section;
+
+    typedef QVector< Section > Outline;
+
+    struct Section
+    {
+        QString title;
+        Link link;
+
+        Outline children;
+
+    };
+
+    typedef QVector< QPair< QString, QString > > Properties;
+
     class Annotation : public QObject
     {
         Q_OBJECT
 
     public:
-        Annotation() : QObject() {}
+        Annotation(QObject* parent = 0) : QObject(parent) {}
         virtual ~Annotation() {}
 
         virtual QRectF boundary() const = 0;
@@ -88,7 +102,7 @@ namespace Model
         Q_OBJECT
 
     public:
-        FormField() : QObject() {}
+        FormField(QObject* parent = 0) : QObject(parent) {}
         virtual ~FormField() {}
 
         virtual QRectF boundary() const = 0;
@@ -108,7 +122,7 @@ namespace Model
 
         virtual QSizeF size() const = 0;
 
-        virtual QImage render(qreal horizontalResolution = 72.0, qreal verticalResolution = 72.0, Rotation rotation = RotateBy0, const QRect& boundingRect = QRect()) const = 0;
+        virtual QImage render(qreal horizontalResolution = 72.0, qreal verticalResolution = 72.0, Rotation rotation = RotateBy0, QRect boundingRect = QRect()) const = 0;
 
         virtual QString label() const { return QString(); }
 
@@ -156,13 +170,14 @@ namespace Model
             PageRole = Qt::UserRole + 1,
             LeftRole,
             TopRole,
+            FileNameRole,
             ExpansionRole
         };
 
-        virtual void loadOutline(QStandardItemModel* outlineModel) const { outlineModel->clear(); }
-        virtual void loadProperties(QStandardItemModel* propertiesModel) const { propertiesModel->clear(); propertiesModel->setColumnCount(2); }
+        virtual Outline outline() const { return Outline(); }
+        virtual Properties properties() const { return Properties(); }
 
-        virtual void loadFonts(QStandardItemModel* fontsModel) const { fontsModel->clear(); }
+        virtual QAbstractItemModel* fonts() const { return 0; }
 
         virtual bool wantsContinuousMode() const { return false; }
         virtual bool wantsSinglePageMode() const { return false; }

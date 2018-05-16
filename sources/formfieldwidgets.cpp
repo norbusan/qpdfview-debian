@@ -128,7 +128,7 @@ ComboBoxChoiceFieldWidget::ComboBoxChoiceFieldWidget(QMutex* mutex, Poppler::For
 
     if(!m_formField->currentChoices().isEmpty())
     {
-        setCurrentIndex(m_formField->currentChoices().first());
+        setCurrentIndex(m_formField->currentChoices().at(0));
     }
 
     connect(this, SIGNAL(currentIndexChanged(int)), SLOT(on_currentIndexChanged(int)));

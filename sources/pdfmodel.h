@@ -108,7 +108,7 @@ namespace Model
 
         QSizeF size() const;
 
-        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
+        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const;
 
         QString label() const;
 
@@ -163,10 +163,10 @@ namespace Model
 
         void setPaperColor(const QColor& paperColor);
 
-        void loadOutline(QStandardItemModel* outlineModel) const;
-        void loadProperties(QStandardItemModel* propertiesModel) const;
+        Outline outline() const;
+        Properties properties() const;
 
-        void loadFonts(QStandardItemModel* fontsModel) const;
+        QAbstractItemModel* fonts() const;
 
         bool wantsContinuousMode() const;
         bool wantsSinglePageMode() const;

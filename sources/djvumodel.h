@@ -51,7 +51,9 @@ namespace Model
 
         QSizeF size() const;
 
-        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
+        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const;
+
+        QString label() const;
 
         QList< Link* > links() const;
 
@@ -89,8 +91,8 @@ namespace Model
         bool canSave() const;
         bool save(const QString& filePath, bool withChanges) const;
 
-        void loadOutline(QStandardItemModel* outlineModel) const;
-        void loadProperties(QStandardItemModel* propertiesModel) const;
+        Outline outline() const;
+        Properties properties() const;
 
     private:
         Q_DISABLE_COPY(DjVuDocument)
@@ -104,9 +106,10 @@ namespace Model
         ddjvu_document_t* m_document;
         ddjvu_format_t* m_format;
 
-        QHash< QString, int > m_indexByName;
+        QHash< QString, int > m_pageByName;
+        QHash< int, QString > m_titleByIndex;
 
-        void prepareIndexByName();
+        void prepareFileInfo();
 
     };
 }

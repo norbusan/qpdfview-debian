@@ -2,8 +2,9 @@
 
 Copyright 2014 S. Razi Alavizadeh
 Copyright 2013 Thomas Etter
-Copyright 2012-2015 Adam Reichold
+Copyright 2012-2015, 2018 Adam Reichold
 Copyright 2014 Dorian Scholz
+Copyright 2018 Egor Zenkov
 
 This file is part of qpdfview.
 
@@ -26,6 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QInputDialog>
+#include <QDateTime>
 #include <QDebug>
 #include <QDesktopWidget>
 #include <QDesktopServices>
@@ -54,13 +56,21 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <synctex_parser.h>
 
+#ifndef HAS_SYNCTEX_2
+
+typedef synctex_scanner_t synctex_scanner_p;
+typedef synctex_node_t synctex_node_p;
+
+#define synctex_scanner_next_result(scanner) synctex_next_result(scanner)
+
+#endif // HAS_SYNCTEX_2
+
 #endif // WITH_SYNCTEX
 
 #include "settings.h"
 #include "model.h"
 #include "pluginhandler.h"
 #include "shortcuthandler.h"
-#include "pageitem.h"
 #include "thumbnailitem.h"
 #include "presentationview.h"
 #include "searchmodel.h"
@@ -177,6 +187,11 @@ bool copyFile(QFile& source, QFile& destination)
     return true;
 }
 
+inline void adjustFileTemplateSuffix(QTemporaryFile& temporaryFile, const QString& suffix)
+{
+    temporaryFile.setFileTemplate(temporaryFile.fileTemplate() + QLatin1String(".") + suffix);
+}
+
 #ifdef WITH_CUPS
 
 struct RemovePpdFileDeleter
@@ -233,24 +248,46 @@ int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** o
 
 #endif // WITH_CUPS
 
-void adjustFileTemplateSuffix(QTemporaryFile& temporaryFile, const QString& suffix)
+#ifdef WITH_SYNCTEX
+
+DocumentView::SourceLink scanForSourceLink(const QString& filePath, const int page, QPointF pos)
 {
-    temporaryFile.setFileTemplate(temporaryFile.fileTemplate() + QLatin1String(".") + suffix);
+    DocumentView::SourceLink sourceLink;
+
+    if(synctex_scanner_p scanner = synctex_scanner_new_with_output_file(filePath.toLocal8Bit(), 0, 1))
+    {
+        if(synctex_edit_query(scanner, page, pos.x(), pos.y()) > 0)
+        {
+            for(synctex_node_p node = synctex_scanner_next_result(scanner); node != 0; node = synctex_scanner_next_result(scanner))
+            {
+                sourceLink.name = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
+                sourceLink.line = qMax(synctex_node_line(node), 0);
+                sourceLink.column = qMax(synctex_node_column(node), 0);
+                break;
+            }
+        }
+
+        synctex_scanner_free(scanner);
+    }
+
+    return sourceLink;
 }
 
-bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
+#endif // WITH_SYNCTEX
+
+inline bool modifiersAreActive(const QWheelEvent* event, Qt::KeyboardModifiers modifiers)
+{
+    if(modifiers == Qt::NoModifier)
+    {
+        return false;
+    }
+
+    return event->modifiers() == modifiers || (event->buttons() & modifiers) != 0;
+}
+
+inline bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
 {
     return ((settings->documentView().zoomModifiers() | settings->documentView().rotateModifiers() | settings->documentView().scrollModifiers()) & mouseButton) != 0;
-}
-
-inline int pageOfResult(const QModelIndex& index)
-{
-    return index.data(SearchModel::PageRole).toInt();
-}
-
-inline QRectF rectOfResult(const QModelIndex& index)
-{
-    return index.data(SearchModel::RectRole).toRectF();
 }
 
 inline void adjustScaleFactor(RenderParam& renderParam, qreal scaleFactor)
@@ -269,9 +306,341 @@ inline void setValueIfNotVisible(QScrollBar* scrollBar, int value)
     }
 }
 
-void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, const QModelIndex& index, QString path)
+inline int pageOfResult(const QModelIndex& index)
 {
-    path += index.data(Qt::DisplayRole).toString();
+    return index.data(SearchModel::PageRole).toInt();
+}
+
+inline QRectF rectOfResult(const QModelIndex& index)
+{
+    return index.data(SearchModel::RectRole).toRectF();
+}
+
+class OutlineModel : public QAbstractItemModel
+{
+public:
+    OutlineModel(const Model::Outline& outline, DocumentView* parent) : QAbstractItemModel(parent),
+        m_outline(outline)
+    {
+    }
+
+    QModelIndex index(int row, int column, const QModelIndex& parent) const
+    {
+        if(!hasIndex(row, column, parent))
+        {
+            return QModelIndex();
+        }
+
+        if(parent.isValid())
+        {
+            const Model::Section* section = resolveIndex(parent);
+
+            return createIndex(row, column, &section->children);
+        }
+        else
+        {
+            return createIndex(row, column, &m_outline);
+        }
+    }
+
+    QModelIndex parent(const QModelIndex& child) const
+    {
+        if(!child.isValid())
+        {
+            return QModelIndex();
+        }
+
+        const Model::Outline* children = static_cast< const Model::Outline* >(child.internalPointer());
+
+        if(&m_outline != children)
+        {
+            return findParent(&m_outline, children);
+        }
+
+        return QModelIndex();
+    }
+
+    int columnCount(const QModelIndex&) const
+    {
+        return 2;
+    }
+
+    int rowCount(const QModelIndex& parent) const
+    {
+        if(parent.isValid())
+        {
+            const Model::Section* section = resolveIndex(parent);
+
+            return section->children.size();
+        }
+        else
+        {
+            return m_outline.size();
+        }
+    }
+
+    QVariant data(const QModelIndex& index, int role) const
+    {
+        if(!index.isValid())
+        {
+            return QVariant();
+        }
+
+        const Model::Section* section = resolveIndex(index);
+
+        switch(role)
+        {
+        case Qt::DisplayRole:
+            switch(index.column())
+            {
+            case 0:
+                return section->title;
+            case 1:
+                return pageLabel(section->link.page);
+            default:
+                return QVariant();
+            }
+        case Model::Document::PageRole:
+            return section->link.page;
+        case Model::Document::LeftRole:
+            return section->link.left;
+        case Model::Document::TopRole:
+            return section->link.top;
+        case Model::Document::FileNameRole:
+            return section->link.urlOrFileName;
+        case Model::Document::ExpansionRole:
+            return m_expanded.contains(section);
+        default:
+            return QVariant();
+        }
+    }
+
+    bool setData(const QModelIndex& index, const QVariant& value, int role)
+    {
+        if(!index.isValid() || role != Model::Document::ExpansionRole)
+        {
+            return false;
+        }
+
+        const Model::Section* section = resolveIndex(index);
+
+        if(value.toBool())
+        {
+            m_expanded.insert(section);
+        }
+        else
+        {
+            m_expanded.remove(section);
+        }
+
+        return true;
+    }
+
+private:
+    const Model::Outline m_outline;
+
+    DocumentView* documentView() const
+    {
+        return static_cast< DocumentView* >(QObject::parent());
+    }
+
+    QString pageLabel(int pageNumber) const
+    {
+        return documentView()->pageLabelFromNumber(pageNumber);
+    }
+
+    QSet< const Model::Section* > m_expanded;
+
+    const Model::Section* resolveIndex(const QModelIndex& index) const
+    {
+        return &static_cast< const Model::Outline* >(index.internalPointer())->at(index.row());
+    }
+
+    QModelIndex createIndex(int row, int column, const Model::Outline* outline) const
+    {
+        return QAbstractItemModel::createIndex(row, column, const_cast< void* >(static_cast< const void* >(outline)));
+    }
+
+    QModelIndex findParent(const Model::Outline* outline, const Model::Outline* children) const
+    {
+        for(Model::Outline::const_iterator section = outline->begin(); section != outline->end(); ++section)
+        {
+            if(&section->children == children)
+            {
+                return createIndex(section - outline->begin(), 0, outline);
+            }
+        }
+
+        for(Model::Outline::const_iterator section = outline->begin(); section != outline->end(); ++section)
+        {
+            const QModelIndex parent = findParent(&section->children, children);
+
+            if(parent.isValid())
+            {
+                return parent;
+            }
+        }
+
+        return QModelIndex();
+    }
+
+};
+
+class FallbackOutlineModel : public QAbstractTableModel
+{
+public:
+    FallbackOutlineModel(DocumentView* parent) : QAbstractTableModel(parent)
+    {
+    }
+
+    int columnCount(const QModelIndex&) const
+    {
+        return 2;
+    }
+
+    int rowCount(const QModelIndex& parent) const
+    {
+        if(parent.isValid())
+        {
+            return 0;
+        }
+
+        return numberOfPages();
+    }
+
+    QVariant data(const QModelIndex& index, int role) const
+    {
+        if(!index.isValid())
+        {
+            return QVariant();
+        }
+
+        const int pageNumber = index.row() + 1;
+
+        switch(role)
+        {
+        case Qt::DisplayRole:
+            switch(index.column())
+            {
+            case 0:
+                return DocumentView::tr("Page %1").arg(pageLabel(pageNumber));
+            case 1:
+                return pageLabel(pageNumber);
+            default:
+                return QVariant();
+            }
+        case Model::Document::PageRole:
+            return pageNumber;
+        case Model::Document::LeftRole:
+        case Model::Document::TopRole:
+            return qQNaN();
+        default:
+            return QVariant();
+        }
+    }
+
+private:
+    DocumentView* documentView() const
+    {
+        return static_cast< DocumentView* >(QObject::parent());
+    }
+
+    int numberOfPages() const
+    {
+        return documentView()->numberOfPages();
+    }
+
+    QString pageLabel(int pageNumber) const
+    {
+        return documentView()->pageLabelFromNumber(pageNumber);
+    }
+
+};
+
+class PropertiesModel : public QAbstractTableModel
+{
+public:
+    PropertiesModel(const Model::Properties& properties, DocumentView* parent = 0) : QAbstractTableModel(parent),
+        m_properties(properties)
+    {
+    }
+
+    int columnCount(const QModelIndex&) const
+    {
+        return 2;
+    }
+
+    int rowCount(const QModelIndex& parent) const
+    {
+        if(parent.isValid())
+        {
+            return 0;
+        }
+
+        return m_properties.size();
+    }
+
+    QVariant data(const QModelIndex& index, int role) const
+    {
+        if(!index.isValid() || role != Qt::DisplayRole)
+        {
+            return QVariant();
+        }
+
+        switch (index.column())
+        {
+        case 0:
+            return m_properties[index.row()].first;
+        case 1:
+            return m_properties[index.row()].second;
+        default:
+            return QVariant();
+        }
+    }
+
+private:
+    const Model::Properties m_properties;
+
+};
+
+void addProperty(Model::Properties& properties, const char* name, const QString& value)
+{
+    properties.append(qMakePair(DocumentView::tr(name), value));
+}
+
+QString formatFileSize(qint64 size)
+{
+    static const char* const units[] = { "B", "kB", "MB", "GB" };
+    static const char* const* const lastUnit = &units[sizeof(units) / sizeof(units[0]) - 1];
+    const char* const* unit = &units[0];
+
+    while(size > 2048 && unit < lastUnit)
+    {
+        size /= 1024;
+        unit++;
+    }
+
+    return QString("%1 %2").arg(size).arg(*unit);
+}
+
+void addFileProperties(Model::Properties& properties, const QFileInfo& fileInfo)
+{
+    addProperty(properties, "File path", fileInfo.absoluteFilePath());
+    addProperty(properties, "File size", formatFileSize(fileInfo.size()));
+    addProperty(properties, "File created", fileInfo.created().toString());
+    addProperty(properties, "File last modified", fileInfo.lastModified().toString());
+    addProperty(properties, "File owner", fileInfo.owner());
+    addProperty(properties, "File group", fileInfo.owner());
+}
+
+void appendToPath(const QModelIndex& index, QByteArray& path)
+{
+    path.append(index.data(Qt::DisplayRole).toByteArray()).append('\0');
+}
+
+void saveExpandedPaths(const QAbstractItemModel* model, QSet< QByteArray >& paths, const QModelIndex& index = QModelIndex(), QByteArray path = QByteArray())
+{
+    appendToPath(index, path);
 
     if(model->data(index, Model::Document::ExpansionRole).toBool())
     {
@@ -284,9 +653,9 @@ void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, 
     }
 }
 
-void restoreExpandedPaths(QAbstractItemModel* model, const QSet< QString >& paths, const QModelIndex& index, QString path)
+void restoreExpandedPaths(QAbstractItemModel* model, const QSet< QByteArray >& paths, const QModelIndex& index = QModelIndex(), QByteArray path = QByteArray())
 {
-    path += index.data(Qt::DisplayRole).toString();
+    appendToPath(index, path);
 
     if(paths.contains(path))
     {
@@ -303,6 +672,27 @@ void restoreExpandedPaths(QAbstractItemModel* model, const QSet< QString >& path
 
 namespace qpdfview
 {
+
+class DocumentView::VerticalScrollBarChangedBlocker
+{
+    Q_DISABLE_COPY(VerticalScrollBarChangedBlocker)
+
+private:
+    DocumentView* const that;
+
+public:
+
+    VerticalScrollBarChangedBlocker(DocumentView* that) : that(that)
+    {
+        that->m_verticalScrollBarChangedBlocked = true;
+    }
+
+    ~VerticalScrollBarChangedBlocker()
+    {
+        that->m_verticalScrollBarChangedBlocked = false;
+    }
+
+};
 
 Settings* DocumentView::s_settings = 0;
 ShortcutHandler* DocumentView::s_shortcutHandler = 0;
@@ -336,6 +726,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_thumbnailsScene(0),
     m_outlineModel(0),
     m_propertiesModel(0),
+    m_verticalScrollBarChangedBlocked(false),
     m_currentResult(),
     m_searchTask(0)
 {
@@ -356,15 +747,13 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
 
     setScene(new QGraphicsScene(this));
 
+    setFocusPolicy(Qt::StrongFocus);
     setAcceptDrops(false);
     setDragMode(QGraphicsView::ScrollHandDrag);
 
-    reconnectVerticalScrollBar();
+    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
 
     m_thumbnailsScene = new QGraphicsScene(this);
-
-    m_outlineModel = new QStandardItemModel(this);
-    m_propertiesModel = new QStandardItemModel(this);
 
     // highlight
 
@@ -406,7 +795,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     connect(this, SIGNAL(scaleModeChanged(ScaleMode)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(scaleFactorChanged(qreal)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(rotationChanged(Rotation)), m_prefetchTimer, SLOT(start()));
-    connect(this, SIGNAL(invertColorsChanged(bool)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(renderFlagsChanged(qpdfview::RenderFlags)), m_prefetchTimer, SLOT(start()));
 
     connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(on_prefetch_timeout()));
 
@@ -478,11 +867,7 @@ void DocumentView::setFirstPage(int firstPage)
 
         prepareThumbnailsScene();
 
-        if(m_outlineModel->invisibleRootItem()->data().toBool())
-        {
-            loadFallbackOutline();
-        }
-
+        emit numberOfPagesChanged(m_pages.count());
         emit currentPageChanged(m_currentPage);
     }
 }
@@ -574,12 +959,12 @@ QString DocumentView::title() const
     {
         for(int row = 0, rowCount = m_propertiesModel->rowCount(); row < rowCount; ++row)
         {
-            const QStandardItem* keyItem = m_propertiesModel->item(row, 0);
-            const QStandardItem* valueItem = m_propertiesModel->item(row, 1);
+            const QString key = m_propertiesModel->index(row, 0).data().toString();
+            const QString value = m_propertiesModel->index(row, 1).data().toString();
 
-            if(keyItem != 0 && valueItem != 0 && QLatin1String("Title") == keyItem->text())
+            if(QLatin1String("Title") == key)
             {
-                title = valueItem->text();
+                title = value;
                 break;
             }
         }
@@ -868,7 +1253,7 @@ void DocumentView::setRubberBandMode(RubberBandMode rubberBandMode)
     }
 }
 
-void DocumentView::setThumbnailsViewportSize(const QSize& thumbnailsViewportSize)
+void DocumentView::setThumbnailsViewportSize(QSize thumbnailsViewportSize)
 {
     if(m_thumbnailsViewportSize != thumbnailsViewportSize)
     {
@@ -888,13 +1273,23 @@ void DocumentView::setThumbnailsOrientation(Qt::Orientation thumbnailsOrientatio
     }
 }
 
-QStandardItemModel* DocumentView::fontsModel() const
+QSet< QByteArray > DocumentView::saveExpandedPaths() const
 {
-    QStandardItemModel* fontsModel = new QStandardItemModel();
+    QSet< QByteArray > expandedPaths;
 
-    m_document->loadFonts(fontsModel);
+    ::saveExpandedPaths(m_outlineModel.data(), expandedPaths);
 
-    return fontsModel;
+    return expandedPaths;
+}
+
+void DocumentView::restoreExpandedPaths(const QSet< QByteArray >& expandedPaths)
+{
+    ::restoreExpandedPaths(m_outlineModel.data(), expandedPaths);
+}
+
+QAbstractItemModel* DocumentView::fontsModel() const
+{
+    return m_document->fonts();
 }
 
 bool DocumentView::searchWasCanceled() const
@@ -942,7 +1337,34 @@ QPair< QString, QString > DocumentView::searchContext(int page, const QRectF& re
     return qMakePair(matchedText, surroundingText);
 }
 
-DocumentView::SourceLink DocumentView::sourceLink(const QPoint& pos)
+bool DocumentView::hasSearchResults()
+{
+    return s_searchModel->hasResults(this);
+}
+
+QString DocumentView::resolveFileName(QString fileName) const
+{
+    if(QFileInfo(fileName).isRelative())
+    {
+        fileName = m_fileInfo.dir().filePath(fileName);
+    }
+
+    return fileName;
+}
+
+QUrl DocumentView::resolveUrl(QUrl url) const
+{
+    const QString path = url.path();
+
+    if(url.isRelative() && QFileInfo(path).isRelative())
+    {
+        url.setPath(m_fileInfo.dir().filePath(path));
+    }
+
+    return url;
+}
+
+DocumentView::SourceLink DocumentView::sourceLink(QPoint pos)
 {
     SourceLink sourceLink;
 
@@ -950,24 +1372,10 @@ DocumentView::SourceLink DocumentView::sourceLink(const QPoint& pos)
 
     if(const PageItem* page = dynamic_cast< PageItem* >(itemAt(pos)))
     {
-        if(synctex_scanner_t scanner = synctex_scanner_new_with_output_file(m_fileInfo.absoluteFilePath().toLocal8Bit(), 0, 1))
-        {
-            const int sourcePage = page->index() + 1;
-            const QPointF sourcePos = page->sourcePos(page->mapFromScene(mapToScene(pos)));
+        const int sourcePage = page->index() + 1;
+        const QPointF sourcePos = page->sourcePos(page->mapFromScene(mapToScene(pos)));
 
-            if(synctex_edit_query(scanner, sourcePage, sourcePos.x(), sourcePos.y()) > 0)
-            {
-                for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
-                {
-                    sourceLink.name = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
-                    sourceLink.line = qMax(synctex_node_line(node), 0);
-                    sourceLink.column = qMax(synctex_node_column(node), 0);
-                    break;
-                }
-            }
-
-            synctex_scanner_free(scanner);
-        }
+        sourceLink = scanForSourceLink(m_fileInfo.absoluteFilePath(), sourcePage, sourcePos);
     }
 
 #else
@@ -1074,12 +1482,12 @@ bool DocumentView::refresh()
 
         m_currentPage = qMin(m_currentPage, document->numberOfPages());
 
-        QSet< QString > expandedPaths;
-        saveExpandedPaths(m_outlineModel, expandedPaths, QModelIndex(), QString());
+        QSet< QByteArray > expandedPaths;
+        ::saveExpandedPaths(m_outlineModel.data(), expandedPaths);
 
         prepareDocument(document, pages);
 
-        restoreExpandedPaths(m_outlineModel, expandedPaths, QModelIndex(), QString());
+        ::restoreExpandedPaths(m_outlineModel.data(), expandedPaths);
 
         prepareScene();
         prepareView(left, top);
@@ -1270,7 +1678,7 @@ void DocumentView::startSearch(const QString& text, bool matchCase, bool wholeWo
     cancelSearch();
     clearResults();
 
-    m_searchTask->start(m_pages, text, matchCase, wholeWords, m_currentPage);
+    m_searchTask->start(m_pages, text, matchCase, wholeWords, m_currentPage, s_settings->documentView().parallelSearchExecution());
 }
 
 void DocumentView::cancelSearch()
@@ -1444,7 +1852,7 @@ void DocumentView::startPresentation()
 
 void DocumentView::on_verticalScrollBar_valueChanged()
 {
-    if(!m_continuousMode)
+    if(m_verticalScrollBarChangedBlocked || !m_continuousMode)
     {
         return;
     }
@@ -1597,23 +2005,14 @@ void DocumentView::on_pages_linkClicked(bool newTab, int page, qreal left, qreal
 
 void DocumentView::on_pages_linkClicked(bool newTab, const QString& fileName, int page)
 {
-    const QString filePath = QFileInfo(fileName).isAbsolute() ? fileName : m_fileInfo.dir().filePath(fileName);
-
-    emit linkClicked(newTab, filePath, page);
+    emit linkClicked(newTab, resolveFileName(fileName), page);
 }
 
 void DocumentView::on_pages_linkClicked(const QString& url)
 {
     if(s_settings->documentView().openUrl())
     {
-        QUrl resolvedUrl(url);
-
-        if(resolvedUrl.isRelative() && QFileInfo(url).isRelative())
-        {
-            resolvedUrl.setPath(m_fileInfo.dir().filePath(url));
-        }
-
-        QDesktopServices::openUrl(resolvedUrl);
+        QDesktopServices::openUrl(resolveUrl(url));
     }
     else
     {
@@ -1645,6 +2044,27 @@ void DocumentView::on_pages_zoomToSelection(int page, const QRectF& rect)
     setScaleMode(ScaleFactorMode);
 
     jumpToPage(page, false, rect.left(), rect.top());
+}
+
+void DocumentView::on_pages_openInSourceEditor(int page, QPointF pos)
+{
+#ifdef WITH_SYNCTEX
+
+    if(const DocumentView::SourceLink sourceLink = scanForSourceLink(m_fileInfo.absoluteFilePath(), page, pos))
+    {
+        openInSourceEditor(sourceLink);
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Warning"), tr("SyncTeX data for '%1' could not be found.").arg(m_fileInfo.absoluteFilePath()));
+    }
+
+#else
+
+    Q_UNUSED(page);
+    Q_UNUSED(pos);
+
+#endif // WITH_SYNCTEX
 }
 
 void DocumentView::on_pages_wasModified()
@@ -1682,6 +2102,19 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     const QKeySequence keySequence(event->modifiers() + event->key());
 
     int maskedKey = -1;
+    bool maskedKeyActive = false;
+
+    switch(event->key())
+    {
+    case Qt::Key_PageUp:
+    case Qt::Key_PageDown:
+    case Qt::Key_Up:
+    case Qt::Key_Down:
+    case Qt::Key_Left:
+    case Qt::Key_Right:
+        maskedKeyActive = true;
+        break;
+    }
 
     if(s_shortcutHandler->matchesSkipBackward(keySequence))
     {
@@ -1707,9 +2140,7 @@ void DocumentView::keyPressEvent(QKeyEvent* event)
     {
         maskedKey = Qt::Key_Right;
     }
-    else if(event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown ||
-            event->key() == Qt::Key_Up || event->key() == Qt::Key_Down ||
-            event->key() == Qt::Key_Left || event->key() == Qt::Key_Right)
+    else if(maskedKeyActive)
     {
         event->ignore();
         return;
@@ -1785,11 +2216,12 @@ void DocumentView::mousePressEvent(QMouseEvent* event)
 
 void DocumentView::wheelEvent(QWheelEvent* event)
 {
-    const Qt::KeyboardModifiers zoomModifiers = s_settings->documentView().zoomModifiers();
-    const Qt::KeyboardModifiers rotateModifiers = s_settings->documentView().rotateModifiers();
-    const Qt::KeyboardModifiers scrollModifiers = s_settings->documentView().scrollModifiers();
+    const bool noModifiersActive = event->modifiers() == Qt::NoModifier;
+    const bool zoomModifiersActive = modifiersAreActive(event, s_settings->documentView().zoomModifiers());
+    const bool rotateModifiersActive = modifiersAreActive(event, s_settings->documentView().rotateModifiers());
+    const bool scrollModifiersActive = modifiersAreActive(event, s_settings->documentView().scrollModifiers());
 
-    if(event->modifiers() == zoomModifiers || event->buttons() == zoomModifiers)
+    if(zoomModifiersActive)
     {
         if(event->delta() > 0)
         {
@@ -1803,7 +2235,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == rotateModifiers || event->buttons() == rotateModifiers)
+    else if(rotateModifiersActive)
     {
         if(event->delta() > 0)
         {
@@ -1817,7 +2249,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == scrollModifiers || event->buttons() == scrollModifiers)
+    else if(scrollModifiersActive)
     {
         QWheelEvent wheelEvent(event->pos(), event->delta(), event->buttons(), Qt::AltModifier, Qt::Horizontal);
         QGraphicsView::wheelEvent(&wheelEvent);
@@ -1825,7 +2257,7 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == Qt::NoModifier && !m_continuousMode)
+    else if(noModifiersActive && !m_continuousMode)
     {
         if(event->delta() > 0 && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
         {
@@ -1941,9 +2373,11 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
     {
     case QPrinter::Color:
         num_options = addCMYKorRGBColorModel(dest, num_options, &options);
+        num_options = cupsAddOption("Ink", "COLOR", num_options, &options);
         break;
     case QPrinter::GrayScale:
         num_options = cupsAddOption("ColorModel", "Gray", num_options, &options);
+        num_options = cupsAddOption("Ink", "MONO", num_options, &options);
         break;
     }
 
@@ -2207,29 +2641,6 @@ bool DocumentView::checkDocument(const QString& filePath, Model::Document* docum
     return true;
 }
 
-void DocumentView::loadFallbackOutline()
-{
-    m_outlineModel->clear();
-
-    for(int page = 1; page <= m_pages.count(); ++page)
-    {
-        QStandardItem* item = new QStandardItem(tr("Page %1").arg(pageLabelFromNumber(page)));
-        item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-
-        item->setData(page, Model::Document::PageRole);
-        item->setData(qQNaN(), Model::Document::LeftRole);
-        item->setData(qQNaN(), Model::Document::TopRole);
-
-        QStandardItem* pageItem = item->clone();
-        pageItem->setText(QString::number(page));
-        pageItem->setTextAlignment(Qt::AlignRight);
-
-        m_outlineModel->appendRow(QList< QStandardItem* >() << item << pageItem);
-    }
-
-    m_outlineModel->invisibleRootItem()->setData(true); // Flags this as a fallback outline.
-}
-
 void DocumentView::loadDocumentDefaults()
 {
     if(m_document->wantsContinuousMode())
@@ -2276,16 +2687,6 @@ void DocumentView::adjustScrollBarPolicy()
     }
 }
 
-void DocumentView::disconnectVerticalScrollBar()
-{
-    disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
-}
-
-void DocumentView::reconnectVerticalScrollBar()
-{
-    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
-}
-
 void DocumentView::prepareDocument(Model::Document* document, const QVector< Model::Page* >& pages)
 {
     m_prefetchTimer->blockSignals(true);
@@ -2319,13 +2720,22 @@ void DocumentView::prepareDocument(Model::Document* document, const QVector< Mod
     prepareThumbnails();
     prepareBackground();
 
-    m_document->loadOutline(m_outlineModel);
-    m_document->loadProperties(m_propertiesModel);
+    const Model::Outline outline = m_document->outline();
 
-    if(m_outlineModel->rowCount() == 0)
+    if(!outline.empty())
     {
-        loadFallbackOutline();
+        m_outlineModel.reset(new OutlineModel(outline, this));
     }
+    else
+    {
+        m_outlineModel.reset(new FallbackOutlineModel(this));
+    }
+
+    Model::Properties properties = m_document->properties();
+
+    addFileProperties(properties, m_fileInfo);
+
+    m_propertiesModel.reset(new PropertiesModel(properties, this));
 
     if(s_settings->documentView().prefetch())
     {
@@ -2357,6 +2767,7 @@ void DocumentView::preparePages()
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 
         connect(page, SIGNAL(zoomToSelection(int,QRectF)), SLOT(on_pages_zoomToSelection(int,QRectF)));
+        connect(page, SIGNAL(openInSourceEditor(int,QPointF)), SLOT(on_pages_openInSourceEditor(int,QPointF)));
 
         connect(page, SIGNAL(wasModified()), SLOT(on_pages_wasModified()));
     }
@@ -2642,9 +3053,11 @@ void DocumentView::prepareHighlight(int index, const QRectF& rect)
 
     m_highlight->setVisible(true);
 
-    disconnectVerticalScrollBar();
-    centerOn(m_highlight);
-    reconnectVerticalScrollBar();
+    {
+        VerticalScrollBarChangedBlocker verticalScrollBarChangedBlocker(this);
+
+        centerOn(m_highlight);
+    }
 
     viewport()->update();
 }

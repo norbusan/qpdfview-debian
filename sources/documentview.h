@@ -1,8 +1,9 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2012-2014 Adam Reichold
+Copyright 2012-2014, 2018 Adam Reichold
 Copyright 2014 Dorian Scholz
+Copyright 2018 Egor Zenkov
 
 This file is part of qpdfview.
 
@@ -127,7 +128,7 @@ public:
     void setRubberBandMode(RubberBandMode rubberBandMode);
 
     QSize thumbnailsViewportSize() const { return m_thumbnailsViewportSize; }
-    void setThumbnailsViewportSize(const QSize& thumbnailsViewportSize);
+    void setThumbnailsViewportSize(QSize thumbnailsViewportSize);
 
     Qt::Orientation thumbnailsOrientation() const { return m_thumbnailsOrientation; }
     void setThumbnailsOrientation(Qt::Orientation thumbnailsOrientation);
@@ -135,10 +136,13 @@ public:
     const QVector< ThumbnailItem* >& thumbnailItems() const { return m_thumbnailItems; }
     QGraphicsScene* thumbnailsScene() const { return m_thumbnailsScene; }
 
-    QStandardItemModel* outlineModel() const { return m_outlineModel; }
-    QStandardItemModel* propertiesModel() const { return m_propertiesModel; }
+    QAbstractItemModel* outlineModel() const { return m_outlineModel.data(); }
+    QAbstractItemModel* propertiesModel() const { return m_propertiesModel.data(); }
 
-    QStandardItemModel* fontsModel() const;
+    QSet< QByteArray > saveExpandedPaths() const;
+    void restoreExpandedPaths(const QSet< QByteArray >& expandedPaths);
+
+    QAbstractItemModel* fontsModel() const;
 
     bool searchWasCanceled() const;
     int searchProgress() const;
@@ -148,6 +152,11 @@ public:
     bool searchWholeWords() const;
 
     QPair< QString, QString > searchContext(int page, const QRectF& rect) const;
+
+    bool hasSearchResults();
+
+    QString resolveFileName(QString fileName) const;
+    QUrl resolveUrl(QUrl url) const;
 
     struct SourceLink
     {
@@ -159,7 +168,7 @@ public:
 
     };
 
-    SourceLink sourceLink(const QPoint& pos);
+    SourceLink sourceLink(QPoint pos);
     void openInSourceEditor(const SourceLink& sourceLink);
 
 signals:
@@ -257,6 +266,7 @@ protected slots:
     void on_pages_rubberBandFinished();
 
     void on_pages_zoomToSelection(int page, const QRectF& rect);
+    void on_pages_openInSourceEditor(int page, QPointF pos);
 
     void on_pages_wasModified();
 
@@ -335,17 +345,18 @@ private:
 
     QGraphicsScene* m_thumbnailsScene;
 
-    QStandardItemModel* m_outlineModel;
-    QStandardItemModel* m_propertiesModel;
+    QScopedPointer< QAbstractItemModel > m_outlineModel;
+    QScopedPointer< QAbstractItemModel > m_propertiesModel;
 
     bool checkDocument(const QString& filePath, Model::Document* document, QVector< Model::Page* >& pages);
 
-    void loadFallbackOutline();
     void loadDocumentDefaults();
 
     void adjustScrollBarPolicy();
-    void disconnectVerticalScrollBar();
-    void reconnectVerticalScrollBar();
+
+    bool m_verticalScrollBarChangedBlocked;
+
+    class VerticalScrollBarChangedBlocker;
 
     void prepareDocument(Model::Document* document, const QVector< Model::Page* >& pages);
     void preparePages();

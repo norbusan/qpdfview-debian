@@ -1,7 +1,8 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2013-2014 Adam Reichold
+Copyright 2018 Marshall Banana
+Copyright 2013-2014, 2018 Adam Reichold
 Copyright 2013 Alexander Volkov
 
 This file is part of qpdfview.
@@ -29,6 +30,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFile>
 #include <qmath.h>
+
+#if defined(Q_OS_WIN) && defined(DJVU_STATIC)
+
+#define DDJVUAPI /**/
+#define MINILISPAPI /**/
+
+#endif // Q_OS_WIN DJVU_STATIC
 
 #include <libdjvu/ddjvuapi.h>
 #include <libdjvu/miniexp.h>
@@ -118,7 +126,7 @@ void waitForMessageTag(ddjvu_context_t* context, ddjvu_message_tag_t tag)
     }
 }
 
-QPainterPath loadLinkBoundary(const QString& type, miniexp_t boundaryExp, const QSizeF& size)
+QPainterPath loadLinkBoundary(const QString& type, miniexp_t boundaryExp, QSizeF size)
 {
     QPainterPath boundary;
 
@@ -161,7 +169,7 @@ QPainterPath loadLinkBoundary(const QString& type, miniexp_t boundaryExp, const 
     return QTransform::fromScale(1.0 / size.width(), 1.0 / size.height()).map(boundary);
 }
 
-Link* loadLinkTarget(const QPainterPath& boundary, miniexp_t targetExp, int index, const QHash< QString, int >& indexByName)
+Link* loadLinkTarget(const QPainterPath& boundary, miniexp_t targetExp, int index, const QHash< QString, int >& pageByName)
 {
     QString target;
 
@@ -188,9 +196,11 @@ Link* loadLinkTarget(const QPainterPath& boundary, miniexp_t targetExp, int inde
 
         if(!ok)
         {
-            if(indexByName.contains(target))
+            const int page = pageByName.value(target);
+
+            if(page != 0)
             {
-                targetPage = indexByName[target] + 1;
+                targetPage = page;
             }
             else
             {
@@ -213,7 +223,7 @@ Link* loadLinkTarget(const QPainterPath& boundary, miniexp_t targetExp, int inde
     }
 }
 
-QList< Link* > loadLinks(miniexp_t linkExp, const QSizeF& size, int index, const QHash< QString, int >& indexByName)
+QList< Link* > loadLinks(miniexp_t linkExp, QSizeF size, int index, const QHash< QString, int >& pageByName)
 {
     QList< Link* > links;
 
@@ -242,7 +252,7 @@ QList< Link* > loadLinks(miniexp_t linkExp, const QSizeF& size, int index, const
 
             if(!boundary.isEmpty())
             {
-                Link* link = loadLinkTarget(boundary, targetExp, index, indexByName);
+                Link* link = loadLinkTarget(boundary, targetExp, index, pageByName);
 
                 if(link != 0)
                 {
@@ -255,7 +265,7 @@ QList< Link* > loadLinks(miniexp_t linkExp, const QSizeF& size, int index, const
     return links;
 }
 
-QString loadText(miniexp_t textExp, const QSizeF& size, const QRectF& rect)
+QString loadText(miniexp_t textExp, QSizeF size, const QRectF& rect)
 {
     if(miniexp_length(textExp) < 6 && !miniexp_symbolp(miniexp_car(textExp)))
     {
@@ -295,7 +305,7 @@ QString loadText(miniexp_t textExp, const QSizeF& size, const QRectF& rect)
     return QString();
 }
 
-QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTransform& transform, const QStringList& words, bool matchCase, bool wholeWords)
+QList< QRectF > findText(miniexp_t pageTextExp, QSizeF size, const QTransform& transform, const QStringList& words, bool matchCase, bool wholeWords)
 {
     if(words.isEmpty())
     {
@@ -391,8 +401,10 @@ QList< QRectF > findText(miniexp_t pageTextExp, const QSizeF& size, const QTrans
     return results;
 }
 
-void loadOutline(miniexp_t outlineExp, QStandardItem* parent, const QHash< QString, int >& indexByName)
+Outline loadOutline(miniexp_t outlineExp, const QHash< QString, int >& pageByName)
 {
+    Outline outline;
+
     for(miniexp_t outlineItem = miniexp_nil; miniexp_consp(outlineExp); outlineExp = miniexp_cdr(outlineExp))
     {
         outlineItem = miniexp_car(outlineExp);
@@ -403,53 +415,55 @@ void loadOutline(miniexp_t outlineExp, QStandardItem* parent, const QHash< QStri
         }
 
         const QString title = QString::fromUtf8(miniexp_to_str(miniexp_car(outlineItem)));
+
+        if(title.isEmpty())
+        {
+            continue;
+        }
+
+        outline.push_back(Section());
+        Section& section = outline.back();
+        section.title = title;
+
         QString destination = QString::fromUtf8(miniexp_to_str(miniexp_cadr(outlineItem)));
 
-        if(!title.isEmpty() && !destination.isEmpty())
+        if(!destination.isEmpty() && destination.at(0) == QLatin1Char('#'))
         {
-            if(destination.at(0) == QLatin1Char('#'))
+            destination.remove(0, 1);
+
+            bool ok = false;
+            int page = destination.toInt(&ok);
+
+            if(!ok)
             {
-                destination.remove(0,1);
+                const int destinationPage = pageByName.value(destination);
 
-                bool ok = false;
-                int destinationPage = destination.toInt(&ok);
-
-                if(!ok)
+                if(destinationPage != 0)
                 {
-                    if(indexByName.contains(destination))
-                    {
-                        destinationPage = indexByName[destination] + 1;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-
-                QStandardItem* item = new QStandardItem(title);
-                item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-
-                item->setData(destinationPage, Document::PageRole);
-                item->setData(qQNaN(), Document::LeftRole);
-                item->setData(qQNaN(), Document::TopRole);
-
-                QStandardItem* pageItem = item->clone();
-                pageItem->setText(QString::number(destinationPage));
-                pageItem->setTextAlignment(Qt::AlignRight);
-
-                parent->appendRow(QList< QStandardItem* >() << item << pageItem);
-
-                if(miniexp_length(outlineItem) > 2)
-                {
-                    loadOutline(skip(outlineItem, 2), item, indexByName);
+                    ok = true;
+                    page = destinationPage;
                 }
             }
+
+            if(ok)
+            {
+                section.link.page = page;
+            }
+        }
+
+        if(miniexp_length(outlineItem) > 2)
+        {
+            section.children = loadOutline(skip(outlineItem, 2), pageByName);
         }
     }
+
+    return outline;
 }
 
-void loadProperties(miniexp_t annoExp, QStandardItemModel* model)
+Properties loadProperties(miniexp_t annoExp)
 {
+    Properties properties;
+
     for(miniexp_t annoItem = miniexp_nil; miniexp_consp(annoExp); annoExp = miniexp_cdr(annoExp))
     {
         annoItem = miniexp_car(annoExp);
@@ -475,10 +489,12 @@ void loadProperties(miniexp_t annoExp, QStandardItemModel* model)
 
             if(!key.isEmpty() && !value.isEmpty())
             {
-                model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
+                properties.push_back(qMakePair(key, value));
             }
         }
     }
+
+    return properties;
 }
 
 } // anonymous
@@ -506,7 +522,7 @@ QSizeF DjVuPage::size() const
     return 72.0 / m_resolution * m_size;
 }
 
-QImage DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const
 {
     LOCK_PAGE
 
@@ -608,6 +624,11 @@ QImage DjVuPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
     return image;
 }
 
+QString DjVuPage::label() const
+{
+    return m_parent->m_titleByIndex.value(m_index);
+}
+
 QList< Link* > DjVuPage::links() const
 {
     LOCK_PAGE
@@ -632,7 +653,7 @@ QList< Link* > DjVuPage::links() const
         }
     }
 
-    const QList< Link* > links = loadLinks(pageAnnoExp, m_size, m_index, m_parent->m_indexByName);
+    const QList< Link* > links = loadLinks(pageAnnoExp, m_size, m_index, m_parent->m_pageByName);
 
     {
         LOCK_PAGE_GLOBAL
@@ -724,7 +745,8 @@ DjVuDocument::DjVuDocument(QMutex* globalMutex, ddjvu_context_t* context, ddjvu_
     m_context(context),
     m_document(document),
     m_format(0),
-    m_indexByName()
+    m_pageByName(),
+    m_titleByIndex()
 {
     unsigned int mask[] = {0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000};
 
@@ -732,7 +754,7 @@ DjVuDocument::DjVuDocument(QMutex* globalMutex, ddjvu_context_t* context, ddjvu_
     ddjvu_format_set_row_order(m_format, 1);
     ddjvu_format_set_y_direction(m_format, 1);
 
-    prepareIndexByName();
+    prepareFileInfo();
 }
 
 DjVuDocument::~DjVuDocument()
@@ -821,9 +843,9 @@ bool DjVuDocument::save(const QString& filePath, bool withChanges) const
     return !ddjvu_job_error(job);
 }
 
-void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
+Outline DjVuDocument::outline() const
 {
-    Document::loadOutline(outlineModel);
+    Outline outline;
 
     LOCK_DOCUMENT
 
@@ -847,23 +869,23 @@ void DjVuDocument::loadOutline(QStandardItemModel* outlineModel) const
         }
     }
 
-    if(miniexp_length(outlineExp) < 2 || qstrcmp(miniexp_to_name(miniexp_car(outlineExp)), "bookmarks") != 0)
+    if(miniexp_length(outlineExp) > 1 && qstrcmp(miniexp_to_name(miniexp_car(outlineExp)), "bookmarks") == 0)
     {
-        return;
+        outline = loadOutline(skip(outlineExp, 1), m_pageByName);
     }
-
-    ::loadOutline(skip(outlineExp, 1), outlineModel->invisibleRootItem(), m_indexByName);
 
     {
         LOCK_DOCUMENT_GLOBAL
 
         ddjvu_miniexp_release(m_document, outlineExp);
     }
+
+    return outline;
 }
 
-void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
+Properties DjVuDocument::properties() const
 {
-    Document::loadProperties(propertiesModel);
+    Properties properties;
 
     LOCK_DOCUMENT
 
@@ -887,16 +909,18 @@ void DjVuDocument::loadProperties(QStandardItemModel* propertiesModel) const
         }
     }
 
-    ::loadProperties(annoExp, propertiesModel);
+    properties = loadProperties(annoExp);
 
     {
         LOCK_DOCUMENT_GLOBAL
 
         ddjvu_miniexp_release(m_document, annoExp);
     }
+
+    return properties;
 }
 
-void DjVuDocument::prepareIndexByName()
+void DjVuDocument::prepareFileInfo()
 {
     for(int index = 0, count = ddjvu_document_get_filenum(m_document); index < count; ++index)
     {
@@ -907,8 +931,20 @@ void DjVuDocument::prepareIndexByName()
             continue;
         }
 
-        m_indexByName[QString::fromUtf8(fileinfo.id)] = m_indexByName[QString::fromUtf8(fileinfo.name)] = m_indexByName[QString::fromUtf8(fileinfo.title)] = fileinfo.pageno;
+        const QString id = QString::fromUtf8(fileinfo.id);
+        const QString name = QString::fromUtf8(fileinfo.name);
+        const QString title = QString::fromUtf8(fileinfo.title);
+
+        m_pageByName[id] = m_pageByName[name] = m_pageByName[title] = fileinfo.pageno + 1;
+
+        if(!title.endsWith(".djvu", Qt::CaseInsensitive) && !title.endsWith(".djv", Qt::CaseInsensitive))
+        {
+            m_titleByIndex[fileinfo.pageno] = title;
+        }
     }
+
+    m_pageByName.squeeze();
+    m_titleByIndex.squeeze();
 }
 
 } // Model

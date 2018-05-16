@@ -1,7 +1,8 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2013-2014 Adam Reichold
+Copyright 2018 Marshall Banana
+Copyright 2013-2014, 2018 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -64,83 +65,158 @@ namespace
 using namespace qpdfview;
 using namespace qpdfview::Model;
 
-inline void appendRow(QStandardItemModel* model, const QString& key, const QString& value)
+Outline loadOutline(const QDomNode& parent, Poppler::Document* document)
 {
-    model->appendRow(QList< QStandardItem* >() << new QStandardItem(key) << new QStandardItem(value));
-}
+    Outline outline;
 
-void loadOutline(Poppler::Document* document, const QDomNode& node, QStandardItem* parent)
-{
-    const QDomElement element = node.toElement();
+    const QDomNodeList nodes = parent.childNodes();
 
-    QStandardItem* item = new QStandardItem(element.tagName());
-    item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+    outline.reserve(nodes.size());
 
-    Poppler::LinkDestination* linkDestination = 0;
-
-    if(element.hasAttribute("Destination"))
+    for(int index = 0, count = nodes.size(); index < count; ++index)
     {
-        linkDestination = new Poppler::LinkDestination(element.attribute("Destination"));
-    }
-    else if(element.hasAttribute("DestinationName"))
-    {
-        linkDestination = document->linkDestination(element.attribute("DestinationName"));
-    }
+        const QDomNode node = nodes.at(index);
+        const QDomElement element = node.toElement();
 
-    if(linkDestination != 0)
-    {
-        int page = linkDestination->pageNumber();
-        qreal left = qQNaN();
-        qreal top = qQNaN();
+        outline.push_back(Section());
+        Section& section = outline.back();
+        section.title = element.tagName();
 
-        page = page >= 1 ? page : 1;
-        page = page <= document->numPages() ? page : document->numPages();
+        QScopedPointer< Poppler::LinkDestination > destination;
 
-        if(linkDestination->isChangeLeft())
+        if(element.hasAttribute("Destination"))
         {
-            left = linkDestination->left();
-
-            left = left >= 0.0 ? left : 0.0;
-            left = left <= 1.0 ? left : 1.0;
+            destination.reset(new Poppler::LinkDestination(element.attribute("Destination")));
+        }
+        else if(element.hasAttribute("DestinationName"))
+        {
+            destination.reset(document->linkDestination(element.attribute("DestinationName")));
         }
 
-        if(linkDestination->isChangeTop())
+        if(destination)
         {
-            top = linkDestination->top();
+            int page = destination->pageNumber();
+            qreal left = qQNaN();
+            qreal top = qQNaN();
 
-            top = top >= 0.0 ? top : 0.0;
-            top = top <= 1.0 ? top : 1.0;
+            page = page >= 1 ? page : 1;
+            page = page <= document->numPages() ? page : document->numPages();
+
+            if(destination->isChangeLeft())
+            {
+                left = destination->left();
+
+                left = left >= 0.0 ? left : 0.0;
+                left = left <= 1.0 ? left : 1.0;
+            }
+
+            if(destination->isChangeTop())
+            {
+                top = destination->top();
+
+                top = top >= 0.0 ? top : 0.0;
+                top = top <= 1.0 ? top : 1.0;
+            }
+
+            Link& link = section.link;
+            link.page = page;
+            link.left = left;
+            link.top = top;
+
+            const QString fileName = element.attribute("ExternalFileName");
+
+            if(!fileName.isEmpty())
+            {
+                link.urlOrFileName = fileName;
+            }
         }
 
-        delete linkDestination;
-
-        item->setData(page, Document::PageRole);
-        item->setData(left, Document::LeftRole);
-        item->setData(top, Document::TopRole);
-
-        QStandardItem* pageItem = item->clone();
-        pageItem->setText(QString::number(page));
-        pageItem->setTextAlignment(Qt::AlignRight);
-
-        parent->appendRow(QList< QStandardItem* >() << item << pageItem);
-    }
-    else
-    {
-        parent->appendRow(item);
+        if(node.hasChildNodes())
+        {
+            section.children = loadOutline(node, document);
+        }
     }
 
-    const QDomNode& siblingNode = node.nextSibling();
-    if(!siblingNode.isNull())
-    {
-        loadOutline(document, siblingNode, parent);
-    }
-
-    const QDomNode& childNode = node.firstChild();
-    if(!childNode.isNull())
-    {
-        loadOutline(document, childNode, item);
-    }
+    return outline;
 }
+
+class FontsModel : public QAbstractTableModel
+{
+public:
+    FontsModel(const QList< Poppler::FontInfo >& fonts) :
+        m_fonts(fonts)
+    {
+    }
+
+    int columnCount(const QModelIndex&) const
+    {
+        return 5;
+    }
+
+    int rowCount(const QModelIndex& parent) const
+    {
+        if(parent.isValid())
+        {
+            return 0;
+        }
+
+        return m_fonts.size();
+    }
+
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const
+    {
+        if(orientation != Qt::Horizontal || role != Qt::DisplayRole)
+        {
+            return QVariant();
+        }
+
+        switch(section)
+        {
+        case 0:
+            return PdfDocument::tr("Name");
+        case 1:
+            return PdfDocument::tr("Type");
+        case 2:
+            return PdfDocument::tr("Embedded");
+        case 3:
+            return PdfDocument::tr("Subset");
+        case 4:
+            return PdfDocument::tr("File");
+        default:
+            return QVariant();
+        }
+    }
+
+    QVariant data(const QModelIndex& index, int role) const
+    {
+        if(!index.isValid() || role != Qt::DisplayRole)
+        {
+            return QVariant();
+        }
+
+        const Poppler::FontInfo& font = m_fonts[index.row()];
+
+        switch (index.column())
+        {
+        case 0:
+            return font.name();
+        case 1:
+            return font.typeName();
+        case 2:
+            return font.isEmbedded() ? PdfDocument::tr("Yes") : PdfDocument::tr("No");
+        case 3:
+            return font.isSubset() ? PdfDocument::tr("Yes") : PdfDocument::tr("No");
+        case 4:
+            return font.file();
+        default:
+            return QVariant();
+        }
+    }
+
+private:
+    const QList< Poppler::FontInfo > m_fonts;
+
+};
 
 inline void restoreRenderHint(Poppler::Document* document, const Poppler::Document::RenderHints hints, const Poppler::Document::RenderHint hint)
 {
@@ -150,10 +226,46 @@ inline void restoreRenderHint(Poppler::Document* document, const Poppler::Docume
 typedef QSharedPointer< Poppler::TextBox > TextBox;
 typedef QList< TextBox > TextBoxList;
 
-QCache< const PdfPage*,  TextBoxList > textCache(1 << 12);
-QMutex textCacheMutex;
+class TextCache
+{
+public:
+    TextCache() : m_mutex(), m_cache(1 << 12) {}
 
-#define LOCK_TEXT_CACHE QMutexLocker mutexLocker(&textCacheMutex);
+    bool object(const PdfPage* page, TextBoxList& textBoxes) const
+    {
+        QMutexLocker mutexLocker(&m_mutex);
+
+        if(TextBoxList* const object = m_cache.object(page))
+        {
+            textBoxes = *object;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    void insert(const PdfPage* page, const TextBoxList& textBoxes)
+    {
+        QMutexLocker mutexLocker(&m_mutex);
+
+        m_cache.insert(page, new TextBoxList(textBoxes), textBoxes.count());
+    }
+
+    void remove(const PdfPage* page)
+    {
+        QMutexLocker mutexLocker(&m_mutex);
+
+        m_cache.remove(page);
+    }
+
+private:
+    mutable QMutex m_mutex;
+    QCache< const PdfPage*, TextBoxList > m_cache;
+
+};
+
+Q_GLOBAL_STATIC(TextCache, textCache)
 
 namespace Defaults
 {
@@ -328,11 +440,7 @@ PdfPage::PdfPage(QMutex* mutex, Poppler::Page* page) :
 
 PdfPage::~PdfPage()
 {
-    {
-        LOCK_TEXT_CACHE
-
-        textCache.remove(this);
-    }
+    textCache()->remove(this);
 
     delete m_page;
 }
@@ -344,7 +452,7 @@ QSizeF PdfPage::size() const
     return m_page->pageSizeF();
 }
 
-QImage PdfPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const
+QImage PdfPage::render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const
 {
     LOCK_PAGE
 
@@ -465,21 +573,9 @@ QString PdfPage::text(const QRectF& rect) const
 
 QString PdfPage::cachedText(const QRectF& rect) const
 {
-    bool wasCached = false;
     TextBoxList textBoxes;
 
-    {
-        LOCK_TEXT_CACHE
-
-        if(const TextBoxList* object = textCache.object(this))
-        {
-            wasCached = true;
-
-            textBoxes = *object;
-        }
-    }
-
-    if(!wasCached)
+    if(!textCache()->object(this, textBoxes))
     {
         {
             LOCK_PAGE
@@ -490,9 +586,7 @@ QString PdfPage::cachedText(const QRectF& rect) const
             }
         }
 
-        LOCK_TEXT_CACHE
-
-        textCache.insert(this, new TextBoxList(textBoxes), textBoxes.count());
+        textCache()->insert(this, textBoxes);
     }
 
     QString text;
@@ -529,21 +623,23 @@ QList< QRectF > PdfPage::search(const QString& text, bool matchCase, bool wholeW
 
     QList< QRectF > results;
 
-#if defined(HAS_POPPLER_31)
+#ifdef HAS_POPPLER_31
 
     const Poppler::Page::SearchFlags flags((matchCase ? 0 : Poppler::Page::IgnoreCase) | (wholeWords ? Poppler::Page::WholeWords : 0));
 
     results = m_page->search(text, flags);
 
-#elif defined(HAS_POPPLER_22)
+#else
+
+    Q_UNUSED(wholeWords);
 
     const Poppler::Page::SearchMode mode = matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive;
+
+#if defined(HAS_POPPLER_22)
 
     results = m_page->search(text, mode);
 
 #elif defined(HAS_POPPLER_14)
-
-    const Poppler::Page::SearchMode mode = matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive;
 
     double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0;
 
@@ -554,8 +650,6 @@ QList< QRectF > PdfPage::search(const QString& text, bool matchCase, bool wholeW
 
 #else
 
-    const Poppler::Page::SearchMode mode = matchCase ? Poppler::Page::CaseSensitive : Poppler::Page::CaseInsensitive;
-
     QRectF rect;
 
     while(m_page->search(text, rect, Poppler::Page::NextResult, mode))
@@ -563,7 +657,9 @@ QList< QRectF > PdfPage::search(const QString& text, bool matchCase, bool wholeW
         results.append(rect);
     }
 
-#endif // HAS_POPPLER_31 HAS_POPPLER_22 HAS_POPPLER_14
+#endif // HAS_POPPLER_22 HAS_POPPLER_14
+
+#endif // HAS_POPPLER_31
 
     return results;
 }
@@ -767,9 +863,12 @@ Page* PdfDocument::page(int index) const
 {
     LOCK_DOCUMENT
 
-    Poppler::Page* page = m_document->page(index);
+    if(Poppler::Page* page = m_document->page(index))
+    {
+        return new PdfPage(&m_mutex, page);
+    }
 
-    return page != 0 ? new PdfPage(&m_mutex, page) : 0;
+    return 0;
 }
 
 bool PdfDocument::isLocked() const
@@ -871,23 +970,25 @@ void PdfDocument::setPaperColor(const QColor& paperColor)
     m_document->setPaperColor(paperColor);
 }
 
-void PdfDocument::loadOutline(QStandardItemModel* outlineModel) const
+Outline PdfDocument::outline() const
 {
-    Document::loadOutline(outlineModel);
+    Outline outline;
 
     LOCK_DOCUMENT
 
-    if(QDomDocument* toc = m_document->toc())
-    {
-        ::loadOutline(m_document, toc->firstChild(), outlineModel->invisibleRootItem());
+    QScopedPointer< QDomDocument > toc(m_document->toc());
 
-        delete toc;
+    if(toc)
+    {
+        outline = loadOutline(*toc, m_document);
     }
+
+    return outline;
 }
 
-void PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
+Properties PdfDocument::properties() const
 {
-    Document::loadProperties(propertiesModel);
+    Properties properties;
 
     LOCK_DOCUMENT
 
@@ -900,42 +1001,26 @@ void PdfDocument::loadProperties(QStandardItemModel* propertiesModel) const
             value = m_document->date(key).toString();
         }
 
-        appendRow(propertiesModel, key, value);
+        properties.push_back(qMakePair(key, value));
     }
 
     int pdfMajorVersion = 1;
     int pdfMinorVersion = 0;
     m_document->getPdfVersion(&pdfMajorVersion, &pdfMinorVersion);
 
-    appendRow(propertiesModel, tr("PDF version"), QString("%1.%2").arg(pdfMajorVersion).arg(pdfMinorVersion));
+    properties.push_back(qMakePair(tr("PDF version"), QString("%1.%2").arg(pdfMajorVersion).arg(pdfMinorVersion)));
 
-    appendRow(propertiesModel, tr("Encrypted"), m_document->isEncrypted() ? tr("Yes") : tr("No"));
-    appendRow(propertiesModel, tr("Linearized"), m_document->isLinearized() ? tr("Yes") : tr("No"));
+    properties.push_back(qMakePair(tr("Encrypted"), m_document->isEncrypted() ? tr("Yes") : tr("No")));
+    properties.push_back(qMakePair(tr("Linearized"), m_document->isLinearized() ? tr("Yes") : tr("No")));
+
+    return properties;
 }
 
-void PdfDocument::loadFonts(QStandardItemModel* fontsModel) const
+QAbstractItemModel* PdfDocument::fonts() const
 {
-    Document::loadFonts(fontsModel);
-
     LOCK_DOCUMENT
 
-    const QList< Poppler::FontInfo > fonts = m_document->fonts();
-
-    fontsModel->setRowCount(fonts.count());
-    fontsModel->setColumnCount(5);
-
-    fontsModel->setHorizontalHeaderLabels(QStringList() << tr("Name") << tr("Type") << tr("Embedded") << tr("Subset") << tr("File"));
-
-    for(int index = 0; index < fonts.count(); ++index)
-    {
-        const Poppler::FontInfo& font = fonts[index];
-
-        fontsModel->setItem(index, 0, new QStandardItem(font.name()));
-        fontsModel->setItem(index, 1, new QStandardItem(font.typeName()));
-        fontsModel->setItem(index, 2, new QStandardItem(font.isEmbedded() ? tr("Yes") : tr("No")));
-        fontsModel->setItem(index, 3, new QStandardItem(font.isSubset() ? tr("Yes") : tr("No")));
-        fontsModel->setItem(index, 4, new QStandardItem(font.file()));
-    }
+    return new FontsModel(m_document->fonts());
 }
 
 bool PdfDocument::wantsContinuousMode() const
@@ -1155,9 +1240,7 @@ PdfPlugin::PdfPlugin(QObject* parent) : QObject(parent)
 
 Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
 {
-    Poppler::Document* document = Poppler::Document::load(filePath);
-
-    if(document != 0)
+    if(Poppler::Document* document = Poppler::Document::load(filePath))
     {
         document->setRenderHint(Poppler::Document::Antialiasing, m_settings->value("antialiasing", Defaults::antialiasing).toBool());
         document->setRenderHint(Poppler::Document::TextAntialiasing, m_settings->value("textAntialiasing", Defaults::textAntialiasing).toBool());
@@ -1229,9 +1312,11 @@ Model::Document* PdfPlugin::loadDocument(const QString& filePath) const
             document->setRenderBackend(Poppler::Document::ArthurBackend);
             break;
         }
+
+        return new Model::PdfDocument(document);
     }
 
-    return document != 0 ? new Model::PdfDocument(document) : 0;
+    return 0;
 }
 
 SettingsWidget* PdfPlugin::createSettingsWidget(QWidget* parent) const

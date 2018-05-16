@@ -3,10 +3,8 @@
 * add ePUB support
 * add CHM support
 
-* extend search dock
-* add annotations dock
-
 * rewrite tool support
+* add annotations dock
 
 * improve text-selection support
 * improve link support
@@ -15,4 +13,3 @@
 
 * add code documentation
 * investigate integration with KDE Frameworks
-

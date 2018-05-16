@@ -1,5 +1,6 @@
 /*
 
+Copyright 2018 S. Razi Alavizadeh
 Copyright 2015 Adam Reichold
 
 This file is part of qpdfview.
@@ -38,6 +39,11 @@ SearchItemDelegate::SearchItemDelegate(QObject* parent) : QStyledItemDelegate(pa
 void SearchItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     QStyledItemDelegate::paint(painter, option, index);
+
+    if(index.column() != 0)
+    {
+        return;
+    }
 
     const int progress = index.data(SearchModel::ProgressRole).toInt();
 
@@ -95,7 +101,7 @@ void SearchItemDelegate::paintText(QPainter* painter, const QStyleOptionViewItem
 
     QList< QTextLayout::FormatRange > additionalFormats;
 
-    for(int index = 0; (index = elidedText.indexOf(matchedText, index)) != -1; index += matchedText.length())
+    for(int index = 0; (index = surroundingText.indexOf(matchedText, index)) != -1; index += matchedText.length())
     {
         QTextLayout::FormatRange formatRange;
         formatRange.start = index;

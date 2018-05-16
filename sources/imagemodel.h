@@ -40,12 +40,12 @@ namespace Model
     public:
         QSizeF size() const;
 
-        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
+        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const;
 
     private:
         Q_DISABLE_COPY(ImagePage)
 
-        ImagePage(QImage image);
+        ImagePage(const QImage& image);
 
         QImage m_image;
 
@@ -67,12 +67,12 @@ namespace Model
         bool canSave() const;
         bool save(const QString& filePath, bool withChanges) const;
 
-        void loadProperties(QStandardItemModel* propertiesModel) const;
+        Properties properties() const;
 
     private:
         Q_DISABLE_COPY(ImageDocument)
 
-        ImageDocument(QImage image);
+        ImageDocument(const QImage& image);
 
         QImage m_image;
 

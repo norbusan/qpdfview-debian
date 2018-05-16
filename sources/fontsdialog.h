@@ -24,8 +24,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QDialog>
 
+class QAbstractItemModel;
 class QDialogButtonBox;
-class QStandardItemModel;
 class QTableView;
 
 namespace qpdfview
@@ -36,7 +36,7 @@ class FontsDialog : public QDialog
     Q_OBJECT
 
 public:
-    FontsDialog(QStandardItemModel* model, QWidget* parent = 0);
+    FontsDialog(QAbstractItemModel* model, QWidget* parent = 0);
     ~FontsDialog();
 
 private:

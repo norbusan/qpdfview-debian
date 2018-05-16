@@ -1,0 +1,44 @@
+<RCC>
+    <qresource>
+        <file alias="qpdfview_ast.qm">translations/qpdfview_ast.qm</file>
+        <file alias="qpdfview_az.qm">translations/qpdfview_az.qm</file>
+        <file alias="qpdfview_be.qm">translations/qpdfview_be.qm</file>
+        <file alias="qpdfview_bg.qm">translations/qpdfview_bg.qm</file>
+        <file alias="qpdfview_bs.qm">translations/qpdfview_bs.qm</file>
+        <file alias="qpdfview_ca.qm">translations/qpdfview_ca.qm</file>
+        <file alias="qpdfview_cs.qm">translations/qpdfview_cs.qm</file>
+        <file alias="qpdfview_da.qm">translations/qpdfview_da.qm</file>
+        <file alias="qpdfview_de.qm">translations/qpdfview_de.qm</file>
+        <file alias="qpdfview_el.qm">translations/qpdfview_el.qm</file>
+        <file alias="qpdfview_en_GB.qm">translations/qpdfview_en_GB.qm</file>
+        <file alias="qpdfview_eo.qm">translations/qpdfview_eo.qm</file>
+        <file alias="qpdfview_es.qm">translations/qpdfview_es.qm</file>
+        <file alias="qpdfview_eu.qm">translations/qpdfview_eu.qm</file>
+        <file alias="qpdfview_fi.qm">translations/qpdfview_fi.qm</file>
+        <file alias="qpdfview_fr.qm">translations/qpdfview_fr.qm</file>
+        <file alias="qpdfview_gl.qm">translations/qpdfview_gl.qm</file>
+        <file alias="qpdfview_he.qm">translations/qpdfview_he.qm</file>
+        <file alias="qpdfview_hr.qm">translations/qpdfview_hr.qm</file>
+        <file alias="qpdfview_hu.qm">translations/qpdfview_hu.qm</file>
+        <file alias="qpdfview_id.qm">translations/qpdfview_id.qm</file>
+        <file alias="qpdfview_it.qm">translations/qpdfview_it.qm</file>
+        <file alias="qpdfview_kk.qm">translations/qpdfview_kk.qm</file>
+        <file alias="qpdfview_ky.qm">translations/qpdfview_ky.qm</file>
+        <file alias="qpdfview_lt.qm">translations/qpdfview_lt.qm</file>
+        <file alias="qpdfview_ms.qm">translations/qpdfview_ms.qm</file>
+        <file alias="qpdfview_my.qm">translations/qpdfview_my.qm</file>
+        <file alias="qpdfview_pl.qm">translations/qpdfview_pl.qm</file>
+        <file alias="qpdfview_pt_BR.qm">translations/qpdfview_pt_BR.qm</file>
+        <file alias="qpdfview_pt.qm">translations/qpdfview_pt.qm</file>
+        <file alias="qpdfview_ro.qm">translations/qpdfview_ro.qm</file>
+        <file alias="qpdfview_ru.qm">translations/qpdfview_ru.qm</file>
+        <file alias="qpdfview_sk.qm">translations/qpdfview_sk.qm</file>
+        <file alias="qpdfview_sv.qm">translations/qpdfview_sv.qm</file>
+        <file alias="qpdfview_th.qm">translations/qpdfview_th.qm</file>
+        <file alias="qpdfview_tr.qm">translations/qpdfview_tr.qm</file>
+        <file alias="qpdfview_ug.qm">translations/qpdfview_ug.qm</file>
+        <file alias="qpdfview_uk.qm">translations/qpdfview_uk.qm</file>
+        <file alias="qpdfview_vi.qm">translations/qpdfview_vi.qm</file>
+        <file alias="qpdfview_zh_CN.qm">translations/qpdfview_zh_CN.qm</file>
+    </qresource>
+</RCC>

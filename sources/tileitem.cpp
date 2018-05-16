@@ -24,17 +24,26 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 
 #include "settings.h"
-#include "rendertask.h"
 #include "pageitem.h"
 
 namespace qpdfview
 {
 
+namespace
+{
+
+inline int cacheCost(const QPixmap& pixmap)
+{
+    return qMax(1, pixmap.width() * pixmap.height() * pixmap.depth() / 8 / 1024);
+}
+
+} // anonymous
+
 Settings* TileItem::s_settings = 0;
 
 QCache< TileItem::CacheKey, TileItem::CacheObject > TileItem::s_cache;
 
-TileItem::TileItem(PageItem* page) : QObject(page),
+TileItem::TileItem(PageItem* page) : RenderTaskParent(),
     m_page(page),
     m_rect(),
     m_cropRect(),
@@ -42,7 +51,7 @@ TileItem::TileItem(PageItem* page) : QObject(page),
     m_pixmap(),
     m_obsoletePixmap(),
     m_deleteAfterRender(false),
-    m_renderTask(0)
+    m_renderTask(m_page->m_page, this)
 {
     if(s_settings == 0)
     {
@@ -50,17 +59,12 @@ TileItem::TileItem(PageItem* page) : QObject(page),
     }
 
     s_cache.setMaxCost(s_settings->pageItem().cacheSize());
-
-    m_renderTask = new RenderTask(m_page->m_page, this);
-
-    connect(m_renderTask, SIGNAL(finished()), SLOT(on_renderTask_finished()));
-    connect(m_renderTask, SIGNAL(imageReady(RenderParam,QRect,bool,QImage,QRectF)), SLOT(on_renderTask_imageReady(RenderParam,QRect,bool,QImage,QRectF)));
 }
 
 TileItem::~TileItem()
 {
-    m_renderTask->cancel(true);
-    m_renderTask->wait();
+    m_renderTask.cancel(true);
+    m_renderTask.wait();
 }
 
 void TileItem::setCropRect(const QRectF& cropRect)
@@ -80,7 +84,7 @@ void TileItem::setCropRect(const QRectF& cropRect)
 
 void TileItem::dropCachedPixmaps(PageItem* page)
 {
-    foreach(CacheKey key, s_cache.keys())
+    foreach(const CacheKey& key, s_cache.keys())
     {
         if(key.first == page)
         {
@@ -89,7 +93,7 @@ void TileItem::dropCachedPixmaps(PageItem* page)
     }
 }
 
-bool TileItem::paint(QPainter* painter, const QPointF& topLeft)
+bool TileItem::paint(QPainter* painter, QPointF topLeft)
 {
     const QPixmap& pixmap = takePixmap();
 
@@ -154,7 +158,7 @@ void TileItem::refresh(bool keepObsoletePixmaps)
         m_cropRect = QRectF();
     }
 
-    m_renderTask->cancel(true);
+    m_renderTask.cancel(true);
 
     m_pixmapError = false;
     m_pixmap = QPixmap();
@@ -162,19 +166,21 @@ void TileItem::refresh(bool keepObsoletePixmaps)
 
 int TileItem::startRender(bool prefetch)
 {
-    if(m_pixmapError || m_renderTask->isRunning() || (prefetch && s_cache.contains(cacheKey())))
+    m_page->startLoadInteractiveElements();
+
+    if(m_pixmapError || m_renderTask.isRunning() || (prefetch && s_cache.contains(cacheKey())))
     {
         return 0;
     }
 
-    m_renderTask->start(m_page->m_renderParam, m_rect, prefetch);
+    m_renderTask.start(m_page->m_renderParam, m_rect, prefetch);
 
     return 1;
 }
 
 void TileItem::cancelRender()
 {
-    m_renderTask->cancel();
+    m_renderTask.cancel();
 
     m_pixmap = QPixmap();
     m_obsoletePixmap = QPixmap();
@@ -182,36 +188,25 @@ void TileItem::cancelRender()
 
 void TileItem::deleteAfterRender()
 {
-    if(!m_renderTask->isRunning())
+    if(!m_renderTask.isRunning())
     {
-        deleteLater();
+        m_renderTask.deleteParentLater();
     }
     else
     {
-        m_renderTask->cancel(true);
+        m_renderTask.cancel(true);
 
         m_deleteAfterRender = true;
     }
 }
 
-void TileItem::on_renderTask_finished()
-{
-    if(m_deleteAfterRender)
-    {
-        deleteLater();
-    }
-    else if(!m_page->useTiling() || m_page->m_exposedTileItems.contains(this))
-    {
-        m_page->update();
-    }
-}
-
-void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
-                                        const QRect& rect, bool prefetch,
-                                        const QImage& image, const QRectF& cropRect)
+void TileItem::on_finished(const RenderParam& renderParam,
+                           const QRect& rect, bool prefetch,
+                           const QImage& image, const QRectF& cropRect)
 {
     if(m_page->m_renderParam != renderParam || m_rect != rect)
     {
+        on_finishedOrCanceled();
         return;
     }
 
@@ -221,21 +216,42 @@ void TileItem::on_renderTask_imageReady(const RenderParam& renderParam,
     {
         m_pixmapError = true;
 
+        on_finishedOrCanceled();
         return;
     }
 
-    if(prefetch && !m_renderTask->wasCanceledForcibly())
+    if(prefetch && !m_renderTask.wasCanceledForcibly())
     {
-        const int cost = qMax(1, image.width() * image.height() * image.depth() / 8);
-        s_cache.insert(cacheKey(), new CacheObject(QPixmap::fromImage(image), cropRect), cost);
+        const QPixmap pixmap = QPixmap::fromImage(image);
+
+        s_cache.insert(cacheKey(), new CacheObject(pixmap, cropRect), cacheCost(pixmap));
 
         setCropRect(cropRect);
     }
-    else if(!m_renderTask->wasCanceled())
+    else if(!m_renderTask.wasCanceled())
     {
         m_pixmap = QPixmap::fromImage(image);
 
         setCropRect(cropRect);
+    }
+
+    on_finishedOrCanceled();
+}
+
+void TileItem::on_canceled()
+{
+    on_finishedOrCanceled();
+}
+
+void TileItem::on_finishedOrCanceled()
+{
+    if(m_deleteAfterRender)
+    {
+        m_renderTask.deleteParentLater();
+    }
+    else if(!m_page->useTiling() || m_page->m_exposedTileItems.contains(this))
+    {
+        m_page->update();
     }
 }
 
@@ -265,8 +281,7 @@ QPixmap TileItem::takePixmap()
 
     if(!m_pixmap.isNull())
     {
-        const int cost = qMax(1, m_pixmap.width() * m_pixmap.height() * m_pixmap.depth() / 8);
-        s_cache.insert(key, new CacheObject(m_pixmap, m_cropRect), cost);
+        s_cache.insert(key, new CacheObject(m_pixmap, m_cropRect), cacheCost(m_pixmap));
 
         pixmap = m_pixmap;
     }

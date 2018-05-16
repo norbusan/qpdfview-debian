@@ -26,6 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QDateTime>
 #include <QHash>
+#include <QVector>
 
 namespace qpdfview
 {
@@ -38,13 +39,20 @@ struct BookmarkItem
     QString comment;
     QDateTime modified;
 
-    BookmarkItem(int page, const QString& label = QString(), const QString& comment = QString(), const QDateTime& modified = QDateTime::currentDateTime()) :
+    BookmarkItem(int page = -1, const QString& label = QString(), const QString& comment = QString(), const QDateTime& modified = QDateTime::currentDateTime()) :
         page(page),
         label(label),
         comment(comment),
         modified(modified) {}
 
 };
+
+} // namespace qpdfview
+
+Q_DECLARE_TYPEINFO(qpdfview::BookmarkItem, Q_MOVABLE_TYPE);
+
+namespace qpdfview
+{
 
 class BookmarkModel : public QAbstractListModel
 {
@@ -53,10 +61,10 @@ class BookmarkModel : public QAbstractListModel
 public:
     static BookmarkModel* fromPath(const QString& path, bool create = false);
 
-    static QList< QString > knownPaths();
+    static QList< QString > paths();
 
-    static void forgetPath(const QString& path);
-    static void forgetAllPaths();
+    static void removePath(const QString& path);
+    static void removeAllPaths();
 
 
     bool isEmpty() const { return m_bookmarks.isEmpty(); }
@@ -88,7 +96,7 @@ private:
     static QHash< QString, BookmarkModel* > s_instances;
     BookmarkModel(QObject* parent = 0);
 
-    QList< BookmarkItem > m_bookmarks;
+    QVector< BookmarkItem > m_bookmarks;
 
 };
 

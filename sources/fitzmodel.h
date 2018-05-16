@@ -52,7 +52,7 @@ namespace Model
 
         QSizeF size() const;
 
-        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, const QRect& boundingRect) const;
+        QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const;
 
         QList< Link* > links() const;
 
@@ -83,7 +83,7 @@ namespace Model
 
         void setPaperColor(const QColor& paperColor);
 
-        void loadOutline(QStandardItemModel* outlineModel) const;
+        Outline outline() const;
 
     private:
         Q_DISABLE_COPY(FitzDocument)

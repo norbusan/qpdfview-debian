@@ -28,6 +28,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopWidget>
 #include <QDialogButtonBox>
 #include <QFormLayout>
+#include <QGroupBox>
 #include <QHeaderView>
 #include <QPushButton>
 #include <QShortcut>
@@ -77,7 +78,7 @@ QColor validColorFromCurrentText(const QComboBox* comboBox, const QColor& defaul
     return color.isValid() ? color : defaultColor;
 }
 
-void setCurrentIndexFromKeyboardModifiers(QComboBox* comboBox, const Qt::KeyboardModifiers& modifiers)
+void setCurrentIndexFromKeyboardModifiers(QComboBox* comboBox, Qt::KeyboardModifiers modifiers)
 {
     comboBox->setCurrentIndex(comboBox->findData(static_cast< int >(modifiers)));
 }
@@ -155,11 +156,24 @@ SettingsDialog::SettingsDialog(QWidget* parent) : QDialog(parent)
 
     m_behaviorLayout = new QFormLayout(m_tabWidget->widget(0));
     m_interfaceLayout = new QFormLayout(m_tabWidget->widget(2));
-    m_modifiersLayout = new QFormLayout(m_tabWidget->widget(4));
 
-    setLayout(new QVBoxLayout(this));
-    layout()->addWidget(m_tabWidget);
-    layout()->addWidget(m_dialogButtonBox);
+    m_wheelModifiersGroupBox = new QGroupBox(tr("Mouse wheel modifiers"));
+    m_wheelModifiersLayout = new QFormLayout(m_wheelModifiersGroupBox);
+
+    m_buttonModifiersGroupBox = new QGroupBox(tr("Mouse button modifiers"));
+    m_buttonModifiersLayout = new QFormLayout(m_buttonModifiersGroupBox);
+
+    QWidget* modifiersTab = m_tabWidget->widget(4);
+    QVBoxLayout* modifiersLayout = new QVBoxLayout(modifiersTab);
+    modifiersTab->setLayout(modifiersLayout);
+    modifiersLayout->addWidget(m_wheelModifiersGroupBox);
+    modifiersLayout->addWidget(m_buttonModifiersGroupBox);
+    modifiersLayout->addStretch();
+
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    setLayout(layout);
+    layout->addWidget(m_tabWidget);
+    layout->addWidget(m_dialogButtonBox);
 
     resize(s_settings->mainWindow().settingsDialogSize(sizeHint()));
 
@@ -252,7 +266,7 @@ void SettingsDialog::createBehaviorTab()
                                                    s_settings->mainWindow().restorePerFileSettings());
 
     m_saveDatabaseInterval = addSpinBox(m_behaviorLayout, tr("Save database interval:"), QString(), tr(" min"), tr("Never"),
-                                        0, 60, 1, s_settings->mainWindow().saveDatabaseInterval() / 1000 / 60);
+                                        -1, 60, 1, s_settings->mainWindow().saveDatabaseInterval() / 1000 / 60);
 
 #ifndef WITH_SQL
 
@@ -274,12 +288,18 @@ void SettingsDialog::createBehaviorTab()
     m_synchronizeOutlineViewCheckBox = addCheckBox(m_behaviorLayout, tr("Synchronize outline view:"), QString(),
                                                    s_settings->mainWindow().synchronizeOutlineView());
 
+    m_synchronizeSplitViewsCheckBox = addCheckBox(m_behaviorLayout, tr("Synchronize split views:"), QString(),
+                                                  s_settings->mainWindow().synchronizeSplitViews());
+
 
     m_minimalScrollingCheckBox = addCheckBox(m_behaviorLayout, tr("Minimal scrolling:"), QString(),
-                                               s_settings->documentView().minimalScrolling());
+                                             s_settings->documentView().minimalScrolling());
 
     m_zoomFactorSpinBox = addDoubleSpinBox(m_behaviorLayout, tr("Zoom factor:"), QString(), QString(), QString(),
                                            1.0, 2.0, 0.05, s_settings->documentView().zoomFactor());
+
+    m_parallelSearchExecutionCheckBox = addCheckBox(m_behaviorLayout, tr("Parallel search execution:"), QString(),
+                                                    s_settings->documentView().parallelSearchExecution());
 
 
     m_highlightDurationSpinBox = addSpinBox(m_behaviorLayout, tr("Highlight duration:"), QString(), tr(" ms"), tr("None"),
@@ -314,9 +334,11 @@ void SettingsDialog::acceptBehaivorTab()
     s_settings->presentationView().setScreen(m_presentationScreenSpinBox->value());
 
     s_settings->mainWindow().setSynchronizeOutlineView(m_synchronizeOutlineViewCheckBox->isChecked());
+    s_settings->mainWindow().setSynchronizeSplitViews(m_synchronizeSplitViewsCheckBox->isChecked());
 
     s_settings->documentView().setMinimalScrolling(m_minimalScrollingCheckBox->isChecked());
     s_settings->documentView().setZoomFactor(m_zoomFactorSpinBox->value());
+    s_settings->documentView().setParallelSearchExecution(m_parallelSearchExecutionCheckBox->isChecked());
 
     s_settings->documentView().setHighlightDuration(m_highlightDurationSpinBox->value());
     s_settings->pageItem().setHighlightColor(validColorFromCurrentText(m_highlightColorComboBox, Defaults::PageItem::highlightColor()));
@@ -343,9 +365,11 @@ void SettingsDialog::resetBehaviorTab()
     m_presentationScreenSpinBox->setValue(Defaults::PresentationView::screen());
 
     m_synchronizeOutlineViewCheckBox->setChecked(Defaults::MainWindow::synchronizeOutlineView());
+    m_synchronizeSplitViewsCheckBox->setChecked(Defaults::MainWindow::synchronizeSplitViews());
 
     m_minimalScrollingCheckBox->setChecked(Defaults::DocumentView::minimalScrolling());
     m_zoomFactorSpinBox->setValue(Defaults::DocumentView::zoomFactor());
+    m_parallelSearchExecutionCheckBox->setChecked(Defaults::DocumentView::parallelSearchExecution());
 
     m_highlightDurationSpinBox->setValue(Defaults::DocumentView::highlightDuration());
     setCurrentTextToColorName(m_highlightColorComboBox, Defaults::PageItem::highlightColor());
@@ -666,24 +690,32 @@ void SettingsDialog::resetInterfaceTab()
 
 void SettingsDialog::createModifiersTab()
 {
-    m_zoomModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Zoom:"), QString(),
+    m_zoomModifiersComboBox = addModifiersComboBox(m_wheelModifiersLayout, tr("Zoom:"), QString(),
                                                    s_settings->documentView().zoomModifiers());
 
-    m_rotateModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Rotate:"), QString(),
+    m_rotateModifiersComboBox = addModifiersComboBox(m_wheelModifiersLayout, tr("Rotate:"), QString(),
                                                      s_settings->documentView().rotateModifiers());
 
-    m_scrollModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Scroll:"), QString(),
+    m_scrollModifiersComboBox = addModifiersComboBox(m_wheelModifiersLayout, tr("Scroll:"), QString(),
                                                      s_settings->documentView().scrollModifiers());
 
-
-    m_copyToClipboardModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Copy to clipboard:"), QString(),
+    m_copyToClipboardModifiersComboBox = addModifiersComboBox(m_buttonModifiersLayout, tr("Copy to clipboard:"), QString(),
                                                               s_settings->pageItem().copyToClipboardModifiers());
 
-    m_addAnnotationModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Add annotation:"), QString(),
+    m_addAnnotationModifiersComboBox = addModifiersComboBox(m_buttonModifiersLayout, tr("Add annotation:"), QString(),
                                                             s_settings->pageItem().addAnnotationModifiers());
 
-    m_zoomToSelectionModifiersComboBox = addModifiersComboBox(m_modifiersLayout, tr("Zoom to selection:"), QString(),
+    m_zoomToSelectionModifiersComboBox = addModifiersComboBox(m_buttonModifiersLayout, tr("Zoom to selection:"), QString(),
                                                               s_settings->pageItem().zoomToSelectionModifiers());
+
+    m_openInSourceEditorModifiersComboBox = addModifiersComboBox(m_buttonModifiersLayout, tr("Open in source editor:"), QString(),
+                                                                 s_settings->pageItem().openInSourceEditorModifiers());
+
+#ifndef WITH_SYNCTEX
+
+    m_openInSourceEditorModifiersComboBox->setEnabled(false);
+
+#endif // WITH_SYNCTEX
 }
 
 void SettingsDialog::acceptModifiersTab()
@@ -695,6 +727,7 @@ void SettingsDialog::acceptModifiersTab()
     s_settings->pageItem().setCopyToClipboardModifiers(keyboardModifierFromCurrentIndex(m_copyToClipboardModifiersComboBox));
     s_settings->pageItem().setAddAnnotationModifiers(keyboardModifierFromCurrentIndex(m_addAnnotationModifiersComboBox));
     s_settings->pageItem().setZoomToSelectionModifiers(keyboardModifierFromCurrentIndex(m_zoomToSelectionModifiersComboBox));
+    s_settings->pageItem().setOpenInSourceEditorModifiers(keyboardModifierFromCurrentIndex(m_openInSourceEditorModifiersComboBox));
 }
 
 void SettingsDialog::resetModifiersTab()
@@ -706,6 +739,7 @@ void SettingsDialog::resetModifiersTab()
     setCurrentIndexFromKeyboardModifiers(m_copyToClipboardModifiersComboBox, Defaults::PageItem::copyToClipboardModifiers());
     setCurrentIndexFromKeyboardModifiers(m_addAnnotationModifiersComboBox, Defaults::PageItem::addAnnotationModifiers());
     setCurrentIndexFromKeyboardModifiers(m_zoomToSelectionModifiersComboBox, Defaults::PageItem::zoomToSelectionModifiers());
+    setCurrentIndexFromKeyboardModifiers(m_openInSourceEditorModifiersComboBox, Defaults::PageItem::openInSourceEditorModifiers());
 }
 
 QCheckBox* SettingsDialog::addCheckBox(QFormLayout* layout, const QString& label, const QString& toolTip, bool checked)
@@ -779,28 +813,22 @@ QComboBox* SettingsDialog::addComboBox(QFormLayout* layout, const QString& label
     return comboBox;
 }
 
-QComboBox* SettingsDialog::addDataSizeComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, int dataSize)
+QComboBox* SettingsDialog::addDataSizeComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, int initialDataSize)
 {
     QComboBox* comboBox = new QComboBox(this);
 
-    comboBox->addItem(tr("%1 MB").arg(0), 0);
-    comboBox->addItem(tr("%1 MB").arg(8), 8 << 20);
-    comboBox->addItem(tr("%1 MB").arg(16), 16 << 20);
-    comboBox->addItem(tr("%1 MB").arg(32), 32 << 20);
-    comboBox->addItem(tr("%1 MB").arg(64), 64 << 20);
-    comboBox->addItem(tr("%1 MB").arg(128), 128 << 20);
-    comboBox->addItem(tr("%1 MB").arg(256), 256 << 20);
-    comboBox->addItem(tr("%1 MB").arg(512), 512 << 20);
-    comboBox->addItem(tr("%1 MB").arg(1024), 1024 << 20);
-    comboBox->addItem(tr("%1 MB").arg(2048), INT_MAX);
+    for(int dataSize = 8; dataSize <= 8192; dataSize *= 2)
+    {
+        comboBox->addItem(tr("%1 MB").arg(dataSize), dataSize * 1024);
+    }
 
-    int currentIndex = comboBox->findData(dataSize);
+    int currentIndex = comboBox->findData(initialDataSize);
 
     if(currentIndex == -1)
     {
         currentIndex = comboBox->count();
 
-        comboBox->addItem(tr("%1 MB").arg(dataSize >> 20), dataSize);
+        comboBox->addItem(tr("%1 MB").arg(initialDataSize / 1024), initialDataSize);
     }
 
     comboBox->setCurrentIndex(currentIndex);
@@ -826,7 +854,7 @@ QComboBox* SettingsDialog::addColorComboBox(QFormLayout* layout, const QString& 
     return comboBox;
 }
 
-QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const Qt::KeyboardModifiers& modifiers)
+QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, Qt::KeyboardModifiers modifiers)
 {
     QComboBox* comboBox = new QComboBox(this);
     comboBox->addItem(QShortcut::tr("Shift"), static_cast< int >(Qt::ShiftModifier));
@@ -837,6 +865,7 @@ QComboBox* SettingsDialog::addModifiersComboBox(QFormLayout* layout, const QStri
     comboBox->addItem(QShortcut::tr("Ctrl and Alt"), static_cast< int >(Qt::ControlModifier | Qt::AltModifier));
     comboBox->addItem(QShortcut::tr("Right mouse button"), static_cast< int >(Qt::RightButton));
     comboBox->addItem(QShortcut::tr("Middle mouse button"), static_cast< int >(Qt::MidButton));
+    comboBox->addItem(QShortcut::tr("None"), static_cast< int >(Qt::NoModifier));
 
     setCurrentIndexFromKeyboardModifiers(comboBox, modifiers);
 

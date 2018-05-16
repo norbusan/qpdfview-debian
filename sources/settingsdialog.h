@@ -31,6 +31,7 @@ class QComboBox;
 class QDialogButtonBox;
 class QDoubleSpinBox;
 class QFormLayout;
+class QGroupBox;
 class QLineEdit;
 class QSpinBox;
 class QTableView;
@@ -76,7 +77,12 @@ private:
 
     QFormLayout* m_behaviorLayout;
     QFormLayout* m_interfaceLayout;
-    QFormLayout* m_modifiersLayout;
+
+    QGroupBox* m_wheelModifiersGroupBox;
+    QFormLayout* m_wheelModifiersLayout;
+
+    QGroupBox* m_buttonModifiersGroupBox;
+    QFormLayout* m_buttonModifiersLayout;
 
     // behavior
 
@@ -96,9 +102,11 @@ private:
     QSpinBox* m_presentationScreenSpinBox;
 
     QCheckBox* m_synchronizeOutlineViewCheckBox;
+    QCheckBox* m_synchronizeSplitViewsCheckBox;
 
     QCheckBox* m_minimalScrollingCheckBox;
     QDoubleSpinBox* m_zoomFactorSpinBox;
+    QCheckBox* m_parallelSearchExecutionCheckBox;
 
     QSpinBox* m_highlightDurationSpinBox;
     QComboBox* m_highlightColorComboBox;
@@ -190,6 +198,7 @@ private:
     QComboBox* m_copyToClipboardModifiersComboBox;
     QComboBox* m_addAnnotationModifiersComboBox;
     QComboBox* m_zoomToSelectionModifiersComboBox;
+    QComboBox* m_openInSourceEditorModifiersComboBox;
 
     void createModifiersTab();
     void acceptModifiersTab();
@@ -202,9 +211,9 @@ private:
     QSpinBox* addSpinBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QString& suffix, const QString& special, int min, int max, int step, int val);
     QDoubleSpinBox* addDoubleSpinBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QString& suffix, const QString& special, double min, double max, double step, double val);
     QComboBox* addComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QStringList& text, const QList< int >& data, int value);
-    QComboBox* addDataSizeComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, int dataSize);
+    QComboBox* addDataSizeComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, int initialDataSize);
     QComboBox* addColorComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QColor& color);
-    QComboBox* addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const Qt::KeyboardModifiers& modifiers);
+    QComboBox* addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, Qt::KeyboardModifiers modifiers);
 
 };
 

@@ -1,7 +1,8 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2013-2015 Adam Reichold
+Copyright 2013-2018 Adam Reichold
+Copyright 2018 Egor Zenkov
 
 This file is part of qpdfview.
 
@@ -48,7 +49,7 @@ public:
     static Database* instance();
     ~Database();
 
-    QStringList loadInstanceNames();
+    QStringList knownInstanceNames();
 
     struct RestoreTab
     {
@@ -56,7 +57,7 @@ public:
     };
 
     void restoreTabs(const RestoreTab& restoreTab);
-    void saveTabs(const QList< DocumentView* >& tabs);
+    void saveTabs(const QVector< DocumentView* >& tabs);
     void clearTabs();
 
     void restoreBookmarks();
@@ -76,13 +77,15 @@ private:
 
 #ifdef WITH_SQL
 
-    bool prepareTabs_v4();
+    bool prepareTabs_v5();
     bool prepareBookmarks_v3();
     bool preparePerFileSettings_v4();
+    bool preparePerFileSettings_Outline_v1();
 
-    void migrateTabs_v3_v4();
-    void migrateTabs_v2_v4();
-    void migrateTabs_v1_v4();
+    void migrateTabs_v4_v5();
+    void migrateTabs_v3_v5();
+    void migrateTabs_v2_v5();
+    void migrateTabs_v1_v5();
     void migrateBookmarks_v2_v3();
     void migrateBookmarks_v1_v3();
     void migratePerFileSettings_v3_v4();

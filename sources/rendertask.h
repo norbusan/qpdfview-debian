@@ -25,6 +25,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QImage>
 #include <QMutex>
 #include <QRunnable>
+#include <QSet>
 #include <QWaitCondition>
 
 #include "renderparam.h"
@@ -39,12 +40,58 @@ class Page;
 
 class Settings;
 
-class RenderTask : public QObject, QRunnable
+class RenderTaskParent
+{
+    friend struct RenderTaskFinishedEvent;
+    friend struct RenderTaskCanceledEvent;
+    friend struct DeleteParentLaterEvent;
+
+public:
+    virtual ~RenderTaskParent();
+
+private:
+    virtual void on_finished(const RenderParam& renderParam,
+                             const QRect& rect, bool prefetch,
+                             const QImage& image, const QRectF& cropRect) = 0;
+    virtual void on_canceled() = 0;
+};
+
+class RenderTaskDispatcher : public QObject
 {
     Q_OBJECT
 
+    friend class RenderTask;
+
+private:
+    Q_DISABLE_COPY(RenderTaskDispatcher)
+
+    RenderTaskDispatcher(QObject* parent = 0);
+
+
+    void finished(RenderTaskParent* parent,
+                  const RenderParam& renderParam,
+                  const QRect& rect, bool prefetch,
+                  const QImage& image, const QRectF& cropRect);
+    void canceled(RenderTaskParent* parent);
+
+    void deleteParentLater(RenderTaskParent* parent);
+
 public:
-    explicit RenderTask(Model::Page* page, QObject* parent = 0);
+    bool event(QEvent* event);
+
+private:
+    QSet< RenderTaskParent* > m_activeParents;
+
+    void addActiveParent(RenderTaskParent* parent);
+    void removeActiveParent(RenderTaskParent* parent);
+
+};
+
+class RenderTask : public QRunnable
+{
+public:
+    explicit RenderTask(Model::Page* page, RenderTaskParent* parent = 0);
+    ~RenderTask();
 
     void wait();
 
@@ -56,23 +103,20 @@ public:
 
     void run();
 
-signals:
-    void finished();
-
-    void imageReady(const RenderParam& renderParam,
-                    const QRect& rect, bool prefetch,
-                    const QImage& image, const QRectF& cropRect);
-
-public slots:
     void start(const RenderParam& renderParam,
                const QRect& rect, bool prefetch);
 
     void cancel(bool force = false) { setCancellation(force); }
 
+    void deleteParentLater();
+
 private:
     Q_DISABLE_COPY(RenderTask)
 
     static Settings* s_settings;
+
+    static RenderTaskDispatcher* s_dispatcher;
+    RenderTaskParent* m_parent;
 
     mutable QMutex m_mutex;
     QWaitCondition m_waitCondition;
@@ -92,12 +136,12 @@ private:
     bool testCancellation();
     int loadCancellation() const;
 
-    void finish();
+    void finish(bool canceled);
 
 
     Model::Page* m_page;
 
-    static RenderParam s_defaultRenderParam;
+    static const RenderParam s_defaultRenderParam;
     RenderParam m_renderParam;
 
     QRect m_rect;

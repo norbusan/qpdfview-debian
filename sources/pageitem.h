@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #define PAGEITEM_H
 
 #include <QCache>
+#include <QFutureWatcher>
 #include <QGraphicsObject>
 #include <QIcon>
 #include <QSet>
@@ -90,8 +91,8 @@ public:
     const QTransform& transform() const { return m_transform; }
     const QTransform& normalizedTransform() const { return m_normalizedTransform; }
 
-    QPointF sourcePos(const QPointF& point) const { return m_transform.inverted().map(point); }
-    QPointF normalizedSourcePos(const QPointF& point) const { return m_normalizedTransform.inverted().map(point); }
+    QPointF sourcePos(QPointF point) const { return m_transform.inverted().map(point); }
+    QPointF normalizedSourcePos(QPointF point) const { return m_normalizedTransform.inverted().map(point); }
 
 signals:
     void cropRectChanged();
@@ -104,6 +105,7 @@ signals:
     void rubberBandFinished();
 
     void zoomToSelection(int page, const QRectF& rect);
+    void openInSourceEditor(int page, QPointF pos);
 
     void wasModified();
 
@@ -134,7 +136,7 @@ protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent* event);
 
 private slots:
-    virtual void loadInteractiveElements();
+    void on_loadInteractiveElements_finished();
 
 private:
     Q_DISABLE_COPY(PageItem)
@@ -160,6 +162,11 @@ private:
 
     // interactive elements
 
+    QFutureWatcher< void >* m_loadInteractiveElements;
+
+    void startLoadInteractiveElements();
+    void loadInteractiveElements();
+
     QList< Model::Link* > m_links;
     QList< Model::Annotation* > m_annotations;
     QList< Model::FormField* > m_formFields;
@@ -167,11 +174,11 @@ private:
     RubberBandMode m_rubberBandMode;
     QRectF m_rubberBand;
 
-    void copyToClipboard(const QPoint& screenPos);
-    void addAnnotation(const QPoint& screenPos);
+    void copyToClipboard(QPoint screenPos);
+    void addAnnotation(QPoint screenPos);
 
-    void showLinkContextMenu(Model::Link* link, const QPoint& screenPos);
-    void showAnnotationContextMenu(Model::Annotation* annotation, const QPoint& screenPos);
+    void showLinkContextMenu(Model::Link* link, QPoint screenPos);
+    void showAnnotationContextMenu(Model::Annotation* annotation, QPoint screenPos);
 
     // overlay
 

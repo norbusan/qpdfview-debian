@@ -1,6 +1,6 @@
 /*
 
-Copyright 2012-2013, 2015 Adam Reichold
+Copyright 2012-2013, 2015-2017 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -28,6 +28,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include <QImageReader>
 #include <QMessageBox>
 #include <QPluginLoader>
+#include <QProcess>
+#include <QTemporaryFile>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 
@@ -54,9 +56,7 @@ Plugin* loadStaticPlugin(const QString& objectName)
     {
         if(object->objectName() == objectName)
         {
-            Plugin* plugin = qobject_cast< Plugin* >(object);
-
-            if(plugin != 0)
+            if(Plugin* plugin = qobject_cast< Plugin* >(object))
             {
                 return plugin;
             }
@@ -70,22 +70,33 @@ Plugin* loadStaticPlugin(const QString& objectName)
 
 Plugin* loadPlugin(const QString& fileName)
 {
-    QPluginLoader pluginLoader(QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName));
+    QPluginLoader pluginLoader;
+
+#ifdef PLUGIN_RESOLVE_ALL
+
+    pluginLoader.setLoadHints(QLibrary::ResolveAllSymbolsHint);
+
+#endif // PLUGIN_RESOLVE_ALL
+
+    const QString localFileName = QDir(QApplication::applicationDirPath()).absoluteFilePath(fileName);
+    pluginLoader.setFileName(localFileName);
 
     if(!pluginLoader.load())
     {
-        const QString firstFileName = pluginLoader.fileName();
-        const QString firstErrorString = pluginLoader.errorString();
+        const QString localErrorString = pluginLoader.errorString();
 
-        pluginLoader.setFileName(QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName));
+        const QString globalFileName = QDir(PLUGIN_INSTALL_PATH).absoluteFilePath(fileName);
+        pluginLoader.setFileName(globalFileName);
 
         if(!pluginLoader.load())
         {
-            qCritical() << "Could not load plug-in in first attempt:" << firstFileName;
-            qCritical() << firstErrorString;
+            const QString globalErrorString = pluginLoader.errorString();
 
-            qCritical() << "Could not load plug-in in second attempt:" << pluginLoader.fileName();
-            qCritical() << pluginLoader.errorString();
+            qCritical() << "Could not load local plug-in:" << localFileName;
+            qCritical() << localErrorString;
+
+            qCritical() << "Could not load global plug-in:" << globalFileName;
+            qCritical() << globalErrorString;
 
             return 0;
         }
@@ -128,15 +139,32 @@ QStringList supportedImageFormats()
     {
         const QString name = QString::fromLocal8Bit(format);
 
-        formats.append(QLatin1String("*.") + name);
+        formats.append(QLatin1String("*.") + name.toLower());
+        formats.append(QLatin1String("*.") + name.toUpper());
     }
 
     return formats;
 }
 
-const char* const pdfMimeType = "application/pdf";
-const char* const psMimeType = "application/postscript";
-const char* const djvuMimeType = "image/vnd.djvu";
+struct MimeTypeMapping
+{
+    const char* mimeType;
+    PluginHandler::FileType fileType;
+    const char* suffix;
+    const char* alternativeSuffix;
+};
+
+const MimeTypeMapping mimeTypeMappings[] =
+{
+    { "application/pdf", PluginHandler::PDF, "pdf", 0 },
+    { "application/postscript", PluginHandler::PS, "ps", "eps" },
+    { "image/vnd.djvu", PluginHandler::DjVu, "djvu", "djv" },
+    { "application/x-gzip", PluginHandler::GZip, "gz", 0 },
+    { "application/x-bzip2", PluginHandler::BZip2, "bz2", 0 },
+    { "application/x-xz", PluginHandler::XZ, "xz", 0 }
+};
+
+const MimeTypeMapping* const endOfMimeTypeMappings = mimeTypeMappings + sizeof(mimeTypeMappings) / sizeof(mimeTypeMappings[0]);
 
 PluginHandler::FileType matchFileType(const QString& filePath)
 {
@@ -146,23 +174,21 @@ PluginHandler::FileType matchFileType(const QString& filePath)
 
     const QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filePath, QMimeDatabase::MatchContent);
 
-    if(mimeType.inherits(pdfMimeType))
+    for(const MimeTypeMapping* mapping = mimeTypeMappings; mapping != endOfMimeTypeMappings; ++mapping)
     {
-        fileType = PluginHandler::PDF;
+        if(mimeType.inherits(mapping->mimeType))
+        {
+            fileType = mapping->fileType;
+            break;
+        }
     }
-    else if(mimeType.inherits(psMimeType))
-    {
-        fileType = PluginHandler::PS;
-    }
-    else if(mimeType.inherits(djvuMimeType))
-    {
-        fileType = PluginHandler::DjVu;
-    }
-    else if(isSupportedImageFormat(mimeType))
+
+    if(fileType == PluginHandler::Unknown && isSupportedImageFormat(mimeType))
     {
         fileType = PluginHandler::Image;
     }
-    else
+
+    if(fileType == PluginHandler::Unknown)
     {
         qDebug() << "Unknown MIME type:" << mimeType.name();
     }
@@ -175,25 +201,23 @@ PluginHandler::FileType matchFileType(const QString& filePath)
 
     if(magic_load(cookie, 0) == 0)
     {
-        const char* mimeType = magic_file(cookie, QFile::encodeName(filePath));
+        const char* const mimeType = magic_file(cookie, QFile::encodeName(filePath));
 
-        if(qstrncmp(mimeType, pdfMimeType, qstrlen(pdfMimeType)) == 0)
+        for(const MimeTypeMapping* mapping = mimeTypeMappings; mapping != endOfMimeTypeMappings; ++mapping)
         {
-            fileType = PluginHandler::PDF;
+            if(qstrcmp(mimeType, mapping->mimeType) == 0)
+            {
+                fileType = mapping->fileType;
+                break;
+            }
         }
-        else if(qstrncmp(mimeType, psMimeType, qstrlen(psMimeType)) == 0)
-        {
-            fileType = PluginHandler::PS;
-        }
-        else if(qstrncmp(mimeType, djvuMimeType, qstrlen(djvuMimeType)) == 0)
-        {
-            fileType = PluginHandler::DjVu;
-        }
-        else if(isSupportedImageFormat(filePath))
+
+        if(fileType == PluginHandler::Unknown && isSupportedImageFormat(filePath))
         {
             fileType = PluginHandler::Image;
         }
-        else
+
+        if(fileType == PluginHandler::Unknown)
         {
             qDebug() << "Unknown MIME type:" << mimeType;
         }
@@ -205,23 +229,21 @@ PluginHandler::FileType matchFileType(const QString& filePath)
 
     const QString suffix = QFileInfo(filePath).suffix().toLower();
 
-    if(suffix == QLatin1String("pdf"))
+    for(const MimeTypeMapping* mapping = mimeTypeMappings; mapping != endOfMimeTypeMappings; ++mapping)
     {
-        fileType = PluginHandler::PDF;
+        if(suffix == mapping->suffix || (mapping->alternativeSuffix != 0 && suffix == mapping->alternativeSuffix))
+        {
+            fileType = mapping->fileType;
+            break;
+        }
     }
-    else if(suffix == QLatin1String("ps") || suffix == QLatin1String("eps"))
-    {
-        fileType = PluginHandler::PS;
-    }
-    else if(suffix == QLatin1String("djvu") || suffix == QLatin1String("djv"))
-    {
-        fileType = PluginHandler::DjVu;
-    }
-    else if(isSupportedImageFormat(filePath))
+
+    if(fileType == PluginHandler::Unknown && isSupportedImageFormat(filePath))
     {
         fileType = PluginHandler::Image;
     }
-    else
+
+    if(fileType == PluginHandler::Unknown)
     {
         qDebug() << "Unkown file suffix:" << suffix;
     }
@@ -231,6 +253,90 @@ PluginHandler::FileType matchFileType(const QString& filePath)
 #endif // QT_VERSION
 
     return fileType;
+}
+
+int execute(QProcess& process, const QString& program, const QStringList& arguments = QStringList())
+{
+    process.start(program, arguments, QIODevice::NotOpen);
+
+    if(!process.waitForStarted())
+    {
+        return -1;
+    }
+
+    if(!process.waitForFinished())
+    {
+        return -2;
+    }
+
+    return process.exitCode();
+}
+
+QStringList supportedCompressedFormats()
+{
+    QStringList formats;
+
+    QProcess process;
+    process.setStandardInputFile("/dev/null");
+    process.setStandardOutputFile("/dev/null");
+
+    if(execute(process, "gzip") >= 0)
+    {
+        formats.append("*.gz *.GZ");
+    }
+
+    if(execute(process, "bzip2") >= 0)
+    {
+        formats.append("*.bz2 *.BZ2");
+    }
+
+    if(execute(process, "xz") >= 0)
+    {
+        formats.append("*.xz *.XZ");
+    }
+
+    return formats;
+}
+
+QString decompressToTemporaryFile(const QString& filePath, const PluginHandler::FileType fileType)
+{
+    const char* command;
+
+    switch(fileType)
+    {
+    case PluginHandler::GZip:
+        command = "gzip";
+        break;
+    case PluginHandler::BZip2:
+        command = "bzip2";
+        break;
+    case PluginHandler::XZ:
+        command = "xz";
+        break;
+    default:
+        return QString();
+    }
+
+    QTemporaryFile file;
+    file.setAutoRemove(false);
+
+    if(!file.open())
+    {
+        return QString();
+    }
+
+    file.close();
+
+    QProcess process;
+    process.setStandardInputFile("/dev/null");
+    process.setStandardOutputFile(file.fileName());
+
+    if(execute(process, command, QStringList() << "-dck" << filePath) != 0)
+    {
+        return QString();
+    }
+
+    return file.fileName();
 }
 
 } // anonymous
@@ -255,7 +361,7 @@ PluginHandler::~PluginHandler()
     s_instance = 0;
 }
 
-QString PluginHandler::fileTypeName(PluginHandler::FileType fileType)
+QLatin1String PluginHandler::fileTypeName(PluginHandler::FileType fileType)
 {
     switch(fileType)
     {
@@ -270,6 +376,10 @@ QString PluginHandler::fileTypeName(PluginHandler::FileType fileType)
         return QLatin1String("DjVu");
     case PluginHandler::Image:
         return QLatin1String("Image");
+    case PluginHandler::GZip:
+    case PluginHandler::BZip2:
+    case PluginHandler::XZ:
+        return QLatin1String("Compressed");
     }
 }
 
@@ -280,34 +390,55 @@ QStringList PluginHandler::openFilter()
 
 #if defined(WITH_PDF) || defined(WITH_FITZ)
 
-    openFilter.append(QLatin1String("Portable document format (*.pdf)"));
-    supportedFormats.append(QLatin1String("*.pdf"));
+    openFilter.append(QLatin1String("Portable document format (*.pdf *.PDF)"));
+    supportedFormats.append(QLatin1String("*.pdf *.PDF"));
 
 #endif // WITH_PDF // WITH_FITZ
 
 #ifdef WITH_PS
 
-    openFilter.append(QLatin1String("PostScript (*.ps)"));
-    openFilter.append(QLatin1String("Encapsulated PostScript (*.eps)"));
-    supportedFormats.append(QLatin1String("*.ps *.eps"));
+    openFilter.append(QLatin1String("PostScript (*.ps *.PS)"));
+    openFilter.append(QLatin1String("Encapsulated PostScript (*.eps *.EPS)"));
+    supportedFormats.append(QLatin1String("*.ps *.PS *.eps *.EPS"));
 
 #endif // WITH_PS
 
 #ifdef WITH_DJVU
 
-    openFilter.append(QLatin1String("DjVu (*.djvu *.djv)"));
-    supportedFormats.append(QLatin1String("*.djvu *.djv"));
+    openFilter.append(QLatin1String("DjVu (*.djvu *.DJVU *.djv *.DJV)"));
+    supportedFormats.append(QLatin1String("*.djvu *.DJVU *.djv *.DJV"));
 
 #endif // WITH_DJVU
 
 #ifdef WITH_IMAGE
 
-    const QStringList imageFormats = supportedImageFormats();
+    static QStringList imageFormats;
 
-    openFilter.append(tr("Image (%1)").arg(imageFormats.join(QLatin1String(" "))));
-    supportedFormats.append(imageFormats);
+    if(imageFormats.isEmpty())
+    {
+        imageFormats = supportedImageFormats();
+    }
+
+    if(!imageFormats.isEmpty())
+    {
+        openFilter.append(tr("Image (%1)").arg(imageFormats.join(QLatin1String(" "))));
+        supportedFormats.append(imageFormats);
+    }
 
 #endif // WITH_IMAGE
+
+    static QStringList compressedFormats;
+
+    if(compressedFormats.isEmpty())
+    {
+        compressedFormats = supportedCompressedFormats();
+    }
+
+    if(!compressedFormats.isEmpty())
+    {
+        openFilter.append(tr("Compressed (%1)").arg(compressedFormats.join(QLatin1String(" "))));
+        supportedFormats.append(compressedFormats);
+    }
 
     openFilter.prepend(tr("Supported formats (%1)").arg(supportedFormats.join(QLatin1String(" "))));
 
@@ -316,7 +447,22 @@ QStringList PluginHandler::openFilter()
 
 Model::Document* PluginHandler::loadDocument(const QString& filePath)
 {
-    const FileType fileType = matchFileType(filePath);
+    FileType fileType = matchFileType(filePath);
+    QString adjustedFilePath = filePath;
+
+    if(fileType == GZip || fileType == BZip2 || fileType == XZ)
+    {
+        adjustedFilePath = decompressToTemporaryFile(filePath, fileType);
+
+        if(adjustedFilePath.isEmpty())
+        {
+            qWarning() << tr("Could not decompress '%1'!").arg(filePath);
+
+            return 0;
+        }
+
+        fileType = matchFileType(adjustedFilePath);
+    }
 
     if(fileType == Unknown)
     {
@@ -332,7 +478,7 @@ Model::Document* PluginHandler::loadDocument(const QString& filePath)
         return 0;
     }
 
-    return m_plugins.value(fileType)->loadDocument(filePath);
+    return m_plugins.value(fileType)->loadDocument(adjustedFilePath);
 }
 
 SettingsWidget* PluginHandler::createSettingsWidget(FileType fileType, QWidget* parent)
@@ -452,6 +598,6 @@ bool PluginHandler::loadPlugin(FileType fileType)
     #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
         Q_IMPORT_PLUGIN(qpdfview_djvu)
     #else
-        Q_IMPORT_PLUGIN(DjvuPlugin)
+        Q_IMPORT_PLUGIN(DjVuPlugin)
     #endif // QT_VERSION
 #endif // STATIC_DJVU_PLUGIN

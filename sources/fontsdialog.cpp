@@ -32,7 +32,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace qpdfview
 {
 
-FontsDialog::FontsDialog(QStandardItemModel* model, QWidget* parent) : QDialog(parent)
+FontsDialog::FontsDialog(QAbstractItemModel* model, QWidget* parent) : QDialog(parent)
 {
     setWindowTitle(tr("Fonts") + QLatin1String(" - qpdfview"));
 
@@ -40,7 +40,6 @@ FontsDialog::FontsDialog(QStandardItemModel* model, QWidget* parent) : QDialog(p
     m_tableView->setModel(model);
 
     m_tableView->setAlternatingRowColors(true);
-    m_tableView->setSortingEnabled(true);
     m_tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_tableView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 

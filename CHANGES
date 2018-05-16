@@ -1,9 +1,36 @@
+Release 0.4.18:
+  * Added support for nested splitting of document views.
+  * Added support for transparent decompression of document files.
+  * Added restoring of tab order and of current tab.
+  * Added action to open current file in new window. Thanks to Pavel Sanda.
+
+Release 0.4.17:
+  * Fixed query to populate the instance list for the choose instance dialog.
+  * Fixed selecting the complete text upon opening a page number dialog.
+  * Fixed computation of tile sub rect w.r.t. non-unit device pixel ratios.
+  * Moved loading of interactive elements out of the main event loop.
+  * Optimize tile rendering event handling by centralizing dispatch.
+  * The results of the current tab are now automatically expanded in the extended search dock.
+  * Added support for external document links to the outline view.
+  * Added optional page-parallel execution of text search.
+  * Added triggering SyncTeX reverse search using a keyboard modifier.
+  * Keyboard modifiers for mouse interaction can be disabled.
+  * Optimizations of the search dock layout w.r.t. vertical/horizontal positioning.
+  * Added context menu action to move document to a different instance.
+  * Changed cache size tracking from byte to kilobyte granularity to support more than 2 GB cache.
+  * Added a save in addition to the save-as action to simplify modifying documents in-place.
+  * Added Japanese translations. Thanks to Koji Yokota.
+  * Updated British English translations. Thanks to Anthony Harrington.
+  * Updated Russian translations. Thanks to ned.
+  * Updated French translations. Thanks to Charles Monzat.
+  * Updated Lithunian translations. Thanks Moo.
+
 Release 0.4.16:
   * Fixed an incompatibility with FDo's shared MIME type database that broke opening DjVu documents.
   * Added function to dynamically fit thumbnails into the viewport.
   * Added support to use system SyncTeX parser library.
   * Added support to open image formats supported by Qt.
-  * SyncTeX is now available and discoverable with the main view's context menu.
+  * SyncTeX is available and discoverable within the main view's context menu.
   * Updated Czech translations. Thanks to Pavel Fric.
   * Updated Malay translations. Thanks to abuyop.
   * Updated Brazilian Portuguese translations. Thanks to Felipe Braga.

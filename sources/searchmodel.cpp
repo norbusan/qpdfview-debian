@@ -95,17 +95,14 @@ int SearchModel::rowCount(const QModelIndex& parent) const
     {
         return m_views.count();
     }
-    else
+    else if(parent.internalPointer() == 0)
     {
-        if(parent.internalPointer() == 0)
-        {
-            DocumentView* view = m_views.value(parent.row(), 0);
-            const Results* results = m_results.value(view, 0);
+        DocumentView* view = m_views.value(parent.row(), 0);
+        const Results* results = m_results.value(view, 0);
 
-            if(results != 0)
-            {
-                return results->count();
-            }
+        if(results != 0)
+        {
+            return results->count();
         }
     }
 
@@ -114,7 +111,7 @@ int SearchModel::rowCount(const QModelIndex& parent) const
 
 int SearchModel::columnCount(const QModelIndex&) const
 {
-    return 1;
+    return 2;
 }
 
 QVariant SearchModel::data(const QModelIndex& index, int role) const
@@ -143,7 +140,13 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
         case ProgressRole:
             return view->searchProgress();
         case Qt::DisplayRole:
-            return view->title();
+            switch(index.column())
+            {
+            case 0:
+                return view->title();
+            case 1:
+                return results->count();
+            }
         case Qt::ToolTipRole:
             return tr("<b>%1</b> occurrences").arg(results->count());
         }
@@ -178,6 +181,14 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
             return fetchMatchedText(view, result);
         case SurroundingTextRole:
             return fetchSurroundingText(view, result);
+        case Qt::DisplayRole:
+            switch(index.column())
+            {
+            case 0:
+                return QVariant();
+            case 1:
+                return result.first;
+            }
         case Qt::ToolTipRole:
             return tr("<b>%1</b> occurrences on page <b>%2</b>").arg(numberOfResultsOnPage(view, result.first)).arg(result.first);
         }
@@ -323,15 +334,21 @@ void SearchModel::insertResults(DocumentView* view, int page, const QList< QRect
 
 void SearchModel::clearResults(DocumentView* view)
 {
-    foreach(const TextCacheKey& key, m_textWatchers.keys())
+    typedef QHash< TextCacheKey, TextWatcher* >::iterator WatcherIterator;
+
+    for(WatcherIterator iterator = m_textWatchers.begin(); iterator != m_textWatchers.end(); ++iterator)
     {
+        const TextCacheKey& key = iterator.key();
+
         if(key.first == view)
         {
-            TextWatcher* watcher = m_textWatchers.take(key);
-
+            TextWatcher* const watcher = iterator.value();
             watcher->cancel();
             watcher->waitForFinished();
             watcher->deleteLater();
+
+            iterator = m_textWatchers.erase(iterator);
+            continue;
         }
     }
 
@@ -343,7 +360,7 @@ void SearchModel::clearResults(DocumentView* view)
         }
     }
 
-    const QList< DocumentView* >::iterator at = qBinaryFind(m_views.begin(), m_views.end(), view);
+    const QVector< DocumentView* >::iterator at = qBinaryFind(m_views.begin(), m_views.end(), view);
     const int row = at - m_views.begin();
 
     if(at == m_views.end())
@@ -408,7 +425,7 @@ SearchModel::SearchModel(QObject* parent) : QAbstractItemModel(parent),
 
 QModelIndex SearchModel::findView(DocumentView *view) const
 {
-    const QList< DocumentView* >::const_iterator at = qBinaryFind(m_views.constBegin(), m_views.constEnd(), view);
+    const QVector< DocumentView* >::const_iterator at = qBinaryFind(m_views.constBegin(), m_views.constEnd(), view);
     const int row = at - m_views.constBegin();
 
     if(at == m_views.constEnd())
@@ -421,14 +438,11 @@ QModelIndex SearchModel::findView(DocumentView *view) const
 
 QModelIndex SearchModel::findOrInsertView(DocumentView* view)
 {
-    QList< DocumentView* >::iterator at = qBinaryFind(m_views.begin(), m_views.end(), view);
-    int row = at - m_views.begin();
+    const QVector< DocumentView* >::iterator at = qLowerBound(m_views.begin(), m_views.end(), view);
+    const int row = at - m_views.begin();
 
-    if(at == m_views.end())
+    if(at == m_views.end() || *at != view)
     {
-        at = qUpperBound(m_views.begin(), m_views.end(), view);
-        row = at - m_views.begin();
-
         beginInsertRows(QModelIndex(), row, row);
 
         m_views.insert(at, view);

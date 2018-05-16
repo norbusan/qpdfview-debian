@@ -95,7 +95,7 @@ private:
     static SearchModel* s_instance;
     SearchModel(QObject* parent = 0);
 
-    QList< DocumentView* > m_views;
+    QVector< DocumentView* > m_views;
 
     QModelIndex findView(DocumentView* view) const;
     QModelIndex findOrInsertView(DocumentView* view);

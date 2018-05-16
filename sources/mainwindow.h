@@ -1,7 +1,8 @@
 /*
 
 Copyright 2014 S. Razi Alavizadeh
-Copyright 2012-2015 Adam Reichold
+Copyright 2012-2018 Adam Reichold
+Copyright 2018 Pavel Sanda
 Copyright 2012 Michał Trybus
 Copyright 2012 Alexander Volkov
 
@@ -33,6 +34,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QDBusAbstractAdaptor>
 
+class QDBusInterface;
+
 #endif // WITH_DBUS
 
 class QCheckBox;
@@ -42,6 +45,7 @@ class QFileInfo;
 class QModelIndex;
 class QShortcut;
 class QTableView;
+class QToolButton;
 class QTreeView;
 class QWidgetAction;
 
@@ -63,6 +67,7 @@ class RecentlyClosedMenu;
 class BookmarkModel;
 class Database;
 class ShortcutHandler;
+class SearchModel;
 class HelpDialog;
 
 class MainWindow : public QMainWindow
@@ -87,10 +92,13 @@ public slots:
 
     void startSearch(const QString& text);
 
+    void saveDatabase();
+
 protected slots:
-    void on_tabWidget_currentChanged(int index);
+    void on_tabWidget_currentChanged();
     void on_tabWidget_tabCloseRequested(int index);
-    void on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, int index);
+    void on_tabWidget_tabDragRequested(int index);
+    void on_tabWidget_tabContextMenuRequested(QPoint globalPos, int index);
 
     void on_currentTab_documentChanged();
     void on_currentTab_documentModified();
@@ -124,7 +132,14 @@ protected slots:
     void on_currentTab_searchFinished();
     void on_currentTab_searchProgressChanged(int progress);
 
-    void on_currentTab_customContextMenuRequested(const QPoint& pos);
+    void on_currentTab_customContextMenuRequested(QPoint pos);
+
+    void on_splitView_splitHorizontally_triggered();
+    void on_splitView_splitVertically_triggered();
+    void on_splitView_split_triggered(Qt::Orientation orientation, int index);
+    void on_splitView_closeCurrent_triggered();
+    void on_splitView_closeCurrent_triggered(int index);
+    void on_splitView_currentWidgetChanged(QWidget* currentWidget);
 
     void on_currentPage_editingFinished();
     void on_currentPage_returnPressed();
@@ -136,10 +151,17 @@ protected slots:
     void on_open_triggered();
     void on_openInNewTab_triggered();
     void on_openCopyInNewTab_triggered();
+    void on_openCopyInNewTab_triggered(const DocumentView* tab);
+    void on_openCopyInNewWindow_triggered();
+    void on_openCopyInNewWindow_triggered(const DocumentView* tab);
     void on_openContainingFolder_triggered();
+    void on_openContainingFolder_triggered(const DocumentView* tab);
+    void on_moveToInstance_triggered();
+    void on_moveToInstance_triggered(DocumentView* tab);
     void on_refresh_triggered();
-    void on_saveCopy_triggered();
+    void on_save_triggered();
     void on_saveAs_triggered();
+    void on_saveCopy_triggered();
     void on_print_triggered();
 
     void on_recentlyUsed_openTriggered(const QString& filePath);
@@ -199,6 +221,10 @@ protected slots:
     void on_closeTab_triggered();
     void on_closeAllTabs_triggered();
     void on_closeAllTabsButCurrentTab_triggered();
+    void on_closeAllTabsButThisOne_triggered(int thisIndex);
+    void on_closeAllTabsToTheLeft_triggered(int ofIndex);
+    void on_closeAllTabsToTheRight_triggered(int ofIndex);
+    void on_closeTabs_triggered(const QVector< DocumentView* >& tabs);
 
     void on_restoreMostRecentlyClosedTab_triggered();
 
@@ -244,11 +270,13 @@ protected slots:
 
     void on_bookmarks_sectionCountChanged();
     void on_bookmarks_clicked(const QModelIndex& index);
-    void on_bookmarks_contextMenuRequested(const QPoint& pos);
+    void on_bookmarks_contextMenuRequested(QPoint pos);
 
     void on_search_sectionCountChanged();
+    void on_search_dockLocationChanged(Qt::DockWidgetArea area);
     void on_search_visibilityChanged(bool visible);
     void on_search_clicked(const QModelIndex& index);
+    void on_search_rowsInserted(const QModelIndex& parent, int first, int last);
 
     void on_saveDatabase_timeout();
 
@@ -266,31 +294,38 @@ private:
     static Settings* s_settings;
     static Database* s_database;
     static ShortcutHandler* s_shortcutHandler;
+    static SearchModel* s_searchModel;
 
     void prepareStyle();
 
     TabWidget* m_tabWidget;
 
     DocumentView* currentTab() const;
-    DocumentView* tab(int index) const;
-    QList< DocumentView* > tabs() const;
+    DocumentView* currentTab(int index) const;
+    QVector< DocumentView* > allTabs(int index) const;
+    QVector< DocumentView* > allTabs() const;
 
     bool senderIsCurrentTab() const;
 
-    int addTab(DocumentView* tab);
-    void closeTab(DocumentView* tab);
+    bool m_currentTabChangedBlocked;
+
+    class CurrentTabChangeBlocker;
+
+    void addTab(DocumentView* tab);
+    void addTabAction(DocumentView* tab);
+    void connectTab(DocumentView* tab);
+
+    void restorePerFileSettings(DocumentView* tab);
 
     bool saveModifications(DocumentView* tab);
-
-    void disconnectCurrentTabChanged();
-    void reconnectCurrentTabChanged();
+    void closeTab(DocumentView* tab);
 
     void setWindowTitleForCurrentTab();
     void setCurrentPageSuffixForCurrentTab();
 
     BookmarkModel* bookmarkModelForCurrentTab(bool create = false);
 
-    QAction* sourceLinkActionForCurrentTab(QObject* parent, const QPoint& pos);
+    QAction* sourceLinkActionForCurrentTab(QObject* parent, QPoint pos);
 
     class RestoreTab;
 
@@ -315,16 +350,18 @@ private:
     QCheckBox* m_matchCaseCheckBox;
     QCheckBox* m_wholeWordsCheckBox;
     QCheckBox* m_highlightAllCheckBox;
+    QToolButton* m_findPreviousButton;
+    QToolButton* m_findNextButton;
+    QToolButton* m_cancelSearchButton;
 
     void createWidgets();
 
     QAction* m_openAction;
     QAction* m_openInNewTabAction;
-    QAction* m_openCopyInNewTabAction;
-    QAction* m_openContainingFolderAction;
     QAction* m_refreshAction;
-    QAction* m_saveCopyAction;
+    QAction* m_saveAction;
     QAction* m_saveAsAction;
+    QAction* m_saveCopyAction;
     QAction* m_printAction;
     QAction* m_exitAction;
 
@@ -398,6 +435,14 @@ private:
 
     QAction* m_contentsAction;
     QAction* m_aboutAction;
+
+    QAction* m_openCopyInNewTabAction;
+    QAction* m_openCopyInNewWindowAction;
+    QAction* m_openContainingFolderAction;
+    QAction* m_moveToInstanceAction;
+    QAction* m_splitViewHorizontallyAction;
+    QAction* m_splitViewVerticallyAction;
+    QAction* m_closeCurrentViewAction;
 
     QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QList< QKeySequence >& shortcuts, const char* member, bool checkable = false, bool checked = false);
     QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable = false, bool checked = false);
@@ -473,8 +518,11 @@ class MainWindowAdaptor : public QDBusAbstractAdaptor
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "local.qpdfview.MainWindow")
 
-public:
     explicit MainWindowAdaptor(MainWindow* mainWindow);
+
+public:
+    static QDBusInterface* createInterface(const QString& instanceName = QString());
+    static MainWindowAdaptor* createAdaptor(MainWindow* mainWindow);
 
 public slots:
     Q_NOREPLY void raiseAndActivate();
@@ -486,6 +534,11 @@ public slots:
 
     Q_NOREPLY void startSearch(const QString& text);
 
+    Q_NOREPLY void saveDatabase();
+
+
+    int currentPage() const;
+    Q_NOREPLY void jumpToPage(int page);
 
     Q_NOREPLY void previousPage();
     Q_NOREPLY void nextPage();
@@ -498,19 +551,20 @@ public slots:
     bool jumpToBookmark(const QString& label);
 
 
-    Q_NOREPLY void continuousModeAction(bool checked);
-    Q_NOREPLY void twoPagesModeAction(bool checked);
-    Q_NOREPLY void twoPagesWithCoverPageModeAction(bool checked);
-    Q_NOREPLY void multiplePagesModeAction(bool checked);
+    Q_NOREPLY void continuousMode(bool checked);
+    Q_NOREPLY void twoPagesMode(bool checked);
+    Q_NOREPLY void twoPagesWithCoverPageMode(bool checked);
+    Q_NOREPLY void multiplePagesMode(bool checked);
 
-    Q_NOREPLY void fitToPageWidthModeAction(bool checked);
-    Q_NOREPLY void fitToPageSizeModeAction(bool checked);
+    Q_NOREPLY void fitToPageWidthMode(bool checked);
+    Q_NOREPLY void fitToPageSizeMode(bool checked);
 
-    Q_NOREPLY void convertToGrayscaleAction(bool checked);
-    Q_NOREPLY void invertColorsAction(bool checked);
+    Q_NOREPLY void invertColors(bool checked);
+    Q_NOREPLY void convertToGrayscale(bool checked);
+    Q_NOREPLY void trimMargins(bool checked);
 
-    Q_NOREPLY void fullscreenAction(bool checked);
-    Q_NOREPLY void presentationAction();
+    Q_NOREPLY void fullscreen(bool checked);
+    Q_NOREPLY void presentation();
 
 
     Q_NOREPLY void closeTab();
@@ -521,6 +575,8 @@ public slots:
 
 private:
     MainWindow* mainWindow() const;
+
+    static QString serviceName(QString instanceName = QString());
 
 };
 

@@ -23,6 +23,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QClipboard>
+#include <QtConcurrentRun>
 #include <QFileDialog>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsScene>
@@ -38,28 +39,35 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settings.h"
 #include "model.h"
-#include "rendertask.h"
 #include "tileitem.h"
+
+namespace qpdfview
+{
 
 namespace
 {
-
-using namespace qpdfview;
 
 const int largeTilesThreshold = 8;
 const int veryLargeTilesThreshold = 16;
 
 const qreal proxyPadding = 2.0;
 
-bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
+inline bool modifiersAreActive(const QGraphicsSceneMouseEvent* event, Qt::KeyboardModifiers modifiers)
+{
+    if(modifiers == Qt::NoModifier)
+    {
+        return false;
+    }
+
+    return event->modifiers() == modifiers || (event->buttons() & modifiers) != 0;
+}
+
+inline bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
 {
     return ((settings->pageItem().copyToClipboardModifiers() | settings->pageItem().addAnnotationModifiers()) & mouseButton) != 0;
 }
 
 } // anonymous
-
-namespace qpdfview
-{
 
 Settings* PageItem::s_settings = 0;
 
@@ -70,6 +78,7 @@ PageItem::PageItem(Model::Page* page, int index, PaintMode paintMode, QGraphicsI
     m_index(index),
     m_paintMode(paintMode),
     m_highlights(),
+    m_loadInteractiveElements(0),
     m_links(),
     m_annotations(),
     m_formFields(),
@@ -100,13 +109,19 @@ PageItem::PageItem(Model::Page* page, int index, PaintMode paintMode, QGraphicsI
         m_tileItems.replace(0, new TileItem(this));
     }
 
-    QTimer::singleShot(0, this, SLOT(loadInteractiveElements()));
-
     prepareGeometry();
 }
 
 PageItem::~PageItem()
 {
+    if(m_loadInteractiveElements != 0)
+    {
+        m_loadInteractiveElements->waitForFinished();
+
+        delete m_loadInteractiveElements;
+        m_loadInteractiveElements = 0;
+    }
+
     hideAnnotationOverlay(false);
     hideFormFieldOverlay(false);
 
@@ -115,6 +130,8 @@ PageItem::~PageItem()
     qDeleteAll(m_links);
     qDeleteAll(m_annotations);
     qDeleteAll(m_formFields);
+
+    qDeleteAll(m_tileItems);
 }
 
 QRectF PageItem::boundingRect() const
@@ -423,33 +440,37 @@ void PageItem::hoverLeaveEvent(QGraphicsSceneHoverEvent*)
 
 void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-    const Qt::KeyboardModifiers copyToClipboardModifiers = s_settings->pageItem().copyToClipboardModifiers();
-    const Qt::KeyboardModifiers addAnnotationModifiers = s_settings->pageItem().addAnnotationModifiers();
-    const Qt::KeyboardModifiers zoomToSelectionModifiers = s_settings->pageItem().zoomToSelectionModifiers();
+    const bool leftButtonActive = event->button() == Qt::LeftButton;
+    const bool middleButtonActive = event->button() == Qt::MidButton;
+    const bool anyButtonActive = leftButtonActive || middleButtonActive;
 
-    const bool copyToClipboardModifiersActive = event->modifiers() == copyToClipboardModifiers || ((event->buttons() & copyToClipboardModifiers) != 0);
-    const bool addAnnotationModifiersActive = event->modifiers() == addAnnotationModifiers || ((event->buttons() & addAnnotationModifiers) != 0);
-    const bool zoomToSelectionModifiersActive = event->modifiers() == zoomToSelectionModifiers || ((event->buttons() & zoomToSelectionModifiers) != 0);
+    const bool noModifiersActive = event->modifiers() == Qt::NoModifier;
+    const bool copyToClipboardModifiersActive = modifiersAreActive(event, s_settings->pageItem().copyToClipboardModifiers());
+    const bool addAnnotationModifiersActive = modifiersAreActive(event, s_settings->pageItem().addAnnotationModifiers());
+    const bool zoomToSelectionModifiersActive = modifiersAreActive(event, s_settings->pageItem().zoomToSelectionModifiers());
+    const bool rubberBandModifiersActive = copyToClipboardModifiersActive || addAnnotationModifiersActive || zoomToSelectionModifiersActive;
+    const bool openInSourceEditorModifiersActive = modifiersAreActive(event, s_settings->pageItem().openInSourceEditorModifiers());
 
     // rubber band
 
-    if(m_rubberBandMode == ModifiersMode && !presentationMode()
-            && (copyToClipboardModifiersActive || addAnnotationModifiersActive || zoomToSelectionModifiersActive)
-            && event->button() == Qt::LeftButton)
+    if(rubberBandModifiersActive && leftButtonActive && !presentationMode())
     {
-        setCursor(Qt::CrossCursor);
+        if(m_rubberBandMode == ModifiersMode)
+        {
+            setCursor(Qt::CrossCursor);
 
-        if(copyToClipboardModifiersActive)
-        {
-            m_rubberBandMode = CopyToClipboardMode;
-        }
-        else if(addAnnotationModifiersActive)
-        {
-            m_rubberBandMode = AddAnnotationMode;
-        }
-        else if(zoomToSelectionModifiersActive)
-        {
-            m_rubberBandMode = ZoomToSelectionMode;
+            if(copyToClipboardModifiersActive)
+            {
+                m_rubberBandMode = CopyToClipboardMode;
+            }
+            else if(addAnnotationModifiersActive)
+            {
+                m_rubberBandMode = AddAnnotationMode;
+            }
+            else if(zoomToSelectionModifiersActive)
+            {
+                m_rubberBandMode = ZoomToSelectionMode;
+            }
         }
     }
 
@@ -465,8 +486,15 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         return;
     }
 
-    if(event->modifiers() == Qt::NoModifier
-            && (event->button() == Qt::LeftButton || event->button() == Qt::MidButton))
+    if(openInSourceEditorModifiersActive && leftButtonActive && !presentationMode())
+    {
+        emit openInSourceEditor(m_index + 1, sourcePos(event->pos()));
+
+        event->accept();
+        return;
+    }
+
+    if(noModifiersActive && anyButtonActive)
     {
         // links
 
@@ -478,15 +506,13 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
                 if(link->page != -1 && (link->urlOrFileName.isNull() || !presentationMode()))
                 {
-                    const bool newTab = event->button() == Qt::MidButton;
-
                     if(link->urlOrFileName.isNull())
                     {
-                        emit linkClicked(newTab, link->page, link->left, link->top);
+                        emit linkClicked(middleButtonActive, link->page, link->left, link->top);
                     }
                     else
                     {
-                        emit linkClicked(newTab, link->urlOrFileName, link->page);
+                        emit linkClicked(middleButtonActive, link->urlOrFileName, link->page);
                     }
 
                     event->accept();
@@ -501,13 +527,10 @@ void PageItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
                 }
             }
         }
+    }
 
-        if(event->button() == Qt::MidButton || presentationMode())
-        {
-            event->ignore();
-            return;
-        }
-
+    if(noModifiersActive && leftButtonActive && !presentationMode())
+    {
         // annotations
 
         foreach(Model::Annotation* annotation, m_annotations)
@@ -642,27 +665,8 @@ void PageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent* event)
     event->ignore();
 }
 
-void PageItem::loadInteractiveElements()
+void PageItem::on_loadInteractiveElements_finished()
 {
-    m_links = m_page->links();
-
-    if(!presentationMode())
-    {
-        m_annotations = m_page->annotations();
-
-        foreach(const Model::Annotation* annotation, m_annotations)
-        {
-            connect(annotation, SIGNAL(wasModified()), SIGNAL(wasModified()));
-        }
-
-        m_formFields = m_page->formFields();
-
-        foreach(const Model::FormField* formField, m_formFields)
-        {
-            connect(formField, SIGNAL(wasModified()), SIGNAL(wasModified()));
-        }
-    }
-
     update();
 }
 
@@ -721,7 +725,52 @@ bool PageItem::useTiling() const
     return m_paintMode != ThumbnailMode && s_settings->pageItem().useTiling();
 }
 
-void PageItem::copyToClipboard(const QPoint& screenPos)
+void PageItem::startLoadInteractiveElements()
+{
+    if(thumbnailMode() || m_loadInteractiveElements != 0)
+    {
+        return;
+    }
+
+    m_loadInteractiveElements = new QFutureWatcher< void >(this);
+    connect(m_loadInteractiveElements, SIGNAL(finished()), SLOT(on_loadInteractiveElements_finished()));
+    m_loadInteractiveElements->setFuture(QtConcurrent::run(this, &PageItem::loadInteractiveElements));
+}
+
+void PageItem::loadInteractiveElements()
+{
+    m_links = m_page->links();
+
+    if(presentationMode())
+    {
+        return;
+    }
+
+    PageItem* const parent = this;
+    QThread* const parentThread = parent->thread();
+
+    const QList< Model::Annotation* > annotations = m_page->annotations();
+
+    foreach(Model::Annotation* annotation, annotations)
+    {
+        annotation->moveToThread(parentThread);
+        connect(annotation, SIGNAL(wasModified()), parent, SIGNAL(wasModified()));
+    }
+
+    m_annotations = annotations;
+
+    const QList< Model::FormField* > formFields = m_page->formFields();
+
+    foreach(Model::FormField* formField, formFields)
+    {
+        formField->moveToThread(parentThread);
+        connect(formField, SIGNAL(wasModified()), parent, SIGNAL(wasModified()));
+    }
+
+    m_formFields = formFields;
+}
+
+void PageItem::copyToClipboard(QPoint screenPos)
 {
     QMenu menu;
 
@@ -774,7 +823,7 @@ void PageItem::copyToClipboard(const QPoint& screenPos)
     }
 }
 
-void PageItem::addAnnotation(const QPoint& screenPos)
+void PageItem::addAnnotation(QPoint screenPos)
 {
     if(m_page->canAddAndRemoveAnnotations())
     {
@@ -809,12 +858,15 @@ void PageItem::addAnnotation(const QPoint& screenPos)
             refresh(false, true);
             emit wasModified();
 
-            showAnnotationOverlay(annotation);
+            if(action == addTextAction)
+            {
+                showAnnotationOverlay(annotation);
+            }
         }
     }
 }
 
-void PageItem::showLinkContextMenu(Model::Link* link, const QPoint& screenPos)
+void PageItem::showLinkContextMenu(Model::Link* link, QPoint screenPos)
 {
     if(link->page == -1)
     {
@@ -838,7 +890,7 @@ void PageItem::showLinkContextMenu(Model::Link* link, const QPoint& screenPos)
     }
 }
 
-void PageItem::showAnnotationContextMenu(Model::Annotation* annotation, const QPoint& screenPos)
+void PageItem::showAnnotationContextMenu(Model::Annotation* annotation, QPoint screenPos)
 {
     if(m_page->canAddAndRemoveAnnotations())
     {

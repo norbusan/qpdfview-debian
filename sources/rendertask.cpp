@@ -21,6 +21,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "rendertask.h"
 
+#include <QApplication>
 #include <qmath.h>
 #include <QPainter>
 #include <QThreadPool>
@@ -28,10 +29,19 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "model.h"
 #include "settings.h"
 
+namespace qpdfview
+{
+
 namespace
 {
 
-using namespace qpdfview;
+void registerEventType(QEvent::Type& registeredType)
+{
+    if(registeredType == QEvent::None)
+    {
+        registeredType = QEvent::Type(QEvent::registerEventType());
+    }
+}
 
 qreal scaledResolutionX(const RenderParam& renderParam)
 {
@@ -47,7 +57,7 @@ qreal scaledResolutionY(const RenderParam& renderParam)
             * renderParam.scaleFactor();
 }
 
-const QRgb alphaMask = 0xff << 24;
+const QRgb alphaMask = 0xffu << 24;
 
 bool columnHasPaperColor(int x, QRgb paperColor, const QImage& image)
 {
@@ -169,14 +179,205 @@ void composeWithColor(QPainter::CompositionMode mode, const QColor& color, QImag
 
 } // anonymous
 
-namespace qpdfview
+RenderTaskParent::~RenderTaskParent()
 {
+}
+
+struct RenderTaskFinishedEvent : public QEvent
+{
+    static QEvent::Type registeredType;
+
+    RenderTaskFinishedEvent(RenderTaskParent* const parent,
+                            const RenderParam& renderParam,
+                            const QRect& rect,
+                            const bool prefetch,
+                            const QImage& image,
+                            const QRectF& cropRect)
+        : QEvent(registeredType)
+        , parent(parent)
+        , renderParam(renderParam)
+        , rect(rect)
+        , prefetch(prefetch)
+        , image(image)
+        , cropRect(cropRect)
+    {
+    }
+    ~RenderTaskFinishedEvent();
+
+    void dispatch() const
+    {
+        parent->on_finished(renderParam,
+                            rect, prefetch,
+                            image, cropRect);
+    }
+
+    RenderTaskParent* const parent;
+
+    const RenderParam renderParam;
+    const QRect rect;
+    const bool prefetch;
+    const QImage image;
+    const QRectF cropRect;
+};
+
+QEvent::Type RenderTaskFinishedEvent::registeredType = QEvent::None;
+
+RenderTaskFinishedEvent::~RenderTaskFinishedEvent()
+{
+}
+
+struct RenderTaskCanceledEvent : public QEvent
+{
+
+    static QEvent::Type registeredType;
+
+    RenderTaskCanceledEvent(RenderTaskParent* parent)
+        : QEvent(registeredType)
+        , parent(parent)
+    {
+    }
+    ~RenderTaskCanceledEvent();
+
+    void dispatch() const
+    {
+        parent->on_canceled();
+    }
+
+    RenderTaskParent* const parent;
+};
+
+QEvent::Type RenderTaskCanceledEvent::registeredType = QEvent::None;
+
+RenderTaskCanceledEvent::~RenderTaskCanceledEvent()
+{
+}
+
+struct DeleteParentLaterEvent : public QEvent
+{
+    static QEvent::Type registeredType;
+
+    DeleteParentLaterEvent(RenderTaskParent* const parent)
+        : QEvent(registeredType)
+        , parent(parent)
+    {
+    }
+    ~DeleteParentLaterEvent();
+
+    void dispatch() const
+    {
+        delete parent;
+    }
+
+    RenderTaskParent* const parent;
+};
+
+QEvent::Type DeleteParentLaterEvent::registeredType = QEvent::None;
+
+DeleteParentLaterEvent::~DeleteParentLaterEvent()
+{
+}
+
+namespace
+{
+
+class DispatchChain
+{
+public:
+    DispatchChain(const QEvent* const event, const QSet< RenderTaskParent* >& activeParents) :
+        m_event(event),
+        m_activeParents(activeParents)
+    {
+    }
+
+    template< typename Event >
+    DispatchChain& dispatch()
+    {
+        if(m_event != 0 && m_event->type() == Event::registeredType)
+        {
+            const Event* const event = static_cast< const Event* >(m_event);
+
+            m_event = 0;
+
+            if(m_activeParents.contains(event->parent))
+            {
+                event->dispatch();
+            }
+        }
+
+        return *this;
+    }
+
+    bool wasDispatched() const
+    {
+        return m_event == 0;
+    }
+
+private:
+    const QEvent* m_event;
+    const QSet< RenderTaskParent* >& m_activeParents;
+};
+
+} // anonymous
+
+RenderTaskDispatcher::RenderTaskDispatcher(QObject* parent) : QObject(parent)
+{
+    registerEventType(DeleteParentLaterEvent::registeredType);
+    registerEventType(RenderTaskFinishedEvent::registeredType);
+    registerEventType(RenderTaskCanceledEvent::registeredType);
+}
+
+void RenderTaskDispatcher::finished(RenderTaskParent* parent,
+                                    const RenderParam& renderParam,
+                                    const QRect& rect, bool prefetch,
+                                    const QImage& image, const QRectF& cropRect)
+{
+    RenderTaskFinishedEvent* const event = new RenderTaskFinishedEvent(parent,
+                                                                       renderParam,
+                                                                       rect, prefetch,
+                                                                       image, cropRect);
+
+    QApplication::postEvent(this, event, Qt::HighEventPriority);
+}
+
+void RenderTaskDispatcher::canceled(RenderTaskParent* parent)
+{
+    QApplication::postEvent(this, new RenderTaskCanceledEvent(parent), Qt::HighEventPriority);
+}
+
+void RenderTaskDispatcher::deleteParentLater(RenderTaskParent* parent)
+{
+    QApplication::postEvent(this, new DeleteParentLaterEvent(parent), Qt::LowEventPriority);
+}
+
+bool RenderTaskDispatcher::event(QEvent* event)
+{
+    DispatchChain chain(event, m_activeParents);
+
+    chain.dispatch< RenderTaskFinishedEvent >()
+        .dispatch< RenderTaskCanceledEvent >()
+        .dispatch< DeleteParentLaterEvent >();
+
+    return chain.wasDispatched() || QObject::event(event);
+}
+
+void RenderTaskDispatcher::addActiveParent(RenderTaskParent* parent)
+{
+    m_activeParents.insert(parent);
+}
+
+void RenderTaskDispatcher::removeActiveParent(RenderTaskParent* parent)
+{
+    m_activeParents.remove(parent);
+}
+
+RenderTaskDispatcher* RenderTask::s_dispatcher = 0;
 
 Settings* RenderTask::s_settings = 0;
 
-RenderParam RenderTask::s_defaultRenderParam;
+const RenderParam RenderTask::s_defaultRenderParam;
 
-RenderTask::RenderTask(Model::Page* page, QObject* parent) : QObject(parent), QRunnable(),
+RenderTask::RenderTask(Model::Page* page, RenderTaskParent* parent) : QRunnable(),
+    m_parent(parent),
     m_isRunning(false),
     m_wasCanceled(NotCanceled),
     m_page(page),
@@ -189,7 +390,19 @@ RenderTask::RenderTask(Model::Page* page, QObject* parent) : QObject(parent), QR
         s_settings = Settings::instance();
     }
 
+    if(s_dispatcher == 0)
+    {
+        s_dispatcher = new RenderTaskDispatcher(qApp);
+    }
+
     setAutoDelete(false);
+
+    s_dispatcher->addActiveParent(m_parent);
+}
+
+RenderTask::~RenderTask()
+{
+    s_dispatcher->removeActiveParent(m_parent);
 }
 
 void RenderTask::wait()
@@ -211,19 +424,34 @@ bool RenderTask::isRunning() const
 
 void RenderTask::run()
 {
-#define CANCELLATION_POINT if(testCancellation()) { finish(); return; }
+#define CANCELLATION_POINT if(testCancellation()) { finish(true); return; }
 
     CANCELLATION_POINT
 
     QImage image;
     QRectF cropRect;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    const qreal devicePixelRatio = m_renderParam.devicePixelRatio();
+
+    const QRect rect =
+            qFuzzyCompare(1.0, devicePixelRatio)
+            ? m_rect
+            : QTransform().scale(devicePixelRatio, devicePixelRatio).mapRect(m_rect);
+
+#else
+
+    const QRect& rect = m_rect;
+
+#endif // QT_VERSION
+
     image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
-                           m_renderParam.rotation(), m_rect);
+                           m_renderParam.rotation(), rect);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    image.setDevicePixelRatio(m_renderParam.devicePixelRatio());
+    image.setDevicePixelRatio(devicePixelRatio);
 
 #endif // QT_VERSION
 
@@ -263,11 +491,12 @@ void RenderTask::run()
 
     CANCELLATION_POINT
 
-    emit imageReady(m_renderParam,
-                    m_rect, m_prefetch,
-                    image, cropRect);
+    s_dispatcher->finished(m_parent,
+                           m_renderParam,
+                           m_rect, m_prefetch,
+                           image, cropRect);
 
-    finish();
+    finish(false);
 
 #undef CANCELLATION_POINT
 }
@@ -286,14 +515,22 @@ void RenderTask::start(const RenderParam& renderParam,
 
     resetCancellation();
 
-    QThreadPool::globalInstance()->start(this, prefetch ? 0 : 1);
+    QThreadPool::globalInstance()->start(this, prefetch ? 1 : 2);
 }
 
-void RenderTask::finish()
+void RenderTask::deleteParentLater()
+{
+    s_dispatcher->deleteParentLater(m_parent);
+}
+
+void RenderTask::finish(bool canceled)
 {
     m_renderParam = s_defaultRenderParam;
 
-    emit finished();
+    if(canceled)
+    {
+        s_dispatcher->canceled(m_parent);
+    }
 
     m_mutex.lock();
     m_isRunning = false;

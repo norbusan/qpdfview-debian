@@ -26,7 +26,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 namespace qpdfview
 {
 
-RecentlyClosedMenu::RecentlyClosedMenu(int count, QWidget* parent) : QMenu(parent),
+RecentlyClosedMenu::RecentlyClosedMenu(int count, QWidget* parent) : ToolTipMenu(parent),
     m_count(count)
 {
     menuAction()->setText(tr("&Recently closed"));
@@ -44,7 +44,7 @@ void RecentlyClosedMenu::addTabAction(QAction* tabAction)
 {
     if(m_tabActionGroup->actions().count() >= m_count)
     {
-        QAction* first = m_tabActionGroup->actions().first();
+        QAction* first = m_tabActionGroup->actions().at(0);
 
         removeAction(first);
         m_tabActionGroup->removeAction(first);
@@ -52,7 +52,7 @@ void RecentlyClosedMenu::addTabAction(QAction* tabAction)
         first->parent()->deleteLater();
     }
 
-    insertAction(actions().first(), tabAction);
+    insertAction(actions().at(0), tabAction);
     m_tabActionGroup->addAction(tabAction);
 }
 
