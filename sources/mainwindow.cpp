@@ -1,6 +1,6 @@
 /*
 
-Copyright 2014 S. Razi Alavizadeh
+Copyright 2014-2015 S. Razi Alavizadeh
 Copyright 2012-2015 Adam Reichold
 Copyright 2014 Dorian Scholz
 Copyright 2012 Michał Trybus
@@ -27,6 +27,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QApplication>
 #include <QCheckBox>
+#include <QClipboard>
 #include <QDateTime>
 #include <QDebug>
 #include <QDesktopServices>
@@ -108,15 +109,68 @@ QModelIndex synchronizeOutlineView(int currentPage, const QAbstractItemModel* mo
     return QModelIndex();
 }
 
-void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
+inline void setToolButtonMenu(QToolBar* toolBar, QAction* action, QMenu* menu)
 {
-    QToolButton* toolButton = qobject_cast< QToolButton* >(toolBar->widgetForAction(action));
-
-    if(toolButton != 0)
+    if(QToolButton* toolButton = qobject_cast< QToolButton* >(toolBar->widgetForAction(action)))
     {
         toolButton->setMenu(menu);
     }
 }
+
+inline QAction* createTemporaryAction(QObject* parent, const QString& text, const QString& objectName)
+{
+    QAction* action = new QAction(text, parent);
+
+    action->setObjectName(objectName);
+
+    return action;
+}
+
+void addWidgetActions(QWidget* widget, const QStringList& actionNames, const QList< QAction* >& actions)
+{
+    foreach(const QString& actionName, actionNames)
+    {
+        if(actionName == QLatin1String("separator"))
+        {
+            QAction* separator = new QAction(widget);
+            separator->setSeparator(true);
+
+            widget->addAction(separator);
+
+            continue;
+        }
+
+        foreach(QAction* action, actions)
+        {
+            if(actionName == action->objectName())
+            {
+                widget->addAction(action);
+
+                break;
+            }
+        }
+    }
+}
+
+class SignalBlocker
+{
+public:
+    SignalBlocker(QObject* object) : m_object(object)
+    {
+        m_object->blockSignals(true);
+    }
+
+    ~SignalBlocker()
+    {
+        m_object->blockSignals(false);
+    }
+
+private:
+    Q_DISABLE_COPY(SignalBlocker)
+
+    QObject* m_object;
+
+};
 
 } // anonymous
 
@@ -204,15 +258,21 @@ public:
 
 Settings* MainWindow::s_settings = 0;
 Database* MainWindow::s_database = 0;
+ShortcutHandler* MainWindow::s_shortcutHandler = 0;
 
-MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
+    m_outlineView(0),
+    m_thumbnailsView(0)
 {
     if(s_settings == 0)
     {
         s_settings = Settings::instance();
     }
 
-    s_settings->sync();
+    if(s_shortcutHandler == 0)
+    {
+        s_shortcutHandler = ShortcutHandler::instance();
+    }
 
     prepareStyle();
 
@@ -224,14 +284,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
     createDocks();
     createMenus();
 
-    m_toggleToolBarsAction = createAction(tr("Toggle tool bars"), QLatin1String("toggleToolBars"), QIcon(), QKeySequence(Qt::SHIFT + Qt::ALT + Qt::Key_T), SLOT(on_toggleToolBars_triggered(bool)), true, true);
-    m_toggleMenuBarAction = createAction(tr("Toggle menu bar"), QLatin1String("toggleMenuBar"), QIcon(), QKeySequence(Qt::SHIFT + Qt::ALT + Qt::Key_M), SLOT(on_toggleMenuBar_triggered(bool)), true, true);
-
     restoreGeometry(s_settings->mainWindow().geometry());
     restoreState(s_settings->mainWindow().state());
-
-    m_matchCaseCheckBox->setChecked(s_settings->documentView().matchCase());
-    m_wholeWordsCheckBox->setChecked(s_settings->documentView().wholeWords());
 
     prepareDatabase();
 
@@ -351,8 +405,14 @@ bool MainWindow::openInNewTab(const QString& filePath, int page, const QRectF& h
         connect(newTab, SIGNAL(linkClicked(int)), SLOT(on_currentTab_linkClicked(int)));
         connect(newTab, SIGNAL(linkClicked(bool,QString,int)), SLOT(on_currentTab_linkClicked(bool,QString,int)));
 
+        connect(newTab, SIGNAL(renderFlagsChanged(qpdfview::RenderFlags)), SLOT(on_currentTab_renderFlagsChanged(qpdfview::RenderFlags)));
+
         connect(newTab, SIGNAL(invertColorsChanged(bool)), SLOT(on_currentTab_invertColorsChanged(bool)));
-        connect(newTab, SIGNAL(convertToGrayscaleChanged(bool)), SLOT(on_currentTab_convertToGrayscale(bool)));
+        connect(newTab, SIGNAL(convertToGrayscaleChanged(bool)), SLOT(on_currentTab_convertToGrayscaleChanged(bool)));
+        connect(newTab, SIGNAL(trimMarginsChanged(bool)), SLOT(on_currentTab_trimMarginsChanged(bool)));
+
+        connect(newTab, SIGNAL(compositionModeChanged(CompositionMode)), SLOT(on_currentTab_compositionModeChanged(CompositionMode)));
+
         connect(newTab, SIGNAL(highlightAllChanged(bool)), SLOT(on_currentTab_highlightAllChanged(bool)));
         connect(newTab, SIGNAL(rubberBandModeChanged(RubberBandMode)), SLOT(on_currentTab_rubberBandModeChanged(RubberBandMode)));
 
@@ -475,6 +535,11 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
     m_invertColorsAction->setEnabled(hasCurrent);
     m_convertToGrayscaleAction->setEnabled(hasCurrent);
+    m_trimMarginsAction->setEnabled(hasCurrent);
+
+    m_compositionModeMenu->setEnabled(hasCurrent);
+    m_darkenWithPaperColorAction->setEnabled(hasCurrent);
+    m_lightenWithPaperColorAction->setEnabled(hasCurrent);
 
     m_fontsAction->setEnabled(hasCurrent);
 
@@ -514,7 +579,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_outlineView->setModel(currentTab()->outlineModel());
         m_propertiesView->setModel(currentTab()->propertiesModel());
         m_bookmarksView->setModel(bookmarkModelForCurrentTab());
+
         m_thumbnailsView->setScene(currentTab()->thumbnailsScene());
+        currentTab()->setThumbnailsViewportSize(m_thumbnailsView->viewport()->size());
 
         on_currentTab_documentChanged();
 
@@ -530,7 +597,11 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
 
         on_currentTab_invertColorsChanged(currentTab()->invertColors());
-        on_currentTab_convertToGrayscale(currentTab()->convertToGrayscale());
+        on_currentTab_convertToGrayscaleChanged(currentTab()->convertToGrayscale());
+        on_currentTab_trimMarginsChanged(currentTab()->trimMargins());
+
+        on_currentTab_compositionModeChanged(currentTab()->compositionMode());
+
         on_currentTab_highlightAllChanged(currentTab()->highlightAll());
         on_currentTab_rubberBandModeChanged(currentTab()->rubberBandMode());
     }
@@ -550,6 +621,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_outlineView->setModel(0);
         m_propertiesView->setModel(0);
         m_bookmarksView->setModel(0);
+
         m_thumbnailsView->setScene(0);
 
         setWindowTitleForCurrentTab();
@@ -573,6 +645,11 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         m_fitToPageWidthModeAction->setChecked(false);
 
         m_invertColorsAction->setChecked(false);
+        m_convertToGrayscaleAction->setChecked(false);
+        m_trimMarginsAction->setChecked(false);
+
+        m_darkenWithPaperColorAction->setChecked(false);
+        m_lightenWithPaperColorAction->setChecked(false);
     }
 }
 
@@ -588,23 +665,66 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
 {
     QMenu menu;
 
-    const QAction* closeAllTabsAction = menu.addAction(tr("Close all tabs"));
-    const QAction* closeAllTabsButThisOneAction = menu.addAction(tr("Close all tabs but this one"));
-    const QAction* closeAllTabsToTheLeftAction = menu.addAction(tr("Close all tabs to the left"));
-    const QAction* closeAllTabsToTheRightAction = menu.addAction(tr("Close all tabs to the right"));
+    // We block their signals since we need to handle them using the selected instead of the current tab.
+    SignalBlocker openCopyInNewTabSignalBlocker(m_openCopyInNewTabAction);
+    SignalBlocker openContainingFolderSignalBlocker(m_openContainingFolderAction);
+
+    QAction* copyFilePathAction = createTemporaryAction(&menu, tr("Copy file path"), QLatin1String("copyFilePath"));
+    QAction* selectFilePathAction = createTemporaryAction(&menu, tr("Select file path"), QLatin1String("selectFilePath"));
+
+    QAction* closeAllTabsAction = createTemporaryAction(&menu, tr("Close all tabs"), QLatin1String("closeAllTabs"));
+    QAction* closeAllTabsButThisOneAction = createTemporaryAction(&menu, tr("Close all tabs but this one"), QLatin1String("closeAllTabsButThisOne"));
+    QAction* closeAllTabsToTheLeftAction = createTemporaryAction(&menu, tr("Close all tabs to the left"), QLatin1String("closeAllTabsToTheLeft"));
+    QAction* closeAllTabsToTheRightAction = createTemporaryAction(&menu, tr("Close all tabs to the right"), QLatin1String("closeAllTabsToTheRight"));
+
+    selectFilePathAction->setVisible(QApplication::clipboard()->supportsSelection());
+
+    QList< QAction* > actions;
+
+    actions << m_openCopyInNewTabAction << m_openContainingFolderAction
+            << copyFilePathAction << selectFilePathAction
+            << closeAllTabsAction << closeAllTabsButThisOneAction
+            << closeAllTabsToTheLeftAction << closeAllTabsToTheRightAction;
+
+    addWidgetActions(&menu, s_settings->mainWindow().tabContextMenu(), actions);
 
     const QAction* action = menu.exec(globalPos);
 
-    const int count = m_tabWidget->count();
-
+    const DocumentView* selectedTab = tab(index);
     QList< DocumentView* > tabsToClose;
 
-    if(action == closeAllTabsAction)
+    if(action == m_openCopyInNewTabAction)
+    {
+        openInNewTab(selectedTab->fileInfo().filePath(), selectedTab->currentPage());
+
+        return;
+    }
+    else if(action == m_openContainingFolderAction)
+    {
+        QDesktopServices::openUrl(QUrl::fromLocalFile(selectedTab->fileInfo().absolutePath()));
+
+        return;
+    }
+    else if(action == copyFilePathAction)
+    {
+        QApplication::clipboard()->setText(selectedTab->fileInfo().absoluteFilePath());
+
+        return;
+    }
+    else if(action == selectFilePathAction)
+    {
+        QApplication::clipboard()->setText(selectedTab->fileInfo().absoluteFilePath(), QClipboard::Selection);
+
+        return;
+    }
+    else if(action == closeAllTabsAction)
     {
         tabsToClose = tabs();
     }
     else if(action == closeAllTabsButThisOneAction)
     {
+        const int count = m_tabWidget->count();
+
         for(int indexToClose = 0; indexToClose < count; ++indexToClose)
         {
             if(indexToClose != index)
@@ -622,13 +742,19 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
     }
     else if(action == closeAllTabsToTheRightAction)
     {
+        const int count = m_tabWidget->count();
+
         for(int indexToClose = count - 1; indexToClose > index; --indexToClose)
         {
             tabsToClose.append(tab(indexToClose));
         }
     }
+    else
+    {
+        return;
+    }
 
-    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+    disconnectCurrentTabChanged();
 
     foreach(DocumentView* tab, tabsToClose)
     {
@@ -638,10 +764,10 @@ void MainWindow::on_tabWidget_tabContextMenuRequested(const QPoint& globalPos, i
         }
     }
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+    reconnectCurrentTabChanged();
 }
+
+#define ONLY_IF_SENDER_IS_CURRENT_TAB if(!senderIsCurrentTab()) { return; }
 
 void MainWindow::on_currentTab_documentChanged()
 {
@@ -666,143 +792,134 @@ void MainWindow::on_currentTab_documentChanged()
         }
     }
 
-    if(senderIsCurrentTab())
-    {
-        m_outlineView->restoreExpansion();
+    ONLY_IF_SENDER_IS_CURRENT_TAB
 
-        setWindowTitleForCurrentTab();
+    m_outlineView->restoreExpansion();
 
-        setWindowModified(currentTab() != 0 ? currentTab()->wasModified() : false);
-    }
+    setWindowTitleForCurrentTab();
+
+    setWindowModified(currentTab() != 0 ? currentTab()->wasModified() : false);
 }
 
 void MainWindow::on_currentTab_documentModified()
 {
-    if(senderIsCurrentTab())
-    {
-        setWindowModified(true);
-    }
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    setWindowModified(true);
 }
 
 void MainWindow::on_currentTab_numberOfPagesChaned(int numberOfPages)
 {
-    if(senderIsCurrentTab())
-    {
-        m_currentPageSpinBox->setRange(1, numberOfPages);
+    ONLY_IF_SENDER_IS_CURRENT_TAB
 
-        setWindowTitleForCurrentTab();
-        setCurrentPageSuffixForCurrentTab();
-    }
+    m_currentPageSpinBox->setRange(1, numberOfPages);
+
+    setWindowTitleForCurrentTab();
+    setCurrentPageSuffixForCurrentTab();
 }
 
 void MainWindow::on_currentTab_currentPageChanged(int currentPage)
 {
-    if(senderIsCurrentTab())
+    scheduleSaveTabs();
+    scheduleSavePerFileSettings();
+
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    m_currentPageSpinBox->setValue(currentPage);
+
+    if(s_settings->mainWindow().synchronizeOutlineView() && m_outlineView->model() != 0)
     {
-        m_currentPageSpinBox->setValue(currentPage);
+        const QModelIndex match = synchronizeOutlineView(currentPage, m_outlineView->model(), QModelIndex());
 
-        if(s_settings->mainWindow().synchronizeOutlineView() && m_outlineView->model() != 0)
+        if(match.isValid())
         {
-            const QModelIndex match = synchronizeOutlineView(currentPage, m_outlineView->model(), QModelIndex());
+            m_outlineView->collapseAll();
 
-            if(match.isValid())
-            {
-                m_outlineView->collapseAll();
-
-                m_outlineView->expandAbove(match);
-                m_outlineView->setCurrentIndex(match);
-            }
+            m_outlineView->expandAbove(match);
+            m_outlineView->setCurrentIndex(match);
         }
-
-        m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
-
-        setWindowTitleForCurrentTab();
-        setCurrentPageSuffixForCurrentTab();
-
-        scheduleSaveTabs();
-        scheduleSavePerFileSettings();
     }
+
+    m_thumbnailsView->ensureVisible(currentTab()->thumbnailItems().at(currentPage - 1));
+
+    setWindowTitleForCurrentTab();
+    setCurrentPageSuffixForCurrentTab();
 }
 
 void MainWindow::on_currentTab_canJumpChanged(bool backward, bool forward)
 {
-    if(senderIsCurrentTab())
-    {
-        m_jumpBackwardAction->setEnabled(backward);
-        m_jumpForwardAction->setEnabled(forward);
-    }
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    m_jumpBackwardAction->setEnabled(backward);
+    m_jumpForwardAction->setEnabled(forward);
 }
 
 void MainWindow::on_currentTab_continuousModeChanged(bool continuousMode)
 {
-    if(senderIsCurrentTab())
-    {
-        m_continuousModeAction->setChecked(continuousMode);
+    scheduleSaveTabs();
+    scheduleSavePerFileSettings();
 
-        scheduleSaveTabs();
-        scheduleSavePerFileSettings();
-    }
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    m_continuousModeAction->setChecked(continuousMode);
 }
 
 void MainWindow::on_currentTab_layoutModeChanged(LayoutMode layoutMode)
 {
-    if(senderIsCurrentTab())
-    {
-        m_twoPagesModeAction->setChecked(layoutMode == TwoPagesMode);
-        m_twoPagesWithCoverPageModeAction->setChecked(layoutMode == TwoPagesWithCoverPageMode);
-        m_multiplePagesModeAction->setChecked(layoutMode == MultiplePagesMode);
+    scheduleSaveTabs();
+    scheduleSavePerFileSettings();
 
-        scheduleSaveTabs();
-        scheduleSavePerFileSettings();
-    }
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    m_twoPagesModeAction->setChecked(layoutMode == TwoPagesMode);
+    m_twoPagesWithCoverPageModeAction->setChecked(layoutMode == TwoPagesWithCoverPageMode);
+    m_multiplePagesModeAction->setChecked(layoutMode == MultiplePagesMode);
 }
 
 void MainWindow::on_currentTab_rightToLeftModeChanged(bool rightToLeftMode)
 {
-    if(senderIsCurrentTab())
-    {
-        m_rightToLeftModeAction->setChecked(rightToLeftMode);
+    scheduleSaveTabs();
+    scheduleSavePerFileSettings();
 
-        scheduleSaveTabs();
-        scheduleSavePerFileSettings();
-    }
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    m_rightToLeftModeAction->setChecked(rightToLeftMode);
 }
 
 void MainWindow::on_currentTab_scaleModeChanged(ScaleMode scaleMode)
 {
-    if(senderIsCurrentTab())
+    scheduleSaveTabs();
+    scheduleSavePerFileSettings();
+
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    switch(scaleMode)
     {
-        switch(scaleMode)
-        {
-        default:
-        case ScaleFactorMode:
-            m_fitToPageWidthModeAction->setChecked(false);
-            m_fitToPageSizeModeAction->setChecked(false);
+    default:
+    case ScaleFactorMode:
+        m_fitToPageWidthModeAction->setChecked(false);
+        m_fitToPageSizeModeAction->setChecked(false);
 
-            on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
-            break;
-        case FitToPageWidthMode:
-            m_fitToPageWidthModeAction->setChecked(true);
-            m_fitToPageSizeModeAction->setChecked(false);
+        on_currentTab_scaleFactorChanged(currentTab()->scaleFactor());
+        break;
+    case FitToPageWidthMode:
+        m_fitToPageWidthModeAction->setChecked(true);
+        m_fitToPageSizeModeAction->setChecked(false);
 
-            m_scaleFactorComboBox->setCurrentIndex(0);
+        m_scaleFactorComboBox->setCurrentIndex(0);
 
-            m_zoomInAction->setEnabled(true);
-            m_zoomOutAction->setEnabled(true);
-            break;
-        case FitToPageSizeMode:
-            m_fitToPageWidthModeAction->setChecked(false);
-            m_fitToPageSizeModeAction->setChecked(true);
+        m_zoomInAction->setEnabled(true);
+        m_zoomOutAction->setEnabled(true);
+        break;
+    case FitToPageSizeMode:
+        m_fitToPageWidthModeAction->setChecked(false);
+        m_fitToPageSizeModeAction->setChecked(true);
 
-            m_scaleFactorComboBox->setCurrentIndex(1);
+        m_scaleFactorComboBox->setCurrentIndex(1);
 
-            m_zoomInAction->setEnabled(true);
-            m_zoomOutAction->setEnabled(true);
-            break;
-        }
-
-        scheduleSaveTabs();
-        scheduleSavePerFileSettings();
+        m_zoomInAction->setEnabled(true);
+        m_zoomOutAction->setEnabled(true);
+        break;
     }
 }
 
@@ -852,78 +969,121 @@ void MainWindow::on_currentTab_linkClicked(bool newTab, const QString& filePath,
     }
 }
 
-void MainWindow::on_currentTab_invertColorsChanged(bool invertColors)
+void MainWindow::on_currentTab_renderFlagsChanged(qpdfview::RenderFlags renderFlags)
 {
-    if(senderIsCurrentTab())
-    {
-        m_invertColorsAction->setChecked(invertColors);
-    }
+    Q_UNUSED(renderFlags);
+
+    scheduleSaveTabs();
+    scheduleSavePerFileSettings();
 }
 
-void MainWindow::on_currentTab_convertToGrayscale(bool convertToGrayscale)
+void MainWindow::on_currentTab_invertColorsChanged(bool invertColors)
 {
-    if(senderIsCurrentTab())
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    m_invertColorsAction->setChecked(invertColors);
+}
+
+void MainWindow::on_currentTab_convertToGrayscaleChanged(bool convertToGrayscale)
+{
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    m_convertToGrayscaleAction->setChecked(convertToGrayscale);
+}
+
+void MainWindow::on_currentTab_trimMarginsChanged(bool trimMargins)
+{
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    m_trimMarginsAction->setChecked(trimMargins);
+}
+
+void MainWindow::on_currentTab_compositionModeChanged(CompositionMode compositionMode)
+{
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    switch(compositionMode)
     {
-        m_convertToGrayscaleAction->setChecked(convertToGrayscale);
+    default:
+    case DefaultCompositionMode:
+        m_darkenWithPaperColorAction->setChecked(false);
+        m_lightenWithPaperColorAction->setChecked(false);
+        break;
+    case DarkenWithPaperColorMode:
+        m_darkenWithPaperColorAction->setChecked(true);
+        m_lightenWithPaperColorAction->setChecked(false);
+        break;
+    case LightenWithPaperColorMode:
+        m_darkenWithPaperColorAction->setChecked(false);
+        m_lightenWithPaperColorAction->setChecked(true);
+        break;
     }
 }
 
 void MainWindow::on_currentTab_highlightAllChanged(bool highlightAll)
 {
-    if(senderIsCurrentTab())
-    {
-        m_highlightAllCheckBox->setChecked(highlightAll);
-    }
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    m_highlightAllCheckBox->setChecked(highlightAll);
 }
 
 void MainWindow::on_currentTab_rubberBandModeChanged(RubberBandMode rubberBandMode)
 {
-    if(senderIsCurrentTab())
-    {
-        m_copyToClipboardModeAction->setChecked(rubberBandMode == CopyToClipboardMode);
-        m_addAnnotationModeAction->setChecked(rubberBandMode == AddAnnotationMode);
-    }
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    m_copyToClipboardModeAction->setChecked(rubberBandMode == CopyToClipboardMode);
+    m_addAnnotationModeAction->setChecked(rubberBandMode == AddAnnotationMode);
 }
 
 void MainWindow::on_currentTab_searchFinished()
 {
-    if(senderIsCurrentTab())
-    {
-        m_searchLineEdit->setProgress(0);
-    }
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    m_searchLineEdit->setProgress(0);
 }
 
 void MainWindow::on_currentTab_searchProgressChanged(int progress)
 {
-    if(senderIsCurrentTab())
-    {
-        m_searchLineEdit->setProgress(progress);
-    }
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    m_searchLineEdit->setProgress(progress);
 }
 
 void MainWindow::on_currentTab_customContextMenuRequested(const QPoint& pos)
 {
-    if(senderIsCurrentTab())
+    ONLY_IF_SENDER_IS_CURRENT_TAB
+
+    QMenu menu;
+
+    QAction* sourceLinkAction = sourceLinkActionForCurrentTab(&menu, pos);
+
+    QList< QAction* > actions;
+
+    actions << m_openCopyInNewTabAction << m_openContainingFolderAction
+            << m_previousPageAction << m_nextPageAction
+            << m_firstPageAction << m_lastPageAction
+            << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction
+            << m_setFirstPageAction;
+
+    if(m_searchDock->isVisible())
     {
-        QMenu menu;
+        actions << m_findPreviousAction << m_findNextAction << m_cancelSearchAction;
+    }
 
-        menu.addAction(m_openCopyInNewTabAction);
-        menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_previousPageAction << m_nextPageAction << m_firstPageAction << m_lastPageAction);
-        menu.addSeparator();
-        menu.addActions(QList< QAction* >() << m_jumpToPageAction << m_jumpBackwardAction << m_jumpForwardAction);
-        menu.addSeparator();
-        menu.addAction(m_setFirstPageAction);
+    menu.addAction(sourceLinkAction);
+    menu.addSeparator();
 
-        if(m_searchDock->isVisible())
-        {
-            menu.addSeparator();
-            menu.addActions(QList< QAction* >() << m_findPreviousAction << m_findNextAction << m_cancelSearchAction);
-        }
+    addWidgetActions(&menu, s_settings->mainWindow().documentContextMenu(), actions);
 
-        menu.exec(currentTab()->mapToGlobal(pos));
+    const QAction* action = menu.exec(currentTab()->mapToGlobal(pos));
+
+    if(action == sourceLinkAction)
+    {
+        currentTab()->openInSourceEditor(sourceLinkAction->data().value< DocumentView::SourceLink >());
     }
 }
+
+#undef ONLY_IF_SENDER_IS_CURRENT_TAB
 
 void MainWindow::on_currentPage_editingFinished()
 {
@@ -1014,16 +1174,14 @@ void MainWindow::on_openInNewTab_triggered()
 
     if(!filePaths.isEmpty())
     {
-        disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+        disconnectCurrentTabChanged();
 
         foreach(const QString& filePath, filePaths)
         {
             openInNewTab(filePath);
         }
 
-        connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-        on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+        reconnectCurrentTabChanged();
     }
 }
 
@@ -1097,22 +1255,23 @@ void MainWindow::on_print_triggered()
 
 #endif // QT_VERSION
 
-    if(printDialog->exec() == QDialog::Accepted)
+    if(printDialog->exec() != QDialog::Accepted)
     {
+        return;
+    }
 
 #if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
 
-        if(printDialog->printRange() == QPrintDialog::CurrentPage)
-        {
-            printer->setFromTo(currentTab()->currentPage(), currentTab()->currentPage());
-        }
+    if(printDialog->printRange() == QPrintDialog::CurrentPage)
+    {
+        printer->setFromTo(currentTab()->currentPage(), currentTab()->currentPage());
+    }
 
 #endif // QT_VERSION
 
-        if(!currentTab()->print(printer.data(), printDialog->printOptions()))
-        {
-            QMessageBox::warning(this, tr("Warning"), tr("Could not print '%1'.").arg(currentTab()->fileInfo().filePath()));
-        }
+    if(!currentTab()->print(printer.data(), printDialog->printOptions()))
+    {
+        QMessageBox::warning(this, tr("Warning"), tr("Could not print '%1'.").arg(currentTab()->fileInfo().filePath()));
     }
 }
 
@@ -1235,25 +1394,27 @@ void MainWindow::on_settings_triggered()
 {
     QScopedPointer< SettingsDialog > settingsDialog(new SettingsDialog(this));
 
-    if(settingsDialog->exec() == QDialog::Accepted)
+    if(settingsDialog->exec() != QDialog::Accepted)
     {
-        s_settings->sync();
+        return;
+    }
 
-        m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(s_settings->mainWindow().tabPosition()));
-        m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(s_settings->mainWindow().tabVisibility()));
-        m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
+    s_settings->sync();
 
-        m_tabsMenu->setSearchable(s_settings->mainWindow().searchableMenus());
-        m_bookmarksMenu->setSearchable(s_settings->mainWindow().searchableMenus());
+    m_tabWidget->setTabPosition(static_cast< QTabWidget::TabPosition >(s_settings->mainWindow().tabPosition()));
+    m_tabWidget->setTabBarPolicy(static_cast< TabWidget::TabBarPolicy >(s_settings->mainWindow().tabVisibility()));
+    m_tabWidget->setSpreadTabs(s_settings->mainWindow().spreadTabs());
 
-        m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
+    m_tabsMenu->setSearchable(s_settings->mainWindow().searchableMenus());
+    m_bookmarksMenu->setSearchable(s_settings->mainWindow().searchableMenus());
 
-        for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
+    m_saveDatabaseTimer->setInterval(s_settings->mainWindow().saveDatabaseInterval());
+
+    for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
+    {
+        if(!tab(index)->refresh())
         {
-            if(!tab(index)->refresh())
-            {
-                QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->fileInfo().filePath()));
-            }
+            QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->fileInfo().filePath()));
         }
     }
 }
@@ -1328,6 +1489,21 @@ void MainWindow::on_convertToGrayscale_triggered(bool checked)
     currentTab()->setConvertToGrayscale(checked);
 }
 
+void MainWindow::on_trimMargins_triggered(bool checked)
+{
+    currentTab()->setTrimMargins(checked);
+}
+
+void MainWindow::on_darkenWithPaperColor_triggered(bool checked)
+{
+    currentTab()->setCompositionMode(checked ? DarkenWithPaperColorMode : DefaultCompositionMode);
+}
+
+void MainWindow::on_lightenWithPaperColor_triggered(bool checked)
+{
+    currentTab()->setCompositionMode(checked ? LightenWithPaperColorMode : DefaultCompositionMode);
+}
+
 void MainWindow::on_fonts_triggered()
 {
     QScopedPointer< QStandardItemModel > fontsModel(currentTab()->fontsModel());
@@ -1399,7 +1575,7 @@ void MainWindow::on_closeTab_triggered()
 
 void MainWindow::on_closeAllTabs_triggered()
 {
-    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+    disconnectCurrentTabChanged();
 
     foreach(DocumentView* tab, tabs())
     {
@@ -1409,14 +1585,12 @@ void MainWindow::on_closeAllTabs_triggered()
         }
     }
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+    reconnectCurrentTabChanged();
 }
 
 void MainWindow::on_closeAllTabsButCurrentTab_triggered()
 {
-    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+    disconnectCurrentTabChanged();
 
     DocumentView* tab = currentTab();
 
@@ -1438,9 +1612,12 @@ void MainWindow::on_closeAllTabsButCurrentTab_triggered()
     m_tabWidget->setTabToolTip(newIndex, tabToolTip);
     m_tabWidget->setCurrentIndex(newIndex);
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+    reconnectCurrentTabChanged();
+}
 
-    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+void MainWindow::on_restoreMostRecentlyClosedTab_triggered()
+{
+    m_recentlyClosedMenu->triggerLastTabAction();
 }
 
 void MainWindow::on_recentlyClosed_tabActionTriggered(QAction* tabAction)
@@ -1482,9 +1659,7 @@ void MainWindow::on_tabShortcut_activated()
 
 void MainWindow::on_previousBookmark_triggered()
 {
-    const BookmarkModel* model = bookmarkModelForCurrentTab();
-
-    if(model != 0)
+    if(const BookmarkModel* model = bookmarkModelForCurrentTab())
     {
         QList< int > pages;
 
@@ -1513,9 +1688,7 @@ void MainWindow::on_previousBookmark_triggered()
 
 void MainWindow::on_nextBookmark_triggered()
 {
-    const BookmarkModel* model = bookmarkModelForCurrentTab();
-
-    if(model != 0)
+    if(const BookmarkModel* model = bookmarkModelForCurrentTab())
     {
         QList< int > pages;
 
@@ -1766,23 +1939,25 @@ void MainWindow::on_toggleMenuBar_triggered(bool checked)
 
 void MainWindow::on_searchInitiated(const QString& text, bool modified)
 {
-    if(!text.isEmpty())
+    if(text.isEmpty())
     {
-        const bool allTabs = s_settings->mainWindow().extendedSearchDock() ? !modified : modified;
-        const bool matchCase = m_matchCaseCheckBox->isChecked();
-        const bool wholeWords = m_wholeWordsCheckBox->isChecked();
+        return;
+    }
 
-        if(allTabs)
+    const bool allTabs = s_settings->mainWindow().extendedSearchDock() ? !modified : modified;
+    const bool matchCase = m_matchCaseCheckBox->isChecked();
+    const bool wholeWords = m_wholeWordsCheckBox->isChecked();
+
+    if(allTabs)
+    {
+        for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
         {
-            for(int index = 0, count = m_tabWidget->count(); index < count; ++index)
-            {
-                tab(index)->startSearch(text, matchCase, wholeWords);
-            }
+            tab(index)->startSearch(text, matchCase, wholeWords);
         }
-        else
-        {
-            currentTab()->startSearch(text, matchCase, wholeWords);
-        }
+    }
+    else
+    {
+        currentTab()->startSearch(text, matchCase, wholeWords);
     }
 }
 
@@ -1850,9 +2025,9 @@ void MainWindow::on_outline_sectionCountChanged()
 void MainWindow::on_outline_clicked(const QModelIndex& index)
 {
     bool ok = false;
-    const int page = index.data(Qt::UserRole + 1).toInt(&ok);
-    const qreal left = index.data(Qt::UserRole + 2).toReal();
-    const qreal top = index.data(Qt::UserRole + 3).toReal();
+    const int page = index.data(Model::Document::PageRole).toInt(&ok);
+    const qreal left = index.data(Model::Document::LeftRole).toReal();
+    const qreal top = index.data(Model::Document::TopRole).toReal();
 
     if(ok)
     {
@@ -2123,6 +2298,34 @@ void MainWindow::on_saveDatabase_timeout()
     }
 }
 
+bool MainWindow::eventFilter(QObject* target, QEvent* event)
+{
+    // This event filter is used to override any keyboard shortcuts if the outline widget has the focus.
+    if(target == m_outlineView && event->type() == QEvent::ShortcutOverride)
+    {
+        QKeyEvent* keyEvent = static_cast< QKeyEvent* >(event);
+
+        const bool modifiers = keyEvent->modifiers().testFlag(Qt::ControlModifier) || keyEvent->modifiers().testFlag(Qt::ShiftModifier);
+        const bool keys = keyEvent->key() == Qt::Key_Right || keyEvent->key() == Qt::Key_Left || keyEvent->key() == Qt::Key_Up || keyEvent->key() == Qt::Key_Down;
+
+        if(modifiers && keys)
+        {
+            keyEvent->accept();
+            return true;
+        }
+    }
+    // This event filter is used to fit the thumbnails into the thumbnails view if this is enabled in the settings.
+    else if(target == m_thumbnailsView && event->type() == QEvent::Resize)
+    {
+        if(DocumentView* tab = currentTab())
+        {
+            tab->setThumbnailsViewportSize(m_thumbnailsView->viewport()->size());
+        }
+    }
+
+    return QMainWindow::eventFilter(target, event);
+}
+
 void MainWindow::closeEvent(QCloseEvent* event)
 {
     m_searchDock->setVisible(false);
@@ -2181,7 +2384,7 @@ void MainWindow::dropEvent(QDropEvent* event)
     {
         event->acceptProposedAction();
 
-        disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+        disconnectCurrentTabChanged();
 
         foreach(const QUrl& url, event->mimeData()->urls())
         {
@@ -2195,9 +2398,7 @@ void MainWindow::dropEvent(QDropEvent* event)
             }
         }
 
-        connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
-
-        on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+        reconnectCurrentTabChanged();
     }
 }
 
@@ -2326,6 +2527,18 @@ bool MainWindow::saveModifications(DocumentView* tab)
     return true;
 }
 
+void MainWindow::disconnectCurrentTabChanged()
+{
+    disconnect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+}
+
+void MainWindow::reconnectCurrentTabChanged()
+{
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(on_tabWidget_currentChanged(int)));
+
+    on_tabWidget_currentChanged(m_tabWidget->currentIndex());
+}
+
 void MainWindow::setWindowTitleForCurrentTab()
 {
     QString currentPage;
@@ -2386,6 +2599,23 @@ BookmarkModel* MainWindow::bookmarkModelForCurrentTab(bool create)
     return BookmarkModel::fromPath(currentTab()->fileInfo().absoluteFilePath(), create);
 }
 
+QAction* MainWindow::sourceLinkActionForCurrentTab(QObject* parent, const QPoint& pos)
+{
+    QAction* action = createTemporaryAction(parent, QString(), QLatin1String("openSourceLink"));
+
+    if(const DocumentView::SourceLink sourceLink = currentTab()->sourceLink(pos))
+    {
+        action->setText(tr("Edit '%1' at %2,%3...").arg(sourceLink.name).arg(sourceLink.line).arg(sourceLink.column));
+        action->setData(QVariant::fromValue(sourceLink));
+    }
+    else
+    {
+        action->setVisible(false);
+    }
+
+    return action;
+}
+
 void MainWindow::prepareDatabase()
 {
     if(s_database == 0)
@@ -2402,7 +2632,7 @@ void MainWindow::prepareDatabase()
 
 void MainWindow::scheduleSaveDatabase()
 {
-    if(m_saveDatabaseTimer->interval() > 0 && !m_saveDatabaseTimer->isActive())
+    if(!m_saveDatabaseTimer->isActive() && m_saveDatabaseTimer->interval() > 0)
     {
         m_saveDatabaseTimer->start();
     }
@@ -2506,19 +2736,22 @@ void MainWindow::createWidgets()
     connect(m_matchCaseCheckBox, SIGNAL(clicked()), m_searchLineEdit, SLOT(startTimer()));
     connect(m_wholeWordsCheckBox, SIGNAL(clicked()), m_searchLineEdit, SLOT(startTimer()));
     connect(m_highlightAllCheckBox, SIGNAL(clicked(bool)), SLOT(on_highlightAll_clicked(bool)));
+
+    m_matchCaseCheckBox->setChecked(s_settings->documentView().matchCase());
+    m_wholeWordsCheckBox->setChecked(s_settings->documentView().wholeWords());
 }
 
-QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable, bool checked)
+QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QIcon& icon, const QList< QKeySequence >& shortcuts, const char* member, bool checkable, bool checked)
 {
     QAction* action = new QAction(text, this);
 
     action->setObjectName(objectName);
     action->setIcon(icon);
-    action->setShortcut(shortcut);
+    action->setShortcuts(shortcuts);
 
     if(!objectName.isEmpty())
     {
-        ShortcutHandler::instance()->registerAction(action);
+        s_shortcutHandler->registerAction(action);
     }
 
     if(checkable)
@@ -2540,9 +2773,19 @@ QAction* MainWindow::createAction(const QString& text, const QString& objectName
     return action;
 }
 
-QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable, bool checked)
+inline QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable, bool checked)
 {
-    return createAction(text, objectName, QIcon::fromTheme(iconName, QIcon(QLatin1String(":icons/") + iconName + QLatin1String(".svg"))), shortcut, member, checkable, checked);
+    return createAction(text, objectName, icon, QList< QKeySequence >() << shortcut, member, checkable, checked);
+}
+
+inline QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QList< QKeySequence >& shortcuts, const char* member, bool checkable, bool checked)
+{
+    return createAction(text, objectName, loadIconWithFallback(iconName), shortcuts, member, checkable, checked);
+}
+
+inline QAction* MainWindow::createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable, bool checked)
+{
+    return createAction(text, objectName, iconName, QList< QKeySequence >() << shortcut, member, checkable, checked);
 }
 
 void MainWindow::createActions()
@@ -2551,7 +2794,7 @@ void MainWindow::createActions()
 
     m_openAction = createAction(tr("&Open..."), QLatin1String("open"), QLatin1String("document-open"), QKeySequence::Open, SLOT(on_open_triggered()));
     m_openInNewTabAction = createAction(tr("Open in new &tab..."), QLatin1String("openInNewTab"), QLatin1String("tab-new"), QKeySequence::AddTab, SLOT(on_openInNewTab_triggered()));
-    m_openCopyInNewTabAction = createAction(tr("Open &copy in new tab"), QLatin1String("openCopyInNewTab"), QIcon(), QKeySequence(), SLOT(on_openCopyInNewTab_triggered()));
+    m_openCopyInNewTabAction = createAction(tr("Open &copy in new tab"), QLatin1String("openCopyInNewTab"), QLatin1String("tab-new"), QKeySequence(), SLOT(on_openCopyInNewTab_triggered()));
     m_openContainingFolderAction = createAction(tr("Open containing &folder"), QLatin1String("openContainingFolder"), QLatin1String("folder"), QKeySequence(), SLOT(on_openContainingFolder_triggered()));
     m_refreshAction = createAction(tr("&Refresh"), QLatin1String("refresh"), QLatin1String("view-refresh"), QKeySequence::Refresh, SLOT(on_refresh_triggered()));
     m_saveCopyAction = createAction(tr("&Save copy..."), QLatin1String("saveCopy"), QLatin1String("document-save"), QKeySequence::Save, SLOT(on_saveCopy_triggered()));
@@ -2563,10 +2806,10 @@ void MainWindow::createActions()
 
     m_previousPageAction = createAction(tr("&Previous page"), QLatin1String("previousPage"), QLatin1String("go-previous"), QKeySequence(Qt::Key_Backspace), SLOT(on_previousPage_triggered()));
     m_nextPageAction = createAction(tr("&Next page"), QLatin1String("nextPage"), QLatin1String("go-next"), QKeySequence(Qt::Key_Space), SLOT(on_nextPage_triggered()));
-    m_firstPageAction = createAction(tr("&First page"), QLatin1String("firstPage"), QLatin1String("go-first"), QKeySequence(Qt::Key_Home), SLOT(on_firstPage_triggered()));
-    m_lastPageAction = createAction(tr("&Last page"), QLatin1String("lastPage"), QLatin1String("go-last"), QKeySequence(Qt::Key_End), SLOT(on_lastPage_triggered()));
+    m_firstPageAction = createAction(tr("&First page"), QLatin1String("firstPage"), QLatin1String("go-first"), QList< QKeySequence >() << QKeySequence(Qt::Key_Home) << QKeySequence(Qt::KeypadModifier + Qt::Key_Home), SLOT(on_firstPage_triggered()));
+    m_lastPageAction = createAction(tr("&Last page"), QLatin1String("lastPage"), QLatin1String("go-last"), QList< QKeySequence >() << QKeySequence(Qt::Key_End) << QKeySequence(Qt::KeypadModifier + Qt::Key_End), SLOT(on_lastPage_triggered()));
 
-    m_setFirstPageAction = createAction(tr("&Set first page..."), QString(), QIcon(), QKeySequence(), SLOT(on_setFirstPage_triggered()));
+    m_setFirstPageAction = createAction(tr("&Set first page..."), QLatin1String("setFirstPage"), QIcon(), QKeySequence(), SLOT(on_setFirstPage_triggered()));
 
     m_jumpToPageAction = createAction(tr("&Jump to page..."), QLatin1String("jumpToPage"), QLatin1String("go-jump"), QKeySequence(Qt::CTRL + Qt::Key_J), SLOT(on_jumpToPage_triggered()));
 
@@ -2585,25 +2828,29 @@ void MainWindow::createActions()
 
     // view
 
-    m_continuousModeAction = createAction(tr("&Continuous"), QLatin1String("continuousMode"), QIcon(":icons/continuous.svg"), QKeySequence(Qt::CTRL + Qt::Key_7), SLOT(on_continuousMode_triggered(bool)), true);
-    m_twoPagesModeAction = createAction(tr("&Two pages"), QLatin1String("twoPagesMode"), QIcon(":icons/two-pages.svg"), QKeySequence(Qt::CTRL + Qt::Key_6), SLOT(on_twoPagesMode_triggered(bool)), true);
-    m_twoPagesWithCoverPageModeAction = createAction(tr("Two pages &with cover page"), QLatin1String("twoPagesWithCoverPageMode"), QIcon(":icons/two-pages-with-cover-page.svg"), QKeySequence(Qt::CTRL + Qt::Key_5), SLOT(on_twoPagesWithCoverPageMode_triggered(bool)), true);
-    m_multiplePagesModeAction = createAction(tr("&Multiple pages"), QLatin1String("multiplePagesMode"), QIcon(":icons/multiple-pages.svg"), QKeySequence(Qt::CTRL + Qt::Key_4), SLOT(on_multiplePagesMode_triggered(bool)), true);
+    m_continuousModeAction = createAction(tr("&Continuous"), QLatin1String("continuousMode"), QIcon(QLatin1String(":icons/continuous.svg")), QKeySequence(Qt::CTRL + Qt::Key_7), SLOT(on_continuousMode_triggered(bool)), true);
+    m_twoPagesModeAction = createAction(tr("&Two pages"), QLatin1String("twoPagesMode"), QIcon(QLatin1String(":icons/two-pages.svg")), QKeySequence(Qt::CTRL + Qt::Key_6), SLOT(on_twoPagesMode_triggered(bool)), true);
+    m_twoPagesWithCoverPageModeAction = createAction(tr("Two pages &with cover page"), QLatin1String("twoPagesWithCoverPageMode"), QIcon(QLatin1String(":icons/two-pages-with-cover-page.svg")), QKeySequence(Qt::CTRL + Qt::Key_5), SLOT(on_twoPagesWithCoverPageMode_triggered(bool)), true);
+    m_multiplePagesModeAction = createAction(tr("&Multiple pages"), QLatin1String("multiplePagesMode"), QIcon(QLatin1String(":icons/multiple-pages.svg")), QKeySequence(Qt::CTRL + Qt::Key_4), SLOT(on_multiplePagesMode_triggered(bool)), true);
 
-    m_rightToLeftModeAction = createAction(tr("Right to left"), QLatin1String("rightToLeftMode"), QIcon(":icons/right-to-left.svg"), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R), SLOT(on_rightToLeftMode_triggered(bool)), true);
+    m_rightToLeftModeAction = createAction(tr("Right to left"), QLatin1String("rightToLeftMode"), QIcon(QLatin1String(":icons/right-to-left.svg")), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_R), SLOT(on_rightToLeftMode_triggered(bool)), true);
 
     m_zoomInAction = createAction(tr("Zoom &in"), QLatin1String("zoomIn"), QLatin1String("zoom-in"), QKeySequence(Qt::CTRL + Qt::Key_Up), SLOT(on_zoomIn_triggered()));
     m_zoomOutAction = createAction(tr("Zoom &out"), QLatin1String("zoomOut"), QLatin1String("zoom-out"), QKeySequence(Qt::CTRL + Qt::Key_Down), SLOT(on_zoomOut_triggered()));
     m_originalSizeAction = createAction(tr("Original &size"), QLatin1String("originalSize"), QLatin1String("zoom-original"), QKeySequence(Qt::CTRL + Qt::Key_0), SLOT(on_originalSize_triggered()));
 
-    m_fitToPageWidthModeAction = createAction(tr("Fit to page width"), QLatin1String("fitToPageWidthMode"), QIcon(":icons/fit-to-page-width.svg"), QKeySequence(Qt::CTRL + Qt::Key_9), SLOT(on_fitToPageWidthMode_triggered(bool)), true);
-    m_fitToPageSizeModeAction = createAction(tr("Fit to page size"), QLatin1String("fitToPageSizeMode"), QIcon(":icons/fit-to-page-size.svg"), QKeySequence(Qt::CTRL + Qt::Key_8), SLOT(on_fitToPageSizeMode_triggered(bool)), true);
+    m_fitToPageWidthModeAction = createAction(tr("Fit to page width"), QLatin1String("fitToPageWidthMode"), QIcon(QLatin1String(":icons/fit-to-page-width.svg")), QKeySequence(Qt::CTRL + Qt::Key_9), SLOT(on_fitToPageWidthMode_triggered(bool)), true);
+    m_fitToPageSizeModeAction = createAction(tr("Fit to page size"), QLatin1String("fitToPageSizeMode"), QIcon(QLatin1String(":icons/fit-to-page-size.svg")), QKeySequence(Qt::CTRL + Qt::Key_8), SLOT(on_fitToPageSizeMode_triggered(bool)), true);
 
     m_rotateLeftAction = createAction(tr("Rotate &left"), QLatin1String("rotateLeft"), QLatin1String("object-rotate-left"), QKeySequence(Qt::CTRL + Qt::Key_Left), SLOT(on_rotateLeft_triggered()));
     m_rotateRightAction = createAction(tr("Rotate &right"), QLatin1String("rotateRight"), QLatin1String("object-rotate-right"), QKeySequence(Qt::CTRL + Qt::Key_Right), SLOT(on_rotateRight_triggered()));
 
     m_invertColorsAction = createAction(tr("Invert colors"), QLatin1String("invertColors"), QIcon(), QKeySequence(Qt::CTRL + Qt::Key_I), SLOT(on_invertColors_triggered(bool)), true);
     m_convertToGrayscaleAction = createAction(tr("Convert to grayscale"), QLatin1String("convertToGrayscale"), QIcon(), QKeySequence(Qt::CTRL + Qt::Key_U), SLOT(on_convertToGrayscale_triggered(bool)), true);
+    m_trimMarginsAction = createAction(tr("Trim margins"), QLatin1String("trimMargins"), QIcon(), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_U), SLOT(on_trimMargins_triggered(bool)), true);
+
+    m_darkenWithPaperColorAction = createAction(tr("Darken with paper color"), QLatin1String("darkenWithPaperColor"), QIcon(), QKeySequence(), SLOT(on_darkenWithPaperColor_triggered(bool)), true);
+    m_lightenWithPaperColorAction = createAction(tr("Lighten with paper color"), QLatin1String("lightenWithPaperColor"), QIcon(), QKeySequence(), SLOT(on_lightenWithPaperColor_triggered(bool)), true);
 
     m_fontsAction = createAction(tr("Fonts..."), QString(), QIcon(), QKeySequence(), SLOT(on_fonts_triggered()));
 
@@ -2618,6 +2865,8 @@ void MainWindow::createActions()
     m_closeTabAction = createAction(tr("&Close tab"), QLatin1String("closeTab"), QIcon::fromTheme("window-close"), QKeySequence(Qt::CTRL + Qt::Key_W), SLOT(on_closeTab_triggered()));
     m_closeAllTabsAction = createAction(tr("Close &all tabs"), QLatin1String("closeAllTabs"), QIcon(), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_W), SLOT(on_closeAllTabs_triggered()));
     m_closeAllTabsButCurrentTabAction = createAction(tr("Close all tabs &but current tab"), QLatin1String("closeAllTabsButCurrent"), QIcon(), QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_W), SLOT(on_closeAllTabsButCurrentTab_triggered()));
+
+    m_restoreMostRecentlyClosedTabAction = createAction(tr("Restore &most recently closed tab"), QLatin1String("restoreMostRecentlyClosedTab"), QIcon(), QKeySequence(Qt::ALT + Qt::SHIFT + Qt::Key_W), SLOT(on_restoreMostRecentlyClosedTab_triggered()));
 
     // tab shortcuts
 
@@ -2639,6 +2888,16 @@ void MainWindow::createActions()
 
     m_contentsAction = createAction(tr("&Contents"), QLatin1String("contents"), QIcon::fromTheme("help-contents"), QKeySequence::HelpContents, SLOT(on_contents_triggered()));
     m_aboutAction = createAction(tr("&About"), QString(), QIcon::fromTheme("help-about"), QKeySequence(), SLOT(on_about_triggered()));
+
+    // tool bars and menu bar
+
+    m_toggleToolBarsAction = createAction(tr("Toggle tool bars"), QLatin1String("toggleToolBars"), QIcon(), QKeySequence(Qt::SHIFT + Qt::ALT + Qt::Key_T), SLOT(on_toggleToolBars_triggered(bool)), true, true);
+    m_toggleMenuBarAction = createAction(tr("Toggle menu bar"), QLatin1String("toggleMenuBar"), QIcon(), QKeySequence(Qt::SHIFT + Qt::ALT + Qt::Key_M), SLOT(on_toggleMenuBar_triggered(bool)), true, true);
+
+    // progress and error icons
+
+    s_settings->pageItem().setProgressIcon(loadIconWithFallback(QLatin1String("image-loading")));
+    s_settings->pageItem().setErrorIcon(loadIconWithFallback(QLatin1String("image-missing")));
 }
 
 QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectName, const QStringList& actionNames, const QList< QAction* >& actions)
@@ -2646,28 +2905,10 @@ QToolBar* MainWindow::createToolBar(const QString& text, const QString& objectNa
     QToolBar* toolBar = addToolBar(text);
     toolBar->setObjectName(objectName);
 
-    foreach(const QString& actionName, actionNames)
-    {
-        if(actionName == QLatin1String("separator"))
-        {
-            toolBar->addSeparator();
-
-            continue;
-        }
-
-        foreach(QAction* action, actions)
-        {
-            if(actionName == action->objectName())
-            {
-                toolBar->addAction(action);
-
-                break;
-            }
-        }
-    }
+    addWidgetActions(toolBar, actionNames, actions);
 
     toolBar->toggleViewAction()->setObjectName(objectName + QLatin1String("ToggleView"));
-    ShortcutHandler::instance()->registerAction(toolBar->toggleViewAction());
+    s_shortcutHandler->registerAction(toolBar->toggleViewAction());
 
     return toolBar;
 }
@@ -2706,7 +2947,7 @@ QDockWidget* MainWindow::createDock(const QString& text, const QString& objectNa
     dock->toggleViewAction()->setObjectName(objectName + QLatin1String("ToggleView"));
     dock->toggleViewAction()->setShortcut(toggleViewShortcut);
 
-    ShortcutHandler::instance()->registerAction(dock->toggleViewAction());
+    s_shortcutHandler->registerAction(dock->toggleViewAction());
 
     dock->hide();
 
@@ -2774,7 +3015,7 @@ void MainWindow::createSearchDock()
         m_searchDock->toggleViewAction()->setObjectName(QLatin1String("searchDockToggleView"));
         m_searchDock->toggleViewAction()->setShortcut(QKeySequence(Qt::Key_F10));
 
-        ShortcutHandler::instance()->registerAction(m_searchDock->toggleViewAction());
+        s_shortcutHandler->registerAction(m_searchDock->toggleViewAction());
 
         m_searchView = new QTreeView(m_searchWidget);
         m_searchView->setAlternatingRowColors(true);
@@ -2809,7 +3050,10 @@ void MainWindow::createDocks()
     m_outlineView->setAlternatingRowColors(true);
     m_outlineView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_outlineView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_outlineView->setSelectionMode(QAbstractItemView::SingleSelection);
     m_outlineView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    m_outlineView->installEventFilter(this);
 
     connect(m_outlineView->header(), SIGNAL(sectionCountChanged(int,int)), SLOT(on_outline_sectionCountChanged()));
     connect(m_outlineView, SIGNAL(clicked(QModelIndex)), SLOT(on_outline_clicked(QModelIndex)));
@@ -2823,6 +3067,7 @@ void MainWindow::createDocks()
 
     m_propertiesView = new QTableView(this);
     m_propertiesView->setAlternatingRowColors(true);
+    m_propertiesView->setTabKeyNavigation(false);
     m_propertiesView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_propertiesView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 
@@ -2837,6 +3082,8 @@ void MainWindow::createDocks()
     connect(m_thumbnailsDock, SIGNAL(dockLocationChanged(Qt::DockWidgetArea)), SLOT(on_thumbnails_dockLocationChanged(Qt::DockWidgetArea)));
 
     m_thumbnailsView = new QGraphicsView(this);
+
+    m_thumbnailsView->installEventFilter(this);
 
     connect(m_thumbnailsView->verticalScrollBar(), SIGNAL(valueChanged(int)), SLOT(on_thumbnails_verticalScrollBar_valueChanged(int)));
 
@@ -2872,7 +3119,7 @@ void MainWindow::createMenus()
     // file
 
     m_fileMenu = menuBar()->addMenu(tr("&File"));
-    m_fileMenu->addActions(QList< QAction* >() << m_openAction << m_openInNewTabAction << m_openContainingFolderAction);
+    m_fileMenu->addActions(QList< QAction* >() << m_openAction << m_openInNewTabAction);
 
     m_recentlyUsedMenu = new RecentlyUsedMenu(s_settings->mainWindow().recentlyUsed(), s_settings->mainWindow().recentlyUsedCount(), this);
 
@@ -2914,7 +3161,12 @@ void MainWindow::createMenus()
     m_viewMenu->addSeparator();
     m_viewMenu->addActions(QList< QAction* >() << m_rotateLeftAction << m_rotateRightAction);
     m_viewMenu->addSeparator();
-    m_viewMenu->addActions(QList< QAction* >() << m_invertColorsAction << m_convertToGrayscaleAction);
+    m_viewMenu->addActions(QList< QAction* >() << m_invertColorsAction << m_convertToGrayscaleAction << m_trimMarginsAction);
+
+    m_compositionModeMenu = m_viewMenu->addMenu(tr("Composition"));
+    m_compositionModeMenu->addAction(m_darkenWithPaperColorAction);
+    m_compositionModeMenu->addAction(m_lightenWithPaperColorAction);
+
     m_viewMenu->addSeparator();
 
     QMenu* toolBarsMenu = m_viewMenu->addMenu(tr("&Tool bars"));
@@ -2950,6 +3202,7 @@ void MainWindow::createMenus()
     if(s_settings->mainWindow().keepRecentlyClosed())
     {
         m_tabsMenu->addMenu(m_recentlyClosedMenu);
+        m_tabsMenu->addAction(m_restoreMostRecentlyClosedTabAction);
     }
 
     m_tabsMenu->addSeparator();
@@ -3113,6 +3366,13 @@ void MainWindowAdaptor::fitToPageSizeModeAction(bool checked)
     mainWindow()->on_fitToPageSizeMode_triggered(checked);
 }
 
+void MainWindowAdaptor::convertToGrayscaleAction(bool checked)
+{
+    ONLY_IF_CURRENT_TAB
+
+    mainWindow()->on_convertToGrayscale_triggered(checked);
+}
+
 void MainWindowAdaptor::invertColorsAction(bool checked)
 {
     ONLY_IF_CURRENT_TAB
@@ -3173,6 +3433,8 @@ bool MainWindowAdaptor::closeTab(const QString& absoluteFilePath)
 
     return false;
 }
+
+#undef ONLY_IF_CURRENT_TAB
 
 inline MainWindow* MainWindowAdaptor::mainWindow() const
 {

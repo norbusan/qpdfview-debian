@@ -158,6 +158,10 @@ gradi.</li>
 invertiti.</li>
     <li><b>Convert to grayscale</b> Determines whether pages are converted to
 grayscale after rendering.</li>
+    <li><b>Trim margins</b> Enables the removal of empty page margins after
+rendering.</li>
+    <li><b>Composition</b> Enables the composition of the rendered page with the
+paper color to adjust the background of scanned documents.</li>
 	<li><b>Barre degli strumenti</b> contiene un elenco delle barre degli strumenti
 disponibili per accedere rapidamente alle azioni svolte di frequente.</li>
 	<li><b>Elementi</b> contiene un elenco di elementi disponibili per mostrare
@@ -249,9 +253,9 @@ tool tip.</p>
 settings). Left-click on a form field to edit its contents. Hovering over a
 form field displays its name as a tool tip.</p>
 
-<p>The source of a position in the document is requested by double-clicking
-which opens the first matching <em>SyncTeX</em> node using the source
-editor.</p>
+<p>The source of a position in the document can be opened in the source editor
+using the context menu which optionally contains an item for the first
+matching <em>SyncTeX</em> node.</p>
 
 <p>To <em>copy texts or images</em>, hold <b>SHIFT</b>, click and hold the left
 mouse button to drag a frame around the area to copy. Once the mouse button
@@ -275,24 +279,33 @@ configurable keyboard shortcuts whose default values are "Shift+Alt+T" and
 
 <h3><a name="auxiliaryviews">Viste ausiliarie</a> <a href="#top">&uarr;</a></h3>
 
-<p>The <em>outline</em> view displays an overview of the contents of the
+<p>The <em>outline view</em> displays an overview of the contents of the
 document. A left click on an entry jumps to the respective page in the main
 view. The context menu can be used to expand/collapse all items below the
 selected item.</p>
 
-<p>The <em>properties</em> view displays additional information contained in
+<p>The outline view can also be navigated using the keyboard and the mouse
+wheel. Holding Shift and using the Up/Down keys will scroll the
+view. Holding Shift and using the Left/Right keys will collapse/expand one
+level of items below the selected item. Holding Control and using the
+Left/Right keys will completely collapse/expand the selected item and its
+children. Holding Shift and using the mousel wheel will change the selected
+item. Holding Control and using the mouse wheel will expand/collapse the
+selected item.</p>
+
+<p>The <em>properties view</em> displays additional information contained in
 the document.</p>
 
-<p>La vista a <em>miniature</em> mostra piccole versioni delle pagine del
-documento. Un clic con il pulsante sinistro su una miniatura porta alla
-rispettiva pagine nella vista principale.</p>
+<p>The <em>thumbnails view</em> displays smaller versions of the pages of the
+document. A left click on an entry jumps to the respective page in the main
+view.</p>
 
-<p>The <em>bookmarks</em> view shows the bookmarks related to the document
+<p>The <em>bookmarks view</em> shows the bookmarks related to the document
 displayed in the current tab. The context menu contains entries to jump to
 the previous/next boookmark or to add bookmarks. The context menu of each
 entry also contains entries to edit and delete bookmarks.</p>
 
-<p>If enabled in the settings, the extended <em>search</em> dock shows an
+<p>If enabled in the settings, the <em>extended search dock</em> shows an
 overview containing the results of all searches being performed in all
 tabs. It also shows the text surrounding a result with the search term being
 emphasized. Clicking on a result opens the corresponding tab and jumps to
@@ -331,6 +344,8 @@ visualizzare la presentazione.</li>
     <li><b>Synchronize outline view</b> If enabled, the outline view will highlight
 the first entry pointing to the current page whenever the current page
 changes.</li>
+    <li><b>Minimal scrolling</b> If enabled, the view port will only be scrolled if
+the target position is not yet visible.</li>
     <li><b>Zoom factor</b> The number by which the scale factor is multiplied
 resp. divided upon zooming in resp. out.</li>
     <li><b>Colore dell'evidenziatore</b> indica il colore dell'evidenziatore.</li>
@@ -354,8 +369,6 @@ factor, cached pixmaps will be used to draw approximations of final pixmaps
 until these are available at the cost of increased memory usage.</li>
     <li><b>Use device pixel ratio</b> If enabled, the highest available device pixel
 ratio is used to render at physical and display at logical resolution.</li>
-    <li><b>Trim margins</b> Activates the automatic removal of empty page margins
-after rendering.</li>
     <li><b>Decorate pages</b> Determines whether pages are set apart from the
 background.</li>
     <li><b>Decorate links</b> Determines whether links are highlighted by red
@@ -449,6 +462,15 @@ scaleFactor, zoomIn, zoomOut, continuousMode, twoPagesMode,
 twoPagesWithCoverPageMode, multiplePagesMode, originalSize,
 fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen,
 presentation e separator. (Le modifiche hanno effetto dopo il riavvio.)</li>
+    <li><b>Document context menu</b> Defines which actions are visible in the
+document's context menu. Available actions are openCopyInNewTab,
+openContainingFolder, previousPage, nextPage, firstPage, lastPage,
+jumpToPage, jumpBackward, jumpForward, setFirstPage, findPrevious, findNext,
+cancelSearch and separator.</li>
+    <li><b>Tab context menu</b> Defines which actions are visible in a tab's context
+menu. Available actions are openCopyInNewTab, openContainingFolder,
+copyFilePath, selectFilePath, closeAllTabs, closeAllTabsButThisOne,
+closeAllTabsToTheLeft, closeAllTabsToTheRight and separator.</li>
     <li><b>Scrollable menus</b> Will override the default style so that pop-up menus
 scroll instead being laid-out in mutliple columns if they are larger than
 the available screen space. (Effective after restart.)</li>

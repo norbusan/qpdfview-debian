@@ -24,7 +24,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QGraphicsView>
 
-#include "global.h"
+#include "renderparam.h"
 
 namespace qpdfview
 {
@@ -45,20 +45,20 @@ public:
     PresentationView(const QVector< Model::Page* >& pages, QWidget* parent = 0);
     ~PresentationView();
 
-    int numberOfPages() const;
-    int currentPage() const;
+    int numberOfPages() const { return m_pages.count(); }
+    int currentPage() const { return m_currentPage; }
 
-    ScaleMode scaleMode() const;
+    ScaleMode scaleMode() const { return m_scaleMode; }
     void setScaleMode(ScaleMode scaleMode);
 
-    qreal scaleFactor() const;
+    qreal scaleFactor() const { return m_scaleFactor; }
     void setScaleFactor(qreal scaleFactor);
 
-    Rotation rotation() const;
+    Rotation rotation() const { return m_rotation; }
     void setRotation(Rotation rotation);
 
-    bool invertColors() const;
-    void setInvertColors(bool invertColors);
+    qpdfview::RenderFlags renderFlags() const { return m_renderFlags; }
+    void setRenderFlags(qpdfview::RenderFlags renderFlags);
 
 signals:
     void currentPageChanged(int currentPage, bool trackChange = false);
@@ -67,7 +67,7 @@ signals:
     void scaleFactorChanged(qreal scaleFactor);
     void rotationChanged(Rotation rotation);
 
-    void invertColorsChanged(bool invertColors);
+    void renderFlagsChanged(qpdfview::RenderFlags renderFlags);
     
 public slots:
     void show();
@@ -120,7 +120,7 @@ private:
     qreal m_scaleFactor;
     Rotation m_rotation;
 
-    bool m_invertColors;
+    qpdfview::RenderFlags m_renderFlags;
 
     QVector< PageItem* > m_pageItems;
 

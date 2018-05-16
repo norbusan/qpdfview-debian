@@ -34,7 +34,7 @@ class QFileSystemWatcher;
 class QPrinter;
 class QStandardItemModel;
 
-#include "global.h"
+#include "renderparam.h"
 #include "printoptions.h"
 
 namespace qpdfview
@@ -104,11 +104,21 @@ public:
     Rotation rotation() const { return m_rotation; }
     void setRotation(Rotation rotation);
 
-    bool invertColors() const { return m_invertColors; }
-    void setInvertColors(bool invertColors);
+    qpdfview::RenderFlags renderFlags() const { return m_renderFlags; }
+    void setRenderFlags(qpdfview::RenderFlags renderFlags);
+    void setRenderFlag(qpdfview::RenderFlag renderFlag, bool enabled = true);
 
-    bool convertToGrayscale() const { return m_convertToGrayscale; }
-    void setConvertToGrayscale(bool convertToGrayscale);
+    bool invertColors() const { return m_renderFlags.testFlag(InvertColors); }
+    void setInvertColors(bool invertColors) { setRenderFlag(InvertColors, invertColors); }
+
+    bool convertToGrayscale() const { return m_renderFlags.testFlag(ConvertToGrayscale); }
+    void setConvertToGrayscale(bool convertToGrayscale) { setRenderFlag(ConvertToGrayscale, convertToGrayscale); }
+
+    bool trimMargins() const { return m_renderFlags.testFlag(TrimMargins); }
+    void setTrimMargins(bool trimMargins) { setRenderFlag(TrimMargins, trimMargins); }
+
+    CompositionMode compositionMode() const;
+    void setCompositionMode(CompositionMode compositionMode);
 
     bool highlightAll() const { return m_highlightAll; }
     void setHighlightAll(bool highlightAll);
@@ -116,8 +126,8 @@ public:
     RubberBandMode rubberBandMode() const { return m_rubberBandMode; }
     void setRubberBandMode(RubberBandMode rubberBandMode);
 
-    bool searchWasCanceled() const;
-    int searchProgress() const;
+    QSize thumbnailsViewportSize() const { return m_thumbnailsViewportSize; }
+    void setThumbnailsViewportSize(const QSize& thumbnailsViewportSize);
 
     Qt::Orientation thumbnailsOrientation() const { return m_thumbnailsOrientation; }
     void setThumbnailsOrientation(Qt::Orientation thumbnailsOrientation);
@@ -130,11 +140,27 @@ public:
 
     QStandardItemModel* fontsModel() const;
 
+    bool searchWasCanceled() const;
+    int searchProgress() const;
+
     QString searchText() const;
     bool searchMatchCase() const;
     bool searchWholeWords() const;
 
     QPair< QString, QString > searchContext(int page, const QRectF& rect) const;
+
+    struct SourceLink
+    {
+        QString name;
+        int line;
+        int column;
+
+        operator bool() const { return !name.isNull(); }
+
+    };
+
+    SourceLink sourceLink(const QPoint& pos);
+    void openInSourceEditor(const SourceLink& sourceLink);
 
 signals:
     void documentChanged();
@@ -155,8 +181,14 @@ signals:
     void linkClicked(int page);
     void linkClicked(bool newTab, const QString& filePath, int page);
 
+    void renderFlagsChanged(qpdfview::RenderFlags renderFlags);
+
     void invertColorsChanged(bool invertColors);
     void convertToGrayscaleChanged(bool convertToGrayscale);
+    void trimMarginsChanged(bool trimMargins);
+
+    void compositionModeChanged(CompositionMode compositionMode);
+
     void highlightAllChanged(bool highlightAll);
     void rubberBandModeChanged(RubberBandMode rubberBandMode);
 
@@ -176,7 +208,7 @@ public slots:
     void firstPage();
     void lastPage();
 
-    void jumpToPage(int page, bool trackChange = true, qreal changeLeft = 0.0, qreal changeTop = 0.0);
+    void jumpToPage(int page, bool trackChange = true, qreal newLeft = qQNaN(), qreal newTop = qQNaN());
 
     bool canJumpBackward() const;
     void jumpBackward();
@@ -224,8 +256,7 @@ protected slots:
 
     void on_pages_rubberBandFinished();
 
-    void on_pages_editSourceRequested(int page, const QPointF& pos);
-    void on_pages_zoomToSelectionRequested(int page, const QRectF& rect);
+    void on_pages_zoomToSelection(int page, const QRectF& rect);
 
     void on_pages_wasModified();
 
@@ -289,8 +320,8 @@ private:
     qreal m_scaleFactor;
     Rotation m_rotation;
 
-    bool m_invertColors;
-    bool m_convertToGrayscale;
+    qpdfview::RenderFlags m_renderFlags;
+
     bool m_highlightAll;
     RubberBandMode m_rubberBandMode;
 
@@ -299,7 +330,9 @@ private:
 
     QGraphicsRectItem* m_highlight;
 
+    QSize m_thumbnailsViewportSize;
     Qt::Orientation m_thumbnailsOrientation;
+
     QGraphicsScene* m_thumbnailsScene;
 
     QStandardItemModel* m_outlineModel;
@@ -311,8 +344,8 @@ private:
     void loadDocumentDefaults();
 
     void adjustScrollBarPolicy();
-    void connectVerticalScrollBar();
     void disconnectVerticalScrollBar();
+    void reconnectVerticalScrollBar();
 
     void prepareDocument(Model::Document* document, const QVector< Model::Page* >& pages);
     void preparePages();
@@ -320,7 +353,7 @@ private:
     void prepareBackground();
 
     void prepareScene();
-    void prepareView(qreal changeLeft = 0.0, qreal changeTop = 0.0, int visiblePage = 0);
+    void prepareView(qreal newLeft = 0.0, qreal newTop = 0.0, bool forceScroll = true, int scrollToPage = 0);
 
     void prepareThumbnailsScene();
 
@@ -340,5 +373,7 @@ private:
 };
 
 } // qpdfview
+
+Q_DECLARE_METATYPE(qpdfview::DocumentView::SourceLink)
 
 #endif // DOCUMENTVIEW_H

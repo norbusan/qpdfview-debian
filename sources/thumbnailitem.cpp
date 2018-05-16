@@ -38,15 +38,7 @@ ThumbnailItem::ThumbnailItem(Model::Page* page, const QString& text, int index, 
 
 QRectF ThumbnailItem::boundingRect() const
 {
-#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
-
-    return PageItem::boundingRect().adjusted(0.0, 0.0, 0.0, 2.0 * m_text.size().height());
-
-#else
-
-    return PageItem::boundingRect().adjusted(0.0, 0.0, 0.0, 2.0 * QFontMetrics(QFont()).height());
-
-#endif // QT_VERSION
+    return PageItem::boundingRect().adjusted(0.0, 0.0, 0.0, textHeight());
 }
 
 void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
@@ -95,6 +87,19 @@ void ThumbnailItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
 
         painter->restore();
     }
+}
+
+qreal ThumbnailItem::textHeight() const
+{
+#if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
+
+    return 2.0 * m_text.size().height();
+
+#else
+
+    return 2.0 * QFontMetrics(QFont()).height();
+
+#endif // QT_VERSION
 }
 
 void ThumbnailItem::setHighlighted(bool highlighted)

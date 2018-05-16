@@ -15,10 +15,12 @@ The following build-time options are available:
     * 'without_ps' disables PS support, i.e. the PS plug-in using libspectre will not be built.
     * 'without_djvu' disables DjVu support, i.e. the DjVu plug-in using DjVuLibre will not be built.
     * 'with_fitz' enables Fitz support, i.e. the Fitz plug-in using MuPDF will be built.
+    * 'without_image' disable image support, i.e. the plug-in using Qt's built-in image I/O will not be built.
     * 'static_pdf_plugin' links the PDF plug-in statically (This could lead to linker dependency collisions.)
     * 'static_ps_plugin' links the PS plug-in statically. (This could lead to linker dependency collisions.)
     * 'static_djvu_plugin' links the DjVu plug-in statically. (This could lead to linker dependency collisions.)
     * 'static_fitz_plugin' links the Fitz plug-in statically. (This could lead to linker dependency collisions.)
+    * 'static_image_plugin' links the image plug-in statically.
     * 'without_cups' disables CUPS support, i.e. the program will attempt to rasterize the document instead of requesting CUPS to print the document file.
     * 'without_synctex' disables SyncTeX support, i.e. the program will not perform forward and inverse search for sources.
     * 'without_magic' disables libmagic support, i.e. the program will determine file type using the file suffix.

@@ -215,6 +215,12 @@ private:
 
 #endif // HAS_POPPLER_18
 
+#ifdef HAS_POPPLER_35
+
+    QCheckBox* m_ignorePaperColorCheckBox;
+
+#endif // HAS_POPPLER_35
+
 #ifdef HAS_POPPLER_22
 
     QCheckBox* m_overprintPreviewCheckBox;

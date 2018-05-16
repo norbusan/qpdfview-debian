@@ -23,6 +23,11 @@ with_fitz {
     application.pro.depends = fitz-plugin.pro
 }
 
+!without_image {
+    SUBDIRS += image-plugin.pro
+    application.pro.depends = image-plugin.pro
+}
+
 SUBDIRS += application.pro
 
 TRANSLATIONS += \
@@ -45,6 +50,7 @@ TRANSLATIONS += \
     translations/qpdfview_gl.ts \
     translations/qpdfview_he.ts \
     translations/qpdfview_hr.ts \
+    translations/qpdfview_hu.ts \
     translations/qpdfview_id.ts \
     translations/qpdfview_it.ts \
     translations/qpdfview_kk.ts \

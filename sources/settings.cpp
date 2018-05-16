@@ -1,6 +1,7 @@
 /*
 
-Copyright 2012-2013 Adam Reichold
+Copyright 2015 S. Razi Alavizadeh
+Copyright 2012-2015 Adam Reichold
 Copyright 2012 Alexander Volkov
 
 This file is part of qpdfview.
@@ -64,6 +65,8 @@ Settings* Settings::instance()
     if(s_instance == 0)
     {
         s_instance = new Settings(qApp);
+
+        s_instance->sync();
     }
 
     return s_instance;
@@ -83,13 +86,8 @@ void Settings::PageItem::sync()
     m_useTiling = m_settings->value("pageItem/useTiling", Defaults::PageItem::useTiling()).toBool();
     m_tileSize = m_settings->value("pageItem/tileSize", Defaults::PageItem::tileSize()).toInt();
 
-    m_progressIcon = QIcon::fromTheme("image-loading", QIcon(":/icons/image-loading.svg"));
-    m_errorIcon = QIcon::fromTheme("image-missing", QIcon(":icons/image-missing.svg"));
-
     m_keepObsoletePixmaps = m_settings->value("pageItem/keepObsoletePixmaps", Defaults::PageItem::keepObsoletePixmaps()).toBool();
     m_useDevicePixelRatio = m_settings->value("pageItem/useDevicePixelRatio", Defaults::PageItem::useDevicePixelRatio()).toBool();
-
-    m_trimMargins = m_settings->value("pageItem/trimMargins", Defaults::PageItem::trimMargins()).toBool();
 
     m_decoratePages = m_settings->value("pageItem/decoratePages", Defaults::PageItem::decoratePages()).toBool();
     m_decorateLinks = m_settings->value("pageItem/decorateLinks", Defaults::PageItem::decorateLinks()).toBool();
@@ -126,12 +124,6 @@ void Settings::PageItem::setUseDevicePixelRatio(bool useDevicePixelRatio)
 {
     m_useDevicePixelRatio = useDevicePixelRatio;
     m_settings->setValue("pageItem/useDevicePixelRatio", useDevicePixelRatio);
-}
-
-void Settings::PageItem::setTrimMargins(bool trimMargins)
-{
-    m_trimMargins = trimMargins;
-    m_settings->setValue("pageItem/trimMargins", trimMargins);
 }
 
 void Settings::PageItem::setDecoratePages(bool decoratePages)
@@ -237,7 +229,6 @@ Settings::PageItem::PageItem(QSettings* settings) :
     m_errorIcon(),
     m_keepObsoletePixmaps(Defaults::PageItem::keepObsoletePixmaps()),
     m_useDevicePixelRatio(false),
-    m_trimMargins(false),
     m_decoratePages(Defaults::PageItem::decoratePages()),
     m_decorateLinks(Defaults::PageItem::decorateLinks()),
     m_decorateFormFields(Defaults::PageItem::decorateFormFields()),
@@ -299,6 +290,8 @@ void Settings::DocumentView::sync()
     m_prefetchDistance = m_settings->value("documentView/prefetchDistance", Defaults::DocumentView::prefetchDistance()).toInt();
 
     m_pagesPerRow = m_settings->value("documentView/pagesPerRow", Defaults::DocumentView::pagesPerRow()).toInt();
+
+    m_minimalScrolling = m_settings->value("documentView/minimalScrolling", Defaults::DocumentView::minimalScrolling()).toBool();
 
     m_highlightCurrentThumbnail = m_settings->value("documentView/highlightCurrentThumbnail", Defaults::DocumentView::highlightCurrentThumbnail()).toBool();
     m_limitThumbnailsToResults = m_settings->value("documentView/limitThumbnailsToResults", Defaults::DocumentView::limitThumbnailsToResults()).toBool();
@@ -363,6 +356,12 @@ void Settings::DocumentView::setPagesPerRow(int pagesPerRow)
     }
 }
 
+void Settings::DocumentView::setMinimalScrolling(bool minimalScrolling)
+{
+    m_minimalScrolling = minimalScrolling;
+    m_settings->setValue("documentView/minimalScrolling", minimalScrolling);
+}
+
 void Settings::DocumentView::setHighlightCurrentThumbnail(bool highlightCurrentThumbnail)
 {
     m_highlightCurrentThumbnail = highlightCurrentThumbnail;
@@ -415,7 +414,7 @@ void Settings::DocumentView::setThumbnailSpacing(qreal thumbnailSpacing)
 
 void Settings::DocumentView::setThumbnailSize(qreal thumbnailSize)
 {
-    if(thumbnailSize > 0.0)
+    if(thumbnailSize >= 0.0)
     {
         m_thumbnailSize = thumbnailSize;
         m_settings->setValue("documentView/thumbnailSize", thumbnailSize);
@@ -577,6 +576,26 @@ void Settings::DocumentView::setConvertToGrayscale(bool convertToGrayscale)
     m_settings->setValue("documentView/convertToGrayscale", convertToGrayscale);
 }
 
+bool Settings::DocumentView::trimMargins() const
+{
+    return m_settings->value("documentView/trimMargins", Defaults::DocumentView::trimMargins()).toBool();
+}
+
+void Settings::DocumentView::setTrimMargins(bool trimMargins)
+{
+    m_settings->setValue("documentView/trimMargins", trimMargins);
+}
+
+CompositionMode Settings::DocumentView::compositionMode() const
+{
+    return static_cast< CompositionMode >(m_settings->value("documentView/compositionMode", static_cast< uint >(Defaults::DocumentView::compositionMode())).toInt());
+}
+
+void Settings::DocumentView::setCompositionMode(CompositionMode compositionMode)
+{
+    m_settings->setValue("documentView/compositionMode", static_cast< uint >(compositionMode));
+}
+
 bool Settings::DocumentView::highlightAll() const
 {
     return m_settings->value("documentView/highlightAll", Defaults::DocumentView::highlightAll()).toBool();
@@ -680,6 +699,11 @@ bool Settings::MainWindow::restorePerFileSettings() const
 void Settings::MainWindow::setRestorePerFileSettings(bool restorePerFileSettings)
 {
     m_settings->setValue("mainWindow/restorePerFileSettings", restorePerFileSettings);
+}
+
+int Settings::MainWindow::perFileSettingsLimit() const
+{
+    return m_settings->value("mainWindow/perFileSettingsLimit", Defaults::MainWindow::perFileSettingsLimit()).toInt();
 }
 
 int Settings::MainWindow::saveDatabaseInterval() const
@@ -836,6 +860,26 @@ QStringList Settings::MainWindow::viewToolBar() const
 void Settings::MainWindow::setViewToolBar(const QStringList& viewToolBar)
 {
     m_settings->setValue("mainWindow/viewToolBar", trimmed(viewToolBar));
+}
+
+QStringList Settings::MainWindow::documentContextMenu() const
+{
+    return m_settings->value("mainWindow/documentContextMenu", Defaults::MainWindow::documentContextMenu()).toStringList();
+}
+
+void Settings::MainWindow::setDocumentContextMenu(const QStringList& documentContextMenu)
+{
+    m_settings->setValue("mainWindow/documentContextMenu", trimmed(documentContextMenu));
+}
+
+QStringList Settings::MainWindow::tabContextMenu() const
+{
+    return m_settings->value("mainWindow/tabContextMenu", Defaults::MainWindow::tabContexntMenu()).toStringList();
+}
+
+void Settings::MainWindow::setTabContextMenu(const QStringList& tabContextMenu)
+{
+    m_settings->setValue("mainWindow/tabContextMenu", trimmed(tabContextMenu));
 }
 
 bool Settings::MainWindow::scrollableMenus() const

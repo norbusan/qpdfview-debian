@@ -81,7 +81,7 @@ QModelIndex SearchModel::parent(const QModelIndex& child) const
 {
     if(child.internalPointer() != 0)
     {
-        DocumentView* view = reinterpret_cast< DocumentView* >(child.internalPointer());
+        DocumentView* view = static_cast< DocumentView* >(child.internalPointer());
 
         return findView(view);
     }
@@ -150,7 +150,7 @@ QVariant SearchModel::data(const QModelIndex& index, int role) const
     }
     else
     {
-        DocumentView* view = reinterpret_cast< DocumentView* >(index.internalPointer());
+        DocumentView* view = static_cast< DocumentView* >(index.internalPointer());
         const Results* results = m_results.value(view, 0);
 
         if(results == 0 || index.row() >= results->count())
@@ -194,7 +194,7 @@ DocumentView* SearchModel::viewForIndex(const QModelIndex& index) const
     }
     else
     {
-        return reinterpret_cast< DocumentView* >(index.internalPointer());
+        return static_cast< DocumentView* >(index.internalPointer());
     }
 }
 

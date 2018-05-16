@@ -1,6 +1,7 @@
 /*
 
-Copyright 2012-2013 Adam Reichold
+Copyright 2015 S. Razi Alavizadeh
+Copyright 2012-2015 Adam Reichold
 Copyright 2012 Alexander Volkov
 
 This file is part of qpdfview.
@@ -96,6 +97,7 @@ private:
 
     QCheckBox* m_synchronizeOutlineViewCheckBox;
 
+    QCheckBox* m_minimalScrollingCheckBox;
     QDoubleSpinBox* m_zoomFactorSpinBox;
 
     QSpinBox* m_highlightDurationSpinBox;
@@ -112,14 +114,7 @@ private:
 
     QCheckBox* m_useTilingCheckBox;
     QCheckBox* m_keepObsoletePixmapsCheckBox;
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
     QCheckBox* m_useDevicePixelRatioCheckBox;
-
-#endif // QT_VERSION
-
-    QCheckBox* m_trimMarginsCheckBox;
 
     QCheckBox* m_decoratePagesCheckBox;
     QCheckBox* m_decorateLinksCheckBox;
@@ -165,6 +160,9 @@ private:
     QLineEdit* m_editToolBarLineEdit;
     QLineEdit* m_viewToolBarLineEdit;
 
+    QLineEdit* m_documentContextMenuLineEdit;
+    QLineEdit* m_tabContextMenuLineEdit;
+
     QCheckBox* m_scrollableMenusCheckBox;
     QCheckBox* m_searchableMenusCheckBox;
 
@@ -199,8 +197,14 @@ private:
 
     // helper methods
 
-    void createColorComboBox(QComboBox*& comboBox, const QColor& color);
-    void createModifiersComboBox(QComboBox*& comboBox, const Qt::KeyboardModifiers& modifiers);
+    QCheckBox* addCheckBox(QFormLayout* layout, const QString& label, const QString& toolTip, bool checked);
+    QLineEdit* addLineEdit(QFormLayout* layout, const QString& label, const QString& toolTip, const QString& text);
+    QSpinBox* addSpinBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QString& suffix, const QString& special, int min, int max, int step, int val);
+    QDoubleSpinBox* addDoubleSpinBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QString& suffix, const QString& special, double min, double max, double step, double val);
+    QComboBox* addComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QStringList& text, const QList< int >& data, int value);
+    QComboBox* addDataSizeComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, int dataSize);
+    QComboBox* addColorComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const QColor& color);
+    QComboBox* addModifiersComboBox(QFormLayout* layout, const QString& label, const QString& toolTip, const Qt::KeyboardModifiers& modifiers);
 
 };
 

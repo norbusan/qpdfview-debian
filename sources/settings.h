@@ -1,6 +1,7 @@
 /*
 
-Copyright 2012-2013 Adam Reichold
+Copyright 2015 S. Razi Alavizadeh
+Copyright 2012-2015 Adam Reichold
 Copyright 2012 Alexander Volkov
 
 This file is part of qpdfview.
@@ -61,16 +62,16 @@ public:
         int tileSize() const { return m_tileSize; }
 
         const QIcon& progressIcon() const { return m_progressIcon; }
+        void setProgressIcon(const QIcon& progressIcon) { m_progressIcon = progressIcon; }
+
         const QIcon& errorIcon() const { return m_errorIcon; }
+        void setErrorIcon(const QIcon& errorIcon) { m_errorIcon = errorIcon; }
 
         bool keepObsoletePixmaps() const { return m_keepObsoletePixmaps; }
         void setKeepObsoletePixmaps(bool keepObsoletePixmaps);
 
         bool useDevicePixelRatio() const { return m_useDevicePixelRatio; }
         void setUseDevicePixelRatio(bool useDevicePixelRatio);
-
-        bool trimMargins() const { return m_trimMargins; }
-        void setTrimMargins(bool trimMargins);
 
         bool decoratePages() const { return m_decoratePages; }
         void setDecoratePages(bool decoratePages);
@@ -124,8 +125,6 @@ public:
 
         bool m_keepObsoletePixmaps;
         bool m_useDevicePixelRatio;
-
-        bool m_trimMargins;
 
         bool m_decoratePages;
         bool m_decorateLinks;
@@ -185,6 +184,9 @@ public:
 
         int pagesPerRow() const { return m_pagesPerRow; }
         void setPagesPerRow(int pagesPerRow);
+
+        bool minimalScrolling() const { return m_minimalScrolling; }
+        void setMinimalScrolling(bool minimalScrolling);
 
         bool highlightCurrentThumbnail() const { return m_highlightCurrentThumbnail; }
         void setHighlightCurrentThumbnail(bool highlightCurrentThumbnail);
@@ -254,6 +256,12 @@ public:
         bool convertToGrayscale() const;
         void setConvertToGrayscale(bool convertToGrayscale);
 
+        bool trimMargins() const;
+        void setTrimMargins(bool trimMargins);
+
+        CompositionMode compositionMode() const;
+        void setCompositionMode(CompositionMode compositionMode);
+
         bool highlightAll() const;
         void setHighlightAll(bool highlightAll);
 
@@ -267,6 +275,8 @@ public:
         int m_prefetchDistance;
 
         int m_pagesPerRow;
+
+        bool m_minimalScrolling;
 
         bool m_highlightCurrentThumbnail;
         bool m_limitThumbnailsToResults;
@@ -306,6 +316,8 @@ public:
 
         bool restorePerFileSettings() const;
         void setRestorePerFileSettings(bool restorePerFileSettings);
+
+        int perFileSettingsLimit() const;
 
         int saveDatabaseInterval() const;
         void setSaveDatabaseInterval(int saveDatabaseInterval);
@@ -351,6 +363,12 @@ public:
 
         QStringList viewToolBar() const;
         void setViewToolBar(const QStringList& viewToolBar);
+
+        QStringList documentContextMenu() const;
+        void setDocumentContextMenu(const QStringList& documentContextMenu);
+
+        QStringList tabContextMenu() const;
+        void setTabContextMenu(const QStringList& tabContextMenu);
 
         bool scrollableMenus() const;
         void setScrollableMenus(bool scrollableMenus);
@@ -480,8 +498,6 @@ public:
         static bool keepObsoletePixmaps() { return false; }
         static bool useDevicePixelRatio() { return false; }
 
-        static bool trimMargins() { return false; }
-
         static bool decoratePages() { return true; }
         static bool decorateLinks() { return true; }
         static bool decorateFormFields() { return true; }
@@ -533,6 +549,8 @@ public:
 
         static int pagesPerRow() { return 3; }
 
+        static bool minimalScrolling() { return false; }
+
         static bool highlightCurrentThumbnail() { return false; }
         static bool limitThumbnailsToResults() { return false; }
 
@@ -545,6 +563,8 @@ public:
         static qreal thumbnailSpacing() { return 3.0; }
 
         static qreal thumbnailSize() { return 150.0; }
+
+        static CompositionMode compositionMode() { return DefaultCompositionMode; }
 
         static bool matchCase() { return false; }
         static bool wholeWords() { return false; }
@@ -568,6 +588,8 @@ public:
 
         static bool invertColors() { return false; }
         static bool convertToGrayscale() { return false; }
+        static bool trimMargins() { return false; }
+
         static bool highlightAll() { return false; }
 
     private:
@@ -587,6 +609,8 @@ public:
         static bool restoreTabs() { return false; }
         static bool restoreBookmarks() { return false; }
         static bool restorePerFileSettings() { return false; }
+
+        static int perFileSettingsLimit() { return 1000; }
 
         static int saveDatabaseInterval() { return 5 * 60 * 1000; }
 
@@ -612,6 +636,9 @@ public:
         static QStringList fileToolBar() { return QStringList() << "openInNewTab" << "refresh"; }
         static QStringList editToolBar() { return QStringList() << "currentPage" << "previousPage" << "nextPage"; }
         static QStringList viewToolBar() { return QStringList() << "scaleFactor" << "zoomIn" << "zoomOut"; }
+
+        static QStringList documentContextMenu() { return QStringList() << "previousPage" << "nextPage" << "firstPage" << "lastPage" << "separator" << "jumpToPage" << "jumpBackward" << "jumpForward" << "separator" << "setFirstPage" << "separator" << "findPrevious" << "findNext" << "cancelSearch"; }
+        static QStringList tabContexntMenu() { return QStringList() << "openCopyInNewTab" << "openContainingFolder" << "separator" << "closeAllTabs" << "closeAllTabsButThisOne" << "closeAllTabsToTheLeft" << "closeAllTabsToTheRight"; }
 
         static bool scrollableMenus() { return false; }
         static bool searchableMenus() { return false; }
