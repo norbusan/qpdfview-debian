@@ -53,7 +53,7 @@ public:
 signals:
     void progressChanged(int progress);
 
-    void resultsReady(int index, QList< QRectF > results);
+    void resultsReady(int index, const QList< QRectF >& results);
 
 public slots:
     void start(const QVector< Model::Page* >& pages,

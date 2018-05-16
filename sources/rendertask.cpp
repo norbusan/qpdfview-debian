@@ -22,9 +22,11 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "rendertask.h"
 
 #include <qmath.h>
+#include <QPainter>
 #include <QThreadPool>
 
 #include "model.h"
+#include "settings.h"
 
 namespace
 {
@@ -33,15 +35,19 @@ using namespace qpdfview;
 
 qreal scaledResolutionX(const RenderParam& renderParam)
 {
-    return renderParam.resolution.devicePixelRatio *
-            renderParam.resolution.resolutionX * renderParam.scaleFactor;
+    return renderParam.devicePixelRatio()
+            * renderParam.resolutionX()
+            * renderParam.scaleFactor();
 }
 
 qreal scaledResolutionY(const RenderParam& renderParam)
 {
-    return renderParam.resolution.devicePixelRatio *
-            renderParam.resolution.resolutionY * renderParam.scaleFactor;
+    return renderParam.devicePixelRatio()
+            * renderParam.resolutionY()
+            * renderParam.scaleFactor();
 }
+
+const QRgb alphaMask = 0xff << 24;
 
 bool columnHasPaperColor(int x, QRgb paperColor, const QImage& image)
 {
@@ -49,7 +55,9 @@ bool columnHasPaperColor(int x, QRgb paperColor, const QImage& image)
 
     for(int y = 0; y < height; ++y)
     {
-        if(paperColor != (image.pixel(x, y) | 0xff000000u))
+        const QRgb color = image.pixel(x, y);
+
+        if(qAlpha(color) != 0 && paperColor != (color | alphaMask))
         {
             return false;
         }
@@ -64,7 +72,9 @@ bool rowHasPaperColor(int y, QRgb paperColor, const QImage& image)
 
     for(int x = 0; x < width; ++x)
     {
-        if(paperColor != (image.pixel(x, y) | 0xff000000u))
+        const QRgb color = image.pixel(x, y);
+
+        if(qAlpha(color) != 0 && paperColor != (color | alphaMask))
         {
             return false;
         }
@@ -149,21 +159,36 @@ void convertToGrayscale(QImage& image)
     }
 }
 
+void composeWithColor(QPainter::CompositionMode mode, const QColor& color, QImage& image)
+{
+    QPainter painter(&image);
+
+    painter.setCompositionMode(mode);
+    painter.fillRect(image.rect(), color);
+}
+
 } // anonymous
 
 namespace qpdfview
 {
 
+Settings* RenderTask::s_settings = 0;
+
+RenderParam RenderTask::s_defaultRenderParam;
+
 RenderTask::RenderTask(Model::Page* page, QObject* parent) : QObject(parent), QRunnable(),
     m_isRunning(false),
     m_wasCanceled(NotCanceled),
     m_page(page),
-    m_renderParam(),
+    m_renderParam(s_defaultRenderParam),
     m_rect(),
-    m_prefetch(false),
-    m_trimMargins(false),
-    m_paperColor()
+    m_prefetch(false)
 {
+    if(s_settings == 0)
+    {
+        s_settings = Settings::instance();
+    }
+
     setAutoDelete(false);
 }
 
@@ -194,29 +219,42 @@ void RenderTask::run()
     QRectF cropRect;
 
     image = m_page->render(scaledResolutionX(m_renderParam), scaledResolutionY(m_renderParam),
-                           m_renderParam.rotation, m_rect);
+                           m_renderParam.rotation(), m_rect);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
 
-    image.setDevicePixelRatio(m_renderParam.resolution.devicePixelRatio);
+    image.setDevicePixelRatio(m_renderParam.devicePixelRatio());
 
 #endif // QT_VERSION
 
-    if(m_trimMargins)
+    if(m_renderParam.darkenWithPaperColor())
     {
         CANCELLATION_POINT
 
-        cropRect = trimMargins(m_paperColor.rgb(), image);
+        composeWithColor(QPainter::CompositionMode_Darken, s_settings->pageItem().paperColor(), image);
+    }
+    else if(m_renderParam.lightenWithPaperColor())
+    {
+        CANCELLATION_POINT
+
+        composeWithColor(QPainter::CompositionMode_Lighten, s_settings->pageItem().paperColor(), image);
     }
 
-    if(m_renderParam.convertToGrayscale)
+    if(m_renderParam.trimMargins())
+    {
+        CANCELLATION_POINT
+
+        cropRect = trimMargins(s_settings->pageItem().paperColor().rgb() | alphaMask, image);
+    }
+
+    if(m_renderParam.convertToGrayscale())
     {
         CANCELLATION_POINT
 
         convertToGrayscale(image);
     }
 
-    if(m_renderParam.invertColors)
+    if(m_renderParam.invertColors())
     {
         CANCELLATION_POINT
 
@@ -235,16 +273,12 @@ void RenderTask::run()
 }
 
 void RenderTask::start(const RenderParam& renderParam,
-                       const QRect& rect, bool prefetch,
-                       bool trimMargins, const QColor& paperColor)
+                       const QRect& rect, bool prefetch)
 {
     m_renderParam = renderParam;
 
     m_rect = rect;
     m_prefetch = prefetch;
-
-    m_trimMargins = trimMargins;
-    m_paperColor = paperColor;
 
     m_mutex.lock();
     m_isRunning = true;
@@ -257,6 +291,8 @@ void RenderTask::start(const RenderParam& renderParam,
 
 void RenderTask::finish()
 {
+    m_renderParam = s_defaultRenderParam;
+
     emit finished();
 
     m_mutex.lock();

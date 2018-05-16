@@ -11,7 +11,7 @@ TARGET_SHORT = qpdfdjvu
 OBJECTS_DIR = objects-djvu
 MOC_DIR = moc-djvu
 
-HEADERS = sources/global.h sources/model.h sources/djvumodel.h
+HEADERS = sources/model.h sources/djvumodel.h
 SOURCES = sources/djvumodel.cpp
 
 QT += core gui

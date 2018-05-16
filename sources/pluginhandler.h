@@ -52,24 +52,13 @@ public:
         Unknown = 0,
         PDF = 1,
         PS = 2,
-        DjVu = 3
+        DjVu = 3,
+        Image = 4
     };
 
-    static QString fileTypeName(FileType fileType)
-    {
-        switch(fileType)
-        {
-        default:
-        case PluginHandler::Unknown:
-            return QLatin1String("Unknown");
-        case PluginHandler::PDF:
-            return QLatin1String("PDF");
-        case PluginHandler::PS:
-            return QLatin1String("PS");
-        case PluginHandler::DjVu:
-            return QLatin1String("DjVu");
-        }
-    }
+    static QString fileTypeName(FileType fileType);
+
+    static QStringList openFilter();
 
     Model::Document* loadDocument(const QString& filePath);
 

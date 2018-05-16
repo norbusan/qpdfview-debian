@@ -22,6 +22,8 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "bookmarkmenu.h"
 
+#include "miscellaneous.h"
+
 #include <QFileInfo>
 
 namespace qpdfview
@@ -35,12 +37,12 @@ BookmarkMenu::BookmarkMenu(const QFileInfo& fileInfo, QWidget* parent) : QMenu(p
     menuAction()->setData(fileInfo.absoluteFilePath());
 
     m_openAction = addAction(tr("&Open"));
-    m_openAction->setIcon(QIcon::fromTheme("document-open", QIcon(":icons/document-open.svg")));
+    m_openAction->setIcon(loadIconWithFallback(QLatin1String("document-open")));
     m_openAction->setIconVisibleInMenu(true);
     connect(m_openAction, SIGNAL(triggered()), SLOT(on_open_triggered()));
 
     m_openInNewTabAction = addAction(tr("Open in new &tab"));
-    m_openInNewTabAction->setIcon(QIcon::fromTheme("tab-new", QIcon(":icons/tab-new.svg")));
+    m_openInNewTabAction->setIcon(loadIconWithFallback(QLatin1String("tab-new")));
     m_openInNewTabAction->setIconVisibleInMenu(true);
     connect(m_openInNewTabAction, SIGNAL(triggered()), SLOT(on_openInNewTab_triggered()));
 
@@ -74,7 +76,7 @@ void BookmarkMenu::addJumpToPageAction(int page, const QString& label)
     }
 
     QAction* action = new QAction(label, this);
-    action->setIcon(QIcon::fromTheme("go-jump", QIcon(":icons/go-jump.svg")));
+    action->setIcon(loadIconWithFallback(QLatin1String("go-jump")));
     action->setIconVisibleInMenu(true);
     action->setData(page);
 

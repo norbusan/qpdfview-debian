@@ -30,6 +30,21 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #include "pageitem.h"
 #include "documentview.h"
 
+namespace
+{
+
+using namespace qpdfview;
+
+inline void adjustScaleFactor(RenderParam& renderParam, qreal scaleFactor)
+{
+    if(!qFuzzyCompare(renderParam.scaleFactor(), scaleFactor))
+    {
+        renderParam.setScaleFactor(scaleFactor);
+    }
+}
+
+} // anonymous
+
 namespace qpdfview
 {
 
@@ -44,7 +59,7 @@ PresentationView::PresentationView(const QVector< Model::Page* >& pages, QWidget
     m_scaleMode(FitToPageSizeMode),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
-    m_invertColors(false),
+    m_renderFlags(0),
     m_pageItems()
 {
     if(s_settings == 0)
@@ -78,7 +93,7 @@ PresentationView::PresentationView(const QVector< Model::Page* >& pages, QWidget
     connect(this, SIGNAL(scaleModeChanged(ScaleMode)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(scaleFactorChanged(qreal)), m_prefetchTimer, SLOT(start()));
     connect(this, SIGNAL(rotationChanged(Rotation)), m_prefetchTimer, SLOT(start()));
-    connect(this, SIGNAL(invertColorsChanged(bool)), m_prefetchTimer, SLOT(start()));
+    connect(this, SIGNAL(renderFlagsChanged(qpdfview::RenderFlags)), m_prefetchTimer, SLOT(start()));
 
     connect(m_prefetchTimer, SIGNAL(timeout()), SLOT(on_prefetch_timeout()));
 
@@ -102,21 +117,6 @@ PresentationView::~PresentationView()
     qDeleteAll(m_pageItems);
 }
 
-int PresentationView::numberOfPages() const
-{
-    return m_pages.count();
-}
-
-int PresentationView::currentPage() const
-{
-    return m_currentPage;
-}
-
-ScaleMode PresentationView::scaleMode() const
-{
-    return m_scaleMode;
-}
-
 void PresentationView::setScaleMode(ScaleMode scaleMode)
 {
     if(m_scaleMode != scaleMode && scaleMode >= 0 && scaleMode < NumberOfScaleModes)
@@ -128,11 +128,6 @@ void PresentationView::setScaleMode(ScaleMode scaleMode)
 
         emit scaleModeChanged(m_scaleMode);
     }
-}
-
-qreal PresentationView::scaleFactor() const
-{
-    return m_scaleFactor;
 }
 
 void PresentationView::setScaleFactor(qreal scaleFactor)
@@ -153,11 +148,6 @@ void PresentationView::setScaleFactor(qreal scaleFactor)
     }
 }
 
-Rotation PresentationView::rotation() const
-{
-    return m_rotation;
-}
-
 void PresentationView::setRotation(Rotation rotation)
 {
     if(m_rotation != rotation)
@@ -171,25 +161,23 @@ void PresentationView::setRotation(Rotation rotation)
     }
 }
 
-bool PresentationView::invertColors() const
+void PresentationView::setRenderFlags(qpdfview::RenderFlags renderFlags)
 {
-    return m_invertColors;
-}
-
-void PresentationView::setInvertColors(bool invertColors)
-{
-    if(m_invertColors != invertColors)
+    if(m_renderFlags != renderFlags)
     {
-        m_invertColors = invertColors;
+        const qpdfview::RenderFlags changedFlags = m_renderFlags ^ renderFlags;
 
-        foreach(PageItem* page, m_pageItems)
+        m_renderFlags = renderFlags;
+
+        prepareScene();
+        prepareView();
+
+        if(changedFlags.testFlag(InvertColors))
         {
-            page->setInvertColors(m_invertColors);
+            prepareBackground();
         }
 
-        prepareBackground();
-
-        emit invertColorsChanged(m_invertColors);
+        emit renderFlagsChanged(m_renderFlags);
     }
 }
 
@@ -261,7 +249,9 @@ void PresentationView::zoomIn()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() * s_settings->documentView().zoomFactor(),
+        const qreal currentScaleFactor = m_pageItems.at(m_currentPage - 1)->renderParam().scaleFactor();
+
+        setScaleFactor(qMin(currentScaleFactor * s_settings->documentView().zoomFactor(),
                             s_settings->documentView().maximumScaleFactor()));
 
         setScaleMode(ScaleFactorMode);
@@ -277,7 +267,9 @@ void PresentationView::zoomOut()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() / s_settings->documentView().zoomFactor(),
+        const qreal currentScaleFactor = m_pageItems.at(m_currentPage - 1)->renderParam().scaleFactor();
+
+        setScaleFactor(qMax(currentScaleFactor / s_settings->documentView().zoomFactor(),
                             s_settings->documentView().minimumScaleFactor()));
 
         setScaleMode(ScaleFactorMode);
@@ -471,7 +463,17 @@ void PresentationView::keyPressEvent(QKeyEvent* event)
         event->accept();
         return;
     case Qt::CTRL + Qt::Key_I:
-        setInvertColors(!invertColors());
+        setRenderFlags(renderFlags() ^ InvertColors);
+
+        event->accept();
+        return;
+    case Qt::CTRL + Qt::Key_U:
+        setRenderFlags(renderFlags() ^ ConvertToGrayscale);
+
+        event->accept();
+        return;
+    case Qt::CTRL + Qt::SHIFT + Qt::Key_U:
+        setRenderFlags(renderFlags() ^ TrimMargins);
 
         event->accept();
         return;
@@ -543,8 +545,6 @@ void PresentationView::preparePages()
     {
         PageItem* page = new PageItem(m_pages.at(index), index, PageItem::PresentationMode);
 
-        page->setInvertColors(m_invertColors);
-
         scene()->addItem(page);
         m_pageItems.append(page);
 
@@ -563,7 +563,7 @@ void PresentationView::prepareBackground()
         backgroundColor = s_settings->pageItem().paperColor();
     }
 
-    if(m_invertColors)
+    if(m_renderFlags.testFlag(InvertColors))
     {
         backgroundColor.setRgb(~backgroundColor.rgb());
     }
@@ -573,37 +573,35 @@ void PresentationView::prepareBackground()
 
 void PresentationView::prepareScene()
 {
+    RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
+                            scaleFactor(), rotation(), renderFlags());
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    if(s_settings->pageItem().useDevicePixelRatio())
+    {
+        renderParam.setDevicePixelRatio(devicePixelRatio());
+    }
+
+#endif // QT_VERSION
+
     const qreal visibleWidth = viewport()->width();
     const qreal visibleHeight = viewport()->height();
 
     foreach(PageItem* page, m_pageItems)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+        const QSizeF displayedSize = page->displayedSize(renderParam);
 
-        page->setDevicePixelRatio(devicePixelRatio());
-
-#endif // QT_VERSION
-
-        page->setResolution(logicalDpiX(), logicalDpiY());
-
-        page->setRotation(m_rotation);
-
-        const qreal displayedWidth = page->displayedWidth();
-        const qreal displayedHeight = page->displayedHeight();
-
-        switch(m_scaleMode)
+        if(m_scaleMode == FitToPageWidthMode)
         {
-        default:
-        case ScaleFactorMode:
-            page->setScaleFactor(m_scaleFactor);
-            break;
-        case FitToPageWidthMode:
-            page->setScaleFactor(visibleWidth / displayedWidth);
-            break;
-        case FitToPageSizeMode:
-            page->setScaleFactor(qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
-            break;
+            adjustScaleFactor(renderParam, visibleWidth / displayedSize.width());
         }
+        else if(m_scaleMode == FitToPageSizeMode)
+        {
+            adjustScaleFactor(renderParam, qMin(visibleWidth / displayedSize.width(), visibleHeight / displayedSize.height()));
+        }
+
+        page->setRenderParam(renderParam);
     }
 }
 

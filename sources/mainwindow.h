@@ -45,7 +45,7 @@ class QTableView;
 class QTreeView;
 class QWidgetAction;
 
-#include "global.h"
+#include "renderparam.h"
 
 namespace qpdfview
 {
@@ -62,6 +62,7 @@ class RecentlyUsedMenu;
 class RecentlyClosedMenu;
 class BookmarkModel;
 class Database;
+class ShortcutHandler;
 class HelpDialog;
 
 class MainWindow : public QMainWindow
@@ -109,8 +110,14 @@ protected slots:
     void on_currentTab_linkClicked(int page);
     void on_currentTab_linkClicked(bool newTab, const QString& filePath, int page);
 
+    void on_currentTab_renderFlagsChanged(qpdfview::RenderFlags renderFlags);
+
     void on_currentTab_invertColorsChanged(bool invertColors);
-    void on_currentTab_convertToGrayscale(bool convertToGrayscale);
+    void on_currentTab_convertToGrayscaleChanged(bool convertToGrayscale);
+    void on_currentTab_trimMarginsChanged(bool trimMargins);
+
+    void on_currentTab_compositionModeChanged(CompositionMode compositionMode);
+
     void on_currentTab_highlightAllChanged(bool highlightAll);
     void on_currentTab_rubberBandModeChanged(RubberBandMode rubberBandMode);
 
@@ -178,6 +185,9 @@ protected slots:
 
     void on_invertColors_triggered(bool checked);
     void on_convertToGrayscale_triggered(bool checked);
+    void on_trimMargins_triggered(bool checked);
+    void on_darkenWithPaperColor_triggered(bool checked);
+    void on_lightenWithPaperColor_triggered(bool checked);
 
     void on_fonts_triggered();
 
@@ -189,6 +199,8 @@ protected slots:
     void on_closeTab_triggered();
     void on_closeAllTabs_triggered();
     void on_closeAllTabsButCurrentTab_triggered();
+
+    void on_restoreMostRecentlyClosedTab_triggered();
 
     void on_recentlyClosed_tabActionTriggered(QAction* tabAction);
 
@@ -241,6 +253,8 @@ protected slots:
     void on_saveDatabase_timeout();
 
 protected:
+    bool eventFilter(QObject* target, QEvent* event);
+
     void closeEvent(QCloseEvent* event);
 
     void dragEnterEvent(QDragEnterEvent* event);
@@ -251,6 +265,7 @@ private:
 
     static Settings* s_settings;
     static Database* s_database;
+    static ShortcutHandler* s_shortcutHandler;
 
     void prepareStyle();
 
@@ -267,10 +282,15 @@ private:
 
     bool saveModifications(DocumentView* tab);
 
+    void disconnectCurrentTabChanged();
+    void reconnectCurrentTabChanged();
+
     void setWindowTitleForCurrentTab();
     void setCurrentPageSuffixForCurrentTab();
 
     BookmarkModel* bookmarkModelForCurrentTab(bool create = false);
+
+    QAction* sourceLinkActionForCurrentTab(QObject* parent, const QPoint& pos);
 
     class RestoreTab;
 
@@ -349,6 +369,9 @@ private:
 
     QAction* m_invertColorsAction;
     QAction* m_convertToGrayscaleAction;
+    QAction* m_trimMarginsAction;
+    QAction* m_darkenWithPaperColorAction;
+    QAction* m_lightenWithPaperColorAction;
 
     QAction* m_fontsAction;
 
@@ -362,6 +385,8 @@ private:
     QAction* m_closeAllTabsAction;
     QAction* m_closeAllTabsButCurrentTabAction;
 
+    QAction* m_restoreMostRecentlyClosedTabAction;
+
     QShortcut* m_tabShortcuts[9];
 
     QAction* m_previousBookmarkAction;
@@ -374,7 +399,9 @@ private:
     QAction* m_contentsAction;
     QAction* m_aboutAction;
 
+    QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QList< QKeySequence >& shortcuts, const char* member, bool checkable = false, bool checked = false);
     QAction* createAction(const QString& text, const QString& objectName, const QIcon& icon, const QKeySequence& shortcut, const char* member, bool checkable = false, bool checked = false);
+    QAction* createAction(const QString& text, const QString& objectName, const QString& iconName, const QList< QKeySequence >& shortcuts, const char* member, bool checkable = false, bool checked = false);
     QAction* createAction(const QString& text, const QString& objectName, const QString& iconName, const QKeySequence& shortcut, const char* member, bool checkable = false, bool checked = false);
 
     void createActions();
@@ -416,6 +443,7 @@ private:
     RecentlyUsedMenu* m_recentlyUsedMenu;
     QMenu* m_editMenu;
     QMenu* m_viewMenu;
+    QMenu* m_compositionModeMenu;
     SearchableMenu* m_tabsMenu;
     RecentlyClosedMenu* m_recentlyClosedMenu;
     SearchableMenu* m_bookmarksMenu;
@@ -478,6 +506,7 @@ public slots:
     Q_NOREPLY void fitToPageWidthModeAction(bool checked);
     Q_NOREPLY void fitToPageSizeModeAction(bool checked);
 
+    Q_NOREPLY void convertToGrayscaleAction(bool checked);
     Q_NOREPLY void invertColorsAction(bool checked);
 
     Q_NOREPLY void fullscreenAction(bool checked);

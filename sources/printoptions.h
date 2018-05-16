@@ -71,7 +71,7 @@ struct PrintOptions
 
     PrintOptions() : fitToPage(false), pageRanges(), pageSet(AllPages), numberUp(SinglePage), numberUpLayout(LeftRightTopBottom) {}
 
-#else // QT_VERSION
+#else
 
     PrintOptions() : fitToPage(false), pageRanges() {}
 

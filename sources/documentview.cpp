@@ -153,6 +153,30 @@ QString intToRoman(int number)
     return result;
 }
 
+bool copyFile(QFile& source, QFile& destination)
+{
+    const qint64 maxSize = 4096;
+    qint64 size = -1;
+
+    QScopedArrayPointer< char > buffer(new char[maxSize]);
+
+    do
+    {
+        if((size = source.read(buffer.data(), maxSize)) < 0)
+        {
+            return false;
+        }
+
+        if(destination.write(buffer.data(), size) < 0)
+        {
+            return false;
+        }
+    }
+    while(size > 0);
+
+    return true;
+}
+
 #ifdef WITH_CUPS
 
 struct RemovePpdFileDeleter
@@ -190,7 +214,7 @@ int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** o
 
     for(int index = 0; index < colorModel->num_choices; ++index)
     {
-        if(qstrncmp(colorModel->choices[index].choice, "CMYK", 4) == 0)
+        if(qstrcmp(colorModel->choices[index].choice, "CMYK") == 0)
         {
             return cupsAddOption("ColorModel", "CMYK", num_options, options);
         }
@@ -198,7 +222,7 @@ int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** o
 
     for(int index = 0; index < colorModel->num_choices; ++index)
     {
-        if(qstrncmp(colorModel->choices[index].choice, "RGB", 3) == 0)
+        if(qstrcmp(colorModel->choices[index].choice, "RGB") == 0)
         {
             return cupsAddOption("ColorModel", "RGB", num_options, options);
         }
@@ -208,6 +232,11 @@ int addCMYKorRGBColorModel(cups_dest_t* dest, int num_options, cups_option_t** o
 }
 
 #endif // WITH_CUPS
+
+void adjustFileTemplateSuffix(QTemporaryFile& temporaryFile, const QString& suffix)
+{
+    temporaryFile.setFileTemplate(temporaryFile.fileTemplate() + QLatin1String(".") + suffix);
+}
 
 bool modifiersUseMouseButton(Settings* settings, Qt::MouseButton mouseButton)
 {
@@ -222,6 +251,22 @@ inline int pageOfResult(const QModelIndex& index)
 inline QRectF rectOfResult(const QModelIndex& index)
 {
     return index.data(SearchModel::RectRole).toRectF();
+}
+
+inline void adjustScaleFactor(RenderParam& renderParam, qreal scaleFactor)
+{
+    if(!qFuzzyCompare(renderParam.scaleFactor(), scaleFactor))
+    {
+        renderParam.setScaleFactor(scaleFactor);
+    }
+}
+
+inline void setValueIfNotVisible(QScrollBar* scrollBar, int value)
+{
+    if(value < scrollBar->value() || value > scrollBar->value() + scrollBar->pageStep())
+    {
+        scrollBar->setValue(value);
+    }
 }
 
 void saveExpandedPaths(const QAbstractItemModel* model, QSet< QString >& paths, const QModelIndex& index, QString path)
@@ -280,13 +325,13 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_scaleMode(ScaleFactorMode),
     m_scaleFactor(1.0),
     m_rotation(RotateBy0),
-    m_invertColors(false),
-    m_convertToGrayscale(false),
+    m_renderFlags(0),
     m_highlightAll(false),
     m_rubberBandMode(ModifiersMode),
     m_pageItems(),
     m_thumbnailItems(),
     m_highlight(0),
+    m_thumbnailsViewportSize(),
     m_thumbnailsOrientation(Qt::Vertical),
     m_thumbnailsScene(0),
     m_outlineModel(0),
@@ -314,7 +359,7 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     setAcceptDrops(false);
     setDragMode(QGraphicsView::ScrollHandDrag);
 
-    connectVerticalScrollBar();
+    reconnectVerticalScrollBar();
 
     m_thumbnailsScene = new QGraphicsScene(this);
 
@@ -375,8 +420,34 @@ DocumentView::DocumentView(QWidget* parent) : QGraphicsView(parent),
     m_scaleFactor = s_settings->documentView().scaleFactor();
     m_rotation = s_settings->documentView().rotation();
 
-    m_invertColors = s_settings->documentView().invertColors();
-    m_convertToGrayscale = s_settings->documentView().convertToGrayscale();
+    if(s_settings->documentView().invertColors())
+    {
+        m_renderFlags |= InvertColors;
+    }
+
+    if(s_settings->documentView().convertToGrayscale())
+    {
+        m_renderFlags |= ConvertToGrayscale;
+    }
+
+    if(s_settings->documentView().trimMargins())
+    {
+        m_renderFlags |= TrimMargins;
+    }
+
+    switch(s_settings->documentView().compositionMode())
+    {
+    default:
+    case DefaultCompositionMode:
+        break;
+    case DarkenWithPaperColorMode:
+        m_renderFlags |= DarkenWithPaperColor;
+        break;
+    case LightenWithPaperColorMode:
+        m_renderFlags |= LightenWithPaperColor;
+        break;
+    }
+
     m_highlightAll = s_settings->documentView().highlightAll();
 }
 
@@ -524,35 +595,7 @@ QString DocumentView::title() const
 
 QStringList DocumentView::openFilter()
 {
-    QStringList openFilter;
-    QStringList supportedFormats;
-
-#if defined(WITH_PDF) || defined(WITH_FITZ)
-
-    openFilter.append("Portable document format (*.pdf)");
-    supportedFormats.append("*.pdf");
-
-#endif // WITH_PDF // WITH_FITZ
-
-#ifdef WITH_PS
-
-    openFilter.append("PostScript (*.ps)");
-    openFilter.append("Encapsulated PostScript (*.eps)");
-    supportedFormats.append("*.ps *.eps");
-
-#endif // WITH_PS
-
-#ifdef WITH_DJVU
-
-    openFilter.append("DjVu (*.djvu *.djv)");
-    supportedFormats.append("*.djvu");
-    supportedFormats.append("*.djv");
-
-#endif // WITH_DJVU
-
-    openFilter.prepend(tr("Supported formats (%1)").arg(supportedFormats.join(" ")));
-
-    return openFilter;
+    return PluginHandler::openFilter();
 }
 
 QStringList DocumentView::saveFilter() const
@@ -680,53 +723,102 @@ void DocumentView::setRotation(Rotation rotation)
 
         emit rotationChanged(m_rotation);
 
-        s_settings->documentView().setRotation(rotation);
+        s_settings->documentView().setRotation(m_rotation);
     }
 }
 
-void DocumentView::setInvertColors(bool invertColors)
+void DocumentView::setRenderFlags(qpdfview::RenderFlags renderFlags)
 {
-    if(m_invertColors != invertColors)
+    if(m_renderFlags != renderFlags)
     {
-        m_invertColors = invertColors;
+        const qpdfview::RenderFlags changedFlags = m_renderFlags ^ renderFlags;
 
-        foreach(PageItem* page, m_pageItems)
+        m_renderFlags = renderFlags;
+
+        qreal left = 0.0, top = 0.0;
+        saveLeftAndTop(left, top);
+
+        prepareScene();
+        prepareView(left, top);
+
+        prepareThumbnailsScene();
+
+        if(changedFlags.testFlag(InvertColors))
         {
-            page->setInvertColors(m_invertColors);
+            prepareBackground();
+
+            emit invertColorsChanged(invertColors());
+
+            s_settings->documentView().setInvertColors(invertColors());
         }
 
-        foreach(ThumbnailItem* page, m_thumbnailItems)
+        if(changedFlags.testFlag(ConvertToGrayscale))
         {
-            page->setInvertColors(m_invertColors);
+            emit convertToGrayscaleChanged(convertToGrayscale());
+
+            s_settings->documentView().setConvertToGrayscale(convertToGrayscale());
         }
 
-        prepareBackground();
+        if(changedFlags.testFlag(TrimMargins))
+        {
+            emit trimMarginsChanged(trimMargins());
 
-        emit invertColorsChanged(m_invertColors);
+            s_settings->documentView().setTrimMargins(trimMargins());
+        }
 
-        s_settings->documentView().setInvertColors(m_invertColors);
+        if(changedFlags.testFlag(DarkenWithPaperColor) || changedFlags.testFlag(LightenWithPaperColor))
+        {
+            emit compositionModeChanged(compositionMode());
+
+            s_settings->documentView().setCompositionMode(compositionMode());
+        }
+
+        emit renderFlagsChanged(m_renderFlags);
     }
 }
 
-void DocumentView::setConvertToGrayscale(bool convertToGrayscale)
+void DocumentView::setRenderFlag(qpdfview::RenderFlag renderFlag, bool enabled)
 {
-    if(m_convertToGrayscale != convertToGrayscale)
+    if(enabled)
     {
-        m_convertToGrayscale = convertToGrayscale;
+        setRenderFlags(m_renderFlags | renderFlag);
+    }
+    else
+    {
+        setRenderFlags(m_renderFlags & ~renderFlag);
+    }
+}
 
-        foreach(PageItem* page, m_pageItems)
-        {
-            page->setConvertToGrayscale(m_convertToGrayscale);
-        }
+CompositionMode DocumentView::compositionMode() const
+{
+    if(m_renderFlags.testFlag(DarkenWithPaperColor))
+    {
+        return DarkenWithPaperColorMode;
+    }
+    else if(m_renderFlags.testFlag(LightenWithPaperColor))
+    {
+        return LightenWithPaperColorMode;
+    }
+    else
+    {
+        return DefaultCompositionMode;
+    }
+}
 
-        foreach(ThumbnailItem* page, m_thumbnailItems)
-        {
-            page->setConvertToGrayscale(m_convertToGrayscale);
-        }
-
-        emit convertToGrayscaleChanged(m_convertToGrayscale);
-
-        s_settings->documentView().setConvertToGrayscale(m_convertToGrayscale);
+void DocumentView::setCompositionMode(CompositionMode compositionMode)
+{
+    switch(compositionMode)
+    {
+    default:
+    case DefaultCompositionMode:
+        setRenderFlags((renderFlags() & ~DarkenWithPaperColor) & ~LightenWithPaperColor);
+        break;
+    case DarkenWithPaperColorMode:
+        setRenderFlags((renderFlags() | DarkenWithPaperColor) & ~LightenWithPaperColor);
+        break;
+    case LightenWithPaperColorMode:
+        setRenderFlags((renderFlags() & ~DarkenWithPaperColor) | LightenWithPaperColor);
+        break;
     }
 }
 
@@ -776,14 +868,14 @@ void DocumentView::setRubberBandMode(RubberBandMode rubberBandMode)
     }
 }
 
-bool DocumentView::searchWasCanceled() const
+void DocumentView::setThumbnailsViewportSize(const QSize& thumbnailsViewportSize)
 {
-    return m_searchTask->wasCanceled();
-}
+    if(m_thumbnailsViewportSize != thumbnailsViewportSize)
+    {
+        m_thumbnailsViewportSize = thumbnailsViewportSize;
 
-int DocumentView::searchProgress() const
-{
-    return m_searchTask->progress();
+        prepareThumbnailsScene();
+    }
 }
 
 void DocumentView::setThumbnailsOrientation(Qt::Orientation thumbnailsOrientation)
@@ -803,6 +895,16 @@ QStandardItemModel* DocumentView::fontsModel() const
     m_document->loadFonts(fontsModel);
 
     return fontsModel;
+}
+
+bool DocumentView::searchWasCanceled() const
+{
+    return m_searchTask->wasCanceled();
+}
+
+int DocumentView::searchProgress() const
+{
+    return m_searchTask->progress();
 }
 
 QString DocumentView::searchText() const
@@ -838,6 +940,58 @@ QPair< QString, QString > DocumentView::searchContext(int page, const QRectF& re
     const QString& surroundingText = m_pages.at(page - 1)->cachedText(surroundingRect);
 
     return qMakePair(matchedText, surroundingText);
+}
+
+DocumentView::SourceLink DocumentView::sourceLink(const QPoint& pos)
+{
+    SourceLink sourceLink;
+
+#ifdef WITH_SYNCTEX
+
+    if(const PageItem* page = dynamic_cast< PageItem* >(itemAt(pos)))
+    {
+        if(synctex_scanner_t scanner = synctex_scanner_new_with_output_file(m_fileInfo.absoluteFilePath().toLocal8Bit(), 0, 1))
+        {
+            const int sourcePage = page->index() + 1;
+            const QPointF sourcePos = page->sourcePos(page->mapFromScene(mapToScene(pos)));
+
+            if(synctex_edit_query(scanner, sourcePage, sourcePos.x(), sourcePos.y()) > 0)
+            {
+                for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
+                {
+                    sourceLink.name = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
+                    sourceLink.line = qMax(synctex_node_line(node), 0);
+                    sourceLink.column = qMax(synctex_node_column(node), 0);
+                    break;
+                }
+            }
+
+            synctex_scanner_free(scanner);
+        }
+    }
+
+#else
+
+    Q_UNUSED(pos);
+
+#endif // WITH_SYNCTEX
+
+    return sourceLink;
+}
+
+void DocumentView::openInSourceEditor(const DocumentView::SourceLink& sourceLink)
+{
+    if(!s_settings->documentView().sourceEditor().isEmpty())
+    {
+        const QString absoluteFilePath = m_fileInfo.dir().absoluteFilePath(sourceLink.name);
+        const QString sourceEditorCommand = s_settings->documentView().sourceEditor().arg(absoluteFilePath, QString::number(sourceLink.line), QString::number(sourceLink.column));
+
+        QProcess::startDetached(sourceEditorCommand);
+    }
+    else
+    {
+        QMessageBox::information(this, tr("Information"), tr("The source editor has not been set."));
+    }
 }
 
 void DocumentView::show()
@@ -943,48 +1097,47 @@ bool DocumentView::refresh()
 
 bool DocumentView::save(const QString& filePath, bool withChanges)
 {
+    // Save document to temporary file...
     QTemporaryFile temporaryFile;
-    QFile file(filePath);
 
-    if(temporaryFile.open())
+    adjustFileTemplateSuffix(temporaryFile, QFileInfo(filePath).suffix());
+
+    if(!temporaryFile.open())
     {
-        temporaryFile.close();
-
-        if(m_document->save(temporaryFile.fileName(), withChanges))
-        {
-            if(temporaryFile.open())
-            {
-                if(file.open(QIODevice::WriteOnly | QIODevice::Truncate))
-                {
-                    const qint64 maxSize = 4096;
-                    qint64 size = -1;
-
-                    char* data = new char[maxSize];
-
-                    while(!temporaryFile.atEnd())
-                    {
-                        size = temporaryFile.read(data, maxSize);
-
-                        if(size == -1 || file.write(data, size) == -1)
-                        {
-                            delete[] data;
-                            return false;
-                        }
-                    }
-
-                    if(withChanges)
-                    {
-                        m_wasModified = false;
-                    }
-
-                    delete[] data;
-                    return true;
-                }
-            }
-        }
+        return false;
     }
 
-    return false;
+    temporaryFile.close();
+
+    if(!m_document->save(temporaryFile.fileName(), withChanges))
+    {
+        return false;
+    }
+
+    // Copy from temporary file to actual file...
+    QFile file(filePath);
+
+    if(!temporaryFile.open())
+    {
+        return false;
+    }
+
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        return false;
+    }
+
+    if(!copyFile(temporaryFile, file))
+    {
+        return false;
+    }
+
+    if(withChanges)
+    {
+        m_wasModified = false;
+    }
+
+    return true;
 }
 
 bool DocumentView::print(QPrinter* printer, const PrintOptions& printOptions)
@@ -1024,14 +1177,24 @@ void DocumentView::lastPage()
     jumpToPage(m_pages.count());
 }
 
-void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qreal changeTop)
+void DocumentView::jumpToPage(int page, bool trackChange, qreal newLeft, qreal newTop)
 {
     if(page >= 1 && page <= m_pages.count())
     {
         qreal left = 0.0, top = 0.0;
         saveLeftAndTop(left, top);
 
-        if(m_currentPage != m_layout->currentPage(page) || qAbs(left - changeLeft) > 0.01 || qAbs(top - changeTop) > 0.01)
+        if(qIsNaN(newLeft))
+        {
+            newLeft = qBound(qreal(0.0), left, qreal(1.0));
+        }
+
+        if(qIsNaN(newTop))
+        {
+            newTop = qBound(qreal(0.0), top, qreal(1.0));
+        }
+
+        if(m_currentPage != m_layout->currentPage(page) || qAbs(left - newLeft) > 0.01 || qAbs(top - newTop) > 0.01)
         {
             if(trackChange)
             {
@@ -1043,7 +1206,7 @@ void DocumentView::jumpToPage(int page, bool trackChange, qreal changeLeft, qrea
 
             m_currentPage = m_layout->currentPage(page);
 
-            prepareView(changeLeft, changeTop, page);
+            prepareView(newLeft, newTop, false, page);
 
             emit currentPageChanged(m_currentPage, trackChange);
         }
@@ -1175,7 +1338,9 @@ void DocumentView::zoomIn()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMin(m_pageItems.at(m_currentPage - 1)->scaleFactor() * s_settings->documentView().zoomFactor(),
+        const qreal currentScaleFactor = m_pageItems.at(m_currentPage - 1)->renderParam().scaleFactor();
+
+        setScaleFactor(qMin(currentScaleFactor * s_settings->documentView().zoomFactor(),
                             s_settings->documentView().maximumScaleFactor()));
 
         setScaleMode(ScaleFactorMode);
@@ -1191,7 +1356,9 @@ void DocumentView::zoomOut()
 {
     if(scaleMode() != ScaleFactorMode)
     {
-        setScaleFactor(qMax(m_pageItems.at(m_currentPage - 1)->scaleFactor() / s_settings->documentView().zoomFactor(),
+        const qreal currentScaleFactor = m_pageItems.at(m_currentPage - 1)->renderParam().scaleFactor();
+
+        setScaleFactor(qMax(currentScaleFactor / s_settings->documentView().zoomFactor(),
                             s_settings->documentView().minimumScaleFactor()));
 
         setScaleMode(ScaleFactorMode);
@@ -1264,7 +1431,7 @@ void DocumentView::startPresentation()
     connect(this, SIGNAL(documentChanged()), presentationView, SLOT(close()));
 
     presentationView->setRotation(rotation());
-    presentationView->setInvertColors(invertColors());
+    presentationView->setRenderFlags(renderFlags());
 
     presentationView->jumpToPage(currentPage(), false);
 
@@ -1285,8 +1452,10 @@ void DocumentView::on_verticalScrollBar_valueChanged()
     int currentPage = -1;
     const QRectF visibleRect = mapToScene(viewport()->rect()).boundingRect();
 
-    foreach(PageItem* page, m_pageItems)
+    for(int index = 0, count = m_pageItems.count(); index < count; ++index)
     {
+        PageItem* page = m_pageItems.at((m_currentPage - 1 + index) % count);
+
         const int pageNumber = page->index() + 1;
         const QRectF pageRect = page->boundingRect().translated(page->pos());
 
@@ -1416,15 +1585,6 @@ void DocumentView::on_thumbnails_cropRectChanged()
 
 void DocumentView::on_pages_linkClicked(bool newTab, int page, qreal left, qreal top)
 {
-    page = qMax(page, 1);
-    page = qMin(page, m_pages.count());
-
-    left = left >= 0.0 ? left : 0.0;
-    left = left <= 1.0 ? left : 1.0;
-
-    top = top >= 0.0 ? top : 0.0;
-    top = top <= 1.0 ? top : 1.0;
-
     if(newTab)
     {
         emit linkClicked(page);
@@ -1466,52 +1626,7 @@ void DocumentView::on_pages_rubberBandFinished()
     setRubberBandMode(ModifiersMode);
 }
 
-void DocumentView::on_pages_editSourceRequested(int page, const QPointF& pos)
-{
-#ifdef WITH_SYNCTEX
-
-    if(s_settings->documentView().sourceEditor().isEmpty())
-    {
-        return;
-    }
-
-    synctex_scanner_t scanner = synctex_scanner_new_with_output_file(m_fileInfo.absoluteFilePath().toLocal8Bit(), 0, 1);
-
-    if(scanner != 0)
-    {
-        if(synctex_edit_query(scanner, page, pos.x(), pos.y()) > 0)
-        {
-            for(synctex_node_t node = synctex_next_result(scanner); node != 0; node = synctex_next_result(scanner))
-            {
-                QString sourceName = QString::fromLocal8Bit(synctex_scanner_get_name(scanner, synctex_node_tag(node)));
-                int sourceLine = synctex_node_line(node);
-                int sourceColumn = synctex_node_column(node);
-
-                sourceLine = sourceLine >= 0 ? sourceLine : 0;
-                sourceColumn = sourceColumn >= 0 ? sourceColumn : 0;
-
-                QProcess::startDetached(s_settings->documentView().sourceEditor().arg(m_fileInfo.dir().absoluteFilePath(sourceName), QString::number(sourceLine), QString::number(sourceColumn)));
-
-                break;
-            }
-        }
-
-        synctex_scanner_free(scanner);
-    }
-    else
-    {
-        QMessageBox::warning(this, tr("Warning"), tr("SyncTeX data for '%1' could not be found.").arg(m_fileInfo.absoluteFilePath()));
-    }
-
-#else
-
-    Q_UNUSED(page);
-    Q_UNUSED(pos);
-
-#endif // WITH_SYNCTEX
-}
-
-void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rect)
+void DocumentView::on_pages_zoomToSelection(int page, const QRectF& rect)
 {
     if(rect.isEmpty())
     {
@@ -1521,11 +1636,10 @@ void DocumentView::on_pages_zoomToSelectionRequested(int page, const QRectF& rec
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
 
-    const qreal displayedWidth = m_pageItems.at(page - 1)->displayedWidth();
-    const qreal displayedHeight = m_pageItems.at(page - 1)->displayedHeight();
+    const QSizeF displayedSize = m_pageItems.at(page - 1)->displayedSize();
 
-    setScaleFactor(qMin(qMin(visibleWidth / displayedWidth / rect.width(),
-                             visibleHeight / displayedHeight / rect.height()),
+    setScaleFactor(qMin(qMin(visibleWidth / displayedSize.width() / rect.width(),
+                             visibleHeight / displayedSize.height() / rect.height()),
                         Defaults::DocumentView::maximumScaleFactor()));
 
     setScaleMode(ScaleFactorMode);
@@ -1711,28 +1825,25 @@ void DocumentView::wheelEvent(QWheelEvent* event)
         event->accept();
         return;
     }
-    else if(event->modifiers() == Qt::NoModifier)
+    else if(event->modifiers() == Qt::NoModifier && !m_continuousMode)
     {
-        if(!m_continuousMode)
+        if(event->delta() > 0 && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
         {
-            if(event->delta() > 0 && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
-            {
-                previousPage();
+            previousPage();
 
-                verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+            verticalScrollBar()->setValue(verticalScrollBar()->maximum());
 
-                event->accept();
-                return;
-            }
-            else if(event->delta() < 0 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != m_layout->currentPage(m_pages.count()))
-            {
-                nextPage();
+            event->accept();
+            return;
+        }
+        else if(event->delta() < 0 && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != m_layout->currentPage(m_pages.count()))
+        {
+            nextPage();
 
-                verticalScrollBar()->setValue(verticalScrollBar()->minimum());
+            verticalScrollBar()->setValue(verticalScrollBar()->minimum());
 
-                event->accept();
-                return;
-            }
+            event->accept();
+            return;
         }
     }
 
@@ -1773,191 +1884,204 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
     int jobId = 0;
 
     num_dests = cupsGetDests(&dests);
-
     dest = cupsGetDest(printer->printerName().toLocal8Bit(), 0, num_dests, dests);
 
-    if(dest != 0)
+    if(dest == 0)
     {
-        for(int index = 0; index < dest->num_options; ++index)
-        {
-            num_options = cupsAddOption(dest->options[index].name, dest->options[index].value, num_options, &options);
-        }
+        qWarning() << cupsLastErrorString();
 
-        QStringList cupsOptions = printer->printEngine()->property(QPrintEngine::PrintEnginePropertyKey(0xfe00)).toStringList();
+        cupsFreeDests(num_dests, dests);
 
-        for(int index = 0; index < cupsOptions.count() - 1; index += 2)
-        {
-            num_options = cupsAddOption(cupsOptions.at(index).toLocal8Bit(), cupsOptions.at(index + 1).toLocal8Bit(), num_options, &options);
-        }
+        return false;
+    }
+
+    for(int index = 0; index < dest->num_options; ++index)
+    {
+        num_options = cupsAddOption(dest->options[index].name, dest->options[index].value, num_options, &options);
+    }
+
+    const QStringList cupsOptions = printer->printEngine()->property(QPrintEngine::PrintEnginePropertyKey(0xfe00)).toStringList();
+
+    for(int index = 0; index < cupsOptions.count() - 1; index += 2)
+    {
+        num_options = cupsAddOption(cupsOptions.at(index).toLocal8Bit(), cupsOptions.at(index + 1).toLocal8Bit(), num_options, &options);
+    }
 
 #if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
 
-        num_options = cupsAddOption("copies", QString::number(printer->copyCount()).toLocal8Bit(), num_options, &options);
+    num_options = cupsAddOption("copies", QString::number(printer->copyCount()).toLocal8Bit(), num_options, &options);
 
 #endif // QT_VERSION
 
-        num_options = cupsAddOption("Collate", printer->collateCopies() ? "true" : "false", num_options, &options);
+    num_options = cupsAddOption("Collate", printer->collateCopies() ? "true" : "false", num_options, &options);
 
-        switch(printer->pageOrder())
-        {
-        case QPrinter::FirstPageFirst:
-            num_options = cupsAddOption("outputorder", "normal", num_options, &options);
-            break;
-        case QPrinter::LastPageFirst:
-            num_options = cupsAddOption("outputorder", "reverse", num_options, &options);
-            break;
-        }
+    switch(printer->pageOrder())
+    {
+    case QPrinter::FirstPageFirst:
+        num_options = cupsAddOption("outputorder", "normal", num_options, &options);
+        break;
+    case QPrinter::LastPageFirst:
+        num_options = cupsAddOption("outputorder", "reverse", num_options, &options);
+        break;
+    }
 
-        num_options = cupsAddOption("fit-to-page", printOptions.fitToPage ? "true" : "false", num_options, &options);
+    num_options = cupsAddOption("fit-to-page", printOptions.fitToPage ? "true" : "false", num_options, &options);
 
-        switch(printer->orientation())
-        {
-        case QPrinter::Portrait:
-            num_options = cupsAddOption("landscape", "false", num_options, &options);
-            break;
-        case QPrinter::Landscape:
-            num_options = cupsAddOption("landscape", "true", num_options, &options);
-            break;
-        }
+    switch(printer->orientation())
+    {
+    case QPrinter::Portrait:
+        num_options = cupsAddOption("landscape", "false", num_options, &options);
+        break;
+    case QPrinter::Landscape:
+        num_options = cupsAddOption("landscape", "true", num_options, &options);
+        break;
+    }
 
-        switch(printer->colorMode())
-        {
-        case QPrinter::Color:
-            num_options = addCMYKorRGBColorModel(dest, num_options, &options);
-            break;
-        case QPrinter::GrayScale:
-            num_options = cupsAddOption("ColorModel", "Gray", num_options, &options);
-            break;
-        }
+    switch(printer->colorMode())
+    {
+    case QPrinter::Color:
+        num_options = addCMYKorRGBColorModel(dest, num_options, &options);
+        break;
+    case QPrinter::GrayScale:
+        num_options = cupsAddOption("ColorModel", "Gray", num_options, &options);
+        break;
+    }
 
-        switch(printer->duplex())
-        {
-        case QPrinter::DuplexNone:
-            num_options = cupsAddOption("sides", "one-sided", num_options, &options);
-            break;
-        case QPrinter::DuplexAuto:
-            break;
-        case QPrinter::DuplexLongSide:
-            num_options = cupsAddOption("sides", "two-sided-long-edge", num_options, &options);
-            break;
-        case QPrinter::DuplexShortSide:
-            num_options = cupsAddOption("sides", "two-sided-short-edge", num_options, &options);
-            break;
-        }
+    switch(printer->duplex())
+    {
+    case QPrinter::DuplexNone:
+        num_options = cupsAddOption("sides", "one-sided", num_options, &options);
+        break;
+    case QPrinter::DuplexAuto:
+        break;
+    case QPrinter::DuplexLongSide:
+        num_options = cupsAddOption("sides", "two-sided-long-edge", num_options, &options);
+        break;
+    case QPrinter::DuplexShortSide:
+        num_options = cupsAddOption("sides", "two-sided-short-edge", num_options, &options);
+        break;
+    }
 
-        int numberUp = 1;
+    int numberUp = 1;
 
 #if QT_VERSION < QT_VERSION_CHECK(5,2,0)
 
-        switch(printOptions.numberUp)
-        {
-        case PrintOptions::SinglePage:
-            num_options = cupsAddOption("number-up", "1", num_options, &options);
-            numberUp = 1;
-            break;
-        case PrintOptions::TwoPages:
-            num_options = cupsAddOption("number-up", "2", num_options, &options);
-            numberUp = 2;
-            break;
-        case PrintOptions::FourPages:
-            num_options = cupsAddOption("number-up", "4", num_options, &options);
-            numberUp = 4;
-            break;
-        case PrintOptions::SixPages:
-            num_options = cupsAddOption("number-up", "6", num_options, &options);
-            numberUp = 6;
-            break;
-        case PrintOptions::NinePages:
-            num_options = cupsAddOption("number-up", "9", num_options, &options);
-            numberUp = 9;
-            break;
-        case PrintOptions::SixteenPages:
-            num_options = cupsAddOption("number-up", "16", num_options, &options);
-            numberUp = 16;
-            break;
-        }
+    switch(printOptions.numberUp)
+    {
+    case PrintOptions::SinglePage:
+        num_options = cupsAddOption("number-up", "1", num_options, &options);
+        numberUp = 1;
+        break;
+    case PrintOptions::TwoPages:
+        num_options = cupsAddOption("number-up", "2", num_options, &options);
+        numberUp = 2;
+        break;
+    case PrintOptions::FourPages:
+        num_options = cupsAddOption("number-up", "4", num_options, &options);
+        numberUp = 4;
+        break;
+    case PrintOptions::SixPages:
+        num_options = cupsAddOption("number-up", "6", num_options, &options);
+        numberUp = 6;
+        break;
+    case PrintOptions::NinePages:
+        num_options = cupsAddOption("number-up", "9", num_options, &options);
+        numberUp = 9;
+        break;
+    case PrintOptions::SixteenPages:
+        num_options = cupsAddOption("number-up", "16", num_options, &options);
+        numberUp = 16;
+        break;
+    }
 
-        switch(printOptions.numberUpLayout)
-        {
-        case PrintOptions::BottomTopLeftRight:
-            num_options = cupsAddOption("number-up-layout", "btlr", num_options, &options);
-            break;
-        case PrintOptions::BottomTopRightLeft:
-            num_options = cupsAddOption("number-up-layout", "btrl", num_options, &options);
-            break;
-        case PrintOptions::LeftRightBottomTop:
-            num_options = cupsAddOption("number-up-layout", "lrbt", num_options, &options);
-            break;
-        case PrintOptions::LeftRightTopBottom:
-            num_options = cupsAddOption("number-up-layout", "lrtb", num_options, &options);
-            break;
-        case PrintOptions::RightLeftBottomTop:
-            num_options = cupsAddOption("number-up-layout", "rlbt", num_options, &options);
-            break;
-        case PrintOptions::RightLeftTopBottom:
-            num_options = cupsAddOption("number-up-layout", "rltb", num_options, &options);
-            break;
-        case PrintOptions::TopBottomLeftRight:
-            num_options = cupsAddOption("number-up-layout", "tblr", num_options, &options);
-            break;
-        case PrintOptions::TopBottomRightLeft:
-            num_options = cupsAddOption("number-up-layout", "tbrl", num_options, &options);
-            break;
-        }
+    switch(printOptions.numberUpLayout)
+    {
+    case PrintOptions::BottomTopLeftRight:
+        num_options = cupsAddOption("number-up-layout", "btlr", num_options, &options);
+        break;
+    case PrintOptions::BottomTopRightLeft:
+        num_options = cupsAddOption("number-up-layout", "btrl", num_options, &options);
+        break;
+    case PrintOptions::LeftRightBottomTop:
+        num_options = cupsAddOption("number-up-layout", "lrbt", num_options, &options);
+        break;
+    case PrintOptions::LeftRightTopBottom:
+        num_options = cupsAddOption("number-up-layout", "lrtb", num_options, &options);
+        break;
+    case PrintOptions::RightLeftBottomTop:
+        num_options = cupsAddOption("number-up-layout", "rlbt", num_options, &options);
+        break;
+    case PrintOptions::RightLeftTopBottom:
+        num_options = cupsAddOption("number-up-layout", "rltb", num_options, &options);
+        break;
+    case PrintOptions::TopBottomLeftRight:
+        num_options = cupsAddOption("number-up-layout", "tblr", num_options, &options);
+        break;
+    case PrintOptions::TopBottomRightLeft:
+        num_options = cupsAddOption("number-up-layout", "tbrl", num_options, &options);
+        break;
+    }
 
-        switch(printOptions.pageSet)
-        {
-        case PrintOptions::AllPages:
-            break;
-        case PrintOptions::EvenPages:
-            num_options = cupsAddOption("page-set", "even", num_options, &options);
-            break;
-        case PrintOptions::OddPages:
-            num_options = cupsAddOption("page-set", "odd", num_options, &options);
-            break;
-        }
+    switch(printOptions.pageSet)
+    {
+    case PrintOptions::AllPages:
+        break;
+    case PrintOptions::EvenPages:
+        num_options = cupsAddOption("page-set", "even", num_options, &options);
+        break;
+    case PrintOptions::OddPages:
+        num_options = cupsAddOption("page-set", "odd", num_options, &options);
+        break;
+    }
 
-#else // QT_VERSION
+#else
 
-        {
-            bool ok = false;
-            int value = QString::fromLocal8Bit(cupsGetOption("number-up", num_options, options)).toInt(&ok);
+    {
+        bool ok = false;
+        int value = QString::fromLocal8Bit(cupsGetOption("number-up", num_options, options)).toInt(&ok);
 
-            numberUp = ok ? value : 1;
-        }
+        numberUp = ok ? value : 1;
+    }
 
 #endif // QT_VERSION
 
-        fromPage = (fromPage - 1) / numberUp + 1;
-        toPage = (toPage - 1) / numberUp + 1;
+    fromPage = (fromPage - 1) / numberUp + 1;
+    toPage = (toPage - 1) / numberUp + 1;
 
-        if(printOptions.pageRanges.isEmpty())
-        {
-            num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
-        }
-        else
-        {
-            num_options = cupsAddOption("page-ranges", printOptions.pageRanges.toLocal8Bit(), num_options, &options);
-        }
-
-        QTemporaryFile temporaryFile;
-
-        if(temporaryFile.open())
-        {
-            temporaryFile.close();
-
-            if(m_document->save(temporaryFile.fileName(), true))
-            {
-                jobId = cupsPrintFile(dest->name, temporaryFile.fileName().toLocal8Bit(), m_fileInfo.completeBaseName().toLocal8Bit(), num_options, options);
-
-                if(jobId < 1)
-                {
-                    qWarning() << cupsLastErrorString();
-                }
-            }
-        }
+    if(printOptions.pageRanges.isEmpty())
+    {
+        num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
     }
     else
+    {
+        num_options = cupsAddOption("page-ranges", printOptions.pageRanges.toLocal8Bit(), num_options, &options);
+    }
+
+    QTemporaryFile temporaryFile;
+
+    adjustFileTemplateSuffix(temporaryFile, m_fileInfo.suffix());
+
+    if(!temporaryFile.open())
+    {
+        cupsFreeDests(num_dests, dests);
+        cupsFreeOptions(num_options, options);
+
+        return false;
+    }
+
+    temporaryFile.close();
+
+    if(!m_document->save(temporaryFile.fileName(), true))
+    {
+        cupsFreeDests(num_dests, dests);
+        cupsFreeOptions(num_options, options);
+
+        return false;
+    }
+
+    jobId = cupsPrintFile(dest->name, temporaryFile.fileName().toLocal8Bit(), m_fileInfo.completeBaseName().toLocal8Bit(), num_options, options);
+
+    if(jobId < 1)
     {
         qWarning() << cupsLastErrorString();
     }
@@ -1976,7 +2100,12 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
     progressDialog->setLabelText(tr("Printing '%1'...").arg(m_fileInfo.completeBaseName()));
     progressDialog->setRange(fromPage - 1, toPage);
 
-    QPainter painter(printer);
+    QPainter painter;
+
+    if(!painter.begin(printer))
+    {
+        return false;
+    }
 
     for(int index = fromPage - 1; index <= toPage - 1; ++index)
     {
@@ -2030,7 +2159,7 @@ bool DocumentView::printUsingQt(QPrinter* printer, const PrintOptions& printOpti
 void DocumentView::saveLeftAndTop(qreal& left, qreal& top) const
 {
     const PageItem* page = m_pageItems.at(m_currentPage - 1);
-    const QRectF boundingRect = page->boundingRect().translated(page->pos());
+    const QRectF boundingRect = page->uncroppedBoundingRect().translated(page->pos());
 
     const QPointF topLeft = mapToScene(viewport()->rect().topLeft());
 
@@ -2087,7 +2216,9 @@ void DocumentView::loadFallbackOutline()
         QStandardItem* item = new QStandardItem(tr("Page %1").arg(pageLabelFromNumber(page)));
         item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
-        item->setData(page, Qt::UserRole + 1);
+        item->setData(page, Model::Document::PageRole);
+        item->setData(qQNaN(), Model::Document::LeftRole);
+        item->setData(qQNaN(), Model::Document::TopRole);
 
         QStandardItem* pageItem = item->clone();
         pageItem->setText(QString::number(page));
@@ -2145,14 +2276,14 @@ void DocumentView::adjustScrollBarPolicy()
     }
 }
 
-void DocumentView::connectVerticalScrollBar()
-{
-    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
-}
-
 void DocumentView::disconnectVerticalScrollBar()
 {
     disconnect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
+}
+
+void DocumentView::reconnectVerticalScrollBar()
+{
+    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(on_verticalScrollBar_valueChanged()));
 }
 
 void DocumentView::prepareDocument(Model::Document* document, const QVector< Model::Page* >& pages)
@@ -2166,11 +2297,11 @@ void DocumentView::prepareDocument(Model::Document* document, const QVector< Mod
     qDeleteAll(m_pageItems);
     qDeleteAll(m_thumbnailItems);
 
-    delete m_document;
-    m_document = document;
-
     qDeleteAll(m_pages);
     m_pages = pages;
+
+    delete m_document;
+    m_document = document;
 
     if(!m_autoRefreshWatcher->files().isEmpty())
     {
@@ -2212,7 +2343,6 @@ void DocumentView::preparePages()
     {
         PageItem* page = new PageItem(m_pages.at(index), index);
 
-        page->setInvertColors(m_invertColors);
         page->setRubberBandMode(m_rubberBandMode);
 
         scene()->addItem(page);
@@ -2226,8 +2356,7 @@ void DocumentView::preparePages()
 
         connect(page, SIGNAL(rubberBandFinished()), SLOT(on_pages_rubberBandFinished()));
 
-        connect(page, SIGNAL(editSourceRequested(int,QPointF)), SLOT(on_pages_editSourceRequested(int,QPointF)));
-        connect(page, SIGNAL(zoomToSelectionRequested(int,QRectF)), SLOT(on_pages_zoomToSelectionRequested(int,QRectF)));
+        connect(page, SIGNAL(zoomToSelection(int,QRectF)), SLOT(on_pages_zoomToSelection(int,QRectF)));
 
         connect(page, SIGNAL(wasModified()), SLOT(on_pages_wasModified()));
     }
@@ -2241,8 +2370,6 @@ void DocumentView::prepareThumbnails()
     for(int index = 0; index < m_pages.count(); ++index)
     {
         ThumbnailItem* page = new ThumbnailItem(m_pages.at(index), pageLabelFromNumber(index + 1), index);
-
-        page->setInvertColors(m_invertColors);
 
         m_thumbnailsScene->addItem(page);
         m_thumbnailItems.append(page);
@@ -2265,7 +2392,7 @@ void DocumentView::prepareBackground()
     {
         backgroundColor = s_settings->pageItem().paperColor();
 
-        if(m_invertColors)
+        if(invertColors())
         {
             backgroundColor.setRgb(~backgroundColor.rgb());
         }
@@ -2277,39 +2404,37 @@ void DocumentView::prepareBackground()
 
 void DocumentView::prepareScene()
 {
-    // prepare scale factor and rotation
+    // prepare render parameters and adjust scale factor
+
+    RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
+                            scaleFactor(), rotation(), renderFlags());
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    if(s_settings->pageItem().useDevicePixelRatio())
+    {
+        renderParam.setDevicePixelRatio(devicePixelRatio());
+    }
+
+#endif // QT_VERSION
 
     const qreal visibleWidth = m_layout->visibleWidth(viewport()->width());
     const qreal visibleHeight = m_layout->visibleHeight(viewport()->height());
 
     foreach(PageItem* page, m_pageItems)
     {
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+        const QSizeF displayedSize = page->displayedSize(renderParam);
 
-        page->setDevicePixelRatio(devicePixelRatio());
-
-#endif // QT_VERSION
-
-        page->setResolution(logicalDpiX(), logicalDpiY());
-
-        page->setRotation(m_rotation);
-
-        const qreal displayedWidth = page->displayedWidth();
-        const qreal displayedHeight = page->displayedHeight();
-
-        switch(m_scaleMode)
+        if(m_scaleMode == FitToPageWidthMode)
         {
-        default:
-        case ScaleFactorMode:
-            page->setScaleFactor(m_scaleFactor);
-            break;
-        case FitToPageWidthMode:
-            page->setScaleFactor(visibleWidth / displayedWidth);
-            break;
-        case FitToPageSizeMode:
-            page->setScaleFactor(qMin(visibleWidth / displayedWidth, visibleHeight / displayedHeight));
-            break;
+            adjustScaleFactor(renderParam, visibleWidth / displayedSize.width());
         }
+        else if(m_scaleMode == FitToPageSizeMode)
+        {
+            adjustScaleFactor(renderParam, qMin(visibleWidth / displayedSize.width(), visibleHeight / displayedSize.height()));
+        }
+
+        page->setRenderParam(renderParam);
     }
 
     // prepare layout
@@ -2324,17 +2449,17 @@ void DocumentView::prepareScene()
     scene()->setSceneRect(left, 0.0, right - left, height);
 }
 
-void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePage)
+void DocumentView::prepareView(qreal newLeft, qreal newTop, bool forceScroll, int scrollToPage)
 {
-    qreal left = scene()->sceneRect().left();
-    qreal top = scene()->sceneRect().top();
-    qreal width = scene()->sceneRect().width();
-    qreal height = scene()->sceneRect().height();
+    const QRectF sceneRect = scene()->sceneRect();
+
+    qreal top = sceneRect.top();
+    qreal height = sceneRect.height();
 
     int horizontalValue = 0;
     int verticalValue = 0;
 
-    visiblePage = visiblePage == 0 ? m_currentPage : visiblePage;
+    scrollToPage = scrollToPage != 0 ? scrollToPage : m_currentPage;
 
     const int highlightIsOnPage = m_currentResult.isValid() ? pageOfResult(m_currentResult) : 0;
     const bool highlightCurrentThumbnail = s_settings->documentView().highlightCurrentThumbnail();
@@ -2342,7 +2467,6 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
     for(int index = 0; index < m_pageItems.count(); ++index)
     {
         PageItem* page = m_pageItems.at(index);
-        const QRectF boundingRect = page->boundingRect().translated(page->pos());
 
         if(m_continuousMode)
         {
@@ -2353,6 +2477,8 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
             if(m_layout->leftIndex(index) == m_currentPage - 1)
             {
                 page->setVisible(true);
+
+                const QRectF boundingRect = page->boundingRect().translated(page->pos());
 
                 top = boundingRect.top() - s_settings->documentView().pageSpacing();
                 height = boundingRect.height() + 2.0 * s_settings->documentView().pageSpacing();
@@ -2365,10 +2491,12 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
             }
         }
 
-        if(index == visiblePage - 1)
+        if(index == scrollToPage - 1)
         {
-            horizontalValue = qFloor(boundingRect.left() + changeLeft * boundingRect.width());
-            verticalValue = qFloor(boundingRect.top() + changeTop * boundingRect.height());
+            const QRectF boundingRect = page->uncroppedBoundingRect().translated(page->pos());
+
+            horizontalValue = qFloor(boundingRect.left() + newLeft * boundingRect.width());
+            verticalValue = qFloor(boundingRect.top() + newTop * boundingRect.height());
         }
 
         if(index == highlightIsOnPage - 1)
@@ -2382,17 +2510,74 @@ void DocumentView::prepareView(qreal changeLeft, qreal changeTop, int visiblePag
         m_thumbnailItems.at(index)->setHighlighted(highlightCurrentThumbnail && (index == m_currentPage - 1));
     }
 
-    setSceneRect(left, top, width, height);
+    setSceneRect(sceneRect.left(), top, sceneRect.width(), height);
 
-    horizontalScrollBar()->setValue(horizontalValue);
-    verticalScrollBar()->setValue(verticalValue);
+    if(!forceScroll && s_settings->documentView().minimalScrolling())
+    {
+        setValueIfNotVisible(horizontalScrollBar(), horizontalValue);
+        setValueIfNotVisible(verticalScrollBar(), verticalValue);
+    }
+    else
+    {
+        horizontalScrollBar()->setValue(horizontalValue);
+        verticalScrollBar()->setValue(verticalValue);
+    }
 
     viewport()->update();
 }
 
 void DocumentView::prepareThumbnailsScene()
 {
+    // prepare render parameters and adjust scale factor
+
+    RenderParam renderParam(logicalDpiX(), logicalDpiY(), 1.0,
+                            scaleFactor(), rotation(), renderFlags());
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
+
+    if(s_settings->pageItem().useDevicePixelRatio())
+    {
+        renderParam.setDevicePixelRatio(devicePixelRatio());
+    }
+
+#endif // QT_VERSION
+
+    const qreal thumbnailSize = s_settings->documentView().thumbnailSize();
     const qreal thumbnailSpacing = s_settings->documentView().thumbnailSpacing();
+
+    qreal visibleWidth = Defaults::DocumentView::thumbnailSize();
+    qreal visibleHeight = Defaults::DocumentView::thumbnailSize();
+
+    if(!m_thumbnailsViewportSize.isNull())
+    {
+        visibleWidth = m_thumbnailsViewportSize.width() - 3.0 * thumbnailSpacing;
+        visibleHeight = m_thumbnailsViewportSize.height() - 3.0 * thumbnailSpacing;
+    }
+
+    foreach(ThumbnailItem* page, m_thumbnailItems)
+    {
+        const QSizeF displayedSize = page->displayedSize(renderParam);
+
+        if(thumbnailSize != 0.0)
+        {
+            adjustScaleFactor(renderParam, qMin(thumbnailSize / displayedSize.width(), thumbnailSize / displayedSize.height()));
+        }
+        else
+        {
+            if(m_thumbnailsOrientation == Qt::Vertical)
+            {
+                adjustScaleFactor(renderParam, visibleWidth / displayedSize.width());
+            }
+            else
+            {
+                adjustScaleFactor(renderParam, (visibleHeight - page->textHeight()) / displayedSize.height());
+            }
+        }
+
+        page->setRenderParam(renderParam);
+    }
+
+    // prepare layout
 
     qreal left = 0.0;
     qreal right = m_thumbnailsOrientation == Qt::Vertical ? 0.0 : thumbnailSpacing;
@@ -2405,6 +2590,8 @@ void DocumentView::prepareThumbnailsScene()
     {
         ThumbnailItem* page = m_thumbnailItems.at(index);
 
+        // prepare visibility
+
         if(limitThumbnailsToResults && s_searchModel->hasResults(this) && !s_searchModel->hasResultsOnPage(this, index + 1))
         {
             page->setVisible(false);
@@ -2416,20 +2603,7 @@ void DocumentView::prepareThumbnailsScene()
 
         page->setVisible(true);
 
-        // prepare scale factor
-
-#if QT_VERSION >= QT_VERSION_CHECK(5,1,0)
-
-        page->setDevicePixelRatio(devicePixelRatio());
-
-#endif // QT_VERSION
-
-        page->setResolution(logicalDpiX(), logicalDpiY());
-
-        page->setScaleFactor(qMin(s_settings->documentView().thumbnailSize() / page->displayedWidth(),
-                                  s_settings->documentView().thumbnailSize() / page->displayedHeight()));
-
-        // prepare layout
+        // prepare position
 
         const QRectF boundingRect = page->boundingRect();
 
@@ -2470,7 +2644,7 @@ void DocumentView::prepareHighlight(int index, const QRectF& rect)
 
     disconnectVerticalScrollBar();
     centerOn(m_highlight);
-    connectVerticalScrollBar();
+    reconnectVerticalScrollBar();
 
     viewport()->update();
 }

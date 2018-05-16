@@ -79,8 +79,8 @@ ouvrir dans l'onglet courant. S'il n'y a pas d'onglet, le fichier est ouvert
 dans un nouvel onglet.</li>
 	<li><b>Ouvrir dans un nouvel onglet...</b> Ouvre une boîte de dialogue pour
 choisir les fichiers à ouvrir dans de nouveaux onglets.</li>
-    <li><b>Open containing folder</b> Opens the folder containing the file displayed
-in the current tab.</li>
+    <li><b>Ouvrir le dossier source</b> Ouvre le dossier contenant le fichier
+affiché dans l'onglet actuel.</li>
 	<li><b>Récemment utilisés</b> Contient une liste des fichiers récemment utilisés
 (si l'option est activée dans les paramètres).</li>
 	<li><b>Actualiser</b> Recharge le fichier affiché dans l'onglet courant.</li>
@@ -103,16 +103,17 @@ page suivante/page précédente/première page/dernière page du document.</li>
 la page à afficher dans l'onglet courant.</li>
     <li><b>Aller vers l'arrière/l'avant</b> Aller vers l'arrière/l'avant dans
 l'historique des pages affichées.</li>
-	<li><b>Search...</b> Opens the search dock below the main view. The search
-automatically starts two seconds after the last change of the search term or
-is manually started by pressing the return key. If the Shift modifier is
-held when the return key is pressed, the search starts in all tabs instead
-of just the current tab. (This effect is reversed if the extended search
-dock is enabled in the settings.)</li>
+	<li><b>Rechercher...</b> Ouvre la barre de recherche sous l'affichage
+principal. La recherche démarre automatiquement 2 secondes après le dernier
+changement du terme de recherche ou est démarrée manuellement en appuyant
+sur la touche entrée. Si la touche Maj est maintenue enfoncée quand la
+touche entrée est pressée, la recherche démarre dans tous les onglets, et
+non plus seulement dans l'onglet actuel. (Cet effet est annulé si la barre
+de recherche avancée est activée dans les paramètres.)</li>
 	<li><b>Rechercher le précédent/suivant</b> Saute à l'occurrence
 précédente/suivante du terme recherché dans le document.</li>
-	<li><b>Cancel search</b> Cancels the currently running search and closes the
-search dock.</li>
+	<li><b>Annuler la recherche</b> Annule la recherche en cours et ferme la barre
+de recherche.</li>
 	<li><b>Copier dans le presse-papiers</b> Lorsque l'action est lancée, le
 programme attend le tracé d'une zone de sélection à la souris pour copier
 son contenu sous forme de textes ou d'images.</li>
@@ -140,10 +141,10 @@ un saut de page pour la page de couverture.</li>
 de colonnes se règle dans le menu paramètres.</li>
     <li><b>Droite vers la gauche</b> Indique comment les pages sont présentées
 lorsque la mise en page multiple comporte plusieurs pages par ligne.</li>
-	<li><b>Zoom in</b> Increases the scale factor by 10 percent. The maximum scale
-factor is 5000 percent.</li>
-	<li><b>Zoom out</b> Decreases the scale factor by 10 percent. The minimum scale
-factor is 10 percent.</li>
+	<li><b>Zoom avant</b> Augmente le facteur d'échelle par tranche de 10 %. Le
+facteur d'échelle maximum est de 5000 %.</li>
+	<li><b>Zoom arrière</b> Diminue le facteur d'échelle par tranche de 10 %. Le
+facteur d'échelle minimum est de 10 %.</li>
 	<li><b>Taille originale</b> Rétablit le facteur d'échelle à 100 pourcent.</li>
     <li><b>Ajuster à la largeur de la page</b> Ajuste le facteur d'échelle de façon
 à ce que la page occupe toute la largeur de la fenêtre principale.</li>
@@ -155,8 +156,11 @@ contraire des aiguilles d'une montre) de 90 degrés.</li>
 aiguilles d'une montre) de 90 degrés.</li>
     <li><b>Inverser les couleurs</b> Précise que les pages doivent être affichées en
 couleurs inversées.</li>
-    <li><b>Convert to grayscale</b> Determines whether pages are converted to
-grayscale after rendering.</li>
+    <li><b>Convertir en niveaux de gris</b> Détermine si les pages sont converties
+en niveaux de gris après le rendu.</li>
+    <li><b>Rogner les marges</b> Active la suppression des marges de page vides
+après le rendu.</li>
+    <li><b>Composition</b></li>
 	<li><b>Barre d'outils</b> Ce menu contient une liste de barres d'outils
 disponibles pour accéder aux actions fréquemment utilisées.</li>
 	<li><b>Docks</b> Ce menu contient la liste des docks disponibles pour afficher
@@ -250,9 +254,9 @@ comportement a été choisi dans les paramètres). Un clic gauche sur un champ
 de formulaire permet d'en éditer le contenu. Passer sur un champ de
 formulaire affiche son nom dans une bulle d'aide.</p>
 
-<p>Double cliquer à un endroit précis du document permet d'afficher, dans
-l'éditeur de sources, le code source extrait du nœud correspondant du
-fichier <em>SyncTeX</em>.</p>
+<p>The source of a position in the document can be opened in the source editor
+using the context menu which optionally contains an item for the first
+matching <em>SyncTeX</em> node.</p>
 
 <p>Pour <em>copier du texte ou des images</em>, maintenir la touche <b>Maj</b>
 enfoncée, cliquer et maintenir le bouton gauche de la souris enfoncé pour
@@ -277,23 +281,33 @@ sont « Shift + Alt + T » et « Shift + Alt + M ».</p>
 
 <h3><a name="auxiliaryviews">Vues auxiliaires</a> <a href="#top">&uarr;</a></h3>
 
-<p>Le <em>sommaire</em> affiche la structure du document. Un clic gauche permet
-d'afficher la page correspondante dans la vue principale. Le menu contextuel
-permet de développer ou de réduire tous les items sous l'item sélectionnés.</p>
+<p>The <em>outline view</em> displays an overview of the contents of the
+document. A left click on an entry jumps to the respective page in the main
+view. The context menu can be used to expand/collapse all items below the
+selected item.</p>
 
-<p>La vue <em>propriétés</em> affiche des informations complémentaires
-contenues dans le document.</p>
+<p>The outline view can also be navigated using the keyboard and the mouse
+wheel. Holding Shift and using the Up/Down keys will scroll the
+view. Holding Shift and using the Left/Right keys will collapse/expand one
+level of items below the selected item. Holding Control and using the
+Left/Right keys will completely collapse/expand the selected item and its
+children. Holding Shift and using the mousel wheel will change the selected
+item. Holding Control and using the mouse wheel will expand/collapse the
+selected item.</p>
 
-<p>La vue en <em>miniatures</em> affiche une version réduite des pages du
-document. Un clic gauche sur une vignette permet d'afficher la page
-correspondante dans la vue principale.</p>
+<p>The <em>properties view</em> displays additional information contained in
+the document.</p>
 
-<p>The <em>bookmarks</em> view shows the bookmarks related to the document
+<p>The <em>thumbnails view</em> displays smaller versions of the pages of the
+document. A left click on an entry jumps to the respective page in the main
+view.</p>
+
+<p>The <em>bookmarks view</em> shows the bookmarks related to the document
 displayed in the current tab. The context menu contains entries to jump to
 the previous/next boookmark or to add bookmarks. The context menu of each
 entry also contains entries to edit and delete bookmarks.</p>
 
-<p>If enabled in the settings, the extended <em>search</em> dock shows an
+<p>If enabled in the settings, the <em>extended search dock</em> shows an
 overview containing the results of all searches being performed in all
 tabs. It also shows the text surrounding a result with the search term being
 emphasized. Clicking on a result opens the corresponding tab and jumps to
@@ -334,6 +348,8 @@ présentation.</li>
     <li><b>Synchroniser le sommaire</b> Si l'item est validé, la page du sommaire
 correspondant à la page courante est mise en valeur et s'actualise à tous
 changements de page.</li>
+    <li><b>Minimal scrolling</b> If enabled, the view port will only be scrolled if
+the target position is not yet visible.</li>
     <li><b>Facteur de zoom</b> Le nombre par lequel le facteur de zoom sera
 respectivement multiplié ou divisé selon que l’on zoome ou dézoome.</li>
     <li><b>Couleur de surlignement</b> Permet de choisir la couleur de surlignement.</li>
@@ -358,8 +374,6 @@ temporaire avant le rendu de l'image finale. Cette option augment
 l'utilisation de la mémoire.</li>
     <li><b>Utiliser le taux de pixel de l'appareil</b> Si l'item est validé,
 l'affichage se fait en utilisant la valeur maximale du taux de pixel.</li>
-    <li><b>Trim margins</b> Activates the automatic removal of empty page margins
-after rendering.</li>
     <li><b>Décorer les pages</b> Permet de tracer le cadre séparant la page de son
 arrière-plan.</li>
     <li><b>Décorer les liens</b> Précise si les liens sont mis en valeur par un
@@ -456,6 +470,15 @@ zoomOut, continuousMode, twoPagesMode, twoPagesWithCoverPageMode,
 multiplePagesMode, originalSize, fitToPageWidthMode, fitToPageSizeMode,
 rotateLeft, rotateRight, fullscreen, presentation et separator. (Nécessite
 un redémarrage.)</li>
+    <li><b>Document context menu</b> Defines which actions are visible in the
+document's context menu. Available actions are openCopyInNewTab,
+openContainingFolder, previousPage, nextPage, firstPage, lastPage,
+jumpToPage, jumpBackward, jumpForward, setFirstPage, findPrevious, findNext,
+cancelSearch and separator.</li>
+    <li><b>Tab context menu</b> Defines which actions are visible in a tab's context
+menu. Available actions are openCopyInNewTab, openContainingFolder,
+copyFilePath, selectFilePath, closeAllTabs, closeAllTabsButThisOne,
+closeAllTabsToTheLeft, closeAllTabsToTheRight and separator.</li>
     <li><b>Scrollable menus</b> Will override the default style so that pop-up menus
 scroll instead being laid-out in mutliple columns if they are larger than
 the available screen space. (Effective after restart.)</li>

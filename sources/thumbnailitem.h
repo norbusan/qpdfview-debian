@@ -62,6 +62,8 @@ public:
 
 #endif // QT_VERSION
 
+    qreal textHeight() const;
+
     bool isHighlighted() const { return m_isHighlighted; }
     void setHighlighted(bool highlighted);
 

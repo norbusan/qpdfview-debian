@@ -29,7 +29,7 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 
 class QGraphicsProxyWidget;
 
-#include "global.h"
+#include "renderparam.h"
 
 namespace qpdfview
 {
@@ -63,6 +63,8 @@ public:
     PageItem(Model::Page* page, int index, PaintMode paintMode = DefaultMode, QGraphicsItem* parent = 0);
     ~PageItem();
 
+    const QRectF& uncroppedBoundingRect() const { return m_boundingRect; }
+
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget*);
 
@@ -70,8 +72,8 @@ public:
 
     const QSizeF& size() const { return m_size; }
 
-    qreal displayedWidth() const;
-    qreal displayedHeight() const;
+    QSizeF displayedSize() const { return displayedSize(renderParam()); }
+    QSizeF displayedSize(const RenderParam& renderParam) const;
 
     const QList< QRectF >& highlights() const { return m_highlights; }
     void setHighlights(const QList< QRectF >& highlights);
@@ -82,40 +84,26 @@ public:
     bool showsAnnotationOverlay() const { return !m_annotationOverlay.isEmpty(); }
     bool showsFormFieldOverlay() const { return !m_formFieldOverlay.isEmpty(); }
 
-    int resolutionX() const { return m_renderParam.resolution.resolutionX; }
-    int resolutionY() const { return m_renderParam.resolution.resolutionY; }
-    void setResolution(int resolutionX, int resolutionY);
-
-    qreal devicePixelRatio() const { return m_renderParam.resolution.devicePixelRatio; }
-    void setDevicePixelRatio(qreal devicePixelRatio);
-
-    qreal scaleFactor() const { return m_renderParam.scaleFactor; }
-    void setScaleFactor(qreal scaleFactor);
-
-    Rotation rotation() const { return m_renderParam.rotation; }
-    void setRotation(Rotation rotation);
-
-    bool invertColors() { return m_renderParam.invertColors; }
-    void setInvertColors(bool invertColors);
-
-    bool convertToGrayscale() { return m_renderParam.convertToGrayscale; }
-    void setConvertToGrayscale(bool convertToGrayscale);
+    const RenderParam& renderParam() const { return m_renderParam; }
+    void setRenderParam(const RenderParam& renderParam);
 
     const QTransform& transform() const { return m_transform; }
     const QTransform& normalizedTransform() const { return m_normalizedTransform; }
 
+    QPointF sourcePos(const QPointF& point) const { return m_transform.inverted().map(point); }
+    QPointF normalizedSourcePos(const QPointF& point) const { return m_normalizedTransform.inverted().map(point); }
+
 signals:
     void cropRectChanged();
 
-    void linkClicked(bool newTab, int page, qreal left = 0.0, qreal top = 0.0);
+    void linkClicked(bool newTab, int page, qreal left = qQNaN(), qreal top = qQNaN());
     void linkClicked(bool newTab, const QString& fileName, int page);
     void linkClicked(const QString& url);
 
     void rubberBandStarted();
     void rubberBandFinished();
 
-    void editSourceRequested(int page, const QPointF& pos);
-    void zoomToSelectionRequested(int page, const QRectF& rect);
+    void zoomToSelection(int page, const QRectF& rect);
 
     void wasModified();
 
@@ -140,7 +128,6 @@ protected:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent*);
 
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 
@@ -164,8 +151,10 @@ private:
     int m_index;
     PaintMode m_paintMode;
 
-    bool presentationMode() const { return m_paintMode == PresentationMode; }
-    bool thumbnailMode() const { return m_paintMode == ThumbnailMode; }
+    bool presentationMode() const;
+    bool thumbnailMode() const;
+
+    bool useTiling() const;
 
     QList< QRectF > m_highlights;
 

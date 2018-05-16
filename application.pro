@@ -8,6 +8,7 @@ MOC_DIR = moc
 
 HEADERS += \
     sources/global.h \
+    sources/renderparam.h \
     sources/printoptions.h \
     sources/settings.h \
     sources/model.h \
@@ -176,7 +177,7 @@ with_fitz {
         PRE_TARGETDEPS += $$FITZ_PLUGIN_NAME
 
         isEmpty(FITZ_PLUGIN_LIBS) {
-            LIBS += -lmupdf -lfreetype -ljbig2dec -ljpeg -lz -lm
+            LIBS += -lmupdf -lfreetype -ljbig2dec -lopenjp2 -ljpeg -lz -lm
         } else {
             LIBS += $$FITZ_PLUGIN_LIBS
         }
@@ -185,6 +186,23 @@ with_fitz {
     }
 
     DEFINES += FITZ_PLUGIN_NAME=\\\"$${FITZ_PLUGIN_NAME}\\\"
+}
+
+!without_image {
+    DEFINES += WITH_IMAGE
+
+    static_image_plugin {
+        isEmpty(IMAGE_PLUGIN_NAME):IMAGE_PLUGIN_NAME = libqpdfview_image.a
+
+        DEFINES += STATIC_IMAGE_PLUGIN
+        LIBS += $$IMAGE_PLUGIN_NAME
+        PRE_TARGETDEPS += $$IMAGE_PLUGIN_NAME
+    }
+    else {
+        isEmpty(IMAGE_PLUGIN_NAME):IMAGE_PLUGIN_NAME = libqpdfview_image.so
+    }
+
+    DEFINES += IMAGE_PLUGIN_NAME=\\\"$${IMAGE_PLUGIN_NAME}\\\"
 }
 
 !without_cups {
@@ -199,10 +217,17 @@ with_fitz {
 
 !without_synctex {
     DEFINES += WITH_SYNCTEX
-    LIBS += -lz
 
-    INCLUDEPATH += synctex
-    SOURCES += synctex/synctex_parser.c synctex/synctex_parser_utils.c
+    !without_pkgconfig:system(pkg-config --exists synctex) {
+        CONFIG += link_pkgconfig
+        PKGCONFIG += synctex
+    } else {
+        HEADERS += synctex/synctex_parser.h synctex/synctex_parser_utils.h synctex/synctex_parser_local.h
+        SOURCES += synctex/synctex_parser.c synctex/synctex_parser_utils.c
+
+        INCLUDEPATH += synctex
+        LIBS += -lz
+    }
 }
 
 lessThan(QT_MAJOR_VERSION, 5) : !without_magic {

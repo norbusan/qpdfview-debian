@@ -11,7 +11,7 @@ TARGET_SHORT = qpdffitz
 OBJECTS_DIR = objects-fitz
 MOC_DIR = moc-fitz
 
-HEADERS = sources/global.h sources/model.h sources/fitzmodel.h
+HEADERS = sources/model.h sources/fitzmodel.h
 SOURCES = sources/fitzmodel.cpp
 
 QT += core gui
@@ -22,7 +22,7 @@ DEFINES += $$FITZ_PLUGIN_DEFINES
 INCLUDEPATH += $$FITZ_PLUGIN_INCLUDEPATH
 
 isEmpty(FITZ_PLUGIN_LIBS) {
-    LIBS += -lmupdf -lfreetype -ljbig2dec -ljpeg -lz -lm -lcrypto
+    LIBS += -lmupdf -lfreetype -ljbig2dec -lopenjp2 -ljpeg -lz -lm -lcrypto
 } else {
     LIBS += $$FITZ_PLUGIN_LIBS
 }

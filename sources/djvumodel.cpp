@@ -430,6 +430,8 @@ void loadOutline(miniexp_t outlineExp, QStandardItem* parent, const QHash< QStri
                 item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 
                 item->setData(destinationPage, Document::PageRole);
+                item->setData(qQNaN(), Document::LeftRole);
+                item->setData(qQNaN(), Document::TopRole);
 
                 QStandardItem* pageItem = item->clone();
                 pageItem->setText(QString::number(destinationPage));

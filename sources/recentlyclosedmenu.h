@@ -39,6 +39,10 @@ public:
 signals:
     void tabActionTriggered(QAction* tabAction);
 
+public slots:
+    void triggerFirstTabAction();
+    void triggerLastTabAction();
+
 protected slots:
     void on_tabAction_triggered(QAction* tabAction);
     void on_clearList_triggered();

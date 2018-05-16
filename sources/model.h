@@ -52,16 +52,16 @@ namespace Model
 
         QString urlOrFileName;
 
-        Link() : boundary(), page(-1), left(0.0), top(0.0), urlOrFileName() {}
+        Link() : boundary(), page(-1), left(qQNaN()), top(qQNaN()), urlOrFileName() {}
 
-        Link(const QPainterPath& boundary, int page, qreal left = 0.0, qreal top = 0.0) : boundary(boundary), page(page), left(left), top(top), urlOrFileName() {}
-        Link(const QRectF& boundingRect, int page, qreal left = 0.0, qreal top = 0.0) : boundary(), page(page), left(left), top(top), urlOrFileName() { boundary.addRect(boundingRect); }
+        Link(const QPainterPath& boundary, int page, qreal left = qQNaN(), qreal top = qQNaN()) : boundary(boundary), page(page), left(left), top(top), urlOrFileName() {}
+        Link(const QRectF& boundingRect, int page, qreal left = qQNaN(), qreal top = qQNaN()) : boundary(), page(page), left(left), top(top), urlOrFileName() { boundary.addRect(boundingRect); }
 
-        Link(const QPainterPath& boundary, const QString& url) : boundary(boundary), page(-1), left(0.0), top(0.0), urlOrFileName(url) {}
-        Link(const QRectF& boundingRect, const QString& url) : boundary(), page(-1), left(0.0), top(0.0), urlOrFileName(url) { boundary.addRect(boundingRect); }
+        Link(const QPainterPath& boundary, const QString& url) : boundary(boundary), page(-1), left(qQNaN()), top(qQNaN()), urlOrFileName(url) {}
+        Link(const QRectF& boundingRect, const QString& url) : boundary(), page(-1), left(qQNaN()), top(qQNaN()), urlOrFileName(url) { boundary.addRect(boundingRect); }
 
-        Link(const QPainterPath& boundary, const QString& fileName, int page) : boundary(boundary), page(page), left(0.0), top(0.0), urlOrFileName(fileName) {}
-        Link(const QRectF& boundingRect, const QString& fileName, int page) : boundary(), page(page), left(0.0), top(0.0), urlOrFileName(fileName) { boundary.addRect(boundingRect); }
+        Link(const QPainterPath& boundary, const QString& fileName, int page) : boundary(boundary), page(page), left(qQNaN()), top(qQNaN()), urlOrFileName(fileName) {}
+        Link(const QRectF& boundingRect, const QString& fileName, int page) : boundary(), page(page), left(qQNaN()), top(qQNaN()), urlOrFileName(fileName) { boundary.addRect(boundingRect); }
 
     };
 
@@ -160,7 +160,7 @@ namespace Model
         };
 
         virtual void loadOutline(QStandardItemModel* outlineModel) const { outlineModel->clear(); }
-        virtual void loadProperties(QStandardItemModel* propertiesModel) const { propertiesModel->clear(); }
+        virtual void loadProperties(QStandardItemModel* propertiesModel) const { propertiesModel->clear(); propertiesModel->setColumnCount(2); }
 
         virtual void loadFonts(QStandardItemModel* fontsModel) const { fontsModel->clear(); }
 

@@ -160,6 +160,11 @@ Uhrzeigersinn um 90 Grad.</li>
 dargestellt werden.</li>
     <li><b>In Graustufen umwandeln</b> Legt fest, ob Seiten vor der Darstellung in
 Graustufen umgewandelt werden.</li>
+    <li><b>Ränder abschneiden</b> Aktiviert das automatische Entfernen leerer
+Seitenränder.</li>
+    <li><b>Farbanpassung</b> Aktiviert das Mischen der Seitendarstellung mit der
+Papierfarbe um beispielsweise den Hintergrund eingescannter Dokumente
+anzupassen.</li>
 	<li><b>Werkzeugleisten</b> Dieses Menü enthält eine Liste verfügbarer
 Werkzeugleisten zum Zugriff auf häufig genutzte Aktionen.</li>
 	<li><b>Paletten</b> Dieses Menü enthält eine Liste verfügbarer Paletten zur
@@ -258,9 +263,9 @@ eingeschaltet ist). Ein Linksklick auf ein Formularfeld ermöglicht die
 Bearbeitung. Wird der Mauszeiger ohne Tastendruck auf einem Formularfeld
 platziert, wird dessen Name als Tooltip angezeigt.</p>
 
-<p>Der Quelltext einer Position im Dokument wird durch einen Doppelklick
-angezeigt. Dabei wird der erste passende SyncTeX-Knoten im Quelltext-Editor
-geöffnet.</p>
+<p>The source of a position in the document can be opened in the source editor
+using the context menu which optionally contains an item for the first
+matching <em>SyncTeX</em> node.</p>
 
 <p><em>In Zwischenablage kopieren:</em> Bei gedrückter <b>SHIFT</b>-Taste mit
 der linken Maustaste klicken, halten und einen Rahmen um die zu kopierende
@@ -287,30 +292,40 @@ einstellbarer Tastaturkürzel mit den Standardwerten "Umschalt+Alt+T" und
 
 <h3><a name="auxiliaryviews">Hilfsansichten</a> <a href="#top">&uarr;</a></h3>
 
-<p>Die <em>Gliederungs-Ansicht</em> stelle eine Übersicht des Dokumenteninhalts
-dar. Durch einen Linksclick auf einen Eintrag springt die Hauptansicht zur
-entsprechenden Seite. Mit Hilfe des Kontextmenüs könnte alle Einträge
-unterhalb des gewählten Eintrags expandiert/kollabiert werden.</p>
+<p><p>Die <em>Gliederungs-Ansicht</em> stelle eine Übersicht des
+Dokumenteninhalts dar. Durch einen Linksclick auf einen Eintrag springt die
+Hauptansicht zur entsprechenden Seite. Mit Hilfe des Kontextmenüs könnte
+alle Einträge unterhalb des gewählten Eintrags expandiert/kollabiert
+werden.</p></p>
 
-<p>Die <em>Eigenschaften-Ansicht<em> zeigt zusätzliche im Dokument enthaltene
-Informationen an.</p>
+<p>Die Gliederungs-Ansicht kann ebenfalls mittels der Tastatur und dem Mausrad
+bedient werden. Wird Umschalt gehalten, so verschieben die
+Hoch/Runter-Tasten die Ansicht. Wird Umschalt gehalten, so klappen die
+Links/Rechts-Tasten eine Ebene unter dem ausgewählten Element zu/auf. Wird
+Steuerung gehalten, so klappen die Links/Rechts-Tasten alle Ebenen unter dem
+ausgewählten Elements zu/auf. Wird Umschalt gehalten, so ändert das Mausrad
+das ausgewählte Element. Wird Steuerung gehalten, so klappt das Mausrad das
+ausgewählte Element auf/zu.</p>
 
-<p>Die <em>Vorschaubilder-Ansicht</em> zeigt kleinere Ansichten der Seiten des
-Dokumentes. Durch einen Linksclick auf einen Eintrag springt die
-Hauptansicht zur entsprechenden Seite.</p>
+<p><p>Die <em>Eigenschaften-Ansicht<em> zeigt zusätzliche im Dokument
+enthaltene Informationen an.</p></p>
 
-<p>The <em>Lesezeichenansicht</em> zeigt die zum im aktuellen Reiter
+<p><p>Die <em>Vorschaubilder-Ansicht</em> zeigt kleinere Ansichten der Seiten
+des Dokumentes. Durch einen Linksclick auf einen Eintrag springt die
+Hauptansicht zur entsprechenden Seite.</p></p>
+
+<p><p>The <em>Lesezeichen-Ansicht</em> zeigt die zum im aktuellen Reiter
 dargestellten Dokument gehörenden Lesezeichen. Das Kontextmenü erlaubt es
 zum vorigen/nächsten Lesezeichen zu springen oder Lesezeichen
 hinzuzufügen. Das Kontextmenü jedes Eintrags erlaubt es außerdem den Eintrag
-zu bearbeiten und zu löschen.</p>
+zu bearbeiten und zu löschen.</p></p>
 
-<p>Falls sie in den Einstellungen aktiviert wurde, stellt die erweiterte
-<em>Suchansicht</em> eine Übersicht der Ergebnisse der in den Reitern
+<p><p>Falls sie in den Einstellungen aktiviert wurde, stellt die <em>erweiterte
+Suchansicht</em> eine Übersicht der Ergebnisse der in den Reitern
 durchgeführten Suchvorgänge dar. Sie stellt außerdem den die Suchergebnisse
 umgebenden Text dar, wobei der Suchbegriff hervorgehoben wird. Durch
 Mausklick auf einen Eintrag wechselt die Hauptansicht zum zugehörigen Reiter
-und springt zur entsprechenden Position.</p>
+und springt zur entsprechenden Position.</p></p>
 
 <h3><a name="settings">Einstellungen</a> <a href="#top">&uarr;</a></h3>
 
@@ -348,6 +363,8 @@ Präsentationsansicht zeigen soll.</li>
     <li><b>Gliederung synchronisieren</b> Falls eingeschaltet, wird in der
 Gliederungsansicht der erste Eintrag zur aktuellen Seite hervorgehoben, wenn
 die aktuelle Seite wechselt.</li>
+    <li><b>Minimaler Bildlauf</b> Falls aktiviert, wird die Ansicht nur dann wenn
+verschoben, wenn das Ziel eines Sprungs nicht bereits sichtbar ist.</li>
     <li><b>Vergrößerungsfaktor</b> Der Skalierungsfaktor wird beim Vergrößern mit
 dieser Zahl multipliziert und beim Verkleinern durch diese Zahl dividiert.</li>
     <li><b>Farbe der Hervorhebungen</b> Legt die Farbe von Hervorhebungen fest.</li>
@@ -374,8 +391,6 @@ Arbeitsspeicherverbrauchs) bereits erstellte Grafiken der alten Auflösung
 verwendet, um Näherungen der endgültigen Grafiken darzustellen, bis diese
 verfügbar sind.</li>
     <li>.</li>
-    <li><b>Ränder abschneiden</b> Aktiviert das automatische Entfernen leerer
-Seitenränder.</li>
     <li><b>Seiten verzieren</b> Legt fest, ob Seiten vom Hintergrund abgesetzt
 dargestellt werden.</li>
     <li><b>Verweise verzieren</b> Legt fest, ob Verweise ("Links") durch rote Rahmen
@@ -483,6 +498,15 @@ Aktionen sind "scaleFactor" (Skalenfaktor), "zoomIn" (Vergrößern), "zoomOut"
 "rotateLeft" (Nach links drehen), "rotateRight" (Nach rechts drehen),
 "fullscreen" (Vollbild), "presentation" (Präsentation) und "separator"
 (Trennelement). (Tritt nach Neustart des Programms in Kraft.)</li>
+    <li><b>Document context menu</b> Defines which actions are visible in the
+document's context menu. Available actions are openCopyInNewTab,
+openContainingFolder, previousPage, nextPage, firstPage, lastPage,
+jumpToPage, jumpBackward, jumpForward, setFirstPage, findPrevious, findNext,
+cancelSearch and separator.</li>
+    <li><b>Tab context menu</b> Defines which actions are visible in a tab's context
+menu. Available actions are openCopyInNewTab, openContainingFolder,
+copyFilePath, selectFilePath, closeAllTabs, closeAllTabsButThisOne,
+closeAllTabsToTheLeft, closeAllTabsToTheRight and separator.</li>
     <li><b>Laufende Menüs</b> Überschreibt die Vorgabe des Standardstils, so dass
 Menüs laufen anstatt in mehreren Spalten dargestellt zu werden, falls sie
 größer sind als die verfügbare Bildschirmfläche. (Nach Neustart wirksam.)</li>

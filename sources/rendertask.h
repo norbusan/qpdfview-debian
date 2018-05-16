@@ -22,13 +22,12 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef RENDERTASK_H
 #define RENDERTASK_H
 
-#include <QColor>
 #include <QImage>
 #include <QMutex>
 #include <QRunnable>
 #include <QWaitCondition>
 
-#include "global.h"
+#include "renderparam.h"
 
 namespace qpdfview
 {
@@ -37,6 +36,8 @@ namespace Model
 {
 class Page;
 }
+
+class Settings;
 
 class RenderTask : public QObject, QRunnable
 {
@@ -60,17 +61,18 @@ signals:
 
     void imageReady(const RenderParam& renderParam,
                     const QRect& rect, bool prefetch,
-                    QImage image, QRectF cropRect);
+                    const QImage& image, const QRectF& cropRect);
 
 public slots:
     void start(const RenderParam& renderParam,
-               const QRect& rect, bool prefetch,
-               bool trimMargins, const QColor& paperColor);
+               const QRect& rect, bool prefetch);
 
     void cancel(bool force = false) { setCancellation(force); }
 
 private:
     Q_DISABLE_COPY(RenderTask)
+
+    static Settings* s_settings;
 
     mutable QMutex m_mutex;
     QWaitCondition m_waitCondition;
@@ -95,13 +97,11 @@ private:
 
     Model::Page* m_page;
 
+    static RenderParam s_defaultRenderParam;
     RenderParam m_renderParam;
 
     QRect m_rect;
     bool m_prefetch;
-
-    bool m_trimMargins;
-    QColor m_paperColor;
 
 };
 
