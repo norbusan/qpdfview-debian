@@ -1,8 +1,8 @@
 usr/bin/
-usr/lib/qpdfview/libqpdfview_pdf.so
 usr/lib/qpdfview/libqpdfview_image.so
+usr/lib/qpdfview/libqpdfview_pdf.so
 usr/share/applications/
 usr/share/icons/hicolor/scalable/apps/qpdfview.svg
 usr/share/man/
-usr/share/qpdfview/help.html
 usr/share/metainfo/
+usr/share/qpdfview/help.html

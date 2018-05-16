@@ -41,7 +41,7 @@ index 8003386..9a4e31e 100644
 +    <update_contact>qpdfview_AT_lists.launchpad.net</update_contact>
 +</component>
 diff --git a/qpdfview.pri b/qpdfview.pri
-index 9fc9938..b9ef321 100644
+index f40e29c..2b12da3 100644
 --- a/qpdfview.pri
 +++ b/qpdfview.pri
 @@ -6,7 +6,7 @@ isEmpty(DATA_INSTALL_PATH):DATA_INSTALL_PATH = /usr/share/qpdfview

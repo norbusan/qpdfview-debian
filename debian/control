@@ -9,6 +9,7 @@ Build-Depends:
  libpoppler-qt5-dev,
  libqt5svg5-dev,
  libspectre-dev,
+ libsynctex-dev,
  pkg-config,
  qt5-qmake,
  qtbase5-dev,
