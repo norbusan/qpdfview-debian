@@ -1,0 +1,55 @@
+From: Boyuan Yang <073plan@gmail.com>
+Date: Wed, 16 May 2018 23:56:14 +0800
+Subject: Update appdata metainfo to proper format
+Forwarded: no
+
+---
+ miscellaneous/qpdfview.appdata.xml | 12 +++++++-----
+ qpdfview.pri                       |  2 +-
+ 2 files changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/miscellaneous/qpdfview.appdata.xml b/miscellaneous/qpdfview.appdata.xml
+index 8003386..9a4e31e 100644
+--- a/miscellaneous/qpdfview.appdata.xml
++++ b/miscellaneous/qpdfview.appdata.xml
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<!-- Copyright 2014 Adam Reichold <adam.reichold@t-online.de> -->
+-<application>
+-    <id type="desktop">qpdfview.desktop</id>
++<!-- Copyright 2018 Boyuan Yang <073plan@gmail.com> -->
++<component type="desktop-application">
++    <id>qpdfview.desktop</id>
+     <metadata_license>CC0-1.0</metadata_license>
+     <project_license>GPL-2.0+</project_license>
+     <name>qpdfview</name>
+@@ -28,6 +28,7 @@
+             <li>Partial form support (PDF only)</li>
+         </ul>    
+     </description>
++    <launchable type="desktop-id">qpdfview.desktop</launchable>
+     <screenshots>
+         <screenshot type="default" width="800" height="600">http://screenshots.debian.net/image/13652_large.png</screenshot>
+         <screenshot width="800" height="600">http://screenshots.debian.net/screenshots/q/qpdfview/13653_large.png</screenshot>
+@@ -35,5 +36,6 @@
+         <screenshot width="707" height="600">http://screenshots.debian.net/screenshots/q/qpdfview/9399_large.png</screenshot>
+     </screenshots>
+     <url type="homepage">https://launchpad.net/qpdfview</url>
+-    <updatecontact>qpdfview@lists.launchpad.net</updatecontact>
+-</application>
++    <developer_name>Adam Reichold</developer_name>
++    <update_contact>qpdfview_AT_lists.launchpad.net</update_contact>
++</component>
+diff --git a/qpdfview.pri b/qpdfview.pri
+index 9fc9938..b9ef321 100644
+--- a/qpdfview.pri
++++ b/qpdfview.pri
+@@ -6,7 +6,7 @@ isEmpty(DATA_INSTALL_PATH):DATA_INSTALL_PATH = /usr/share/qpdfview
+ isEmpty(MANUAL_INSTALL_PATH):MANUAL_INSTALL_PATH = /usr/share/man/man1
+ isEmpty(ICON_INSTALL_PATH):ICON_INSTALL_PATH = /usr/share/icons/hicolor/scalable/apps
+ isEmpty(LAUNCHER_INSTALL_PATH):LAUNCHER_INSTALL_PATH = /usr/share/applications
+-isEmpty(APPDATA_INSTALL_PATH):APPDATA_INSTALL_PATH = /usr/share/appdata
++isEmpty(APPDATA_INSTALL_PATH):APPDATA_INSTALL_PATH = /usr/share/metainfo
+ 
+ win32:include(qpdfview_win32.pri)
+ os2:include(qpdfview_os2.pri)

@@ -1,12 +1,15 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
+# Uncomment this to turn on verbose mode.
+# export DH_VERBOSE=1
 
-DPKG_EXPORT_BUILDFLAGS = 1
-include /usr/share/dpkg/buildflags.mk
-export QT_SELECT=qt5
+# see FEATURE AREAS in dpkg-buildflags(1)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+export QT_SELECT := 5
 
 %:
-	dh $@ --parallel
+	dh $@ --buildsystem=qmake
 
 override_dh_auto_clean:
 	rm -fr miscellaneous/qpdfview.desktop translations/*.qm moc* objects*
@@ -14,7 +17,11 @@ override_dh_auto_clean:
 
 override_dh_auto_configure:
 	lrelease qpdfview.pro
-	qmake DEFINES+="_FILE_OFFSET_BITS=64" QMAKE_CFLAGS="$(CFLAGS) $(CPPFLAGS)" QMAKE_CXXFLAGS="$(CFLAGS) $(CPPFLAGS) $(CXXFLAGS)" QMAKE_LFLAGS="$(LDFLAGS)" qpdfview.pro
+	dh_auto_configure --buildsystem=qmake -- \
+	        DEFINES+="_FILE_OFFSET_BITS=64" qpdfview.pro
 
 override_dh_installchangelogs:
 	dh_installchangelogs CHANGES
+
+override_dh_missing:
+	dh_missing --fail-missing

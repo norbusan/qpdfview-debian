@@ -1,2 +1,2 @@
-debian/tmp/usr/share/qpdfview/qpdfview_*
-debian/tmp/usr/share/qpdfview/help_*
+usr/share/qpdfview/help_*
+usr/share/qpdfview/qpdfview_*

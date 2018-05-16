@@ -1,0 +1,89 @@
+From: Boyuan Yang <073plan@gmail.com>
+Date: Thu, 17 May 2018 00:07:34 +0800
+Subject: Fix some typos reported by lintian
+
+---
+ miscellaneous/qpdfview.1 |  2 +-
+ synctex/synctex_parser.c | 14 +++++++-------
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/miscellaneous/qpdfview.1 b/miscellaneous/qpdfview.1
+index 18c2ec5..683df7d 100644
+--- a/miscellaneous/qpdfview.1
++++ b/miscellaneous/qpdfview.1
+@@ -79,7 +79,7 @@ The icon theme used by Qt can be changed by setting the key "iconTheme" in the s
+ 
+ The tile size in pixels used for tiled rendering can be adjusted by setting the key "tileSize" in the section "pageItem". The default value is 1024 pixels.
+ 
+-The mimimum resp. maximum scale factor can be modified by changing the keys "minimumScaleFactor" resp. "maximumScaleFactor" in the section "documentView". The default values are 0.1 resp. 10.0.
++The minimum resp. maximum scale factor can be modified by changing the keys "minimumScaleFactor" resp. "maximumScaleFactor" in the section "documentView". The default values are 0.1 resp. 10.0.
+ 
+ The timeout for auto-refresh resp. prefetch can be changed by setting the keys "autoRefreshTimeout" resp. "prefetchTimeout" in the section "documentView". The defaults are 750 resp. 250 milliseconds.
+ 
+diff --git a/synctex/synctex_parser.c b/synctex/synctex_parser.c
+index 5b28ace..ae4f579 100644
+--- a/synctex/synctex_parser.c
++++ b/synctex/synctex_parser.c
+@@ -2075,7 +2075,7 @@ scan_anchor:
+ 		available = 1;
+ 		status = _synctex_buffer_get_available_size(scanner,&available);
+ 		 if (status<SYNCTEX_STATUS_OK && available>0){
+-			_synctex_error("Uncomplete sheet(0)");
++			_synctex_error("Incomplete sheet(0)");
+ 			SYNCTEX_RETURN(SYNCTEX_STATUS_ERROR);
+ 		}
+         goto prepare_loop;
+@@ -2104,7 +2104,7 @@ scan_xobv:
+ 				_synctex_error("Unexpected end of vbox, ignored.");
+ 			}
+ 			if (_synctex_next_line(scanner)<SYNCTEX_STATUS_OK) {
+-				_synctex_error("Uncomplete sheet.");
++				_synctex_error("Incomplete sheet.");
+ 				SYNCTEX_RETURN(SYNCTEX_STATUS_ERROR);
+ 			}
+ #           if SYNCTEX_VERBOSE
+@@ -2156,7 +2156,7 @@ scan_xobh:
+ 				_synctex_error("Unexpected end of hbox, ignored.");
+ 			}
+ 			if (_synctex_next_line(scanner)<SYNCTEX_STATUS_OK) {
+-				_synctex_error("Uncomplete sheet.");
++				_synctex_error("Incomplete sheet.");
+ 				SYNCTEX_RETURN(SYNCTEX_STATUS_ERROR);
+ 			}
+ #           if SYNCTEX_VERBOSE
+@@ -2332,7 +2332,7 @@ scan_xobh:
+ 		available = 1;
+ 		status = _synctex_buffer_get_available_size(scanner,&available);
+ 		 if (status<SYNCTEX_STATUS_OK && available>0){
+-			_synctex_error("Uncomplete sheet(0)");
++			_synctex_error("Incomplete sheet(0)");
+ 			SYNCTEX_RETURN(SYNCTEX_STATUS_ERROR);
+ 		} else {
+ 			goto child_loop;
+@@ -2566,7 +2566,7 @@ sibling_loop:
+ 		if (status<SYNCTEX_STATUS_OK && available>0){
+ 			goto sibling_loop;
+ 		} else {
+-			_synctex_error("Uncomplete sheet(2)");
++			_synctex_error("Incomplete sheet(2)");
+ 			SYNCTEX_RETURN(SYNCTEX_STATUS_ERROR);
+ 		}
+ 	}
+@@ -2608,7 +2608,7 @@ content_not_found:
+ 		return status;
+ 	}
+ 	if (_synctex_next_line(scanner)<SYNCTEX_STATUS_OK) {
+-		_synctex_error("Uncomplete Content.");
++		_synctex_error("Incomplete Content.");
+ 		return SYNCTEX_STATUS_ERROR;
+ 	}
+ 	if (status == SYNCTEX_STATUS_NOT_OK) {
+@@ -2642,7 +2642,7 @@ bail:
+ 	}
+ 	status = _synctex_next_line(scanner);
+ 	if (status<SYNCTEX_STATUS_OK) {
+-		_synctex_error("Uncomplete file.");
++		_synctex_error("Incomplete file.");
+ 		goto bail;
+ 	}
+ 	status = _synctex_scan_sheet(scanner,sheet);

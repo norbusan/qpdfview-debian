@@ -1,3 +1,28 @@
+qpdfview (0.4.16-1) unstable; urgency=medium
+
+  * QA upload.
+  * Set Maintainer to Debian QA Group.
+  * New upstream stable release. Closes: #847280.
+  * d/control: Bump Standards-Version to 4.1.4.
+  * d/control: Bump debhelper compat to v11.
+  * d/control: Point Vcs field onto Salsa packaging repo.
+  * d/control: Add missing build-dependency qt5-qmake as suggested in #886521.
+  * d/control: Use source:Version instead of binary:Version for arch:all package
+    recommendation to prevent breakage brought by binNMU. Closes: #857117.
+  * Apply "wrap-and-sort -abst".
+  * d/rules: Remove some custom flags with invocation of qmake;
+    Use dh_auto_configure again as suggested in #886521.
+  * d/rules: Use "dh_missing --fail-missing".
+  * d/menu: Remove menu file.
+  * d/xpm: Remove xpm icon, not needed.
+  * d/patches: Remove previous custom patches to provide a vanilla qpdfview.
+  * d/patches: Add patch to fix legacy appdata file format and installation
+    location.
+  * d/copyright: Refresh copyright information.
+  * d/install: Also install appdata file and new .so file.
+
+ -- Boyuan Yang <073plan@gmail.com>  Wed, 16 May 2018 23:57:19 +0800
+
 qpdfview (0.4.14-1) unstable; urgency=low
 
   * New upstream release.

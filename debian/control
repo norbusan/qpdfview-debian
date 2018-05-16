@@ -1,15 +1,36 @@
 Source: qpdfview
 Section: graphics
 Priority: optional
-Maintainer: Benjamin Eltzner <b.eltzner@gmx.de>
-Build-Depends: debhelper (>=9.0.0), libcups2-dev, qttools5-dev-tools, qtbase5-dev, libqt5svg5-dev, libpoppler-qt5-dev, pkg-config, libspectre-dev, libdjvulibre-dev, dpkg-dev (>=1.16.1.1), zlib1g-dev
-Standards-Version: 3.9.6
+Maintainer: Debian QA Group <packages@qa.debian.org>
+Build-Depends:
+ debhelper (>= 11~),
+ libcups2-dev,
+ libdjvulibre-dev,
+ libpoppler-qt5-dev,
+ libqt5svg5-dev,
+ libspectre-dev,
+ pkg-config,
+ qt5-qmake,
+ qtbase5-dev,
+ qttools5-dev-tools,
+ zlib1g-dev,
+Standards-Version: 4.1.4
 Homepage: https://launchpad.net/qpdfview
+Vcs-Git: https://salsa.debian.org/debian/qpdfview.git
+Vcs-Browser: https://salsa.debian.org/debian/qpdfview
 
 Package: qpdfview
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, libqt5sql5-sqlite, libqt5svg5, hicolor-icon-theme
-Recommends: qpdfview-djvu-plugin (= ${binary:Version}), qpdfview-ps-plugin (=${binary:Version}), qpdfview-translations (=${binary:Version})
+Depends:
+ hicolor-icon-theme,
+ libqt5sql5-sqlite,
+ libqt5svg5,
+ ${misc:Depends},
+ ${shlibs:Depends},
+Recommends:
+ qpdfview-djvu-plugin (= ${binary:Version}),
+ qpdfview-ps-plugin (=${binary:Version}),
+ qpdfview-translations (=${source:Version}),
 Description: tabbed document viewer
  qpdfview is a simple tabbed document viewer which uses the Poppler library for
  PDF rendering and CUPS for printing and provides a clear and simple Qt
@@ -31,7 +52,10 @@ Description: tabbed document viewer
 
 Package: qpdfview-djvu-plugin
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, qpdfview (=${binary:Version})
+Depends:
+ qpdfview (=${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
 Description: tabbed document viewer - DjVu plugin
  qpdfview is a simple tabbed document viewer which uses the Poppler library for
  PDF rendering and CUPS for printing and provides a clear and simple Qt
@@ -42,7 +66,10 @@ Description: tabbed document viewer - DjVu plugin
 
 Package: qpdfview-ps-plugin
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, qpdfview (=${binary:Version})
+Depends:
+ qpdfview (=${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
 Description: tabbed document viewer - PostScript plugin
  qpdfview is a simple tabbed document viewer which uses the Poppler library for
  PDF rendering and CUPS for printing and provides a clear and simple Qt
@@ -53,8 +80,12 @@ Description: tabbed document viewer - PostScript plugin
 
 Package: qpdfview-translations
 Architecture: all
-Depends: ${misc:Depends}, ${shlibs:Depends}, qpdfview (>=${binary:Version})
-Replaces: qpdfview-languages
+Depends:
+ qpdfview (>=${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Replaces:
+ qpdfview-languages,
 Description: tabbed document viewer - translations
  qpdfview is a simple tabbed document viewer which uses the Poppler library for
  PDF rendering and CUPS for printing and provides a clear and simple Qt

@@ -1,7 +1,8 @@
-debian/tmp/usr/bin/
-debian/tmp/usr/lib/qpdfview/libqpdfview_pdf.so
-debian/tmp/usr/share/applications/
-debian/tmp/usr/share/man/
-debian/tmp/usr/share/qpdfview/help.html
-debian/tmp/usr/share/icons/hicolor/scalable/apps/qpdfview.svg
-debian/qpdfview.xpm usr/share/qpdfview/
+usr/bin/
+usr/lib/qpdfview/libqpdfview_pdf.so
+usr/lib/qpdfview/libqpdfview_image.so
+usr/share/applications/
+usr/share/icons/hicolor/scalable/apps/qpdfview.svg
+usr/share/man/
+usr/share/qpdfview/help.html
+usr/share/metainfo/
