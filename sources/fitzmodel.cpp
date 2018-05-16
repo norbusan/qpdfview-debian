@@ -209,17 +209,20 @@ QList< Link* > FitzPage::links() const
 
         if (link->uri != NULL)
         {
-            const QString url = QString::fromUtf8(link->uri);
-
-            if (url.startsWith("#"))
+            if (fz_is_external_link(m_parent->m_context, link->uri) == 0)
             {
-                const int page = url.mid(1, url.indexOf(',') - 1).toInt();
+                float xp;
+                float yp;
+                const int page = fz_resolve_link(m_parent->m_context, m_parent->m_document, link->uri, &xp, &yp);
 
-                links.append(new Link(boundary, page));
+                if (page != -1)
+                {
+                    links.append(new Link(boundary, page + 1, xp / width, yp / height));
+                }
             }
             else
             {
-                links.append(new Link(boundary, url));
+                links.append(new Link(boundary, QString::fromUtf8(link->uri)));
             }
         }
     }
