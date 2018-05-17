@@ -11,7 +11,7 @@ Build-Depends:
  libspectre-dev,
  libsynctex-dev,
  pkg-config,
- qt5-qmake,
+ qt5-qmake:native,
  qtbase5-dev,
  qttools5-dev-tools,
  zlib1g-dev,

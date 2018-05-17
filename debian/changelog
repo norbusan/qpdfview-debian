@@ -20,10 +20,12 @@ qpdfview (0.4.17~beta1+git20180514-1) unstable; urgency=medium
   * d/patches: Remove previous custom patches to provide a vanilla qpdfview.
   * d/patches: Add patch to fix legacy appdata file format and installation
     location.
+  * d/patches: Add patch to fix FTBCFS for pkg-config detection.
+    Closes: #886521.
   * d/copyright: Refresh copyright information.
   * d/install: Also install appdata file and new .so file.
 
- -- Boyuan Yang <073plan@gmail.com>  Thu, 17 May 2018 00:37:24 +0800
+ -- Boyuan Yang <073plan@gmail.com>  Thu, 17 May 2018 08:43:56 +0800
 
 qpdfview (0.4.14-1) unstable; urgency=low
 

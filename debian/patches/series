@@ -1,2 +1,3 @@
 0001-Update-appdata-metainfo-to-proper-format.patch
 0002-Fix-some-typos-reported-by-lintian.patch
+0003-Use-the-correct-pkg-config-for-cross-compilation.patch
