@@ -160,10 +160,14 @@ QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
     {
         fz_pre_translate(&tileMatrix, -boundingRect.x(), -boundingRect.y());
 
-        tileRect.x0 = tileRect.y0 = 0.0;
+        tileRect.x0 = boundingRect.x();
+        tileRect.y0 = boundingRect.y();
 
-        tileWidth = tileRect.x1 = boundingRect.width();
-        tileHeight = tileRect.y1 = boundingRect.height();
+        tileRect.x1 = boundingRect.right();
+        tileRect.y1 = boundingRect.bottom();
+
+        tileWidth = boundingRect.width();
+        tileHeight = boundingRect.height();
     }
 
 
@@ -179,7 +183,7 @@ QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
     fz_pixmap* pixmap = fz_new_pixmap_with_data(context, colorSpace, imageWidth, image.height(), NULL, 1, stride, image.bits());
 
     device = fz_new_draw_device(context, &tileMatrix, pixmap);
-    fz_run_display_list(context, display_list, device, &tileMatrix, &tileRect, 0);
+    fz_run_display_list(context, display_list, device, &fz_identity, &tileRect, NULL);
     fz_close_device(context, device);
     fz_drop_device(context, device);
 
