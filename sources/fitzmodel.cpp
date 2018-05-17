@@ -50,6 +50,23 @@ const int maxSearchResultPerPage = 20;
 using namespace qpdfview;
 using namespace qpdfview::Model;
 
+QString externalLinkToString(char* uri)
+{
+    if (!uri)
+    {
+        return QString();
+    }
+
+    QString url = QString::fromUtf8(uri);
+
+    if (url.toLower().startsWith("file://"))
+    {
+        url = url.mid(7);
+    }
+
+    return url;
+}
+
 Outline loadOutline(fz_outline* item)
 {
     Outline outline;
@@ -63,6 +80,10 @@ Outline loadOutline(fz_outline* item)
         if(item->page != -1)
         {
             section.link.page = item->page + 1;
+        }
+        else if (item->uri)
+        {
+            section.link.urlOrFileName = externalLinkToString(item->uri);
         }
 
         if(fz_outline* childItem = item->down)
@@ -227,7 +248,7 @@ QList< Link* > FitzPage::links() const
             }
             else
             {
-                links.append(new Link(boundary, QString::fromUtf8(link->uri)));
+                links.append(new Link(boundary, externalLinkToString(link->uri)));
             }
         }
     }
