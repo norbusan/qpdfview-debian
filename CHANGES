@@ -1,4 +1,5 @@
 Release 0.4.18:
+  * Fixed various issue w.r.t. statically linked plug-ins and cross builds for Windows. Thanks to Marshall Banana.
   * Added support for nested splitting of document views.
   * Added support for transparent decompression of document files.
   * Added restoring of tab order and of current tab.
