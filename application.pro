@@ -94,6 +94,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
     QT += dbus
 }
 
+isEmpty(QMAKE_EXTENSION_SHLIB):QMAKE_EXTENSION_SHLIB = "so"
+isEmpty(QMAKE_EXTENSION_STATICLIB):QMAKE_EXTENSION_STATICLIB = "a"
+
 DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 
 plugin_resolve_all {
