@@ -1,7 +1,8 @@
 /*
 
+Copyright 2018 S. Razi Alavizadeh
 Copyright 2015 Martin Banky
-Copyright 2014-2015 Adam Reichold
+Copyright 2014-2015, 2018 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -28,10 +29,13 @@ along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
 extern "C"
 {
 
+#include <mupdf/fitz/stream.h>
 #include <mupdf/fitz/bidi.h>
 #include <mupdf/fitz/output.h>
 #include <mupdf/fitz/display-list.h>
 #include <mupdf/fitz/document.h>
+#include <mupdf/fitz/pool.h>
+#include <mupdf/fitz/structured-text.h>
 
 typedef struct pdf_document_s pdf_document;
 
@@ -45,6 +49,18 @@ namespace
 using namespace qpdfview;
 using namespace qpdfview::Model;
 
+QString removeFilePrefix(const char* uri)
+{
+    QString url = QString::fromUtf8(uri);
+
+    if(url.startsWith("file://", Qt::CaseInsensitive))
+    {
+        url = url.mid(7);
+    }
+
+    return url;
+}
+
 Outline loadOutline(fz_outline* item)
 {
     Outline outline;
@@ -55,9 +71,13 @@ Outline loadOutline(fz_outline* item)
         Section& section = outline.back();
         section.title = QString::fromUtf8(item->title);
 
-        if(item->dest.kind != FZ_LINK_NONE)
+        if(item->page != -1)
         {
-            section.link.page = item->dest.ld.gotor.page + 1;
+            section.link.page = item->page + 1;
+        }
+        else if (item->uri != 0)
+        {
+            section.link.urlOrFileName = removeFilePrefix(item->uri);
         }
 
         if(fz_outline* childItem = item->down)
@@ -132,10 +152,11 @@ QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
 
 
     fz_context* context = fz_clone_context(m_parent->m_context);
-    fz_display_list* display_list = fz_new_display_list(context);
+    fz_display_list* display_list = fz_new_display_list(context, &rect);
 
     fz_device* device = fz_new_list_device(context, display_list);
     fz_run_page(m_parent->m_context, m_page, device, &matrix, 0);
+    fz_close_device(m_parent->m_context, device);
     fz_drop_device(m_parent->m_context, device);
 
 
@@ -154,20 +175,25 @@ QImage FitzPage::render(qreal horizontalResolution, qreal verticalResolution, Ro
     {
         fz_pre_translate(&tileMatrix, -boundingRect.x(), -boundingRect.y());
 
-        tileRect.x0 = tileRect.y0 = 0.0;
+        tileRect.x0 = boundingRect.x();
+        tileRect.y0 = boundingRect.y();
 
-        tileWidth = tileRect.x1 = boundingRect.width();
-        tileHeight = tileRect.y1 = boundingRect.height();
+        tileRect.x1 = boundingRect.right();
+        tileRect.y1 = boundingRect.bottom();
+
+        tileWidth = boundingRect.width();
+        tileHeight = boundingRect.height();
     }
 
 
     QImage image(tileWidth, tileHeight, QImage::Format_RGB32);
     image.fill(m_parent->m_paperColor);
 
-    fz_pixmap* pixmap = fz_new_pixmap_with_data(context, fz_device_bgr(context), image.width(), image.height(), image.bits());
+    fz_pixmap* pixmap = fz_new_pixmap_with_data(context, fz_device_bgr(context), image.width(), image.height(), 0, 1, image.bytesPerLine(), image.bits());
 
-    device = fz_new_draw_device(context, pixmap);
-    fz_run_display_list(context, display_list, device, &tileMatrix, &tileRect, 0);
+    device = fz_new_draw_device(context, &tileMatrix, pixmap);
+    fz_run_display_list(context, display_list, device, &fz_identity, &tileRect, 0);
+    fz_close_device(context, device);
     fz_drop_device(context, device);
 
     fz_drop_pixmap(context, pixmap);
@@ -195,42 +221,104 @@ QList< Link* > FitzPage::links() const
     {
         const QRectF boundary = QRectF(link->rect.x0 / width, link->rect.y0 / height, (link->rect.x1 - link->rect.x0) / width, (link->rect.y1 - link->rect.y0) / height).normalized();
 
-        if(link->dest.kind == FZ_LINK_GOTO)
+        if (link->uri != 0)
         {
-            const int page = link->dest.ld.gotor.page + 1;
-
-            links.append(new Link(boundary, page));
-        }
-        else if(link->dest.kind == FZ_LINK_GOTOR)
-        {
-            const int page = link->dest.ld.gotor.page + 1;
-
-            if(link->dest.ld.gotor.file_spec != 0)
+            if (fz_is_external_link(m_parent->m_context, link->uri) == 0)
             {
-                links.append(new Link(boundary, QString::fromUtf8(link->dest.ld.gotor.file_spec), page));
+                float left;
+                float top;
+                const int page = fz_resolve_link(m_parent->m_context, m_parent->m_document, link->uri, &left, &top);
+
+                if (page != -1)
+                {
+                    links.append(new Link(boundary, page + 1, left / width, top / height));
+                }
             }
             else
             {
-                links.append(new Link(boundary, page));
+                links.append(new Link(boundary, removeFilePrefix(link->uri)));
             }
-        }
-        else if(link->dest.kind == FZ_LINK_URI)
-        {
-            const QString url = QString::fromUtf8(link->dest.ld.uri.uri);
-
-            links.append(new Link(boundary, url));
-        }
-        else if(link->dest.kind == FZ_LINK_LAUNCH)
-        {
-            const QString url = QString::fromUtf8(link->dest.ld.launch.file_spec);
-
-            links.append(new Link(boundary, url));
         }
     }
 
     fz_drop_link(m_parent->m_context, first_link);
 
     return links;
+}
+
+QString FitzPage::text(const QRectF &rect) const
+{
+    QMutexLocker mutexLocker(&m_parent->m_mutex);
+
+    fz_rect mediaBox;
+    mediaBox.x0 = rect.x();
+    mediaBox.y0 = rect.y();
+    mediaBox.x1 = rect.right();
+    mediaBox.y1 = rect.bottom();
+
+    fz_stext_page* textPage = fz_new_stext_page(m_parent->m_context, &mediaBox);
+    fz_device* device = fz_new_stext_device(m_parent->m_context, textPage, 0);
+    fz_run_page(m_parent->m_context, m_page, device, &fz_identity, 0);
+    fz_close_device(m_parent->m_context, device);
+    fz_drop_device(m_parent->m_context, device);
+
+    fz_point topLeft;
+    topLeft.x = rect.x();
+    topLeft.y = rect.y();
+
+    fz_point bottomRight;
+    bottomRight.x = rect.right();
+    bottomRight.y = rect.bottom();
+
+    char* selection = fz_copy_selection(m_parent->m_context, textPage, topLeft, bottomRight, 0);
+    QString text = QString::fromUtf8(selection);
+    ::free(selection);
+
+    fz_drop_stext_page(m_parent->m_context, textPage);
+
+    return text;
+}
+
+QList<QRectF> FitzPage::search(const QString& text, bool matchCase, bool wholeWords) const
+{
+    Q_UNUSED(matchCase);
+    Q_UNUSED(wholeWords);
+
+    QMutexLocker mutexLocker(&m_parent->m_mutex);
+
+    fz_rect rect;
+    fz_bound_page(m_parent->m_context, m_page, &rect);
+
+    fz_stext_page* textPage = fz_new_stext_page(m_parent->m_context, &rect);
+    fz_device* device = fz_new_stext_device(m_parent->m_context, textPage, 0);
+    fz_run_page(m_parent->m_context, m_page, device, &fz_identity, 0);
+    fz_close_device(m_parent->m_context, device);
+    fz_drop_device(m_parent->m_context, device);
+
+    const QByteArray needle = text.toUtf8();
+
+    QVector< fz_rect > hits(32);
+    int numberOfHits = fz_search_stext_page(m_parent->m_context, textPage, needle.constData(), hits.data(), hits.size());
+
+    while(numberOfHits == hits.size())
+    {
+        hits.resize(2 * hits.size());
+        numberOfHits = fz_search_stext_page(m_parent->m_context, textPage, needle.constData(), hits.data(), hits.size());
+    }
+
+    hits.resize(numberOfHits);
+
+    fz_drop_stext_page(m_parent->m_context, textPage);
+
+    QList< QRectF > results;
+    results.reserve(hits.size());
+
+    foreach(fz_rect rect, hits)
+    {
+        results.append(QRectF(rect.x0, rect.y0, rect.x1 - rect.x0, rect.y1 - rect.y0));
+    }
+
+    return results;
 }
 
 FitzDocument::FitzDocument(fz_context* context, fz_document* document) :

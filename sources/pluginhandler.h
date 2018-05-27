@@ -1,6 +1,7 @@
 /*
 
-Copyright 2012-2013, 2017 Adam Reichold
+Copyright 2018 S. Razi Alavizadeh
+Copyright 2012-2013, 2017, 2018 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -56,7 +57,12 @@ public:
         Image,
         GZip,
         BZip2,
-        XZ
+        XZ,
+        ZIP,
+        EPUB,
+        XPS,
+        FB2,
+        CBZ
     };
 
     static QLatin1String fileTypeName(FileType fileType);

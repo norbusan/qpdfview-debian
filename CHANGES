@@ -4,6 +4,8 @@ Release 0.4.18:
   * Added support for transparent decompression of document files.
   * Added restoring of tab order and of current tab.
   * Added action to open current file in new window. Thanks to Pavel Sanda.
+  * Updated support for MuPDF to version 1.12 and later. Thanks to S. Razi Alavizadeh.
+  * Added support for EPUB, XPS, CBZ and FB2 via MuPDF. Thanks to S. Razi Alavizadeh.
 
 Release 0.4.17:
   * Fixed query to populate the instance list for the choose instance dialog.

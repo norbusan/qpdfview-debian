@@ -1,6 +1,7 @@
 /*
 
-Copyright 2014 Adam Reichold
+Copyright 2018 S. Razi Alavizadeh
+Copyright 2014, 2018 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -55,6 +56,10 @@ namespace Model
         QImage render(qreal horizontalResolution, qreal verticalResolution, Rotation rotation, QRect boundingRect) const;
 
         QList< Link* > links() const;
+
+        QString text(const QRectF& rect) const;
+
+        QList< QRectF > search(const QString& text, bool matchCase, bool wholeWords) const;
 
     private:
         Q_DISABLE_COPY(FitzPage)
