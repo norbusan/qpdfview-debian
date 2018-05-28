@@ -74,12 +74,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="176"/>
         <source>Name</source>
-        <translation type="unfinished">Ат</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="178"/>
         <source>Type</source>
-        <translation type="unfinished">Түр</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="180"/>
@@ -94,7 +94,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="184"/>
         <source>File</source>
-        <translation type="unfinished">Файл</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="206"/>
@@ -102,7 +102,7 @@
         <location filename="../sources/pdfmodel.cpp" line="1013"/>
         <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>Yes</source>
-        <translation type="unfinished">Ооба</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1011"/>
@@ -120,7 +120,7 @@
         <location filename="../sources/pdfmodel.cpp" line="1013"/>
         <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>No</source>
-        <translation type="unfinished">Жок</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -293,17 +293,17 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="41"/>
         <source>&amp;Open</source>
-        <translation type="unfinished">&amp;Ачуу</translation>
+        <translation>&amp;Ачуу</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="46"/>
         <source>Open in new &amp;tab</source>
-        <translation type="unfinished">Жаңы &amp;салмадан ачуу</translation>
+        <translation>Жаңы &amp;салмадан ачуу</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="56"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Чөп катты &amp;өчүрүү</translation>
+        <translation>Чөп катты &amp;өчүрүү</translation>
     </message>
 </context>
 <context>
@@ -311,7 +311,7 @@
     <message>
         <location filename="../sources/database.cpp" line="988"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">%1 барагына өтүү</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -320,7 +320,7 @@
         <location filename="../sources/documentview.cpp" line="1401"/>
         <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Information</source>
-        <translation type="unfinished">Маалымат</translation>
+        <translation>Маалымат</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1401"/>
@@ -346,17 +346,17 @@
     <message>
         <location filename="../sources/documentview.cpp" line="2534"/>
         <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">&apos;%1&apos; басуу...</translation>
+        <translation>&apos;%1&apos; басуу...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="2608"/>
         <source>Unlock %1</source>
-        <translation type="unfinished">%1 тосмолоодон алуу</translation>
+        <translation>%1 тосмолоодон алуу</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="2608"/>
         <source>Password:</source>
-        <translation type="unfinished">Сырсөз:</translation>
+        <translation>Сырсөз:</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="526"/>
@@ -455,7 +455,7 @@
         <location filename="../sources/mainwindow.cpp" line="2815"/>
         <location filename="../sources/mainwindow.cpp" line="2825"/>
         <source>Warning</source>
-        <translation type="unfinished">Эскертүү</translation>
+        <translation>Эскертүү</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="483"/>
@@ -497,12 +497,12 @@
         <location filename="../sources/mainwindow.cpp" line="1202"/>
         <location filename="../sources/mainwindow.cpp" line="1351"/>
         <source>Open</source>
-        <translation type="unfinished">Ачуу</translation>
+        <translation>Ачуу</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1367"/>
         <source>Open in new tab</source>
-        <translation type="unfinished">Жаңы салмадан ачуу</translation>
+        <translation>Жаңы салмадан ачуу</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1469"/>
@@ -514,7 +514,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1512"/>
         <source>Save copy</source>
-        <translation type="unfinished">Көчүрмөнү сактоо</translation>
+        <translation>Көчүрмөнү сактоо</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1522"/>
@@ -524,7 +524,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1493"/>
         <source>Save as</source>
-        <translation type="unfinished">Ат коюп сактоо</translation>
+        <translation>Ат коюп сактоо</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1436"/>
@@ -563,22 +563,22 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1609"/>
         <source>Jump to page</source>
-        <translation type="unfinished">Баракка өтүү</translation>
+        <translation>Баракка өтүү</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1609"/>
         <source>Page:</source>
-        <translation type="unfinished">Барак:</translation>
+        <translation>Барак:</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2014"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">%1 барагына өтүү</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2165"/>
         <source>About qpdfview</source>
-        <translation type="unfinished">qpdfview жөнүндө</translation>
+        <translation>qpdfview жөнүндө</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2165"/>
@@ -623,12 +623,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3062"/>
         <source>Page width</source>
-        <translation type="unfinished">Барактын туурасы боюнча</translation>
+        <translation>Барактын туурасы боюнча</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3063"/>
         <source>Page size</source>
-        <translation type="unfinished">Барактын өлчөмү боюнча</translation>
+        <translation>Барактын өлчөмү боюнча</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3086"/>
@@ -648,7 +648,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3150"/>
         <source>&amp;Open...</source>
-        <translation type="unfinished">&amp;Ачуу...</translation>
+        <translation>&amp;Ачуу...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3151"/>
@@ -668,7 +668,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3152"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished">&amp;Жаңыртуу</translation>
+        <translation>&amp;Жаңыртуу</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1460"/>
@@ -688,7 +688,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3154"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished">&amp;Ат коюп сактоо...</translation>
+        <translation>&amp;Ат коюп сактоо...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3155"/>
@@ -698,7 +698,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3156"/>
         <source>&amp;Print...</source>
-        <translation type="unfinished">&amp;Басма...</translation>
+        <translation>&amp;Басма...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3157"/>
@@ -708,22 +708,22 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3161"/>
         <source>&amp;Previous page</source>
-        <translation type="unfinished">&amp;Мурунку барак</translation>
+        <translation>&amp;Мурунку барак</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3162"/>
         <source>&amp;Next page</source>
-        <translation type="unfinished">&amp;Кийинки барак</translation>
+        <translation>&amp;Кийинки барак</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3169"/>
         <source>&amp;First page</source>
-        <translation type="unfinished">&amp;Биринчи барак</translation>
+        <translation>&amp;Биринчи барак</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3176"/>
         <source>&amp;Last page</source>
-        <translation type="unfinished">&amp;Акыркы барак</translation>
+        <translation>&amp;Акыркы барак</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3178"/>
@@ -733,7 +733,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3180"/>
         <source>&amp;Jump to page...</source>
-        <translation type="unfinished">Баракка &amp;өтүү...</translation>
+        <translation>Баракка &amp;өтүү...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3182"/>
@@ -748,27 +748,27 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3185"/>
         <source>&amp;Search...</source>
-        <translation type="unfinished">&amp;Издөө...</translation>
+        <translation>&amp;Издөө...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3186"/>
         <source>Find previous</source>
-        <translation type="unfinished">Мурункуну табуу</translation>
+        <translation>Мурункуну табуу</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3187"/>
         <source>Find next</source>
-        <translation type="unfinished">Кийинкини табуу</translation>
+        <translation>Кийинкини табуу</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3188"/>
         <source>Cancel search</source>
-        <translation type="unfinished">Издөөнү жокко чыгаруу</translation>
+        <translation>Издөөнү жокко чыгаруу</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3190"/>
         <source>&amp;Copy to clipboard</source>
-        <translation type="unfinished">Алмашуу буферине &amp;көчүрүү</translation>
+        <translation>Алмашуу буферине &amp;көчүрүү</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3191"/>
@@ -778,7 +778,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3193"/>
         <source>Settings...</source>
-        <translation type="unfinished">Ырастоолор...</translation>
+        <translation>Ырастоолор...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3197"/>
@@ -788,7 +788,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3198"/>
         <source>&amp;Two pages</source>
-        <translation type="unfinished">&amp;Эки барак</translation>
+        <translation>&amp;Эки барак</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3199"/>

@@ -89,12 +89,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="182"/>
         <source>Subset</source>
-        <translation type="unfinished">Падмноства</translation>
+        <translation>Падмноства</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="184"/>
         <source>File</source>
-        <translation type="unfinished">Файл</translation>
+        <translation>Файл</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="206"/>
@@ -102,7 +102,7 @@
         <location filename="../sources/pdfmodel.cpp" line="1013"/>
         <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>Yes</source>
-        <translation type="unfinished">Так</translation>
+        <translation>Так</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1011"/>
@@ -120,7 +120,7 @@
         <location filename="../sources/pdfmodel.cpp" line="1013"/>
         <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>No</source>
-        <translation type="unfinished">Не</translation>
+        <translation>Не</translation>
     </message>
 </context>
 <context>
@@ -133,7 +133,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="695"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Версія бібліятэкі Poppler 0.20.1 ці пазнейшая неабходна каб дадаваць ці выдаляць анатыцыі.</translation>
+        <translation>Версія бібліятэкі Poppler 0.20.1 ці пазнейшая неабходна каб дадаваць ці выдаляць анатыцыі.</translation>
     </message>
 </context>
 <context>
@@ -141,22 +141,22 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="239"/>
         <source>Title</source>
-        <translation type="unfinished">Загаловак</translation>
+        <translation>Загаловак</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="240"/>
         <source>Created for</source>
-        <translation type="unfinished">Створана для</translation>
+        <translation>Створана для</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="241"/>
         <source>Creator</source>
-        <translation type="unfinished">Аўтар</translation>
+        <translation>Аўтар</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="242"/>
         <source>Creation date</source>
-        <translation type="unfinished">Дата стварэння</translation>
+        <translation>Дата стварэння</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
@@ -174,12 +174,12 @@
     <message>
         <location filename="../sources/main.cpp" line="171"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished">Пустое імя не дазваляецца.</translation>
+        <translation>Пустое імя не дазваляецца.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="182"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished">Пусты тэкст пошуку не дазваляецца.</translation>
+        <translation>Пусты тэкст пошуку не дазваляецца.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="239"/>
@@ -335,7 +335,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="2059"/>
         <source>Warning</source>
-        <translation type="unfinished">Перасцярога</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="2059"/>
@@ -385,7 +385,7 @@
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
         <location filename="../sources/annotationwidgets.cpp" line="182"/>
         <source>Warning</source>
-        <translation type="unfinished">Перасцярога</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
@@ -455,7 +455,7 @@
         <location filename="../sources/mainwindow.cpp" line="2815"/>
         <location filename="../sources/mainwindow.cpp" line="2825"/>
         <source>Warning</source>
-        <translation type="unfinished">Перасцярога</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="483"/>
@@ -1117,7 +1117,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="819"/>
         <source>Warning</source>
-        <translation type="unfinished">Перасцярога</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="819"/>
@@ -1444,11 +1444,6 @@
 <context>
     <name>qpdfview::SettingsDialog</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="105"/>
-        <source>Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="108"/>
         <source>General</source>
         <translation type="unfinished"></translation>
@@ -1553,12 +1548,6 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="268"/>
-        <location filename="../sources/settingsdialog.cpp" line="544"/>
-        <source>Never</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="268"/>
         <source>Save database interval:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1575,11 +1564,6 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="288"/>
-        <source>Synchronize outline view:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1736,6 +1720,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="295"/>
+        <source>Minimal scrolling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="437"/>
         <source>Prefetch:</source>
         <translation type="unfinished"></translation>
@@ -1781,6 +1770,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="555"/>
+        <source>Exit after last tab:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="581"/>
+        <source>Scrollable menus:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="584"/>
+        <source>Searchable menus:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="708"/>
+        <source>Zoom to selection:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="268"/>
+        <location filename="../sources/settingsdialog.cpp" line="544"/>
+        <source>Never</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="105"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="543"/>
         <source>Tab visibility:</source>
         <translation type="unfinished"></translation>
@@ -1793,11 +1813,6 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="552"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="555"/>
-        <source>Exit after last tab:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1826,11 +1841,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="295"/>
-        <source>Minimal scrolling:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished"></translation>
@@ -1838,16 +1848,6 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="572"/>
         <source>View tool bar:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="581"/>
-        <source>Scrollable menus:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="584"/>
-        <source>Searchable menus:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1868,6 +1868,11 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="602"/>
         <source>Instance name in window title:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="288"/>
+        <source>Synchronize outline view:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1913,11 +1918,6 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="705"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="708"/>
-        <source>Zoom to selection:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

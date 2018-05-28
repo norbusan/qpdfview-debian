@@ -74,27 +74,27 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="176"/>
         <source>Name</source>
-        <translation type="unfinished">ชื่อ</translation>
+        <translation>ชื่อ</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="178"/>
         <source>Type</source>
-        <translation type="unfinished">ชนิด</translation>
+        <translation>ชนิด</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="180"/>
         <source>Embedded</source>
-        <translation type="unfinished">ฝังแนบมาด้วย</translation>
+        <translation>ฝังแนบมาด้วย</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="182"/>
         <source>Subset</source>
-        <translation type="unfinished">เซตย่อย</translation>
+        <translation>เซตย่อย</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="184"/>
         <source>File</source>
-        <translation type="unfinished">แฟ้ม</translation>
+        <translation>แฟ้ม</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="206"/>
@@ -102,7 +102,7 @@
         <location filename="../sources/pdfmodel.cpp" line="1013"/>
         <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>Yes</source>
-        <translation type="unfinished">ใช่</translation>
+        <translation>ใช่</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1011"/>
@@ -120,7 +120,7 @@
         <location filename="../sources/pdfmodel.cpp" line="1013"/>
         <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>No</source>
-        <translation type="unfinished">ไม่</translation>
+        <translation>ไม่</translation>
     </message>
 </context>
 <context>
@@ -128,12 +128,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="695"/>
         <source>Information</source>
-        <translation type="unfinished">ข้อมูล</translation>
+        <translation>ข้อมูล</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="695"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">รุ่น 0.20.1 หรือสูงกว่าของคลัง Poppler ต้องการเพิ่ม/ลบบันทึกย่อ</translation>
+        <translation>รุ่น 0.20.1 หรือสูงกว่าของคลัง Poppler ต้องการเพิ่ม/ลบบันทึกย่อ</translation>
     </message>
 </context>
 <context>
@@ -141,32 +141,32 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="239"/>
         <source>Title</source>
-        <translation type="unfinished">ชื่อ</translation>
+        <translation>ชื่อ</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="240"/>
         <source>Created for</source>
-        <translation type="unfinished">สร้างมาสำหรับ</translation>
+        <translation>สร้างมาสำหรับ</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="241"/>
         <source>Creator</source>
-        <translation type="unfinished">ผู้สร้าง</translation>
+        <translation>ผู้สร้าง</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="242"/>
         <source>Creation date</source>
-        <translation type="unfinished">วันที่สร้าง</translation>
+        <translation>วันที่สร้าง</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Format</source>
-        <translation type="unfinished">ฟอร์แมต</translation>
+        <translation>ฟอร์แมต</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Language level</source>
-        <translation type="unfinished">ขั้นของภาษา</translation>
+        <translation>ขั้นของภาษา</translation>
     </message>
 </context>
 <context>
@@ -179,12 +179,12 @@
     <message>
         <location filename="../sources/main.cpp" line="182"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished">ไม่อนุญาตให้เว้นว่างช่องค้นหาไว้</translation>
+        <translation>ไม่อนุญาตให้เว้นว่างช่องค้นหาไว้</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="239"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished">ไม่รู้จักตัวเลือกบรรทัดคำสั่ง &apos;%1&apos;</translation>
+        <translation>ไม่รู้จักตัวเลือกบรรทัดคำสั่ง &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="270"/>
@@ -204,7 +204,7 @@
     <message>
         <location filename="../sources/main.cpp" line="288"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished">ในการใช้คำสั่ง &apos;--search&apos; ต้องพิมพ์คำค้นด้วย</translation>
+        <translation>ในการใช้คำสั่ง &apos;--search&apos; ต้องพิมพ์คำค้นด้วย</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="448"/>
@@ -217,22 +217,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="860"/>
         <source>Shift</source>
-        <translation type="unfinished">Shift</translation>
+        <translation>Shift</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="861"/>
         <source>Ctrl</source>
-        <translation type="unfinished">Ctrl</translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="862"/>
         <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="863"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished">Shift และ Ctrl</translation>
+        <translation>Shift และ Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="864"/>
@@ -341,7 +341,7 @@
         <location filename="../sources/documentview.cpp" line="2059"/>
         <location filename="../sources/main.cpp" line="364"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished">ข้อมูล SyncTeX สำหรับ &apos;%1&apos; ไม่พบ</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="2534"/>
@@ -611,12 +611,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2397"/>
-        <location filename="../sources/mainwindow.cpp" line="3250"/>
-        <source>&amp;Remove bookmark</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="2398"/>
         <source>&amp;Edit bookmark</source>
         <translation type="unfinished"></translation>
@@ -664,11 +658,6 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3260"/>
         <source>Open &amp;copy in new tab</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3262"/>
-        <source>Open containing &amp;folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -937,21 +926,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3251"/>
-        <source>Remove all bookmarks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3255"/>
-        <source>&amp;Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3256"/>
-        <source>&amp;About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="3261"/>
         <source>Open copy in new &amp;window</source>
         <translation type="unfinished"></translation>
@@ -969,6 +943,57 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3266"/>
         <source>Close current view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3447"/>
+        <source>Thumb&amp;nails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3461"/>
+        <source>Book&amp;marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3533"/>
+        <source>Composition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2397"/>
+        <location filename="../sources/mainwindow.cpp" line="3250"/>
+        <source>&amp;Remove bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2959"/>
+        <source>Edit &apos;%1&apos; at %2,%3...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3262"/>
+        <source>Open containing &amp;folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3153"/>
+        <source>&amp;Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3251"/>
+        <source>Remove all bookmarks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3255"/>
+        <source>&amp;Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3256"/>
+        <source>&amp;About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1000,38 +1025,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3579"/>
-        <source>&amp;Bookmarks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="3335"/>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2959"/>
-        <source>Edit &apos;%1&apos; at %2,%3...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3153"/>
-        <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3447"/>
-        <source>Thumb&amp;nails</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3461"/>
-        <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3533"/>
-        <source>Composition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1047,6 +1042,11 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3556"/>
         <source>&amp;Tabs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3579"/>
+        <source>&amp;Bookmarks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1444,11 +1444,6 @@
 <context>
     <name>qpdfview::SettingsDialog</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="105"/>
-        <source>Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="108"/>
         <source>General</source>
         <translation type="unfinished"></translation>
@@ -1553,12 +1548,6 @@
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="268"/>
-        <location filename="../sources/settingsdialog.cpp" line="544"/>
-        <source>Never</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="268"/>
         <source>Save database interval:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1575,11 +1564,6 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="288"/>
-        <source>Synchronize outline view:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1736,6 +1720,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="295"/>
+        <source>Minimal scrolling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="437"/>
         <source>Prefetch:</source>
         <translation type="unfinished"></translation>
@@ -1781,6 +1770,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="555"/>
+        <source>Exit after last tab:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="581"/>
+        <source>Scrollable menus:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="584"/>
+        <source>Searchable menus:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="708"/>
+        <source>Zoom to selection:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="268"/>
+        <location filename="../sources/settingsdialog.cpp" line="544"/>
+        <source>Never</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="105"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../sources/settingsdialog.cpp" line="543"/>
         <source>Tab visibility:</source>
         <translation type="unfinished"></translation>
@@ -1793,11 +1813,6 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="552"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="555"/>
-        <source>Exit after last tab:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1826,11 +1841,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="295"/>
-        <source>Minimal scrolling:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
         <source>Edit tool bar:</source>
         <translation type="unfinished"></translation>
@@ -1838,16 +1848,6 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="572"/>
         <source>View tool bar:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="581"/>
-        <source>Scrollable menus:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="584"/>
-        <source>Searchable menus:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1868,6 +1868,11 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="602"/>
         <source>Instance name in window title:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="288"/>
+        <source>Synchronize outline view:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1913,11 +1918,6 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="705"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/settingsdialog.cpp" line="708"/>
-        <source>Zoom to selection:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

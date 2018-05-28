@@ -2,2174 +2,2000 @@
 <!DOCTYPE TS>
 <TS version="2.1">
     <extra-po-header-language_team>Japanese &lt;ja@li.org&gt;</extra-po-header-language_team>
-    <extra-po-header-last_translator>Koji Yokota &lt;Unknown&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2015-12-17 15:56+0000</extra-po-header-po_revision_date>
-    <extra-po-header-pot_creation_date>2015-11-11 17:45+0000</extra-po-header-pot_creation_date>
+    <extra-po-header-last_translator>Shinichirou Yamada &lt;yamada_strong_yamada_nice_64bit@yahoo.co.jp&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2017-11-09 15:01+0000</extra-po-header-po_revision_date>
+    <extra-po-header-pot_creation_date>2018-05-27 11:51+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>qpdfview</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_generator>Launchpad (build 17865)</extra-po-header-x_generator>
-    <extra-po-header-x_launchpad_export_date>2015-12-18 05:45+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2018-05-28 05:33+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Japanese translation for qpdfview
 # Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
 # This file is distributed under the same license as the qpdfview package.
 # FIRST AUTHOR &lt;EMAIL@ADDRESS&gt;, 2015.
 #</extra-po-header_comment>
-    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Launchpad-Export-Date,X-Generator</extra-po-headers>
+    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,MIME-Version,Content-Type,Content-Transfer-Encoding,X-Launchpad-Export-Date,X-Qt-Contexts</extra-po-headers>
 <context>
-    <name></name>
+    <name>Model::ImageDocument</name>
     <message>
-        <location filename="../sources/imagemodel.cpp" line="126"/>
+        <location filename="../sources/imagemodel.cpp" line="121"/>
         <source>Image (%1)</source>
-        <comment>Model::ImageDocument|</comment>
         <translation>画像(%1)</translation>
     </message>
     <message>
-        <location filename="../sources/imagemodel.cpp" line="154"/>
+        <location filename="../sources/imagemodel.cpp" line="149"/>
         <source>Size</source>
-        <comment>Model::ImageDocument|</comment>
         <translation>寸法</translation>
     </message>
     <message>
-        <location filename="../sources/imagemodel.cpp" line="155"/>
+        <location filename="../sources/imagemodel.cpp" line="150"/>
         <source>Resolution</source>
-        <comment>Model::ImageDocument|</comment>
         <translation>解像度</translation>
     </message>
     <message>
-        <location filename="../sources/imagemodel.cpp" line="156"/>
+        <location filename="../sources/imagemodel.cpp" line="151"/>
         <source>Depth</source>
-        <comment>Model::ImageDocument|</comment>
         <translation>深度</translation>
     </message>
     <message>
-        <location filename="../sources/imagemodel.cpp" line="164"/>
-        <location filename="../sources/imagemodel.cpp" line="167"/>
-        <location filename="../sources/imagemodel.cpp" line="170"/>
+        <location filename="../sources/imagemodel.cpp" line="159"/>
+        <location filename="../sources/imagemodel.cpp" line="162"/>
+        <location filename="../sources/imagemodel.cpp" line="165"/>
+        <location filename="../sources/imagemodel.cpp" line="168"/>
         <location filename="../sources/imagemodel.cpp" line="173"/>
-        <location filename="../sources/imagemodel.cpp" line="178"/>
-        <location filename="../sources/imagemodel.cpp" line="182"/>
+        <location filename="../sources/imagemodel.cpp" line="177"/>
         <source>Format</source>
-        <comment>Model::ImageDocument|</comment>
         <translation>形式</translation>
     </message>
     <message>
-        <location filename="../sources/imagemodel.cpp" line="164"/>
+        <location filename="../sources/imagemodel.cpp" line="159"/>
         <source>Monochrome</source>
-        <comment>Model::ImageDocument|</comment>
         <translation>モノクロ</translation>
     </message>
     <message>
-        <location filename="../sources/imagemodel.cpp" line="167"/>
+        <location filename="../sources/imagemodel.cpp" line="162"/>
         <source>Indexed</source>
-        <comment>Model::ImageDocument|</comment>
         <translation>インデックス済</translation>
     </message>
     <message>
-        <location filename="../sources/imagemodel.cpp" line="170"/>
+        <location filename="../sources/imagemodel.cpp" line="165"/>
         <source>32 bits RGB</source>
-        <comment>Model::ImageDocument|</comment>
         <translation>32ビットRGB</translation>
     </message>
     <message>
-        <location filename="../sources/imagemodel.cpp" line="173"/>
+        <location filename="../sources/imagemodel.cpp" line="168"/>
         <source>32 bits ARGB</source>
-        <comment>Model::ImageDocument|</comment>
         <translation>32ビットARGB</translation>
     </message>
     <message>
-        <location filename="../sources/imagemodel.cpp" line="178"/>
+        <location filename="../sources/imagemodel.cpp" line="173"/>
         <source>16 bits RGB</source>
-        <comment>Model::ImageDocument|</comment>
         <translation>16ビットRGB</translation>
     </message>
     <message>
-        <location filename="../sources/imagemodel.cpp" line="182"/>
+        <location filename="../sources/imagemodel.cpp" line="177"/>
         <source>24 bits RGB</source>
-        <comment>Model::ImageDocument|</comment>
         <translation>24ビットRGB</translation>
     </message>
+</context>
+<context>
+    <name>Model::PdfDocument</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="913"/>
+        <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>Linearized</source>
-        <comment>Model::PdfDocument|</comment>
         <translation>線形化済</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="927"/>
+        <location filename="../sources/pdfmodel.cpp" line="176"/>
         <source>Name</source>
-        <comment>Model::PdfDocument|</comment>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="927"/>
+        <location filename="../sources/pdfmodel.cpp" line="178"/>
         <source>Type</source>
-        <comment>Model::PdfDocument|</comment>
         <translation>種類</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="927"/>
+        <location filename="../sources/pdfmodel.cpp" line="180"/>
         <source>Embedded</source>
-        <comment>Model::PdfDocument|</comment>
         <translation>埋込済</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="927"/>
+        <location filename="../sources/pdfmodel.cpp" line="182"/>
         <source>Subset</source>
-        <comment>Model::PdfDocument|</comment>
         <translation>一部分</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="927"/>
+        <location filename="../sources/pdfmodel.cpp" line="184"/>
         <source>File</source>
-        <comment>Model::PdfDocument|</comment>
         <translation>ファイル</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="912"/>
-        <location filename="../sources/pdfmodel.cpp" line="913"/>
-        <location filename="../sources/pdfmodel.cpp" line="935"/>
-        <location filename="../sources/pdfmodel.cpp" line="936"/>
+        <location filename="../sources/pdfmodel.cpp" line="206"/>
+        <location filename="../sources/pdfmodel.cpp" line="208"/>
+        <location filename="../sources/pdfmodel.cpp" line="1013"/>
+        <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>Yes</source>
-        <comment>Model::PdfDocument|</comment>
         <translation>はい</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="910"/>
+        <location filename="../sources/pdfmodel.cpp" line="1011"/>
         <source>PDF version</source>
-        <comment>Model::PdfDocument|</comment>
         <translation>PDFバージョン</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="912"/>
+        <location filename="../sources/pdfmodel.cpp" line="1013"/>
         <source>Encrypted</source>
-        <comment>Model::PdfDocument|</comment>
         <translation>暗号化済</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="912"/>
-        <location filename="../sources/pdfmodel.cpp" line="913"/>
-        <location filename="../sources/pdfmodel.cpp" line="935"/>
-        <location filename="../sources/pdfmodel.cpp" line="936"/>
+        <location filename="../sources/pdfmodel.cpp" line="206"/>
+        <location filename="../sources/pdfmodel.cpp" line="208"/>
+        <location filename="../sources/pdfmodel.cpp" line="1013"/>
+        <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>No</source>
-        <comment>Model::PdfDocument|</comment>
         <translation>いいえ</translation>
     </message>
+</context>
+<context>
+    <name>Model::PdfPage</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="599"/>
+        <location filename="../sources/pdfmodel.cpp" line="695"/>
         <source>Information</source>
-        <comment>Model::PdfPage|</comment>
         <translation>情報</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="599"/>
+        <location filename="../sources/pdfmodel.cpp" line="695"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <comment>Model::PdfPage|</comment>
         <translation>註釈の追加や削除をするには、第0.20.1版以降のPopplerライブラリが必要です。</translation>
     </message>
+</context>
+<context>
+    <name>Model::PsDocument</name>
     <message>
-        <location filename="../sources/psmodel.cpp" line="241"/>
+        <location filename="../sources/psmodel.cpp" line="239"/>
         <source>Title</source>
-        <comment>Model::PsDocument|</comment>
         <translation>表題</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="242"/>
+        <location filename="../sources/psmodel.cpp" line="240"/>
         <source>Created for</source>
-        <comment>Model::PsDocument|</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="243"/>
+        <location filename="../sources/psmodel.cpp" line="241"/>
         <source>Creator</source>
-        <comment>Model::PsDocument|</comment>
         <translation>作成者</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="244"/>
+        <location filename="../sources/psmodel.cpp" line="242"/>
         <source>Creation date</source>
-        <comment>Model::PsDocument|</comment>
         <translation>作成日時</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="245"/>
+        <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Format</source>
-        <comment>Model::PsDocument|</comment>
         <translation>形式</translation>
     </message>
     <message>
-        <location filename="../sources/psmodel.cpp" line="246"/>
+        <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Language level</source>
-        <comment>Model::PsDocument|</comment>
         <translation>言語レベル</translation>
     </message>
+</context>
+<context>
+    <name>QObject</name>
     <message>
-        <location filename="../sources/main.cpp" line="152"/>
+        <location filename="../sources/main.cpp" line="171"/>
         <source>An empty instance name is not allowed.</source>
-        <comment>QObject|</comment>
         <translation>インスタンス名を空にしておくことはできません。</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="163"/>
+        <location filename="../sources/main.cpp" line="182"/>
         <source>An empty search text is not allowed.</source>
-        <comment>QObject|</comment>
         <translation>検索文字列は空であってはなりません。</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="191"/>
-        <source>Choose instance</source>
-        <comment>QObject|</comment>
-        <translation>インスタンスを選択してください</translation>
-    </message>
-    <message>
-        <location filename="../sources/main.cpp" line="191"/>
-        <source>Instance:</source>
-        <comment>QObject|</comment>
-        <translation>インスタンス</translation>
-    </message>
-    <message>
-        <location filename="../sources/main.cpp" line="220"/>
+        <location filename="../sources/main.cpp" line="239"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <comment>QObject|</comment>
         <translation>「%1」というコマンドラインオプションはありません。</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="251"/>
+        <location filename="../sources/main.cpp" line="270"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <comment>QObject|</comment>
         <translation>「--instance」を使うにはインスタンス名も必要です。</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="257"/>
+        <location filename="../sources/main.cpp" line="276"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <comment>QObject|</comment>
         <translation>「--instance」は「--unique」とともに使わなくてはなりません。</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="263"/>
+        <location filename="../sources/main.cpp" line="282"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <comment>QObject|</comment>
         <translation>インスタンス名には「[A-Z][a-z][0-9]_」以外の文字は使えません。また数字から始まってはなりません。</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="269"/>
+        <location filename="../sources/main.cpp" line="288"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <comment>QObject|</comment>
         <translation>「--search」を使うには検索文字列も必要です。</translation>
     </message>
     <message>
-        <location filename="../sources/main.cpp" line="347"/>
-        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <comment>QObject|</comment>
-        <translation>「%1」に対応するSyncTeXデータは見つかりませんでした。</translation>
-    </message>
-    <message>
-        <location filename="../sources/main.cpp" line="446"/>
+        <location filename="../sources/main.cpp" line="448"/>
         <source>Could not prepare signal handler.</source>
-        <comment>QObject|</comment>
         <translation>シグナルハンドラを用意できませんでした。</translation>
     </message>
+</context>
+<context>
+    <name>QShortcut</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="832"/>
+        <location filename="../sources/settingsdialog.cpp" line="860"/>
         <source>Shift</source>
-        <comment>QShortcut|</comment>
         <translation>Shift</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="833"/>
+        <location filename="../sources/settingsdialog.cpp" line="861"/>
         <source>Ctrl</source>
-        <comment>QShortcut|</comment>
         <translation>Ctrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="834"/>
+        <location filename="../sources/settingsdialog.cpp" line="862"/>
         <source>Alt</source>
-        <comment>QShortcut|</comment>
         <translation>Alt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="835"/>
+        <location filename="../sources/settingsdialog.cpp" line="863"/>
         <source>Shift and Ctrl</source>
-        <comment>QShortcut|</comment>
         <translation>ShiftおよびCtrl</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="836"/>
+        <location filename="../sources/settingsdialog.cpp" line="864"/>
         <source>Shift and Alt</source>
-        <comment>QShortcut|</comment>
         <translation>ShiftおよびAlt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="837"/>
+        <location filename="../sources/settingsdialog.cpp" line="865"/>
         <source>Ctrl and Alt</source>
-        <comment>QShortcut|</comment>
         <translation>CtrlおよびAlt</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="838"/>
+        <location filename="../sources/settingsdialog.cpp" line="866"/>
         <source>Right mouse button</source>
-        <comment>QShortcut|</comment>
         <translation>右マウスボタン</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="839"/>
+        <location filename="../sources/settingsdialog.cpp" line="867"/>
         <source>Middle mouse button</source>
-        <comment>QShortcut|</comment>
         <translation>中央マウスボタン</translation>
     </message>
     <message>
+        <location filename="../sources/settingsdialog.cpp" line="868"/>
+        <source>None</source>
+        <translation>なし</translation>
+    </message>
+</context>
+<context>
+    <name>qpdfview::BookmarkDialog</name>
+    <message>
         <location filename="../sources/bookmarkdialog.cpp" line="39"/>
         <source>Bookmark</source>
-        <comment>BookmarkDialog|</comment>
         <translation>しおり</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="48"/>
         <source>Page:</source>
-        <comment>BookmarkDialog|</comment>
         <translation>ページ:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="53"/>
         <source>Label:</source>
-        <comment>BookmarkDialog|</comment>
         <translation>ラベル:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="58"/>
         <source>Comment:</source>
-        <comment>BookmarkDialog|</comment>
         <translation>コメント:</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkdialog.cpp" line="64"/>
         <source>Modified:</source>
-        <comment>BookmarkDialog|</comment>
         <translation>更新日時:</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::BookmarkMenu</name>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="39"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="41"/>
         <source>&amp;Open</source>
-        <comment>BookmarkMenu|</comment>
         <translation>開く(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="44"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="46"/>
         <source>Open in new &amp;tab</source>
-        <comment>BookmarkMenu|</comment>
         <translation>新規タブで開く(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/bookmarkmenu.cpp" line="54"/>
+        <location filename="../sources/bookmarkmenu.cpp" line="56"/>
         <source>&amp;Remove bookmark</source>
-        <comment>BookmarkMenu|</comment>
         <translation>しおりを外す(&amp;R)</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::Database</name>
     <message>
-        <location filename="../sources/database.cpp" line="910"/>
+        <location filename="../sources/database.cpp" line="988"/>
         <source>Jump to page %1</source>
-        <comment>Database|</comment>
         <translation>%1ページヘ跳ぶ</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::DocumentView</name>
     <message>
-        <location filename="../sources/documentview.cpp" line="993"/>
-        <location filename="../sources/documentview.cpp" line="1620"/>
+        <location filename="../sources/documentview.cpp" line="1401"/>
+        <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Information</source>
-        <comment>DocumentView|</comment>
         <translation>情報</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="993"/>
+        <location filename="../sources/documentview.cpp" line="1401"/>
         <source>The source editor has not been set.</source>
-        <comment>DocumentView|</comment>
         <translation>ソースエディタが設定されていません。</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="1620"/>
+        <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Opening URL is disabled in the settings.</source>
-        <comment>DocumentView|</comment>
         <translation>URLを開くことは不可に設定されています。</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2100"/>
+        <location filename="../sources/documentview.cpp" line="2059"/>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="2059"/>
+        <location filename="../sources/main.cpp" line="364"/>
+        <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
+        <translation>「%1」に対応するSyncTeXデータは見つかりませんでした。</translation>
+    </message>
+    <message>
+        <location filename="../sources/documentview.cpp" line="2534"/>
         <source>Printing &apos;%1&apos;...</source>
-        <comment>DocumentView|</comment>
         <translation>「%1」を印刷中です...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2174"/>
+        <location filename="../sources/documentview.cpp" line="2608"/>
         <source>Unlock %1</source>
-        <comment>DocumentView|</comment>
         <translation>%1を解除</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2174"/>
+        <location filename="../sources/documentview.cpp" line="2608"/>
         <source>Password:</source>
-        <comment>DocumentView|</comment>
         <translation>パスワード:</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2216"/>
+        <location filename="../sources/documentview.cpp" line="526"/>
         <source>Page %1</source>
-        <comment>DocumentView|</comment>
         <translation>%1 ページ</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::FileAttachmentAnnotationWidget</name>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="112"/>
         <source>Save...</source>
-        <comment>FileAttachmentAnnotationWidget|</comment>
         <translation>保存...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="113"/>
         <source>Save and open...</source>
-        <comment>FileAttachmentAnnotationWidget|</comment>
         <translation>保存して開く...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="160"/>
         <source>Save file attachment</source>
-        <comment>FileAttachmentAnnotationWidget|</comment>
         <translation>ファイル添付物を保存</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
         <location filename="../sources/annotationwidgets.cpp" line="182"/>
         <source>Warning</source>
-        <comment>FileAttachmentAnnotationWidget|</comment>
         <translation>警告</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <comment>FileAttachmentAnnotationWidget|</comment>
         <translation>「%1」に保存されているファイル保存物を開くことができませんでした。</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="182"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <comment>FileAttachmentAnnotationWidget|</comment>
         <translation>ファイル添付物を「%1」に保存することができませんでした。</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::FontsDialog</name>
     <message>
         <location filename="../sources/fontsdialog.cpp" line="37"/>
         <source>Fonts</source>
-        <comment>FontsDialog|</comment>
         <translation>フォント</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::HelpDialog</name>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="40"/>
+        <location filename="../sources/helpdialog.cpp" line="41"/>
         <source>Help</source>
-        <comment>HelpDialog|</comment>
         <translation>ヘルプ</translation>
     </message>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="47"/>
+        <location filename="../sources/helpdialog.cpp" line="48"/>
         <source>help.html</source>
-        <comment>HelpDialog|</comment>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.
 </extracomment>
         <translation>help.html</translation>
     </message>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="62"/>
+        <location filename="../sources/helpdialog.cpp" line="63"/>
         <source>Find previous</source>
-        <comment>HelpDialog|</comment>
         <translation>前を検索</translation>
     </message>
     <message>
-        <location filename="../sources/helpdialog.cpp" line="66"/>
+        <location filename="../sources/helpdialog.cpp" line="67"/>
         <source>Find next</source>
-        <comment>HelpDialog|</comment>
         <translation>次を検索</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::MainWindow</name>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2894"/>
+        <location filename="../sources/mainwindow.cpp" line="3270"/>
         <source>Toggle tool bars</source>
-        <comment>MainWindow|</comment>
         <translation>ツールバーを入切</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2895"/>
+        <location filename="../sources/mainwindow.cpp" line="3271"/>
         <source>Toggle menu bar</source>
-        <comment>MainWindow|</comment>
         <translation>メニューバーを入切</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="362"/>
-        <location filename="../sources/mainwindow.cpp" line="445"/>
-        <location filename="../sources/mainwindow.cpp" line="1202"/>
-        <location filename="../sources/mainwindow.cpp" line="1219"/>
-        <location filename="../sources/mainwindow.cpp" line="1236"/>
-        <location filename="../sources/mainwindow.cpp" line="1274"/>
-        <location filename="../sources/mainwindow.cpp" line="1417"/>
-        <location filename="../sources/mainwindow.cpp" line="2501"/>
-        <location filename="../sources/mainwindow.cpp" line="2515"/>
+        <location filename="../sources/mainwindow.cpp" line="483"/>
+        <location filename="../sources/mainwindow.cpp" line="525"/>
+        <location filename="../sources/mainwindow.cpp" line="1469"/>
+        <location filename="../sources/mainwindow.cpp" line="1480"/>
+        <location filename="../sources/mainwindow.cpp" line="1486"/>
+        <location filename="../sources/mainwindow.cpp" line="1502"/>
+        <location filename="../sources/mainwindow.cpp" line="1522"/>
+        <location filename="../sources/mainwindow.cpp" line="1560"/>
+        <location filename="../sources/mainwindow.cpp" line="1701"/>
+        <location filename="../sources/mainwindow.cpp" line="2815"/>
+        <location filename="../sources/mainwindow.cpp" line="2825"/>
         <source>Warning</source>
-        <comment>MainWindow|</comment>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="362"/>
-        <location filename="../sources/mainwindow.cpp" line="445"/>
+        <location filename="../sources/mainwindow.cpp" line="483"/>
+        <location filename="../sources/mainwindow.cpp" line="525"/>
         <source>Could not open &apos;%1&apos;.</source>
-        <comment>MainWindow|</comment>
         <translation>「%1」を開くことができませんでした。</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="672"/>
+        <location filename="../sources/mainwindow.cpp" line="794"/>
         <source>Copy file path</source>
-        <comment>MainWindow|</comment>
         <translation>ファイルパスをコピー</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="673"/>
+        <location filename="../sources/mainwindow.cpp" line="795"/>
         <source>Select file path</source>
-        <comment>MainWindow|</comment>
         <translation>ファイルパスを選択</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="675"/>
+        <location filename="../sources/mainwindow.cpp" line="797"/>
         <source>Close all tabs</source>
-        <comment>MainWindow|</comment>
         <translation>全てのタブを閉じる</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="676"/>
+        <location filename="../sources/mainwindow.cpp" line="798"/>
         <source>Close all tabs but this one</source>
-        <comment>MainWindow|</comment>
         <translation>これ以外のタブを全て閉じる</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="677"/>
+        <location filename="../sources/mainwindow.cpp" line="799"/>
         <source>Close all tabs to the left</source>
-        <comment>MainWindow|</comment>
         <translation>左側のタブを全て閉じる</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="678"/>
+        <location filename="../sources/mainwindow.cpp" line="800"/>
         <source>Close all tabs to the right</source>
-        <comment>MainWindow|</comment>
         <translation>右側のタブを全て閉じる</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1157"/>
+        <location filename="../sources/mainwindow.cpp" line="1202"/>
+        <location filename="../sources/mainwindow.cpp" line="1351"/>
         <source>Open</source>
-        <comment>MainWindow|</comment>
         <translation>開く</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1173"/>
+        <location filename="../sources/mainwindow.cpp" line="1367"/>
         <source>Open in new tab</source>
-        <comment>MainWindow|</comment>
         <translation>新規タブで開く</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1202"/>
-        <location filename="../sources/mainwindow.cpp" line="1417"/>
+        <location filename="../sources/mainwindow.cpp" line="1469"/>
+        <location filename="../sources/mainwindow.cpp" line="1486"/>
+        <location filename="../sources/mainwindow.cpp" line="1701"/>
         <source>Could not refresh &apos;%1&apos;.</source>
-        <comment>MainWindow|</comment>
         <translation>「%1」を再読込できませんでした。</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1209"/>
+        <location filename="../sources/mainwindow.cpp" line="1512"/>
         <source>Save copy</source>
-        <comment>MainWindow|</comment>
         <translation>コピーを保存</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1219"/>
+        <location filename="../sources/mainwindow.cpp" line="1522"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
-        <comment>MainWindow|</comment>
         <translation>コピーを「%1」に保存することができませんでした。</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1226"/>
-        <location filename="../sources/mainwindow.cpp" line="2505"/>
+        <location filename="../sources/mainwindow.cpp" line="1493"/>
         <source>Save as</source>
-        <comment>MainWindow|</comment>
         <translation>名前を付けて保存</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1236"/>
-        <location filename="../sources/mainwindow.cpp" line="2515"/>
+        <location filename="../sources/mainwindow.cpp" line="1436"/>
+        <location filename="../sources/mainwindow.cpp" line="1447"/>
+        <source>Move to instance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1436"/>
+        <location filename="../sources/mainwindow.cpp" line="1447"/>
+        <source>Failed to access instance &apos;%1&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="1480"/>
+        <location filename="../sources/mainwindow.cpp" line="1502"/>
+        <location filename="../sources/mainwindow.cpp" line="2825"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <comment>MainWindow|</comment>
         <translation>「%1」として保存することができませんでした。</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1274"/>
+        <location filename="../sources/mainwindow.cpp" line="1560"/>
         <source>Could not print &apos;%1&apos;.</source>
-        <comment>MainWindow|</comment>
         <translation>「%1」を印刷することができませんでした。</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1310"/>
+        <location filename="../sources/mainwindow.cpp" line="1596"/>
         <source>Set first page</source>
-        <comment>MainWindow|</comment>
         <translation>最初のページを設定</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1310"/>
+        <location filename="../sources/mainwindow.cpp" line="1596"/>
         <source>Select the first page of the body matter:</source>
-        <comment>MainWindow|</comment>
         <translation>本体の最初のページを選択してください:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1323"/>
+        <location filename="../sources/mainwindow.cpp" line="1609"/>
         <source>Jump to page</source>
-        <comment>MainWindow|</comment>
-        <translation>指定ページに跳ぶ</translation>
+        <translation>指定ページへ跳ぶ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1323"/>
+        <location filename="../sources/mainwindow.cpp" line="1609"/>
         <source>Page:</source>
-        <comment>MainWindow|</comment>
         <translation>ページ:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1724"/>
+        <location filename="../sources/mainwindow.cpp" line="2014"/>
         <source>Jump to page %1</source>
-        <comment>MainWindow|</comment>
         <translation>%1ページヘ跳ぶ</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1875"/>
+        <location filename="../sources/mainwindow.cpp" line="2165"/>
         <source>About qpdfview</source>
-        <comment>MainWindow|</comment>
         <translation>qpdfviewについて</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1875"/>
+        <location filename="../sources/mainwindow.cpp" line="2165"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <comment>MainWindow|</comment>
         <translation>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfviewはQtを使用したタブ式文書ビューアです。&lt;/p&gt;&lt;p&gt;この版は下記のサポートを提供しています:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1879"/>
+        <location filename="../sources/mainwindow.cpp" line="2169"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
-        <comment>MainWindow|</comment>
         <translation>&lt;li&gt;PDFサポート(Poppler %1を使用)&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1882"/>
+        <location filename="../sources/mainwindow.cpp" line="2172"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
-        <comment>MainWindow|</comment>
         <translation>&lt;li&gt;PSサポート(libspectre %1を使用)&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1885"/>
+        <location filename="../sources/mainwindow.cpp" line="2175"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
-        <comment>MainWindow|</comment>
         <translation>&lt;li&gt;DjVuサポート(DjVuLibre %1を使用)&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1888"/>
+        <location filename="../sources/mainwindow.cpp" line="2178"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
-        <comment>MainWindow|</comment>
         <translation>&lt;li&gt;PDFサポート(Fitz %1を使用)&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1891"/>
+        <location filename="../sources/mainwindow.cpp" line="2181"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
-        <comment>MainWindow|</comment>
         <translation>&lt;li&gt;印刷サポート(CUPS %1を使用)&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2179"/>
+        <location filename="../sources/mainwindow.cpp" line="2398"/>
         <source>&amp;Edit bookmark</source>
-        <comment>MainWindow|</comment>
         <translation>しおりを編集(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2501"/>
+        <location filename="../sources/mainwindow.cpp" line="2815"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <comment>MainWindow|</comment>
         <translation>文書「%1」は修正されています。変更分を保存しますか？</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2707"/>
+        <location filename="../sources/mainwindow.cpp" line="3062"/>
         <source>Page width</source>
-        <comment>MainWindow|</comment>
         <translation>ページ幅</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2708"/>
+        <location filename="../sources/mainwindow.cpp" line="3063"/>
         <source>Page size</source>
-        <comment>MainWindow|</comment>
         <translation>ページ寸法</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2731"/>
+        <location filename="../sources/mainwindow.cpp" line="3086"/>
         <source>Match &amp;case</source>
-        <comment>MainWindow|</comment>
         <translation>大文字と小文字を区別(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2732"/>
+        <location filename="../sources/mainwindow.cpp" line="3087"/>
         <source>Whole &amp;words</source>
-        <comment>MainWindow|</comment>
         <translation>単語全体(&amp;W)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2733"/>
+        <location filename="../sources/mainwindow.cpp" line="3088"/>
         <source>Highlight &amp;all</source>
-        <comment>MainWindow|</comment>
         <translation>全て強調(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2795"/>
+        <location filename="../sources/mainwindow.cpp" line="3150"/>
         <source>&amp;Open...</source>
-        <comment>MainWindow|</comment>
         <translation>開く(&amp;O)...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2796"/>
+        <location filename="../sources/mainwindow.cpp" line="3151"/>
         <source>Open in new &amp;tab...</source>
-        <comment>MainWindow|</comment>
         <translation>新規タブに開く(&amp;T)...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2797"/>
+        <location filename="../sources/mainwindow.cpp" line="3260"/>
         <source>Open &amp;copy in new tab</source>
-        <comment>MainWindow|</comment>
-        <translation>新規タブにコピーを開く(&amp;C)...</translation>
+        <translation>新規タブにコピーを開く(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2799"/>
+        <location filename="../sources/mainwindow.cpp" line="3263"/>
+        <source>Move to &amp;instance...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3152"/>
         <source>&amp;Refresh</source>
-        <comment>MainWindow|</comment>
         <translation>再読込(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2800"/>
-        <source>&amp;Save copy...</source>
-        <comment>MainWindow|</comment>
-        <translation>コピーを保存(&amp;S)</translation>
+        <location filename="../sources/mainwindow.cpp" line="1460"/>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2801"/>
+        <location filename="../sources/mainwindow.cpp" line="1460"/>
+        <source>Instance-to-instance communication requires D-Bus support.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="2183"/>
+        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; %1 The qpdfview developers&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3154"/>
         <source>Save &amp;as...</source>
-        <comment>MainWindow|</comment>
         <translation>名前を付けて保存(&amp;A)...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2802"/>
+        <location filename="../sources/mainwindow.cpp" line="3155"/>
+        <source>Save &amp;copy...</source>
+        <translation>コピーを保存(&amp;C)...</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3156"/>
         <source>&amp;Print...</source>
-        <comment>MainWindow|</comment>
         <translation>印刷(&amp;P)...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2803"/>
+        <location filename="../sources/mainwindow.cpp" line="3157"/>
         <source>E&amp;xit</source>
-        <comment>MainWindow|</comment>
         <translation>終了(&amp;X)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2807"/>
+        <location filename="../sources/mainwindow.cpp" line="3161"/>
         <source>&amp;Previous page</source>
-        <comment>MainWindow|</comment>
         <translation>前ページ(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2808"/>
+        <location filename="../sources/mainwindow.cpp" line="3162"/>
         <source>&amp;Next page</source>
-        <comment>MainWindow|</comment>
         <translation>次ページ(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2809"/>
+        <location filename="../sources/mainwindow.cpp" line="3169"/>
         <source>&amp;First page</source>
-        <comment>MainWindow|</comment>
         <translation>最初のページ(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2810"/>
+        <location filename="../sources/mainwindow.cpp" line="3176"/>
         <source>&amp;Last page</source>
-        <comment>MainWindow|</comment>
         <translation>最後のページ(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2812"/>
+        <location filename="../sources/mainwindow.cpp" line="3178"/>
         <source>&amp;Set first page...</source>
-        <comment>MainWindow|</comment>
         <translation>最初のページを設定(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2814"/>
+        <location filename="../sources/mainwindow.cpp" line="3180"/>
         <source>&amp;Jump to page...</source>
-        <comment>MainWindow|</comment>
-        <translation>指定ページに跳ぶ...</translation>
+        <translation>指定ページへ跳ぶ(&amp;J)...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2816"/>
+        <location filename="../sources/mainwindow.cpp" line="3182"/>
         <source>Jump &amp;backward</source>
-        <comment>MainWindow|</comment>
         <translation>後ろに跳ぶ(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2817"/>
+        <location filename="../sources/mainwindow.cpp" line="3183"/>
         <source>Jump for&amp;ward</source>
-        <comment>MainWindow|</comment>
         <translation>前に跳ぶ(&amp;W)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2819"/>
+        <location filename="../sources/mainwindow.cpp" line="3185"/>
         <source>&amp;Search...</source>
-        <comment>MainWindow|</comment>
         <translation>検索(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2820"/>
+        <location filename="../sources/mainwindow.cpp" line="3186"/>
         <source>Find previous</source>
-        <comment>MainWindow|</comment>
         <translation>前を検索</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2821"/>
+        <location filename="../sources/mainwindow.cpp" line="3187"/>
         <source>Find next</source>
-        <comment>MainWindow|</comment>
         <translation>次を検索</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2822"/>
+        <location filename="../sources/mainwindow.cpp" line="3188"/>
         <source>Cancel search</source>
-        <comment>MainWindow|</comment>
         <translation>検索を取り消す</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2824"/>
+        <location filename="../sources/mainwindow.cpp" line="3190"/>
         <source>&amp;Copy to clipboard</source>
-        <comment>MainWindow|</comment>
         <translation>クリップボードにコピー(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2825"/>
+        <location filename="../sources/mainwindow.cpp" line="3191"/>
         <source>&amp;Add annotation</source>
-        <comment>MainWindow|</comment>
         <translation>註釈を追加(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2827"/>
+        <location filename="../sources/mainwindow.cpp" line="3193"/>
         <source>Settings...</source>
-        <comment>MainWindow|</comment>
         <translation>設定...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2831"/>
+        <location filename="../sources/mainwindow.cpp" line="3197"/>
         <source>&amp;Continuous</source>
-        <comment>MainWindow|</comment>
         <translation>連続表示(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2832"/>
+        <location filename="../sources/mainwindow.cpp" line="3198"/>
         <source>&amp;Two pages</source>
-        <comment>MainWindow|</comment>
         <translation>見開き(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2833"/>
+        <location filename="../sources/mainwindow.cpp" line="3199"/>
         <source>Two pages &amp;with cover page</source>
-        <comment>MainWindow|</comment>
         <translation>見開き(表紙付き)(&amp;W)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2834"/>
+        <location filename="../sources/mainwindow.cpp" line="3200"/>
         <source>&amp;Multiple pages</source>
-        <comment>MainWindow|</comment>
         <translation>複数ページ(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2836"/>
+        <location filename="../sources/mainwindow.cpp" line="3202"/>
         <source>Right to left</source>
-        <comment>MainWindow|</comment>
         <translation>右から左</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2838"/>
+        <location filename="../sources/mainwindow.cpp" line="3204"/>
         <source>Zoom &amp;in</source>
-        <comment>MainWindow|</comment>
         <translation>拡大(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2839"/>
+        <location filename="../sources/mainwindow.cpp" line="3205"/>
         <source>Zoom &amp;out</source>
-        <comment>MainWindow|</comment>
         <translation>縮小(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2840"/>
+        <location filename="../sources/mainwindow.cpp" line="3206"/>
         <source>Original &amp;size</source>
-        <comment>MainWindow|</comment>
         <translation>原寸大(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2842"/>
+        <location filename="../sources/mainwindow.cpp" line="3208"/>
         <source>Fit to page width</source>
-        <comment>MainWindow|</comment>
         <translation>ページ幅に合わせる</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2843"/>
+        <location filename="../sources/mainwindow.cpp" line="3209"/>
         <source>Fit to page size</source>
-        <comment>MainWindow|</comment>
         <translation>ページ寸法に合わせる</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2845"/>
+        <location filename="../sources/mainwindow.cpp" line="3211"/>
         <source>Rotate &amp;left</source>
-        <comment>MainWindow|</comment>
         <translation>左に回転(&amp;L)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2846"/>
+        <location filename="../sources/mainwindow.cpp" line="3212"/>
         <source>Rotate &amp;right</source>
-        <comment>MainWindow|</comment>
         <translation>右に回転(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2848"/>
+        <location filename="../sources/mainwindow.cpp" line="3214"/>
         <source>Invert colors</source>
-        <comment>MainWindow|</comment>
         <translation>色を反転</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2849"/>
+        <location filename="../sources/mainwindow.cpp" line="3215"/>
         <source>Convert to grayscale</source>
-        <comment>MainWindow|</comment>
         <translation>グレースケールに変換</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2850"/>
+        <location filename="../sources/mainwindow.cpp" line="3216"/>
         <source>Trim margins</source>
-        <comment>MainWindow|</comment>
         <translation>余白を落とす</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2852"/>
+        <location filename="../sources/mainwindow.cpp" line="3218"/>
         <source>Darken with paper color</source>
-        <comment>MainWindow|</comment>
         <translation>紙の色で暗くする</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2853"/>
+        <location filename="../sources/mainwindow.cpp" line="3219"/>
         <source>Lighten with paper color</source>
-        <comment>MainWindow|</comment>
         <translation>紙の色で明るくする</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2855"/>
+        <location filename="../sources/mainwindow.cpp" line="3221"/>
         <source>Fonts...</source>
-        <comment>MainWindow|</comment>
         <translation>フォント...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2857"/>
+        <location filename="../sources/mainwindow.cpp" line="3223"/>
         <source>&amp;Fullscreen</source>
-        <comment>MainWindow|</comment>
         <translation>全画面表示(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2858"/>
+        <location filename="../sources/mainwindow.cpp" line="3224"/>
         <source>&amp;Presentation...</source>
-        <comment>MainWindow|</comment>
-        <translation>プレゼンテーション(&amp;P)</translation>
+        <translation>プレゼンテーション(&amp;P)...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2862"/>
+        <location filename="../sources/mainwindow.cpp" line="3228"/>
         <source>&amp;Previous tab</source>
-        <comment>MainWindow|</comment>
         <translation>前のタブ(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2863"/>
+        <location filename="../sources/mainwindow.cpp" line="3229"/>
         <source>&amp;Next tab</source>
-        <comment>MainWindow|</comment>
         <translation>次のタブ(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2865"/>
+        <location filename="../sources/mainwindow.cpp" line="3231"/>
         <source>&amp;Close tab</source>
-        <comment>MainWindow|</comment>
         <translation>タブを閉じる(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2866"/>
+        <location filename="../sources/mainwindow.cpp" line="3232"/>
         <source>Close &amp;all tabs</source>
-        <comment>MainWindow|</comment>
         <translation>タブを全て閉じる(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2867"/>
+        <location filename="../sources/mainwindow.cpp" line="3233"/>
         <source>Close all tabs &amp;but current tab</source>
-        <comment>MainWindow|</comment>
         <translation>このタブ以外全て閉じる(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2869"/>
+        <location filename="../sources/mainwindow.cpp" line="3235"/>
         <source>Restore &amp;most recently closed tab</source>
-        <comment>MainWindow|</comment>
         <translation>直近に閉じたタブを戻す(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2880"/>
+        <location filename="../sources/mainwindow.cpp" line="3246"/>
         <source>&amp;Previous bookmark</source>
-        <comment>MainWindow|</comment>
         <translation>前のしおり(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2881"/>
+        <location filename="../sources/mainwindow.cpp" line="3247"/>
         <source>&amp;Next bookmark</source>
-        <comment>MainWindow|</comment>
         <translation>次のしおり(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2883"/>
+        <location filename="../sources/mainwindow.cpp" line="3249"/>
         <source>&amp;Add bookmark</source>
-        <comment>MainWindow|</comment>
         <translation>しおりを付ける(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3080"/>
+        <location filename="../sources/mainwindow.cpp" line="3261"/>
+        <source>Open copy in new &amp;window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3264"/>
+        <source>Split view horizontally...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3265"/>
+        <source>Split view vertically...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3266"/>
+        <source>Close current view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3447"/>
         <source>Thumb&amp;nails</source>
-        <comment>MainWindow|</comment>
         <translation>サムネイル(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3094"/>
+        <location filename="../sources/mainwindow.cpp" line="3461"/>
         <source>Book&amp;marks</source>
-        <comment>MainWindow|</comment>
         <translation>しおり(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3166"/>
+        <location filename="../sources/mainwindow.cpp" line="3533"/>
         <source>Composition</source>
-        <comment>MainWindow|</comment>
         <translation>合成</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2178"/>
-        <location filename="../sources/mainwindow.cpp" line="2884"/>
+        <location filename="../sources/mainwindow.cpp" line="2397"/>
+        <location filename="../sources/mainwindow.cpp" line="3250"/>
         <source>&amp;Remove bookmark</source>
-        <comment>MainWindow|</comment>
         <translation>しおりを外す(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1893"/>
-        <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-%1 The qpdfview developers&lt;/p&gt;</source>
-        <comment>MainWindow|</comment>
-        <translation>&lt;/ul&gt;&lt;p&gt;詳しくは&lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; を参照。&lt;/p&gt;&lt;p&gt;&amp;copy; 2012-%1 The qpdfview開発陣&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="2608"/>
+        <location filename="../sources/mainwindow.cpp" line="2959"/>
         <source>Edit &apos;%1&apos; at %2,%3...</source>
-        <comment>MainWindow|</comment>
         <translation>「%1」を%2, %3...で編集</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2798"/>
+        <location filename="../sources/mainwindow.cpp" line="3262"/>
         <source>Open containing &amp;folder</source>
-        <comment>MainWindow|</comment>
         <translation>文書のあるフォルダを開く(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2885"/>
+        <location filename="../sources/mainwindow.cpp" line="3153"/>
+        <source>&amp;Save</source>
+        <translation>保存(&amp;S)</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3251"/>
         <source>Remove all bookmarks</source>
-        <comment>MainWindow|</comment>
         <translation>しおりを全て外す</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2889"/>
+        <location filename="../sources/mainwindow.cpp" line="3255"/>
         <source>&amp;Contents</source>
-        <comment>MainWindow|</comment>
         <translation>目次(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2890"/>
+        <location filename="../sources/mainwindow.cpp" line="3256"/>
         <source>&amp;About</source>
-        <comment>MainWindow|</comment>
         <translation>qpdfviewについて(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2918"/>
-        <location filename="../sources/mainwindow.cpp" line="3121"/>
+        <location filename="../sources/mainwindow.cpp" line="3294"/>
+        <location filename="../sources/mainwindow.cpp" line="3488"/>
         <source>&amp;File</source>
-        <comment>MainWindow|</comment>
         <translation>ファイル(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2921"/>
-        <location filename="../sources/mainwindow.cpp" line="3142"/>
+        <location filename="../sources/mainwindow.cpp" line="3297"/>
+        <location filename="../sources/mainwindow.cpp" line="3509"/>
         <source>&amp;Edit</source>
-        <comment>MainWindow|</comment>
         <translation>編集(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2924"/>
-        <location filename="../sources/mainwindow.cpp" line="3155"/>
+        <location filename="../sources/mainwindow.cpp" line="3300"/>
+        <location filename="../sources/mainwindow.cpp" line="3522"/>
         <source>&amp;View</source>
-        <comment>MainWindow|</comment>
         <translation>表示(&amp;V)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3047"/>
+        <location filename="../sources/mainwindow.cpp" line="3414"/>
         <source>&amp;Outline</source>
-        <comment>MainWindow|</comment>
         <translation>概要(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3066"/>
+        <location filename="../sources/mainwindow.cpp" line="3433"/>
         <source>&amp;Properties</source>
-        <comment>MainWindow|</comment>
         <translation>設定(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2959"/>
+        <location filename="../sources/mainwindow.cpp" line="3335"/>
         <source>&amp;Search</source>
-        <comment>MainWindow|</comment>
         <translation>検索(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3172"/>
+        <location filename="../sources/mainwindow.cpp" line="3539"/>
         <source>&amp;Tool bars</source>
-        <comment>MainWindow|</comment>
         <translation>ツールバー(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3175"/>
+        <location filename="../sources/mainwindow.cpp" line="3542"/>
         <source>&amp;Docks</source>
-        <comment>MainWindow|</comment>
         <translation>ドック(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3189"/>
+        <location filename="../sources/mainwindow.cpp" line="3556"/>
         <source>&amp;Tabs</source>
-        <comment>MainWindow|</comment>
         <translation>タブ(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3212"/>
+        <location filename="../sources/mainwindow.cpp" line="3579"/>
         <source>&amp;Bookmarks</source>
-        <comment>MainWindow|</comment>
         <translation>しおり(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3223"/>
+        <location filename="../sources/mainwindow.cpp" line="3590"/>
         <source>&amp;Help</source>
-        <comment>MainWindow|</comment>
         <translation>ヘルプ(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="362"/>
+        <location filename="../sources/main.cpp" line="210"/>
+        <location filename="../sources/mainwindow.cpp" line="1420"/>
+        <source>Choose instance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/main.cpp" line="210"/>
+        <location filename="../sources/mainwindow.cpp" line="1420"/>
+        <source>Instance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>qpdfview::PageItem</name>
+    <message>
+        <location filename="../sources/pageitem.cpp" line="379"/>
         <source>Go to page %1.</source>
-        <comment>PageItem|</comment>
         <translation>%1ページに跳びます。</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="366"/>
+        <location filename="../sources/pageitem.cpp" line="383"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <comment>PageItem|</comment>
         <translation>ファイル「%2」の%1ページに跳びます。</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="374"/>
+        <location filename="../sources/pageitem.cpp" line="391"/>
         <source>Open &apos;%1&apos;.</source>
-        <comment>PageItem|</comment>
         <translation>「%1」を開きます。</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="409"/>
+        <location filename="../sources/pageitem.cpp" line="426"/>
         <source>Edit form field &apos;%1&apos;.</source>
-        <comment>PageItem|</comment>
         <translation>フォームフィールド「%1」を編集します。</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="728"/>
+        <location filename="../sources/pageitem.cpp" line="777"/>
         <source>Copy &amp;text</source>
-        <comment>PageItem|</comment>
         <translation>文をコピー(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="729"/>
+        <location filename="../sources/pageitem.cpp" line="778"/>
         <source>&amp;Select text</source>
-        <comment>PageItem|</comment>
         <translation>文を選択(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="730"/>
+        <location filename="../sources/pageitem.cpp" line="779"/>
         <source>Copy &amp;image</source>
-        <comment>PageItem|</comment>
         <translation>画像をコピー(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="731"/>
+        <location filename="../sources/pageitem.cpp" line="780"/>
         <source>Save image to &amp;file...</source>
-        <comment>PageItem|</comment>
         <translation>画像をファイルに保存(&amp;F)...</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="766"/>
+        <location filename="../sources/pageitem.cpp" line="815"/>
         <source>Save image to file</source>
-        <comment>PageItem|</comment>
         <translation>画像をファイルに保存</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="770"/>
+        <location filename="../sources/pageitem.cpp" line="819"/>
         <source>Warning</source>
-        <comment>PageItem|</comment>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="770"/>
+        <location filename="../sources/pageitem.cpp" line="819"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
-        <comment>PageItem|</comment>
         <translation>画像をファイル「%1」に保存できませんでした。</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="783"/>
+        <location filename="../sources/pageitem.cpp" line="832"/>
         <source>Add &amp;text</source>
-        <comment>PageItem|</comment>
         <translation>文を追加(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="784"/>
+        <location filename="../sources/pageitem.cpp" line="833"/>
         <source>Add &amp;highlight</source>
-        <comment>PageItem|</comment>
         <translation>強調部を追加(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="823"/>
+        <location filename="../sources/pageitem.cpp" line="875"/>
         <source>&amp;Copy link address</source>
-        <comment>PageItem|</comment>
         <translation>リンクアドレスをコピー(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="824"/>
+        <location filename="../sources/pageitem.cpp" line="876"/>
         <source>&amp;Select link address</source>
-        <comment>PageItem|</comment>
         <translation>リンクアドレスを選択(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../sources/pageitem.cpp" line="847"/>
+        <location filename="../sources/pageitem.cpp" line="899"/>
         <source>&amp;Remove annotation</source>
-        <comment>PageItem|</comment>
         <translation>註釈を削除(&amp;R)</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::PdfSettingsWidget</name>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1007"/>
+        <location filename="../sources/pdfmodel.cpp" line="1092"/>
         <source>Antialiasing:</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation>アンチエイリアス:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1014"/>
+        <location filename="../sources/pdfmodel.cpp" line="1099"/>
         <source>Text antialiasing:</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation>テキストのアンチエイリアス:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1021"/>
-        <location filename="../sources/pdfmodel.cpp" line="1060"/>
+        <location filename="../sources/pdfmodel.cpp" line="1106"/>
+        <location filename="../sources/pdfmodel.cpp" line="1145"/>
         <source>None</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation>なし</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1022"/>
+        <location filename="../sources/pdfmodel.cpp" line="1107"/>
         <source>Full</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation>完全</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1023"/>
+        <location filename="../sources/pdfmodel.cpp" line="1108"/>
         <source>Reduced</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation>軽減</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1026"/>
-        <location filename="../sources/pdfmodel.cpp" line="1033"/>
+        <location filename="../sources/pdfmodel.cpp" line="1111"/>
+        <location filename="../sources/pdfmodel.cpp" line="1118"/>
         <source>Text hinting:</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation>テキストのヒンティング:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1042"/>
+        <location filename="../sources/pdfmodel.cpp" line="1127"/>
         <source>Ignore paper color:</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation>ページ色を無視:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1053"/>
+        <location filename="../sources/pdfmodel.cpp" line="1138"/>
         <source>Overprint preview:</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation>重ね刷りをプレビュー:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1061"/>
+        <location filename="../sources/pdfmodel.cpp" line="1146"/>
         <source>Solid</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation>単色</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1062"/>
+        <location filename="../sources/pdfmodel.cpp" line="1147"/>
         <source>Shaped</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1065"/>
+        <location filename="../sources/pdfmodel.cpp" line="1150"/>
         <source>Thin line mode:</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation>細線モード:</translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1070"/>
+        <location filename="../sources/pdfmodel.cpp" line="1155"/>
         <source>Splash</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1071"/>
+        <location filename="../sources/pdfmodel.cpp" line="1156"/>
         <source>Arthur</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pdfmodel.cpp" line="1074"/>
+        <location filename="../sources/pdfmodel.cpp" line="1159"/>
         <source>Backend:</source>
-        <comment>PdfSettingsWidget|</comment>
         <translation>バックエンド:</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::PluginHandler</name>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="285"/>
+        <location filename="../sources/pluginhandler.cpp" line="453"/>
         <source>Image (%1)</source>
-        <comment>PluginHandler|</comment>
         <translation>画像(%1)</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="290"/>
+        <location filename="../sources/pluginhandler.cpp" line="468"/>
+        <source>Compressed (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pluginhandler.cpp" line="472"/>
         <source>Supported formats (%1)</source>
-        <comment>PluginHandler|</comment>
         <translation>サポート形式(%1)</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="301"/>
+        <location filename="../sources/pluginhandler.cpp" line="488"/>
+        <source>Could not decompress &apos;%1&apos;!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/pluginhandler.cpp" line="498"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
-        <comment>PluginHandler|</comment>
         <translation>「%1」のファイル形式に一致しませんでした！</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="308"/>
+        <location filename="../sources/pluginhandler.cpp" line="505"/>
         <source>Critical</source>
-        <comment>PluginHandler|</comment>
         <translation>致命的</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="308"/>
+        <location filename="../sources/pluginhandler.cpp" line="505"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
-        <comment>PluginHandler|</comment>
         <translation>ファイル形式「%1」のプラグインを読み込めませんでした！</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::PrintDialog</name>
     <message>
-        <location filename="../sources/printdialog.cpp" line="64"/>
+        <location filename="../sources/printdialog.cpp" line="65"/>
         <source>Fit to page:</source>
-        <comment>PrintDialog|</comment>
         <translation>ページに合わせる:</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="68"/>
+        <location filename="../sources/printdialog.cpp" line="69"/>
         <source>Page ranges:</source>
-        <comment>PrintDialog|</comment>
         <translation>ページ範囲:</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="73"/>
+        <location filename="../sources/printdialog.cpp" line="74"/>
         <source>All pages</source>
-        <comment>PrintDialog|</comment>
         <translation>全ページ</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="74"/>
+        <location filename="../sources/printdialog.cpp" line="75"/>
         <source>Even pages</source>
-        <comment>PrintDialog|</comment>
         <translation>偶数ページ</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="75"/>
+        <location filename="../sources/printdialog.cpp" line="76"/>
         <source>Odd pages</source>
-        <comment>PrintDialog|</comment>
         <translation>奇数ページ</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="78"/>
+        <location filename="../sources/printdialog.cpp" line="79"/>
         <source>Page set:</source>
-        <comment>PrintDialog|</comment>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/printdialog.cpp" line="81"/>
-        <source>Single page</source>
-        <comment>PrintDialog|</comment>
-        <translation>1ページ</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="82"/>
-        <source>Two pages</source>
-        <comment>PrintDialog|</comment>
-        <translation>2ページ</translation>
+        <source>Single page</source>
+        <translation>1ページ</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="83"/>
-        <source>Four pages</source>
-        <comment>PrintDialog|</comment>
-        <translation>4ページ</translation>
+        <source>Two pages</source>
+        <translation>2ページ</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
-        <source>Six pages</source>
-        <comment>PrintDialog|</comment>
-        <translation>6ページ</translation>
+        <source>Four pages</source>
+        <translation>4ページ</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="85"/>
-        <source>Nine pages</source>
-        <comment>PrintDialog|</comment>
-        <translation>9ページ</translation>
+        <source>Six pages</source>
+        <translation>6ページ</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="86"/>
+        <source>Nine pages</source>
+        <translation>9ページ</translation>
+    </message>
+    <message>
+        <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Sixteen pages</source>
-        <comment>PrintDialog|</comment>
         <translation>16ページ</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="89"/>
+        <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Number-up:</source>
-        <comment>PrintDialog|</comment>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/printdialog.cpp" line="92"/>
-        <source>Bottom to top and left to right</source>
-        <comment>PrintDialog|</comment>
-        <translation>下から上および左から右</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
-        <source>Bottom to top and right to left</source>
-        <comment>PrintDialog|</comment>
-        <translation>下から上および右から左</translation>
+        <source>Bottom to top and left to right</source>
+        <translation>下から上および左から右</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
-        <source>Left to right and bottom to top</source>
-        <comment>PrintDialog|</comment>
-        <translation>左から右および下から上</translation>
-    </message>
-    <message>
-        <location filename="../sources/printdialog.cpp" line="95"/>
-        <source>Left to right and top to bottom</source>
-        <comment>PrintDialog|</comment>
-        <translation>左から右および上から下</translation>
-    </message>
-    <message>
-        <location filename="../sources/printdialog.cpp" line="96"/>
-        <source>Right to left and bottom to top</source>
-        <comment>PrintDialog|</comment>
-        <translation>右から左および下から上</translation>
-    </message>
-    <message>
-        <location filename="../sources/printdialog.cpp" line="97"/>
-        <source>Right to left and top to bottom</source>
-        <comment>PrintDialog|</comment>
-        <translation>右から左および上から下</translation>
-    </message>
-    <message>
-        <location filename="../sources/printdialog.cpp" line="98"/>
-        <source>Top to bottom and left to right</source>
-        <comment>PrintDialog|</comment>
-        <translation>上から下および左から右</translation>
-    </message>
-    <message>
-        <location filename="../sources/printdialog.cpp" line="99"/>
-        <source>Top to bottom and right to left</source>
-        <comment>PrintDialog|</comment>
+        <source>Bottom to top and right to left</source>
         <translation>下から上および右から左</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="102"/>
+        <location filename="../sources/printdialog.cpp" line="95"/>
+        <source>Left to right and bottom to top</source>
+        <translation>左から右および下から上</translation>
+    </message>
+    <message>
+        <location filename="../sources/printdialog.cpp" line="96"/>
+        <source>Left to right and top to bottom</source>
+        <translation>左から右および上から下</translation>
+    </message>
+    <message>
+        <location filename="../sources/printdialog.cpp" line="97"/>
+        <source>Right to left and bottom to top</source>
+        <translation>右から左および下から上</translation>
+    </message>
+    <message>
+        <location filename="../sources/printdialog.cpp" line="98"/>
+        <source>Right to left and top to bottom</source>
+        <translation>右から左および上から下</translation>
+    </message>
+    <message>
+        <location filename="../sources/printdialog.cpp" line="99"/>
+        <source>Top to bottom and left to right</source>
+        <translation>上から下および左から右</translation>
+    </message>
+    <message>
+        <location filename="../sources/printdialog.cpp" line="100"/>
+        <source>Top to bottom and right to left</source>
+        <translation>上から下および右から左</translation>
+    </message>
+    <message>
+        <location filename="../sources/printdialog.cpp" line="103"/>
         <source>Number-up layout:</source>
-        <comment>PrintDialog|</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="106"/>
+        <location filename="../sources/printdialog.cpp" line="107"/>
         <source>Extended options</source>
-        <comment>PrintDialog|</comment>
         <translation>拡張オプション</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::PsSettingsWidget</name>
     <message>
         <location filename="../sources/psmodel.cpp" line="262"/>
         <source>Graphics antialias bits:</source>
-        <comment>PsSettingsWidget|</comment>
         <translation>画像アンチエイリアスビット:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="270"/>
         <source>Text antialias bits:</source>
-        <comment>PsSettingsWidget|</comment>
         <translation>文字アンチエイリアスビット:</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::RecentlyClosedMenu</name>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="32"/>
         <source>&amp;Recently closed</source>
-        <comment>RecentlyClosedMenu|</comment>
         <translation>直近に閉じたもの(&amp;R)</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
         <source>&amp;Clear list</source>
-        <comment>RecentlyClosedMenu|</comment>
         <translation>一覧をクリア(&amp;C)</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::RecentlyUsedMenu</name>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="32"/>
         <source>Recently &amp;used</source>
-        <comment>RecentlyUsedMenu|</comment>
         <translation>直近に使用したもの(&amp;U)</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="41"/>
         <source>&amp;Clear list</source>
-        <comment>RecentlyUsedMenu|</comment>
         <translation>一覧をクリア(&amp;C)</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::SearchModel</name>
     <message>
-        <location filename="../sources/searchmodel.cpp" line="148"/>
+        <location filename="../sources/searchmodel.cpp" line="151"/>
         <source>&lt;b&gt;%1&lt;/b&gt; occurrences</source>
-        <comment>SearchModel|</comment>
         <translation>&lt;b&gt;%1&lt;/b&gt; 件</translation>
     </message>
     <message>
-        <location filename="../sources/searchmodel.cpp" line="182"/>
+        <location filename="../sources/searchmodel.cpp" line="193"/>
         <source>&lt;b&gt;%1&lt;/b&gt; occurrences on page &lt;b&gt;%2&lt;/b&gt;</source>
-        <comment>SearchModel|</comment>
         <translation>&lt;b&gt;%2&lt;/b&gt;ページに&lt;b&gt;%1&lt;/b&gt;件</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::SearchableMenu</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="181"/>
+        <location filename="../sources/miscellaneous.cpp" line="209"/>
         <source>Search for &apos;%1&apos;...</source>
-        <comment>SearchableMenu|</comment>
         <translation>「%1」を検索...</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::SettingsDialog</name>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="107"/>
+        <location filename="../sources/settingsdialog.cpp" line="108"/>
         <source>General</source>
-        <comment>SettingsDialog|</comment>
         <translation>汎用</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="140"/>
+        <location filename="../sources/settingsdialog.cpp" line="141"/>
         <source>&amp;Behavior</source>
-        <comment>SettingsDialog|</comment>
         <translation>挙動(&amp;B)</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="141"/>
+        <location filename="../sources/settingsdialog.cpp" line="142"/>
         <source>&amp;Graphics</source>
-        <comment>SettingsDialog|</comment>
         <translation>画像(&amp;G)</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="142"/>
+        <location filename="../sources/settingsdialog.cpp" line="143"/>
         <source>&amp;Interface</source>
-        <comment>SettingsDialog|</comment>
         <translation>インタフェース(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="143"/>
+        <location filename="../sources/settingsdialog.cpp" line="144"/>
         <source>&amp;Shortcuts</source>
-        <comment>SettingsDialog|</comment>
         <translation>ショートカット(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="144"/>
+        <location filename="../sources/settingsdialog.cpp" line="145"/>
         <source>&amp;Modifiers</source>
-        <comment>SettingsDialog|</comment>
         <translation>修飾鍵(&amp;M)</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="150"/>
+        <location filename="../sources/settingsdialog.cpp" line="151"/>
         <source>Defaults</source>
-        <comment>SettingsDialog|</comment>
         <translation>既定</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="153"/>
+        <location filename="../sources/settingsdialog.cpp" line="154"/>
         <source>Defaults on current tab</source>
-        <comment>SettingsDialog|</comment>
         <translation>このタブの既定値</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="230"/>
+        <location filename="../sources/settingsdialog.cpp" line="160"/>
+        <source>Mouse wheel modifiers</source>
+        <translation>マウスホイール修飾キー</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="163"/>
+        <source>Mouse button modifiers</source>
+        <translation>マウスボタン修飾キー</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="244"/>
         <source>Open URL:</source>
-        <comment>SettingsDialog|</comment>
         <translation>URLを開く:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="234"/>
+        <location filename="../sources/settingsdialog.cpp" line="248"/>
         <source>Auto-refresh:</source>
-        <comment>SettingsDialog|</comment>
         <translation>自動更新:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="238"/>
-        <location filename="../sources/settingsdialog.cpp" line="241"/>
-        <location filename="../sources/settingsdialog.cpp" line="504"/>
-        <location filename="../sources/settingsdialog.cpp" line="535"/>
-        <location filename="../sources/settingsdialog.cpp" line="538"/>
-        <location filename="../sources/settingsdialog.cpp" line="542"/>
-        <location filename="../sources/settingsdialog.cpp" line="545"/>
-        <location filename="../sources/settingsdialog.cpp" line="548"/>
-        <location filename="../sources/settingsdialog.cpp" line="557"/>
+        <location filename="../sources/settingsdialog.cpp" line="252"/>
+        <location filename="../sources/settingsdialog.cpp" line="255"/>
+        <location filename="../sources/settingsdialog.cpp" line="528"/>
+        <location filename="../sources/settingsdialog.cpp" line="559"/>
+        <location filename="../sources/settingsdialog.cpp" line="562"/>
+        <location filename="../sources/settingsdialog.cpp" line="566"/>
+        <location filename="../sources/settingsdialog.cpp" line="569"/>
+        <location filename="../sources/settingsdialog.cpp" line="572"/>
+        <location filename="../sources/settingsdialog.cpp" line="581"/>
         <source>Effective after restart.</source>
-        <comment>SettingsDialog|</comment>
         <translation>再起動後に有効になります。</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="238"/>
+        <location filename="../sources/settingsdialog.cpp" line="252"/>
         <source>Track recently used:</source>
-        <comment>SettingsDialog|</comment>
         <translation>直近に使われたものを追跡:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="241"/>
+        <location filename="../sources/settingsdialog.cpp" line="255"/>
         <source>Keep recently closed:</source>
-        <comment>SettingsDialog|</comment>
         <translation>直近に閉じられたものを保持:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="245"/>
+        <location filename="../sources/settingsdialog.cpp" line="259"/>
         <source>Restore tabs:</source>
-        <comment>SettingsDialog|</comment>
         <translation>タブを戻す:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="248"/>
+        <location filename="../sources/settingsdialog.cpp" line="262"/>
         <source>Restore bookmarks:</source>
-        <comment>SettingsDialog|</comment>
-        <translation>しおりを復帰させる;</translation>
+        <translation>しおりを復帰させる:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="251"/>
+        <location filename="../sources/settingsdialog.cpp" line="265"/>
         <source>Restore per-file settings:</source>
-        <comment>SettingsDialog|</comment>
         <translation>ファイル毎の設定を復帰させる:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="254"/>
+        <location filename="../sources/settingsdialog.cpp" line="268"/>
         <source> min</source>
-        <comment>SettingsDialog|</comment>
         <translation> 分</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="254"/>
+        <location filename="../sources/settingsdialog.cpp" line="268"/>
         <source>Save database interval:</source>
-        <comment>SettingsDialog|</comment>
         <translation>データベース保存間隔:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="267"/>
+        <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>Synchronize presentation:</source>
-        <comment>SettingsDialog|</comment>
         <translation>プレゼンテーションを同期:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="270"/>
+        <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Default</source>
-        <comment>SettingsDialog|</comment>
         <translation>既定</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="270"/>
+        <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Presentation screen:</source>
-        <comment>SettingsDialog|</comment>
         <translation>プレゼンテーションスクリーン:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="281"/>
+        <location filename="../sources/settingsdialog.cpp" line="291"/>
+        <source>Synchronize split views:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="298"/>
         <source>Zoom factor:</source>
-        <comment>SettingsDialog|</comment>
         <translation>拡大因子:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="285"/>
+        <location filename="../sources/settingsdialog.cpp" line="301"/>
+        <source>Parallel search execution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="305"/>
         <source> ms</source>
-        <comment>SettingsDialog|</comment>
         <translation> ミリ秒</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="285"/>
+        <location filename="../sources/settingsdialog.cpp" line="305"/>
         <source>None</source>
-        <comment>SettingsDialog|</comment>
         <translation>なし</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="285"/>
+        <location filename="../sources/settingsdialog.cpp" line="305"/>
         <source>Highlight duration:</source>
-        <comment>SettingsDialog|</comment>
         <translation>強調する時間:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="288"/>
+        <location filename="../sources/settingsdialog.cpp" line="308"/>
         <source>Highlight color:</source>
-        <comment>SettingsDialog|</comment>
         <translation>強調表示の色:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="291"/>
+        <location filename="../sources/settingsdialog.cpp" line="311"/>
         <source>Annotation color:</source>
-        <comment>SettingsDialog|</comment>
         <translation>註釈の色:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="295"/>
+        <location filename="../sources/settingsdialog.cpp" line="315"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <comment>SettingsDialog|</comment>
         <translation>「%1」は絶対ファイルパスで置き換えられます。「%2」および「%3」は、それぞれ行番号と列番号で置き換えられます。</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="295"/>
+        <location filename="../sources/settingsdialog.cpp" line="315"/>
         <source>Source editor:</source>
-        <comment>SettingsDialog|</comment>
         <translation>ソースエディタ:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="359"/>
+        <location filename="../sources/settingsdialog.cpp" line="383"/>
         <source>Use tiling:</source>
-        <comment>SettingsDialog|</comment>
         <translation>タイル配置を使用:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="362"/>
+        <location filename="../sources/settingsdialog.cpp" line="386"/>
         <source>Keep obsolete pixmaps:</source>
-        <comment>SettingsDialog|</comment>
         <translation>旧いピックスマップを保持:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="365"/>
+        <location filename="../sources/settingsdialog.cpp" line="389"/>
         <source>Use device pixel ratio:</source>
-        <comment>SettingsDialog|</comment>
         <translation>デバイスのピクセル比を使用:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="375"/>
+        <location filename="../sources/settingsdialog.cpp" line="399"/>
         <source>Decorate pages:</source>
-        <comment>SettingsDialog|</comment>
         <translation>ページを装飾:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="378"/>
+        <location filename="../sources/settingsdialog.cpp" line="402"/>
         <source>Decorate links:</source>
-        <comment>SettingsDialog|</comment>
         <translation>リンクを装飾:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="381"/>
+        <location filename="../sources/settingsdialog.cpp" line="405"/>
         <source>Decorate form fields:</source>
-        <comment>SettingsDialog|</comment>
         <translation>フォームフィールドを装飾:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="385"/>
+        <location filename="../sources/settingsdialog.cpp" line="409"/>
         <source>Background color:</source>
-        <comment>SettingsDialog|</comment>
         <translation>背景色:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="388"/>
+        <location filename="../sources/settingsdialog.cpp" line="412"/>
         <source>Paper color:</source>
-        <comment>SettingsDialog|</comment>
         <translation>紙の色:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="391"/>
+        <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Presentation background color:</source>
-        <comment>SettingsDialog|</comment>
         <translation>プレゼンテーション背景色:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="395"/>
+        <location filename="../sources/settingsdialog.cpp" line="419"/>
         <source>Pages per row:</source>
-        <comment>SettingsDialog|</comment>
         <translation>行あたりページ数:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="399"/>
-        <location filename="../sources/settingsdialog.cpp" line="402"/>
-        <location filename="../sources/settingsdialog.cpp" line="406"/>
+        <location filename="../sources/settingsdialog.cpp" line="423"/>
+        <location filename="../sources/settingsdialog.cpp" line="426"/>
+        <location filename="../sources/settingsdialog.cpp" line="430"/>
         <source> px</source>
-        <comment>SettingsDialog|</comment>
         <translation> ピクセル</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="399"/>
+        <location filename="../sources/settingsdialog.cpp" line="423"/>
         <source>Page spacing:</source>
-        <comment>SettingsDialog|</comment>
         <translation>ページ間隔:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="402"/>
+        <location filename="../sources/settingsdialog.cpp" line="426"/>
         <source>Thumbnail spacing:</source>
-        <comment>SettingsDialog|</comment>
         <translation>サムネイル間隔:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="406"/>
+        <location filename="../sources/settingsdialog.cpp" line="430"/>
         <source>Thumbnail size:</source>
-        <comment>SettingsDialog|</comment>
         <translation>サムネイル寸法:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="406"/>
+        <location filename="../sources/settingsdialog.cpp" line="430"/>
         <source>Fit to viewport</source>
-        <comment>SettingsDialog|</comment>
         <translation>ビューポートに合わせる</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="551"/>
+        <location filename="../sources/settingsdialog.cpp" line="575"/>
         <source>Document context menu:</source>
-        <comment>SettingsDialog|</comment>
         <translation>文書コンテクストメニュー:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="554"/>
+        <location filename="../sources/settingsdialog.cpp" line="578"/>
         <source>Tab context menu:</source>
-        <comment>SettingsDialog|</comment>
         <translation>タブコンテクストメニュー:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="786"/>
-        <location filename="../sources/settingsdialog.cpp" line="787"/>
-        <location filename="../sources/settingsdialog.cpp" line="788"/>
-        <location filename="../sources/settingsdialog.cpp" line="789"/>
-        <location filename="../sources/settingsdialog.cpp" line="790"/>
-        <location filename="../sources/settingsdialog.cpp" line="791"/>
-        <location filename="../sources/settingsdialog.cpp" line="792"/>
-        <location filename="../sources/settingsdialog.cpp" line="793"/>
-        <location filename="../sources/settingsdialog.cpp" line="794"/>
-        <location filename="../sources/settingsdialog.cpp" line="795"/>
-        <location filename="../sources/settingsdialog.cpp" line="803"/>
+        <location filename="../sources/settingsdialog.cpp" line="711"/>
+        <source>Open in source editor:</source>
+        <translation>ソースエディタで開く</translation>
+    </message>
+    <message>
+        <location filename="../sources/settingsdialog.cpp" line="822"/>
+        <location filename="../sources/settingsdialog.cpp" line="831"/>
         <source>%1 MB</source>
-        <comment>SettingsDialog|</comment>
         <translation>%1 MB</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="410"/>
+        <location filename="../sources/settingsdialog.cpp" line="434"/>
         <source>Cache size:</source>
-        <comment>SettingsDialog|</comment>
         <translation>キャッシュ容量:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="278"/>
+        <location filename="../sources/settingsdialog.cpp" line="295"/>
         <source>Minimal scrolling:</source>
-        <comment>SettingsDialog|</comment>
         <translation>最小限のスクロール:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="413"/>
+        <location filename="../sources/settingsdialog.cpp" line="437"/>
         <source>Prefetch:</source>
-        <comment>SettingsDialog|</comment>
         <translation>先行取得:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="416"/>
+        <location filename="../sources/settingsdialog.cpp" line="440"/>
         <source>Prefetch distance:</source>
-        <comment>SettingsDialog|</comment>
         <translation>先行取得間隔:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="515"/>
+        <location filename="../sources/settingsdialog.cpp" line="539"/>
         <source>Top</source>
-        <comment>SettingsDialog|</comment>
         <translation>上</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="515"/>
+        <location filename="../sources/settingsdialog.cpp" line="539"/>
         <source>Bottom</source>
-        <comment>SettingsDialog|</comment>
         <translation>下</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="515"/>
+        <location filename="../sources/settingsdialog.cpp" line="539"/>
         <source>Left</source>
-        <comment>SettingsDialog|</comment>
         <translation>左</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="515"/>
+        <location filename="../sources/settingsdialog.cpp" line="539"/>
         <source>Right</source>
-        <comment>SettingsDialog|</comment>
         <translation>右</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="514"/>
+        <location filename="../sources/settingsdialog.cpp" line="538"/>
         <source>Tab position:</source>
-        <comment>SettingsDialog|</comment>
         <translation>タブの位置:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="520"/>
+        <location filename="../sources/settingsdialog.cpp" line="544"/>
         <source>As needed</source>
-        <comment>SettingsDialog|</comment>
         <translation>必要時</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="520"/>
+        <location filename="../sources/settingsdialog.cpp" line="544"/>
         <source>Always</source>
-        <comment>SettingsDialog|</comment>
         <translation>つねに</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="531"/>
+        <location filename="../sources/settingsdialog.cpp" line="555"/>
         <source>Exit after last tab:</source>
-        <comment>SettingsDialog|</comment>
         <translation>最後のタブの後は終了:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="557"/>
+        <location filename="../sources/settingsdialog.cpp" line="581"/>
         <source>Scrollable menus:</source>
-        <comment>SettingsDialog|</comment>
         <translation>スクロール可能なメニュー:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="560"/>
+        <location filename="../sources/settingsdialog.cpp" line="584"/>
         <source>Searchable menus:</source>
-        <comment>SettingsDialog|</comment>
         <translation>検索可能なメニュー:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="685"/>
+        <location filename="../sources/settingsdialog.cpp" line="708"/>
         <source>Zoom to selection:</source>
-        <comment>SettingsDialog|</comment>
         <translation>選択部を拡大:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="254"/>
-        <location filename="../sources/settingsdialog.cpp" line="520"/>
+        <location filename="../sources/settingsdialog.cpp" line="268"/>
+        <location filename="../sources/settingsdialog.cpp" line="544"/>
         <source>Never</source>
-        <comment>SettingsDialog|</comment>
         <translation>なし</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="104"/>
+        <location filename="../sources/settingsdialog.cpp" line="105"/>
         <source>Settings</source>
-        <comment>SettingsDialog|</comment>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="519"/>
+        <location filename="../sources/settingsdialog.cpp" line="543"/>
         <source>Tab visibility:</source>
-        <comment>SettingsDialog|</comment>
         <translation>タブの可視性:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="524"/>
+        <location filename="../sources/settingsdialog.cpp" line="548"/>
         <source>Spread tabs:</source>
-        <comment>SettingsDialog|</comment>
         <translation>タブを広げる:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="528"/>
+        <location filename="../sources/settingsdialog.cpp" line="552"/>
         <source>New tab next to current tab:</source>
-        <comment>SettingsDialog|</comment>
         <translation>現タブの隣に新規タブ:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="535"/>
+        <location filename="../sources/settingsdialog.cpp" line="559"/>
         <source>Recently used count:</source>
-        <comment>SettingsDialog|</comment>
         <translation>直近に使用したものの数:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="538"/>
+        <location filename="../sources/settingsdialog.cpp" line="562"/>
         <source>Recently closed count:</source>
-        <comment>SettingsDialog|</comment>
         <translation>直近に閉じたものの数:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="504"/>
+        <location filename="../sources/settingsdialog.cpp" line="528"/>
         <source>Extended search dock:</source>
-        <comment>SettingsDialog|</comment>
         <translation>拡張検索ドック:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="564"/>
+        <location filename="../sources/settingsdialog.cpp" line="588"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
-        <comment>SettingsDialog|</comment>
         <translation>全画面表示でのツールバーとメニューバーを入切:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="542"/>
+        <location filename="../sources/settingsdialog.cpp" line="566"/>
         <source>File tool bar:</source>
-        <comment>SettingsDialog|</comment>
         <translation>ファイルツールバー:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="545"/>
+        <location filename="../sources/settingsdialog.cpp" line="569"/>
         <source>Edit tool bar:</source>
-        <comment>SettingsDialog|</comment>
         <translation>編集ツールバー:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="548"/>
+        <location filename="../sources/settingsdialog.cpp" line="572"/>
         <source>View tool bar:</source>
-        <comment>SettingsDialog|</comment>
         <translation>表示ツールバー:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="568"/>
+        <location filename="../sources/settingsdialog.cpp" line="592"/>
         <source>Use page label:</source>
-        <comment>SettingsDialog|</comment>
         <translation>ページラベルを使用:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="571"/>
+        <location filename="../sources/settingsdialog.cpp" line="595"/>
         <source>Document title as tab title:</source>
-        <comment>SettingsDialog|</comment>
         <translation>文書表題をタブ見出しに:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="575"/>
+        <location filename="../sources/settingsdialog.cpp" line="599"/>
         <source>Current page in window title:</source>
-        <comment>SettingsDialog|</comment>
         <translation>現ページをウィンドウ見出しに:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="578"/>
+        <location filename="../sources/settingsdialog.cpp" line="602"/>
         <source>Instance name in window title:</source>
-        <comment>SettingsDialog|</comment>
         <translation>インスタンス名をウィンドウ見出しに:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="274"/>
+        <location filename="../sources/settingsdialog.cpp" line="288"/>
         <source>Synchronize outline view:</source>
-        <comment>SettingsDialog|</comment>
         <translation>概要表示を同期:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="582"/>
+        <location filename="../sources/settingsdialog.cpp" line="606"/>
         <source>Highlight current thumbnail:</source>
-        <comment>SettingsDialog|</comment>
         <translation>現サムネイルを強調:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="585"/>
+        <location filename="../sources/settingsdialog.cpp" line="609"/>
         <source>Limit thumbnails to results:</source>
-        <comment>SettingsDialog|</comment>
         <translation>サムネイルを検索結果に限定:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="507"/>
+        <location filename="../sources/settingsdialog.cpp" line="531"/>
         <source>Annotation overlay:</source>
-        <comment>SettingsDialog|</comment>
         <translation>註釈の重ね置き:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="510"/>
+        <location filename="../sources/settingsdialog.cpp" line="534"/>
         <source>Form field overlay:</source>
-        <comment>SettingsDialog|</comment>
         <translation>フォームフィールドの重ね置き:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="669"/>
+        <location filename="../sources/settingsdialog.cpp" line="693"/>
         <source>Zoom:</source>
-        <comment>SettingsDialog|</comment>
         <translation>表示倍率:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="672"/>
+        <location filename="../sources/settingsdialog.cpp" line="696"/>
         <source>Rotate:</source>
-        <comment>SettingsDialog|</comment>
         <translation>回転:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="675"/>
+        <location filename="../sources/settingsdialog.cpp" line="699"/>
         <source>Scroll:</source>
-        <comment>SettingsDialog|</comment>
         <translation>スクロール:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="679"/>
+        <location filename="../sources/settingsdialog.cpp" line="702"/>
         <source>Copy to clipboard:</source>
-        <comment>SettingsDialog|</comment>
         <translation>クリップボードにコピー:</translation>
     </message>
     <message>
-        <location filename="../sources/settingsdialog.cpp" line="682"/>
+        <location filename="../sources/settingsdialog.cpp" line="705"/>
         <source>Add annotation:</source>
-        <comment>SettingsDialog|</comment>
         <translation>註釈を追加:</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::ShortcutHandler</name>
     <message>
-        <location filename="../sources/shortcuthandler.cpp" line="148"/>
+        <location filename="../sources/shortcuthandler.cpp" line="146"/>
         <source>Action</source>
-        <comment>ShortcutHandler|</comment>
         <translation>動作</translation>
     </message>
     <message>
-        <location filename="../sources/shortcuthandler.cpp" line="151"/>
+        <location filename="../sources/shortcuthandler.cpp" line="148"/>
         <source>Key sequence</source>
-        <comment>ShortcutHandler|</comment>
         <translation>キー列</translation>
     </message>
     <message>
-        <location filename="../sources/shortcuthandler.cpp" line="269"/>
+        <location filename="../sources/shortcuthandler.cpp" line="262"/>
         <source>Skip backward</source>
-        <comment>ShortcutHandler|</comment>
         <translation>後ろに跳ぶ</translation>
     </message>
     <message>
-        <location filename="../sources/shortcuthandler.cpp" line="276"/>
+        <location filename="../sources/shortcuthandler.cpp" line="266"/>
         <source>Skip forward</source>
-        <comment>ShortcutHandler|</comment>
         <translation>前に跳ぶ</translation>
     </message>
     <message>
-        <location filename="../sources/shortcuthandler.cpp" line="283"/>
+        <location filename="../sources/shortcuthandler.cpp" line="270"/>
         <source>Move up</source>
-        <comment>ShortcutHandler|</comment>
         <translation>上へ移動</translation>
     </message>
     <message>
-        <location filename="../sources/shortcuthandler.cpp" line="290"/>
+        <location filename="../sources/shortcuthandler.cpp" line="274"/>
         <source>Move down</source>
-        <comment>ShortcutHandler|</comment>
         <translation>下へ移動</translation>
     </message>
     <message>
-        <location filename="../sources/shortcuthandler.cpp" line="297"/>
+        <location filename="../sources/shortcuthandler.cpp" line="278"/>
         <source>Move left</source>
-        <comment>ShortcutHandler|</comment>
         <translation>左へ移動</translation>
     </message>
     <message>
-        <location filename="../sources/shortcuthandler.cpp" line="304"/>
+        <location filename="../sources/shortcuthandler.cpp" line="282"/>
         <source>Move right</source>
-        <comment>ShortcutHandler|</comment>
         <translation>右へ移動</translation>
     </message>
+</context>
+<context>
+    <name>qpdfview::TreeView</name>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="585"/>
+        <location filename="../sources/miscellaneous.cpp" line="697"/>
         <source>&amp;Expand all</source>
-        <comment>TreeView|</comment>
         <translation>すべて展開(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../sources/miscellaneous.cpp" line="586"/>
+        <location filename="../sources/miscellaneous.cpp" line="698"/>
         <source>&amp;Collapse all</source>
-        <comment>TreeView|</comment>
         <translation>すべて折りたたむ(&amp;C)</translation>
+    </message>
+</context>
+<context>
+    <name>MainWindow</name>
+    <message>
+        <source>&amp;Save copy...</source>
+        <translation type="vanished">コピーを保存(&amp;S)</translation>
     </message>
 </context>
 </TS>
