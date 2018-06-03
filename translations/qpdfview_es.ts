@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.1">
 <context>
     <name>Model::ImageDocument</name>
     <message>
@@ -435,12 +435,12 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3270"/>
         <source>Toggle tool bars</source>
-        <translation>Conmutar la barra de herramientas</translation>
+        <translation>Mostrar/ocultar las barras de herramientas</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3271"/>
         <source>Toggle menu bar</source>
-        <translation>Conmutar la barra de menú</translation>
+        <translation>Mostrar/ocultar la barra de menú</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="483"/>
@@ -673,17 +673,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1460"/>
         <source>Information</source>
-        <translation type="unfinished">Información</translation>
+        <translation>Información</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1460"/>
         <source>Instance-to-instance communication requires D-Bus support.</source>
-        <translation type="unfinished"></translation>
+        <translation>La comunicación de instancia a instancia requiere el apoyo de D-Bus.</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2183"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; %1 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;/ul&gt;&lt;p&gt;Consulte &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; para obtener más información.&lt;/p&gt;&lt;p&gt;&amp;copy; %1 Los desarrolladores de qpdfview&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3154"/>
@@ -928,22 +928,22 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3261"/>
         <source>Open copy in new &amp;window</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir una copia en una &amp;ventana nueva</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3264"/>
         <source>Split view horizontally...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dividir vista horizontalmente...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3265"/>
         <source>Split view vertically...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dividir vista verticalmente...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3266"/>
         <source>Close current view</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar la vista actual</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3447"/>
@@ -1112,7 +1112,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="815"/>
         <source>Save image to file</source>
-        <translation>Guardar la imagen en archivo</translation>
+        <translation>Guardar la imagen en un archivo</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="819"/>
@@ -1235,7 +1235,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="468"/>
         <source>Compressed (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprimido (%1)</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="472"/>
@@ -1245,7 +1245,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="488"/>
         <source>Could not decompress &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡No se pudo descomprimir «%1»!</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="498"/>
@@ -1496,7 +1496,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="244"/>
         <source>Open URL:</source>
-        <translation>Abrir direcciones web:</translation>
+        <translation>Abrir las direcciones web:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="248"/>
@@ -1569,7 +1569,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="291"/>
         <source>Synchronize split views:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sincronizar las vistas divididas:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="298"/>
@@ -1579,7 +1579,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="301"/>
         <source>Parallel search execution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ejecución de la búsqueda paralela:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="305"/>
@@ -1833,7 +1833,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="588"/>
         <source>Toggle tool and menu bars with fullscreen:</source>
-        <translation>Conmutar las barras de menú y herramientas a pantalla completa:</translation>
+        <translation>Mostrar/ocultar las barras de menú y herramientas a pantalla completa:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
