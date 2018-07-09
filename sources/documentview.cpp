@@ -2316,7 +2316,7 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
     int jobId = 0;
 
     num_dests = cupsGetDests(&dests);
-    dest = cupsGetDest(printer->printerName().toLocal8Bit(), 0, num_dests, dests);
+    dest = cupsGetDest(printer->printerName().toUtf8(), 0, num_dests, dests);
 
     if(dest == 0)
     {
@@ -2336,12 +2336,12 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 
     for(int index = 0; index < cupsOptions.count() - 1; index += 2)
     {
-        num_options = cupsAddOption(cupsOptions.at(index).toLocal8Bit(), cupsOptions.at(index + 1).toLocal8Bit(), num_options, &options);
+        num_options = cupsAddOption(cupsOptions.at(index).toUtf8(), cupsOptions.at(index + 1).toUtf8(), num_options, &options);
     }
 
 #if QT_VERSION >= QT_VERSION_CHECK(4,7,0)
 
-    num_options = cupsAddOption("copies", QString::number(printer->copyCount()).toLocal8Bit(), num_options, &options);
+    num_options = cupsAddOption("copies", QString::number(printer->copyCount()).toUtf8(), num_options, &options);
 
 #endif // QT_VERSION
 
@@ -2472,7 +2472,7 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 
     {
         bool ok = false;
-        int value = QString::fromLocal8Bit(cupsGetOption("number-up", num_options, options)).toInt(&ok);
+        int value = QString::fromUtf8(cupsGetOption("number-up", num_options, options)).toInt(&ok);
 
         numberUp = ok ? value : 1;
     }
@@ -2484,11 +2484,11 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
 
     if(printOptions.pageRanges.isEmpty())
     {
-        num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toLocal8Bit(), num_options, &options);
+        num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toUtf8(), num_options, &options);
     }
     else
     {
-        num_options = cupsAddOption("page-ranges", printOptions.pageRanges.toLocal8Bit(), num_options, &options);
+        num_options = cupsAddOption("page-ranges", printOptions.pageRanges.toUtf8(), num_options, &options);
     }
 
     QTemporaryFile temporaryFile;
@@ -2513,7 +2513,7 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
         return false;
     }
 
-    jobId = cupsPrintFile(dest->name, temporaryFile.fileName().toLocal8Bit(), m_fileInfo.completeBaseName().toLocal8Bit(), num_options, options);
+    jobId = cupsPrintFile(dest->name, QFile::encodeName(temporaryFile.fileName()), m_fileInfo.completeBaseName().toUtf8(), num_options, options);
 
     if(jobId < 1)
     {
