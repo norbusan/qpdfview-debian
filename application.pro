@@ -94,6 +94,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += concurrent widgets printsupport
     QT += dbus
 }
 
+isEmpty(QMAKE_EXTENSION_SHLIB):QMAKE_EXTENSION_SHLIB = "so"
+isEmpty(QMAKE_EXTENSION_STATICLIB):QMAKE_EXTENSION_STATICLIB = "a"
+
 DEFINES += PLUGIN_INSTALL_PATH=\\\"$${PLUGIN_INSTALL_PATH}\\\"
 
 plugin_resolve_all {
@@ -107,7 +110,7 @@ plugin_resolve_all {
     DEFINES += POPPLER_VERSION=\\\"$${POPPLER_VERSION}\\\"
 
     static_pdf_plugin {
-        isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = libqpdfview_pdf.a
+        isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = $${QMAKE_PREFIX_STATICLIB}qpdfview_pdf.$${QMAKE_EXTENSION_STATICLIB}
 
         DEFINES += STATIC_PDF_PLUGIN
         LIBS += $$PDF_PLUGIN_NAME $$PDF_PLUGIN_LIBS
@@ -120,7 +123,7 @@ plugin_resolve_all {
             PKGCONFIG += poppler-qt$${QT_MAJOR_VERSION}
         }
     } else {
-        isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = libqpdfview_pdf.so
+        isEmpty(PDF_PLUGIN_NAME):PDF_PLUGIN_NAME = $${QMAKE_PREFIX_SHLIB}qpdfview_pdf.$${QMAKE_EXTENSION_SHLIB}
     }
 
     DEFINES += PDF_PLUGIN_NAME=\\\"$${PDF_PLUGIN_NAME}\\\"
@@ -133,7 +136,7 @@ plugin_resolve_all {
     DEFINES += LIBSPECTRE_VERSION=\\\"$${LIBSPECTRE_VERSION}\\\"
 
     static_ps_plugin {
-        isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = libqpdfview_ps.a
+        isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = $${QMAKE_PREFIX_STATICLIB}qpdfview_ps.$${QMAKE_EXTENSION_STATICLIB}
 
         DEFINES += STATIC_PS_PLUGIN
         LIBS += $$PS_PLUGIN_NAME $$PS_PLUGIN_LIBS
@@ -144,7 +147,7 @@ plugin_resolve_all {
             PKGCONFIG += libspectre
         }
     } else {
-        isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = libqpdfview_ps.so
+        isEmpty(PS_PLUGIN_NAME):PS_PLUGIN_NAME = $${QMAKE_PREFIX_SHLIB}qpdfview_ps.$${QMAKE_EXTENSION_SHLIB}
     }
 
     DEFINES += PS_PLUGIN_NAME=\\\"$${PS_PLUGIN_NAME}\\\"
@@ -157,7 +160,7 @@ plugin_resolve_all {
     DEFINES += DJVULIBRE_VERSION=\\\"$${DJVULIBRE_VERSION}\\\"
 
     static_djvu_plugin {
-        isEmpty(DJVU_PLUGIN_NAME):DJVU_PLUGIN_NAME = libqpdfview_djvu.a
+        isEmpty(DJVU_PLUGIN_NAME):DJVU_PLUGIN_NAME = $${QMAKE_PREFIX_STATICLIB}qpdfview_djvu.$${QMAKE_EXTENSION_STATICLIB}
 
         DEFINES += STATIC_DJVU_PLUGIN
         LIBS += $$DJVU_PLUGIN_NAME $$DJVU_PLUGIN_LIBS
@@ -168,7 +171,7 @@ plugin_resolve_all {
             PKGCONFIG += ddjvuapi
         }
     } else {
-        isEmpty(DJVU_PLUGIN_NAME):DJVU_PLUGIN_NAME = libqpdfview_djvu.so
+        isEmpty(DJVU_PLUGIN_NAME):DJVU_PLUGIN_NAME = $${QMAKE_PREFIX_SHLIB}qpdfview_djvu.$${QMAKE_EXTENSION_SHLIB}
     }
 
     DEFINES += DJVU_PLUGIN_NAME=\\\"$${DJVU_PLUGIN_NAME}\\\"
@@ -180,7 +183,7 @@ with_fitz {
     DEFINES += FITZ_VERSION=\\\"$${FITZ_VERSION}\\\"
 
     static_fitz_plugin {
-        isEmpty(FITZ_PLUGIN_NAME):FITZ_PLUGIN_NAME = libqpdfview_fitz.a
+        isEmpty(FITZ_PLUGIN_NAME):FITZ_PLUGIN_NAME = $${QMAKE_PREFIX_STATICLIB}qpdfview_fitz.$${QMAKE_EXTENSION_STATICLIB}
 
         DEFINES += STATIC_FITZ_PLUGIN
         LIBS += $$FITZ_PLUGIN_NAME $$FITZ_PLUGIN_LIBS
@@ -192,7 +195,7 @@ with_fitz {
             LIBS += $$FITZ_PLUGIN_LIBS
         }
     } else {
-        isEmpty(FITZ_PLUGIN_NAME):FITZ_PLUGIN_NAME = libqpdfview_fitz.so
+        isEmpty(FITZ_PLUGIN_NAME):FITZ_PLUGIN_NAME = $${QMAKE_PREFIX_SHLIB}qpdfview_fitz.$${QMAKE_EXTENSION_SHLIB}
     }
 
     DEFINES += FITZ_PLUGIN_NAME=\\\"$${FITZ_PLUGIN_NAME}\\\"
@@ -202,14 +205,14 @@ with_fitz {
     DEFINES += WITH_IMAGE
 
     static_image_plugin {
-        isEmpty(IMAGE_PLUGIN_NAME):IMAGE_PLUGIN_NAME = libqpdfview_image.a
+        isEmpty(IMAGE_PLUGIN_NAME):IMAGE_PLUGIN_NAME = $${QMAKE_PREFIX_STATICLIB}qpdfview_image.$${QMAKE_EXTENSION_STATICLIB}
 
         DEFINES += STATIC_IMAGE_PLUGIN
         LIBS += $$IMAGE_PLUGIN_NAME $$IMAGE_PLUGIN_LIBS
         PRE_TARGETDEPS += $$IMAGE_PLUGIN_NAME
     }
     else {
-        isEmpty(IMAGE_PLUGIN_NAME):IMAGE_PLUGIN_NAME = libqpdfview_image.so
+        isEmpty(IMAGE_PLUGIN_NAME):IMAGE_PLUGIN_NAME = $${QMAKE_PREFIX_SHLIB}qpdfview_image.$${QMAKE_EXTENSION_SHLIB}
     }
 
     DEFINES += IMAGE_PLUGIN_NAME=\\\"$${IMAGE_PLUGIN_NAME}\\\"
@@ -232,7 +235,7 @@ with_fitz {
         CONFIG += link_pkgconfig
         PKGCONFIG += synctex
 
-        system(pkg-config --atleast-version=2.0.0 synctex):DEFINES += HAS_SYNCTEX_2
+        system(pkg-config --atleast-version=1.19 synctex):DEFINES += HAS_SYNCTEX_2
     } else {
         HEADERS += synctex/synctex_parser.h synctex/synctex_parser_utils.h synctex/synctex_parser_local.h
         SOURCES += synctex/synctex_parser.c synctex/synctex_parser_utils.c

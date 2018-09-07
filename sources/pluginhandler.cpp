@@ -1,6 +1,7 @@
 /*
 
-Copyright 2012-2013, 2015-2017 Adam Reichold
+Copyright 2018 S. Razi Alavizadeh
+Copyright 2012-2013, 2015-2018 Adam Reichold
 
 This file is part of qpdfview.
 
@@ -113,24 +114,6 @@ Plugin* loadPlugin(const QString& fileName)
     return plugin;
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-
-bool isSupportedImageFormat(const QMimeType& mimeType)
-{
-    const QByteArray name = mimeType.name().toLocal8Bit();
-
-    return QImageReader::supportedMimeTypes().contains(name);
-}
-
-#else
-
-bool isSupportedImageFormat(const QString& fileName)
-{
-    return !QImageReader::imageFormat(fileName).isEmpty();
-}
-
-#endif // QT_VERSION
-
 QStringList supportedImageFormats()
 {
     QStringList formats;
@@ -161,10 +144,40 @@ const MimeTypeMapping mimeTypeMappings[] =
     { "image/vnd.djvu", PluginHandler::DjVu, "djvu", "djv" },
     { "application/x-gzip", PluginHandler::GZip, "gz", 0 },
     { "application/x-bzip2", PluginHandler::BZip2, "bz2", 0 },
-    { "application/x-xz", PluginHandler::XZ, "xz", 0 }
+    { "application/x-xz", PluginHandler::XZ, "xz", 0 },
+    { "application/epub+zip", PluginHandler::EPUB, "epub", 0 },
+    { "application/x-fictionbook+xml", PluginHandler::FB2, "fb2", 0 },
+    { "application/x-zip-compressed-fb2", PluginHandler::FB2, "fb2", 0 },
+    { "application/zip", PluginHandler::ZIP, "zip", 0 }
 };
 
 const MimeTypeMapping* const endOfMimeTypeMappings = mimeTypeMappings + sizeof(mimeTypeMappings) / sizeof(mimeTypeMappings[0]);
+
+void matchArchiveAndImageType(const QString& filePath, PluginHandler::FileType& fileType)
+{
+    if(fileType == PluginHandler::ZIP)
+    {
+        const QString suffix = QFileInfo(filePath).suffix().toLower();
+
+        if (suffix == "cbz")
+        {
+            fileType = PluginHandler::CBZ;
+        }
+        else if (suffix == "xps" || suffix == "oxps")
+        {
+            fileType = PluginHandler::XPS;
+        }
+        else
+        {
+            fileType = PluginHandler::Unknown;
+        }
+    }
+
+    if(fileType == PluginHandler::Unknown && !QImageReader::imageFormat(filePath).isEmpty())
+    {
+        fileType = PluginHandler::Image;
+    }
+}
 
 PluginHandler::FileType matchFileType(const QString& filePath)
 {
@@ -183,10 +196,7 @@ PluginHandler::FileType matchFileType(const QString& filePath)
         }
     }
 
-    if(fileType == PluginHandler::Unknown && isSupportedImageFormat(mimeType))
-    {
-        fileType = PluginHandler::Image;
-    }
+    matchArchiveAndImageType(filePath, fileType);
 
     if(fileType == PluginHandler::Unknown)
     {
@@ -212,10 +222,7 @@ PluginHandler::FileType matchFileType(const QString& filePath)
             }
         }
 
-        if(fileType == PluginHandler::Unknown && isSupportedImageFormat(filePath))
-        {
-            fileType = PluginHandler::Image;
-        }
+        matchArchiveAndImageType(filePath, fileType);
 
         if(fileType == PluginHandler::Unknown)
         {
@@ -238,10 +245,7 @@ PluginHandler::FileType matchFileType(const QString& filePath)
         }
     }
 
-    if(fileType == PluginHandler::Unknown && isSupportedImageFormat(filePath))
-    {
-        fileType = PluginHandler::Image;
-    }
+    matchArchiveAndImageType(filePath, fileType);
 
     if(fileType == PluginHandler::Unknown)
     {
@@ -376,9 +380,18 @@ QLatin1String PluginHandler::fileTypeName(PluginHandler::FileType fileType)
         return QLatin1String("DjVu");
     case PluginHandler::Image:
         return QLatin1String("Image");
+    case PluginHandler::EPUB:
+        return QLatin1String("EPUB");
+    case PluginHandler::XPS:
+        return QLatin1String("XPS");
+    case PluginHandler::FB2:
+        return QLatin1String("FictionBook2");
+    case PluginHandler::CBZ:
+        return QLatin1String("CBZ");
     case PluginHandler::GZip:
     case PluginHandler::BZip2:
     case PluginHandler::XZ:
+    case PluginHandler::ZIP:
         return QLatin1String("Compressed");
     }
 }
@@ -394,6 +407,22 @@ QStringList PluginHandler::openFilter()
     supportedFormats.append(QLatin1String("*.pdf *.PDF"));
 
 #endif // WITH_PDF // WITH_FITZ
+
+#if defined(WITH_FITZ)
+
+    openFilter.append(QLatin1String("EPUB (*.epub *.EPUB)"));
+    supportedFormats.append(QLatin1String("*.epub *.EPUB"));
+
+    openFilter.append(QLatin1String("XPS (*.xps *.XPS *.oxps *.OXPS)"));
+    supportedFormats.append(QLatin1String("*.xps *.XPS *.oxps *.OXPS"));
+
+    openFilter.append(QLatin1String("FictionBook 2 (*.fb2 *.FB2)"));
+    supportedFormats.append(QLatin1String("*.fb2 *.FB2"));
+
+    openFilter.append(QLatin1String("CBZ (*.cbz *.CBZ)"));
+    supportedFormats.append(QLatin1String("*.cbz *.CBZ"));
+
+#endif // WITH_FITZ
 
 #ifdef WITH_PS
 
@@ -500,8 +529,16 @@ PluginHandler::PluginHandler(QObject* parent) : QObject(parent),
 #ifdef WITH_FITZ
 #ifdef STATIC_FITZ_PLUGIN
     m_objectNames.insertMulti(PDF, QLatin1String("FitzPlugin"));
+    m_objectNames.insertMulti(EPUB, QLatin1String("FitzPlugin"));
+    m_objectNames.insertMulti(XPS, QLatin1String("FitzPlugin"));
+    m_objectNames.insertMulti(FB2, QLatin1String("FitzPlugin"));
+    m_objectNames.insertMulti(CBZ, QLatin1String("FitzPlugin"));
 #else
     m_fileNames.insertMulti(PDF, QLatin1String(FITZ_PLUGIN_NAME));
+    m_fileNames.insertMulti(EPUB, QLatin1String(FITZ_PLUGIN_NAME));
+    m_fileNames.insertMulti(XPS, QLatin1String(FITZ_PLUGIN_NAME));
+    m_fileNames.insertMulti(FB2, QLatin1String(FITZ_PLUGIN_NAME));
+    m_fileNames.insertMulti(CBZ, QLatin1String(FITZ_PLUGIN_NAME));
 #endif // STATIC_FITZ_PLUGIN
 #endif // WITH_FITZ
 

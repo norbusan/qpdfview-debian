@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.1">
 <context>
     <name>Model::ImageDocument</name>
     <message>
@@ -74,27 +74,27 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="176"/>
         <source>Name</source>
-        <translation type="unfinished">Nume</translation>
+        <translation>Nume</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="178"/>
         <source>Type</source>
-        <translation type="unfinished">Tip</translation>
+        <translation>Tip</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="180"/>
         <source>Embedded</source>
-        <translation type="unfinished">Încorporat</translation>
+        <translation>Încorporat</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="182"/>
         <source>Subset</source>
-        <translation type="unfinished">Subset</translation>
+        <translation>Subset</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="184"/>
         <source>File</source>
-        <translation type="unfinished">Fișier</translation>
+        <translation>Fișier</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="206"/>
@@ -102,7 +102,7 @@
         <location filename="../sources/pdfmodel.cpp" line="1013"/>
         <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>Yes</source>
-        <translation type="unfinished">Da</translation>
+        <translation>Da</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1011"/>
@@ -120,7 +120,7 @@
         <location filename="../sources/pdfmodel.cpp" line="1013"/>
         <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>No</source>
-        <translation type="unfinished">Nu</translation>
+        <translation>Nu</translation>
     </message>
 </context>
 <context>
@@ -128,12 +128,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="695"/>
         <source>Information</source>
-        <translation type="unfinished">Detalii</translation>
+        <translation>Detalii</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="695"/>
         <source>Version 0.20.1 or higher of the Poppler library is required to add or remove annotations.</source>
-        <translation type="unfinished">Pentru a adăuga sau șterge adnotările este nevoie de versiunea 0.20.1 sau mai mare a bibliotecii popler.</translation>
+        <translation>Pentru a adăuga sau șterge adnotările este nevoie de versiunea 0.20.1 sau mai mare a bibliotecii popler.</translation>
     </message>
 </context>
 <context>
@@ -141,32 +141,32 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="239"/>
         <source>Title</source>
-        <translation type="unfinished">Titlu</translation>
+        <translation>Titlu</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="240"/>
         <source>Created for</source>
-        <translation type="unfinished">Creat pentru</translation>
+        <translation>Creat pentru</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="241"/>
         <source>Creator</source>
-        <translation type="unfinished">Autor</translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="242"/>
         <source>Creation date</source>
-        <translation type="unfinished">Data creării</translation>
+        <translation>Data creării</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
         <source>Format</source>
-        <translation type="unfinished">Format</translation>
+        <translation>Format</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="244"/>
         <source>Language level</source>
-        <translation type="unfinished">Nivel limbaj</translation>
+        <translation>Nivel limbaj</translation>
     </message>
 </context>
 <context>
@@ -174,42 +174,42 @@
     <message>
         <location filename="../sources/main.cpp" line="171"/>
         <source>An empty instance name is not allowed.</source>
-        <translation type="unfinished">Nu sunt permise câpuri goale.</translation>
+        <translation>Nu sunt permise câpuri goale.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="182"/>
         <source>An empty search text is not allowed.</source>
-        <translation type="unfinished">Nu este permis un câmp de căutare gol.</translation>
+        <translation>Nu este permis un câmp de căutare gol.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="239"/>
         <source>Unknown command-line option &apos;%1&apos;.</source>
-        <translation type="unfinished">Opțiunea „%1” din linie de comandă  necunoscută.</translation>
+        <translation>Opțiunea „%1” din linie de comandă  necunoscută.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="270"/>
         <source>Using &apos;--instance&apos; requires an instance name.</source>
-        <translation type="unfinished">Utilizarea „--instance” trebuie să aibă un nume.</translation>
+        <translation>Utilizarea „--instance” trebuie să aibă un nume.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="276"/>
         <source>Using &apos;--instance&apos; is not allowed without using &apos;--unique&apos;.</source>
-        <translation type="unfinished">Utilizarea „--instance” nu este permisă fără a utiliza și „--unique”.</translation>
+        <translation>Utilizarea „--instance” nu este permisă fără a utiliza și „--unique”.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="282"/>
         <source>An instance name must only contain the characters &quot;[A-Z][a-z][0-9]_&quot; and must not begin with a digit.</source>
-        <translation type="unfinished">O instanță trebuie să conțină doar caracterele [A-Z][a-z][0-9]_ și nu trebuie să înceapă cu o cifră.</translation>
+        <translation>O instanță trebuie să conțină doar caracterele [A-Z][a-z][0-9]_ și nu trebuie să înceapă cu o cifră.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="288"/>
         <source>Using &apos;--search&apos; requires a search text.</source>
-        <translation type="unfinished">Dacă utlizați „--search” trebuie să introduceți text.</translation>
+        <translation>Dacă utlizați „--search” trebuie să introduceți text.</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="448"/>
         <source>Could not prepare signal handler.</source>
-        <translation type="unfinished">Nu s-a putut pregăti prelucrarea semnalelor (signal handler).</translation>
+        <translation>Nu s-a putut pregăti prelucrarea semnalelor (signal handler).</translation>
     </message>
 </context>
 <context>
@@ -217,32 +217,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="860"/>
         <source>Shift</source>
-        <translation type="unfinished">Shift</translation>
+        <translation>Shift</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="861"/>
         <source>Ctrl</source>
-        <translation type="unfinished">Ctrl</translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="862"/>
         <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="863"/>
         <source>Shift and Ctrl</source>
-        <translation type="unfinished">Shift și Ctrl</translation>
+        <translation>Shift și Ctrl</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="864"/>
         <source>Shift and Alt</source>
-        <translation type="unfinished">Shift și Alt</translation>
+        <translation>Shift și Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="865"/>
         <source>Ctrl and Alt</source>
-        <translation type="unfinished">Ctrl și Alt</translation>
+        <translation>Ctrl și Alt</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="866"/>
@@ -293,17 +293,17 @@
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="41"/>
         <source>&amp;Open</source>
-        <translation type="unfinished">&amp;Deschide</translation>
+        <translation>&amp;Deschide</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="46"/>
         <source>Open in new &amp;tab</source>
-        <translation type="unfinished">Deschide în &amp;tab nou</translation>
+        <translation>Deschide în &amp;tab nou</translation>
     </message>
     <message>
         <location filename="../sources/bookmarkmenu.cpp" line="56"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Ște&amp;rge semn de carte</translation>
+        <translation>Ște&amp;rge semn de carte</translation>
     </message>
 </context>
 <context>
@@ -311,7 +311,7 @@
     <message>
         <location filename="../sources/database.cpp" line="988"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Sari la pagina %1</translation>
+        <translation>Sari la pagina %1</translation>
     </message>
 </context>
 <context>
@@ -320,7 +320,7 @@
         <location filename="../sources/documentview.cpp" line="1401"/>
         <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Information</source>
-        <translation type="unfinished">Informații</translation>
+        <translation>Informații</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="1401"/>
@@ -330,7 +330,7 @@
     <message>
         <location filename="../sources/documentview.cpp" line="2019"/>
         <source>Opening URL is disabled in the settings.</source>
-        <translation type="unfinished">Accesarea URL-urilor este dezactivată din configurări.</translation>
+        <translation>Accesarea URL-urilor este dezactivată din configurări.</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="2059"/>
@@ -341,27 +341,27 @@
         <location filename="../sources/documentview.cpp" line="2059"/>
         <location filename="../sources/main.cpp" line="364"/>
         <source>SyncTeX data for &apos;%1&apos; could not be found.</source>
-        <translation type="unfinished">Nu s-au găsit datele SyncTeX pentru „%1”.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="2534"/>
         <source>Printing &apos;%1&apos;...</source>
-        <translation type="unfinished">Se tipărește „%1”...</translation>
+        <translation>Se tipărește „%1”...</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="2608"/>
         <source>Unlock %1</source>
-        <translation type="unfinished">Deblocare %1</translation>
+        <translation>Deblocare %1</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="2608"/>
         <source>Password:</source>
-        <translation type="unfinished">Parolă:</translation>
+        <translation>Parolă:</translation>
     </message>
     <message>
         <location filename="../sources/documentview.cpp" line="526"/>
         <source>Page %1</source>
-        <translation type="unfinished">Pagina %1</translation>
+        <translation>Pagina %1</translation>
     </message>
 </context>
 <context>
@@ -369,33 +369,33 @@
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="112"/>
         <source>Save...</source>
-        <translation type="unfinished">Salvează...</translation>
+        <translation>Salvează...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="113"/>
         <source>Save and open...</source>
-        <translation type="unfinished">Salvează și deschide...</translation>
+        <translation>Salvează și deschide...</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="160"/>
         <source>Save file attachment</source>
-        <translation type="unfinished">Salvare fișier atașat</translation>
+        <translation>Salvare fișier atașat</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
         <location filename="../sources/annotationwidgets.cpp" line="182"/>
         <source>Warning</source>
-        <translation type="unfinished">Avertisment</translation>
+        <translation>Avertisment</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="176"/>
         <source>Could not open file attachment saved to &apos;%1&apos;.</source>
-        <translation type="unfinished">Nu s-a putut deschide fișierul atașat salavat în „%1”.</translation>
+        <translation>Nu s-a putut deschide fișierul atașat salavat în „%1”.</translation>
     </message>
     <message>
         <location filename="../sources/annotationwidgets.cpp" line="182"/>
         <source>Could not save file attachment to &apos;%1&apos;.</source>
-        <translation type="unfinished">Nu s-a putut salva fișierul atașat în „%1”.</translation>
+        <translation>Nu s-a putut salva fișierul atașat în „%1”.</translation>
     </message>
 </context>
 <context>
@@ -417,654 +417,654 @@
         <location filename="../sources/helpdialog.cpp" line="48"/>
         <source>help.html</source>
         <extracomment>Please replace by file name of localized help if available, e.g. &quot;help_fr.html&quot;.</extracomment>
-        <translation type="unfinished">help.html</translation>
+        <translation>help.html</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="63"/>
         <source>Find previous</source>
-        <translation type="unfinished">Caută elementul anterior</translation>
+        <translation>Caută elementul anterior</translation>
     </message>
     <message>
         <location filename="../sources/helpdialog.cpp" line="67"/>
         <source>Find next</source>
-        <translation type="unfinished">Caută elementul următor</translation>
+        <translation>Caută elementul următor</translation>
     </message>
 </context>
 <context>
     <name>qpdfview::MainWindow</name>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3265"/>
+        <location filename="../sources/mainwindow.cpp" line="3270"/>
         <source>Toggle tool bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3266"/>
+        <location filename="../sources/mainwindow.cpp" line="3271"/>
         <source>Toggle menu bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="482"/>
-        <location filename="../sources/mainwindow.cpp" line="524"/>
-        <location filename="../sources/mainwindow.cpp" line="1466"/>
-        <location filename="../sources/mainwindow.cpp" line="1477"/>
-        <location filename="../sources/mainwindow.cpp" line="1483"/>
-        <location filename="../sources/mainwindow.cpp" line="1499"/>
-        <location filename="../sources/mainwindow.cpp" line="1519"/>
-        <location filename="../sources/mainwindow.cpp" line="1557"/>
-        <location filename="../sources/mainwindow.cpp" line="1698"/>
-        <location filename="../sources/mainwindow.cpp" line="2812"/>
-        <location filename="../sources/mainwindow.cpp" line="2822"/>
+        <location filename="../sources/mainwindow.cpp" line="483"/>
+        <location filename="../sources/mainwindow.cpp" line="525"/>
+        <location filename="../sources/mainwindow.cpp" line="1469"/>
+        <location filename="../sources/mainwindow.cpp" line="1480"/>
+        <location filename="../sources/mainwindow.cpp" line="1486"/>
+        <location filename="../sources/mainwindow.cpp" line="1502"/>
+        <location filename="../sources/mainwindow.cpp" line="1522"/>
+        <location filename="../sources/mainwindow.cpp" line="1560"/>
+        <location filename="../sources/mainwindow.cpp" line="1701"/>
+        <location filename="../sources/mainwindow.cpp" line="2815"/>
+        <location filename="../sources/mainwindow.cpp" line="2825"/>
         <source>Warning</source>
-        <translation type="unfinished">Atenție</translation>
+        <translation>Atenție</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="482"/>
-        <location filename="../sources/mainwindow.cpp" line="524"/>
+        <location filename="../sources/mainwindow.cpp" line="483"/>
+        <location filename="../sources/mainwindow.cpp" line="525"/>
         <source>Could not open &apos;%1&apos;.</source>
-        <translation type="unfinished">Nu se poate deschide „%1”</translation>
+        <translation>Nu se poate deschide „%1”</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="793"/>
+        <location filename="../sources/mainwindow.cpp" line="794"/>
         <source>Copy file path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="794"/>
+        <location filename="../sources/mainwindow.cpp" line="795"/>
         <source>Select file path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="796"/>
-        <source>Close all tabs</source>
-        <translation type="unfinished">Închide toate filele</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="797"/>
-        <source>Close all tabs but this one</source>
-        <translation type="unfinished">Închide toate filele în afară de asta</translation>
+        <source>Close all tabs</source>
+        <translation>Închide toate filele</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="798"/>
-        <source>Close all tabs to the left</source>
-        <translation type="unfinished">Închide toate filele din stânga</translation>
+        <source>Close all tabs but this one</source>
+        <translation>Închide toate filele în afară de asta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="799"/>
+        <source>Close all tabs to the left</source>
+        <translation>Închide toate filele din stânga</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="800"/>
         <source>Close all tabs to the right</source>
-        <translation type="unfinished">Închide toate filele din dreapta</translation>
+        <translation>Închide toate filele din dreapta</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1201"/>
-        <location filename="../sources/mainwindow.cpp" line="1350"/>
+        <location filename="../sources/mainwindow.cpp" line="1202"/>
+        <location filename="../sources/mainwindow.cpp" line="1351"/>
         <source>Open</source>
-        <translation type="unfinished">Deschide</translation>
+        <translation>Deschide</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1366"/>
+        <location filename="../sources/mainwindow.cpp" line="1367"/>
         <source>Open in new tab</source>
-        <translation type="unfinished">Deschide într-o filă nouă</translation>
+        <translation>Deschide într-o filă nouă</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1466"/>
-        <location filename="../sources/mainwindow.cpp" line="1483"/>
-        <location filename="../sources/mainwindow.cpp" line="1698"/>
+        <location filename="../sources/mainwindow.cpp" line="1469"/>
+        <location filename="../sources/mainwindow.cpp" line="1486"/>
+        <location filename="../sources/mainwindow.cpp" line="1701"/>
         <source>Could not refresh &apos;%1&apos;.</source>
-        <translation type="unfinished">Nuse poate reactualiza „%1”.</translation>
+        <translation>Nuse poate reactualiza „%1”.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1509"/>
+        <location filename="../sources/mainwindow.cpp" line="1512"/>
         <source>Save copy</source>
-        <translation type="unfinished">Salvează o copie</translation>
+        <translation>Salvează o copie</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1519"/>
+        <location filename="../sources/mainwindow.cpp" line="1522"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
-        <translation type="unfinished">NU am putut salva copia în „%1”.</translation>
+        <translation>NU am putut salva copia în „%1”.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1490"/>
+        <location filename="../sources/mainwindow.cpp" line="1493"/>
         <source>Save as</source>
-        <translation type="unfinished">Salvează ca</translation>
+        <translation>Salvează ca</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1435"/>
-        <location filename="../sources/mainwindow.cpp" line="1446"/>
+        <location filename="../sources/mainwindow.cpp" line="1436"/>
+        <location filename="../sources/mainwindow.cpp" line="1447"/>
         <source>Move to instance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1435"/>
-        <location filename="../sources/mainwindow.cpp" line="1446"/>
+        <location filename="../sources/mainwindow.cpp" line="1436"/>
+        <location filename="../sources/mainwindow.cpp" line="1447"/>
         <source>Failed to access instance &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1477"/>
-        <location filename="../sources/mainwindow.cpp" line="1499"/>
-        <location filename="../sources/mainwindow.cpp" line="2822"/>
+        <location filename="../sources/mainwindow.cpp" line="1480"/>
+        <location filename="../sources/mainwindow.cpp" line="1502"/>
+        <location filename="../sources/mainwindow.cpp" line="2825"/>
         <source>Could not save as &apos;%1&apos;.</source>
-        <translation type="unfinished">Nu s-a putut salva ca „%1”.</translation>
+        <translation>Nu s-a putut salva ca „%1”.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1557"/>
+        <location filename="../sources/mainwindow.cpp" line="1560"/>
         <source>Could not print &apos;%1&apos;.</source>
-        <translation type="unfinished">Nuse poate tipări „%1”</translation>
+        <translation>Nuse poate tipări „%1”</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1593"/>
+        <location filename="../sources/mainwindow.cpp" line="1596"/>
         <source>Set first page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1593"/>
+        <location filename="../sources/mainwindow.cpp" line="1596"/>
         <source>Select the first page of the body matter:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1606"/>
+        <location filename="../sources/mainwindow.cpp" line="1609"/>
         <source>Jump to page</source>
-        <translation type="unfinished">Sari la pagina</translation>
+        <translation>Sari la pagina</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1606"/>
+        <location filename="../sources/mainwindow.cpp" line="1609"/>
         <source>Page:</source>
-        <translation type="unfinished">Pagina:</translation>
+        <translation>Pagina:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2011"/>
+        <location filename="../sources/mainwindow.cpp" line="2014"/>
         <source>Jump to page %1</source>
-        <translation type="unfinished">Sari la pagina %1</translation>
+        <translation>Sari la pagina %1</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2162"/>
+        <location filename="../sources/mainwindow.cpp" line="2165"/>
         <source>About qpdfview</source>
-        <translation type="unfinished">Despre qpdfview</translation>
+        <translation>Despre qpdfview</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2162"/>
+        <location filename="../sources/mainwindow.cpp" line="2165"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished">&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview este un utilitar de vizualizat documente cu file care utilizează Qt.&lt;/p&gt;&lt;p&gt;Această versiune include:&lt;ul&gt;</translation>
+        <translation>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview este un utilitar de vizualizat documente cu file care utilizează Qt.&lt;/p&gt;&lt;p&gt;Această versiune include:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2166"/>
+        <location filename="../sources/mainwindow.cpp" line="2169"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2169"/>
+        <location filename="../sources/mainwindow.cpp" line="2172"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2172"/>
+        <location filename="../sources/mainwindow.cpp" line="2175"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2175"/>
+        <location filename="../sources/mainwindow.cpp" line="2178"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2178"/>
+        <location filename="../sources/mainwindow.cpp" line="2181"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2395"/>
+        <location filename="../sources/mainwindow.cpp" line="2398"/>
         <source>&amp;Edit bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2812"/>
+        <location filename="../sources/mainwindow.cpp" line="2815"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
-        <translation type="unfinished">Documentul „%1” a fost modificat. Vreți să salvați modificările?</translation>
+        <translation>Documentul „%1” a fost modificat. Vreți să salvați modificările?</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3057"/>
+        <location filename="../sources/mainwindow.cpp" line="3062"/>
         <source>Page width</source>
-        <translation type="unfinished">Lățime pagină</translation>
+        <translation>Lățime pagină</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3058"/>
+        <location filename="../sources/mainwindow.cpp" line="3063"/>
         <source>Page size</source>
-        <translation type="unfinished">Mărime pagină</translation>
+        <translation>Mărime pagină</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3081"/>
+        <location filename="../sources/mainwindow.cpp" line="3086"/>
         <source>Match &amp;case</source>
-        <translation type="unfinished">Potrivește mărimea literelor</translation>
+        <translation>Potrivește mărimea literelor</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3082"/>
+        <location filename="../sources/mainwindow.cpp" line="3087"/>
         <source>Whole &amp;words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3083"/>
+        <location filename="../sources/mainwindow.cpp" line="3088"/>
         <source>Highlight &amp;all</source>
-        <translation type="unfinished">Evidențiază &amp;tot</translation>
+        <translation>Evidențiază &amp;tot</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3145"/>
+        <location filename="../sources/mainwindow.cpp" line="3150"/>
         <source>&amp;Open...</source>
-        <translation type="unfinished">&amp;Deschide...</translation>
+        <translation>&amp;Deschide...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3146"/>
+        <location filename="../sources/mainwindow.cpp" line="3151"/>
         <source>Open in new &amp;tab...</source>
-        <translation type="unfinished">Deschide în &amp;filă nouă...</translation>
+        <translation>Deschide în &amp;filă nouă...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3255"/>
+        <location filename="../sources/mainwindow.cpp" line="3260"/>
         <source>Open &amp;copy in new tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3258"/>
+        <location filename="../sources/mainwindow.cpp" line="3263"/>
         <source>Move to &amp;instance...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3147"/>
+        <location filename="../sources/mainwindow.cpp" line="3152"/>
         <source>&amp;Refresh</source>
-        <translation type="unfinished">&amp;Reactualizează</translation>
+        <translation>&amp;Reactualizează</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1457"/>
+        <location filename="../sources/mainwindow.cpp" line="1460"/>
         <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1457"/>
+        <location filename="../sources/mainwindow.cpp" line="1460"/>
         <source>Instance-to-instance communication requires D-Bus support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2180"/>
+        <location filename="../sources/mainwindow.cpp" line="2183"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; %1 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3149"/>
+        <location filename="../sources/mainwindow.cpp" line="3154"/>
         <source>Save &amp;as...</source>
-        <translation type="unfinished">Salvați c&amp;a...</translation>
+        <translation>Salvați c&amp;a...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3150"/>
+        <location filename="../sources/mainwindow.cpp" line="3155"/>
         <source>Save &amp;copy...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3151"/>
-        <source>&amp;Print...</source>
-        <translation type="unfinished">Ti&amp;părește...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3152"/>
-        <source>E&amp;xit</source>
-        <translation type="unfinished">Ieș&amp;ire</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="3156"/>
-        <source>&amp;Previous page</source>
-        <translation type="unfinished">&amp;Pagina anterioară</translation>
+        <source>&amp;Print...</source>
+        <translation>Ti&amp;părește...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3157"/>
+        <source>E&amp;xit</source>
+        <translation>Ieș&amp;ire</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3161"/>
+        <source>&amp;Previous page</source>
+        <translation>&amp;Pagina anterioară</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3162"/>
         <source>&amp;Next page</source>
-        <translation type="unfinished">Pagi&amp;na următoare</translation>
+        <translation>Pagi&amp;na următoare</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3164"/>
+        <location filename="../sources/mainwindow.cpp" line="3169"/>
         <source>&amp;First page</source>
-        <translation type="unfinished">Prima pa&amp;gină</translation>
+        <translation>Prima pa&amp;gină</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3171"/>
+        <location filename="../sources/mainwindow.cpp" line="3176"/>
         <source>&amp;Last page</source>
-        <translation type="unfinished">U&amp;ltima pagină</translation>
+        <translation>U&amp;ltima pagină</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3173"/>
+        <location filename="../sources/mainwindow.cpp" line="3178"/>
         <source>&amp;Set first page...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3175"/>
-        <source>&amp;Jump to page...</source>
-        <translation type="unfinished">&amp;Sari la pagina...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3177"/>
-        <source>Jump &amp;backward</source>
-        <translation type="unfinished">&amp;Sari înapoi</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3178"/>
-        <source>Jump for&amp;ward</source>
-        <translation type="unfinished">Sari înai&amp;nte</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="3180"/>
-        <source>&amp;Search...</source>
-        <translation type="unfinished">&amp;Căutare...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3181"/>
-        <source>Find previous</source>
-        <translation type="unfinished">Caută elementul anterior</translation>
+        <source>&amp;Jump to page...</source>
+        <translation>&amp;Sari la pagina...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3182"/>
-        <source>Find next</source>
-        <translation type="unfinished">Caută elementul următor</translation>
+        <source>Jump &amp;backward</source>
+        <translation>&amp;Sari înapoi</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3183"/>
-        <source>Cancel search</source>
-        <translation type="unfinished">Anulează căutarea</translation>
+        <source>Jump for&amp;ward</source>
+        <translation>Sari înai&amp;nte</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3185"/>
-        <source>&amp;Copy to clipboard</source>
-        <translation type="unfinished">&amp;Copiază în clipboard</translation>
+        <source>&amp;Search...</source>
+        <translation>&amp;Căutare...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3186"/>
-        <source>&amp;Add annotation</source>
-        <translation type="unfinished">&amp;Adaugă notiță</translation>
+        <source>Find previous</source>
+        <translation>Caută elementul anterior</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3187"/>
+        <source>Find next</source>
+        <translation>Caută elementul următor</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3188"/>
-        <source>Settings...</source>
-        <translation type="unfinished">Configurări...</translation>
+        <source>Cancel search</source>
+        <translation>Anulează căutarea</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3192"/>
-        <source>&amp;Continuous</source>
-        <translation type="unfinished">&amp;Continuu</translation>
+        <location filename="../sources/mainwindow.cpp" line="3190"/>
+        <source>&amp;Copy to clipboard</source>
+        <translation>&amp;Copiază în clipboard</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3191"/>
+        <source>&amp;Add annotation</source>
+        <translation>&amp;Adaugă notiță</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3193"/>
-        <source>&amp;Two pages</source>
-        <translation type="unfinished">Două pagini</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3194"/>
-        <source>Two pages &amp;with cover page</source>
-        <translation type="unfinished">Două pagini și &amp;coperta</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3195"/>
-        <source>&amp;Multiple pages</source>
-        <translation type="unfinished">Pagini &amp;multiple</translation>
+        <source>Settings...</source>
+        <translation>Configurări...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3197"/>
-        <source>Right to left</source>
-        <translation type="unfinished">De la dreapta spre stânga</translation>
+        <source>&amp;Continuous</source>
+        <translation>&amp;Continuu</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3198"/>
+        <source>&amp;Two pages</source>
+        <translation>Două pagini</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3199"/>
-        <source>Zoom &amp;in</source>
-        <translation type="unfinished">&amp;Mărire</translation>
+        <source>Two pages &amp;with cover page</source>
+        <translation>Două pagini și &amp;coperta</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3200"/>
-        <source>Zoom &amp;out</source>
-        <translation type="unfinished">Micș&amp;orare</translation>
+        <source>&amp;Multiple pages</source>
+        <translation>Pagini &amp;multiple</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3201"/>
-        <source>Original &amp;size</source>
-        <translation type="unfinished">Mărime originală</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3203"/>
-        <source>Fit to page width</source>
-        <translation type="unfinished">Potrivire la lățimea paginii</translation>
+        <location filename="../sources/mainwindow.cpp" line="3202"/>
+        <source>Right to left</source>
+        <translation>De la dreapta spre stânga</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3204"/>
-        <source>Fit to page size</source>
-        <translation type="unfinished">Potrivire la mărimea paginii</translation>
+        <source>Zoom &amp;in</source>
+        <translation>&amp;Mărire</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3205"/>
+        <source>Zoom &amp;out</source>
+        <translation>Micș&amp;orare</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3206"/>
-        <source>Rotate &amp;left</source>
-        <translation type="unfinished">Rotire &amp;stânga</translation>
+        <source>Original &amp;size</source>
+        <translation>Mărime originală</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3207"/>
-        <source>Rotate &amp;right</source>
-        <translation type="unfinished">Rotire &amp;dreapta</translation>
+        <location filename="../sources/mainwindow.cpp" line="3208"/>
+        <source>Fit to page width</source>
+        <translation>Potrivire la lățimea paginii</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3209"/>
-        <source>Invert colors</source>
-        <translation type="unfinished">Inversează culorile</translation>
+        <source>Fit to page size</source>
+        <translation>Potrivire la mărimea paginii</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3210"/>
+        <location filename="../sources/mainwindow.cpp" line="3211"/>
+        <source>Rotate &amp;left</source>
+        <translation>Rotire &amp;stânga</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3212"/>
+        <source>Rotate &amp;right</source>
+        <translation>Rotire &amp;dreapta</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3214"/>
+        <source>Invert colors</source>
+        <translation>Inversează culorile</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3215"/>
         <source>Convert to grayscale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3211"/>
+        <location filename="../sources/mainwindow.cpp" line="3216"/>
         <source>Trim margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3213"/>
+        <location filename="../sources/mainwindow.cpp" line="3218"/>
         <source>Darken with paper color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3214"/>
+        <location filename="../sources/mainwindow.cpp" line="3219"/>
         <source>Lighten with paper color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3216"/>
+        <location filename="../sources/mainwindow.cpp" line="3221"/>
         <source>Fonts...</source>
-        <translation type="unfinished">Fonturi...</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3218"/>
-        <source>&amp;Fullscreen</source>
-        <translation type="unfinished">&amp;Ecran complet</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3219"/>
-        <source>&amp;Presentation...</source>
-        <translation type="unfinished">&amp;Prezentare...</translation>
+        <translation>Fonturi...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3223"/>
-        <source>&amp;Previous tab</source>
-        <translation type="unfinished">Fila &amp;precedentă</translation>
+        <source>&amp;Fullscreen</source>
+        <translation>&amp;Ecran complet</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3224"/>
-        <source>&amp;Next tab</source>
-        <translation type="unfinished">&amp;Fila următoare</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3226"/>
-        <source>&amp;Close tab</source>
-        <translation type="unfinished">În&amp;chide fila</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3227"/>
-        <source>Close &amp;all tabs</source>
-        <translation type="unfinished">Inchide &amp;toate filele</translation>
+        <source>&amp;Presentation...</source>
+        <translation>&amp;Prezentare...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3228"/>
-        <source>Close all tabs &amp;but current tab</source>
-        <translation type="unfinished">Închide toate filele în &amp;afară de aceasta</translation>
+        <source>&amp;Previous tab</source>
+        <translation>Fila &amp;precedentă</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3230"/>
+        <location filename="../sources/mainwindow.cpp" line="3229"/>
+        <source>&amp;Next tab</source>
+        <translation>&amp;Fila următoare</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3231"/>
+        <source>&amp;Close tab</source>
+        <translation>În&amp;chide fila</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3232"/>
+        <source>Close &amp;all tabs</source>
+        <translation>Inchide &amp;toate filele</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3233"/>
+        <source>Close all tabs &amp;but current tab</source>
+        <translation>Închide toate filele în &amp;afară de aceasta</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3235"/>
         <source>Restore &amp;most recently closed tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3241"/>
+        <location filename="../sources/mainwindow.cpp" line="3246"/>
         <source>&amp;Previous bookmark</source>
-        <translation type="unfinished">Semn de carte &amp;precedent</translation>
+        <translation>Semn de carte &amp;precedent</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3242"/>
+        <location filename="../sources/mainwindow.cpp" line="3247"/>
         <source>&amp;Next bookmark</source>
-        <translation type="unfinished">Semn de carte &amp;următor</translation>
+        <translation>Semn de carte &amp;următor</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3244"/>
+        <location filename="../sources/mainwindow.cpp" line="3249"/>
         <source>&amp;Add bookmark</source>
-        <translation type="unfinished">&amp;Adaugă semn de carte</translation>
+        <translation>&amp;Adaugă semn de carte</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3256"/>
+        <location filename="../sources/mainwindow.cpp" line="3261"/>
         <source>Open copy in new &amp;window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3259"/>
+        <location filename="../sources/mainwindow.cpp" line="3264"/>
         <source>Split view horizontally...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3260"/>
+        <location filename="../sources/mainwindow.cpp" line="3265"/>
         <source>Split view vertically...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3261"/>
+        <location filename="../sources/mainwindow.cpp" line="3266"/>
         <source>Close current view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3442"/>
+        <location filename="../sources/mainwindow.cpp" line="3447"/>
         <source>Thumb&amp;nails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3456"/>
+        <location filename="../sources/mainwindow.cpp" line="3461"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3528"/>
+        <location filename="../sources/mainwindow.cpp" line="3533"/>
         <source>Composition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2394"/>
-        <location filename="../sources/mainwindow.cpp" line="3245"/>
+        <location filename="../sources/mainwindow.cpp" line="2397"/>
+        <location filename="../sources/mainwindow.cpp" line="3250"/>
         <source>&amp;Remove bookmark</source>
-        <translation type="unfinished">Ște&amp;rge semn de carte</translation>
+        <translation>Ște&amp;rge semn de carte</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2954"/>
+        <location filename="../sources/mainwindow.cpp" line="2959"/>
         <source>Edit &apos;%1&apos; at %2,%3...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3257"/>
+        <location filename="../sources/mainwindow.cpp" line="3262"/>
         <source>Open containing &amp;folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3148"/>
+        <location filename="../sources/mainwindow.cpp" line="3153"/>
         <source>&amp;Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3246"/>
-        <source>Remove all bookmarks</source>
-        <translation type="unfinished">Șterge toate semnele de carte</translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3250"/>
-        <source>&amp;Contents</source>
-        <translation type="unfinished">&amp;Cuprins</translation>
-    </message>
-    <message>
         <location filename="../sources/mainwindow.cpp" line="3251"/>
+        <source>Remove all bookmarks</source>
+        <translation>Șterge toate semnele de carte</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3255"/>
+        <source>&amp;Contents</source>
+        <translation>&amp;Cuprins</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3256"/>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;Despre</translation>
+        <translation>&amp;Despre</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3289"/>
-        <location filename="../sources/mainwindow.cpp" line="3483"/>
+        <location filename="../sources/mainwindow.cpp" line="3294"/>
+        <location filename="../sources/mainwindow.cpp" line="3488"/>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;Fișier</translation>
+        <translation>&amp;Fișier</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3292"/>
-        <location filename="../sources/mainwindow.cpp" line="3504"/>
+        <location filename="../sources/mainwindow.cpp" line="3297"/>
+        <location filename="../sources/mainwindow.cpp" line="3509"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Editare</translation>
+        <translation>&amp;Editare</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3295"/>
-        <location filename="../sources/mainwindow.cpp" line="3517"/>
+        <location filename="../sources/mainwindow.cpp" line="3300"/>
+        <location filename="../sources/mainwindow.cpp" line="3522"/>
         <source>&amp;View</source>
-        <translation type="unfinished">&amp;Vizualizare</translation>
+        <translation>&amp;Vizualizare</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3409"/>
+        <location filename="../sources/mainwindow.cpp" line="3414"/>
         <source>&amp;Outline</source>
-        <translation type="unfinished">&amp;Cuprins</translation>
+        <translation>&amp;Cuprins</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3428"/>
+        <location filename="../sources/mainwindow.cpp" line="3433"/>
         <source>&amp;Properties</source>
-        <translation type="unfinished">&amp;Proprietăți</translation>
+        <translation>&amp;Proprietăți</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3330"/>
+        <location filename="../sources/mainwindow.cpp" line="3335"/>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Caută</translation>
+        <translation>&amp;Caută</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3534"/>
+        <location filename="../sources/mainwindow.cpp" line="3539"/>
         <source>&amp;Tool bars</source>
-        <translation type="unfinished">&amp;Bare de unelte</translation>
+        <translation>&amp;Bare de unelte</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3537"/>
+        <location filename="../sources/mainwindow.cpp" line="3542"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished">&amp;Bare andocabile</translation>
+        <translation>&amp;Bare andocabile</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3551"/>
+        <location filename="../sources/mainwindow.cpp" line="3556"/>
         <source>&amp;Tabs</source>
-        <translation type="unfinished">Fi&amp;le</translation>
+        <translation>Fi&amp;le</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3574"/>
+        <location filename="../sources/mainwindow.cpp" line="3579"/>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Semne de carte</translation>
+        <translation>&amp;Semne de carte</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3585"/>
+        <location filename="../sources/mainwindow.cpp" line="3590"/>
         <source>&amp;Help</source>
-        <translation type="unfinished">&amp;Ajutor</translation>
+        <translation>&amp;Ajutor</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="210"/>
-        <location filename="../sources/mainwindow.cpp" line="1419"/>
+        <location filename="../sources/mainwindow.cpp" line="1420"/>
         <source>Choose instance</source>
-        <translation type="unfinished">Alegeți instanța</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="210"/>
-        <location filename="../sources/mainwindow.cpp" line="1419"/>
+        <location filename="../sources/mainwindow.cpp" line="1420"/>
         <source>Instance:</source>
-        <translation type="unfinished">Instanța:</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1072,27 +1072,27 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="379"/>
         <source>Go to page %1.</source>
-        <translation type="unfinished">Du-te la pagina %1.</translation>
+        <translation>Du-te la pagina %1.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="383"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <translation type="unfinished">Du-te la pagina %1 din fișierul „%2”.</translation>
+        <translation>Du-te la pagina %1 din fișierul „%2”.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="391"/>
         <source>Open &apos;%1&apos;.</source>
-        <translation type="unfinished">Deschide „%1”.</translation>
+        <translation>Deschide „%1”.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="426"/>
         <source>Edit form field &apos;%1&apos;.</source>
-        <translation type="unfinished">Editare formular „%1”.</translation>
+        <translation>Editare formular „%1”.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="777"/>
         <source>Copy &amp;text</source>
-        <translation type="unfinished">Copiere &amp;text</translation>
+        <translation>Copiere &amp;text</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="778"/>
@@ -1102,37 +1102,37 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="779"/>
         <source>Copy &amp;image</source>
-        <translation type="unfinished">Copiere &amp;imagine</translation>
+        <translation>Copiere &amp;imagine</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="780"/>
         <source>Save image to &amp;file...</source>
-        <translation type="unfinished">Salvează imaginea în &amp;fișier...</translation>
+        <translation>Salvează imaginea în &amp;fișier...</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="815"/>
         <source>Save image to file</source>
-        <translation type="unfinished">Salvează imaginea în fișier</translation>
+        <translation>Salvează imaginea în fișier</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="819"/>
         <source>Warning</source>
-        <translation type="unfinished">Atenție</translation>
+        <translation>Atenție</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="819"/>
         <source>Could not save image to file &apos;%1&apos;.</source>
-        <translation type="unfinished">Nu s-a putut salva imaginea în fișierul „%1”.</translation>
+        <translation>Nu s-a putut salva imaginea în fișierul „%1”.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="832"/>
         <source>Add &amp;text</source>
-        <translation type="unfinished">Adaugă &amp;text</translation>
+        <translation>Adaugă &amp;text</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="833"/>
         <source>Add &amp;highlight</source>
-        <translation type="unfinished">Adaugă &amp;evidențiere</translation>
+        <translation>Adaugă &amp;evidențiere</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="875"/>
@@ -1147,7 +1147,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="899"/>
         <source>&amp;Remove annotation</source>
-        <translation type="unfinished">Ște&amp;rge notiță</translation>
+        <translation>Ște&amp;rge notiță</translation>
     </message>
 </context>
 <context>
@@ -1155,34 +1155,34 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1092"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished">Antialiasing:</translation>
+        <translation>Antialiasing:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1099"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished">Antialiasing text:</translation>
+        <translation>Antialiasing text:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1106"/>
         <location filename="../sources/pdfmodel.cpp" line="1145"/>
         <source>None</source>
-        <translation type="unfinished">Nimic</translation>
+        <translation>Nimic</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1107"/>
         <source>Full</source>
-        <translation type="unfinished">Complet</translation>
+        <translation>Complet</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1108"/>
         <source>Reduced</source>
-        <translation type="unfinished">Redus</translation>
+        <translation>Redus</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1111"/>
         <location filename="../sources/pdfmodel.cpp" line="1118"/>
         <source>Text hinting:</source>
-        <translation type="unfinished">Reliefare text:</translation>
+        <translation>Reliefare text:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1127"/>
@@ -1192,75 +1192,75 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1138"/>
         <source>Overprint preview:</source>
-        <translation type="unfinished">Previziualizare suprapunere:</translation>
+        <translation>Previziualizare suprapunere:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1146"/>
         <source>Solid</source>
-        <translation type="unfinished">Solid</translation>
+        <translation>Solid</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1147"/>
         <source>Shaped</source>
-        <translation type="unfinished">Conturat</translation>
+        <translation>Conturat</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1150"/>
         <source>Thin line mode:</source>
-        <translation type="unfinished">Mod linie subțire:</translation>
+        <translation>Mod linie subțire:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1155"/>
         <source>Splash</source>
-        <translation type="unfinished">Splash</translation>
+        <translation>Splash</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1156"/>
         <source>Arthur</source>
-        <translation type="unfinished">Arthur</translation>
+        <translation>Arthur</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1159"/>
         <source>Backend:</source>
-        <translation type="unfinished">Configurație:</translation>
+        <translation>Configurație:</translation>
     </message>
 </context>
 <context>
     <name>qpdfview::PluginHandler</name>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="418"/>
+        <location filename="../sources/pluginhandler.cpp" line="453"/>
         <source>Image (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="433"/>
+        <location filename="../sources/pluginhandler.cpp" line="468"/>
         <source>Compressed (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="437"/>
+        <location filename="../sources/pluginhandler.cpp" line="472"/>
         <source>Supported formats (%1)</source>
-        <translation type="unfinished">Formate suportate (%1)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="453"/>
+        <location filename="../sources/pluginhandler.cpp" line="488"/>
         <source>Could not decompress &apos;%1&apos;!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="463"/>
+        <location filename="../sources/pluginhandler.cpp" line="498"/>
         <source>Could not match file type of &apos;%1&apos;!</source>
-        <translation type="unfinished">NU s-a găsit o potrivire pentru tipul de fișier „%1”!</translation>
+        <translation>NU s-a găsit o potrivire pentru tipul de fișier „%1”!</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="470"/>
+        <location filename="../sources/pluginhandler.cpp" line="505"/>
         <source>Critical</source>
-        <translation type="unfinished">Critic</translation>
+        <translation>Critic</translation>
     </message>
     <message>
-        <location filename="../sources/pluginhandler.cpp" line="470"/>
+        <location filename="../sources/pluginhandler.cpp" line="505"/>
         <source>Could not load plug-in for file type &apos;%1&apos;!</source>
-        <translation type="unfinished">Nu s-a putut încărca extensia pentru tipul de fișier „%1”!</translation>
+        <translation>Nu s-a putut încărca extensia pentru tipul de fișier „%1”!</translation>
     </message>
 </context>
 <context>
@@ -1268,117 +1268,117 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="65"/>
         <source>Fit to page:</source>
-        <translation type="unfinished">Potrivire la pagină:</translation>
+        <translation>Potrivire la pagină:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="69"/>
         <source>Page ranges:</source>
-        <translation type="unfinished">Șir pagini:</translation>
+        <translation>Șir pagini:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="74"/>
         <source>All pages</source>
-        <translation type="unfinished">Toate paginile</translation>
+        <translation>Toate paginile</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="75"/>
         <source>Even pages</source>
-        <translation type="unfinished">Pagini pare</translation>
+        <translation>Pagini pare</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="76"/>
         <source>Odd pages</source>
-        <translation type="unfinished">Pagini impare</translation>
+        <translation>Pagini impare</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="79"/>
         <source>Page set:</source>
-        <translation type="unfinished">Set pagini:</translation>
+        <translation>Set pagini:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="82"/>
         <source>Single page</source>
-        <translation type="unfinished">O singură pagină</translation>
+        <translation>O singură pagină</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="83"/>
         <source>Two pages</source>
-        <translation type="unfinished">Două pagini</translation>
+        <translation>Două pagini</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="84"/>
         <source>Four pages</source>
-        <translation type="unfinished">Patru pagini</translation>
+        <translation>Patru pagini</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="85"/>
         <source>Six pages</source>
-        <translation type="unfinished">Șase pagini</translation>
+        <translation>Șase pagini</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="86"/>
         <source>Nine pages</source>
-        <translation type="unfinished">Nouă pagini</translation>
+        <translation>Nouă pagini</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished">16 pagini</translation>
+        <translation>16 pagini</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Number-up:</source>
-        <translation type="unfinished">Numerotare:</translation>
+        <translation>Numerotare:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
         <source>Bottom to top and left to right</source>
-        <translation type="unfinished">De jos în sus și de la stânga la dreapta</translation>
+        <translation>De jos în sus și de la stânga la dreapta</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Bottom to top and right to left</source>
-        <translation type="unfinished">De jos în sus și de la dreapta la stânga</translation>
+        <translation>De jos în sus și de la dreapta la stânga</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="95"/>
         <source>Left to right and bottom to top</source>
-        <translation type="unfinished">De la stânga la dreapta și de jos în sus</translation>
+        <translation>De la stânga la dreapta și de jos în sus</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="96"/>
         <source>Left to right and top to bottom</source>
-        <translation type="unfinished">De la stânga la dreapta și de sus în jos</translation>
+        <translation>De la stânga la dreapta și de sus în jos</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Right to left and bottom to top</source>
-        <translation type="unfinished">De la dreapta la stânga și de jos în sus</translation>
+        <translation>De la dreapta la stânga și de jos în sus</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="98"/>
         <source>Right to left and top to bottom</source>
-        <translation type="unfinished">De la dreapta la stânga și de sus în jos</translation>
+        <translation>De la dreapta la stânga și de sus în jos</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Top to bottom and left to right</source>
-        <translation type="unfinished">De sus în jos și de la stânga la dreapta</translation>
+        <translation>De sus în jos și de la stânga la dreapta</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="100"/>
         <source>Top to bottom and right to left</source>
-        <translation type="unfinished">De sus în jos și de la dreapta la stânga</translation>
+        <translation>De sus în jos și de la dreapta la stânga</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="103"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished">Aranjament numerotare:</translation>
+        <translation>Aranjament numerotare:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="107"/>
         <source>Extended options</source>
-        <translation type="unfinished">Opțiuni extinse</translation>
+        <translation>Opțiuni extinse</translation>
     </message>
 </context>
 <context>
@@ -1386,12 +1386,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="262"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished">Biți antialias grafică:</translation>
+        <translation>Biți antialias grafică:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="270"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished">Biți antialias text:</translation>
+        <translation>Biți antialias text:</translation>
     </message>
 </context>
 <context>
@@ -1399,12 +1399,12 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="32"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished">Închise &amp;recent</translation>
+        <translation>Închise &amp;recent</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">Șterge &amp;lista</translation>
+        <translation>Șterge &amp;lista</translation>
     </message>
 </context>
 <context>
@@ -1412,12 +1412,12 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="32"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished">Deschise &amp;recent</translation>
+        <translation>Deschise &amp;recent</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="41"/>
         <source>&amp;Clear list</source>
-        <translation type="unfinished">Șterge &amp;lista</translation>
+        <translation>Șterge &amp;lista</translation>
     </message>
 </context>
 <context>
@@ -1446,42 +1446,42 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="108"/>
         <source>General</source>
-        <translation type="unfinished">Setări generale</translation>
+        <translation>Setări generale</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="141"/>
         <source>&amp;Behavior</source>
-        <translation type="unfinished">&amp;Comportament</translation>
+        <translation>&amp;Comportament</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="142"/>
         <source>&amp;Graphics</source>
-        <translation type="unfinished">&amp;Grafică</translation>
+        <translation>&amp;Grafică</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="143"/>
         <source>&amp;Interface</source>
-        <translation type="unfinished">&amp;Interfață</translation>
+        <translation>&amp;Interfață</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="144"/>
         <source>&amp;Shortcuts</source>
-        <translation type="unfinished">&amp;Scurtături</translation>
+        <translation>&amp;Scurtături</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="145"/>
         <source>&amp;Modifiers</source>
-        <translation type="unfinished">&amp;Modificatori</translation>
+        <translation>&amp;Modificatori</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="151"/>
         <source>Defaults</source>
-        <translation type="unfinished">Implicit</translation>
+        <translation>Implicit</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="154"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished">Setări implicite în tabul curent</translation>
+        <translation>Setări implicite în tabul curent</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="160"/>
@@ -1496,12 +1496,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="244"/>
         <source>Open URL:</source>
-        <translation type="unfinished">Deschide URL:</translation>
+        <translation>Deschide URL:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="248"/>
         <source>Auto-refresh:</source>
-        <translation type="unfinished">Reîmprospătare automată:</translation>
+        <translation>Reîmprospătare automată:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="252"/>
@@ -1514,32 +1514,32 @@
         <location filename="../sources/settingsdialog.cpp" line="572"/>
         <location filename="../sources/settingsdialog.cpp" line="581"/>
         <source>Effective after restart.</source>
-        <translation type="unfinished">Se aplică după repornire.</translation>
+        <translation>Se aplică după repornire.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="252"/>
         <source>Track recently used:</source>
-        <translation type="unfinished">Memorează documente deschise recent:</translation>
+        <translation>Memorează documente deschise recent:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="255"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished">Păstrează documentele închise recent:</translation>
+        <translation>Păstrează documentele închise recent:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="259"/>
         <source>Restore tabs:</source>
-        <translation type="unfinished">Restaurare file:</translation>
+        <translation>Restaurare file:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="262"/>
         <source>Restore bookmarks:</source>
-        <translation type="unfinished">Restaurare semne de carte:</translation>
+        <translation>Restaurare semne de carte:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="265"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished">Restabilire configurări pentru fiecare fișier:</translation>
+        <translation>Restabilire configurări pentru fiecare fișier:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="268"/>
@@ -1554,17 +1554,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished">Sincronizare prezentare:</translation>
+        <translation>Sincronizare prezentare:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Default</source>
-        <translation type="unfinished">Implicit</translation>
+        <translation>Implicit</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished">Ecran prezentare:</translation>
+        <translation>Ecran prezentare:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="291"/>
@@ -1589,32 +1589,32 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="305"/>
         <source>None</source>
-        <translation type="unfinished">Nimic</translation>
+        <translation>Nimic</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="305"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished">Durată evidențiere:</translation>
+        <translation>Durată evidențiere:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="308"/>
         <source>Highlight color:</source>
-        <translation type="unfinished">Culoare evidențiere:</translation>
+        <translation>Culoare evidențiere:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="311"/>
         <source>Annotation color:</source>
-        <translation type="unfinished">Culoare adnotări:</translation>
+        <translation>Culoare adnotări:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="315"/>
         <source>&apos;%1&apos; is replaced by the absolute file path. &apos;%2&apos; resp. &apos;%3&apos; is replaced by line resp. column number.</source>
-        <translation type="unfinished">„%1” este înlocuit(ă) de calea absolută către fișier. „%2” respectiv „%3” este înlocuit(ă) de un rând corespunzător numărului coloanei.</translation>
+        <translation>„%1” este înlocuit(ă) de calea absolută către fișier. „%2” respectiv „%3” este înlocuit(ă) de un rând corespunzător numărului coloanei.</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="315"/>
         <source>Source editor:</source>
-        <translation type="unfinished">Editor surse:</translation>
+        <translation>Editor surse:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="383"/>
@@ -1624,47 +1624,47 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="386"/>
         <source>Keep obsolete pixmaps:</source>
-        <translation type="unfinished">Păstrează fișierele imagine învechite:</translation>
+        <translation>Păstrează fișierele imagine învechite:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="389"/>
         <source>Use device pixel ratio:</source>
-        <translation type="unfinished">Utilizează proporție pixeli:</translation>
+        <translation>Utilizează proporție pixeli:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="399"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished">Decorare pagini:</translation>
+        <translation>Decorare pagini:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="402"/>
         <source>Decorate links:</source>
-        <translation type="unfinished">Decorare legături:</translation>
+        <translation>Decorare legături:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="405"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished">Decorare formulare:</translation>
+        <translation>Decorare formulare:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="409"/>
         <source>Background color:</source>
-        <translation type="unfinished">Culoare fundal:</translation>
+        <translation>Culoare fundal:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="412"/>
         <source>Paper color:</source>
-        <translation type="unfinished">Culoare hârtie:</translation>
+        <translation>Culoare hârtie:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="415"/>
         <source>Presentation background color:</source>
-        <translation type="unfinished">Culoare de fundal pentru prezentare:</translation>
+        <translation>Culoare de fundal pentru prezentare:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="419"/>
         <source>Pages per row:</source>
-        <translation type="unfinished">Pagini per rând:</translation>
+        <translation>Pagini per rând:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="423"/>
@@ -1676,17 +1676,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="423"/>
         <source>Page spacing:</source>
-        <translation type="unfinished">Spațiere pagină:</translation>
+        <translation>Spațiere pagină:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="426"/>
         <source>Thumbnail spacing:</source>
-        <translation type="unfinished">Spațiere miniaturi:</translation>
+        <translation>Spațiere miniaturi:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="430"/>
         <source>Thumbnail size:</source>
-        <translation type="unfinished">Dimensiune miniaturi:</translation>
+        <translation>Dimensiune miniaturi:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="430"/>
@@ -1712,12 +1712,12 @@
         <location filename="../sources/settingsdialog.cpp" line="822"/>
         <location filename="../sources/settingsdialog.cpp" line="831"/>
         <source>%1 MB</source>
-        <translation type="unfinished">%1 MB</translation>
+        <translation>%1 MB</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="434"/>
         <source>Cache size:</source>
-        <translation type="unfinished">Mărime cache:</translation>
+        <translation>Mărime cache:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
@@ -1727,47 +1727,47 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="437"/>
         <source>Prefetch:</source>
-        <translation type="unfinished">Preîncărcare:</translation>
+        <translation>Preîncărcare:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="440"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished">Interval pre-încărcare:</translation>
+        <translation>Interval pre-încărcare:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="539"/>
         <source>Top</source>
-        <translation type="unfinished">Sus</translation>
+        <translation>Sus</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="539"/>
         <source>Bottom</source>
-        <translation type="unfinished">Jos</translation>
+        <translation>Jos</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="539"/>
         <source>Left</source>
-        <translation type="unfinished">Stânga</translation>
+        <translation>Stânga</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="539"/>
         <source>Right</source>
-        <translation type="unfinished">Dreapta</translation>
+        <translation>Dreapta</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="538"/>
         <source>Tab position:</source>
-        <translation type="unfinished">Poziția filei:</translation>
+        <translation>Poziția filei:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="544"/>
         <source>As needed</source>
-        <translation type="unfinished">După necesitate</translation>
+        <translation>După necesitate</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="544"/>
         <source>Always</source>
-        <translation type="unfinished">Întotdeauna</translation>
+        <translation>Întotdeauna</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="555"/>
@@ -1793,7 +1793,7 @@
         <location filename="../sources/settingsdialog.cpp" line="268"/>
         <location filename="../sources/settingsdialog.cpp" line="544"/>
         <source>Never</source>
-        <translation type="unfinished">Niciodată</translation>
+        <translation>Niciodată</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="105"/>
@@ -1803,27 +1803,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="543"/>
         <source>Tab visibility:</source>
-        <translation type="unfinished">Vizibilitate file:</translation>
+        <translation>Vizibilitate file:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="548"/>
         <source>Spread tabs:</source>
-        <translation type="unfinished">Desfă filele:</translation>
+        <translation>Desfă filele:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="552"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished">Tab nou lângă cel actual:</translation>
+        <translation>Tab nou lângă cel actual:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="559"/>
         <source>Recently used count:</source>
-        <translation type="unfinished">Numărătoare utilizată recent:</translation>
+        <translation>Numărătoare utilizată recent:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="562"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished">Număr de fișiere închise recent:</translation>
+        <translation>Număr de fișiere închise recent:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="528"/>
@@ -1838,17 +1838,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="566"/>
         <source>File tool bar:</source>
-        <translation type="unfinished">Bară de unelte pentru fișiere:</translation>
+        <translation>Bară de unelte pentru fișiere:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="569"/>
         <source>Edit tool bar:</source>
-        <translation type="unfinished">Bara de unelte pentru editare:</translation>
+        <translation>Bara de unelte pentru editare:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="572"/>
         <source>View tool bar:</source>
-        <translation type="unfinished">Vizualizare bare de unelte:</translation>
+        <translation>Vizualizare bare de unelte:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="592"/>
@@ -1858,67 +1858,67 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="595"/>
         <source>Document title as tab title:</source>
-        <translation type="unfinished">Titlu document ca titlu de filă:</translation>
+        <translation>Titlu document ca titlu de filă:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="599"/>
         <source>Current page in window title:</source>
-        <translation type="unfinished">Pagina curentă în titlul ferestrei:</translation>
+        <translation>Pagina curentă în titlul ferestrei:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="602"/>
         <source>Instance name in window title:</source>
-        <translation type="unfinished">Numele instanței în titlul ferestrei:</translation>
+        <translation>Numele instanței în titlul ferestrei:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="288"/>
         <source>Synchronize outline view:</source>
-        <translation type="unfinished">Sincronizare vedere de ansamblu:</translation>
+        <translation>Sincronizare vedere de ansamblu:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="606"/>
         <source>Highlight current thumbnail:</source>
-        <translation type="unfinished">Evidențiere pictogramă curentă:</translation>
+        <translation>Evidențiere pictogramă curentă:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="609"/>
         <source>Limit thumbnails to results:</source>
-        <translation type="unfinished">Limitare pictograme la rezultate:</translation>
+        <translation>Limitare pictograme la rezultate:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="531"/>
         <source>Annotation overlay:</source>
-        <translation type="unfinished">Suprapunere adnotări:</translation>
+        <translation>Suprapunere adnotări:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="534"/>
         <source>Form field overlay:</source>
-        <translation type="unfinished">Suprapunere câmpuri pentru forme:</translation>
+        <translation>Suprapunere câmpuri pentru forme:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="693"/>
         <source>Zoom:</source>
-        <translation type="unfinished">Panoramare:</translation>
+        <translation>Panoramare:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="696"/>
         <source>Rotate:</source>
-        <translation type="unfinished">Rotire:</translation>
+        <translation>Rotire:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="699"/>
         <source>Scroll:</source>
-        <translation type="unfinished">Derulare:</translation>
+        <translation>Derulare:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="702"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished">Copiere în clipboard:</translation>
+        <translation>Copiere în clipboard:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="705"/>
         <source>Add annotation:</source>
-        <translation type="unfinished">Adăugare adnotare:</translation>
+        <translation>Adăugare adnotare:</translation>
     </message>
 </context>
 <context>
@@ -1926,42 +1926,42 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="146"/>
         <source>Action</source>
-        <translation type="unfinished">Acțiune</translation>
+        <translation>Acțiune</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="148"/>
         <source>Key sequence</source>
-        <translation type="unfinished">Secvență taste</translation>
+        <translation>Secvență taste</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="262"/>
         <source>Skip backward</source>
-        <translation type="unfinished">Sari înapoi:</translation>
+        <translation>Sari înapoi:</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="266"/>
         <source>Skip forward</source>
-        <translation type="unfinished">Sari înainte:</translation>
+        <translation>Sari înainte:</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="270"/>
         <source>Move up</source>
-        <translation type="unfinished">Sus</translation>
+        <translation>Sus</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="274"/>
         <source>Move down</source>
-        <translation type="unfinished">Jos</translation>
+        <translation>Jos</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="278"/>
         <source>Move left</source>
-        <translation type="unfinished">Stânga</translation>
+        <translation>Stânga</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="282"/>
         <source>Move right</source>
-        <translation type="unfinished">Dreapta</translation>
+        <translation>Dreapta</translation>
     </message>
 </context>
 <context>
@@ -1969,12 +1969,12 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="697"/>
         <source>&amp;Expand all</source>
-        <translation type="unfinished">&amp;Extinde tot</translation>
+        <translation>&amp;Extinde tot</translation>
     </message>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="698"/>
         <source>&amp;Collapse all</source>
-        <translation type="unfinished">&amp;Strânge tot</translation>
+        <translation>&amp;Strânge tot</translation>
     </message>
 </context>
 </TS>
