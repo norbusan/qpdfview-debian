@@ -8,7 +8,7 @@ License: GPL-2+
 
 Files: debian/*
 Copyright: 2012 Benjamin Eltzner <b.eltzner@gmx.de>
-           2018 Boyuan Yang <073plan@gmail.com>
+           2018 Boyuan Yang <byang@debian.org>
 License: GPL-2+
 
 Files: synctex/*
