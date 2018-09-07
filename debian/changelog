@@ -1,3 +1,13 @@
+qpdfview (0.4.17~beta1+git20180709-1) unstable; urgency=medium
+
+  * QA upload.
+  * New upstream trunk snapshot 20180709.
+  * Rebuild against gcc 8 and Qt 5.11.
+  * debian/control: Bump Standards-Version to 4.2.1 (no changes needed).
+  * debian/copyright: Refresh information.
+
+ -- Boyuan Yang <byang@debian.org>  Fri, 07 Sep 2018 14:00:03 -0400
+
 qpdfview (0.4.17~beta1+git20180514-1) unstable; urgency=medium
 
   * QA upload.
