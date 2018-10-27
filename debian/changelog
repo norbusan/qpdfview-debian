@@ -1,10 +1,13 @@
-qpdfview (0.4.17~beta1+git20180709-2) UNRELEASED; urgency=medium
+qpdfview (0.4.17~beta1+git20180709-2) unstable; urgency=medium
 
   * QA upload.
+  * Rebuild against Qt 5.11.2.
   * debian/control: Update Vcs-* fields; packaging repository is now
     under Debian Qt/KDE Team.
+  * debian/patches: Add a patch to finish zh_CN translation.
+    All modifications have been forwarded upstream.
 
- -- Boyuan Yang <byang@debian.org>  Thu, 18 Oct 2018 10:14:54 -0400
+ -- Boyuan Yang <byang@debian.org>  Fri, 26 Oct 2018 20:13:54 -0400
 
 qpdfview (0.4.17~beta1+git20180709-1) unstable; urgency=medium
 
