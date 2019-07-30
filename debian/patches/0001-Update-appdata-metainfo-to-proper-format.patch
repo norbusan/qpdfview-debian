@@ -1,8 +1,8 @@
 From: Boyuan Yang <073plan@gmail.com>
 Date: Wed, 16 May 2018 23:56:14 +0800
 Subject: Update appdata metainfo to proper format
-Forwarded: no
 
+Forwarded: no
 ---
  miscellaneous/qpdfview.appdata.xml | 12 +++++++-----
  qpdfview.pri                       |  2 +-
@@ -41,7 +41,7 @@ index 8003386..9a4e31e 100644
 +    <update_contact>qpdfview_AT_lists.launchpad.net</update_contact>
 +</component>
 diff --git a/qpdfview.pri b/qpdfview.pri
-index f40e29c..2b12da3 100644
+index 6dbd353..c50711e 100644
 --- a/qpdfview.pri
 +++ b/qpdfview.pri
 @@ -6,7 +6,7 @@ isEmpty(DATA_INSTALL_PATH):DATA_INSTALL_PATH = /usr/share/qpdfview

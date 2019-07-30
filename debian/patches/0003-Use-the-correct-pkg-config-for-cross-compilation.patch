@@ -1,9 +1,9 @@
 From: Helmut Grohne <helmut@subdivi.de>
 Date: Thu, 17 May 2018 08:41:30 +0800
 Subject: Use the correct pkg-config for cross compilation
+
 Forwarded: no
 Bug-Debian: https://bugs.debian.org/886521
-
 ---
  pdf-plugin.pro | 17 +++++++++--------
  1 file changed, 9 insertions(+), 8 deletions(-)

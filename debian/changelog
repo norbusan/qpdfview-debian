@@ -1,3 +1,24 @@
+qpdfview (0.4.18-1) unstable; urgency=medium
+
+  * QA upload.
+  * New upstream release 0.4.18. (Closes: #918461)
+    + Ships updated translation files. (Closes: #823175)
+  * debian/control:
+    + Bump debhelper compat to v12.
+    + Bump Standards-Version to 4.4.0.
+    + Use "Rules-Requires-Root: no".
+    + Mark the main package and various plugins to provide
+      pdf-viewer, postscript-viewer and djvu-viewer.
+      (Closes: #904032)
+  * debian/upstream/signing-key.asc: Convert old .pgp format to
+    the new .asc one.
+  * debian/patches:
+    + Delete patch 0004, merged upstream.
+    + Refresh patches.
+  * debian/copyright: Refresh information.
+
+ -- Boyuan Yang <byang@debian.org>  Tue, 30 Jul 2019 16:00:45 -0400
+
 qpdfview (0.4.17~beta1+git20180709-2) unstable; urgency=medium
 
   * QA upload.
