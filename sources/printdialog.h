@@ -60,7 +60,11 @@ private:
 
     QCheckBox* m_fitToPageCheckBox;
 
+#if QT_VERSION < QT_VERSION_CHECK(5,11,0)
+
     QLineEdit* m_pageRangesLineEdit;
+
+#endif // QT_VERSION
 
 #if QT_VERSION < QT_VERSION_CHECK(5,2,0)
 

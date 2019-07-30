@@ -29,7 +29,7 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <html>
 
 <head>
-    <title>ヘルプ</title>    
+    <title>ヘルプ</title>
 </head>
 
 <body>
@@ -47,8 +47,8 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
         <li><a href="#bookmarks">しおり</a></li>
         <li><a href="#help">ヘルプ</a></li>
     </ol>
-    <li><a href="#mainview">Main view</a></li>
-    <li><a href="#auxiliaryviews">Auxiliary views</a></li>
+    <li><a href="#mainview">メインビュー</a></li>
+    <li><a href="#auxiliaryviews">予備ビュー</a></li>
     <li><a href="#settings">設定</a></li>
     <ol>
     	<li><a href="#behaviorsettings">挙動設定</a></li>
@@ -61,8 +61,8 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 
 <h4>はじめに</h4>
 
-<p><em>qpdfview</em>はタブ式文書ビューアです。これは、PDFサポートにPoppler、PSサポートにlibspectre、DjVuサポートにDjVuLibre、印刷サポートにCUPS、インタフェースにQt
-toolkitを使用しています。</p>
+<p><em>qpdfview</em> はタブ型文書ビューアです。PDF サポートに Poppler、PS サポートに libspectre、DjVu
+サポートに DjVuLibre、印刷サポートに CUPS、インタフェースに Qt toolkit を使用しています。</p>
 
 <p>コマンドラインオプションと設定ファイルの情報については、マニュアルページを参照してください。</p>
 
@@ -71,201 +71,140 @@ toolkitを使用しています。</p>
 <h4><a name="file">ファイル</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Open...</b> Opens a dialog to choose a file to open in the current
-tab. If there is no tab, the file is opened in a new tab.</li>
-	<li><b>Open in new tab...</b> Opens a dialog to choose files to open in new
-tabs.</li>
-	<li><b>Recently used</b> Contains a list of the most recently used files (if
-enabled in the settings).</li>
-	<li><b>Refresh</b> Reloads the file displayed in the current tab.</li>
-	<li><b>Save copy...</b> Opens a dialog to save a copy of the file displayed in
-the current tab.</li>
-	<li><b>Save as...</b> Opens a dialog to save the file displayed in the current
-tab including changes to annotations and form fields.</li>
-    <li><b>Print...</b> Opens a dialog to print the file displayed in the current
-tab.</li>
-	<li><b>Exit</b> Closes all tabs and ends the program.</li>
+    <li><b>開く...</b> 現在のタブで開くファイルを選択するダイアログを開きます。タブが無い場合は新規タブにファイルを開きます。</li>
+    <li><b>新規タブで開く...</b> 新規タブで開くファイルを選択するダイアログを開きます。</li>
+    <li><b>最近使用したもの</b> 最近使用したファイルの一覧を含みます (設定で有効になっている場合)。</li>
+    <li><b>再読込</b> 現在のタブに表示されているファイルを再読み込みします。</li>
+    <li><b>保存</b> 註釈やフォームフィールドへの変更を、現在のタブに表示されているファイルへ保存します。</li>
+    <li><b>名前を付けて保存...</b>
+現在のタブに表示されている内容に対して行われた、註釈やフォームフィールドへの変更を、ファイルへ保存するダイアログを開きます。</li>
+    <li><b>コピーを保存...</b> 現在のタブに表示されているファイルのコピーを、未変更のまま保存するダイアログを開きます。</li>
+    <li><b>印刷...</b> 現在のタブに表示されているファイルを印刷するダイアログを開きます。</li>
+    <li><b>終了</b> 全てのタブを閉じてプログラムを終了します。</li>
 </ul>
 
 <h4><a name="edit">編集</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Next/Previous/First/Last page</b> Skips to the next/previous/first/last
-page of the document.</li>
-    <li><b>Jump to page...</b> Opens a dialog to enter a page to display in the
-current tab.</li>
-    <li><b>Jump backward/forward</b> Jumps backward/forward in the history of
-displayed page.</li>
-	<li><b>Search...</b> Opens the search dock below the main view. The search
-automatically starts two seconds after the last change of the search term or
-is manually started by pressing the return key. If the Shift modifier is
-held when the return key is pressed, the search starts in all tabs instead
-of just the current tab. (This effect is reversed if the extended search
-dock is enabled in the settings.)</li>
-	<li><b>Find previous/next</b> Jumps to the previous/next occurrence of the
-search term in the document.</li>
-	<li><b>Cancel search</b> Cancels the currently running search and closes the
-search dock.</li>
-	<li><b>Copy to clipboard</b> If checked, the program will wait for a frame to be
-dragged to copy texts or images.</li>
-	<li><b>Add annotation</b> If checked, the program will wait for a frame to be
-dragged to add annotations.</li>
-	<li><b>Settings...</b> Opens the settings dialog. The button labeled 'Defaults'
-will revert all settings on all tabs to their default values. The button
-labeled 'Defaults on current tab' will revert only the settings on the
-current tab to their default values.</li>
+    <li><b>前ページ/次ページ/最初のページ/最後のページ</b> 文書の前のページ、次のページ、最初のページ、最後のページへ移動します。</li>
+    <li><b>指定ページへ跳ぶ...</b> 現在のタブに表示するページを入力するダイアログを開きます。</li>
+    <li><b>後ろに跳ぶ/前に跳ぶ</b> 表示されているページの履歴で前後に跳びます。</li>
+    <li><b>検索...</b>
+メインビューの下に検索ドックを開きます。そこに文字を入力すると、2秒後に自動的に検索が開始されます。また、リターンキーを押して手動で開始することもできます。リターンキーを押下する際に
+Shift キーも押しておくと、現在のタブだけではなく全てのタブに対して検索を行います
+(この挙動は、設定で拡張検索ドックが有効になっていると逆になります)。</li>
+    <li><b>前を検索/次を検索</b> 文書内の検索用語が出現する前の場所、次の場所に跳びます。</li>
+    <li><b>検索を取り消す</b> 現在実行中の検索を取り止め、検索ドックを閉じます。</li>
+    <li><b>クリップボードにコピー</b> チェックを入れると、ドラッグで範囲選択できるようになり、選択した部分のテキストや画像をコピーすることができます。</li>
+    <li><b>註釈を追加</b> チェックを入れると、ドラッグで範囲選択できるようになり、選択した部分に註釈を追加することができます。</li>
+    <li><b>設定...</b>
+設定ダイアログを開きます。「既定」ボタンを押すと、全てのタブの設定が既定値に戻ります。「このタブの既定値」ボタンは、現在のタブのみを既定値に戻します。</li>
 </ul>
 
-<p>The <em>current page</em> can be changed by entering the desired page into
-the text field in the edit tool bar, which can be focused using Ctrl+K, and
-pressing the return key.</p>
+<p><b>現在のページ</b>は、Ctrl + K
+を押して編集ツールバーのテキストフィールドにフォーカスを移し、目的のページ数を入力してリターンキーを押すことで、変更できます。</p>
 
 <h4><a name="view">表示</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-	<li><b>Continuous</b> Determines whether all rows of the page layout are visible
-at once.</li>
-	<li><b>Two pages</b> Determines whether the page layout uses two columns.</li>
-	<li><b>Two pages with cover page</b> Determines whether the page layout uses two
-columns with a break after the cover page.</li>
-	<li><b>Multiple pages</b> Determines whether the page layout uses multiple
-columns. The number of columns can be changed in the settings dialog.</li>
-    <li><b>Right to left</b> Determines how pages are arranged in layouts with
-multiple pages per row.</li>
-	<li><b>Zoom in</b> Increases the scale factor by 10 percent. The maximum scale
-factor is 5000 percent.</li>
-	<li><b>Zoom out</b> Decreases the scale factor by 10 percent. The minimum scale
-factor is 10 percent.</li>
-	<li><b>Original size</b> Resets the scale factor to 100 percent.</li>
-    <li><b>Fit to page width</b> Determines the scale factor such that all pages
-fully fit into the main view horizontally.</li>
-	<li><b>Fit to page size</b> Determines the scale factor such that all pages
-fully fit into the main view horizontally and vertically.</li>
-	<li><b>Rotate left</b> Rotates the pages left/counterclockwise by 90 degrees.</li>
-	<li><b>Rotate right</b> Rotates the pages right/clockwise by 90 degrees.</li>
-    <li><b>Invert colors</b> Determines whether pages are rendered with inverted
-colors.</li>
-    <li><b>Convert to grayscale</b> Determines whether pages are converted to
-grayscale after rendering.</li>
-    <li><b>Trim margins</b> Enables the removal of empty page margins after
-rendering.</li>
-    <li><b>Composition</b> Enables the composition of the rendered page with the
-paper color to adjust the background of scanned documents.</li>
-	<li><b>Tool bars</b> This menu contains a list of available tool bars for
-accessing frequently used actions.</li>
-	<li><b>Docks</b> This menu contains a list of available docks for displaying
-supplementary information.</li>
-	<li><b>Fonts...</b> Opens a dialog listing the fonts used in the document.</li>
-	<li><b>Fullscreen</b> Toggles the fullscreen mode, i.e. the window is shown
-maximized and without decoration.</li>
-	<li><b>Presentation...</b> Enters presentation mode which can be left by
-pressing F12 or escape. The home/end key is used to display the first/last
-page. Arrow keys right and down, space and the page down key jump to the
-next page. Arrow keys left and up, backspace and the page up key jump to the
-previous page. Pressing control and return jumps back to the page before the
-last jump.</li>
+    <li><b>連続表示</b> 全てのページを一度に表示するかどうかを指定します。</li>
+    <li><b>見開き</b> 2つのページを横に並べて表示するかどうかを指定します。</li>
+    <li><b>見開き(表紙付き)</b> カバーページ以降の2つのページを横に並べて表示するかどうかを指定します。</li>
+    <li><b>複数ページ</b> 複数のページを横に並べて表示するかどうかを指定します。一行あたりのページ数は設定ダイアログで変更できます。</li>
+    <li><b>右から左</b> 複数のページを横に並べる方向を指定します。</li>
+    <li><b>拡大</b> 拡大率を10%増加します。最大倍率は5000%です。</li>
+    <li><b>縮小</b> 拡大率を10%縮小します。最小倍率は10%です。</li>
+    <li><b>原寸大</b> 拡大率を100%に戻します。</li>
+    <li><b>ページ幅に合わせる</b> 全てのページがメインビューの横幅に完全に収まるように拡大率を指定します。</li>
+    <li><b>ページ寸法に合わせる</b> 全てのページがメインビューの縦幅と横幅に完全に収まるように拡大率を指定します。</li>
+    <li><b>左に回転</b> ページを左/反時計回りに90度回転します。</li>
+    <li><b>右に回転</b> ページを右/時計回りに90度回転します。</li>
+    <li><b>色を反転</b> 反転された色でページを描画するかどうかを指定します。</li>
+    <li><b>グレースケールに変換</b> ページを描画した後グレースケールに変換するかどうかを指定します。</li>
+    <li><b>余白を落とす</b> ページ描画後の余白 (マージン) 削除を有効にします。</li>
+    <li><b>合成</b> スキャンされた文書の背景を調整するために、紙の色と描画されたページの合成を有効にします。</li>
+    <li><b>ツールバー</b> このメニューには、使用頻度が高い動作を利用できるツールバーの一覧が表示されます。</li>
+    <li><b>ドック</b> このメニューには、補足情報を表示するための利用可能なドックの一覧が表示されます。</li>
+    <li><b>フォント...</b> 文書中で使用されるフォント一覧のダイアログを開きます。</li>
+    <li><b>全画面表示</b> 全画面表示モードを切り替えます。ウィンドウは最大化され、ウィンドウ装飾が非表示になります。</li>
+    <li><b>プレゼンテーション...</b> F12 を押すとプレゼンテーションモードになります。Home キーを押すと最初のページを、End
+キーを押すと最後のページを表示します。矢印キーの → と ↓、スペースキーと Page Down キーで次のページに移動します。矢印キーの ← と
+↑、Back Space キーと Page Up キーで前のページに移動します。Ctrl
+キーを押しながらリターンキーを押すと、前に表示したページに跳びます。</li>
 </ul>
 
-<p>The <em>scale factor</em> can be changed by entering the desired percentage
-into the text field in the view tool bar, which can be focused using Ctrl+L,
-and pressing the return key.</p>
+<p><b>拡大率</b>は Ctrl + L
+を押して表示ツールバーのテキストフィールドにフォーカスを移し、任意の数値を入力してリターンキーを押すことで変更できます。</p>
 
 <h4><a name="tabs">タブ</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Previous/Next tab</b> Makes the previous/next tab the current tab. Cycles
-to the last/first tab if the first/last tab is the current tab.</li>
-    <li><b>Close tab</b> Closes the current tab.</li>
-    <li><b>Close all tabs</b> Closes all tabs.</li>
-    <li><b>Close all tabs but current tab</b> Closes all tabs except for the current
-tab.</li>
-    <li><b>Recently closed</b> Contains a list of the most recently closed tabs (if
-enabled in the settings).</li>
+    <li><b>前のタブ/次のタブ</b> 前のタブ/次のタブを現在のタブにします。現在のタブが先頭/末尾のタブの場合は循環します。</li>
+    <li><b>タブを閉じる</b> 現在のタブを閉じます。</li>
+    <li><b>全てのタブを閉じる</b> 全てのタブを閉じます。</li>
+    <li><b>現在のタブ以外全て閉じる</b> 現在のタブを除いた全てのタブを閉じます。</li>
+    <li><b>最近閉じたもの</b> 最近閉じたタブの一覧が表示されます (設定で有効になっている場合)。</li>
 </ul>
 
-<p>This menu contains a list of all tabs which can be made the current tab by
-clicking on the corresponding menu item. Tabs can also be closed by
-middle-clicking. The first nine tabs can also be activated by holding the
-Alt modifier and pressing keys one to nine.</p>
+<p>このメニューには、クリックすることで現在のタブとして表示できる全てのタブが、メニュー項目として表示されます。タブは中クリックで閉じることができます。最初の9個までのタブは、Alt
+キーを押しながら 1 〜 9 の数字キーを押すことで切り替えることもできます。</p>
 
 <h4><a name="bookmarks">しおり</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Previous bookmark</b> Jumps to the closest bookmark before the current
-page.</li>
-    <li><b>Next bookmark</b> Jumps to the closest bookmark after the current page.</li>
-    <li><b>Add bookmark</b> Adds a bookmark for the current file and page.</li>
-    <li><b>Remove bookmark</b> Removes the bookmark for the current file and page.</li>
-    <li><b>Remove all bookmarks</b> Removes all bookmarks.</li>
-    <li><b>Open</b> Opens the corresponding file in the current tab. If there is no
-tab, the file is opened in a new tab.</li>
-    <li><b>Open in new tab</b> Opens the corresponding file in a new tab.</li>
-    <li><b>Jump to page</b> Jumps to the corresponding page if the corresponding
-file is already open. Otherwise the corresponding file is opened in a new
-tab.</li>
+    <li><b>前のしおり</b> 現在のページより前の直近のしおりに跳びます。</li>
+    <li><b>次のしおり</b> 現在のページより後の直近のしおりに跳びます。</li>
+    <li><b>しおりを付ける</b> 現在のファイルとページにしおりを追加します。</li>
+    <li><b>しおりを外す</b> 現在のファイルとページからしおりを削除します。</li>
+    <li><b>しおりを全て外す</b> 全てのしおりを削除します。</li>
+    <li><b>開く</b> 任意のファイルを現在のタブに開きます。タブが無い場合は新しいタブにファイルが開かれます。</li>
+    <li><b>新規タブで開く</b> 新しいタブにファイルを開きます。</li>
+    <li><b>指定ページへ跳ぶ</b> 対象のファイルを既に開いている場合は、直接そのページに移動します。そうでない場合は新しいタブにファイルを開きます。</li>
 </ul>
 
 <h4><a name="help">ヘルプ</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
 	<li><b>目次</b> この文書を表示します。</li>
-	<li><b>About</b> Displays the program version.</li>
+	<li><b>qpdfviewについて</b> プログラムのバージョンを表示します。</li>
 </ul>
 
-<h3><a name="mainview">Main view</a> <a href="#top">&uarr;</a></h3>
+<h3><a name="mainview">メインビュー</a> <a href="#top">&uarr;</a></h3>
 
-<p>The backspace/space key skips to the previous/next page. The home/end key
-skips to the first/last page. The arrow, page up and page down keys scroll
-the viewport. Pressing control and return jumps to the page before the last
-jump.</p>
+<p>Back Space キーで前のページ、スペースキーで次のページ、Home キーで最初のページ、End キーで最後のページに移動します。矢印キーの ↑
+と ↓、Page Up/Down キーでページを上下にスクロールします。Ctrl キーを押しながらリターンキーを押すとページの表示履歴を遡ります。</p>
 
-<p>Using the mouse wheel scrolls up and down. Holding <b>ALT</b> while using
-the mouse wheel scrolls left and right. Holding <b>CTRL</b> while using the
-mouse wheel scales the document. Holding <b>SHIFT</b> while using the mouse
-wheel rotates the document. (Keyboard modifiers can be changed in the
-settings dialog.) Click and hold the middle mouse button to select a
-rectangle to zoom to.</p>
+<p>マウスホイールを上下に動かすとページがスクロールします。<b>ALT</b>
+を押しながらマウスホイールを動かすと左右にスクロールします。<b>CTRL</b>
+を押しながらマウスホイールを動かすと文書を拡大/縮小します。<b>SHIFT</b> を押しながらマウスホイールを動かすと文書が回転します
+(各キーは設定ダイアログで変更できます)。</p>
 
-<p>Links are highlighted by red frames (if enabled in the settings). Left-click
-on a link to show the linked page or open the linked URL in the default
-browser (if enabled in the settings). Middle-click on a link to show the
-linked page in a new tab. Hovering over a link displays its destination as a
-tool tip.</p>
+<p>リンクは赤い枠で囲われて強調されます (設定で有効になっている場合)。リンクを左クリックするとリンク先のページに移動するか、リンク先の URL
+をデフォルトのブラウザーで開きます
+(設定で有効になっている場合)。リンクを中クリックするとリンク先のページを新しいタブで表示します。リンクにカーソルを合わせるとリンク先をツールチップとして表示します。</p>
 
-<p>Form fields are highlighted by blue frames (if enabled in the
-settings). Left-click on a form field to edit its contents. Hovering over a
-form field displays its name as a tool tip.</p>
+<p>フォームフィールドは青い枠で囲われて強調されます
+(設定で有効になっている場合)。フォームフィールドを左クリックすると内容を編集できます。フォームフィールドにカーソルを合わせると名前をツールチップとして表示します。</p>
 
-<p>The source of a position in the document can be opened in the source editor
-using the context menu which optionally contains an item for the first
-matching <em>SyncTeX</em> node.</p>
+<p>文書内のソースは、最初に一致した <em>SyncTeX</em> ノードの項目を含むコンテキストメニューから、ソースエディターで開くことができます。</p>
 
-<p>To <em>copy texts or images</em>, hold <b>SHIFT</b>, click and hold the left
-mouse button to drag a frame around the area to copy. Once the mouse button
-is released, a pop-up menu is displayed to select whether to copy texts or
-images into the clipboard.</p>
+<p><b>文字や画像をコピーする</b>場合は、<b>SHIFT</b>
+を押しながら対象の範囲をマウスの左ボタンでドラッグして選択します。マウスのボタンを放すと、文字や画像をクリップボードにコピーするポップアップメニューが表示されます。</p>
 
-<p>To <em>add annotations</em>, hold <b>CTRL</b>, click and hold the left mouse
-button to drag a frame around the region to annotate. Once the mouse button
-is released, a pop-up menu is displayed to select whether to add text or
-highlight annotations. Left-click to <em>edit annotations</em>. Right-click
-to <em>remove annotations</em>. (Adding and removing annotations requires
-version 0.20.1 or higher of the Poppler library.) Hovering over an
-annotation displays its contents as a tool tip.</p>
+<p><b>註釈を追加</b>する場合は、<b>CTRL</b>
+を押したままマウスの左ボタンでドラッグし、範囲選択します。マウスボタンを放すと、文字を追加したり註釈を強調したりできるポップアップメニューが表示されます。左クリックで<b>註釈を編集</b>、右クリックで<b>註釈を削除</b>できます
+(註釈の追加や削除にはバージョン 0.20.1 以降の Poppler
+ライブラリが必要です)。註釈にカーソルを合わせると内容をツールチップとして表示します。</p>
 
-<p>To <em>zoom to a selection</em>, hold <b>SHIFT</b> and <b>CTRL</b>, click
-and hold the left mouse button to drag a frame around region to zoom into.</p>
+<p><b>特定の部分を拡大表示</b>する場合は、<b>SHIFT</b> と <b>CTRL</b>
+を押したままマウスの左ボタンでドラッグし、拡大表示したい範囲を選択します。</p>
 
-<p>The <em>visibility of the tool and menu bars</em> can be toggled using
-configurable keyboard shortcuts whose default values are "Shift+Alt+T" and
-"Shift+Alt+M".</p>
+<p>ツールバーとメニューバーは、キーボードショートカットで<b>表示/非表示</b>を切り替えることができます。初期設定では、ツールバーの表示切り替えは
+"Shift + Alt + T"、メニューバーの表示切り替えは "Shift + Alt + M" になっています。</p>
 
-<h3><a name="auxiliaryviews">Auxiliary views</a> <a href="#top">&uarr;</a></h3>
+<h3><a name="auxiliaryviews">補助ビュー</a> <a href="#top">&uarr;</a></h3>
 
-<p>The <em>outline view</em> displays an overview of the contents of the
-document. A left click on an entry jumps to the respective page in the main
-view. The context menu can be used to expand/collapse all items below the
-selected item.</p>
+<p><b>概要ビュー</b>は文書の内容の概要を表示します。各項目を左クリックすると、そのページがメインビューに表示されます。各項目を右クリックすると、その項目の要素を全て展開/畳むコンテキストメニューが表示されます。</p>
 
 <p>The outline view can also be navigated using the keyboard and the mouse
 wheel. Holding Shift and using the Up/Down keys will scroll the
@@ -437,13 +376,14 @@ fitToPageWidthMode, fitToPageSizeMode, rotateLeft, rotateRight, fullscreen,
 presentation and separator. (Effective after restart.)</li>
     <li><b>Document context menu</b> Defines which actions are visible in the
 document's context menu. Available actions are openCopyInNewTab,
-openContainingFolder, previousPage, nextPage, firstPage, lastPage,
-jumpToPage, jumpBackward, jumpForward, setFirstPage, findPrevious, findNext,
-cancelSearch and separator.</li>
+openCopyInNewWindow, openContainingFolder, moveToInstance, previousPage,
+nextPage, firstPage, lastPage, jumpToPage, jumpBackward, jumpForward,
+setFirstPage, findPrevious, findNext, cancelSearch and separator.</li>
     <li><b>Tab context menu</b> Defines which actions are visible in a tab's context
-menu. Available actions are openCopyInNewTab, openContainingFolder,
-copyFilePath, selectFilePath, closeAllTabs, closeAllTabsButThisOne,
-closeAllTabsToTheLeft, closeAllTabsToTheRight and separator.</li>
+menu. Available actions are openCopyInNewTab, openCopyInNewWindow,
+openContainingFolder, moveToInstance, copyFilePath, selectFilePath,
+closeAllTabs, closeAllTabsButThisOne, closeAllTabsToTheLeft,
+closeAllTabsToTheRight and separator.</li>
     <li><b>Scrollable menus</b> Will override the default style so that pop-up menus
 scroll instead being laid-out in mutliple columns if they are larger than
 the available screen space. (Effective after restart.)</li>

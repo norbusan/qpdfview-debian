@@ -29,77 +29,77 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <html>
 
 <head>
-    <title>Help</title>
+    <title>Помоћ</title>
 </head>
 
 <body>
 
-<h2><a name="top">Help</a></h2>
+<h2><a name="top">Помоћ</a></h2>
 
-<h4>Table of contents</h4>
+<h4>Садржај</h4>
 <ol>
-    <li><a href="#mainmenu">Main menu</a></li>
+    <li><a href="#mainmenu">Главни мени</a></li>
     <ol>
-        <li><a href="#file">File</a></li>
-        <li><a href="#edit">Edit</a></li>
-        <li><a href="#view">View</a></li>
-        <li><a href="#tabs">Tabs</a></li>
-        <li><a href="#bookmarks">Bookmarks</a></li>
-        <li><a href="#help">Help</a></li>
+        <li><a href="#file">Датотека</a></li>
+        <li><a href="#edit">Уреди</a></li>
+        <li><a href="#view">Приказ</a></li>
+        <li><a href="#tabs">Картице</a></li>
+        <li><a href="#bookmarks">Обележивачи</a></li>
+        <li><a href="#help">Помоћ</a></li>
     </ol>
-    <li><a href="#mainview">Main view</a></li>
-    <li><a href="#auxiliaryviews">Auxiliary views</a></li>
-    <li><a href="#settings">Settings</a></li>
+    <li><a href="#mainview">Главни изглед</a></li>
+    <li><a href="#auxiliaryviews">Помоћни изглед</a></li>
+    <li><a href="#settings">Подешавања</a></li>
     <ol>
-    	<li><a href="#behaviorsettings">Behavior settings</a></li>
-    	<li><a href="#graphicssettings">Graphics settings</a></li>
-    	<li><a href="#interfacesettings">Interface settings</a></li>
-    	<li><a href="#shortcutsettings">Shortcut settings</a></li>
-    	<li><a href="#modifiersettings">Modifier settings</a></li>
+    	<li><a href="#behaviorsettings">Понашање подешавања</a></li>
+    	<li><a href="#graphicssettings">Графичка подешавања</a></li>
+    	<li><a href="#interfacesettings">Подешавања интерфејса</a></li>
+    	<li><a href="#shortcutsettings">Подешавања пречица</a></li>
+    	<li><a href="#modifiersettings">Подешавање модификација</a></li>
     </ol>
 </ol>
 
-<h4>Introduction</h4>
+<h4>Увод</h4>
 
-<p><em>qpdfview</em> is a tabbed document viewer. It uses Poppler for PDF
-support, libspectre for PS support, DjVuLibre for DjVu support, CUPS for
-printing support and the Qt toolkit for its interface.</p>
+<p><em>qpdfview</em>је читач докумената са употрбом картица. Користи Poppler за
+PDF подршку, libspectre за PS подршку, DjVuLibre за DjVu подршку, CUPS за
+подршку штампања и Qt toolkit за интерфејс.</p>
 
-<p>Please refer to the manual page for information on command-line options and
-configuration files.</p>
+<p>Молимо вас да на страници приручника видите  информације о опцијама командне
+линије и конфигурационих фајлова.</p>
 
-<h3><a name="mainmenu">Main menu</a> <a href="#top">&uarr;</a></h3>
+<h3><a name="mainmenu">Главни мени</a> <a href="#top">&uarr;</a></h3>
 
-<h4><a name="file">File</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="file">Датотека</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Open...</b> Opens a dialog to choose a file to open in the current
-tab. If there is no tab, the file is opened in a new tab.</li>
-    <li><b>Open in new tab...</b> Opens a dialog to choose files to open in new
-tabs.</li>
-    <li><b>Recently used</b> Contains a list of the most recently used files (if
-enabled in the settings).</li>
-    <li><b>Refresh</b> Reloads the file displayed in the current tab.</li>
+    <li><b>Open...</b> Отвара дијалог за избор датотеке која се отвара у тренутној
+картици. Ако нема картице, датотека ће се отвотити у новој картици.</li>
+    <li><b>Open in new tab...</b> Отвара дијалог за избор датотека које се отварају
+у новим картицама.</li>
+    <li><b>Recently used</b> Садржи листу најчешће коришћених датотека (ако је
+омогућено у подешавањима).</li>
+    <li><b>Refresh</b> Поново учитава датотеку приказану у текућој картици.</li>
     <li><b>Save</b> Saves changes to annotations and form fields to the file
 displayed in the current tab.</li>
-    <li><b>Save as...</b> Opens a dialog to save the file displayed in the current
-tab including changes to annotations and form fields.</li>
+    <li><b>Сачувај као...</b> Отвара дијалог да сачувате датотеку приказану у
+текућој картици укључујући измене у напоменама и облицима поља.</li>
     <li><b>Save copy...</b> Opens a dialog to save an umodified copy of the file
 displayed in the current tab.</li>
-    <li><b>Print...</b> Opens a dialog to print the file displayed in the current
-tab.</li>
-    <li><b>Exit</b> Closes all tabs and ends the program.</li>
+    <li><b>Штампај...</b> Отвара дијалог штампања датотеке приказане у тренутној
+картици.</li>
+    <li><b>Изађи</b> Затвара све картице и излази из програма.</li>
 </ul>
 
-<h4><a name="edit">Edit</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="edit">Уреди</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Next/Previous/First/Last page</b> Skips to the next/previous/first/last
-page of the document.</li>
-    <li><b>Jump to page...</b> Opens a dialog to enter a page to display in the
-current tab.</li>
-    <li><b>Jump backward/forward</b> Jumps backward/forward in the history of
-displayed page.</li>
+    <li><b>Следећа/Претходна/Прва/Задња страна</b> Прескаче на
+следећу/претходну/прву/задњу страну документа.</li>
+    <li><b>Иди на страну...</b> Отвара дијалог за унос стране приказане у текућој
+картици.</li>
+    <li><b>Иди уназад/унапред</b> Иде уназад/унапред у историјату приказаних
+страница.</li>
     <li><b>Search...</b> Opens the search dock below the main view. The search
 automatically starts two seconds after the last change of the search term or
 is manually started by pressing the return key. If the Shift modifier is

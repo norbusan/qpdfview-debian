@@ -6,7 +6,7 @@
     <message>
         <location filename="../sources/imagemodel.cpp" line="121"/>
         <source>Image (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuva (%1)</translation>
     </message>
     <message>
         <location filename="../sources/imagemodel.cpp" line="149"/>
@@ -69,22 +69,22 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1014"/>
         <source>Linearized</source>
-        <translation type="unfinished"></translation>
+        <translation>Linearisoitu</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="176"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nimi</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="178"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tyyppi</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="180"/>
         <source>Embedded</source>
-        <translation type="unfinished"></translation>
+        <translation>Upotettu</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="182"/>
@@ -156,7 +156,7 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="242"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation>Luomispäivä</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="243"/>
@@ -344,17 +344,17 @@
         <translation>SyncTeX tietoja tiedostolle &apos;%1&apos; ei löydetty.</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2534"/>
+        <location filename="../sources/documentview.cpp" line="2537"/>
         <source>Printing &apos;%1&apos;...</source>
         <translation>Tulostetaan tiedostoa &apos;%1&apos;...</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2608"/>
+        <location filename="../sources/documentview.cpp" line="2611"/>
         <source>Unlock %1</source>
         <translation>Lukitse %1</translation>
     </message>
     <message>
-        <location filename="../sources/documentview.cpp" line="2608"/>
+        <location filename="../sources/documentview.cpp" line="2611"/>
         <source>Password:</source>
         <translation>Salasana:</translation>
     </message>
@@ -433,27 +433,27 @@
 <context>
     <name>qpdfview::MainWindow</name>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3270"/>
+        <location filename="../sources/mainwindow.cpp" line="3272"/>
         <source>Toggle tool bars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3271"/>
+        <location filename="../sources/mainwindow.cpp" line="3273"/>
         <source>Toggle menu bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="483"/>
         <location filename="../sources/mainwindow.cpp" line="525"/>
-        <location filename="../sources/mainwindow.cpp" line="1469"/>
-        <location filename="../sources/mainwindow.cpp" line="1480"/>
-        <location filename="../sources/mainwindow.cpp" line="1486"/>
-        <location filename="../sources/mainwindow.cpp" line="1502"/>
-        <location filename="../sources/mainwindow.cpp" line="1522"/>
-        <location filename="../sources/mainwindow.cpp" line="1560"/>
-        <location filename="../sources/mainwindow.cpp" line="1701"/>
-        <location filename="../sources/mainwindow.cpp" line="2815"/>
-        <location filename="../sources/mainwindow.cpp" line="2825"/>
+        <location filename="../sources/mainwindow.cpp" line="1471"/>
+        <location filename="../sources/mainwindow.cpp" line="1482"/>
+        <location filename="../sources/mainwindow.cpp" line="1488"/>
+        <location filename="../sources/mainwindow.cpp" line="1504"/>
+        <location filename="../sources/mainwindow.cpp" line="1524"/>
+        <location filename="../sources/mainwindow.cpp" line="1562"/>
+        <location filename="../sources/mainwindow.cpp" line="1703"/>
+        <location filename="../sources/mainwindow.cpp" line="2817"/>
+        <location filename="../sources/mainwindow.cpp" line="2827"/>
         <source>Warning</source>
         <translation>Varoitus</translation>
     </message>
@@ -505,24 +505,24 @@
         <translation>Avaa uudessa välilehdessä</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1469"/>
-        <location filename="../sources/mainwindow.cpp" line="1486"/>
-        <location filename="../sources/mainwindow.cpp" line="1701"/>
+        <location filename="../sources/mainwindow.cpp" line="1471"/>
+        <location filename="../sources/mainwindow.cpp" line="1488"/>
+        <location filename="../sources/mainwindow.cpp" line="1703"/>
         <source>Could not refresh &apos;%1&apos;.</source>
         <translation>Älä päivitä kohdetta &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1512"/>
+        <location filename="../sources/mainwindow.cpp" line="1514"/>
         <source>Save copy</source>
         <translation>Tallenna kopio</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1522"/>
+        <location filename="../sources/mainwindow.cpp" line="1524"/>
         <source>Could not save copy at &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1493"/>
+        <location filename="../sources/mainwindow.cpp" line="1495"/>
         <source>Save as</source>
         <translation>Tallenna nimellä</translation>
     </message>
@@ -539,134 +539,134 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1480"/>
-        <location filename="../sources/mainwindow.cpp" line="1502"/>
-        <location filename="../sources/mainwindow.cpp" line="2825"/>
+        <location filename="../sources/mainwindow.cpp" line="1482"/>
+        <location filename="../sources/mainwindow.cpp" line="1504"/>
+        <location filename="../sources/mainwindow.cpp" line="2827"/>
         <source>Could not save as &apos;%1&apos;.</source>
         <translation>Ei voitu tallentaa nimellä &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1560"/>
+        <location filename="../sources/mainwindow.cpp" line="1562"/>
         <source>Could not print &apos;%1&apos;.</source>
         <translation>Älä tulosta kohdetta &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1596"/>
+        <location filename="../sources/mainwindow.cpp" line="1598"/>
         <source>Set first page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1596"/>
+        <location filename="../sources/mainwindow.cpp" line="1598"/>
         <source>Select the first page of the body matter:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1609"/>
+        <location filename="../sources/mainwindow.cpp" line="1611"/>
         <source>Jump to page</source>
         <translation>Siirry sivulle</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="1609"/>
+        <location filename="../sources/mainwindow.cpp" line="1611"/>
         <source>Page:</source>
         <translation>Sivu:</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2014"/>
+        <location filename="../sources/mainwindow.cpp" line="2016"/>
         <source>Jump to page %1</source>
         <translation>Siirry sivulle %1</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2165"/>
+        <location filename="../sources/mainwindow.cpp" line="2167"/>
         <source>About qpdfview</source>
         <translation>Tietoja qpdfview:istä</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2165"/>
+        <location filename="../sources/mainwindow.cpp" line="2167"/>
         <source>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview is a tabbed document viewer using Qt.&lt;/p&gt;&lt;p&gt;This version includes:&lt;ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;&lt;b&gt;qpdfview %1&lt;/b&gt;&lt;/p&gt;&lt;p&gt;qpdfview on välilehdellinen asiakirjojen katseluohjelma käyttäen Qt:ta.&lt;/p&gt;&lt;p&gt;Tämä versio sisältää:&lt;ul&gt;</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2169"/>
+        <location filename="../sources/mainwindow.cpp" line="2171"/>
         <source>&lt;li&gt;PDF support using Poppler %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2172"/>
+        <location filename="../sources/mainwindow.cpp" line="2174"/>
         <source>&lt;li&gt;PS support using libspectre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2175"/>
+        <location filename="../sources/mainwindow.cpp" line="2177"/>
         <source>&lt;li&gt;DjVu support using DjVuLibre %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2178"/>
+        <location filename="../sources/mainwindow.cpp" line="2180"/>
         <source>&lt;li&gt;PDF support using Fitz %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2181"/>
+        <location filename="../sources/mainwindow.cpp" line="2183"/>
         <source>&lt;li&gt;Printing support using CUPS %1&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2398"/>
+        <location filename="../sources/mainwindow.cpp" line="2400"/>
         <source>&amp;Edit bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Muokkaa kirjanmerkkiä</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2815"/>
+        <location filename="../sources/mainwindow.cpp" line="2817"/>
         <source>The document &apos;%1&apos; has been modified. Do you want to save your changes?</source>
         <translation>Asiakirjaa &apos;%1&apos; on muokattu. Haluatko tallentaa muutokset?</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3062"/>
+        <location filename="../sources/mainwindow.cpp" line="3064"/>
         <source>Page width</source>
         <translation>Sivun leveys</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3063"/>
+        <location filename="../sources/mainwindow.cpp" line="3065"/>
         <source>Page size</source>
         <translation>Sivun koko</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3086"/>
+        <location filename="../sources/mainwindow.cpp" line="3088"/>
         <source>Match &amp;case</source>
         <translation>Huomioi &amp;kirjainkoko</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3087"/>
+        <location filename="../sources/mainwindow.cpp" line="3089"/>
         <source>Whole &amp;words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3088"/>
+        <location filename="../sources/mainwindow.cpp" line="3090"/>
         <source>Highlight &amp;all</source>
-        <translation type="unfinished"></translation>
+        <translation>Korosta &amp;kaikki</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3150"/>
+        <location filename="../sources/mainwindow.cpp" line="3152"/>
         <source>&amp;Open...</source>
         <translation>&amp;Avaa...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3151"/>
+        <location filename="../sources/mainwindow.cpp" line="3153"/>
         <source>Open in new &amp;tab...</source>
         <translation>Avaa uuteen &amp;välilehteen...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3260"/>
+        <location filename="../sources/mainwindow.cpp" line="3262"/>
         <source>Open &amp;copy in new tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3263"/>
+        <location filename="../sources/mainwindow.cpp" line="3265"/>
         <source>Move to &amp;instance...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3152"/>
+        <location filename="../sources/mainwindow.cpp" line="3154"/>
         <source>&amp;Refresh</source>
         <translation>&amp;Päivitä</translation>
     </message>
@@ -681,376 +681,376 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2183"/>
+        <location filename="../sources/mainwindow.cpp" line="2185"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; %1 The qpdfview developers&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3154"/>
+        <location filename="../sources/mainwindow.cpp" line="3156"/>
         <source>Save &amp;as...</source>
         <translation>Tallenn&amp;a nimellä...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3155"/>
+        <location filename="../sources/mainwindow.cpp" line="3157"/>
         <source>Save &amp;copy...</source>
-        <translation>Tallenna _kopio...</translation>
+        <translation>Tallenna &amp;kopio...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3156"/>
+        <location filename="../sources/mainwindow.cpp" line="3158"/>
         <source>&amp;Print...</source>
         <translation>&amp;Tulosta...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3157"/>
+        <location filename="../sources/mainwindow.cpp" line="3159"/>
         <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3161"/>
+        <location filename="../sources/mainwindow.cpp" line="3163"/>
         <source>&amp;Previous page</source>
         <translation>&amp;Edellinen sivu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3162"/>
+        <location filename="../sources/mainwindow.cpp" line="3164"/>
         <source>&amp;Next page</source>
         <translation>&amp;Seuraava sivu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3169"/>
+        <location filename="../sources/mainwindow.cpp" line="3171"/>
         <source>&amp;First page</source>
         <translation>&amp;Ensimmäinen sivu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3176"/>
+        <location filename="../sources/mainwindow.cpp" line="3178"/>
         <source>&amp;Last page</source>
         <translation>&amp;Viimeinen sivu</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3178"/>
+        <location filename="../sources/mainwindow.cpp" line="3180"/>
         <source>&amp;Set first page...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3180"/>
+        <location filename="../sources/mainwindow.cpp" line="3182"/>
         <source>&amp;Jump to page...</source>
         <translation>&amp;Siirry sivulle...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3182"/>
+        <location filename="../sources/mainwindow.cpp" line="3184"/>
         <source>Jump &amp;backward</source>
         <translation>Siirry &amp;taaksepäin</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3183"/>
+        <location filename="../sources/mainwindow.cpp" line="3185"/>
         <source>Jump for&amp;ward</source>
         <translation>Siirry &amp;eteenpäin</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3185"/>
+        <location filename="../sources/mainwindow.cpp" line="3187"/>
         <source>&amp;Search...</source>
         <translation>&amp;Etsi...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3186"/>
+        <location filename="../sources/mainwindow.cpp" line="3188"/>
         <source>Find previous</source>
         <translation>Etsi edellinen</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3187"/>
+        <location filename="../sources/mainwindow.cpp" line="3189"/>
         <source>Find next</source>
         <translation>Etsi seuraava</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3188"/>
+        <location filename="../sources/mainwindow.cpp" line="3190"/>
         <source>Cancel search</source>
         <translation>Peruuta haku</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3190"/>
+        <location filename="../sources/mainwindow.cpp" line="3192"/>
         <source>&amp;Copy to clipboard</source>
         <translation>&amp;Kopioi leikepöydälle</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3191"/>
+        <location filename="../sources/mainwindow.cpp" line="3193"/>
         <source>&amp;Add annotation</source>
         <translation>Lisää huom&amp;autus</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3193"/>
+        <location filename="../sources/mainwindow.cpp" line="3195"/>
         <source>Settings...</source>
         <translation>Asetukset...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3197"/>
+        <location filename="../sources/mainwindow.cpp" line="3199"/>
         <source>&amp;Continuous</source>
         <translation>&amp;Jatkuva</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3198"/>
+        <location filename="../sources/mainwindow.cpp" line="3200"/>
         <source>&amp;Two pages</source>
         <translation>&amp;Kaksi sivua</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3199"/>
+        <location filename="../sources/mainwindow.cpp" line="3201"/>
         <source>Two pages &amp;with cover page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../sources/mainwindow.cpp" line="3200"/>
-        <source>&amp;Multiple pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaksi sivua &amp;kansilehdellä</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3202"/>
+        <source>&amp;Multiple pages</source>
+        <translation>&amp;Useita sivuja</translation>
+    </message>
+    <message>
+        <location filename="../sources/mainwindow.cpp" line="3204"/>
         <source>Right to left</source>
         <translation>Oikealta vasemmalle</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3204"/>
+        <location filename="../sources/mainwindow.cpp" line="3206"/>
         <source>Zoom &amp;in</source>
         <translation>Zoomaa &amp;lähemmäs</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3205"/>
+        <location filename="../sources/mainwindow.cpp" line="3207"/>
         <source>Zoom &amp;out</source>
         <translation>Zoomaa &amp;kaiemmas</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3206"/>
+        <location filename="../sources/mainwindow.cpp" line="3208"/>
         <source>Original &amp;size</source>
         <translation>Alkuperäinen &amp;koko</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3208"/>
+        <location filename="../sources/mainwindow.cpp" line="3210"/>
         <source>Fit to page width</source>
         <translation>Sovita sivun leveys</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3209"/>
+        <location filename="../sources/mainwindow.cpp" line="3211"/>
         <source>Fit to page size</source>
         <translation>Sovita sivuun</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3211"/>
+        <location filename="../sources/mainwindow.cpp" line="3213"/>
         <source>Rotate &amp;left</source>
         <translation>Käännä &amp;vasemmalle</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3212"/>
+        <location filename="../sources/mainwindow.cpp" line="3214"/>
         <source>Rotate &amp;right</source>
         <translation>Käännä &amp;oikealle</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3214"/>
+        <location filename="../sources/mainwindow.cpp" line="3216"/>
         <source>Invert colors</source>
         <translation>Käännä värit</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3215"/>
+        <location filename="../sources/mainwindow.cpp" line="3217"/>
         <source>Convert to grayscale</source>
         <translation>Muunna harmaasävyksi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3216"/>
+        <location filename="../sources/mainwindow.cpp" line="3218"/>
         <source>Trim margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Leikkaa marginaaleja</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3218"/>
+        <location filename="../sources/mainwindow.cpp" line="3220"/>
         <source>Darken with paper color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3219"/>
+        <location filename="../sources/mainwindow.cpp" line="3221"/>
         <source>Lighten with paper color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3221"/>
+        <location filename="../sources/mainwindow.cpp" line="3223"/>
         <source>Fonts...</source>
         <translation>Fontit...</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3223"/>
+        <location filename="../sources/mainwindow.cpp" line="3225"/>
         <source>&amp;Fullscreen</source>
         <translation>&amp;Koko näyttö</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3224"/>
+        <location filename="../sources/mainwindow.cpp" line="3226"/>
         <source>&amp;Presentation...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Esitys</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3228"/>
+        <location filename="../sources/mainwindow.cpp" line="3230"/>
         <source>&amp;Previous tab</source>
         <translation>&amp;Edellinen välilehti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3229"/>
+        <location filename="../sources/mainwindow.cpp" line="3231"/>
         <source>&amp;Next tab</source>
         <translation>&amp;Seuraava välilehti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3231"/>
+        <location filename="../sources/mainwindow.cpp" line="3233"/>
         <source>&amp;Close tab</source>
         <translation>&amp;Sulje ikkuna</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3232"/>
+        <location filename="../sources/mainwindow.cpp" line="3234"/>
         <source>Close &amp;all tabs</source>
         <translation>Sulje &amp;kaikki ikkunat</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3233"/>
+        <location filename="../sources/mainwindow.cpp" line="3235"/>
         <source>Close all tabs &amp;but current tab</source>
         <translation>Sulje kaikki &amp;paitsi valittu välilehti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3235"/>
+        <location filename="../sources/mainwindow.cpp" line="3237"/>
         <source>Restore &amp;most recently closed tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Palauta &amp;viimeisin suljettu välilehti</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3246"/>
+        <location filename="../sources/mainwindow.cpp" line="3248"/>
         <source>&amp;Previous bookmark</source>
         <translation>&amp;Edellinen kirjanmerkki</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3247"/>
+        <location filename="../sources/mainwindow.cpp" line="3249"/>
         <source>&amp;Next bookmark</source>
         <translation>&amp;Seuraava kirjanmerkki</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3249"/>
+        <location filename="../sources/mainwindow.cpp" line="3251"/>
         <source>&amp;Add bookmark</source>
         <translation>&amp;Lisää kirjanmerkki</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3261"/>
+        <location filename="../sources/mainwindow.cpp" line="3263"/>
         <source>Open copy in new &amp;window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3264"/>
+        <location filename="../sources/mainwindow.cpp" line="3266"/>
         <source>Split view horizontally...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3265"/>
+        <location filename="../sources/mainwindow.cpp" line="3267"/>
         <source>Split view vertically...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3266"/>
+        <location filename="../sources/mainwindow.cpp" line="3268"/>
         <source>Close current view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3447"/>
+        <location filename="../sources/mainwindow.cpp" line="3449"/>
         <source>Thumb&amp;nails</source>
-        <translation type="unfinished"></translation>
+        <translation>Pienois&amp;kuvat</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3461"/>
+        <location filename="../sources/mainwindow.cpp" line="3463"/>
         <source>Book&amp;marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3533"/>
+        <location filename="../sources/mainwindow.cpp" line="3535"/>
         <source>Composition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2397"/>
-        <location filename="../sources/mainwindow.cpp" line="3250"/>
+        <location filename="../sources/mainwindow.cpp" line="2399"/>
+        <location filename="../sources/mainwindow.cpp" line="3252"/>
         <source>&amp;Remove bookmark</source>
         <translation>&amp;Poista kirjanmerkki</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="2959"/>
+        <location filename="../sources/mainwindow.cpp" line="2961"/>
         <source>Edit &apos;%1&apos; at %2,%3...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3262"/>
+        <location filename="../sources/mainwindow.cpp" line="3264"/>
         <source>Open containing &amp;folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3153"/>
+        <location filename="../sources/mainwindow.cpp" line="3155"/>
         <source>&amp;Save</source>
         <translation>&amp;Tallenna</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3251"/>
+        <location filename="../sources/mainwindow.cpp" line="3253"/>
         <source>Remove all bookmarks</source>
         <translation>Poista kaikki kirjanmerkit</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3255"/>
+        <location filename="../sources/mainwindow.cpp" line="3257"/>
         <source>&amp;Contents</source>
         <translation>&amp;Sisältö</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3256"/>
+        <location filename="../sources/mainwindow.cpp" line="3258"/>
         <source>&amp;About</source>
         <translation>&amp;Tietoja</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3294"/>
-        <location filename="../sources/mainwindow.cpp" line="3488"/>
+        <location filename="../sources/mainwindow.cpp" line="3296"/>
+        <location filename="../sources/mainwindow.cpp" line="3490"/>
         <source>&amp;File</source>
         <translation>&amp;Tiedosto</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3297"/>
-        <location filename="../sources/mainwindow.cpp" line="3509"/>
+        <location filename="../sources/mainwindow.cpp" line="3299"/>
+        <location filename="../sources/mainwindow.cpp" line="3511"/>
         <source>&amp;Edit</source>
         <translation>&amp;Muokkaa</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3300"/>
-        <location filename="../sources/mainwindow.cpp" line="3522"/>
+        <location filename="../sources/mainwindow.cpp" line="3302"/>
+        <location filename="../sources/mainwindow.cpp" line="3524"/>
         <source>&amp;View</source>
         <translation>&amp;Näytä</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3414"/>
+        <location filename="../sources/mainwindow.cpp" line="3416"/>
         <source>&amp;Outline</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yleiskatsaus</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3433"/>
+        <location filename="../sources/mainwindow.cpp" line="3435"/>
         <source>&amp;Properties</source>
         <translation>&amp;Ominaisuudet</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3335"/>
+        <location filename="../sources/mainwindow.cpp" line="3337"/>
         <source>&amp;Search</source>
         <translation>&amp;Etsi</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3539"/>
+        <location filename="../sources/mainwindow.cpp" line="3541"/>
         <source>&amp;Tool bars</source>
         <translation>&amp;Työkalupalkit</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3542"/>
+        <location filename="../sources/mainwindow.cpp" line="3544"/>
         <source>&amp;Docks</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Telakoitavat</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3556"/>
+        <location filename="../sources/mainwindow.cpp" line="3558"/>
         <source>&amp;Tabs</source>
         <translation>&amp;Välilehdet</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3579"/>
+        <location filename="../sources/mainwindow.cpp" line="3581"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Kirjanmerkit</translation>
     </message>
     <message>
-        <location filename="../sources/mainwindow.cpp" line="3590"/>
+        <location filename="../sources/mainwindow.cpp" line="3592"/>
         <source>&amp;Help</source>
         <translation>O&amp;hje</translation>
     </message>
@@ -1077,7 +1077,7 @@
     <message>
         <location filename="../sources/pageitem.cpp" line="383"/>
         <source>Go to page %1 of file &apos;%2&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Siirry sivulle %1 tiedostosta &apos;%2&apos;.</translation>
     </message>
     <message>
         <location filename="../sources/pageitem.cpp" line="391"/>
@@ -1155,12 +1155,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1092"/>
         <source>Antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Reunanpehmennys:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1099"/>
         <source>Text antialiasing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstin reunanpehmennys:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1106"/>
@@ -1171,18 +1171,18 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1107"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Täysi</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1108"/>
         <source>Reduced</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaimennettu</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1111"/>
         <location filename="../sources/pdfmodel.cpp" line="1118"/>
         <source>Text hinting:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstin vihjeistys:</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1127"/>
@@ -1230,7 +1230,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="453"/>
         <source>Image (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kuva (%1)</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="468"/>
@@ -1271,112 +1271,112 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="69"/>
+        <location filename="../sources/printdialog.cpp" line="71"/>
         <source>Page ranges:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="74"/>
+        <location filename="../sources/printdialog.cpp" line="78"/>
         <source>All pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="75"/>
+        <location filename="../sources/printdialog.cpp" line="79"/>
         <source>Even pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="76"/>
+        <location filename="../sources/printdialog.cpp" line="80"/>
         <source>Odd pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="79"/>
+        <location filename="../sources/printdialog.cpp" line="83"/>
         <source>Page set:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="82"/>
+        <location filename="../sources/printdialog.cpp" line="86"/>
         <source>Single page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="83"/>
+        <location filename="../sources/printdialog.cpp" line="87"/>
         <source>Two pages</source>
         <translation>Kaksi sivua</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="84"/>
+        <location filename="../sources/printdialog.cpp" line="88"/>
         <source>Four pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="85"/>
+        <location filename="../sources/printdialog.cpp" line="89"/>
         <source>Six pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="86"/>
+        <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Nine pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="87"/>
+        <location filename="../sources/printdialog.cpp" line="91"/>
         <source>Sixteen pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuusitoista sivua</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="90"/>
+        <location filename="../sources/printdialog.cpp" line="94"/>
         <source>Number-up:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="93"/>
+        <location filename="../sources/printdialog.cpp" line="97"/>
         <source>Bottom to top and left to right</source>
         <translation>Alhaalta ylös ja vasemmalta oikealle</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="94"/>
+        <location filename="../sources/printdialog.cpp" line="98"/>
         <source>Bottom to top and right to left</source>
         <translation>Alhaalta ylös ja oikealta vasemmalle</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="95"/>
+        <location filename="../sources/printdialog.cpp" line="99"/>
         <source>Left to right and bottom to top</source>
         <translation>Vasemmalta oikealle ja alhaalta ylös</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="96"/>
+        <location filename="../sources/printdialog.cpp" line="100"/>
         <source>Left to right and top to bottom</source>
         <translation>Vasemmalta oikealle ja ylhäältä alas</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="97"/>
+        <location filename="../sources/printdialog.cpp" line="101"/>
         <source>Right to left and bottom to top</source>
         <translation>Oikealta vasemmalle ja alhaalta ylös</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="98"/>
+        <location filename="../sources/printdialog.cpp" line="102"/>
         <source>Right to left and top to bottom</source>
         <translation>Oikealta vasemmalle ja ylhäältä alas</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="99"/>
+        <location filename="../sources/printdialog.cpp" line="103"/>
         <source>Top to bottom and left to right</source>
         <translation>Ylhäältä alas ja vasemmalta oikealle</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="100"/>
+        <location filename="../sources/printdialog.cpp" line="104"/>
         <source>Top to bottom and right to left</source>
         <translation>Ylhäältä alas ja oikealta vasemmalle</translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="103"/>
+        <location filename="../sources/printdialog.cpp" line="107"/>
         <source>Number-up layout:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sources/printdialog.cpp" line="107"/>
+        <location filename="../sources/printdialog.cpp" line="111"/>
         <source>Extended options</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1386,12 +1386,12 @@
     <message>
         <location filename="../sources/psmodel.cpp" line="262"/>
         <source>Graphics antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation>Grafiikan reunanpehmennys bitit:</translation>
     </message>
     <message>
         <location filename="../sources/psmodel.cpp" line="270"/>
         <source>Text antialias bits:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstin reunanpehmennys bitit</translation>
     </message>
 </context>
 <context>
@@ -1399,7 +1399,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="32"/>
         <source>&amp;Recently closed</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Viimeksi suljetut</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
@@ -1412,7 +1412,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="32"/>
         <source>Recently &amp;used</source>
-        <translation type="unfinished"></translation>
+        <translation>Viimeksi &amp;käytetyt</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="41"/>
@@ -1446,12 +1446,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="108"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Yleiset</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="141"/>
         <source>&amp;Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Toiminta</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="142"/>
@@ -1481,7 +1481,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="154"/>
         <source>Defaults on current tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Oletusasetukset nykyisessä välililehdessä</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="160"/>
@@ -1519,12 +1519,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="252"/>
         <source>Track recently used:</source>
-        <translation type="unfinished"></translation>
+        <translation>Seuraa viimeksi käytettyjä:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="255"/>
         <source>Keep recently closed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Säilytä viimeksi suljetut:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="259"/>
@@ -1539,7 +1539,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="265"/>
         <source>Restore per-file settings:</source>
-        <translation type="unfinished"></translation>
+        <translation>Palauta tiedostokohtaiset asetukset:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="268"/>
@@ -1554,7 +1554,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="281"/>
         <source>Synchronize presentation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Synkronoi esitys:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
@@ -1564,7 +1564,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Presentation screen:</source>
-        <translation type="unfinished"></translation>
+        <translation>Esitysnäyttö:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="291"/>
@@ -1594,7 +1594,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="305"/>
         <source>Highlight duration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Korostuksen kesto:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="308"/>
@@ -1619,7 +1619,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="383"/>
         <source>Use tiling:</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä laatoitusta:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="386"/>
@@ -1634,17 +1634,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="399"/>
         <source>Decorate pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Koristele sivut:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="402"/>
         <source>Decorate links:</source>
-        <translation type="unfinished"></translation>
+        <translation>Koristele linkit:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="405"/>
         <source>Decorate form fields:</source>
-        <translation type="unfinished"></translation>
+        <translation>Koristele lomakekentät:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="409"/>
@@ -1664,7 +1664,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="419"/>
         <source>Pages per row:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sivuja rivillä:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="423"/>
@@ -1681,12 +1681,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="426"/>
         <source>Thumbnail spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pienoiskuvien välinen etäisyys:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="430"/>
         <source>Thumbnail size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pienoiskuvien koko:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="430"/>
@@ -1722,17 +1722,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="295"/>
         <source>Minimal scrolling:</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimi vieritys:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="437"/>
         <source>Prefetch:</source>
-        <translation type="unfinished"></translation>
+        <translation>Esihaku:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="440"/>
         <source>Prefetch distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Esihaku etäisyys:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="539"/>
@@ -1772,7 +1772,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="555"/>
         <source>Exit after last tab:</source>
-        <translation type="unfinished"></translation>
+        <translation>Poistu viimeisen välilehden jälkeen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="581"/>
@@ -1803,27 +1803,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="543"/>
         <source>Tab visibility:</source>
-        <translation type="unfinished"></translation>
+        <translation>Välilehden näkyvyys:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="548"/>
         <source>Spread tabs:</source>
-        <translation type="unfinished"></translation>
+        <translation>Levitä välilehtiä:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="552"/>
         <source>New tab next to current tab:</source>
-        <translation type="unfinished"></translation>
+        <translation>Uusi välilehti nykyisen välilehden viereen:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="559"/>
         <source>Recently used count:</source>
-        <translation type="unfinished"></translation>
+        <translation>Viimeksi käytettyjen määrä:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="562"/>
         <source>Recently closed count:</source>
-        <translation type="unfinished"></translation>
+        <translation>Viimeksi suljettujen määrä:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="528"/>
@@ -1858,7 +1858,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="595"/>
         <source>Document title as tab title:</source>
-        <translation type="unfinished"></translation>
+        <translation>Asiakirjan otsikko välilehden otsikkona:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="599"/>
@@ -1878,7 +1878,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="606"/>
         <source>Highlight current thumbnail:</source>
-        <translation type="unfinished"></translation>
+        <translation>Korosta nykyinen pienoiskuva:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="609"/>
@@ -1903,7 +1903,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="696"/>
         <source>Rotate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Käännä:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="699"/>
@@ -1913,12 +1913,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="702"/>
         <source>Copy to clipboard:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopioi leikepöydälle:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="705"/>
         <source>Add annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisää huomautus:</translation>
     </message>
 </context>
 <context>

@@ -29,37 +29,37 @@ This file is additionally licensed under the Creative Commons Attribution-ShareA
 <html>
 
 <head>
-    <title>Help</title>
+    <title>幫助</title>
 </head>
 
 <body>
 
-<h2><a name="top">Help</a></h2>
+<h2><a name="top">幫助</a></h2>
 
-<h4>Table of contents</h4>
+<h4>目錄</h4>
 <ol>
-    <li><a href="#mainmenu">Main menu</a></li>
+    <li><a href="#mainmenu">主選單</a></li>
     <ol>
-        <li><a href="#file">File</a></li>
-        <li><a href="#edit">Edit</a></li>
-        <li><a href="#view">View</a></li>
-        <li><a href="#tabs">Tabs</a></li>
-        <li><a href="#bookmarks">Bookmarks</a></li>
-        <li><a href="#help">Help</a></li>
+        <li><a href="#file">檔案</a></li>
+        <li><a href="#edit">編輯</a></li>
+        <li><a href="#view">檢視</a></li>
+        <li><a href="#tabs">分頁</a></li>
+        <li><a href="#bookmarks">書籤</a></li>
+        <li><a href="#help">幫助</a></li>
     </ol>
     <li><a href="#mainview">Main view</a></li>
     <li><a href="#auxiliaryviews">Auxiliary views</a></li>
-    <li><a href="#settings">Settings</a></li>
+    <li><a href="#settings">設定</a></li>
     <ol>
-    	<li><a href="#behaviorsettings">Behavior settings</a></li>
-    	<li><a href="#graphicssettings">Graphics settings</a></li>
-    	<li><a href="#interfacesettings">Interface settings</a></li>
-    	<li><a href="#shortcutsettings">Shortcut settings</a></li>
+    	<li><a href="#behaviorsettings">行為設定</a></li>
+    	<li><a href="#graphicssettings">圖形設定</a></li>
+    	<li><a href="#interfacesettings">介面設定</a></li>
+    	<li><a href="#shortcutsettings">捷徑設定</a></li>
     	<li><a href="#modifiersettings">Modifier settings</a></li>
     </ol>
 </ol>
 
-<h4>Introduction</h4>
+<h4>簡介</h4>
 
 <p><em>qpdfview</em> is a tabbed document viewer. It uses Poppler for PDF
 support, libspectre for PS support, DjVuLibre for DjVu support, CUPS for
@@ -68,36 +68,31 @@ printing support and the Qt toolkit for its interface.</p>
 <p>Please refer to the manual page for information on command-line options and
 configuration files.</p>
 
-<h3><a name="mainmenu">Main menu</a> <a href="#top">&uarr;</a></h3>
+<h3><a name="mainmenu">主選單</a> <a href="#top">&uarr;</a></h3>
 
-<h4><a name="file">File</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="file">檔案</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Open...</b> Opens a dialog to choose a file to open in the current
-tab. If there is no tab, the file is opened in a new tab.</li>
-    <li><b>Open in new tab...</b> Opens a dialog to choose files to open in new
-tabs.</li>
+    <li><b>開啟...</b> 開啟對話方塊來選擇要在目前的分頁開啟的檔案。如果沒有分頁，檔案會在新分頁中開啟。</li>
+    <li><b>在新分頁中開啟...</b> 開啟對話方塊來選擇要在新分頁開啟的檔案。</li>
     <li><b>Recently used</b> Contains a list of the most recently used files (if
 enabled in the settings).</li>
-    <li><b>Refresh</b> Reloads the file displayed in the current tab.</li>
+    <li><b>重新整理</b> 重新讀取在目前的分頁中顯示的檔案。</li>
     <li><b>Save</b> Saves changes to annotations and form fields to the file
 displayed in the current tab.</li>
     <li><b>Save as...</b> Opens a dialog to save the file displayed in the current
 tab including changes to annotations and form fields.</li>
     <li><b>Save copy...</b> Opens a dialog to save an umodified copy of the file
 displayed in the current tab.</li>
-    <li><b>Print...</b> Opens a dialog to print the file displayed in the current
-tab.</li>
-    <li><b>Exit</b> Closes all tabs and ends the program.</li>
+    <li><b>列印...</b>  開啟對話方塊來列印目前分頁的檔案。</li>
+    <li><b>退出</b> 關閉所有分頁並結束程式。</li>
 </ul>
 
-<h4><a name="edit">Edit</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="edit">編輯</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
-    <li><b>Next/Previous/First/Last page</b> Skips to the next/previous/first/last
-page of the document.</li>
-    <li><b>Jump to page...</b> Opens a dialog to enter a page to display in the
-current tab.</li>
+    <li><b>下一頁/上一頁/第一頁/最後一頁</b> 跳到文件的下一頁/上一頁/第一頁/最後一頁。</li>
+    <li><b>跳到頁面...</b> 開啟對話方塊來輸入要顯示在目前分頁的頁面。</li>
     <li><b>Jump backward/forward</b> Jumps backward/forward in the history of
 displayed page.</li>
     <li><b>Search...</b> Opens the search dock below the main view. The search
@@ -124,7 +119,7 @@ current tab to their default values.</li>
 the text field in the edit tool bar, which can be focused using Ctrl+K, and
 pressing the return key.</p>
 
-<h4><a name="view">View</a> <a href="#top">&uarr;</a></h4>
+<h4><a name="view">檢視</a> <a href="#top">&uarr;</a></h4>
 
 <ul>
     <li><b>Continuous</b> Determines whether all rows of the page layout are visible
@@ -136,17 +131,15 @@ columns with a break after the cover page.</li>
 columns. The number of columns can be changed in the settings dialog.</li>
     <li><b>Right to left</b> Determines how pages are arranged in layouts with
 multiple pages per row.</li>
-    <li><b>Zoom in</b> Increases the scale factor by 10 percent. The maximum scale
-factor is 5000 percent.</li>
-    <li><b>Zoom out</b> Decreases the scale factor by 10 percent. The minimum scale
-factor is 10 percent.</li>
-    <li><b>Original size</b> Resets the scale factor to 100 percent.</li>
+    <li><b>放大</b> 增加縮放係數百分之十。縮放係數的最大值是百分之 5000 。</li>
+    <li><b>縮小</b> 減少縮放係數百分之十。縮放係數的最小值是百分之 10 。</li>
+    <li><b>原始大小</b> 重設縮放係數到百分之 100 。</li>
     <li><b>Fit to page width</b> Determines the scale factor such that all pages
 fully fit into the main view horizontally.</li>
     <li><b>Fit to page size</b> Determines the scale factor such that all pages
 fully fit into the main view horizontally and vertically.</li>
-    <li><b>Rotate left</b> Rotates the pages left/counterclockwise by 90 degrees.</li>
-    <li><b>Rotate right</b> Rotates the pages right/clockwise by 90 degrees.</li>
+    <li><b>向左旋轉</b> 向左/逆時針旋轉頁面 90 度。</li>
+    <li><b>向右旋轉</b> 向右/順時針旋轉頁面 90 度。</li>
     <li><b>Invert colors</b> Determines whether pages are rendered with inverted
 colors.</li>
     <li><b>Convert to grayscale</b> Determines whether pages are converted to
@@ -155,11 +148,10 @@ grayscale after rendering.</li>
 rendering.</li>
     <li><b>Composition</b> Enables the composition of the rendered page with the
 paper color to adjust the background of scanned documents.</li>
-    <li><b>Tool bars</b> This menu contains a list of available tool bars for
-accessing frequently used actions.</li>
+    <li><b>工具列</b> 這個選單包含可用的能存取常用的動作的工具列的清單。</li>
     <li><b>Docks</b> This menu contains a list of available docks for displaying
 supplementary information.</li>
-    <li><b>Fonts...</b> Opens a dialog listing the fonts used in the document.</li>
+    <li><b>字型...</b> 開啟列出在這個文件中使用的字型的對話方塊。</li>
     <li><b>Fullscreen</b> Toggles the fullscreen mode, i.e. the window is shown
 maximized and without decoration.</li>
     <li><b>Presentation...</b> Enters presentation mode which can be left by

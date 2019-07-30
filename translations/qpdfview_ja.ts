@@ -3,11 +3,11 @@
 <TS version="2.1">
     <extra-po-header-language_team>Japanese &lt;ja@li.org&gt;</extra-po-header-language_team>
     <extra-po-header-last_translator>Shinichirou Yamada &lt;yamada_strong_yamada_nice_64bit@yahoo.co.jp&gt;</extra-po-header-last_translator>
-    <extra-po-header-po_revision_date>2017-11-09 15:01+0000</extra-po-header-po_revision_date>
+    <extra-po-header-po_revision_date>2018-12-17 17:45+0000</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2018-05-27 11:51+0000</extra-po-header-pot_creation_date>
     <extra-po-header-project_id_version>qpdfview</extra-po-header-project_id_version>
     <extra-po-header-report_msgid_bugs_to>FULL NAME &lt;EMAIL@ADDRESS&gt;</extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-x_launchpad_export_date>2018-05-28 05:33+0000</extra-po-header-x_launchpad_export_date>
+    <extra-po-header-x_launchpad_export_date>2018-12-18 05:38+0000</extra-po-header-x_launchpad_export_date>
     <extra-po-header_comment># Japanese translation for qpdfview
 # Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
 # This file is distributed under the same license as the qpdfview package.
@@ -544,13 +544,13 @@
         <location filename="../sources/mainwindow.cpp" line="1436"/>
         <location filename="../sources/mainwindow.cpp" line="1447"/>
         <source>Move to instance</source>
-        <translation type="unfinished"></translation>
+        <translation>インスタンスへ移動</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1436"/>
         <location filename="../sources/mainwindow.cpp" line="1447"/>
         <source>Failed to access instance &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>インスタンス「%1」へのアクセスに失敗しました。</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1480"/>
@@ -677,7 +677,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3263"/>
         <source>Move to &amp;instance...</source>
-        <translation type="unfinished"></translation>
+        <translation>インスタンスへ移動(&amp;I)...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3152"/>
@@ -687,17 +687,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="1460"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>情報</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="1460"/>
         <source>Instance-to-instance communication requires D-Bus support.</source>
-        <translation type="unfinished"></translation>
+        <translation>インスタンス間のやり取りにはD-Busサポートが必要です。</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="2183"/>
         <source>&lt;/ul&gt;&lt;p&gt;See &lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt; for more information.&lt;/p&gt;&lt;p&gt;&amp;copy; %1 The qpdfview developers&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;/ul&gt;&lt;p&gt;より詳しい情報は&lt;a href=&quot;https://launchpad.net/qpdfview&quot;&gt;launchpad.net/qpdfview&lt;/a&gt;をご覧ください。&lt;/p&gt;&lt;p&gt;&amp;copy; %1 The qpdfview developers&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3154"/>
@@ -912,17 +912,17 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3232"/>
         <source>Close &amp;all tabs</source>
-        <translation>タブを全て閉じる(&amp;A)</translation>
+        <translation>全てのタブを閉じる(&amp;A)</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3233"/>
         <source>Close all tabs &amp;but current tab</source>
-        <translation>このタブ以外全て閉じる(&amp;B)</translation>
+        <translation>現在のタブ以外全て閉じる(&amp;B)</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3235"/>
         <source>Restore &amp;most recently closed tab</source>
-        <translation>直近に閉じたタブを戻す(&amp;M)</translation>
+        <translation>直前に閉じたタブを復元(&amp;M)</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3246"/>
@@ -942,22 +942,22 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="3261"/>
         <source>Open copy in new &amp;window</source>
-        <translation type="unfinished"></translation>
+        <translation>新規ウィンドウにコピーを開く(&amp;W)</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3264"/>
         <source>Split view horizontally...</source>
-        <translation type="unfinished"></translation>
+        <translation>ビューを左右に分割...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3265"/>
         <source>Split view vertically...</source>
-        <translation type="unfinished"></translation>
+        <translation>ビューを上下に分割...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3266"/>
         <source>Close current view</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のビューを閉じる</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3447"/>
@@ -983,7 +983,7 @@
     <message>
         <location filename="../sources/mainwindow.cpp" line="2959"/>
         <source>Edit &apos;%1&apos; at %2,%3...</source>
-        <translation>「%1」を%2, %3...で編集</translation>
+        <translation>「%1」の%2行%3列を編集...</translation>
     </message>
     <message>
         <location filename="../sources/mainwindow.cpp" line="3262"/>
@@ -1072,13 +1072,13 @@
         <location filename="../sources/main.cpp" line="210"/>
         <location filename="../sources/mainwindow.cpp" line="1420"/>
         <source>Choose instance</source>
-        <translation type="unfinished"></translation>
+        <translation>インスタンスを選択</translation>
     </message>
     <message>
         <location filename="../sources/main.cpp" line="210"/>
         <location filename="../sources/mainwindow.cpp" line="1420"/>
         <source>Instance:</source>
-        <translation type="unfinished"></translation>
+        <translation>インスタンス:</translation>
     </message>
 </context>
 <context>
@@ -1216,7 +1216,7 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1147"/>
         <source>Shaped</source>
-        <translation type="unfinished"></translation>
+        <translation>シェイプ</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1150"/>
@@ -1226,12 +1226,12 @@
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1155"/>
         <source>Splash</source>
-        <translation type="unfinished"></translation>
+        <translation>Splash</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1156"/>
         <source>Arthur</source>
-        <translation type="unfinished"></translation>
+        <translation>Arthur</translation>
     </message>
     <message>
         <location filename="../sources/pdfmodel.cpp" line="1159"/>
@@ -1249,7 +1249,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="468"/>
         <source>Compressed (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>圧縮済(%1)</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="472"/>
@@ -1259,7 +1259,7 @@
     <message>
         <location filename="../sources/pluginhandler.cpp" line="488"/>
         <source>Could not decompress &apos;%1&apos;!</source>
-        <translation type="unfinished"></translation>
+        <translation>「%1」を展開できませんでした！</translation>
     </message>
     <message>
         <location filename="../sources/pluginhandler.cpp" line="498"/>
@@ -1307,7 +1307,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="79"/>
         <source>Page set:</source>
-        <translation type="unfinished"></translation>
+        <translation>ページセット:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="82"/>
@@ -1342,7 +1342,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="90"/>
         <source>Number-up:</source>
-        <translation type="unfinished"></translation>
+        <translation>連番付け:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="93"/>
@@ -1387,7 +1387,7 @@
     <message>
         <location filename="../sources/printdialog.cpp" line="103"/>
         <source>Number-up layout:</source>
-        <translation type="unfinished"></translation>
+        <translation>連番付けのレイアウト:</translation>
     </message>
     <message>
         <location filename="../sources/printdialog.cpp" line="107"/>
@@ -1413,7 +1413,7 @@
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="32"/>
         <source>&amp;Recently closed</source>
-        <translation>直近に閉じたもの(&amp;R)</translation>
+        <translation>最近閉じたもの(&amp;R)</translation>
     </message>
     <message>
         <location filename="../sources/recentlyclosedmenu.cpp" line="39"/>
@@ -1426,7 +1426,7 @@
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="32"/>
         <source>Recently &amp;used</source>
-        <translation>直近に使用したもの(&amp;U)</translation>
+        <translation>最近使用したもの(&amp;U)</translation>
     </message>
     <message>
         <location filename="../sources/recentlyusedmenu.cpp" line="41"/>
@@ -1485,7 +1485,7 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="145"/>
         <source>&amp;Modifiers</source>
-        <translation>修飾鍵(&amp;M)</translation>
+        <translation>修飾キー(&amp;M)</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="151"/>
@@ -1533,27 +1533,27 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="252"/>
         <source>Track recently used:</source>
-        <translation>直近に使われたものを追跡:</translation>
+        <translation>最近使用したものを追跡:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="255"/>
         <source>Keep recently closed:</source>
-        <translation>直近に閉じられたものを保持:</translation>
+        <translation>最近閉じたものを保持:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="259"/>
         <source>Restore tabs:</source>
-        <translation>タブを戻す:</translation>
+        <translation>タブを復元:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="262"/>
         <source>Restore bookmarks:</source>
-        <translation>しおりを復帰させる:</translation>
+        <translation>しおりを復元:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="265"/>
         <source>Restore per-file settings:</source>
-        <translation>ファイル毎の設定を復帰させる:</translation>
+        <translation>ファイル毎の設定を復元:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="268"/>
@@ -1578,22 +1578,22 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="284"/>
         <source>Presentation screen:</source>
-        <translation>プレゼンテーションスクリーン:</translation>
+        <translation>プレゼンテーション画面:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="291"/>
         <source>Synchronize split views:</source>
-        <translation type="unfinished"></translation>
+        <translation>分割ビューを同期:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="298"/>
         <source>Zoom factor:</source>
-        <translation>拡大因子:</translation>
+        <translation>拡大比:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="301"/>
         <source>Parallel search execution:</source>
-        <translation type="unfinished"></translation>
+        <translation>並行検索の実行:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="305"/>
@@ -1710,17 +1710,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="575"/>
         <source>Document context menu:</source>
-        <translation>文書コンテクストメニュー:</translation>
+        <translation>文書のコンテキストメニュー:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="578"/>
         <source>Tab context menu:</source>
-        <translation>タブコンテクストメニュー:</translation>
+        <translation>タブのコンテキストメニュー:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="711"/>
         <source>Open in source editor:</source>
-        <translation>ソースエディタで開く</translation>
+        <translation>ソースエディタで開く:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="822"/>
@@ -1741,12 +1741,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="437"/>
         <source>Prefetch:</source>
-        <translation>先行取得:</translation>
+        <translation>事前読込:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="440"/>
         <source>Prefetch distance:</source>
-        <translation>先行取得間隔:</translation>
+        <translation>事前読込数:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="539"/>
@@ -1781,12 +1781,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="544"/>
         <source>Always</source>
-        <translation>つねに</translation>
+        <translation>常時</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="555"/>
         <source>Exit after last tab:</source>
-        <translation>最後のタブの後は終了:</translation>
+        <translation>最後のタブを閉じたら終了:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="581"/>
@@ -1832,12 +1832,12 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="559"/>
         <source>Recently used count:</source>
-        <translation>直近に使用したものの数:</translation>
+        <translation>最近使用したものの数:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="562"/>
         <source>Recently closed count:</source>
-        <translation>直近に閉じたものの数:</translation>
+        <translation>最近閉じたものの数:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="528"/>
@@ -1872,17 +1872,17 @@
     <message>
         <location filename="../sources/settingsdialog.cpp" line="595"/>
         <source>Document title as tab title:</source>
-        <translation>文書表題をタブ見出しに:</translation>
+        <translation>文書表題をタブに表示:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="599"/>
         <source>Current page in window title:</source>
-        <translation>現ページをウィンドウ見出しに:</translation>
+        <translation>現ページをタイトルバーに表示:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="602"/>
         <source>Instance name in window title:</source>
-        <translation>インスタンス名をウィンドウ見出しに:</translation>
+        <translation>インスタンス名をタイトルバーに表示:</translation>
     </message>
     <message>
         <location filename="../sources/settingsdialog.cpp" line="288"/>
@@ -1945,7 +1945,7 @@
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="148"/>
         <source>Key sequence</source>
-        <translation>キー列</translation>
+        <translation>キーシーケンス</translation>
     </message>
     <message>
         <location filename="../sources/shortcuthandler.cpp" line="262"/>
@@ -1983,12 +1983,12 @@
     <message>
         <location filename="../sources/miscellaneous.cpp" line="697"/>
         <source>&amp;Expand all</source>
-        <translation>すべて展開(&amp;E)</translation>
+        <translation>全て展開(&amp;E)</translation>
     </message>
     <message>
         <location filename="../sources/miscellaneous.cpp" line="698"/>
         <source>&amp;Collapse all</source>
-        <translation>すべて折りたたむ(&amp;C)</translation>
+        <translation>全て畳む(&amp;C)</translation>
     </message>
 </context>
 <context>

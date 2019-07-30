@@ -1464,7 +1464,9 @@ void MainWindow::on_moveToInstance_triggered(DocumentView* tab)
 
 void MainWindow::on_refresh_triggered()
 {
-    if(!currentTab()->refresh())
+    DocumentView* const tab = currentTab();
+
+    if(saveModifications(tab) && !tab->refresh())
     {
         QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->fileInfo().filePath()));
     }
@@ -1696,7 +1698,7 @@ void MainWindow::on_settings_triggered()
 
     foreach(DocumentView* tab, allTabs())
     {
-        if(!tab->refresh())
+        if(saveModifications(tab) && !tab->refresh())
         {
             QMessageBox::warning(this, tr("Warning"), tr("Could not refresh '%1'.").arg(currentTab()->fileInfo().filePath()));
         }

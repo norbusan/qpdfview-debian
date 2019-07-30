@@ -471,6 +471,12 @@ int main(int argc, char** argv)
 
     QApplication::setWindowIcon(QIcon(":icons/qpdfview"));
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+
+#endif // QT_VERSION
+
     loadTranslators();
 
     parseCommandLineArguments();

@@ -2482,13 +2482,16 @@ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOp
     fromPage = (fromPage - 1) / numberUp + 1;
     toPage = (toPage - 1) / numberUp + 1;
 
-    if(printOptions.pageRanges.isEmpty())
+    if(cupsGetOption("page-ranges", num_options, options) == 0)
     {
-        num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toUtf8(), num_options, &options);
-    }
-    else
-    {
-        num_options = cupsAddOption("page-ranges", printOptions.pageRanges.toUtf8(), num_options, &options);
+        if(printOptions.pageRanges.isEmpty())
+        {
+            num_options = cupsAddOption("page-ranges", QString("%1-%2").arg(fromPage).arg(toPage).toUtf8(), num_options, &options);
+        }
+        else
+        {
+            num_options = cupsAddOption("page-ranges", printOptions.pageRanges.toUtf8(), num_options, &options);
+        }
     }
 
     QTemporaryFile temporaryFile;
@@ -2824,7 +2827,15 @@ void DocumentView::prepareScene()
 
     if(s_settings->pageItem().useDevicePixelRatio())
     {
+#if QT_VERSION >= QT_VERSION_CHECK(5,6,0)
+
+        renderParam.setDevicePixelRatio(devicePixelRatioF());
+
+#else
+
         renderParam.setDevicePixelRatio(devicePixelRatio());
+
+#endif // QT_VERSION
     }
 
 #endif // QT_VERSION
@@ -2948,7 +2959,15 @@ void DocumentView::prepareThumbnailsScene()
 
     if(s_settings->pageItem().useDevicePixelRatio())
     {
+#if QT_VERSION >= QT_VERSION_CHECK(5,6,0)
+
+        renderParam.setDevicePixelRatio(devicePixelRatioF());
+
+#else
+
         renderParam.setDevicePixelRatio(devicePixelRatio());
+
+#endif // QT_VERSION
     }
 
 #endif // QT_VERSION

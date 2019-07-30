@@ -64,9 +64,13 @@ PrintDialog::PrintDialog(QPrinter* printer, QWidget* parent) : QPrintDialog(prin
 
     m_printOptionsLayout->addRow(tr("Fit to page:"), m_fitToPageCheckBox);
 
+#if QT_VERSION < QT_VERSION_CHECK(5,11,0)
+
     m_pageRangesLineEdit = new QLineEdit(this);
 
     m_printOptionsLayout->addRow(tr("Page ranges:"), m_pageRangesLineEdit);
+
+#endif // QT_VERSION
 
 #if QT_VERSION < QT_VERSION_CHECK(5,2,0)
 
@@ -114,7 +118,11 @@ PrintOptions PrintDialog::printOptions() const
 
     printOptions.fitToPage = m_fitToPageCheckBox->isChecked();
 
+#if QT_VERSION < QT_VERSION_CHECK(5,11,0)
+
     printOptions.pageRanges = m_pageRangesLineEdit->text();
+
+#endif // QT_VERSION
 
 #if QT_VERSION < QT_VERSION_CHECK(5,2,0)
 

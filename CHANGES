@@ -1,12 +1,16 @@
 Release 0.4.18:
   * Fixed various issue w.r.t. statically linked plug-ins and cross builds for Windows. Thanks to Marshall Banana.
   * Fixed encoding issues w.r.t. CUPS names. Thanks to Silvan Scherrer.
+  * Fixed not overwriting page ranges CUPS option when set already by Qt's print dialog. Thanks to Fabio Rossi.
+  * Fixed refreshing modified documents from disk.
   * Added support for nested splitting of document views.
   * Added support for transparent decompression of document files.
   * Added restoring of tab order and of current tab.
   * Added action to open current file in new window. Thanks to Pavel Sanda.
   * Updated support for MuPDF to version 1.12 and later. Thanks to S. Razi Alavizadeh.
   * Added support for EPUB, XPS, CBZ and FB2 via MuPDF. Thanks to S. Razi Alavizadeh.
+  * Automated translations import from Launchpad via Travis CI. Thanks to S. Razi Alavizadeh.
+  * Imported various new and updated translations from Launchpad. Thanks to all Launchpad translators!
 
 Release 0.4.17:
   * Fixed query to populate the instance list for the choose instance dialog.
