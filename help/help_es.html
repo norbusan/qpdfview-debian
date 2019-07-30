@@ -1,0 +1,560 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
+
+<!--
+
+Copyright 2012 Benjamin Eltzner
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>
+.
+
+This file is additionally licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported (CC-BY-SA) license. The full text of the license can be found at https://creativecommons.org/licenses/by-sa/3.0/legalcode
+
+-->
+<html>
+
+<head>
+    <title>Ayuda</title>
+</head>
+
+<body>
+
+<h2><a name="top">Ayuda</a></h2>
+
+<h4>Tabla de contenidos</h4>
+<ol>
+    <li><a href="#mainmenu">Menú principal</a></li>
+    <ol>
+        <li><a href="#file">Archivo</a></li>
+        <li>Edición</li>
+        <li><a href="#view">Ver</a></li>
+        <li><a href="#tabs">Pestañas</a></li>
+        <li><a href="#bookmarks">Marcadores</a></li>
+        <li><a href="#help">Ayuda</a></li>
+    </ol>
+    <li>Copy text 	 <a href="#mainview">Vista principal</a></li>
+    <li><a href="#auxiliaryviews">Vistas auxiliares</a></li>
+    <li><a href="#settings">Configuración</a></li>
+    <ol>
+    	<li><a href="#behaviorsettings">Opciones de comportamiento</a></li>
+    	<li><a href="#graphicssettings">Opciones de gráficos</a></li>
+    	<li><a href="#interfacesettings">Opciones de la interfaz</a></li>
+    	<li><a href="#shortcutsettings">Acceso directo a configuraciones</a></li>
+    	<li><a href="#modifiersettings">Configurar modificador</a></li>
+    </ol>
+</ol>
+
+<h4>Introducción</h4>
+
+<p><em>qpdfview</em> es un visor de documentos con pestañas. Usa Poppler como
+soporte para PDF, libspectre para soporte de PS, DjVuLibre para soporte de
+DjVu, CUPS para soporte de impresión y Qt para su interfaz.</p>
+
+<p>Por favor consulte la página de manual para obtener información sobre la
+línea de comandos y la configuración de archivos.</p>
+
+<h3><a name="mainmenu">Menú principal</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="file">Archivo</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Abrir...</b> Abre un cuadro de diálogo para seleccionar un archivo a
+abrir en la pestaña actual. Si no hay ninguna pestaña, el archivo se abre en
+una nueva pestaña.</li>
+    <li><b>Abrir en una nueva pestaña...</b> Abre un cuadro de diálogo para
+seleccionar archivos a abrir en nuevas pestañas.</li>
+    <li><b>Recientemente usados</b> Contiene una lista de los últimos archivos
+utilizados (si está activado en la configuración).</li>
+    <li><b>Actualizar</b> Vuelve a cargar el archivo mostrado en la pestaña actual.</li>
+    <li><b>Guardar</b> Guarda los cambios en anotaciones y campos de formulario en
+el archivo mostrado en la pestaña actual.</li>
+    <li><b>Guardar como...</b> Abre un cuadro de diálogo para guardar el archivo
+mostrado en la pestaña actual incluyendo los cambios en anotaciones y campos
+de formulario.</li>
+    <li><b>Guardar copia ... </ b> Abre un cuadro de diálogo para guardar una copia
+no modificada del archivo mostrado en la pestaña actual.</li>
+    <li><b>Imprimir...</b> Abre un cuadro de diálogo para imprimir el archivo
+mostrado en la pestaña actual.</li>
+    <li><b>Salir</b> Cierra todas las pestañas y finaliza el programa.</li>
+</ul>
+
+<h4><a name="edit">Editar</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Siguiente/Anterior/Primera/Última página</b> Salta a la
+siguiente/anterior/primera/última página del documento.</li>
+    <li><b>Salta a la página...</b> Abre un cuadro de diálogo para introducir una
+página para mostrar en la pestaña actual.</li>
+    <li><b>Saltar atŕas/adelante</b> Salta hacia atŕas/adelante en el historial de
+la página mostrada.</li>
+    <li><b>Buscar...</b> Abre un cuadro de búsqueda debajo de la vista principal. La
+búsqueda se inicia automáticamente dos segundos después del último cambio
+del término de búsqueda o se inicia manualmente pulsando la tecla Intro. Si
+se pulsan a la vez las teclas Mayús e Intro, la búsqueda se inicia en todas
+las pestañas en vez de en la pestaña actual (este efecto se invierte si el
+cuadro de búsqueda extendido se activa en la configuración).</li>
+    <li><b>Buscar anterior/siguiente</b> Salta hacia la ocurrencia
+anterior/siguiente del término de búsqueda en el documento.</li>
+    <li><b>Cancelar búsqueda</b> Cancela la búsqueda actual y cierra el cuadro de
+búsqueda.</li>
+    <li><b>Copiar al portapapeles</b> Si se selecciona, el programa esperará a que
+se arrastre un marco para copiar textos o imágenes.</li>
+    <li><b>Agregar anotación</b> Si se selecciona, el programa esperará a que se
+arrastre un marco para añadir anotaciones.</li>
+    <li><b>Configuración...</b> Abre el diálogo de configuración. El botón
+denominado 'Valores predeterminados' revertirá todos los ajustes en todas
+las pestañas a sus valores predeterminados. El botón denominado 'Valores
+predeterminados en la pestaña actual' sólo revertirá los ajustes de la
+pestaña actual.</li>
+</ul>
+
+<p>La <em>página actual</em>  se puede cambiar introduciendo la página deseada
+en el campo de texto de la barra de edición, que se puede enfocar usando
+Ctrl+K y presionando la tecla Intro.</p>
+
+<h4><a name="view">Ver</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Continuo</b> Determina que todas las filas que componen la presentación
+de las páginas sean visibles a la vez.</li>
+    <li><b>Dos páginas</b> Determina que la presentación de las páginas use 2
+columnas.</li>
+    <li><b>Dos páginas con portada</b> Determina que la presentación de las páginas
+usen 2 columnas con una interrupción después de la portada.</li>
+    <li><b>Múltiples páginas</b> Determina si las páginas usan múltiples
+columnas. El número de columnas puede ser cambiado en cuadro de
+configuración.</li>
+    <li><b>Derecha a izquierdat</b> Determina cómo las páginas son ordenadas en
+composiciones con múltiples páginas por fila.</li>
+    <li><b>Aumentar</b> Incrementa la escala en un 10 por ciento. La escala máxima
+es 5000 por ciento.</li>
+    <li><b>Reducir</b> Reduce la escala en un 10 por ciento. La escala mínima es 10
+por ciento.</li>
+    <li><b>Tamaño original</b> Reinicia la escala al 100 por ciento.</li>
+    <li>b>Ajustar al ancho de página</b> Determina la escala de tal forma que todas
+las páginas se ajusten a la ventana principal horizontalmente.</li>
+    <li>b>Ajustar al tamaño de la página</b> Determina la escala de tal forma que
+todas las páginas se ajusten a la ventana principal horizontal y
+verticalmente.</li>
+    <li><b>Girar a la izquierda</b> Gira la páginas a la izquierda en 90 grados.</li>
+    <li><b>Girar a la derecha</b> Gira la páginas a la derecha en 90 grados.</li>
+    <li><b>Invertir colores</b> Determina que las páginas se visualicen con los
+colores invertidos.</li>
+    <li><b>Convertir a grises</b> Determina que las páginas sean convertidas a
+escala de grises al visualizarlas.</li>
+    <li><b>Recorte de márgenes</b> Habilita la eliminación de los márgenes de la
+página al visualizarlas.</li>
+    <li><b>Composición</b> Habilita la composición de la página visualizada con el
+color del papel para ajustar el fondo de los documentos escaneados.</li>
+    <li><b>Barra de herramientas</b> Este menu contiene una lista de barras de
+herramientas  para acceder a acciones usadas frecuentemente.</li>
+    <li><b>Barra de tareas</b> Este menu contiene una lista de todas las barras de
+tareas disponibles para mostrar información suplementaria.</li>
+    <li><b>Fuentes...</b> Abre un cuadro de diálogo listando las fuentes usadas en
+el documento.</li>
+    <li><b>Pantalla completa</b> Alterna al modo pantalla completa, es decir la
+ventana se muestra maximizada y sin decoraciones.</li>
+    <li><b>Presentación</b> Se ingresa al modo presentación que puede abandonarse al
+presionar la tecla F12 o Escape. La tecla Inicio/Fin es usada para mostrar
+la primera/última página. Las flechas de desplazamiento Derecha y Abajo, la
+tecla Espacio y la tecla Av. pág. saltan a la siguiente página. Las flechas
+de desplazamiento Izquierda y Arriba, la tecla de Retroceso y la tecla
+Re.pág. saltan a la página previa. Presionando Control y Enter salta a la
+última página previo al último salto.</li>
+</ul>
+
+<p>La <em>factor escala</em> puede ser cambiado al ingresar el porcentaje
+deseado en el campo de texto dentro de la barra de herramientas de Ver, el
+cual puede ser enfocado usando Ctrl+L, y presionando la tecla Enter.</p>
+
+<h4><a name="tabs">Pestañas</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Pestaña Anterior/Siguiente</b> Convierte la pestaña anterior/siguiente en
+la pestaña actual. Se traslada a la última/primera pestaña si la
+primera/última pestaña es la pestaña actual.</li>
+    <li><b>Cerrar pestaña</b> Cierra la pestaña actual.</li>
+    <li><b>Cerrar todas las pestañas</b> Cierra todas las pestañas.</li>
+    <li><b>Cerrar todas las pestañas salvo la actual</b> Cierra todas las pestañas
+excepto la pestaña actual.</li>
+    <li><b>Recientemente cerrados</b> Contiene una lista de las pestañas
+recientemente cerradas (si está activada en la configuración).</li>
+</ul>
+
+<p>Este menú contiene una lista de todas las pestañas a las cuales se las puede
+convertir en la pestaña actual al hacer click en el correspondiente item del
+menú. Las pestañas puede también ser cerradas con un clic del botón central
+del mouse. Las primeras nueve pestañas también pueden ser activadas al
+presionar la tecla Alt y alguna tecla del uno al nueve.</p>
+
+<h4><a name="bookmarks">Marcadores</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Marcador previo</b> Salta al marcador más próximo que se encuentre
+previamente a la página actual.</li>
+    <li><b>Marcador previo</b> Salta al marcador más próximo que se encuentre
+posteriormente a la página actual.</li>
+    <li><b>Agregar marcador</b> Agrega un marcador al archivo y página actualmente
+abierto.</li>
+    <li><b>Quitar marcador</b> Quita el marcador del archivo y página actualmente
+abierto.</li>
+    <li><b>Quitar todos los marcadores</b> Quita todos los marcadores presentes.</li>
+    <li><b>Abrir</b> Abre el archivo correspondiente en la pestaña actual. Si no hay
+ninguna pestaña, el archivo se abrirá en una pestaña nueva.</li>
+    <li><b>Abrir en una nueva pestaña</b> Abre el archivo correspondiente en una
+nueva pestaña.</li>
+    <li><b>Saltar a la página</b> Salta a la correspondiente página si el archivo ya
+se encuentra abierto. De no ser así el archivo correspondiente se abre en
+una nueva pestaña.</li>
+</ul>
+
+<h4><a name="help">Ayuda</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Contenidos</b> Se muestra este documento.</li>
+	<li><b>Acerca</b> Se muestra la versión del programa.</li>
+</ul>
+
+<h3><a name="mainview">Vista principal</a> <a href="#top">&uarr;</a></h3>
+
+<p>La tecla de retroceso/espacio salta a la anterior/siguiente página. La tecla
+inicio/fin salta a la primera/última página. La flechas de dirección, las
+teclas repág y avpág desplazan la ventana de visualización. Presionando Ctrl
+y enter salta a la última página antes del último salto.</p>
+
+<p>Usando la rueda del mouse se desplaza hacia arriba y hacia
+abajo. Presionando <b>ALT</b> mientras se usa la rueda del mouse permite
+desplazar de izquierda a derecha. Presionando <b>CTRL</b> mientras se usa la
+rueda del mouse permite escalar el documento. Presionando <b>SHIFT</b>
+mientras se usa la rueda del mouse permite rotar el documento (Las teclas
+especiales pueden ser cambiadas en el cuadro de diálogo de
+configuraciones). Presionar y mantener el botón de la rueda del mouse para
+seleccionar un rectángulo que permita hacer zoom.</p>
+
+<p>Los links son resaltados en recuadros rojos (si es activado en
+configuraciones). Clic con el botón izquierdo sobre un link para mostrar la
+página linkeada o para abrir la URL linkeada en el navegador predeterminado
+del sistema (si es activado en configuraciones). Clic con el bot central
+sobre un link para mostrar la página linkeada en una nueva
+pestaña. Posicionarse con el mouse sobre un link muestra su destino final en
+forma de pequeña ventana emergente.</p>
+
+<p>Los campos de formulario son resaltados en recuadros azules (si es activado
+en configuraciones). Clic con el botón izquierdo sobre un campo de
+formulario para editar sus contenidos. Posicionarse con el mouse sobre un
+campo de formulario muestra su nombre n forma de pequeña ventana emergente.</p>
+
+<p>La fuente de una posición en el documento puede ser abierto en el editor
+usando el menú contextual, el cual puede opcionalmente contener un item para
+la primera concidencia encontrada del nodo <em>SyncTeX</em>.</p>
+
+<p>Para <em>copiar textos o imágenes</em>, presiona <b>SHIFT</b>, haz clic y
+mantiene presionado el botón izquierdo del mouse para dibujar un recuadro
+alrededor del área a copiar. Una vez liberado el botón, un menú emergente es
+mostrado para seleccionar textos o imágenes al portapapeles.</p>
+
+<p>Para <em>agregar anotaciones</em>, presiona <b>CTRL</b>, haz clic y mantiene
+presionado el botón izquierdo del mouse para dibujar un recuadro alrededor
+del área a anotar. Una vez liberado el botón, un menú emergente es mostrado
+para poder seleccionar agregar textos o resaltar anotaciones. Clic con el
+botón izquierdo para <em>editar anotaciones</em>. Clic con el botón derecho
+para <em>borrar anotaciones</em> (Agregar y borrar anotaciones requiere
+versión 0.20.1 o superior de la librería Poppler). Al poner el cursor del
+mouse sobre una anotación se muestra su contenido en forma de pequeña
+ventana emergente.</p>
+
+<p>Para hacer <em>zoom sobre una selección</em>, mantenter presionados
+<b>SHIFT</b> y <b>CTRL</b> y hacer clic y mantener el botón izquierdo del
+mouse para dibujar un recuadro alrededor de la región desea para hacer zoom.</p>
+
+<p><em>Mostrar barras y menues de herramientas</em> puede ser alternado usando
+atajos del teclado cuyos valores por defecto son "Shift+Alt+T" y
+"Shift+Alt+M".</p>
+
+<h3><a name="auxiliaryviews">Vistas auxiliares</a> <a href="#top">&uarr;</a></h3>
+
+<p>La <em>Vista de perfil</em> muestra una visión general del contenido del
+documento. Un clic con el botón izquierdo sobre una entrada salta a la
+respectiva página como vista principal. El menú contextual puede ser usado
+para expandir/colapsar todos los items por debajo del item seleccionado.</p>
+
+<p>La Vista de perfil puede ser también navegada usando el teclado y la rueda
+del mouse. Manteniendo Shift y usando las teclas Arriba/Abajo se puede
+desplazar la vista. Manteniendo Shift y usando las teclas Izquierda/Derecha
+permite colapsar/expandir el item seleccionado y sus
+descendientes. Manteniendo Shift y usando la rueda del mouse permite cambiar
+el item seleccionado. Manteniendo la tecla Ctrl y usando la rueda del mouse
+permite expandir/colapsar el item seleccionado.</p>
+
+<p>La <em>Vista de propiedades</em> muestra información adicional contenida en
+el documento.</p>
+
+<p>La <em>Vista de miniaturas</em> muestra pequeñas versiones de las páginas
+del documento. Un clic con el botón izquierdo en una entrada salta a la
+respectiva página en la vista principal.</p>
+
+<p>La <em>Vista de marcadores</em> muestra los marcadores relacionados con el
+documento mostrado en la pestaña actual. El menú contextual contiene
+entradas para saltar al marcador previo/siguiente o para agregar
+marcadores. El menú contextual de cada entrada también contiene entradas
+para editar y borrar marcadores.</p>
+
+<p>Si está activado en las configuraciones, el <em>cuadro de búsquea
+extendido</em> muestra una vista general conteniendo todos los resultados de
+todas las búsquedas siendo realizadas en todas las pestañas. También muestra
+el texto que rodea al resultado con el término de búsqueda
+resaltado. Cliqueando en un resultado abre la pestaña correspondiente y
+salta a su posición.</p>
+
+<h3><a name="settings">Opciones</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="behaviorsettings">Opciones de comportamiento</a> <a
+href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Abrir URL</b> Determina la apertura de links con URL en el navegador web
+predeterminado.</li>
+    <li><b>Autoactualizar</b> Determina si los archivos son automáticamente
+recargados al cambiar en el disco.</li>
+    <li><b>Pistas recientemente usadas</b> Si está activado, se muestra un menú de
+usados recientemente y pone en lista a todos los archivos recientemente
+utilizados según se haya configurado en la opción de "Cantidad de últimos
+usados" (se hace efectivo después de reiniciar).</li>
+    <li><b>Mantener recientemente usados</b> Si está activado, se muestra un menú de
+cerrados recientemente y pone en lista a todas las pestañas recientemente
+cerradas egún se haya configurado en la opción de "Cantidad de últimos
+cerrados". Manteniendo las pestañas abiertas puede incrementar el uso de
+memoria considerablemente (se hace efectivo después de reiniciar).</li>
+    <li><b>Restaurar pestañas</b> Si está activado, las pestañas y sus propiedades
+son guardadas al finalizar el programa y restauradas al iniciar nuevamente
+el mismo.</li>
+    <li><b>Restaurar marcadores</b> Si está activado, los marcadores son guardados
+al finalizar el programa y restaurados al iniciar nuevamente el mismo.</li>
+    <li>b>Restaurar configuraciones de archivo</b> Si está activado, las
+configuraciones de archivo son guardadas/restauradas al abrir/cerrar
+pestañas.</li>
+    <li><b>Guardar base de datos por intervalos</b> El intervalo por el cual
+pestañas, marcadores o configuraciones por página son guardados a la base de
+datos.</li>
+    <li><b>Sincronizar presentación</b> Si está activado, la vista principal puede
+ser usada para controlar la vista de presentación.</li>
+    <li><b>Pantalla de presentación</b> El índice de la pantalla a ser mostrada en
+la vista de presentación.</li>
+    <li><b>Sincronizar vista de perfil</b> Si está activado, la vista de perfil
+resaltará la primera entrada apuntando a la página actual apenas esta última
+cambie.</li>
+    <li><b>Desplazamiento mínimo</b> Si está activado, la ventana solo se desplazará
+si la posición de destino no se encuentra aún visible.</li>
+    <li><b>Factor zoom</b>  El número por el cual el factor de escala es
+multiplicado.</li>
+    <li><b>Color de resaltado</b> Determina el color de resaltado.</li>
+    <li><b>Tiempo de resaltado</b> Determina la duración de los resaltados
+temporales.</li>
+    <li><b>Color de anotación</b> El color de anotación agregado por el programa
+usando claves SVG de color o notación hexadecimal '#rrggbb'.</li>
+    <li><b>Editor</b> El programa el cual es iniciado para editar. '%1' es
+reemplazado por la dirección absoluta del archivo. '%2' resp. '%3' es
+reemplazado por linea resp. del número de columna.</li>
+</ul>
+
+<h4><a name="graphicssettings">Configuración de gráficos</a> <a
+href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Usar mosaicos</b> Las páginas se dividirán en mosaicos antes del
+renderizado y de la copia caché para reducir el uso de memoria.</li>
+    <li><b>Mantenter mixmaps caducos</b> Si es activado, luego de un cambio en el
+factor zoom, los mapas de píxeles (pixmaps) serán usados para dibujar
+aproximaciones de los pixmaps finales hasta que que estos estén disponibles
+al costo de incrementar el uso de memoria.</li>
+    <li><b>Usar la proporción de píxeles del dispositivo</b> Si es activado, la
+mayor proporción de píxeles del dispositivo que sea disponible se utilizará
+para renderizar a modo fisico y mostrar en resolución lógica.</li>
+    <li><b>Adornar páginas</b> Determina si las páginas serán apartadas del fondo.</li>
+    <li><b>Adornar links</b> Determina si los links serán resaltados con recuadros
+rojos.</li>
+    <li><b>Adornar campos de formulario</b> Determina si los campos de formulario
+serán resaltados con recuadros azules.</li>
+    <li><b>Color de fondo</b> Determina el color de fondo usando claves de color SVG
+o notación hexadecimal '#rrggbb'.</li>
+    <li><b>Color de página</b> Determina el color de las páginas usando claves de
+color SVG o notación hexadecimal '#rrggbb'.</li>
+    <li><b>Color de fondo en modo presentación</b> Anula el color de fondo de la
+página en modo presentación y se define usando claves de color SVG o
+notación hexadecimal '#rrggbb'.</li>
+    <li><p>Páginas por fila</b> Número de páginas por fila en modo composicion de
+"múltiples páginas".</li>
+    <li><b>Espaciado de página</b> Determina tanto el espacio vertical como
+horizontal mostrado entre páginas.</li>
+    <li><b>Espaciado miniaturas</b> Determina tanto el espacio vertical como
+horizontal mostrado entre miniaturas.</li>
+    <li><b>Tamaño de miniaturas</b> Determina el tamaño de las miniaturas.</li>
+    <li><b>Tamaño caché</b> El programa tratará de ubicar en cache las páginas
+renderizadas dentro de este límite fijado incrementando la velocidad de
+renderizado al costo de incrementar el uso de memoria.</li>
+    <li><b>Prefetch</b> El programa tratará de renderizar páginas aún no visibles
+incrementando la velocidad de renderizado al costo de incrementar el uso de
+memoria.</li>
+    <li><b>Distancia de prefetch</b> El número de filas a más allá de la fila actual
+y el doble de número de filas después de la misma que serán puestos en
+prefetch.</li>
+    <li><b>Opciones PDF</b>
+    <ul>
+        <li><b>Antialiasing</b> Mejora la calidad de visualización a costa de la
+performance.</li>
+        <li><b>Antialiasing en texto</b> Mejora la calidad de visualización del texto a
+costa de la performance.</li>
+        <li><b>Hinting texto</b>  Puede mejorar la calidad del texto para ciertas
+fuentes.</li>
+        <li><b>Previa de sobreimpresión</b> Si es activado, se muestra una vista previa
+de la impresión de una capa de tinta encima de otra.</li>
+        <li><b>Modo lineas finas</b> Permite seleccionar la optimización usada para
+dibujar lineas finas.</li>
+        <li><b>Backend</b> Permite seleccionar el backend usado para renderizar páginas.</li>
+    </ul>
+    </li>
+    <li><b>Opciones de PS</b>
+    <ul>
+        <li><b>Bits de antialias en gráficos</b> Determina la cantidad de antialiasing
+para gráficos.</li>
+        <li><b>Bits de antialias en texto</b> Determina la cantidad de antialiasing para
+texto.</li>
+    </ul>
+    </li>
+</ul>
+
+<h4><a name="interfacesettings">Configuración de interfase</a> <a
+href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Recuadro de búsqueda extendido</b> Si es activado, el recuadro de
+búsqueda predeterminado es extendido como panorámica mostrando los
+resultados en todas las pestañas (efectivo después de reiniciar).</li>
+    <li><b>Superposición de anotaciones</b> Si es activado, todas las anotaciones de
+la página serán mostradas como superposiciones interactivas. De otro modo
+cada anotación serán manejadas como recuadros emergentes individuales.</li>
+    <li><b>Overlay en campo de formulario</b> Si es activado, todos los campos de
+formulario en la página serán mostrados con un overlay interactivo. De lo
+contrario cada campo de formulario será manejado como una ventana emergente
+individual.</li>
+    <li><b>Posición de pestaña</b> Define sobre qué borde de la vista principal
+serán mostradas las pestañas.</li>
+    <li><b>Visibilidad de pestañas</b> Determina si las pestañas serán mostradas si
+al menos dos documentos se encuentran abiertos.</li>
+    <li><b>Extensión de pestañas</b> Determina si las pestañas se extenderán
+uniformemente sobre toda la barra de pestañas.</li>
+    <li><b>Nueva pestaña sobre pestaña activa</b> Si es activado, nuevas pestañas
+serán abiertas a la derecha de la pestaña activa.</li>
+    <li><b>Salir después de la última pestaña</b> Si es activado, la aplicación se
+cerrará después de cerrar la última pestaña.</li>
+    <li><b>Contador de recientemente abiertos</b> Fija el número de archivos que son
+listados en el menú de recientemente usados, siempre que "listar
+recientemente usados" se encuentre activado (efectivo después de reiniciar).</li>
+    <li><b>Contador de recientemente cerrados</b> Fija el número de pestañas que son
+listadas en el menú de recientemente usados, siempre que "listar
+recientemente cerrados" se encuentre activado (efectivo después de
+reiniciar).</li>
+    <li><b>Barra de archivos</b> Define qué acciones serán visibles en la barra de
+archivos. Acciones disponibles son: abrir en nueva pestaña, abrir,
+actualizar, guardar copia, guardar como, imprimir y separador (efectivo solo
+después de reiniciar).</li>
+    <li>b>Barra de edición</b> Define qué acciones serán visibles en la barra de
+edición. Acciones disponibles son: página actual, página previa, página
+siguiente, primera página, última página, saltar a página, saltar hacia
+atrás, saltar hacia adelante, buscar, modo copiar a portapapeles, modo
+agregar anotaciones y separador (efectivo solo después de reiniciar).</li>
+    <li>b>Barra de vista</b> Define qué acciones serán visibles en la barra de
+vista. Las acciones disponibles son:  Factor de escala, incrementar zoom,
+reducir zoom, modo páginas continuas, modo doble página, modo doble página
+con cubierta, modo múltiples páginas, tamaño original, modo encajar al ancho
+de la página, modo encajar al tamaño de página, rotar hacia la izquierda,
+rotar hacia la derecha, pantalla completa, presentación y separador
+(efectivo solo después de reiniciar).</li>
+    <li><b>Document context menu</b> Defines which actions are visible in the
+document's context menu. Available actions are openCopyInNewTab,
+openCopyInNewWindow, openContainingFolder, moveToInstance, previousPage,
+nextPage, firstPage, lastPage, jumpToPage, jumpBackward, jumpForward,
+setFirstPage, findPrevious, findNext, cancelSearch and separator.</li>
+    <li><b>Tab context menu</b> Defines which actions are visible in a tab's context
+menu. Available actions are openCopyInNewTab, openCopyInNewWindow,
+openContainingFolder, moveToInstance, copyFilePath, selectFilePath,
+closeAllTabs, closeAllTabsButThisOne, closeAllTabsToTheLeft,
+closeAllTabsToTheRight and separator.</li>
+    <li><b>Menues desplazables</b> Anula el estilo por defecto de tal forma que los
+menues emergentes se puedan desplazarse en lugar de disponerse en múltiples
+columnas si son más grandes que el espacio disponible en pantalla (efectivo
+después de reiniciar).</li>
+    <li><b>Menues buscables</b> Extiende la navegación por defecto vía teclado en
+los menues de pestañas y marcadores mediante un mecanismo del tipo
+"buscar-mientras-escribo".</li>
+    <li><b>Alternar barras de menu y herramientas con pantalla completa</b> Siempre
+se conmuta la visibilidad de las barras de menu y herramientas cuando se
+pasa a pantalla completa.</li>
+    <li><b>Usar etiqueta de página</b> Determina si una etiqueta de página del
+documento suministrado será usado en lugar de números de página cuando se
+sea disponible.</li>
+    <li><b>Título de documento como título de pestaña</b> Determina el título de
+pestaña según lo obtenido de los meta-datos en lugar del nombre del archivo.</li>
+    <li><b>Página activa en título de ventana</b> Si es activado, la página activa y
+el número de páginas del documento en la pestaña activa serán mostradas en
+el título de la ventana.</li>
+    <li><b>Nombre de instancia en título de ventana</b> Si es activado y la
+instancia actual es nombrada, su nombre se mostrará en el título de la
+ventana.</li>
+    <li><b>Resaltar miniatura activa</b> Si es activado, la página actual será
+remarcada en la vista de miniaturas.</li>
+    <li><b>Limitar miniaturas en resultados</b> Si esta opción es activada y una
+búsqueda es realizada, solo las páginas donde el término de búsqueda es
+encontrado son mostrados en la vista de miniaturas.</li>
+</ul>
+
+<h4><a name="shortcutsettings">Configuración de atajos</a> <a
+href="#top">&uarr;</a></h4>
+
+<p>La configuración de atajos permite el ajuste de atajos de teclado según
+preferencia personal. Los atajos son cambiados con doble clic sobre los
+mismos para editar e ingresar el nuevo atajo. Cada acción puede disponer de
+varios atajos al ingresar una lista de estos separados por punto y coma. Los
+nombres de tecla que no son representados con una letra simple puede
+escribirse explícitamente (ej.: "Alt", "Ctrl", "avPág"), y la concordancia
+no es sensible entre letras mayúsculas y minúsculas. Si el atajo contiene
+claves de modificadores, los nombres de las claves son agregadas con un
+signo más y estas claves deben ser listadas primero (ej.:  "Ctrl+A" o
+"Ctrl++").</p>
+
+<h4><a name="modifiersettings">Configuración de modificadores</a> <a
+href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Zoom</b> Los modificadores de teclado para hacer zoom usando la rueda del
+mouse en la vista principal.</li>
+    <li><b>Rotar</b> <b>Zoom</b> Los modificadores de teclado para rotar usando la
+rueda del mouse en la vista principal.</li>
+    <li><b>Desplazamientol</b> Los modificadores de teclado para desplazarse
+horizontalmente usando la rueda del mouse en la vista principal.</li>
+    <li><b>Copiar al portapapeles</b> Los modificadores de teclado para copiar
+textos o imágenes desde la página al portapapeles.</li>
+    <li><b>Agregar anotación</b> Los modificadores de teclado para agregar
+anotaciones en la página.</li>
+    <li><b>Zoom en selección</b> Los modificadores de teclado para hacer zoom en una
+selección sobre la página.</li>
+</ul>
+
+</body>
+
+</html>

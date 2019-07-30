@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Adam Reichold <adam.reichold@t-online.de> -->
+<application>
+    <id type="desktop">qpdfview.desktop</id>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>GPL-2.0+</project_license>
+    <name>qpdfview</name>
+    <summary>tabbed document viewer</summary>
+    <description>
+        <p>
+        qpdfview is a simple tabbed document viewer which uses the Poppler library for PDF rendering and CUPS for printing and provides a clear and simple Qt graphical user interface. Support for the DjVu and PostScript formats can be added via plugins.
+        </p>
+        <p>        
+        The current feature set includes:
+        </p>
+        <ul>
+            <li>Outline, properties and thumbnail panes</li>
+            <li>Scale, rotate and fit</li>
+            <li>Fullscreen and presentation views</li>
+            <li>Continuous and multi-page layouts</li>
+            <li>Persistent per-file settings</li>
+            <li>Configurable keyboard shortcuts</li>
+            <li>Configurable tool bars</li>
+            <li>Support for DjVu and PostScript documents via plug-ins</li>
+            <li>Search for text (PDF and DjVu only)</li>
+            <li>SyncTeX support (PDF only)</li>
+            <li>Partial annotation support (PDF only, Poppler version 0.20.1 or newer)</li>
+            <li>Partial form support (PDF only)</li>
+        </ul>    
+    </description>
+    <screenshots>
+        <screenshot type="default" width="800" height="600">http://screenshots.debian.net/image/13652_large.png</screenshot>
+        <screenshot width="800" height="600">http://screenshots.debian.net/screenshots/q/qpdfview/13653_large.png</screenshot>
+        <screenshot width="426" height="503">http://screenshots.debian.net/screenshots/q/qpdfview/9701_large.png</screenshot>
+        <screenshot width="707" height="600">http://screenshots.debian.net/screenshots/q/qpdfview/9399_large.png</screenshot>
+    </screenshots>
+    <url type="homepage">https://launchpad.net/qpdfview</url>
+    <updatecontact>qpdfview@lists.launchpad.net</updatecontact>
+</application>

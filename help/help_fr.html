@@ -1,0 +1,540 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
+
+<!--
+
+Copyright 2012 Benjamin Eltzner
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>
+.
+
+This file is additionally licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported (CC-BY-SA) license. The full text of the license can be found at https://creativecommons.org/licenses/by-sa/3.0/legalcode
+
+-->
+<html>
+
+<head>
+    <title>Aide</title>
+</head>
+
+<body>
+
+<h2><a name="top">Aide</a></h2>
+
+<h4>Table des matières</h4>
+<ol>
+    <li><a href="#mainmenu">Menu principal</a></li>
+    <ol>
+        <li><a href="#file">Fichier</a></li>
+        <li><a href="#edit">Édition</a></li>
+        <li><a href="#view">Afficher</a></li>
+        <li><a href="#tabs">Onglets</a></li>
+        <li><a href="#bookmarks">Signets</a></li>
+        <li><a href="#help">Aide</a></li>
+    </ol>
+    <li><a href="#mainview">Vue principale</a></li>
+    <li><a href="#auxiliaryviews">Vues auxiliaires</a></li>
+    <li><a href="#settings">Paramètres</a></li>
+    <ol>
+    	<li><a href="#behaviorsettings">Comportement</a></li>
+    	<li><a href="#graphicssettings">Paramètres d'affichage</a></li>
+    	<li><a href="#interfacesettings">Paramètres de l'interface</a></li>
+    	<li><a href="#shortcutsettings">Raccourcis</a></li>
+    	<li><a href="#modifiersettings">Modificateurs</a></li>
+    </ol>
+</ol>
+
+<h4>Introduction</h4>
+
+<p><em>qpdfview</em> est une visionneuse de documents par onglets. Elle utilise
+Poppler pour la prise en charge du format PDF, libspectre pour le format PS,
+DjVuLibre pour le format DjVu, CUPS pour le support d'impression et la
+bibliothèque Qt pour son interface.</p>
+
+<p>Veuillez consulter la page du manuel pour obtenir des informations sur les
+options en ligne de commande et sur les fichiers de configuration.</p>
+
+<h3><a name="mainmenu">Menu principal</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="file">Fichier</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Ouvrir...</b> Ouvre une boîte de dialogue pour choisir un fichier à
+ouvrir dans l'onglet courant. S'il n'y a pas d'onglet, le fichier est ouvert
+dans un nouvel onglet.</li>
+    <li><b>Ouvrir dans un nouvel onglet...</b> Ouvre une boîte de dialogue pour
+choisir les fichiers à ouvrir dans de nouveaux onglets.</li>
+    <li><b>Récemment utilisés</b> Contient une liste des fichiers récemment utilisés
+(si l'option est activée dans les paramètres).</li>
+    <li><b>Actualiser</b> Recharge le fichier affiché dans l'onglet courant.</li>
+    <li><b>Enregistrer</b> Enregistre les modifications des annotations et champs de
+formulaire dans le fichier affiché dans l'onglet actuel.</li>
+    <li><b>Enregistrer sous...</b> Ouvre une boîte de dialogue pour enregistrer le
+fichier affiché dans l'onglet courant y compris les modifications des
+annotations et des champs de formulaire.</li>
+    <li><b>Enregistrer une copie…</b> Ouvre une boîte de dialogue pour enregistrer
+une copie non modifiée du fichier affiché dans l'onglet actuel.</li>
+    <li><b>Imprimer...</b> Ouvre une boîte de dialogue pour imprimer le fichier
+affiché dans l'onglet courant.</li>
+    <li><b>Quitter</b> Ferme tous les onglets, puis le programme.</li>
+</ul>
+
+<h4><a name="edit">Édition</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Page suivante/Page précédente/Première page/Dernière page</b> Va à la
+page suivante/page précédente/première page/dernière page du document.</li>
+    <li><b>Aller à la page...</b> Ouvre une boîte de dialogue demandant le numéro de
+la page à afficher dans l'onglet courant.</li>
+    <li><b>Aller vers l'arrière/l'avant</b> Aller vers l'arrière/l'avant dans
+l'historique des pages affichées.</li>
+    <li><b>Rechercher...</b> Ouvre la barre de recherche sous l'affichage
+principal. La recherche démarre automatiquement 2 secondes après le dernier
+changement du terme de recherche ou est démarrée manuellement en appuyant
+sur la touche entrée. Si la touche Maj est maintenue enfoncée quand la
+touche entrée est pressée, la recherche démarre dans tous les onglets, et
+non plus seulement dans l'onglet actuel. (Cet effet est annulé si la barre
+de recherche avancée est activée dans les paramètres.)</li>
+    <li><b>Rechercher le précédent/suivant</b> Saute à l'occurrence
+précédente/suivante du terme recherché dans le document.</li>
+    <li><b>Annuler la recherche</b> Annule la recherche en cours et ferme la barre
+de recherche.</li>
+    <li><b>Copier dans le presse-papiers</b> Lorsque l'action est lancée, le
+programme attend le tracé d'une zone de sélection à la souris pour copier
+son contenu sous forme de textes ou d'images.</li>
+    <li><b>Ajouter une annotation</b> Lorsque cette action est lancée, le programme
+attend qu'une zone soit tracée avec la souris pour y ajouter une annotation.</li>
+    <li><b>Paramètres...</b> Ouvre la boîte de dialogue des paramètres. Le bouton «
+Défauts » permet de restaurer tous les réglages de tous les onglets à leur
+valeur par défaut. Le bouton « Défauts sur l'onglet actuel » ne restaure les
+paramètres par défaut que de l'onglet courant.</li>
+</ul>
+
+<p>La <em>page courante</em> peut être modifiée en saisissant le numéro de la
+page souhaitée dans le champ de texte de la barre d'outils, auquel on peut
+accéder par Ctrl+K, et en validant par la touche entrée.</p>
+
+<h4><a name="view">Affichage</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Continu</b> Permet de rendre simultanément visibles les différentes
+lignes de la mise en page.</li>
+    <li><b>Deux pages</b> Mise en page en mode deux colonnes.</li>
+    <li><b>Deux pages avec page de couverture</b> Mise en page en deux colonnes avec
+un saut de page pour la page de couverture.</li>
+    <li><b>Multiples pages</b> Mode de mise en page à plusieurs colonnes. Le nombre
+de colonnes se règle dans le menu paramètres.</li>
+    <li><b>Droite vers la gauche</b> Indique comment les pages sont présentées
+lorsque la mise en page multiple comporte plusieurs pages par ligne.</li>
+    <li><b>Zoom avant</b> Augmente le facteur d'échelle par tranche de 10 %. Le
+facteur d'échelle maximum est de 5000 %.</li>
+    <li><b>Zoom arrière</b> Diminue le facteur d'échelle par tranche de 10 %. Le
+facteur d'échelle minimum est de 10 %.</li>
+    <li><b>Taille originale</b> Rétablit le facteur d'échelle à 100 pourcent.</li>
+    <li><b>Ajuster à la largeur de la page</b> Ajuste le facteur d'échelle de façon
+à ce que la page occupe toute la largeur de la fenêtre principale.</li>
+    <li><b>Ajuster à la taille de la page</b> Ajuste le facteur d'échelle de façon à
+ce que la page occupe toute la hauteur de la fenêtre principale.</li>
+    <li><b>Rotation vers la gauche</b> Tourne la page vers la gauche (le sens
+contraire des aiguilles d'une montre) de 90 degrés.</li>
+    <li><b>Rotation vers la droite</b> Tourne la page vers la droite (le sens des
+aiguilles d'une montre) de 90 degrés.</li>
+    <li><b>Inverser les couleurs</b> Précise que les pages doivent être affichées en
+couleurs inversées.</li>
+    <li><b>Convertir en niveaux de gris</b> Détermine si les pages sont converties
+en niveaux de gris après le rendu.</li>
+    <li><b>Rogner les marges</b> Active la suppression des marges de page vides
+après le rendu.</li>
+    <li><b>Composition</b></li>
+    <li><b>Barre d'outils</b> Ce menu contient une liste de barres d'outils
+disponibles pour accéder aux actions fréquemment utilisées.</li>
+    <li><b>Docks</b> Ce menu contient la liste des docks disponibles pour afficher
+des informations supplémentaires.</li>
+    <li><b>Polices...</b> Ouvre une boîte de dialogue cataloguant l'ensemble des
+polices de caractères utilisées dans le document.</li>
+    <li><b>Plein écran</b> Bascule en mode plein écran ; la fenêtre occupe la taille
+maximale sans décoration.</li>
+    <li><b>Présentation...</b> Entre dans le mode présentation que l'on peut quitter
+par les touches F12 ou Echap. La touche Home/Fin permet d'afficher la
+première/dernière page. Les touches droite, bas ou espace permettent d'aller
+à la page suivante. Les touches gauche, haut ou retour permettent d'aller à
+la page précédente. L'appui simultané sur les touches control et entrée
+permet d'aller à la page précédent le dernier saut.</li>
+</ul>
+
+<p>Le <em>facteur d'échelle</em> peut-être modifié en saisissant le pourcentage
+souhaité dans le champ de texte de la barre d'outils, accessible par le
+raccourci Ctrl+L, et en valident par la touche entrée.</p>
+
+<h4><a name="tabs">Onglets</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Onglet précédent/suivant</b> Passe à l'onglet précédent/suivant. Boucle
+sur le dernier/premier onglet si l'onglet courant est le premier/dernier.</li>
+    <li><b>Fermer l'onglet</b> Ferme l'onglet courant.</li>
+    <li><b>Fermer tous les onglets</b> Ferme tous les onglets.</li>
+    <li><b>Fermer tous les onglets sauf l'onglet courant</b> Ferme tous les onglets
+sauf l'onglet courant.</li>
+    <li><b>Récemment fermés</b> Contient une liste des onglets récemment fermés (si
+l'option est activée dans les paramètres).</li>
+</ul>
+
+<p>Ce menu contient une liste de tous les onglets qui peuvent devenir l'onglet
+courant par sélection dans le menu. Les onglets peuvent être fermés en
+cliquant sur le bouton du milieu de la souris. Les neufs premiers onglets
+peuvent être sélectionnés en maintenant la touche Alt enfoncée et en
+pressant une touche de un à neuf.</p>
+
+<h4><a name="bookmarks">Signets</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Signet précédent</b> Va au signet le plus proche avant la page courante.</li>
+    <li><b>Signet suivant</b> Va au signet le plus proche après la page courante.</li>
+    <li><b>Ajouter un signet</b> Ajoute un signet à la page courante du fichier
+courant.</li>
+    <li><b>Supprimer le signet</b> Supprime le signet de la page courante du fichier
+courant.</li>
+    <li><b>Enlever tous les signets</b> Enlève tous les signets.</li>
+    <li><b>Ouvrir</b> Ouvre le fichier correspondant dans l'onglet courant. S'il n'y
+a pas d'onglet, le fichier est ouvert dans un nouvel onglet.</li>
+    <li><b>Ouvrir dans un nouvel onglet</b> Ouvre le fichier correspondant dans un
+nouvel onglet.</li>
+    <li><b>Aller à la page</b> Va à la page correspondante si le fichier en question
+est déjà ouvert. Sinon le fichier est d'abord ouvert dans un nouvel onglet.</li>
+</ul>
+
+<h4><a name="help">Aide</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Contenu</b> Affiche ce document.</li>
+	<li><b>À propos</b> Affiche le numéro de version du programme.</li>
+</ul>
+
+<h3><a name="mainview">Vue principale</a> <a href="#top">&uarr;</a></h3>
+
+<p>La touche retour/espace permet d'aller à la page précédente/suivante. La
+touche Home/Fin permet d'aller à la première/dernière page. Les flèches, les
+touches page vers le haut, page vers le bas permettent de faire défiler la
+vue. L'appui simultané sur les touches control et entrée permet d'aller à la
+page précédent le dernier saut.</p>
+
+<p>Utilisez la roulette de la souris pour faire défiler la page
+verticalement. Maintenez la touche <b>ALT</b> enfoncée lorsque vous utilisez
+la roulette pour faire défiler la page horizontalement. Maintenez la touche
+<b>CTRL</b> enfoncée lorsque vous utilisez la roulette pour zoomer ou
+dézoomer le document. Maintenez la touche <b>SHIFT</b> enfoncée lorsque vous
+utilisez la roulette pour tourner le document (la configuration du clavier
+peut être changée dans la boîte de dialogue des paramètres). Cliquez et
+maintenez le bouton central de la souris pour sélectionner une zone
+rectangulaire sur laquelle zoomer.</p>
+
+<p>Les liens sont surlignés par des cadres rouges (si cela est activé dans les
+paramètres). Un clic gauche sur un lien montre la page liée ou ouvre la page
+dans le navigateur par défaut (si cela est activé dans les paramètres). Un
+clic central sur un lien ouvre la page liée dans un nouvel onglet. Passer le
+curseur au-dessus d’un lien affiche sa destination comme une astuce.</p>
+
+<p>Les champs de formulaire sont mis en valeur par un cadre bleu (si ce
+comportement a été choisi dans les paramètres). Un clic gauche sur un champ
+de formulaire permet d'en éditer le contenu. Passer sur un champ de
+formulaire affiche son nom dans une bulle d'aide.</p>
+
+<p>The source of a position in the document can be opened in the source editor
+using the context menu which optionally contains an item for the first
+matching <em>SyncTeX</em> node.</p>
+
+<p>Pour <em>copier du texte ou des images</em>, maintenir la touche <b>Maj</b>
+enfoncée, cliquer et maintenir le bouton gauche de la souris enfoncé pour
+dessiner un cadre autour de la zone à copier. Une fois le bouton de la
+souris relâché, une boîte de dialogue s'affiche, permettant de choisir de
+copier le texte ou l'image dans le presse-papiers.</p>
+
+<p>To <em>add annotations</em>, hold <b>CTRL</b>, click and hold the left mouse
+button to drag a frame around the region to annotate. Once the mouse button
+is released, a pop-up menu is displayed to select whether to add text or
+highlight annotations. Left-click to <em>edit annotations</em>. Right-click
+to <em>remove annotations</em>. (Adding and removing annotations requires
+version 0.20.1 or higher of the Poppler library.) Hovering over an
+annotation displays its contents as a tool tip.</p>
+
+<p>Pour <em>zoomer sur la sélection</em>, maintenir <b>Maj</b> et <b>Ctrl</b>,
+puis cliquer et maintenir le bouton gauche de la souris enfoncé pour
+encadrer la région à agrandir.</p>
+
+<p>La <em>visibilité des barres d’outils et de menu</em> peut être alternée en
+utilisant les raccourcis clavier configurables dont les valeurs par défaut
+sont « Shift + Alt + T » et « Shift + Alt + M ».</p>
+
+<h3><a name="auxiliaryviews">Vues auxiliaires</a> <a href="#top">&uarr;</a></h3>
+
+<p>Le <em>sommaire</em> (F6) affiche une vue d'ensemble du contenu du
+document. Un clic gauche sur une entrée bascule sur la page respective dans
+la vue principale. Le menu contextuel peut être utilisé pour
+développer/réduire tous les éléments en dessous de l'élément sélectionné.</p>
+
+<p>The outline view can also be navigated using the keyboard and the mouse
+wheel. Holding Shift and using the Up/Down keys will scroll the
+view. Holding Shift and using the Left/Right keys will collapse/expand one
+level of items below the selected item. Holding Control and using the
+Left/Right keys will completely collapse/expand the selected item and its
+children. Holding Shift and using the mousel wheel will change the selected
+item. Holding Control and using the mouse wheel will expand/collapse the
+selected item.</p>
+
+<p>L' <em>affichage des propriétés</em> permet d'afficher des informations
+supplémentaires contenues dans le document.</p>
+
+<p>L' <em>affichage des miniatures</em> permet d'afficher des versions plus
+petites des pages du document. Un clic gauche dans une entrée passe à la
+page respective dans la vue principale.</p>
+
+<p>The <em>bookmarks view</em> shows the bookmarks related to the document
+displayed in the current tab. The context menu contains entries to jump to
+the previous/next boookmark or to add bookmarks. The context menu of each
+entry also contains entries to edit and delete bookmarks.</p>
+
+<p>Si activé dans les paramètres, la <em>barre de recherche avancée</em>
+affiche une vue d'ensemble contenant les résultats de toutes les recherches
+étant exécutées dans tous les onglets. Elle affiche également le texte au
+environ d'un résultat avec le terme de recherche étant mis en
+surbrillance. Cliquer sur un résultat ouvre l'onglet correspondant et
+bascule sur sa position.</p>
+
+<h3><a name="settings">Paramètres</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="behaviorsettings">Comportement</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Ouvrir une URL</b> Détermine si les liens vers une URL sont ouverts dans
+le navigateur par défaut.</li>
+    <li><b>Actualisation automatique</b> Détermine si les fichiers sont rechargés
+automatiquement lors de leur modification sur le disque dur.</li>
+    <li><b>Fichiers récemment ouverts</b> Si l'item est validé, un menu est
+disponible et propose autant de fichiers récemment ouverts qu'il est précisé
+dans le champ « Nombre de fichiers récemment ouverts » (nécessite un
+redémarrage).</li>
+    <li><b>Keep recently closed</b> If enabled, a recently closed menu is available
+and lists as many recently closed tabs as set in the "Recently closed count"
+option. Keeping the tabs available could increase memory usage
+considerably. (Effective after restart.)</li>
+    <li><b>Restaurer les onglets</b> Si l'option est validée, les onglets et leurs
+propriétés sont enregistrées lors de la fermeture du programme et restaurer
+lors de son ouverture.</li>
+    <li><b>Restaurer les signets</b> Si l'item est validé, les signets sont
+enregistrés en quittant le programme et restaurés lors de sa ré-ouverture.</li>
+    <li><b>Restaurer les paramètres par fichier</b> Si l'item est validé, les
+réglages propres à chaque fichier sont enregistrés/restaurés à chaque
+ouverture/fermeture des onglets.</li>
+    <li><b>Intervalle de sauvegarde de la base de données</b> L’intervalle après
+lequel les onglets, marques-pages ou les paramètres personalisés par fichier
+sont sauvegardés dans la base de données.</li>
+    <li><b>Synchroniser la présentation</b> Si l'item est validé, la vue principale
+permet de contrôler la vue du mode présentation.</li>
+    <li><b>Écran de présentation</b> La référence de l'écran sur lequel afficher la
+présentation.</li>
+    <li><b>Synchroniser le sommaire</b> Si l'item est validé, la page du sommaire
+correspondant à la page courante est mise en valeur et s'actualise à tous
+changements de page.</li>
+    <li><b>Minimal scrolling</b> If enabled, the view port will only be scrolled if
+the target position is not yet visible.</li>
+    <li><b>Facteur de zoom</b> Le nombre par lequel le facteur de zoom sera
+respectivement multiplié ou divisé selon que l’on zoome ou dézoome.</li>
+    <li><b>Couleur de surlignement</b> Permet de choisir la couleur de surlignement.</li>
+    <li><b>Durée de mise en surbrillance</b> Précise la durée des surlignements
+temporaires.</li>
+    <li><b>Couleur d'annotation</b> Précise la couleur des annotation ajoutées par
+le programme, en utilisant les couleurs SVG ou la notation hexadécimale
+'#rrggbb'.</li>
+    <li><b>Éditeur de source</b> Le programme qui est lancé pour éditer un fichier
+source. « %1 » est remplacé par le chemin absolu du fichier. « %2 » (resp. «
+%3 ») est remplacé par le numéro de ligne (resp. colonne).</li>
+</ul>
+
+<h4><a name="graphicssettings">Affichage</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Use tiling</b> Pages will be divided into tiles before rendering and
+caching to reduce memory usage.</li>
+    <li><b>Conserver l'affichage lors du zoom</b> Si l'item est validé, le cache
+graphique est utilisé lors des zoom pour permettre un affichage approximatif
+temporaire avant le rendu de l'image finale. Cette option augment
+l'utilisation de la mémoire.</li>
+    <li><b>Utiliser le taux de pixel de l'appareil</b> Si l'item est validé,
+l'affichage se fait en utilisant la valeur maximale du taux de pixel.</li>
+    <li><b>Décorer les pages</b> Permet de tracer le cadre séparant la page de son
+arrière-plan.</li>
+    <li><b>Décorer les liens</b> Précise si les liens sont mis en valeur par un
+cadre rouge.</li>
+    <li><b>Décorer les champs de formulaire</b> Précise si les champs de formulaire
+sont mis en valeur par un cadre bleu.</li>
+    <li><b>Couleur de l'arrière-plan</b> Précise la couleur de l'arrière-plan à
+l'aide des couleurs SVG ou en notation hexadécimale « #rrggbb ».</li>
+    <li><b>Couleur du papier</b> Précise la couleur du papier à l'aide des couleurs
+SVG ou en notation hexadécimal « #rrggbb ».</li>
+    <li><b>Couleur de l'arrière plan en mode présentation</b> Remplace la couleur du
+papier dans le mode présentation. La couleur est définie à l'aide des
+couleurs SVG ou de la notation hexadécimal « #rrggbb » .</li>
+    <li><b>Pages par ligne</b> Nombre de pages affichées par ligne dans le mode «
+Pages multiples ».</li>
+    <li><b>Espacement des pages</b> Précise les espacements verticaux et horizontaux
+entre les pages.</li>
+    <li><b>Espacement des miniatures</b> Précise les espacements verticaux et
+horizontaux entre les miniatures.</li>
+    <li><b>Taille des miniatures</b> Précise la dimension des miniatures.</li>
+    <li><b>Taille du cache</b> Le programme stocke les pages affichées dans le
+cache, dans la limite de l'espace choisi, améliorant ainsi la vitesse
+d'affichage au prix d'une augmentation de l'utilisation de la mémoire.</li>
+    <li><b>Préchargement</b> Le programme essaye de préparer l'affichage des pages
+qui ne sont pas encore visibles afin d'accélérer leur rendu, au prix d'une
+augmentation de l'usage du cache.</li>
+    <li><b>Distance de préchargement</b> Le nombre de lignes au-delà de la ligne
+actuelle et le double du nombre de lignes avant la ligne actuelle qui sont
+préchargées.</li>
+    <li><b>Paramètres PDF</b>
+    <ul>
+        <li><b>Anti-crénelage</b> Améliore la qualité de l'affichage au prix d'une
+baisse de performances.</li>
+        <li><b>Anti-crénelage du texte</b> Améliore l'affichage du texte au prix d'une
+baisse de performances.</li>
+        <li><b>Indications</b> Peut améliorer l'affichage de certaines polices de
+caractères.</li>
+        <li><b>Sur-imprimer l'aperçu</b> Si l'item est validé, l'aperçu d'impression est
+affiché en tenant compte de la superposition des couches d'encre.</li>
+        <li><b>Mode ligne fine</b> Optimisation de rendu des lignes fines.</li>
+        <li><b>Moteur</b> Choisit le moteur de rendu utilisé pour les pages.</li>
+    </ul>
+    </li>
+    <li><b>Paramètres PS</b>
+    <ul>
+        <li><b>Nombre de bits d'anti-crénelage graphique</b> Précise le nombre de bits
+dédiés à l'anti-crénelage graphique.</li>
+        <li><b>Nombre de bites d'anti-crénelage du texte</b> Précise le nombre de bits
+dédiés à l'anti-crénelage du texte.</li>
+    </ul>
+    </li>
+</ul>
+
+<h4><a name="interfacesettings">Interface</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Extended search dock</b> If enabled, the default search dock is extended
+by an overview showing the results of all tabs. (Effective after restart.)</li>
+    <li><b>Superposition des annotations</b> Si activé, toutes les annotations
+présentes sur la page seront affichées en même temps. Autrement, chaque
+annotation sera affichée séparément.</li>
+    <li><b>Form field overlay</b> If enabled, all form fields on a page will be
+displayed as an interactive overlay. Otherwise each form field will be
+handled as a separate pop-up window.</li>
+    <li><b>Position des onglets</b> Défini le côté de la vue principale sur lequel
+seront placés les onglets.</li>
+    <li><b>Visibilité des onglets</b> Précise si l'onglet est affiché lorsqu'il y a
+moins de deux documents ouverts.</li>
+    <li><b>Étendre les onglets</b> Détermine si les onglets seront étendus même
+au-delà de la barre des onglets.</li>
+    <li><b>Nouvel onglet à côté de l'onglet courant</b> Si l'item est validé, les
+nouveaux onglets sont ouverts à droite de l'onglet courant.</li>
+    <li><b>Fermer avec le dernier onglet</b> Si l'option est validée, l'application
+ferme après la fermeture du dernier onglet.</li>
+    <li><b>Compteur des fichiers récemments ouverts</b> Précise le nombre de
+fichiers qui sont listés dans le menu des fichiers récemments ouverts, si
+l'item « Suivre les fichiers récemment ouverts » est validé (option
+effective après un redémarrage).</li>
+    <li><b>Compteur des fichiers récemment fermés</b> Précise le nombre de fichiers
+qui sont listés dans le menu des fichiers récemment fermés, si l'item «
+Suivre les fichiers récemment fermés » est validé (option effective après un
+redémarrage).</li>
+    <li><b>Barre d'outils Fichier</b> Défini quelles actions sont affichées dans la
+barre d'outils Fichier. Les actions disponibles sont openInNewTab, open,
+refresh, saveCopy, saveAs, print et separator. (Nécessite un redémarrage.)</li>
+    <li><b>Barre d'outils Édition</b> Défini quelles actions sont visibles dans la
+barre d'outils Édition. Les actions disponibles sont currentPage,
+previousPage, nextPage, firstPage, lastPage, jumpToPage, jumpBackward,
+jumpForward, search, copyToClipboardMode, addAnnotationMode et
+separator. (Nécessite un redémarrage.)</li>
+    <li><b>Barre d'outils Affichage</b> Défini quelles actions sont visibles dans la
+barre d'outils Affichage. Les actions disponibles sont scaleFactor, zoomIn,
+zoomOut, continuousMode, twoPagesMode, twoPagesWithCoverPageMode,
+multiplePagesMode, originalSize, fitToPageWidthMode, fitToPageSizeMode,
+rotateLeft, rotateRight, fullscreen, presentation et separator. (Nécessite
+un redémarrage.)</li>
+    <li><b>Document context menu</b> Defines which actions are visible in the
+document's context menu. Available actions are openCopyInNewTab,
+openCopyInNewWindow, openContainingFolder, moveToInstance, previousPage,
+nextPage, firstPage, lastPage, jumpToPage, jumpBackward, jumpForward,
+setFirstPage, findPrevious, findNext, cancelSearch and separator.</li>
+    <li><b>Tab context menu</b> Defines which actions are visible in a tab's context
+menu. Available actions are openCopyInNewTab, openCopyInNewWindow,
+openContainingFolder, moveToInstance, copyFilePath, selectFilePath,
+closeAllTabs, closeAllTabsButThisOne, closeAllTabsToTheLeft,
+closeAllTabsToTheRight and separator.</li>
+    <li><b>Scrollable menus</b> Will override the default style so that pop-up menus
+scroll instead being laid-out in mutliple columns if they are larger than
+the available screen space. (Effective after restart.)</li>
+    <li><b>Searchable menus</b> Extends the default keyboard navigation of the tabs
+and bookmarks menus by a search-as-you-type mechanism.</li>
+    <li><b>Toggle tool and menu bars with fullscreen</b> Always toggles the
+visibility of the tool and menu bars when toggling fullscreen mode.</li>
+    <li><b>Use page label</b> Determines if document-supplied page label will be
+used instead of page numbers when available.</li>
+    <li><b>Titre du document comme titre de l’onglet</b> Détermine si le titre de
+l’onglet correspond aux métadonnées au lieu du nom du fichier.</li>
+    <li><b>Page courante dans le titre de la fenêtre</b> Si cet item est validé, le
+numéro de la page et le nombre total de pages du document actif sont
+affichés dans la barre de titre de la fenêtre.</li>
+    <li><b>Nom de l’instance dans la barre de la fenêtre</b> Si activé et si
+l’instance courante est nommée, son nom est affiché dans la barre de la
+fenêtre.</li>
+    <li><b>Surligner la miniature courante</b> Si l'item est validé, la page
+courante est mise en valeur dans la vue des miniatures.</li>
+    <li><b>Limiter les miniatures aux résultats</b> Si cet item est validé, seules
+les miniatures contenant le terme recherché sont affichées lors d'une
+recherche.</li>
+</ul>
+
+<h4><a name="modifiersettings">Modificateurs</a> <a href="#top">&uarr;</a></h4>
+
+<p>Le menu des raccourcis permet d'ajuster les raccourcis clavier à ses goûts
+personnels. Les raccourcis sont modifiables en double-cliquant sur le
+raccourci à éditer puis en saisissant ler nouveau raccourci. Chaque action
+peut avoir plusieurs raccourcis, séparés par un point virgule. Les touches
+dont le nom n'est pas une lettre unique doivent être écrites explicitement
+(par exemple « Alt », « Ctrl », « PgDown »), et ne sont pas sensibles à la
+casse. Si le raccourci contient des touches de modifications, les touches
+doivent être jointes par le signe plus et la touche de modification doit
+être écrite en premier, par exemple « Ctrl+A » or « Ctrl++ ».</p>
+
+<h4><a name="modifiersettings">Modificateurs</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Zoom</b> La touche spéciale pour zoomer dans la vue principale à l'aide
+de la molette de la souris.</li>
+    <li><b>Rotation</b> La touche spéciale permettant la rotation dans la fenêtre
+principale à l'aide de la molette de la souris.</li>
+    <li><b>Défiler</b> La touche spéciale permettant le défilement dans la fenêtre
+principale à l'aide de la molette de la souris.</li>
+    <li><b>Copier dans le presse-papiers</b> La touche spéciale pour copier textes
+et images dans le presse-papiers.</li>
+    <li><b>Ajouter une annotation</b> La touche spéciale pour ajouter une annotation
+dans une page.</li>
+    <li><b>Zoom to selection</b> The keyboard modifiers to zoom to a slection on a
+page.</li>
+</ul>
+
+</body>
+
+</html>

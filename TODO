@@ -1,0 +1,15 @@
+* improve DjVu support
+* add DVI support
+* add ePUB support
+* add CHM support
+
+* rewrite tool support
+* add annotations dock
+
+* improve text-selection support
+* improve link support
+* improve annotation support
+* improve form support
+
+* add code documentation
+* investigate integration with KDE Frameworks

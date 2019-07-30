@@ -1,0 +1,520 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
+
+<!--
+
+Copyright 2012 Benjamin Eltzner
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>
+.
+
+This file is additionally licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported (CC-BY-SA) license. The full text of the license can be found at https://creativecommons.org/licenses/by-sa/3.0/legalcode
+
+-->
+<html>
+
+<head>
+    <title>Nápověda</title>
+</head>
+
+<body>
+
+<h2><a name="top">Nápověda</a></h2>
+
+<h4>Obsah</h4>
+<ol>
+    <li><a href="#mainmenu">Hlavní nabídka</a></li>
+    <ol>
+        <li><a href="#file">Soubor</a></li>
+        <li><a href="#edit">Úpravy</a></li>
+        <li><a href="#view">Pohled</a></li>
+        <li><a href="#tabs">Karty</a></li>
+        <li><a href="#bookmarks">Záložky</a></li>
+        <li><a href="#help">Nápověda</a></li>
+    </ol>
+    <li><a href="#mainview">Hlavní pohled</a></li>
+    <li><a href="#auxiliaryviews">Pomocné pohledy</a></li>
+    <li><a href="#settings">Nastavení</a></li>
+    <ol>
+    	<li><a href="#behaviorsettings">Nastavení chování</a></li>
+    	<li><a href="#graphicssettings">Nastavení grafiky</a></li>
+    	<li><a href="#interfacesettings">Nastavení rozhraní</a></li>
+    	<li><a href="#shortcutsettings">Nastavení klávesových zkratek</a></li>
+    	<li><a href="#modifiersettings">Nastavení modifikátorů</a></li>
+    </ol>
+</ol>
+
+<h4>Úvod</h4>
+
+<p><em>qpdfview</em> je prohlížeč dokumentů s kartami. Používá Poppler pro
+podporu PDF, libspectre pro podporu PS, DjVuLibre pro podporu DjVu, CUPS pro
+podporu tisku a sadu Qt pro své rozhraní.</p>
+
+<p>Podívejte se, prosím, do manuálových stránek, hledáte-li informace k volbám
+příkazového řádku a k souborům s nastavením.</p>
+
+<h3><a name="mainmenu">Hlavní nabídka</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="file">Soubor</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Otevřít...</b> Otevře dialog pro výběr souboru k otevření v nynější
+kartě. Pokud není žádná karta, soubor je otevřen v nové kartě.</li>
+    <li><b>Otevřít v nové kartě...</b> Otevře dialog pro výběr souborů k otevření v
+nových kartách.</li>
+    <li><b>Nedávno použité</b> Obsahuje seznam naposledy použitých souborů (pokud je
+to povoleno v nastavení).</li>
+    <li><b>Obnovit</b> Obnoví soubor zobrazený v nynější kartě.</li>
+    <li><b>Uložit</b> Uloží změny ve vysvětlivkách a formulářových polí do souboru
+zobrazeného v nynější kartě.</li>
+    <li><b>Uložit jako...</b> Otevře dialog pro uložení souboru zobrazeného v
+nynější kartě včetně změn v poznámkách a formulářových polích.</li>
+    <li><b>Uložit kopii...</b> Otevře dialog pro uložení nezměněné kopie souboru
+zobrazeného v nynější kartě.</li>
+    <li><b>Tisk...</b> Otevře dialog pro vytištění souboru zobrazeného v nynější
+kartě.</li>
+    <li><b>Ukončit</b> Zavře všechny karty a program ukončí.</li>
+</ul>
+
+<h4><a name="edit">Úpravy</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Další/Předchozí/První/Poslední strana</b> Skočí na
+další/předchozí/první/poslední stranu dokumentu.</li>
+    <li><b>Přejít na stranu...</b> Otevře dialog pro vstoupení na stranu zobrazenou
+v nynější kartě.</li>
+    <li><b>Skočit zpět/vpřed</b> Skočí zpět/vpřed v historii zobrazené strany.</li>
+    <li><b>Hledat...</b> Otevře panel pro hledání pod hlavním pohledem. Hledání
+začne automaticky dvě sekundy po poslední změně v hledaném výrazu nebo je
+spuštěno ručně stisknutím klávesy Enter. Pokud je podržen modifikátor Shift
+když je stisknuta klávesa Enter, prohledávání začne ve všech kartách místo
+pouze v nynější kartě. (Tento účinek je zrušen, pokud je v nastavení povolen
+panel pro rozšířené hledání.)</li>
+    <li><b>Najít předchozí/další</b> Skočí v dokumentu na předchozí/další výskyt
+hledaného pojmu.</li>
+    <li><b>Zrušit hledání</b> Zruší nyní probíhající hledání a zavře panel pro
+hledání.</li>
+    <li><b>Kopírovat do schránky</b> Je-li zaškrtnuto, program počká na vytvoření
+rámečku pro zkopírování textu nebo obrázků tažením.</li>
+    <li><b>Přidat poznámku</b> Je-li zaškrtnuto, program počká na vytvoření rámečku
+pro přidání poznámek tažením.</li>
+    <li><b>Nastavení...</b> Otevře dialog pro nastavení. Tlačítko označené Výchozí
+vrátí všechna nastavení všech karet zpět na jejich výchozí hodnoty. Tlačítko
+označené Výchozí na nynější kartě vrátí zpět na výchozí hodnotu pouze
+nastavení nynější karty.</li>
+</ul>
+
+<p><em>Nynější stranu</em> lze změnit zadáním požadované strany do textového
+pole v panelu nástrojů pro úpravy, který je možné zaměřit pomocí Ctrl+K, a
+stisknutím klávesy Enter.</p>
+
+<h4><a name="view">Pohled</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Průběžně</b> Určuje, zda jsou všechny řádky rozvržení strany viditelné
+zároveň.</li>
+    <li><b>Dvě strany</b> Určuje, zda rozvržení strany používá dva sloupce</li>
+    <li><b>Dvě strany s titulní stranou</b> Určuje, zda rozvržení strany používá dva
+sloupce se zalomením po titulní straně.</li>
+    <li><b>Více stran</b> Určuje, zda rozvržení strany používá více sloupců. Počet
+sloupců lze změnit v dialogu pro nastavení.</li>
+    <li><b>Zprava doleva</b> Určuje, jak jsou strany uspořádány v rozvrženích s více
+stranami na řádek.</li>
+    <li><b>Přiblížit</b> Zvýší násobek měřítka o 10 procent. Největší násobek
+měřítka je 5000 procent.</li>
+    <li><b>Oddálit</b> Sníží násobek měřítka o 10 procent. Nejmenší násobek měřítka
+je 10 procent.</li>
+    <li><b>Původní velikost</b> Nastaví násobek zvětšení znovu na 100 procent.</li>
+    <li><b>Přizpůsobit šířce strany</b> Určuje násobek zvětšení tak, že se všechny
+strany vodorovně zcela vejdou do hlavního pohledu.</li>
+    <li><b>Přizpůsobit velikosti strany</b> Určuje násobek zvětšení tak, že se
+všechny strany vodorovně i svisle zcela vejdou do hlavního pohledu.</li>
+    <li><b>Otočit vlevo</b> Otočí strany doleva/proti směru hodinových ručiček o 90
+stupňů.</li>
+    <li><b>Otočit vpravo</b> Otočí strany doprava/po směru hodinových ručiček o 90
+stupňů.</li>
+    <li><b>Obrátit barvy</b> Určuje, zda jsou strany kresleny s obrácenými barvami.</li>
+    <li><b>Převést na odstíny šedi</b> Určuje, zda jsou strany po vykreslení
+převedeny na odstíny šedi.</li>
+    <li><b>Oříznout okraje</b> Povolí odstranění prázdných okrajů strany po
+vykreslení.</li>
+    <li><b>Přizpůsobení barev</b> Povolí přizpůsobení barev vykreslené strany barvě
+papíru pro upravení pozadí nasnímaných dokumentů.</li>
+    <li><b>Nástrojové panely</b> Tato nabídka obsahuje seznam dostupných
+nástrojových panelů pro přístup k často používaným činnostem.</li>
+    <li><b>Postranní panely</b> Tato nabídka obsahuje seznam dostupných postranních
+panelů pro zobrazení doplňkových informací.</li>
+    <li><b>Písma...</b> Otevře dialog uvádějící v seznamu písma použitá v dokumentu.</li>
+    <li><b>Celá obrazovka</b> Přepne režim na celou obrazovku, tj. okno je ukázáno
+zvětšené a bez dekorace.</li>
+    <li><b>Promítání...</b> Vstoupí do režimu promítání, jejž lze opustit stisknutím
+klávesy F12 nebo Esc. Klávesa Home/End se používá k zobrazení první/poslední
+strany. Klávesy šipek vpravo a dolů, mezerník a Page Down se používají pro
+skok na další stranu. Klávesy šipek vlevo a nahoru, Backspace a Page Up se
+používají pro skok na předchozí stranu. Stisknutí Ctrl a Enter provede skok
+zpět na stranu před posledním skokem.</li>
+</ul>
+
+<p><em>Násobek zvětšení</em> lze změnit zadáním požadovaného procenta do
+textového pole v panelu nástrojů pro pohled, který je možné zaměřit pomocí
+Ctrl+L, a stisknutím klávesy Enter.</p>
+
+<h4><a name="tabs">Karty</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Předchozí/Další karta</b> Udělá z předchozí/další karty nynější
+kartu. Proběhne na poslední/první kartu, pokud je první/poslední karta
+nynější kartou.</li>
+    <li><b>Zavřít kartu</b> Zavře nynější kartu.</li>
+    <li><b>Zavřít všechny karty</b> Zavře všechny karty.</li>
+    <li><b>Zavřít všechny karty kromě nynější karty</b> Zavře všechny karty kromě
+nynější karty.</li>
+    <li><b>Nedávno zavřené</b> Obsahuje seznam naposledy zavřených karet (pokud je
+to povoleno v nastavení).</li>
+</ul>
+
+<p>Tato nabídka obsahuje seznam všech karet, ze kterých je možné udělat nynější
+kartu klepnutím na odpovídající položku nabídky. Karty lze rovněž zavřít
+klepnutím prostředním tlačítkem myši. Prvních devět karet je také možné
+zapnout podržením modifikátoru Alt a stisknutím kláves od jedné do devíti.</p>
+
+<h4><a name="bookmarks">Záložky</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Předchozí záložka</b> Skočí na nejbližší záložku před nynější stranou.</li>
+    <li><b>Další záložka</b> Skočí na nejbližší záložku po nynější straně.</li>
+    <li><b>Přidat záložku</b> Přidá záložku pro nynější soubor a stranu.</li>
+    <li><b>Odstranit záložku</b> Odstraní záložku pro nynější soubor a stranu.</li>
+    <li><b>Odstranit všechny záložky</b> Odstraní všechny záložky.</li>
+    <li><b>Otevřít</b> Otevře odpovídající soubor v nynější kartě. Pokud není žádná
+karta, soubor je otevřen v nové kartě.</li>
+    <li><b>Otevřít v nové kartě</b> Otevře odpovídající soubor v nové kartě.</li>
+    <li><b>Jít na stranu</b> Skočí na odpovídající stranu, pokud je odpovídající
+soubor již otevřen. Jinak je odpovídající soubor otevřen v nové kartě.</li>
+</ul>
+
+<h4><a name="help">Nápověda</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Obsah</b> Zobrazí tento dokument.</li>
+	<li><b>O programu</b> Zobrazí verzi programu.</li>
+</ul>
+
+<h3><a name="mainview">Hlavní pohled</a> <a href="#top">&uarr;</a></h3>
+
+<p>Klávesa Backspace/mezerník skočí na předchozí/další stranu. Klávesa Home/End
+skočí na první/poslední stranu. Klávesy šipek, Page Up a Page Down posouvají
+pohled. Stisknutím Ctrl a Enter se skočí na stranu před posledním skokem.</p>
+
+<p>Pomocí kolečka myši se provádí posun nahoru a dolů. Podržením <b>Alt</b>
+během  používání kolečka myši se dělá posun doleva a doprava. Podržením
+<b>Ctrl</b> během  používání kolečka myši se mění velikost
+dokumentu. Podržením <b>Shift</b> během používání kolečka myši se mění
+velikost dokument otáčí. (Klávesnicové modifikátory je možné změnit v
+dialogu pro nastavení.) Klepněte a podržte prostřední tlačítko myši pro
+výběr obdélníkové oblasti a její přiblížení.</p>
+
+<p>Odkazy jsou zvýrazněny červenými rámečky (pokud je to povoleno v
+nastavení). Klepnutí levým tlačítkem myši na odkaz pro ukázání odkazované
+stránky nebo pro otevření odkazované adresy (URL) ve výchozím prohlížeči
+(pokud je to povoleno v nastavení). Klepnutí prostředním tlačítkem myši na
+odkaz pro ukázání odkazované stránky v nové kartě. Přejetí ukazovátkem myši
+nad odkazem zobrazí jeho cíl jako nástrojovou radu.</p>
+
+<p>Formulářová pole jsou zvýrazněna modrými rámečky (pokud je to povoleno v
+nastavení). Klepněte levým tlačítkem myši na formulářové pole pro upravení
+jeho obsahu. Přejetí nad formulářovým polem zobrazí jeho cíl jako
+nástrojovou radu.</p>
+
+<p>Zdrojový text místa v dokumentu lze otevřít v editoru zdrojového textu
+pomocí nabídky souvisejících činností, která volitelně obsahuje položku pro
+první odpovídající uzel <em>SyncTeX</em>.</p>
+
+<p>Pro <em>kopírování textů nebo obrázků</em> podržte <b>Shift</b>, klepněte a
+podržte levé tlačítko myši a tažením okolo oblasti ke zkopírování vytvořte
+rámeček. Jakmile je tlačítko myši uvolněno, zobrazí se vyskakovací nabídka,
+kde se zvolí, zda texty nebo obrázky kopírovat do schránky.</p>
+
+<p>Pro <em>přidání poznámek</em> podržte klávesu <b>Ctrl</b>, klepněte a
+podržte levé tlačítko myši pro vytvoření rámečku tažením okolo oblasti, ke
+které se má vytvořit poznámka. Jakmile je tlačítko myši uvolněno, zobrazí se
+vyskakovací nabídka, kde se zvolí, zda se má přidat text nebo zvýraznit
+poznámka. Klepněte levým tlačítkem myši pro <em>upravení
+poznámek</em>. Klepněte pravým tlačítkem myši pro <em>odstranění
+poznámek</em>. (Přidávání nebo odstraňování poznámek vyžaduje verzi 0.20.1
+nebo vyšší knihovny Poppler.) Při přejetí ukazovátkem nad poznámkou se její
+obsah zobrazí jako nástrojová rada.</p>
+
+<p>Pro <em>přiblížení výběru</em> podržte klávesu <b>Shift</b> a <b>Ctrl</b>,
+klepněte a držte levé tlačítko myši, abyste natáhl rámeček okolo oblasti,
+která se má přiblížit.</p>
+
+<p><em>Viditelnost nástrojových pruhů a pruhu s hlavní nabídkou</em> lze
+přepnout pomocí nastavitelných klávesových zkratek, jejichž výchozími
+hodnotami jsou "Shift+Alt+T" a "Shift+Alt+M".</p>
+
+<h3><a name="auxiliaryviews">Pomocné pohledy</a> <a href="#top">&uarr;</a></h3>
+
+<p><em>Pohled na osnovu</em> zobrazí přehled obsahu dokumentu. Po klepnutí na
+položku levým tlačítkem myši dojde ke skoku na příslušnou stranu v hlavním
+pohledu. Nabídku souvisejících činností lze použít k rozbalení/sbalení všech
+položek pod vybranou položkou.</p>
+
+<p>V pohledu na osnovu se také lze pohybovat pomocí klávesnice a kolečka
+myši. Při podržení klávesy Shift a za použití kláves šipek nahoru/dolů dojde
+k pohybu obrazu. Při podržení klávesy Shift a za použití kláves šipek
+vlevo/vpravo se sbalí/rozbalí jedna úroveň položek pod vybranou
+položkou. Při podržení klávesy Ctrl a za použití kláves šipek vlevo/vpravo
+se úplně sbalí/rozbalí vybraná položka a jí podřízené položky. Při podržení
+klávesy Ctrl a za použití kolečka myši se sbalí/rozbalí vybraná položka.</p>
+
+<p><em>Pohled na vlastnosti</em> zobrazí dodatečné informace obsažené v
+dokumentu.</p>
+
+<p><em>Pohled na náhledy</em> zobrazí menší provedení stran dokumentu. Po
+klepnutí na položku levým tlačítkem myši dojde ke skoku na příslušnou stranu
+v hlavním pohledu.</p>
+
+<p><em>Pohled na záložky</em> ukáže záložky související s dokumentem zobrazené
+v nynější kartě. Nabídka souvisejících činností obsahuje záznamy pro skok na
+předchozí/další záložku nebo pro přidání záložek. Nabídka souvisejících
+činností ke každému záznamu také umožňuje záznamy upravovat a mazat.</p>
+
+<p>Pokud je to povoleno v nastavení <em>panel pro rozšířené hledání</em> ukáže
+přehled obsahující výsledky všech hledání provedených ve všech kartách. Také
+ukáže text obklopující výsledek se zvýrazněným hledaným pojmem. Klepnutí na
+výsledek otevře odpovídající kartu a udělá skok na jeho místo.</p>
+
+<h3><a name="settings">Nastavení</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="behaviorsettings">Nastavení chování</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Otevřít adresu (URL)</b> Určuje, zda se odkazy na adresu (URL) otevřou ve
+výchozím prohlížeči.</li>
+    <li><b>Obnovit automaticky</b> Určuje, zda jsou soubory automaticky nahrány
+znovu, když jsou změněny na disku.</li>
+    <li><b>Sledovat nedávno použité</b> Je-li povoleno, je dostupná nabídka pro
+nedávno použité, v níž je uvedeno tolik nedávno použitých souborů, kolik je
+nastaveno volbou Počet nedávno použitých. (Nabude účinnosti po opětovném
+spuštění programu.)</li>
+    <li><b>Uchovat nedávno zavřené</b> Je-li povoleno, je dostupná nabídka nedávno
+zavřených dokumentů, ve které je uváděno právě tolik nedávno zavřených
+karet, kolik je jich nastaveno volbou Počet nedávno zavřených. Udržování
+dostupnosti karet může vést k povážlivému zvýšení využívání paměti. (Vchází
+v účinnost po opětovném spuštění programu.)</li>
+    <li><b>Obnovit karty</b> Je-li povoleno, karty a jejich vlastnosti jsou uloženy
+při ukončení programu a obnoveny po jeho opětovném spuštění.</li>
+    <li><b>Obnovit záložky</b> Je-li povoleno, záložky jsou uloženy při ukončení
+programu a obnoveny po jeho opětovném spuštění.</li>
+    <li><b>Obnovit nastavení souborů</b> Je-li povoleno, nastavení souboru jsou
+uložena/obnovena při otevření/zavření karet.</li>
+    <li><b>Uložit databázový interval</b> Doba, po níž jsou karty, záložky nebo
+nastavení na soubor uložena do databáze.</li>
+    <li><b>Ovládat promítání</b> Je-li povoleno, je možné hlavní pohled použít k
+ovládání pohledu na promítání.</li>
+    <li><b>Promítací obrazovka</b> Je-li povoleno, je možné hlavní pohled použít k
+ovládání pohledu na promítání.</li>
+    <li><b>Zvýraznit položku osnovy</b> Je-li povoleno, bude v pohledu na osnovu
+zvýrazněna první položka ukazující na nynější stranu, kdykoli se posunutím
+nynější strana změní.</li>
+    <li><b>Nejmenší posun obrazu</b> Je-li povoleno, zobrazené místo se bude
+posunovat jen tehdy,  pokud není cílová poloha ještě viditelná.</li>
+    <li><b>Násobek zvětšení</b> Číslo, kterým je činitel změny velikosti násoben
+případně dělen při přibližování nebo oddalování.</li>
+    <li><b>Barva zvýraznění</b> Určuje barvu zvýraznění.</li>
+    <li><b>Doba trvání zvýraznění</b> Určuje dobu trvání dočasných zvýraznění.</li>
+    <li><b>Barva poznámky</b> Barva poznámek přidaná programem pomocí klíčových slov
+barev SVG nebo šestnáctkovým zápisem '#rrggbb'.</li>
+    <li><b>Editor zdroje</b> Program, který je spuštěn, aby v něm byly upravovány
+zdroje. '%1' je nahrazeno absolutní souborovou cestou. '%2' příp. '%3' je
+nahrazeno číslem řádku popřípadě sloupce.</li>
+</ul>
+
+<h4><a name="graphicssettings">Nastavení grafiky</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Použít dláždění</b> Strany budou před vykreslením rozděleny do dlaždic a
+uloženy do vyrovnávací paměti, aby se zmenšila míra využití paměti.</li>
+    <li><b>Zachovat zastaralé pixmapy</b> Je-li povoleno, potom se po změně násobku
+zvětšení pixmapy uložené ve vyrovnávací paměti použijí na kreslení
+přibližných pixmap konečných pixmap, dokud tyto nebudou dostupné za cenu
+zvýšeného využití paměti.</li>
+    <li><b>Použít poměr pixelu zařízení</b> Je-li povoleno, používá se při kreslení
+fyzického rozlišení a při zobrazování logického rozlišení nejvyšší dostupný
+poměr pixelu zařízení.</li>
+    <li><b>Obtáhnout strany</b> Určuje, zda jsou strany odděleny od pozadí.</li>
+    <li><b>Obtáhnout odkazy</b> Určuje, zda jsou odkazy zvýrazněny červenými
+rámečky.</li>
+    <li><b>Obtáhnout formulářová pole</b> Určuje, zda jsou formulářová pole
+zvýrazněna modrými rámečky.</li>
+    <li><b>Barva pozadí</b> Určuje barvu pozadí pomocí klíčových slov barev SVG nebo
+šestnáctkovým zápisem '#rrggbb'.</li>
+    <li><b>Barva papíru</b> Určuje barvu stran pomocí klíčových slov barev SVG nebo
+šestnáctkovým zápisem '#rrggbb'.</li>
+    <li><b>Barva pozadí promítání</b> Potlačí barvu papíru ve výpočtu barvy pozadí
+pohledu na promítání. Je stanovena pomocí klíčových slov barev SVG nebo
+šestnáctkovým zápisem '#rrggbb'.</li>
+    <li><b>Stran na řádek</b> Počet stran na řádek v režimu rozvržení na více stran.</li>
+    <li><b>Odstup stran</b> Určuje jak svislý tak vodorovný odstup zobrazený mezi
+stranami.</li>
+    <li><b>Odstup náhledů</b> Určuje jak svislý tak vodorovný odstup zobrazený mezi
+náhledy.</li>
+    <li><b>Velikost náhledů</b> Určuje velikost náhledů.</li>
+    <li><b>Velikost vyrovnávací paměti</b> Program se pokusí o ukládání vykreslených
+stran v rámci tohoto omezení do vyrovnávací paměti, čímž dojde ke zvýšení
+rychlosti kreslení za cenu zvýšeného využití paměti.</li>
+    <li><b>Přednatažení</b> Program se pokusí o vykreslování stran, jež ještě nejsou
+viditelné, čímž dojde ke zvýšení rychlosti kreslení za cenu zvýšeného
+využití paměti.</li>
+    <li><b>Vzdálenost přednatažení</b> Počet řádků za nynějším řádkem a dvakrát
+tolik řádků před nynějším řádkem, které jsou přednataženy.</li>
+    <li><b>Nastavení PDF</b>
+    <ul>
+        <li><b>Vyhlazování</b> Zlepšuje jakost zobrazení za cenu výkonu.</li>
+        <li><b>Vyhlazování textu</b> Zlepšuje jakost zobrazení textu za cenu výkonu.</li>
+        <li><b>Instruování textu</b> U některých písem může zlepšit jakost zobrazení
+textu.</li>
+        <li><b>Náhled přetisku</b> Je-li povoleno, je zobrazen náhled tisku jedné vrstvy
+černě na vrchu jiné.</li>
+        <li><b>Režim tenkého řádku</b> Vybere optimalizaci používanou ke kreslení
+tenkých řádků.</li>
+        <li><b>Jádro</b> Vybere jádro používané ke kreslení stran.</li>
+    </ul>
+    </li>
+    <li><b>Nastavení PS</b>
+    <ul>
+        <li><b>Bity vyhlazování grafiky</b> Určuje množství vyhlazování pro grafiku.</li>
+        <li><b>Bity vyhlazování textu</b> Určuje množství vyhlazování pro text.</li>
+    </ul>
+    </li>
+</ul>
+
+<h4><a name="interfacesettings">Nastavení rozhraní</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Panel pro rozšířené hledání</b> Je-li povoleno, výchozí panel pro hledání
+je rozšířen o přehled ukazující výsledky všech karet. (Účinné po opětovném
+spuštění.)</li>
+    <li><b>Vložené poznámky</b> Je-li povoleno, všechny poznámky na straně budou
+zobrazeny jako interaktivní překrytí. V opačném případě bude s každou
+poznámkou zacházeno jako se samostatným oknem.</li>
+    <li><b>Vložené formulářové pole</b> Je-li povoleno, všechna formulářová pole na
+straně budou zobrazena jako interaktivní překrytí. V opačném případě bude s
+každým formulářovým polem zacházeno jako se samostatným oknem.</li>
+    <li><b>Umístění karet</b> Stanovuje, při kterém okraji hlavního pohledu budou
+karty zobrazeny.</li>
+    <li><b>Viditelnost karet</b> Určuje, zda budou karty zobrazeny, v případě že
+budou otevřeny méně než dva dokumenty.</li>
+    <li><b>Roztáhnout karty</b> Určí, zda se budou karty rozkládat rovnoměrně po
+celém pruhu s kartami.</li>
+    <li><b>Nová karta vedle nynější karty</b> Je-li povoleno, jsou nové karty
+otevřeny napravo od činné karty.</li>
+    <li><b>Ukončit po poslední kartě</b> Je-li povoleno, dojde k ukončení programu,
+poté co je zavřena poslední karta.</li>
+    <li><b>Počet nedávno použitých</b> Nastavuje počet souborů, jež jsou uváděny v
+nabídce nedávno použitých, pokud je povoleno Sledovat nedávno
+použité. (Začne účinkovat po opětovném spuštění programu.)</li>
+    <li><b>Počet nedávno zavřených</b> Nastavuje počet karet, jež jsou uváděny v
+nabídce nedávno zavřených, pokud je povoleno Uchovat nedávno zavřené. (Začne
+účinkovat po opětovném spuštění programu.)</li>
+    <li><b>Panel nástrojů pro soubor</b> Stanovuje, které činnosti jsou viditelné v
+panelu nástrojů pro soubor. Dostupné činnosti jsou Otevřít v nové kartě,
+Otevřít, Uložit kopii, Uložit jako, Tisk a oddělovač. (Nabude účinnosti po
+opětovném spuštění programu.)</li>
+    <li><b>Panel nástrojů pro úpravy</b> Stanovuje, které činnosti jsou viditelné v
+panelu nástrojů pro úpravy. Dostupné činnosti jsou Nynější strana, Předchozí
+strana, Další strana, První strana, Poslední strana, Přejít na stranu,
+Skočit zpět, Skočit vpřed, Hledat, Kopírovat do schránky, Přidat poznámku a
+oddělovač. (Nabude účinnosti po opětovném spuštění programu.)</li>
+    <li><b>Panel nástrojů pro pohled</b> Stanovuje, které činnosti jsou viditelné v
+panelu nástrojů pro pohled. Dostupné činnosti jsou Násobek zvětšení,
+Přiblížit, Oddálit, Průběžně, Dvě strany, Dvě strany s titulní stranou, Více
+stran, Původní velikost, Přizpůsobit šířce strany, Přizpůsobit velikosti
+strany, Otočit vlevo, Otočit vpravo, Celá obrazovka, Promítání a
+oddělovač. (Nabude účinnosti po opětovném spuštění programu.)</li>
+    <li><b>Související nabídka k dokumentu</b> Určuje, které činnosti jsou viditelné
+v související nabídce k dokumentu. Dostupnými činnostmi jsou otevření kopie
+v nové kartě, otevření kopie v novém okně, otevření obsahující složky,
+přechod na instanci, předchozí strana, další strana, první strana, poslední
+strana, skok na stranu, skok zpět, skok vpřed, nastavení první strany,
+nalezení předchozího, nalezení dalšího, zrušení hledání a oddělovač.</li>
+    <li><b>Související nabídka ke kartě</b> Určuje, které činnosti jsou viditelné v
+související nabídce ke kartě. Dostupnými činnostmi jsou otevření kopie v
+nové kartě, otevření kopie v novém okně, otevření obsahující složky, přechod
+na instanci, kopírování cesty k souboru, vybrání cesty k souboru, zavření
+všech karet, zavření všech karet až na označenou, zavření všech karet
+nalevo, zavření všech karet napravo a oddělovač.</li>
+    <li><b>Ubíhající nabídky</b> Přepíše výchozí styl, takže položky v nabídkách při
+projíždění ubíhají, místo toho aby byly zobrazeny ve více sloupcích, v
+případě že zabírají více místa, než je dostupný prostor na
+obrazovce. (Účinné po opětovném spuštění.)</li>
+    <li><b>Prohledávatelné nabídky</b> Rozšíří výchozí způsob pohybu v nabídkách s
+kartami a záložkami pomocí klávesnice o mechanismus hledání rovnou při
+psaní.</li>
+    <li><b>Přepnout nástrojové pruhy a pruh s hlavní nabídkou při zobrazení na celou
+obrazovku</b> Viditelnost nástrojových pruhů a pruhu s hlavní nabídkou je
+přepnuta vždy, když dojde k přepnutí do režimu na celou obrazovku.</li>
+    <li><b>Použít popis strany</b> Stanoví, zda se použije popis strany poskytnutý
+dokumentem místo čísel stran.</li>
+    <li><b>Název dokumentu jako název karty</b> Určí, zda je název karty odvozen z
+popisných dat namísto z názvu souboru.</li>
+    <li><b>Nynější strana v názvu okna</b> Je-li povoleno, jsou nynější strana a
+počet stran dokumentu v činné kartě zobrazeny v názvu okna.</li>
+    <li><b>Název instance v názvu okna</b> Je-li povoleno a má-li nynější instance
+přidělen název, její název je zobrazen v okně.</li>
+    <li><b>Zvýraznit nynější náhled</b> Je-li povoleno, bude nynější strana
+zvýrazněna v pohledu na náhledy</li>
+    <li><b>Omezit náhledy na výsledky</b> Je-li povolena tato volba a je prováděno
+hledání, budou v pohledu na náhledy zobrazeny jen ty strany, kde byl hledaný
+pojem nalezen.</li>
+</ul>
+
+<h4><a name="shortcutsettings">Nastavení klávesových zkratek</a> <a
+href="#top">&uarr;</a></h4>
+
+<p>Nastavení zkratek umožňuje přizpůsobení klávesových zkratek podle osobních
+voleb. Zkratky jsou měněny dvojitým klepnutím na zkratku pro její upravení a
+zadáním nové zkratky. Každá činnost může mít několik zkratek pomocí seznamu,
+v němž jsou jednotlivé zkratky odděleny středníkem. Názvy kláves, jež nejsou
+jednopísmenné, jsou uvedeny výslovně (např. "Alt", "Ctrl", "PgDown"),
+přičemž se nerozlišují velká a malá písmena. Pokud zkratka obsahuje
+modifikátorové klávesy, názvy kláves jsou spojeny znaménkem plus a
+modifikátorové klávesy se musí uvést jako první, např. "Ctrl+A" nebo
+"Ctrl++".</p>
+
+<h4><a name="modifiersettings">Nastavení modifikátorů</a> <a
+href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Zvětšení</b> Klávesy modifikátorů pro zvětšování pomocí kolečka myši v
+hlavním pohledu.</li>
+    <li><b>Otáčení</b> Klávesy modifikátorů pro otáčení pomocí kolečka myši v
+hlavním pohledu.</li>
+    <li><b>Posunování</b> Klávesy modifikátorů pro posunování pomocí kolečka myši v
+hlavním pohledu.</li>
+    <li><b>Kopírovat do schránky</b> Klávesy modifikátorů pro kopírování textů nebo
+obrázků ze strany do schránky.</li>
+    <li><b>Přidat poznámku</b> Klávesy modifikátorů pro přidání poznámek ke straně.</li>
+    <li><b>Přiblížit výběr</b> Klávesové modifikátory pro přiblížení výběru na
+straně.</li>
+</ul>
+
+</body>
+
+</html>

@@ -1,0 +1,184 @@
+.\" 
+.\" 
+.\" Copyright 2012-2013 Benjamin Eltzner
+.\" Copyright 2012-2015 Adam Reichold
+.\" Copyright 2012 Michał Trybus
+.\" 
+.\" This file is part of qpdfview.
+.\" 
+.\" qpdfview is free software: you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation, either version 2 of the License, or
+.\" (at your option) any later version.
+.\" 
+.\" qpdfview is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\" 
+.\" You should have received a copy of the GNU General Public License
+.\" along with qpdfview.  If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" This file is additionally licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported (CC-BY-SA) license. The full text of the license can be found at https://creativecommons.org/licenses/by-sa/3.0/legalcode
+.\" 
+.\"
+.TH QPDFVIEW 1 "July 2012"
+.SH NAME
+qpdfview \- tabbed document viewer
+.SH SYNOPSIS
+.B qpdfview
+.I [options] [--] [file[#page]] [file[#src:name:line:column]] ...
+.SH DESCRIPTION
+.B qpdfview
+is a simple viewer for document files in the portable document format (PDF). It uses the Poppler library for rendering and the Qt toolkit for its interface.
+.SH OPTIONS
+.IP "\-\-help"
+Displays usage information.
+.IP "\-\-quiet"
+Suppresses warning messages which are displayed if the program fails to open a file.
+.IP "\-\-search text"
+Initiates a search for
+.I text
+in the current tab.
+.IP \-\-unique
+If an instance of qpdfview is started with this option, any files that are opened using this option afterwards, are opened as tabs in the original window. If a file is already opened in a tab of the original window, it is merely reloaded.
+.IP "\-\-instance name"
+Uses
+.I name
+as the name of the instance contacted or created using the "\-\-unique" option. This allows one to run multiple instances and remotely open and refresh tabs in any of them by passing the instance name. The argument must only contain the characters "[A-Z][a-z][0-9]_" and must not begin with a digit.
+.IP "\-\-choose-instance"
+Can be combined with the "\-\-unique" option to display a dialog at start-up where the instance name can be chosen with all instances that have tabs stored as suggestions.
+.IP [file[#page]]
+.I file
+specifies the file to open. The optional parameter
+.I page
+opens the file at the given page. Multiple files will be opened in separate tabs.
+.IP [file[#src:name:line:column]]
+Forward search using SyncTeX is performed using the optional parameters
+.I name
+which is the name of the source file,
+.I line
+which is the line number in the source file and
+.I column
+which is the column number in the source file where the number 0 matches all lines respectively columns.
+.SH INTER-PROCESS COMMUNICATION
+If the program is invoked using the "\-\-unique" option, it registers an introspectable D-Bus interface at "local.qpdfview/MainWindow" which can be used to communicate with the application. If the "\-\-instance" option is used, the D-Bus interface is registered at "local.qpdfview.name/MainWindow".
+.SH CONFIGURATION FILES
+qpdfview uses configuration files usually located at
+.RS
+"~/.config/qpdfview"
+.RE
+with the majority of settings contained in "qpdfview.conf".
+
+Persitent state like per-file settings, bookmarks and tabs is stored in an SQLite database usually located at
+.RS
+"~/.local/share/data/qpdfview/qpdfview".
+.RE
+
+The icon theme used by Qt can be changed by setting the key "iconTheme" in the section "mainWindow". The application-wide Qt style sheet can be changed by setting the key "styleSheet" in the section "mainWindow".
+
+The tile size in pixels used for tiled rendering can be adjusted by setting the key "tileSize" in the section "pageItem". The default value is 1024 pixels.
+
+The mimimum resp. maximum scale factor can be modified by changing the keys "minimumScaleFactor" resp. "maximumScaleFactor" in the section "documentView". The default values are 0.1 resp. 10.0.
+
+The timeout for auto-refresh resp. prefetch can be changed by setting the keys "autoRefreshTimeout" resp. "prefetchTimeout" in the section "documentView". The defaults are 750 resp. 250 milliseconds.
+
+The maximum number of per-file settings can be modified by changing the key "perFileSettingsLimit" in the section "mainWindow". The default value is 1000.
+.SH EXAMPLES
+.RS
+The command
+.RE
+.B qpdfview foo.pdf#3 bar.pdf
+.RS
+opens "foo.pdf" in the first tab displaying the third page of the document and "bar.pdf" in the second tab displaying the beginning of the document.
+
+The command
+.RE
+.B qpdfview \-\-quiet foobar/*
+.RS
+opens all files that can be opened in the directory "foobar", suppressing warning messages for files that cannot be opened.
+
+The command
+.RE
+.B qpdfview \-\-search foo bar.pdf
+.RS
+opens "bar.pdf" in the first tab and starts a search for "foo".
+
+Subsequent execution of the commands
+.RE
+.B qpdfview \-\-unique foo.pdf bar.pdf
+.RS
+and
+.RE
+.B qpdfview \-\-unique foo.pdf#5
+.RS
+opens "foo.pdf" and "bar.pdf", then reloads "foo.pdf" and displays its fifth page.
+
+Subsequent execution of the commands
+.RE
+.B qpdfview \-\-unique foo.pdf
+.RS
+and
+.RE
+.B qpdfview bar.pdf
+.RS
+and
+.RE
+.B qpdfview \-\-unique foo1.pdf bar1.pdf
+.RS
+opens "foo.pdf" in the first window, "bar.pdf" in a second window and then "foo1.pdf" and "bar1.pdf" in additional tabs in the first window.
+
+Subsequent execution of the commands
+.RE
+.B qpdfview \-\-unique \-\-instance a foo1.pdf bar1.pdf
+.RS
+and
+.RE
+.B qpdfview \-\-unique \-\-instance b foo2.pdf bar2.pdf
+.RS
+and
+.RE
+.B qpdfview \-\-unique foo3.pdf bar3.pdf
+.RS
+and
+.RE
+.B qpdfview \-\-unique \-\-instance a foo1.pdf#4 bar4.pdf
+.RS
+opens "foo1.pdf" and "bar1.pdf" in the first window, "foo2.pdf" and "bar2.pdf" in the second window, "foo3.pdf" and "bar3.pdf" in the third window and then reloads "foo1.pdf" and displays its fourth page and opens "bar4.pdf" in an additional tab in the first window.
+
+Subsequent execution of the commands
+.RE
+.B qpdfview \-\-unique \-\-instance a foo.pdf bar.pdf
+.RS
+and
+.RE
+.B qpdfview \-\-unique \-\-instance a \-\-search "foobar"
+.RS
+opens "foo.pdf" and "bar.pdf" in a window and then starts a search for the term "foobar" in the document in the active tab (which is the last opened "bar.pdf").
+
+The command
+.RE
+.B qpdfview \-\-unique foobar.pdf#src:foobar.tex:42:0
+.RS
+opens or refreshes "foobar.pdf" jumping to and highlighting the position that corresponds to line 42 of the source file "foobar.tex".
+
+The lines
+.RE
+.B [documentView]
+.RS
+.RE
+.B autoRefreshTimeout=1250
+.RS
+.RE
+.B [mainWindow]
+.RS
+.RE
+.B styleSheet="QTabBar::tab { max-width: 150px; }"
+.RS
+will configure the auto-refresh timeout to 1250 milliseconds and the change the maximum tab width to 150 pixel.
+
+.SH BUGS
+If you find a bug, please report it at
+.RS
+"https://launchpad.net/qpdfview".
+.RE

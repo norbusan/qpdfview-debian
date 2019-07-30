@@ -1,0 +1,517 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
+
+<!--
+
+Copyright 2012 Benjamin Eltzner
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>
+.
+
+This file is additionally licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported (CC-BY-SA) license. The full text of the license can be found at https://creativecommons.org/licenses/by-sa/3.0/legalcode
+
+-->
+<html>
+
+<head>
+    <title>Yardım</title>
+</head>
+
+<body>
+
+<h2><a name="top">Yardım</a></h2>
+
+<h4>İçeriklerin tablosu</h4>
+<ol>
+    <li><a href="#mainmenu">Ana menü</a></li>
+    <ol>
+        <li><a href="#file">Dosya</a></li>
+        <li><a href="#edit">Düzenle</a></li>
+        <li><a href="#view">Görünüm</a></li>
+        <li><a href="#tabs">Sekmeler</a></li>
+        <li><a href="#bookmarks">Yer imleri</a></li>
+        <li><a href="#help">Yardım</a></li>
+    </ol>
+    <li><a href="#mainview">Ana görünüm</a></li>
+    <li><a href="#auxiliaryviews">Yardımcı görünümler</a></li>
+    <li><a href="#settings">Ayarlar</a></li>
+    <ol>
+    	<li><a href="#behaviorsettings">Davranış ayarları</a></li>
+    	<li><a href="#graphicssettings">Grafik ayarları</a></li>
+    	<li><a href="#interfacesettings">Arayüz ayarları</a></li>
+    	<li><a href="#shortcutsettings">Kısayol ayarları</a></li>
+    	<li><a href="#modifiersettings">Değiştirici ayarları</a></li>
+    </ol>
+</ol>
+
+<h4>Başlangıç</h4>
+
+<p><em>qpdfview</em> sekmeli bir belge görüntüleyicidir. PDF desteği için
+Poppler, PS desteği için libspectre, DjVu desteği için DjVuLibre, yazdırma
+desteği için CUPS ve arabirimi için Qt araç seti kullanır.</p>
+
+<p>Komut satırı seçenekleri ve yapılandırma dosyaları hakkında bilgi için
+lütfen klavuz sayfaya bakın.</p>
+
+<h3><a name="mainmenu">Ana menü</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="file">Dosya</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Aç...</b> Geçerli sekmede açılacak bir dosyayı seçmek için bir iletişim
+kutusu açar. Sekme yoksa, dosya yeni bir sekmede açılır.</li>
+    <li><b>Yeni sekmede aç...</b> Dosyaları yeni sekmelerde açmak için
+seçebileceğiniz bir iletişim kutusu açar.</li>
+    <li><b>Son kullanılan</b> En son kullanılan dosyaların bir listesini içerir
+(ayarlarda etkinleştirildiyse).</li>
+    <li><b>Yenile</b> Geçerli sekmede görüntülenen dosyayı yeniden yükleyin.</li>
+    <li><b>Kaydet</b> Geçerli sekmede görüntülenen dosyaya ek açıklamalara ve form
+alanlarına değişiklikleri kaydeder.</li>
+    <li><b>Farklı kaydet ...</b> Ek açıklamalardaki ve form alanlarındaki
+değişiklikler de dahil olmak üzere geçerli sekmede görüntülenen dosyayı
+kaydetmek için bir iletişim kutusu açar.</li>
+    <li><b>Kopya kaydet...</b> Geçerli sekmede görüntülenen dosyanın umodified bir
+kopyasını kaydetmek için bir iletişim kutusu açar.</li>
+    <li><b>Yazdır...</b> Geçerli sekmede görüntülenen dosyayı yazdırmak için bir
+iletişim kutusu açar.</li>
+    <li><b>Çıkış</b> Tüm sekmeleri kapatır ve yazılım sona erer.</li>
+</ul>
+
+<h4><a name="edit">Düznele</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Sonraki/Önceki/İlk/Son sayfa</b> Belgenin sonraki/önceki /ilk/son
+sayfasına atlar.</li>
+    <li><b>Sayfaya atla...</b> Geçerli sekmede görüntülenecek bir sayfa girmek için
+bir iletişim kutusu açar.</li>
+    <li><b>Geri/İleri atla</b> Görüntülenen sayfada geçmişi ileri/geri atlar.</li>
+    <li><b>Ara...</b> Arama platformunu ana görünümün altında açar. Arama, arama
+teriminin son değiştirilmesinden sonra otomatik olarak başlar ve dönüş
+tuşuna basarak manuel olarak başlatılır. Dönüş tuşu basılı tutulduğunda
+Shift düzenleyici basılı tutulursa, arama sadece geçerli sekme yerine tüm
+sekmelerde başlar. (Bu ayar, genişletilmiş arama platformu
+etkinleştirildiyse tersine çevrilir.)</li>
+    <li><b>Önceki/sonraki bul</b> Belgedeki arama teriminin önceki/sonraki oluşumuna
+atlar.</li>
+    <li><b>Aramayı iptal et</b> Çalışmakta olan aramayı iptal eder ve arama
+platformunu kapatır.</li>
+    <li><b>Panoya kopyala</b> İşaretlenirse, program metin veya resim kopyalamak
+için sürüklenecek bir çerçeveyi bekleyecektir.</li>
+    <li><b>Ek açıklama ekleyin</b> İşaretlenirse, ek açıklamalar eklemek için
+program bir çerçevenin sürüklenmesini bekleyecektir.</li>
+    <li><b>Ayarlar...</b> Ayarlar iletişim kutusunu açar. 'Varsayılanlar' etiketli
+düğme, tüm sekmelerdeki tüm ayarları varsayılan değerlerine geri
+döndürür. 'Geçerli sekmede Varsayılanlar' etiketli düğme, yalnızca geçerli
+sekmedeki ayarları varsayılan değerlerine döndürür.</li>
+</ul>
+
+<p><em>Geçerli sayfa</em>, Ctrl+K ile odaklanılabilir ve dönüş tuşuna basarak
+düzenle araç çubuğundaki metin alanına istediğiniz sayfayı girerek
+değiştirilebilir.</p>
+
+<h4><a name="view">Görünüm</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Sürekli</b> Sayfa düzeninin tüm satırlarının aynı anda görünüp
+görünmeyeceğini belirler.</li>
+    <li><b>İki sayfa</b> Sayfa düzeninin iki sütun kullanıp kullanılmayacağını
+belirler.</li>
+    <li><b>Kapak sayfası içeren iki sayfa</b> Sayfa düzeninin kapak sayfasından
+sonra iki sütun kullanıp kullanılmayacağını belirler.</li>
+    <li><b>Çoklu Sayfa</b> Sayfa düzeninde birden çok sütun kullanılıp
+kullanılmayacağını belirler. Sütun sayısı, ayarlar iletişim kutusunda
+değiştirilebilir.</li>
+    <li><b>Sağdan sola</b> Sayfalar satır başına birden fazla sayfa ile düzenleri
+nasıl düzenlendiğine belirler.</li>
+    <li><b>Yakınlaştır</b> Ölçek etmenini yüzde 10 oranında artırır. Azami ölçek
+etmeni yüzde 5000'dir.</li>
+    <li><b>Uzaklaştır</b> Ölçek etmenini yüzde 10 oranında azaltır. Asgari ölçek
+etmeni yüzde 10'dur.</li>
+    <li><b>Özgün boyut</b> Ölçeği yüzde 100'e getirir.</li>
+    <li><b>Sayfaya genişliğe sığdır</b> Tüm sayfaların ana görünüme tamamen yatay
+olarak sığacağı şekilde ölçek etmenini belirler.</li>
+    <li><b>Sayfaya sığdır</b> Tüm sayfaların ana görünüme tamamen yatay ve dikey
+olarak sığacağı ölçek etmeni belirler.</li>
+    <li><b>Sola döndür</b> Sayfaları sola/saat yönünün tersine 90 derece döndürür.</li>
+    <li><b>Sağa döndür</b> Sayfaları sağa/sola 90 derece döndürür.</li>
+    <li><b>Renkleri ters çevir</b> Sayfaların ters renklerle işlenip işlenmeyeceğini
+belirler.</li>
+    <li><b>Gri tonlamaya dönüştür</b> Sayfa oluşturulduktan sonra gri tonlamaya
+dönüştürülüp dönüşmeyeceğini belirler.</li>
+    <li><b>Kenar boşluklarını düzelt</b> Oluşturduktan sonra boş sayfa kenar
+boşluğunun kaldırılmasını sağlar.</li>
+    <li><b>Kompozisyon</b> Taranan belgelerin arka planını ayarlamak için, işlenen
+sayfanın kağıt rengiyle bileşimini etkinleştirir.</li>
+    <li><b>Araç çubukları</b> Bu menü, sık kullanılan eylemlere erişmek için
+kullanılabilen araç çubuklarının bir listesini içerir.</li>
+    <li><b>Rıhtımlar</b> Bu menü, tamamlayıcı bilgileri görüntülemek için mevcut
+rıhtımların bir listesini içerir.</li>
+    <li><b>Yazı tipleri...</b> Belgede kullanılan yazı tiplerini listeleyen bir
+iletişim kutusu açılır.</li>
+    <li><b>Tam Ekran</b> Tam ekran kipini etkinleştirir, yani pencere azami ve
+dekorsuz olarak gösterilir.</li>
+    <li><b>Sunum ...</b> F12 tuşuna basarak veya Esc bırakılabilecek sunum kipine
+girer. home/end ilk/son sayfayı görüntülemek için kullanılır. Ok tuşları
+sağa ve aşağı, boşluk ve sayfa aşağı tuşu bir sonraki sayfaya
+atlamaktadır. Ok tuşları sola ve yukarıya, geri ve sayfa yukarı tuşu bir
+önceki sayfaya atlar. Kontrol ve geri basma, son atlamadan önce sayfaya geri
+atlar.</li>
+</ul>
+
+<p><Em>ölçek etmeni</em>, Ctrl+L ile odaklanılacak ve geri tuşuna basarak
+görüntüleme araç çubuğundaki metin alanına istenilen yüzdeyi girerek
+değiştirilebilir.</p>
+
+<h4><a name="tabs">Sekmeler</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Önceki/Sonraki sekme</b> Önceki/sonraki sekmeyi geçerli sekmeye
+getirir. İlk/son sekme geçerli sekmeyse, son/ilk sekmeye döner.</li>
+    <li><b>Sekmeyi kapat</b> Geçerli sekmeyi kapatır.</li>
+    <li><b>Tüm sekmeleri kapat</b> Tüm sekmeleri kapatın.</li>
+    <li><b>Tüm sekmeleri kapatın, ancak geçerli sekmeyi hariç</b> Geçerli sekme
+dışındaki tüm sekmeleri kapatın.</li>
+    <li><b>Son kapatılan</b> En son kapatılan sekmelerin bir listesini içerir
+(ayarlarda etkinleştirildiyse).</li>
+</ul>
+
+<p>Bu menü, ilgili menü öğesine tıklayarak geçerli sekmeyi oluşturan tüm
+sekmelerin bir listesini içerir. Sekmeler orta tıklama ile de
+kapatılabilir. İlk dokuz sekme, Alt değiştirici basılı tutularak ve bir ila
+dokuz arasındaki tuşlara basılarak etkinleştirilebilir.</p>
+
+<h4><a name="bookmarks">Yer imleri</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Önceki yer imi</b> Geçerli sayfada önce en yakın yer işaretine atlar.</li>
+    <li><b>Sonraki yer imi</b> Geçerli sayfanın ardından en yakın yer işaretine
+atlar.</li>
+    <li><b>Yer imi ekle</b> Geçerli dosya ve sayfa için bir yer imi ekler.</li>
+    <li><b>Yer imini kaldır</b> Geçerli dosya ve sayfa için yer işaretini kaldırır.</li>
+    <li><b>Tüm yer imini kaldır</b> tüm yer işaretlerini kaldırır.</li>
+    <li><b>Aç</b> İlgili dosyayı geçerli sekmede açar. Sekme yoksa, dosya yeni bir
+sekmede açılır.</li>
+    <li><b>Yeni sekmede aç </b> İlgili dosyayı yeni bir sekmede açar.</li>
+    <li><b>Sayfaya atla</b> İlgili dosya zaten açıksa, ilgili sayfaya atlar. Aksi
+takdirde ilgili dosya yeni bir sekmede açılır.</li>
+</ul>
+
+<h4><a name="help">Yardım</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>İçerikler</b> Bu belgeyi görüntüler.</li>
+	<li><b>Hakkında</b> Yazılım sürümünü görüntüler.</li>
+</ul>
+
+<h3><a name="mainview">Ana görünüm</a> <a href="#top">&uarr;</a></h3>
+
+<p>Geri/boşluk tuşu bir önceki/bir sonraki sayfaya atlar. Home/end tuşu ilk/son
+sayfaya atlar. Ok, sayfa yukarı ve aşağı sayfa tuşları görüntü kapısını
+kaydırır. Kontrol ve geri basıldığında, son atlamadan önce sayfaya atlar.</p>
+
+<p>Farenin tekerleğini kullanarak yukarı ve aşağı kayar. Farenin tekerleğini
+kullanırken <b>ALT</b> tuşunu basılı tutarken sola ve sağa kayar. Farenin
+tekerleğini kullanırken <b>CTRL</b> tuşunu basılı tutmak dokümanı
+ölçeklendirir. Farenin tekerleğini kullanırken <b>SHİFT</b> tuşunu basılı
+tuttuğunuzda belge döndürülür. (Klavye değiştiricileri ayarlar diyaloğunda
+değiştirilebilir.) Yakınlaştırılacak bir dikdörtgen seçmek için orta fare
+düğmesini basılı tutun.</p>
+
+<p>Bağlantılar kırmızı çerçevelerle vurgulanır (ayarlar
+etkinleştirildiyse). Bağlantılı sayfayı göstermek için bir bağlantıyı sol
+tıklayın veya varsayılan tarayıcıda bağlantı verilen URL'yi açın (ayarlar
+etkinleştirildiyse). Bağlantılı sayfayı yeni bir sekmede göstermek için bir
+bağlantıyı orta tıklayın. Bir bağın üzerine fareyle gelmek, hedefini bir
+araç ipucu olarak görüntüler.</p>
+
+<p>Form alanları, mavi çerçevelerle vurgulanır (ayarlar
+etkinleştirildiyse). İçeriğini düzenlemek için bir form alanına sol
+tıklayın. Bir form alanının üzerine gelmek, adını araç ipucu olarak
+görüntüler.</p>
+
+<p>Belgedeki bir konumun kaynağı, isteğe bağlı olarak ilk eşleşen
+<em>SyncTeX</em> düğümü için bir öğe içeren içerik menüsünü kullanarak
+kaynak düzenleyicisinde açılabilir.</p>
+
+<p><Em>metinleri veya resimleri kopyala</em>tut<b>SHİFT</b> tuşunu basılı
+tutun, kopyalamak için alanı çevreleyen bir çerçeve sürüklemek adına farenin
+sol düğmesini basılı tutun. Fare düğmesi serbest bırakıldıktan sonra,
+metinleri veya resimleri panoya kopyalayıp kopyalamayacağınızı seçmek için
+bir açılır menü görüntülenir.</p>
+
+<p><em>ek açıklamalar eklemek</em> için, açıklama yapmak ve bölgenin çevresine
+bir çerçeve sürüklemek için <b>CTRL</b> tuşunu basılı tutun, farenin sol
+düğmesini basılı tutun. Fare düğmesi serbest bırakıldıktan sonra, metin
+ekleme veya vurgulama ek açıklama eklemeyi seçmek için bir açılır menü
+görüntülenir. <em>Ek açıklamaları düzenle</em> için sol tıklayın. <em>Ek
+açıklamaları kaldırmak </em> için sağ tıklayın. (Ek açıklamaları ekleme ve
+kaldırma, Poppler kitaplığının 0.20.1 veya daha yeni sürümünü gerektirir.)
+Bir açıklama üzerine gelmek, içeriğini bir araç ipucu olarak görüntüler.</p>
+
+<p><em>bir seçime yakınlaştır</em>, tut <b>SHIFT</b> ve <b>CTRL</b>,
+yakınlaştırmak için bölgenin etrafında bir çerçeve sürüklemek için farenin
+sol düğmesini basılı tutun.</p>
+
+<p><em> araç ve menü çubuklarının görünürlüğü </em> öntanımlı değerler
+"Shift+Alt+T" ve "Shift+Alt+M" olan yapılandırılabilir klavye kısayollarını
+kullanarak  arasında geçiş yapılabilir.</p>
+
+<h3><a name="auxiliaryviews">Yardımcı görünümler</a> <a href="#top">&uarr;</a></h3>
+
+<p><Em>anahat görünümü</em> belgenin içeriğine genel bir bakış görüntüler. Bir
+girişe sol tıklama, ana görünümdeki ilgili sayfaya atlar. Bağlam menüsü,
+seçili öğenin altındaki tüm öğeleri genişletmek/daraltmak için
+kullanılabilir.</p>
+
+<p>Anahat görünümü klavyeyi ve fare tekerleğini kullanarak da
+gezinebilir. Shift tuşunu basılı tutarak ve Yukarı/Aşağı tuşlarını
+kullanarak görünümü kaydırır. Shift tuşunu basılı tutarak ve Sol/Sağ
+tuşlarını kullanarak, seçili öğenin altındaki bir öğe seviyesini
+daraltabilir/genişletebilirsiniz. Shift basılı ve Sol/Sağ tuşlarını
+kullanarak, seçili öğeyi ve altlarını tamamen daraltıp/genişletin. Kaydırma
+tuşunu basılı tutup kaydırma tekerleği kullanarak seçilen öğe değişir. Tutma
+Kontrolü ve fare tekerleğini kullanarak seçilen öğeyi genişletin/daraltın.</p>
+
+<p><em>özellikler görünümü</em> belgede bulunan ek bilgileri görüntüler.</p>
+
+<p><em>küçük resimler görünümü</em> belge sayfalarının daha küçük sürümlerini
+görüntüler. Bir girişe sol tıklama, ana görünümdeki ilgili sayfaya atlar.</p>
+
+<p><em>yer imleri görünümü </em> geçerli sekmede görüntülenen belgeye ilişkin
+yer imlerini gösterir. Bağlam menüsü bir önceki/sonraki yer imine atlamak
+veya yer imleri eklemek için girdileri içerir. Her girişin bağlam menüsü de
+yer imlerini düzenlemek ve silmek için girişler içermektedir.</p>
+
+<p>Ayarlarda etkinleştirilirse, <em>genişletilmiş arama platformu</em>, tüm
+sekmelerde gerçekleştirilen tüm aramaların sonuçlarını içeren bir genel
+görünümü gösterir. Ayrıca, arama teriminin vurgulandığı bir sonucu
+çevreleyen metni gösterir. Sonuç tıklatıldığında, ilgili sekme açılır ve
+konumuna atlar.</p>
+
+<h3><a name="settings">Ayarlar</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="behaviorsettings">Davranış ayarları</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>URL Aç</b> URL bağlantılarının varsayılan tarayıcıda açılıp açılmadığını
+belirler.</li>
+    <li><b>Otomatik yenile</b> Dosyalar disk üzerinde değiştirildiğinde otomatik
+olarak yeniden yüklenip yüklenmeyeceğini belirler.</li>
+    <li><b>Son kullanılanları izle</b> Etkinleştirildiğinde, yakın zamanda
+kullanılan bir menü kullanılabilir ve "Son kullanılan sayım" seçeneğinde
+ayarlandığı gibi çok yeni kullanılan dosyaları listeler. (Yeniden
+başlattıktan sonra etkili olur.)</li>
+    <li><b>Son kapatılanı sakla</b> Etkinleştirilirse, yakın zamanda kapatılan bir
+menü mevcuttur ve "Son kapatılmışı say" seçeneğinde belirlenen şekilde son
+zamanlarda kapalı sekmeleri listeler. Sekmeleri tutmak bellek kullanımını
+önemli ölçüde artırabilir. (Yeniden başlattıktan sonra etkili olur.)</li>
+    <li><b>Sekmeleri geri yükle</b> Etkinleştirilirse, sekmeler ve özellikleri
+programın bitiminde kaydedilir ve yeniden başlatıldığında kaydedilir.</li>
+    <li><b>Yer imlerini geri yükle</b> Etkinleştirilirse, yer işaretleri programın
+bitiminde kaydedilir ve yeniden başlatıldığında geri yüklenir.</li>
+    <li><b>Dosya başına ayarları geri yükle</b> Etkinleştirilirse, dosya başına
+ayarlar açma/kapatma sekmelerinde kaydedilir/geri yüklenir.</li>
+    <li><b>Veritabanı aralığını kaydetme</b> Sekmelerin, yer imlerinin veya dosya
+başına ayarlarının veritabanına kaydedildikten sonraki aralık.</li>
+    <li><b>Sunuyu eşitle</b> Etkinleştirilirse, ana görünüm sunum görünümünü kontrol
+etmek için kullanılabilir.</li>
+    <li><b>Sunum ekranı</b> Sunu görünümünü görüntülemek için ekranın dizini.</li>
+    <li><b>Anahat görüntüsünü eşitle</b> Etkinleştirilirse anahat görünümü, geçerli
+sayfa her değiştirildiğinde geçerli sayfaya işaret eden ilk girişi
+vurgulayacaktır.</li>
+    <li><b>Asgari kaydırma</b> Etkinleştirilirse, hedef konum henüz görünür değilse,
+görüntüleme bağlantı noktası kaydırılır.</li>
+    <li><b>Yakınlaştırma etmeni</b> Ölçek etmeninin çarpılma sayısını
+belirtir. Yakınlaştırma üzerine bölünmüş. Dışarı.</li>
+    <li><b>Vurgulama rengi</b> Vurguların rengini belirler.</li>
+    <li><b>Vurgulama süresi</b> Geçici vurgulama sürelerini belirler.</li>
+    <li><b>Ek açıklama rengi</b> Program tarafından eklenen ek açıklamaların rengi,
+SVG renk anahtar kelimeleri veya onaltılık gösterim '#rrggbb' kullanılarak.</li>
+    <li><b>Kaynak düzenleyici</b> Kaynakları düzenlemeye başlayan program. '%1'
+mutlak dosya yolu ile değiştirildi. '%2' sıra. '%3' yerine satırları
+geldi. Sütun numarası.</li>
+</ul>
+
+<h4><a name="graphicssettings">Grafik ayarları</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Döşeme kullan</b> Sayfalar, bellek kullanımını azaltmak için oluşturma ve
+önbelleğe alma işlemlerinden önce başlıklara bölünür.</li>
+    <li><b>Eski benek haritası sakla</b> Etkinleştirilirse büyütme faktörünün
+değiştirilmesi üzerine, artan bellek kullanımı pahasına mevcut olana dek,
+pixmap benzerlerini çizmek için önbelleğe alınmış pixmap'ler
+kullanılacaktır.</li>
+    <li><b>Cihaz benek oranını kullan</b> Etkinleştirilirse, mevcut en yüksek cihaz
+pikseli oranı fiziksel ve görüntü mantıksal çözünürlükte oluşturulur.</li>
+    <li><b>Sayfaları süsle</b> Sayfaların artalandan ayrı olup olmadığını belirler.</li>
+    <li><b>Bağlantıları süsle</b> Bağlantıların kırmızı çerçevelerle vurgulanıp
+vurgulanmadığını belirler.</li>
+    <li><b>Form alanlarını süsle</b> Form alanlarının mavi çerçevelerle vurgulanıp
+vurgulanmadığını belirler.</li>
+    <li><b>Artalan rengi</b> Artalanın rengini SVG renk anahtar kelimeleriyle veya
+onaltılık gösterimle '#rrggbb' kullanarak belirler.</li>
+    <li><b>Kağıt rengi</b> SVG renk anahtar kelimeleri veya onaltılık gösterimi
+'#rrggbb' kullanarak sayfaların rengini belirler.</li>
+    <li><b>Sunum artalan rengi</b> Sunum görünümünün artalan renginin
+hesaplamasındaki kağıt rengini geçersiz kılar ve SVG renk anahtar
+kelimeleriyle veya '#rrggbb' onaltılı gösterimini kullanarak tanımlanır.</li>
+    <li><b>Satır başına sayfalar</b> 'çok sayfalı' sayfa düzeni kipindeki satır
+başına sayfa sayısı.</li>
+    <li><b>Sayfa aralığı</b> Sayfalar arasında görüntülenen dikey ve yatay alanı
+belirler.</li>
+    <li><b>Küçük resim aralığı</b> Küçük resimler arasında gösterilen dikey ve yatay
+alanı belirler.</li>
+    <li><b>Küçük resim boyutu</b> Küçük resimlerin boyutunu belirler.</li>
+    <li><b>Önbellek boyutu</b> Program, işlenen sayfaları bu sınırın üzerinde
+önbelleğe almaya çalışacak ve artan bellek kullanımı pahasına oluşturma hızı
+artacaktır.</li>
+    <li><b>Önbellekleme</b> Yazılımı, görünür olmayan sayfaları, oluşturma hızını
+arttırarak artan önbellek kullanımı pahasına getirmeye çalışacaktır.</li>
+    <li><b>Önbellekleme mesafesi</b> Geçerli satırın ötesinde satır sayısı ve
+geçerli satırdan önek getirilen satırların iki katı.</li>
+    <li><b>PDF ayarları</b>
+    <ul>
+        <li><b>Keskinlik yumuşatma</b> Performans kalitesini artırarak görüntü
+kalitesini artırır</li>
+        <li><b>Metin yumuşatma</b> Metin görüntüleme kalitesini performans pahasına
+iyileştirir.</li>
+        <li><b>Metin keskinliği</b> Bazı yazı tipleri için metin görüntüleme kalitesini
+artırabilir.</li>
+        <li><b>Üst Baskı Önizleme</b> Etkinleştirilirse, bir kat daha üst üste bir
+mürekkep baskı önizlemesi görüntülenir.</li>
+        <li><b>İnce çizgi kipi </b> İnce çizgiler çizmek için kullanılan iyileştirmeyi
+seçer.</li>
+        <li><b>Arka uç</b> Sayfaları işlemek için kullanılan artalanı seçer.</li>
+    </ul>
+    </li>
+    <li><b>PS ayarları</b>
+    <ul>
+        <li><b>Grafik yumuşatma bitleri</b> Grafikler için yumuşatma miktarını belirler.</li>
+        <li><b>Metin yumuşatma bitleri</b> Metin için yumuşatma miktarını belirler.</li>
+    </ul>
+    </li>
+</ul>
+
+<h4><a name="interfacesettings">Arayüz ayarları</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Genişletilmiş arama platformu</b> Etkinleştirilirse, varsayılan arama
+platformu, tüm sekmelerin sonuçlarını gösteren bir genel bakışla
+genişletilir. (Yeniden başlattıktan sonra etkili olur.)</li>
+    <li><b>Ek açıklama yer paylaşımı</b> Etkinleştirilirse, bir sayfadaki tüm ek
+açıklamalar etkileşimli bir yer paylaşımı olarak görüntülenecektir. Aksi
+takdirde, her açıklama ayrı bir açılır pencere olarak ele alınacaktır.</li>
+    <li><b>Form alanı yer paylaşımı</b> Etkinleştirilirse, sayfadaki tüm form
+alanları etkileşimli bir yer paylaşımı olarak görüntülenecektir. Aksi
+takdirde her form alanı ayrı bir açılır pencere olarak ele alınacaktır.</li>
+    <li><b>Sekme konumu</b> Ana görünüm sekmelerinin hangi kenarında
+görüntüleneceğini tanımlar.</li>
+    <li><b>Sekme görünürlüğü </b> İkiden az belge açıldığında sekmelerin
+görüntülenip görüntülenmeyeceğini belirler.</li>
+    <li><b>Sekmeleri yay</b> Sekmelerin tüm sekme çubuğunda eşit olarak yayılıp
+yayılmayacağını belirler.</li>
+    <li><b>Geçerli sekmenin yanındaki yeni sekme</b> Etkinleştirilirse, etkin
+sekmenin sağında yeni sekmeler açılır.</li>
+    <li><b>Son sekmeden çık</b> Etkinleştirilirse, uygulama son sekme kapandıktan
+sonra çıkar.</li>
+    <li><b>Son kullanılan say</b> "Yakın zamanda kullanılan parkur"
+etkinleştirildiyse, yakın zamanda kullanılan menüde listelenen dosya
+sayısını ayarlar. (Yeniden başlattıktan sonra etkili olur.)</li>
+    <li><b>Son kapatılanı say</b> "Yakın bir yerde sakla" seçeneği
+etkinleştirilmişse, son kapatılan menüde listelenen sekmelerin sayısını
+ayarlar. (Yeniden başlattıktan sonra etkili olur.)</li>
+    <li><b>Dosya araç çubuğu</b> Dosya araç çubuğunda hangi eylemlerin görüneceğini
+tanımlar. Kullanılabilir eylemler yeniSekmedeAç, açık, yenileme,
+kopyaKaydet, olarakKaydet, yazdırma ve ayırıcıdır. (Yeniden başlattıktan
+sonra etkili olur.)</li>
+    <li><b>Araç çubuğunu düzenle</b> Düzenleme araç çubuğunda hangi eylemlerin
+görüneceğini tanımlar. Kullanılabilir işlemler Geçerli Sayfa, Önceki Sayfa,
+Sonraki Sayfa, İlk Sayfa, Son Sayfa, Sayfaya Atla, Geri Atla, İleri Atla,
+Bul, Pano Kipine Kopyala, Ek Açıklama Kipi ve ayırıcı ekleyin. (Yeniden
+başlattıktan sonra etkili olur.)</li>
+    <li><b>Araç çubuğunu görüntüle</b> Görünüm araç çubuğunda hangi eylemlerin
+görünür olduğunu tanımlar. Kullanılabilir eylemler ölçek etmeni,
+yakınlaştır, uzaklaştır, sürekli kip, ikili sayfa kipi, ikili sayfa, kapak
+sayfası kipi, çoklu sayfa kipi, özgün boyut, sayfa genişlik kipine sığdır,
+sayfa boyut sığdır, sola döndür, sağa döndür, tam ekran , sunum ve
+ayırıcı. (Yeniden başlattıktan sonra etkili olur.)</li>
+    <li><b>Document context menu</b> Defines which actions are visible in the
+document's context menu. Available actions are openCopyInNewTab,
+openCopyInNewWindow, openContainingFolder, moveToInstance, previousPage,
+nextPage, firstPage, lastPage, jumpToPage, jumpBackward, jumpForward,
+setFirstPage, findPrevious, findNext, cancelSearch and separator.</li>
+    <li><b>Tab context menu</b> Defines which actions are visible in a tab's context
+menu. Available actions are openCopyInNewTab, openCopyInNewWindow,
+openContainingFolder, moveToInstance, copyFilePath, selectFilePath,
+closeAllTabs, closeAllTabsButThisOne, closeAllTabsToTheLeft,
+closeAllTabsToTheRight and separator.</li>
+    <li><b>Kaydırılabilir menüler</b> Varsayılan biçemi geçersiz kılacak ve böylece
+kullanılabilir ekran alanından büyükse açılır menüler birden çok sütunda
+gösterilecek şekilde kaydırılacaktır. (Yeniden başlattıktan sonra etkili
+olur.)</li>
+    <li><b>Aranabilir menüler</b> Sekmelerin ve yer imleri menülerinin varsayılan
+klavye gezinimini, sizin gibi bir arama mekanizması ile genişletir.</li>
+    <li><b>Araç ve menü çubuklarını tam ekranla değiştirme</b> Tam ekran kipini
+değiştirirken aracın ve menü çubuklarının görünürlüğünü daima değiştirir.</li>
+    <li><b>Sayfa etiketini kullan</b> Kullanılabilir olduğunda, belge tarafından
+sağlanan sayfa etiketinin sayfa numaraları yerine kullanılacağını belirler.</li>
+    <li><b>Sekme başlığı olarak belge başlığı</b> Dosya adı yerine meta verilerden
+türetilmiş sekme başlığını belirler.</li>
+    <li><b>Pencere başlığında geçerli sayfa</b> Etkinleştirilirse, geçerli sayfa ve
+etkin sekmedeki sayfanın sayfa sayısı pencere başlığında görüntülenir.</li>
+    <li><b>Pencere başlığında örnek adı</b> Etkinleştirilirse ve geçerli örnek adı
+verilirse, adı pencere başlığında görüntülenir.</li>
+    <li><b>Geçerli küçük resmi vurgulayın</b> Etkinleştirilirse, geçerli sayfa küçük
+resimler görünümünde vurgulanır.</li>
+    <li><b>Küçük resimleri sınırlandırın</b> Bu seçenek etkinleştirilirse ve bir
+arama yapıldığında yalnızca arama teriminin bulunduğu sayfalar küçük resim
+görünümünde gösterilir.</li>
+</ul>
+
+<h4><a name="shortcutsettings">Kısayol ayarları</a> <a href="#top">&uarr;</a></h4>
+
+<p>Kısayol ayarları klavye kısayollarının kişisel tercihine ayarlanmasına izin
+verir. Kısayolları düzenlemek ve yeni kısayolu girmek için kısayolu çift
+tıklatarak değiştirilir. Her eylem, noktalı virgül ile ayrılmış bir liste
+girerek çeşitli kısayollara sahip olabilir. Tek harf olmayan anahtarların
+isimleri açıkça belirtilir (ör. "Alt", "Ctrl", "PgDown"), burada eşleşmeyle
+büyük/küçük harf duyarlı değildir. Kısayol değiştirici tuşlar içeriyorsa,
+tuşların adları artı işaretiyle birleştirilir ve değiştirici tuşlar önce
+listelenmelidir, ör. "Ctrl+A" veya "Ctrl ++".</p>
+
+<h4><a name="modifiersettings">Değiştirici ayarları</a> <a
+href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Yakınlaştır</b> Ana görünümde fare tekerleğini kullanarak yakınlaştırma
+yapmak için klavye düzenleyicileri.</li>
+    <li><b>Döndür</b> Ana görünüşte fare tekerleğini kullanarak döndürmek için
+klavye değiştiricileri.</li>
+    <li><b>Kaydır</b> Ana görünümde fare tekerleğini kullanarak klavye
+değiştiricilerini yatay olarak kaydırma.</li>
+    <li><b>Panoya kopyala</b> Bir sayfadaki metinleri veya resimleri panoya
+kopyalamak için klavye değiştiricileri.</li>
+    <li><b>Ek açıklama ekle</b> Bir sayfaya ek açıklamalar eklemek için klavye
+değiştiricileri.</li>
+    <li><b>Seçime yakınlaştır</b> Bir sayfada bir seçime basmak için klavye
+düzenleyicileri.</li>
+</ul>
+
+</body>
+
+</html>

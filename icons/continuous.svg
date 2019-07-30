@@ -1,0 +1,21 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<radialGradient cx="32.60803" cy="37.20211" gradientUnits="userSpaceOnUse" id="radialGradient4483" r="83.24006">
+<stop offset="0" stop-color="#fafafa"/>
+<stop offset="1" stop-color="#bbb"/>
+</radialGradient>
+<radialGradient cx="11.89795" cy="4.52564" gradientUnits="userSpaceOnUse" id="radialGradient4485" r="36.55384">
+<stop offset="0" stop-color="#a3a3a3"/>
+<stop offset="1" stop-color="#4c4c4c"/>
+</radialGradient>
+<radialGradient cx="11.23875" cy="8.15252" gradientUnits="userSpaceOnUse" id="radialGradient4487" r="36.94792">
+<stop offset="0" stop-color="#fff"/>
+<stop offset="1" stop-color="#f8f8f8"/>
+</radialGradient>
+</defs>
+<g id="g3251-5" transform="translate(-.0411,-22.0667)">
+<path d="m7.7526,3.6464h32.577a1.149,1.149 0 0,1 1.149,1.149v38.6225a1.149,1.149 0 0,1 -1.149,1.149h-32.577a1.149,1.149 0 0,1 -1.149-1.149v-38.6225a1.149,1.149 0 0,1 1.149-1.149" display="block" fill="url(#radialGradient4483)" stroke="url(#radialGradient4485)" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="m7.8151,4.5839h32.4779a.149,.149 0 0,1 .149.149v38.6484a.149,.149 0 0,1 -.149.149h-32.4779a.149,.149 0 0,1 -.149-.149v-38.6484a.149,.149 0 0,1 .149-.149" display="block" fill="none" stroke="url(#radialGradient4487)" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<use height="48" transform="translate(0,43.92)" width="48" xlink:href="#g3251-5"/>
+</svg>

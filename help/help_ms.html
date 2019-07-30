@@ -1,0 +1,518 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
+
+<!--
+
+Copyright 2012 Benjamin Eltzner
+Copyright 2012 Adam Reichold
+
+This file is part of qpdfview.
+
+qpdfview is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+qpdfview is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with qpdfview.  If not, see <http://www.gnu.org/licenses/>
+.
+
+This file is additionally licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported (CC-BY-SA) license. The full text of the license can be found at https://creativecommons.org/licenses/by-sa/3.0/legalcode
+
+-->
+<html>
+
+<head>
+    <title>Bantuan</title>
+</head>
+
+<body>
+
+<h2><a name="top">Bantuan</a></h2>
+
+<h4>Senarai kandungan</h4>
+<ol>
+    <li><a href="#mainmenu">Menu utama</a></li>
+    <ol>
+        <li><a href="#file">Fail</a></li>
+        <li><a href="#edit">Sunting</a></li>
+        <li><a href="#view">Lihat</a></li>
+        <li><a href="#tabs">Tab</a></li>
+        <li><a href="#bookmarks">Tanda buku</a></li>
+        <li><a href="#help">Bantuan</a></li>
+    </ol>
+    <li><a href="#mainview">Paparan utama</a></li>
+    <li><a href="#auxiliaryviews">Paparan tambahan</a></li>
+    <li><a href="#settings">Tetapan</a></li>
+    <ol>
+    	<li><a href="#behaviorsettings">Tetapan kelakuan</a></li>
+    	<li><a href="#graphicssettings">Tetapan grafik</a></li>
+    	<li><a href="#interfacesettings">Tetapan antaramuka</a></li>
+    	<li><a href="#shortcutsettings">Tetapan pintasan</a></li>
+    	<li><a href="#modifiersettings">Tetapan pengubahsuai</a></li>
+    </ol>
+</ol>
+
+<h4>Pengenalan</h4>
+
+<p><em>qpdfview</em> merupakan pelihat dokumen bertab. Ia menggunakan Poppler
+untuk sokongan PDF, libspectre untuk sokongan PS, DjVuLibre untuk sokongan
+DjVu, CUPS untuk sokongan percetakan dan kit alat Qt untuk antaramukanya.</p>
+
+<p>Sila rujuk halaman manual untuk maklumat pilihan baris-perintah dan fail
+konfigurasinya.</p>
+
+<h3><a name="mainmenu">Menu utama</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="file">Fail</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Buka...</b> Buka dialog untuk memilih fail yang hendak dibuka dalam tab
+semasa. Jika tiada tab, Fail akan dibuka pada tab baru.</li>
+    <li><b>Buka dalam tab baru...</b> Buka dialog untuk memilih fail yang hendak
+dibuka dalam tab baru.</li>
+    <li><b>Diguna baru-baru ini</b> Mengandungi senarai fail yang baru diguna (jika
+dibenarkan dalam tetapan).</li>
+    <li><b>Segar semula</b> Muat semula fail yang dipaparkan dalam tab semasa.</li>
+    <li><b>Save</b> Saves changes to annotations and form fields to the file
+displayed in the current tab.</li>
+    <li><b>Simpan sebagai...</b> Buka dialog untuk simpan fail yang dipapar dalam
+tab semasa termasuklah perubahan pada anotasi dan medan borang.</li>
+    <li><b>Save copy...</b> Opens a dialog to save an umodified copy of the file
+displayed in the current tab.</li>
+    <li><b>Cetak...</b> Buka dialog untuk mencetak fail yang dipapar dalam tab
+semasa.</li>
+    <li><b>Keluar</b> Tutup semua tab dan tamatkan program.</li>
+</ul>
+
+<h4><a name="edit">Sunting</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li>b>Halaman Berikut/Terdahulu/Pertama/Terakhir</b> Langkau ke halaman dokumen
+berikut/terdahulu/pertama/terakhir.</li>
+    <li><b>Lompat ke halaman...</b> Buka dialog untuk masuk ke halaman dan dipapar
+pada tab semasa.</li>
+    <li><b>Lompat undur/maju</b> Lompat undur/maju dalam sejarah halaman yang
+dipaparkan.</li>
+    <li><b>Gelintar...</b> Buka labuh gelintar dibawah paparan utama. Gelintar akan
+mula secara automatik dua saat selepas perubahan terakir terma gelintar atau
+ia dimulakan secara manual dengan menekan kekunci return. Jika pengubahsuai
+Shift ditahan ketika kekunci return masih ditekan, gelintar dimulakan dalam
+semua tab selain hanya tab semasa. (Kesan ini diterbalikkan jika labuh
+gelintar lanjutan dibenarkan di dalam tetapan.)</li>
+    <li><b>Cari terdahulu/berikut</b> Lompat ke kemunculan terma gelintar
+terdahulu/berikut didalam dokumen.</li>
+    <li><b>Batal gelintar</b> Batalkan gelintar yang sedang dijalankan dan tutu[
+labuh gelintar.</li>
+    <li><b>Salin ke papan keratan</b> Jika ditanda, program akan tunggu bingkai
+diseret untuk salin teks atau imej.</li>
+    <li><b>Tambah anotasi</b> Jika ditanda, program akan tunggu bingkai diseret
+untuk tambah anotasi.</li>
+    <li><b>Tetapan...</b> Buka dialog tetapan. Butang berlabel 'Lalai' akan
+kembalikan semua tetapan pada tab ke nilai lalainya. Butang berlabel 'Lalai
+pada tab semasa' akan hanya kembalikan tetapan pada tab semasa ke nilai
+lalai mereka.</li>
+</ul>
+
+<p><em>Halaman semasa</em> boleh diubah dengan memasukkan halaman yang
+dikehendaki ke dalam medan teks di dalam palang alat sunting, yang mana
+boleh difokus dengan menggunakan Ctrl+K, dan menekan kekunci return.</p>
+
+<h4><a name="view">Lihat</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Berterusan</b> Tentukan sama ada semua baris bentangan halaman kelihatan
+serentak.</li>
+    <li><b>Dua halaman</b> Tentukan sama ada bentangan halaman gunakan dua lajur.</li>
+    <li><b>Dua halaman dengan muka hadapan</b> Tentukan sama ada bentangan halaman
+gunakan dua lajur dengan hentian selepas muka hadapan.</li>
+    <li><b>Halaman berbilang</b> Tentukan sama ada bentangan halaman gunakan lajur
+berbilang. Bilangan lajur boleh diubah dalam dialog tetapan.</li>
+    <li><b>Kanan ke kiri</b> Tentukan bagaimana halaman disusun dalam bentangan
+dengan halaman berbilang per baris.</li>
+    <li><b>Zum masuk</b> Tingkatkan faktor skala sebanyak 10 peratus. Faktor skala
+maksimum ialah 5000 peratus.</li>
+    <li><b>Zum keluar</b> Kurangkan faktor skala sebanyak 10 peratus. Faktor skala
+minimum ialah 10 peratus.</li>
+    <li><b>Saiz asal</b> Tetap semula faktor skala ke 100 peratus.</li>
+    <li><b>Muat dengan lebar halaman</b> Tentukan faktor skala supaya semua halaman
+sepenuhnya muat ke dalam paparan utama secara mengufuk.</li>
+    <li><b>Muat dengan saiz halaman</b> Tentukan faktor skala supaya semua halaman
+sepenuhnya muat ke dalam paparan utama secara mengufuk dan menegak.</li>
+    <li><b>Putar kiri</b> Putar halaman ke kiri/lawan jam sebanyak 90 darjah.</li>
+    <li><b>Putar kanan</b> Putar halaman ke kanan/ikut jam sebanyak 90 darjah.</li>
+    <li><b>Warna songsang</b> Tentukan sama ada halaman diterap dengan warna
+songsang.</li>
+    <li><b>Tukar ke skala kelabu</b> Tentukan sama ada halaman ditukar ke skala
+kelabu selepas penerapan.</li>
+    <li><b>Kerat margin</b> Benarkan pembuangan margin halaman kosong selepas
+penerapan.</li>
+    <li><b>Komposisi</b> Benarkan komposisi halaman terterap dengan warna kertas
+untuk melaras latar belakang dokumen diimbas.</li>
+    <li><b>Palang alat</b> Menu ini mengandungi senarai palang alat yang ada untuk
+mencapa tindakan yang kerap diguna.</li>
+    <li>b>Labuh</b> Menu ini mengandungi senarai labuh yang ada untuk memaparkan
+maklumat tambahan.</li>
+    <li><b>Fon...</b> Buka dialog menyenaraikan fon yang diguna dalam dokumen.</li>
+    <li><b>Skrin Penuh</b> Togol ke mod skrin penuh, iaitu tetingkap dipaparkan
+secara maksimum dan tanpa hiasan.</li>
+    <li><b>Persemabahan...</b> Masuk ke mod persembahan dengan menekan kekunci F12
+atau escape. Kekunci home/end digunakan untuk paparkan halaman
+pertama/terakhir. Kekunci anak panah kanan dan bawah, kekunci space dan page
+down lompat ke halaman berikutnya. Kekunci anak panah kiri dan atas, kekunci
+backspace dan page up lompat ke halaman terdahulu. Menekan kekunci control
+dan return akan lompat kembali ke halaman terdahulu sebelum lompatan
+terakhir.</li>
+</ul>
+
+<p><em>Faktor skala</em> boleh diubah dengan memasukkan peratus yang
+dikehendaki ke dalam medan teks di dalam palang alat lihat, yang mana boleh
+difokus dengan menggunakan Ctrl+L, dan menekan kekunci return.</p>
+
+<h4><a name="tabs">Tab</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Tab terdahulu/berikutnya</b> Jadikan tab terdahulu/berikutnya tab
+semasa. Kitar tab pertama/terakhir jika tab pertama/terakhir adalah tab
+semasa.</li>
+    <li><b>Tutup tab</b> Tutup tab semasa.</li>
+    <li><b>Tutup semua tab</b> Tutup semua tab.</li>
+    <li><b>Tutup semua tab kecuali tab semasa</b> Tutup semua tab kecuali tab
+semasa.</li>
+    <li><b>Ditutup baru-baru ini</b> Mengandungi senarai tab yang baru ditutup (jika
+dibenarkan dalam tetapan).</li>
+</ul>
+
+<p>Menu ini mengandungi senarai semua tab yang jadikan tab semasa dengan
+mengklik pada item menu berkenaan. Tab juga boleh ditutup dengan
+mengklik-tengah tetikus. Sembilan tab yang pertama dapat diaktifkan dengan
+menahan pengubahsuai Alt dan menekan kekunci satu hingga sembilan.</p>
+
+<h4><a name="bookmarks">Tanda Buku</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Tanda buku terdahulu</b> Lompat ke tanda buku terdekat sebelum halaman
+semasa.</li>
+    <li><b>Tanda buku berikutnya</b> Lompat ke tanda buku terdekat selepas halaman
+semasa.</li>
+    <li><b>Tambah tanda buku</b> Tambah tanda buku untuk fail dan halaman semasa.</li>
+    <li><b>Buang tanda buku</b> Buang tanda buku untuk fail dan halaman semasa.</li>
+    <li><b>Buang tanda buku</b> Buang semua tanda buku.</li>
+    <li><b>Buka</b> Buka fail berkenaan di dalam tab semasa. Jika tiada tab, fail
+akan dibuka dalam tab baharu.</li>
+    <li><b>Buka dalam tab baru</b> Buka fail berkenaan dalam tab baru.</li>
+    <li><b>Lompat ke halaman</b> Lompat ka halaman berkenaan jika fail berkenaan
+sudah dibuka. Jika tidak, fail tersebut akan dibuka dalam tab baharu.</li>
+</ul>
+
+<h4><a name="help">Bantuan</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+	<li><b>Kandungan</b> Papar dokumen ini.</li>
+	<li><b>Perihal</b> Papar versi program.</li>
+</ul>
+
+<h3>a name="mainview">Paparan utama</a> <a href="#top">&uarr;</a></h3>
+
+<p>Kekunci backspace/space key langkau ke halaman
+terdahulu/berikutnya. Manakala, kekunci home/end langkau ke halaman
+pertama/terakhir. Kekunci anak panah, page up dan page menatal port
+pandang. Penekanan kekunci control dan return jumps akan lompat ke halaman
+sebelum lompatan terakhir.</p>
+
+<p>Dengan menggunakan roda tetikus ditatal ke atas atau ke bawah. Tahan
+<b>ALT</b> ketika menggunakan roda tetikus untuk ditatal ke kiri dan ke
+kanan. Tahan <b>CTRL</b> ketika menggunakan roda tetikus untuk skalakan
+dokumen. Tahan <b>SHIFT</b> ketika menggunakan roda tetikus untuk memutar
+dokumen. (Pengubahsuai papan kekunci boleh diubah di dalam dialog tetapan.)
+Klik dan tahan butang tengah tetikus untuk membentuk segiempat seterusnya
+mengezum masuk.</p>
+
+<p>Pautan disorot oleh bingkai merah (jika dibenarkan dalam tetapan). Klik-kiri
+pada pautan untuk menunjukkan halaman terpaut atau buka URL terpaut dalam
+pelayar lalai (jika dibenarkan dalam tetapan). Klik-tengah pada pautan untuk
+menunjukkan halaman terpaut dalam tab baharu. Kursor berada diatas pautan
+memaparkan destinasinya sebagai tip alat.</p>
+
+<p>Medan borang disorot dengan bingkai biru (jika dibenarkan dalam
+tetapan). Klik-kiri pada medan borang untuk menyunting
+kandungannya. Terapung diatas medan borang akan paparkan namanya sebagai tip
+alat.</p>
+
+<p>Sumber kedudukan dalam dokumen boleh dibuka dengan penyunting sumber
+menggunakan menu konteks yang secara pilihannya mengandungi item untuk
+pemadanan pertama nod <em>SyncTeX</em>.</p>
+
+<p>Untuk <em>menyalin teks atau imej</em>, tahan <b>SHIFT</b>, klik dan tahan
+butang kiri tetikus untuk menyeret bingkai disekeliling kawasan yang hendak
+disalin. Seusai butang tetikus dilepaskan, satu menu timbul terpapar untuk
+memilih sama ada hendak menyalin teks atau imej ke dalam papan keratan.</p>
+
+<p>Untuk <em>menambah catatan atau anotasi</em>, tahan <b>CTRL</b>, klik dan
+tahan butang kiri tetikus untuk menyeret bingkai disekeliling kawasan yang
+hendak dicatatkan. Bila butang tetikus dilepaskan, satu menu timbul terpapar
+sama ada hendak menambah teks atau menyorot cacatan. Klik-kiri untuk
+<em>menyunting catatan</em>. Klik-kanan untuk <em>membuang
+catatan</em>. (Penambahan dan pembuangan catatan memerlukan versi pustaka
+Poppler 0.20.1 atau ke atas.) Kursor berada di atas catatan akan paparkan
+kandungannya sebagai tip alat.</p>
+
+<p>Untuk <em>zum ke pemilihan</em>, tahan <b>SHIFT</b> dan <b>CTRL</b>,
+kemudian klik dan tahan butang kiri tetikus dan seret bingkai disekitar
+kawasan yang hendak dizumkan.</p>
+
+<p><em>Ketampakan palang alat dan menu</em> boleh ditogol menggunakan pintasan
+papan kekunci boleh dikonfigur yang mana nilai lalai adalah "Shift+Alt+T"
+dan "Shift+Alt+M".</p>
+
+<h3><a name="auxiliaryviews">Paparan tambahan</a> <a href="#top">&uarr;</a></h3>
+
+<p><em>Paparan garis luar</em> memaparkan selayang pandang kandungan
+dokumen. Seklik kiri pada masukan akan langkau ke halaman berkenaan dalam
+paparan utama. Menu konteks boleh digunakan untuk kembang/kuncupkan semua
+item dibawah item terpilih.</p>
+
+<p>Paparan garis luar juga boleh dinavigasi menggunakan papan kekunci dan roda
+tetikus. Tahan Shift dan klik kekunci Up/Down untuk menatal paparan. Tahan
+Shift dan klik kekunci Left/Right akan kuncup/kembangkan satu aras item
+dibawah item terpilih. Tahan Control dan klik kekunci Left/Right akan
+sepenuhnya kuncup/kembangkan item terpilih dan anak-anaknya. Tahan Shift dan
+tatal guna roda tetikus akan mengubah item terpilih. Tahan Control dan tatal
+roda tetikus akan kembang/kuncupkan item terpilih.</p>
+
+<p><em>Paparan sifat</em> paparkan maklumat tambahan yang terkandung di dalam
+dokumen.</p>
+
+<p><em>Paparan lakaran kenit</em> papar versi kecil halaman dokumen. Klik kiri
+padanya akan lompat ke halaman berkenaan di paparan utama.</p>
+
+<p><em>Paparan tanda buku</em> menunjukkan tanda buku berkaitan dengan dokumen
+yang terpapar dalam tab semasa. Menu konteks mengandungi masukan yang
+langkau ke tanda buku berikutnya/terdahulu atau untuk menambah tanda
+buku. Menu konteks bagi setiap masukan untuk sunting dan padam tanda buku.</p>
+
+<p>Jika dibenarkan dalam tetapan, <em>labuh gelintar lanjutan</em> menunjukkan
+selayang pandang yang mengandungi keputusan semua gelintar yang telah dibuat
+dalam semua tab. Ia juga menunjukkan teks disekitar keputusan yang mana
+terma gelintar ditegaskan. Dengan mengklik pada keputusan tersebut akan
+membuka tab berkenaan dan langkau ke kedudukannya.</p>
+
+<h3><a name="settings">Tetapan</a> <a href="#top">&uarr;</a></h3>
+
+<h4><a name="behaviorsettings">Tetapan kelakuan</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Buka URL</b> Tentuka sama ada pautan ke URL dibuka dalam pelayar lalai.</li>
+    <li><b>Segar semula automatik</b> Tentukan sama ada fail dimuat semula secara
+automatik jika berubah pada cakera.</li>
+    <li><b>Jejak diguna baru-baru ini</b> Jika dibenarkan, satu menu diguna
+baru-baru ini akan tersedia dan senaraikan sebanyak mungkin fail diguna
+baru-baru ini di dalam pilihan "Kiraan diguna baru-baru ini". (Berkesan
+selepas dimula semula.)</li>
+    <li><b>Kekalkan ditutup baru-baru ini</b> Jika dibenarkan, menu ditutup
+baru-baru ini tersedia dan senaraikan beberapa tab ditutup baru-baru ini
+yang telah ditetapkan dalam pilihan "Kiraan ditutup baru-baru
+ini". Pengekalan tab sedia ada menyebabkan peningkatan penggunaan ingatan
+secara drastik. (Berkesan selepas mula semula.)</li>
+    <li><b>Pulih tab</b> Jika dibenarkan, tab dan sifatnya disimpan pada penghujung
+program dan dipulih semasa mula semula.</li>
+    <li><b>Pulih tanda buku</b> Jika dibenarkan, tanda buku disimpan pada penghujung
+program dan dipulih semasa mula semula.</li>
+    <li><b>Pulih tetapan per-fail</b> Jika dibenarkan, tetapan per-fail
+disimpan/dipulih bila membuka/menutup tab.</li>
+    <li><b>Simpan sela pangkalan data</b> Sela selepas tab, tanda buku atau tetapan
+per-fail disimpan ke dalam pangkalan data.</li>
+    <li><b>Segerak persembahan</b> Jika dibenarkan, paparan utama boleh digunakan
+untuk mengawal paparan persembahan.</li>
+    <li><b>Skrin persembahan</b> Indeks skrin untuk paparkan paparan persembahan.</li>
+    <li><b>Segerak paparan garis luas</b> Jika dibenarkan, paparan garis luar akan
+menyorot masukan pertama yang menuju ke halaman semasa bilamana halaman
+semasa berubah.</li>
+    <li><b>Penatalan minimum</b> Jika dibenarkan, port pandang hanya ditatal jika
+kedudukan sasaran belum lagi kelihatan.</li>
+    <li><b>Faktor zum</b> Bilangan faktor skala ialah perwakilan gandaan dibahagi
+dengan perwakilan zum masuk.</li>
+    <li><b>Warna sorot</b> Tentukan warna sorot.</li>
+    <li><b>Tempoh sorot</b> Tentukan tempoh sorot sementara.</li>
+    <li><b>Warna catatan</b> Warna catatan ditambah oleh program menggunakan kata
+kunci warna SVG atau tandaan heksadesimal '#rrggbb'.</li>
+    <li><b>Penyunting sumber</b> Program yang dimulakan untuk menyunting
+sumber. '%1' diganti dengan laluan fail mutlak. '%2' diwakili '%3' diganti
+dengan nombor lajur wakil baris.</li>
+</ul>
+
+<h4><a name="graphicssettings">Tetapan grafik</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Guna penjubinan</b> Halaman akan dibahagikan kepada jubin sebelum diterap
+dan dicachekan untuk mengurangkan penggunaan ingatan.</li>
+    <li><b>Kekalkan peta pix lapuk</b> Jika dibenarkan, bila berlaku perubahan
+faktor zum, peta pix tercache akan digunakan untuk melakar anggaran peta pix
+akhir sehinggalah ia tersedia tetapi dengan kos penggunaan ingatan.</li>
+    <li><b>Guna nisbah piksel peranti</b> Jika dibenarkan, nisbah piksel peranti
+yang tersedia digunakan untuk menerap pada fizikal dan dipapar pada resolusi
+logikal</li>
+    <li><b>Hias halaman</b> Tentukan sama ada halaman ditetapkan terasing dari latar
+belakang.</li>
+    <li><b>Hias pautan</b> Tentukan sama ada pautan disorot dengan bingkai merah.</li>
+    <li><b>Hias medah borang</b> Tentukan sama ada medan borang disorot dengan
+bingkai biru.</li>
+    <li><b>Warna latar belakang</b> Tentukan warna latar belakang menggunakan kata
+kunci warna SVG atau notasi heksadesimal '#rrggbb'.</li>
+    <li><b>Warna kertas</b> Tentukan warna halaman menggunakan kata kunci warna SVG
+atau notasi heksadesimal '#rrggbb'.</li>
+    <li><b>Warna latar belakang persembahan</b> Batalkan warna kertas dalam
+pengiraan warna latar belakang paparan persembahan dan ditakrif menggunakan
+kata kunci warna SVG atau notasi heksadesimal '#rrggbb'.</li>
+    <li><b>Halaman per baris</b> Bilangan halaman per baris di dalam mod bentangan
+'halaman berbilang'.</li>
+    <li><b>Penjarakkan halaman</b> Tentukan kedua-dua jarak menegak & mengufuk yang
+dipapar diantara halaman.</li>
+    <li><b>Penjarakkan lakaran kenit</b> Tentukan kedua-dua jarak menegak & mengufuk
+yang dipapar diantara lakaran kenit.</li>
+    <li>b>Saiz lakaran kenit</b> Tentukan saiz lakaran kenit.</li>
+    <li><b>Saiz cache</b> Program akan cuba cache halaman terterap didalam had ini
+akan tingkatkan kelajuan penerapan dengan kos penggunaan ingatan meingkat.</li>
+    <li><b>Prefetch</b> Program akan cuba menerap halaman yang belum lagi kelihatan
+dengan meningkatkan kelajuan penerapan pada kos penggunaan cache yang
+meningkat.</li>
+    <li><b>Jarak prefetch</b> Bilangan baris disebalik baris semasa dan dua kali
+ganda bilangan baris sebelum baris semasa yang telah di prefetch.</li>
+    <li><b>Tetapan PDF</b>
+    <ul>
+        <li><b>Antialias</b> Pertingkatkan kualiti paparan dengan kos terhadap prestasi</li>
+        <li><b>Antialias teks</b> Mepertingkatkan kualiti teks tetapi menjejaskan
+prestasi</li>
+        <li><b>Bayangan teks</b> Dapat mempertingkatkan kualitit paparan teks bagi fon
+tertentu.</li>
+        <li><b>Pratonton lebih-cetak</b> Jika dibenarkan, satu pratonton percetakan satu
+lapisan dakwat diatas yang lain dipaparkan.</li>
+        <li><b>Mod garis nipis</b> Pilih pengoptimuman yang digunakan untuk melukis
+garis nipis.</li>
+        <li><b>Bahagian belakang</b> Pilih bahagian belakang yang digunakan untuk
+menerap halaman.</li>
+    </ul>
+    </li>
+    <li><b>Tetapan PS</b>
+    <ul>
+        <li><b>Bit antialias grafik</b> Tentukan amaun antialias untuk grafik.</li>
+        <li><b>Bit antialias teks</b> Tentukan amaun antialias untuk teks.</li>
+    </ul>
+    </li>
+</ul>
+
+<h4><a name="interfacesettings">Tetapan antaramuka</a> <a href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Labuh gelintar lanjutan</b> Jika dibenarkan, labuh gelintar lalai
+dilanjutkan dengan paparan keputusan semua tab. (Berkessan selepas mula
+semula.)</li>
+    <li><b>Tindihan atas anotasi</b> Jika dibenarkan, semua anotasi dalam halaman
+akan dipapar sebagai tindihan atas interaktif. Melainkan setiap anotasi akan
+dikendalikan sebagai tetingkap timbul berasingan.</li>
+    <li><b>Tindihan atas medan borang</b> Jika dibenarkan, semua medan borang dalam
+halaman akan dipapar sebagai tindihan atas interaktif. Melainkan setiap
+medan borang akan dikendalikan sebagai tetingkap timbul berasingan.</li>
+    <li><b>Kedudukan tab</b> Takrifkan bucu tab paparan utama yang manakah akan
+dipapar.</li>
+    <li><b>Ketampakan tab</b> Tentukan sama ada tab akan dipapar jika kurang dari
+dua dokumen dibuka.</li>
+    <li><b>Hampar tab</b> Tentukan jika tab akan dihampar secara sekata menyeluruhi
+keseluruhan palang tab.</li>
+    <li><b>Tab baharu disebelah tab semasa</b> Jika dibenarkan, tab baharu dibuka
+disebelah kanan tab aktif.</li>
+    <li><b>Keluar selepas tab terakhir</b> Jika dibenarkan, aplikasi keluar selepas
+tab terakhir ditutup.</li>
+    <li><b>Kiraan diguna baru-baru ini</b> Tetapkan bilangan fail yang tersenarai
+dalam menu diguna baru-baru ini, jika "Jejak diguna baru-baru ini"
+dibenarkan. (Berkesan selepas mula semula.)</li>
+    <li><b>Kiraan ditutup baru-baru ini</b> Tetapkan bilangan fail yang tersenarai
+dalam menu ditutup baru-baru ini, jika "Kekalkan ditutup baru-baru ini"
+dibenarkan. (Berkesan selepas mula semula.)</li>
+    <li><b>Palang alat fail</b> Takrifkan tindakan yang manakah tampak dalam palang
+alat fail. Tindakan tersedia adalah openInNewTab, buku, segarsemula,
+saveCopy, saveAs, cetak dan pemisah. (Berkesan selepas mula semula.)</li>
+    <li><b>Palang alat sunting</b> Takrif tindakan yang manakah tampak dalam palang
+alat sunting. Tindakan tersedia adalah currentPage, previousPage, nextPage,
+firstPage, lastPage, jumpToPage, jumpBackward, jumpForward, search,
+copyToClipboardMode, addAnnotationMode dan separator. (Berkesan selepas mula
+semula.)</li>
+    <li><b>Palang alat Lihat</b> Takrif tindakan yang manakah tampak dalam palang
+alat lihat. Tindakan tersedia adalah scaleFactor, zoomIn, zoomOut,
+continuousMode, twoPagesMode, twoPagesWithCoverPageMode, multiplePagesMode,
+originalSize, fitToPageWidthMode, fitToPageSizeMode, rotateLeft,
+rotateRight, fullscreen, presentation dan separator. (Berkesan selepas mula
+semula.)</li>
+    <li><b>Document context menu</b> Defines which actions are visible in the
+document's context menu. Available actions are openCopyInNewTab,
+openCopyInNewWindow, openContainingFolder, moveToInstance, previousPage,
+nextPage, firstPage, lastPage, jumpToPage, jumpBackward, jumpForward,
+setFirstPage, findPrevious, findNext, cancelSearch and separator.</li>
+    <li><b>Tab context menu</b> Defines which actions are visible in a tab's context
+menu. Available actions are openCopyInNewTab, openCopyInNewWindow,
+openContainingFolder, moveToInstance, copyFilePath, selectFilePath,
+closeAllTabs, closeAllTabsButThisOne, closeAllTabsToTheLeft,
+closeAllTabsToTheRight and separator.</li>
+    <li><b>Menu boleh tatal</b> Akan membatalkan gaya lalai supaya menu timbul
+ditatal selain dari dipersembahkan dalam lajur berbilang jika ia lebih besar
+dari ruang skrin sedia ada. (Berkesan selepas mula semula.)</li>
+    <li><b>Menu boleh gelintar</b> Lanjutkan navigasi papan kekunci  lalai bagi tab
+dan menu tanda buku berdasarkan mekanisma gelintar-apa-yang-anda-taip.</li>
+    <li><b>Togol palang alat dan menu dengan skrin penuh</b> Sentiasa togol
+ketampakan palang alat dan menu bila menogol ke mod skrrin penuh.</li>
+    <li><b>Guna label halaman</b> Tentukan jika label halaman dibekali-dokumen akan
+digunakan selain dari nombor halaman bila tersedia.</li>
+    <li><b>Tajuk dokumen sebagai tajuk tab</b> Tentukan jika tajuk tab diambil dari
+data-meta selain dari nama fail.</li>
+    <li><b>Halaman semasa dalam tajuk tetingkap</b> Jika dibenarkan, halaman semasa
+dan nombor halaman dokumen di dalam tab aktif dipaparkan dalam tajuk
+tetingkap.</li>
+    <li><b>Nama kejadian dalam tajuk tetingkap</b> Jika dibenarkan dan kejadian
+semasa dinamakan, namanya dipapar dalam tajuk tetingkap.</li>
+    <li><b>Sorot lakaran kenit semasa</b> Jika dibenarkan, halaman semasa disorot
+dalam paparan lakaran kenit.</li>
+    <li><b>Had lakaran kenit mengikut keputusan</b> Jika pilihan ini dibenarkan dan
+gelintar dibuat, hanya halaman yang mana terma gelintar ditemui terpapar
+dalam paparan lakaran kenit.</li>
+</ul>
+
+<h4><a name="shortcutsettings">Tetapan pintasan</a> <a href="#top">&uarr;</a></h4>
+
+<p>Tetapan pintasan membolehkan pelarasan pintasan papan kekunci mengikut
+kehendaki peribadi. Pintasan boleh diubah dengan mengklik dua-kali pada
+pintasan untuk menyuntingnya dan menginput pintasan baharu. Setiap tindakan
+boleh mempunyai beberapa pintasan dengan menginput senarai
+terpisah-titik-bertindih pada mereka. Nama kekunci yang bukan satu abjad
+ditulis dengan jelas (contohnya. "Alt", "Ctrl", "PgDown"), yang mana
+pemadanan tidak sensitif kata. Jika pintasan mengandungi kekunci
+pengubahsuai, nama kekunci digabung dengan simbol campur dan kekunci
+pengubahsuai mesti disenarai terlebih dahulu, contohnya. "Ctrl+A" atau
+"Ctrl++".</p>
+
+<h4><a name="modifiersettings">Tetapan pengubahsuai</a> <a
+href="#top">&uarr;</a></h4>
+
+<ul>
+    <li><b>Zum</b> Pengubahsuai papan kekunci untuk zum menggunakan roda tetikus
+dalam paparan utama.</li>
+    <li><b>Putar</b> Pengubahsuai papan kekunci untuk diputar menggunakan roda
+tetikus dalam paparan utama.</li>
+    <li><b>Tatal</b> Pengubahsuai papan kekunci untuk tatal secara mengufuk
+menggunakan roda tetikus dalam paparan utama.</li>
+    <li><b>Salin ke papan keratan</b> Pengubahsuai papan kekunci untuk salin teks
+atau imej ke papan keratan.</li>
+    <li><b>Tambah catatan</b> Pengubahsuai papan kekunci untuk tambah catatan ke
+dalam halaman.</li>
+    <li><b>Zum ke pemilihan</b> Pengubahsuai papan kekunci yang mengezum ke
+pemilihan dalam satu halaman.</li>
+</ul>
+
+</body>
+
+</html>

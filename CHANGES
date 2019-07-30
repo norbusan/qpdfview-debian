@@ -1,0 +1,600 @@
+Release 0.4.18:
+  * Fixed various issue w.r.t. statically linked plug-ins and cross builds for Windows. Thanks to Marshall Banana.
+  * Fixed encoding issues w.r.t. CUPS names. Thanks to Silvan Scherrer.
+  * Fixed not overwriting page ranges CUPS option when set already by Qt's print dialog. Thanks to Fabio Rossi.
+  * Fixed refreshing modified documents from disk.
+  * Added support for nested splitting of document views.
+  * Added support for transparent decompression of document files.
+  * Added restoring of tab order and of current tab.
+  * Added action to open current file in new window. Thanks to Pavel Sanda.
+  * Updated support for MuPDF to version 1.12 and later. Thanks to S. Razi Alavizadeh.
+  * Added support for EPUB, XPS, CBZ and FB2 via MuPDF. Thanks to S. Razi Alavizadeh.
+  * Automated translations import from Launchpad via Travis CI. Thanks to S. Razi Alavizadeh.
+  * Imported various new and updated translations from Launchpad. Thanks to all Launchpad translators!
+
+Release 0.4.17:
+  * Fixed query to populate the instance list for the choose instance dialog.
+  * Fixed selecting the complete text upon opening a page number dialog.
+  * Fixed computation of tile sub rect w.r.t. non-unit device pixel ratios.
+  * Moved loading of interactive elements out of the main event loop.
+  * Optimize tile rendering event handling by centralizing dispatch.
+  * The results of the current tab are now automatically expanded in the extended search dock.
+  * Added support for external document links to the outline view.
+  * Added optional page-parallel execution of text search.
+  * Added triggering SyncTeX reverse search using a keyboard modifier.
+  * Keyboard modifiers for mouse interaction can be disabled.
+  * Optimizations of the search dock layout w.r.t. vertical/horizontal positioning.
+  * Added context menu action to move document to a different instance.
+  * Changed cache size tracking from byte to kilobyte granularity to support more than 2 GB cache.
+  * Added a save in addition to the save-as action to simplify modifying documents in-place.
+  * Added Japanese translations. Thanks to Koji Yokota.
+  * Updated British English translations. Thanks to Anthony Harrington.
+  * Updated Russian translations. Thanks to ned.
+  * Updated French translations. Thanks to Charles Monzat.
+  * Updated Lithunian translations. Thanks Moo.
+
+Release 0.4.16:
+  * Fixed an incompatibility with FDo's shared MIME type database that broke opening DjVu documents.
+  * Added function to dynamically fit thumbnails into the viewport.
+  * Added support to use system SyncTeX parser library.
+  * Added support to open image formats supported by Qt.
+  * SyncTeX is available and discoverable within the main view's context menu.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated Brazilian Portuguese translations. Thanks to Felipe Braga.
+  * Updated Russian translations. Thanks to ned.
+  * Updated British English translations. Thanks to Andi Chandler and Anthony Harrington.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated Portuguese translations. Thanks to Sérgio Marques.
+  * Updated Lithunian translations. Thanks to Moo.
+  * Updated Spanish translations. Thanks to Guillermo and Adolfo Jayme.
+  * Updated French translations. Thanks to Charles Monzat.
+
+Release 0.4.15:
+  * Fixed compatibility with MuPDF version 1.7. Thanks to Martin Banky.
+  * Added keeping the page-relative position upon page change.
+  * Added document properties on PDF version, encryption and linearization.
+  * Added keyboard navigation to the outline view. Thanks to Bendik R. Opstad.
+  * Added configurable document and tab context menus. Thanks to S. Razi Alavizadeh.
+  * Added composition modes to adjust the background of scanned documents.
+  * Extended the default movement keyboard shortcuts to include the numpad keys.
+  * Made the trim-margins setting a per-tab property.
+  * Added Hungarian translations. Thanks to Páder Rezső.
+  * Updated Polish translations. Thanks to Piotr Strębski.
+  * Updated Italian translations. Thanks to Claudio Arseni.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated British English translations. Thanks to Anthony Harrington and Andy Chandler.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated French translations. Thanks to Jean Marc.
+
+Release 0.4.14:
+  * Fixed keyboard movement not working in annotations and form fields.
+  * Fixed display of warning dialog upon restoring tabs.
+  * Fixed compilation using LLVM Clang. Thanks to Franz Fellner.
+  * Fixed crash upon middle-clicking into empty part of tab bar.
+  * Fixed a race condition in text extraction within the extended search dock.
+  * Fixed losing rendering hints after unlocking encrypted PDF documents.
+  * Improved user interaction of the extended search dock.
+  * Improved the speed of text extraction within the extended search dock. Thanks to S. Razi Alavizadeh.
+  * Improved performance at very large scale factors by dynamically adjusting tile size.
+  * Added restoring of expanded outline items after refresh. Thanks to Bendik R. Opstad.
+  * Added various smaller user interface enhancements.
+  * Added whole-words-only search option (depending on Poppler version 0.31 or higher).
+  * Added optionally searchable tabs and bookmarks menus.
+  * Improved flexibility of searching DjVu documents.
+  * Added Finnish translation of online help. Thanks to Timo Seppola.
+  * Updated settings section of the online help.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated Polish translations. Thanks to Piotr Strębski.
+  * Updated British English translations. Thanks to Anthony Harrington.
+  * Updated Slovak translations. Thanks to DAG Software.
+  * Updated Spanish translations. Thanks to Adolfo Jayme.
+  * Updated Simplified Chinese translations. Thanks to electricface.
+  * Updated Catalan translations. Thanks to VPablo.
+  * Updated Russian translations. Thanks to ☠Jay ZDLin☠ and Aleksey Kabanov.
+  * Updated Galician translations. Thanks to Marcos Lans.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated French translations. Thanks to Jean Marc.
+
+Release 0.4.13:
+  * Fixed a memory leak when processing meta-data in the DjVu plug-in.
+  * Fixed a crash when loading corrupted DjVu documents.
+  * Removed the warning dialog about unknown file type to fix the '--quiet' option.
+  * Added optional extended search dock displaying results from all open tabs. Thanks to S. Razi Alavizadeh.
+  * Added per-tab setting to convert pages to grayscale after rendering.
+  * Updated British English translations. Thanks to Anthony Harrington.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated Galician translations. Thanks to Marcos Lans.
+  * Updated Kazakh translations. Thanks to Baurzhan Muftakhidinov.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated Portuguese translations. Thanks to Sérgio Marques.
+  * Updated Polish translations. Thanks to Piotr Strębski.
+
+Release 0.4.12:
+  * Fixed loading document-supplied view mode defaults.
+  * Fixed installation location of application icon to use hicolor icon theme.
+  * Fixed an instability of DjVu meta-data extraction.
+  * Added function to automatically trim empty page margins.
+  * Added dock to improved access to bookmarks. Thanks to S. Razi Alavizadeh.
+  * Added support for document-supplied page label. Thanks to S. Razi Alavizadeh.
+  * Added context menu to copy link addresses.
+  * Improved caching, i.e. do not drop pixmaps on scale factor change. Thanks to Martin Spacek.
+  * Improved rendering by giving a higher priority to rendering visible pages compared to prefetching. Thanks to S. Razi Alavizadeh.
+  * Improved computation of current page for continuous layouts. Thanks to S. Razi Alavizadeh.
+  * Improved searching of DjVu documents. Thanks to S. Razi Alavizadeh.
+  * Extended the D-Bus interface to support more IPC scenarios.
+  * Updated Italian translations. Thanks to Claudio Arseni.
+  * Updated British English translations. Thanks to Anthony Harrington.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated Slovak translations. Thanks to DAG Software.
+  * Updated Thai translations. Thanks to Rockworld.
+  * Updated Russian translations. Thanks to Oleg Koptev.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated Catalan translations. Thanks to VPablo.
+  * Updated Galician translations. Thanks to Marcos Lans.
+  * Updated Polish translations. Thanks to Mateusz Łukasik.
+
+Release 0.4.11.1:
+  * Fix progress and error icons and obsolete pixmaps not working without tiling.
+  * Fix compilation using Microsoft Visual C++. Thanks to S. Razi Alavizadeh.
+
+Release 0.4.11:
+  * Added tiled rendering currently disabled by default.
+  * Made zooming logarithmic instead of linear. Thanks to Martin Spacek.
+  * Added displaying various library versions in the about box. Thanks to Martin Spacek.
+  * Added actions to toggle visibility of tool bars and menu bar.
+  * Fixed questionably low interval for automatically saving persistent state. Thanks to Martin Spacek.
+  * Fixed high writing overhead for automatically saving persistent state. Thanks to Boris Popov.
+  * Fixed building without SQLite support again. Thanks to Sébastien Szymanski.
+  * Fixed disabling restoring of tabs and bookmarks. Thanks to Benjamin Eltzner.
+  * Removed extended print options page set and number-up as Qt version 5.2 supports them internally.
+  * Updated French translations. Thanks to Tubuntu and Sylvie Gallet.
+  * Updated British English translations. Thanks to A. Kohl, Anthony Harrington and fossfreedom.
+  * Updated Galician translations. Thanks to Marcos Lans.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated Spanish translations. Thanks to Adolfo Jayme.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated Catalan translations. Thanks to VPablo.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated Italian translations. Thanks to Claudio Arseni.
+  * Updated Polish translations. Thanks to Piotr Strębski.
+  * Updated Russian translations. Thanks to Alexander Volkov.
+  * Updated Slovak translations. Thanks to DAG Software.
+  * Added Belarussian translations. Thanks to Yury Yatsynovich.
+  * Added Thai translations. Thanks to KL.
+
+Release 0.4.10:
+  * Fixed race condition when a deleted render task mit tries to emit a signal. Thanks to Benjamin Eltzner.
+  * Fixed double deletion in recently closed menu. Thanks to Arnaud Schmittbuhl.
+  * Fixed inconsistency when invoking a unique instance. Thanks to Dorian Scholz.
+  * Fixed confusing auto-refresh if file is deleted.
+  * Added using the document title from the meta-data as the tab title. Thanks to Dorian Scholz.
+  * Added spreading out tabs to fill the whole tab bar. Thanks to Dorian Scholz.
+  * Added periodically storing persistent state.
+  * Added opening internal links in a new tab by middle-clicking.
+  * Added zooming to selection by middle-dragging.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated British English translations. Thanks to Anthony Harrington.
+  * Updated Vietnamese translations. Thanks to Khang Mạnh Tử.
+  * Updated Indonesian translation. Thanks to Rizal Muttaqin and Trisno Pamuji.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated Slovak translations. Thanks to DAG Software.
+  * Updated Polish translations. Thanks to Piotr Strębski.
+  * Updated Romainian translations. Thanks to Vlad Paul Paval.
+  * Updated Portuguese translations. Thanks to Sérgio Marques.
+  * Updated Malay translations. Thanks abuyop.
+  * Updated Galician translations. Thanks to Marcos Lans.
+  * Updated Asturian translations. Thanks to Xuacu Saturio.
+  * Updated Brazilian Portuguese translations. Thanks to Lucas Reis.
+
+Release 0.4.9:
+  * Added experimental Fitz plug-in.
+  * Added action to use text as selection instead of copying to clipboard.
+  * Added color feedback whether search term was found to help dialog. Thanks to Benjamin Eltzner.
+  * Added option to switch multiple page layouts into right-to-left mode. Thanks to Abdellah Chelli.
+  * Added loading of document-supplied defaults.
+  * Added setting to choose Poppler backend.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated Slovak translations. Thanks to DAG Software.
+  * Updated British English translations. Thanks to Anthony Harrington.
+  * Updated Polish translations. Thanks to Piotr Strębski.
+  * Updated French translations. Thanks to Pierre Soulat and Arnaud Schmittbuhl.
+  * Updated Azerbaijani translations. Thanks to Rashid Aliyev.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated German translations. Thanks to Benjamin Eltzner.
+  * Updated Vietnamese translations. Thanks to Khang Mạnh Tử.
+  * Updated Kazakh translations. Thanks to Baurzhan Muftakhidinov.
+  * Updated Asturian translations. Thanks to Xuacu Saturio.
+  * Updated Catalan translations. Thanks to Marc Coll Carrillo and VPablo.
+  * Updated Spanish translations. Thanks to Aaron Farias.
+  * Updated Galician translatios. Thanks to Miguel Anxo Bouzada.
+  * Updated Hebrew translations. Thanks to Yaron Shahrabani.
+  * Updated Italian translations. Thanks to Claudio Arseni.
+
+Release 0.4.8:
+  * Fixed building without SQLite support. Thanks to Franz Fellner.
+  * Fixed a performance problem when switching to a tab with a fallback outline takes seconds.
+  * Added optional functionality to restore closed tabs.
+  * Added zoom functionality to the presentation view.
+  * Added Vietnamese translations. Thanks to Khang Mạnh Tử.
+  * Added Swedish translations. Thanks to Martin Linder.
+  * Updated Bulgarian translations. Thanks to Atanas Kovachki.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated Slovak translations. Thanks to DAG Software.
+  * Updated Portuguese translations. Thanks to Sérgio Marques.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated Russian translations. Thanks to HsH and Aleksey Kabanov.
+  * Updated French translations. Thanks to Arnaud Schmittbuhl.
+  * Updated British English translations. Thanks to Anthony Harrington.
+  * Updated Catalan translations. Thanks to Marc Coll Carrillo.
+  * Updated German translations. Thanks to Dennis Baudys.
+  * Updated Chinese (Simplified) translations. Thanks to Evo Jimmy.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated Azerbaijani translations. Thanks to Rashid Aliyev.
+  * Updated Polish translations. Thanks to Mateusz Łukasik.
+
+Release 0.4.7:
+  * Extended bookmarks storage format to add labelled bookmarks.
+  * Extended handling of annotations and form fields using overlays.
+  * Added support for opening execute links and for saving file attachments from annotations.
+  * Improved parsing of command-line arguments and Workbench integration on AmigaOS. Thanks to Chris Young.
+  * Improved behaviour of movement keys in certain corner cases. Thanks to Thomas Etter.
+  * Added keyboard shortcuts to focus current page and scale factor in tool bar.
+  * Fixed a race condition that could lead to dropping rendered pages.
+  * Fixed a small issue with adding and removing annotations.
+  * Added partial Lithunian translation. Thanks to Automatizatorius.
+  * Added partial Korean translation. Thanks to Litty.
+  * Updated Czech translations. Thanks to Pavel Fric.
+  * Updated French translations. Thanks to Arnaud Schmittbuhl, Tubuntu, Pierre Soulat and Teromene.
+  * Updated Ukrainian translations. Thanks to Yuri Chornoivan.
+  * Updated British English translations. Thanks to Andi Chandler and Anthony Harrington.
+  * Updated Malay translations. Thanks to abuyop.
+  * Updated Italian translations. Thanks to Claudio Arseni.
+  * Updated Polish translations. Thanks to Mateusz Łukasik and Piotr Strębski.
+  * Updated Brazilian Portuguese translations. Thanks to Rodrigo Zimmermann.
+  * Updated German translations. Thanks to Thomas Worofsky, Tobias B. and Benjamin Eltzner.
+  * Updated Kazakh translations. Thanks to Baurzhan Muftakhidinov.
+  * Updated Slovak translations. Thanks to DAG Software.
+  * Updated Bulgarian translations. Thanks to Atanas Kovachki.
+  * Updated Galician translations. Thanks to Marcos Lans.
+  * Updated Catalan translations. Thanks to VPablo.
+  * Updated Greek translations. Thanks to George Christofis.
+  * Updated Italian translations. Thanks to Giovanni Grieco.
+  * Updated Spanish translations. Thanks to Adolfo Jayme Barrientos.
+  * Updated Azerbaijani translations. Thanks to Rashid Aliyev.
+
+Release 0.4.6:
+  * Added function that keeps obsolete pixmaps and displays them until final rendering is available.
+  * Added command-line option that displays a dialog to choose the name of the started instance.
+  * Added confirmation dialog before closing a modified document.
+  * Added optional support for device pixel ratios that are unequal to one.
+  * Added setting to change presentation background.
+  * Added desktop action for non-unique instances and choosing instances to the desktop entry.
+  * Fixed loading of translation for Qt dialogs, e.g. the print dialog.
+  * Added support for translations of online help. Thanks to Yuri Chornoivan.
+  * Added support for searching of online help. Thanks to Benjamin Eltzner.
+  * Updated Ukrainian translation and added translation of the online help. Thanks to Yuri Chornoivan.
+  * Updated Czech translation. Thanks to Pavel Fric.
+  * Updated Galician translation and added partial translation of the online help. Thanks to Marcos Lans.
+  * Updated Malay translation and added partial translation of the online help. Thanks to abuyop.
+  * Updated Polish translation and added partial translation of the online help. Thanks to Mateusz Łukasik.
+  * Updated French translation and added partial translation of the online help. Thanks to Arnaud Schmittbuhl, Pierre Soulat and Pierre Slamich.
+  * Updated Italian translation and added partial translation of the online help. Thanks to Claudio Arseni.
+  * Updated Catalan translation. Thanks to Marc Coll Carrillo and VPablo.
+  * Updated Czech translation and added translation of the online help. Thanks to Pavel Fric.
+  * Updated Slovak translation and added partial translation of the online help. Thanks to DAG Software.
+  * Updated Portuguese translation. Thanks to Sérgio Marques.
+  * Updated British English translation and added partial translation of the online help. Thanks to fossfreedom and Andi Chandler.
+  * Updated Idonesian translation. Thanks to Trisno Pamuji.
+  * Updated Azerbaijani translation and added partial translation of the online help. Thanks to Rashid Aliyev.
+  * Updated Chinese (Simplified) translation and added partial translation of the online help. Thanks to Xiaoxing Ye.
+  * Updated Hebrew translation. Thanks to Yaron Shahrabani.
+  * Updated German translation and added partial translation of the online help. Thanks to Tobias B. and Benjamin Eltzner.
+  * Added partial Bulgarian translation of the online help. Thanks to Atanas Kovachki.
+
+Release 0.4.5:
+  * Fixed an error in drawing the search progress.
+  * Fixed an error preventing the annotation context menu from being displayed.
+  * Fixed decorating links when using Qt5. 
+  * Improved the layout of the search widgets.
+  * Added setting to heuristically synchronize the outline view to the current page.
+  * Improved thumbnails layout to change between horizontal and vertical according to dock location.
+  * Updated Malay translation. Thanks to abuyop.
+  * Updated Ukrainian translation. Thanks to Yuri Chornoivan.
+  * Updated Czech translation. Thanks to Pavel Fric.
+  * Updated Italian translation. Thanks to Claudio Arseni.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated German translation. Thanks to A. Kohl.
+  * Updated Bulgarian translation. Thanks to Blagovest Petrov.
+  * Updated French translation. Thanks to Arnaud Schmittbuhl.
+  * Updated Kazakh translation. Thanks to Baurzhan Muftakhidinov.
+
+Release 0.4.4:
+  * Improved building on Windows and OS/2 and plug-in handling on all platforms. Thanks to Silvan Scherrer.
+  * Added button to revert only the settings on the current tab of the settings dialog to their defaults.
+  * Added tool tip showing paper size to the thumbnails view.
+  * Added setting for number of entries in the recently used list.
+  * Updated Russian translation. Thanks to Kyrill Detinov and Rashid Aliyev.
+  * Updated Azerbaijani translation. Thanks to Rashid Aliyev.
+  * Updated Brazilian Portuguese translation. Thanks to Phillipe Smith.
+  * Updated Spanish translation. Thanks to Adolfo Jayme Barrientos.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Ukrainian translation. Thanks to Yuri Chornoivan.
+  * Updated Esperanto translation. Thanks to Eliovir.
+  * Updated Czech translation. Thanks to Pavel Fric.
+  * Updated Galician translation. Thanks to Marcos Lans.
+  * Updated Romanian translation. Thanks to Vlad Paul Paval.
+  * Updated Malay translation. Thanks to abuyop.
+  * Updated British English translation. Thanks to Andi Chandler.
+  * Updated Italian translation. Thanks to Claudio Arseni.
+  * Updated Polish translation. Thanks to Mateusz Łukasik.
+  * Updated Croatian translation. Thanks to freedomrun.
+  * Updated French translation. Thanks to Teromene.
+  * Added Portuguese translation. Thanks to Sérgio Marques.
+  * Added Kazakh translation. Thanks to Baurzhan Muftakhidinov.
+
+Release 0.4.3:
+  * Fixed custom movement shortcuts not being activated after program initialization.
+  * Fixed default scroll area shortcuts not being shadowed completely.
+  * Fixed outline view layout on open and refresh and trying to set resize mode of non-existent outline view columns.
+  * Increased auto-refresh timeout and made auto-refresh and prefetch timeouts configurable.
+  * Improved drawing of search result highlights and added a setting for the highlight color.
+  * Added command-line options '--quiet' and '--help'.
+  * Added support for multiple shortcuts for each action.
+  * Added option to highlight the current thumbnail.
+  * Updated Ukrainian translation. Thanks to Yuri Chornoivan.
+  * Updated Malay translation. Thanks to abuyop.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Croatian translation. Thanks to freedomrun.
+  * Updated Polish translation. Thanks to Mateusz Łukasik.
+  * Updated Czech translation. Thanks to Pavel Fric.
+  * Updated French translation. Thanks to Hélion du Mas des Bourboux and Dorian.
+  * Updated Catalan translation. Thanks to VPablo.
+  * Updated Hebrew translation. Thanks to Yaron Shahrabani.
+  * Updated Asturian translation. Thanks to Xuacu Saturio.
+  * Updated British English translation. Thanks to Andi Chandler.
+  * Updated Brazilian Portuguese translation. Thanks to Phillipe Smith.
+  * Updated Romanian translation. Thanks to Vlad Paul Paval.
+  * Added Galician translation. Thanks to Marcos Lans and Miguel Anxo Bouzada.
+
+Release 0.4.2:
+  * Refactoring to improve code size and quality.
+  * Added restoring and saving of printer settings.
+  * Added command-line option to initiate a search in the current tab.
+  * Added setting to determine the color of annotations added.
+  * Instead of return to page, there is now jump backward and forward.
+  * Added setting to limit thumbnails to search results.
+  * Added setting on where to open new tabs.
+  * Added setting to display the current page in the window title.
+  * Updated Czech translation. Thanks Pavel Fric.
+  * Updated Malay translation. Thanks to abuyop.
+  * Updated French translation. Thanks to Tubuntu and Hélion du Mas des Bourboux.
+  * Updated Ukrainian translation. Thanks to Yuri Chornoivan.
+  * Updated Polish translation. Thanks to isamu715 and Mateusz Łukasik.
+  * Updated Azerbaijani translation. Thanks to Rashid Aliyev.
+  * Updated Romanian translation. Thanks to Vlad Paul Paval.
+  * Updated Bulgarian translation. Thanks to Blagovest Petrov.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Russian translation. Thanks to Eugene Marshal and Ivlev Denis.
+  * Updated British English translation. Thanks to fossfreedom.
+  * Updated Croatian translation. Thanks to freedomrun and Paolo Pelesk.
+  * Updated Spanish translation. Thanks to Adolfo Jayme Barrientos and Aaron Farias.
+  * Updated Italian translation. Thanks to Claudio Arseni.
+  * Updated Catalan translation. Thanks to VPablo.
+  * Updated Chinese (Simplified) translation. Thanks to Wang Dianjin.
+  * Updated Brazilian Portuguese translation. Thanks to Phillipe Smith.
+
+Release 0.4.1:
+  * Added configurable keyboard shortcuts.
+  * Added per-plug-in settings for PDF and PS plug-ins.
+  * Added granular hinting and thin line mode settings for the PDF plug-in.
+  * Added progress and errors icons for page rendering.
+  * Added workaround for overwriting a file with itself using a temporary file.
+  * Added rudimentary text extraction and search support for DjVu documents.
+  * Changed color inversion to be a per-tab property.
+  * Improved rotation and color inversion in the presentation view.
+  * Updated Danish translation. Thanks to Aputsiaq Niels Janussen.
+  * Updated Czech translation. Thanks to Pavel Fric.
+  * Updated Polish translation. Thanks to Mateusz Łukasik and isamu715.
+  * Updated Malay translation. Thanks to abuyop.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Italian translation. Thanks to Claudio Arseni.
+  * Updated Russian translation. Thanks to Kyrill Detinov.
+  * Updated Brazilian Portuguese translation. Thanks to Phillipe Smith.
+  * Updated Danish translation. Thanks to Aputsiaq Niels Janussen.
+  * Updated French translation. Thanks to Sylvie Gallet and Tubuntu.
+  * Updated Catalan translation. Thanks to VPablo.
+  * Updated Spanish translation. Thanks to Adolfo Jayme Barrientos.
+  * Updated Hebrew translation. Thanks to Yaron Shahrabani.
+  * Updated Ukrainian translation. Thanks to yurchor.
+  * Updated British English translation. Thanks to Andi Chandler.
+  * Added Esperanto translation. Thanks to Donald Rogers.
+  * Added Bulgarian translation. Thanks to Atanas Kovachki and Blagovest Petrov.
+  * Added partial Azerbaijani translation. Thanks to Rashid Aliyev.
+
+Release 0.4:
+  * Added support for multiple formats.
+  * Added format detection using libmagic.
+  * Added support for PostScript. Thanks to Alexander Volkov.
+  * Added rudimentary support for DjVu.
+  * Added support for hyperlinks in DjVu documents. Thanks to Alexander Volkov.
+  * Added support for outline and properties of DjVu documents.
+  * Added support for UNIX signals.
+  * Added missing support for links to external documents.
+  * Small improvements to prefetching.
+  * Changed presentation view to support rotation, caching and prefetching.
+  * Dropped support for storing tabs and bookmarks as XML files.
+  * Improved handling of headers and their interdependencies. Thanks to Alexander Volkov.
+  * Updated Ukrainian translation. Thanks to Vladimir Smolyar and yurchor.
+  * Updated Croatian translation. Thanks to freedomrun.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Czech translation. Thanks to Pavel Fric.
+  * Updated British English translation. Thanks to Andi Chandler.
+  * Updated French translation. Thanks to Hélion du Mas des Bourboux.
+  * Updated Polish translation. Thanks to Mateusz Łukasik and Mike08.
+  * Updated Brazilian Portuguese translation. Thanks to Phillipe Smith.
+  * Updated Hebrew translation. Thanks to Yaron Shahrabani.
+  * Updated Catalan translation. Thanks to VPablo.
+  * Updated Asturian translation. Thanks to Xuacu Saturio.
+  * Updated French translation. Thanks to Sylvie Gallet and Tanguy Herrmann.
+  * Updated Italian translation. Thanks to Claudio Arseni.
+  * Updated Spanish translation. Thanks to Dante Diaz.
+  * Updated Russian translation. Thanks to Vladimir Smolyar.
+  * Updated Bosnian translation. Thanks to Kenan Dervišević.
+  * Added Malay translation. Thanks to abuyop.
+
+Release 0.3.7:
+  * Added persistent per-file settings.
+  * Separated "Save copy" and "Save as" functionality.
+  * Added extended print option "page ranges".
+  * Added configurable background and paper color.
+  * Added named instances. Thanks to Michał Trybus.
+  * Refactored settings handling. Thanks to Alexander Volkov.
+  * Reduced header interdependencies. Thanks to Alexander Volkov.
+  * Changed searching for data files in the "data" subdirectory of the application directory.
+  * Updated Hebrew translation. Thanks to Yaron Shahrabani.
+  * Updated Italian translation. Thanks to Claudio Arseni.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Brazilian Portuguese translation. Thanks to Átila Camurça and Phillipe Smith.
+  * Updated Asturian translation. Thanks to Xuacu Saturio.
+  * Updated Czech translation. Thanks to Pavel Fric.
+  * Updated Danish translation. Thanks to Daniel Ejsing-Duun and Aputsiaq Niels Janussen.
+  * Updated Romanian translation. Thanks to Vlad Paul Paval.
+  * Updated Catalan translation. Thanks to VPablo.
+  * Updated Russian translation. Thanks to Nkolay Parukhin.
+  * Updated Spanish translation. Thanks to Adolfo Jayme Barrientos.
+  * Updated Uyghur translation. Thanks to Gheyret T.Kenji and Sahran.
+  * Updated Croatian translation. Thanks to freedomrun.
+  * Added Bosnian translation. Thanks to Kenan Dervišević.
+  * Added Polish translation. Thanks to Michał Trybus.
+  * Added Basque translation. Thanks to Asier Iturralde Sarasola.
+  * Added partial Kirgiz translation. Thanks to blacktext.
+  * Added partial Indonesian translation. Thanks to Abdul Munif Hanafi.
+
+Release 0.3.6:
+  * Added a 'multiple pages' layout mode.
+  * Added support for extended options in the print dialog.
+  * Added support for multiple returns.
+  * Added rudimentary form support.
+  * Fixed handling of boolean CUPS options.
+  * Exposed render hint 'overprint preview'.
+  * Added viewport culling for the thumbnails view.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Czech translation. Thanks Pavel Fric.
+  * Updated Hebrew translation. Thanks to Yaron Shahrabani.
+  * Updated Brazilian Portuguese translation. Thanks to Phillipe Smith and Rafael Neri.
+  * Updated Spanish translation. Thanks to Adolfo Jayme Barrientos, manolox and Daniel Ejsing-Duun.
+  * Updated Croatian translation. Thanks to freedomrun and gogo.
+  * Updated French translation. Thanks to Aurélien Ribeiro, Dominique Chomet, Quentin Pagès and Gisele Perreault.
+  * Updated Greek translation. Thanks to George Christofis.
+  * Updated Russian translation. Thanks to Kyrill Detinov and Vladimir Smolyar.
+  * Updated Ukrainian translation. Thanks to Vladimir Smolyar.
+  * Added Danish translation. Thanks to mjjzf, Ask Hjorth Larsen and Daniel Ejsing-Duun.
+  * Added partial Uyghur translation. Thanks to Gheyret T.Kenji.
+  * Added British English translation. Thanks to Andi Chandler.
+  * Added Italian translation. Thanks to Claudio Arseni.
+  * Added Romanian translation. Thanks to Vlad Paul Paval.
+  * Added partial Chinese (Simplified) translation. Thanks to Wang Dianjin.
+  * Added partial Burmese translation. Thanks to Pyae Sone.
+  * Added Catalan translation. Thanks to VPablo.
+
+Release 0.3.5:
+  * Improved compatibility with older versions of Qt and Poppler.
+  * Improved the layout of the settings dialog.
+  * Improved compatibility with other applications using Poppler by cropping text annotations to 24px x 24px @ 72dpi.
+  * Added searching data files in the application directory to improve compatibility with Windows and OS/2.
+  * Added a 'save image to file' option to the 'copy to clipboard' pop-up menu.
+  * Added support for forward and inverse search using SyncTeX.
+  * Updated Slovak and Czech translations. Thanks to DAG Software and Pavel Fric.
+  * Updated Brazilian Portuguese translation. Thanks to Phillipe Smith and Fábio Nogueira.
+  * Updated Russian and Ukrainian translations. Thanks to Vladimir Smolyar.
+  * Added Hebrew translation. Thanks to Yaron Shahrabani.
+  * Updated partial Greek translation. Thanks to George Christofis.
+  * Added Turkish translation. Thanks to Şâkir Aşçı.
+  * Added partial Croation translation. Thanks to freedomrun.
+  * Added partial Finnish translation. Thanks to Eetu Aalto.
+  * Added partial Asturian translation. Thanks to Xuacu Saturio.
+  * Added partial French translation. Thanks to Baptiste Fontaine, Kévin Peignot, Smonff, Sylvie Gallet, fbn69 and Gisele Perreault.
+  * Added partial Spanish translation. Thanks to Adolfo Jayme Barrientos, Dante Díaz and Paco Molinero.
+ 
+Release 0.3.4:
+  * Fixed a crash when highlight all is enabled and the document is refreshed.
+  * Fixed problems with highlight all and find next.
+  * Added a setting to select the screen used in the presentation view.
+  * Added a setting to synchronize main view and presentation view.
+  * Added a 'Two pages with cover page' layout mode.
+  * Added delayed pop-up menu for 'recently used' to 'open (in new tab)' tool bar action.
+  * Added Brazilian Portuguese translation. Thanks to Phillipe Smith.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Czech translation. Thanks to Pavel Fric.
+  * Updated Russian and Ukrainian translations. Thanks to Vladimir Smolyar.
+
+Release 0.3.3:
+  * Fixed some rendering artifacts.
+  * Improved navigation using bookmarks.
+  * Reorganized settings dialog and made keyboard modifiers for several mouse actions configurable.
+  * Added menu and tool bar actions to copy texts or images or add annotations.
+  * Added Ukrainian translation. Thanks to Vladimir Smolyar.
+  * Updated Slovak translation. Thanks to DAG Software.
+  * Updated Czech translation. Thanks to Pavel Fric.
+  * Updated Russian translation. Thanks to Eugene Marshal and Vladimir Smolyar.
+
+Release 0.3.2:
+  * Reduced code size and complexity.
+  * Reduced memory consumption and made caching optional.
+  * Further interface consolidation.
+  * Changed the search interface to allow concurrent search processes.
+  * Replaced the transient bookmarking mechanism in the document view with an optionally persistent bookmarking mechanism in the main window which bookmarks files and pages.
+  * Added rudimentary annotation support.
+  * Added '--unique' command-line option to the system-wide launcher.
+  * Added Czech translation. Thanks to Pavel Fric.
+  * Added partial Greek translation. Thanks to athmakrigiannis.
+  * Added partial Russian translation. Thanks to v_2e.
+  * Added Slovak translation. Thanks to DAG Software.
+
+Release 0.3.1:
+  * Fixed several bugs.
+  * Changed license from GPLv3 to GPLv2 to remove license incompatibilities with poppler.
+  * Removed French, Ukrainian and Russian translations because of license change.
+
+Release 0.3:
+  * Focus on usability of the interface.
+  * Improved scaling.
+  * Added printing using CUPS.
+  * Added configurable tool bars.
+  * Added build-time options.
+  * Improved documentation.
+  * Updated German translation.
+  * Updated Russian translation. Thanks to Eugene Marshal.
+
+Release 0.2.2:
+  * Improved settings dialog.
+  * Improved thumbnails view.
+  * Added recenctly used menu.
+  * Added presentation view.
+  * Added automatic refresh.
+  * Added simple transient bookmarks mechanism.
+  * Added '--unique' command-line option.
+  * Added some help content and updated the manual page. Thanks to Benjamin Eltzner.
+  * Updated French translation. Thanks to Fabian Pijcke.
+  * Added partial Romanian translation. Thanks to Andi Cristian Șerbănescu.
+
+Release 0.2.1:
+  * Extensive refactoring.
+  * Improved search.
+  * Simplified text-selection.
+  * Added outline and thumbnails view.
+  * Added settings dialog.
+  * Added French translation. Thanks to Glad Deschrijver.
+  * Added partial Russian, Belorussian and Ukrainian translations. Thanks to Leo Romanovski.
+
+Release 0.2:
+  * Complete rewrite introducing background rendering.
+  * Added rudimentary support for search and text-selection.
+  * Limited page cache by byte count instead of image count.
