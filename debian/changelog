@@ -17,7 +17,7 @@ qpdfview (0.4.18-1) unstable; urgency=medium
     + Refresh patches.
   * debian/copyright: Refresh information.
 
- -- Boyuan Yang <byang@debian.org>  Tue, 30 Jul 2019 16:00:45 -0400
+ -- Boyuan Yang <byang@debian.org>  Wed, 11 Sep 2019 13:44:23 -0400
 
 qpdfview (0.4.17~beta1+git20180709-2) unstable; urgency=medium
 
