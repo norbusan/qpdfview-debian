@@ -15,6 +15,7 @@ Build-Depends:
  qtbase5-dev,
  qttools5-dev-tools,
  zlib1g-dev,
+ libmupdf-dev,
 Standards-Version: 4.4.0
 Rules-Requires-Root: no
 Homepage: https://launchpad.net/qpdfview
