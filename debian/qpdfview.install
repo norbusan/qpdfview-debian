@@ -1,6 +1,7 @@
 usr/bin/
 usr/lib/qpdfview/libqpdfview_image.so
 usr/lib/qpdfview/libqpdfview_pdf.so
+usr/lib/qpdfview/libqpdfview_fitz.so
 usr/share/applications/
 usr/share/icons/hicolor/scalable/apps/qpdfview.svg
 usr/share/man/
