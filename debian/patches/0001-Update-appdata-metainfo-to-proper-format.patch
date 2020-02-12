@@ -4,14 +4,12 @@ Subject: Update appdata metainfo to proper format
 
 Forwarded: no
 ---
- miscellaneous/qpdfview.appdata.xml | 12 +++++++-----
- qpdfview.pri                       |  2 +-
+ miscellaneous/qpdfview.appdata.xml |   12 +++++++-----
+ qpdfview.pri                       |    2 +-
  2 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/miscellaneous/qpdfview.appdata.xml b/miscellaneous/qpdfview.appdata.xml
-index 8003386..9a4e31e 100644
---- a/miscellaneous/qpdfview.appdata.xml
-+++ b/miscellaneous/qpdfview.appdata.xml
+--- qpdfview-debian.orig/miscellaneous/qpdfview.appdata.xml
++++ qpdfview-debian/miscellaneous/qpdfview.appdata.xml
 @@ -1,7 +1,7 @@
  <?xml version="1.0" encoding="UTF-8"?>
 -<!-- Copyright 2014 Adam Reichold <adam.reichold@t-online.de> -->
@@ -40,16 +38,14 @@ index 8003386..9a4e31e 100644
 +    <developer_name>Adam Reichold</developer_name>
 +    <update_contact>qpdfview_AT_lists.launchpad.net</update_contact>
 +</component>
-diff --git a/qpdfview.pri b/qpdfview.pri
-index 6dbd353..c50711e 100644
---- a/qpdfview.pri
-+++ b/qpdfview.pri
-@@ -6,7 +6,7 @@ isEmpty(DATA_INSTALL_PATH):DATA_INSTALL_PATH = /usr/share/qpdfview
+--- qpdfview-debian.orig/qpdfview.pri
++++ qpdfview-debian/qpdfview.pri
+@@ -6,7 +6,7 @@ isEmpty(DATA_INSTALL_PATH):DATA_INSTALL_
  isEmpty(MANUAL_INSTALL_PATH):MANUAL_INSTALL_PATH = /usr/share/man/man1
  isEmpty(ICON_INSTALL_PATH):ICON_INSTALL_PATH = /usr/share/icons/hicolor/scalable/apps
  isEmpty(LAUNCHER_INSTALL_PATH):LAUNCHER_INSTALL_PATH = /usr/share/applications
 -isEmpty(APPDATA_INSTALL_PATH):APPDATA_INSTALL_PATH = /usr/share/appdata
 +isEmpty(APPDATA_INSTALL_PATH):APPDATA_INSTALL_PATH = /usr/share/metainfo
+ isEmpty(APP_DIR_DATA_PATH):APP_DIR_DATA_PATH = data
  
  win32:include(qpdfview_win32.pri)
- os2:include(qpdfview_os2.pri)
