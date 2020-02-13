@@ -60,6 +60,8 @@ Depends:
  qpdfview (=${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
+Replaces:
+ qpdfview (<= 0.4.18-1.2~),
 Provides:
  pdf-viewer,
 Description: tabbed document viewer - DjVu plugin
