@@ -1,0 +1,15 @@
+---
+ fitz-plugin.pro |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- qpdfview-debian.orig/fitz-plugin.pro
++++ qpdfview-debian/fitz-plugin.pro
+@@ -21,7 +21,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT +=
+ DEFINES += $$FITZ_PLUGIN_DEFINES
+ INCLUDEPATH += $$FITZ_PLUGIN_INCLUDEPATH
+ 
+-isEmpty(FITZ_PLUGIN_LIBS):FITZ_PLUGIN_LIBS = -lmupdf -lmupdf-third -ljpeg
++isEmpty(FITZ_PLUGIN_LIBS):FITZ_PLUGIN_LIBS = -lmupdf -lmupdf-third -ljpeg -ljbig2dec -lopenjp2
+ LIBS += $$FITZ_PLUGIN_LIBS
+ 
+ !static_fitz_plugin {
