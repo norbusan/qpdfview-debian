@@ -28,14 +28,13 @@ Depends:
  hicolor-icon-theme,
  libqt5sql5-sqlite,
  libqt5svg5,
+ qpdfview-pdf-poppler-plugin | qpdfview-pdf-mupdf-plugin,
  ${misc:Depends},
  ${shlibs:Depends},
 Recommends:
  qpdfview-djvu-plugin (= ${binary:Version}),
  qpdfview-ps-plugin (=${binary:Version}),
  qpdfview-translations (=${source:Version}),
-Provides:
- pdf-viewer,
 Description: tabbed document viewer
  qpdfview is a simple tabbed document viewer which uses the Poppler library for
  PDF rendering and CUPS for printing and provides a clear and simple Qt
@@ -54,6 +53,40 @@ Description: tabbed document viewer
    - Partial form support (PDF only)
    - Persistent per-file settings
    - Support for DjVu and PostScript documents via plugins
+
+Package: qpdfview-pdf-poppler-plugin
+Architecture: any
+Depends:
+ qpdfview (=${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Provides:
+ pdf-viewer,
+Description: tabbed document viewer - DjVu plugin
+ qpdfview is a simple tabbed document viewer which uses the Poppler library for
+ PDF rendering and CUPS for printing and provides a clear and simple Qt
+ graphical user interface. Support for the DjVu and PostScript formats can be
+ added via plugins.
+ .
+ This plugin adds support for the PDF format based on Poppler library.
+
+Package: qpdfview-pdf-mupdf-plugin
+Architecture: any
+Depends:
+ qpdfview (=${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Conflicts:
+  qpdfview-pdf-poppler-plugin,
+Provides:
+ pdf-viewer,
+Description: tabbed document viewer - DjVu plugin
+ qpdfview is a simple tabbed document viewer which uses the Poppler library for
+ PDF rendering and CUPS for printing and provides a clear and simple Qt
+ graphical user interface. Support for the DjVu and PostScript formats can be
+ added via plugins.
+ .
+ This plugin adds support for the PDF format based on MUPDF library.
 
 Package: qpdfview-djvu-plugin
 Architecture: any
