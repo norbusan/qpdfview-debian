@@ -1,11 +1,10 @@
 qpdfview (0.4.18-2.1) unstable; urgency=medium
 
   * update to current bzr version, fix patches
-  * try to build with libmupdf/fitz support
-  * split pdf plugins into separate packages to allow testing for mupdf/fitz
-    plugin
+  * build libmupdf/fitz pdf plugin
+  * split pdf plugins (poppler, mupdf/fitz) into separate packages
 
- -- Norbert Preining <norbert@preining.info>  Thu, 13 Feb 2020 09:11:04 +0900
+ -- Norbert Preining <norbert@preining.info>  Fri, 14 Feb 2020 08:10:50 +0900
 
 qpdfview (0.4.18-2) unstable; urgency=medium
 
