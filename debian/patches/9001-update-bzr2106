@@ -1,0 +1,34 @@
+=== modified file 'sources/documentview.cpp'
+--- old/sources/documentview.cpp	2019-05-12 09:55:28 +0000
++++ new/sources/documentview.cpp	2020-07-29 04:29:30 +0000
+@@ -2154,7 +2154,7 @@
+     {
+         if(!m_continuousMode)
+         {
+-            if(maskedKey == Qt::Key_PageUp && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
++            if((maskedKey == Qt::Key_Up || maskedKey == Qt::Key_PageUp) && verticalScrollBar()->value() == verticalScrollBar()->minimum() && m_currentPage != 1)
+             {
+                 previousPage();
+ 
+@@ -2163,7 +2163,7 @@
+                 event->accept();
+                 return;
+             }
+-            else if(maskedKey == Qt::Key_PageDown && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != m_layout->currentPage(m_pages.count()))
++            else if((maskedKey == Qt::Key_Down || maskedKey == Qt::Key_PageDown) && verticalScrollBar()->value() == verticalScrollBar()->maximum() && m_currentPage != m_layout->currentPage(m_pages.count()))
+             {
+                 nextPage();
+ 
+
+=== modified file 'sources/model.h'
+--- old/sources/model.h	2017-04-19 21:01:25 +0000
++++ new/sources/model.h	2020-07-29 04:29:30 +0000
+@@ -24,6 +24,7 @@
+ #define DOCUMENTMODEL_H
+ 
+ #include <QList>
++#include <QPainterPath>
+ #include <QtPlugin>
+ #include <QWidget>
+ #include <QVector>
+
