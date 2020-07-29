@@ -6,6 +6,7 @@ Build-Depends:
  debhelper-compat (= 13),
  libcups2-dev,
  libdjvulibre-dev,
+ libmujs-dev,
  libpoppler-qt5-dev,
  libqt5svg5-dev,
  libspectre-dev,

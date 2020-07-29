@@ -6,3 +6,4 @@
 import.patch
 fitz-openjp2
 disable-mupdf-third
+fitz-add-libmujs

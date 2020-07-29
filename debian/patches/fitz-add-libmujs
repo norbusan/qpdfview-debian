@@ -1,0 +1,15 @@
+---
+ fitz-plugin.pro |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/fitz-plugin.pro
++++ b/fitz-plugin.pro
+@@ -21,7 +21,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT +=
+ DEFINES += $$FITZ_PLUGIN_DEFINES
+ INCLUDEPATH += $$FITZ_PLUGIN_INCLUDEPATH
+ 
+-isEmpty(FITZ_PLUGIN_LIBS):FITZ_PLUGIN_LIBS = -lmupdf -ljpeg -ljbig2dec -lopenjp2
++isEmpty(FITZ_PLUGIN_LIBS):FITZ_PLUGIN_LIBS = -lmupdf -lmujs -ljpeg -ljbig2dec -lopenjp2
+ LIBS += $$FITZ_PLUGIN_LIBS
+ 
+ !static_fitz_plugin {
