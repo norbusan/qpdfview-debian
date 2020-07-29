@@ -4,3 +4,4 @@
 0002-Fix-some-typos-reported-by-lintian.patch
 0003-Use-the-correct-pkg-config-for-cross-compilation.patch
 fitz-openjp2
+disable-mupdf-third
