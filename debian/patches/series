@@ -5,3 +5,4 @@
 0003-Use-the-correct-pkg-config-for-cross-compilation.patch
 import.patch
 fitz-openjp2
+disable-mupdf-third
