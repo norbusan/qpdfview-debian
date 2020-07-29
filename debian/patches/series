@@ -1,4 +1,5 @@
-9999-update-bzr2103
+9000-update-bzr2103
+9001-update-bzr2106
 0001-Update-appdata-metainfo-to-proper-format.patch
 0002-Fix-some-typos-reported-by-lintian.patch
 0003-Use-the-correct-pkg-config-for-cross-compilation.patch
