@@ -20,6 +20,34 @@
                  nextPage();
  
 
+=== modified file 'sources/fitzmodel.cpp'
+--- old/sources/fitzmodel.cpp	2020-01-01 13:07:17 +0000
++++ new/sources/fitzmodel.cpp	2020-07-29 07:48:01 +0000
+@@ -251,7 +251,7 @@
+             {
+                 float left;
+                 float top;
+-                const int page = fz_resolve_link(m_parent->m_context, m_parent->m_document, link->uri, &left, &top);
++                const int page = fz_resolve_link(m_parent->m_context, m_parent->m_document, link->uri, &left, &top).page;
+ 
+                 if (page != -1)
+                 {
+
+=== modified file 'sources/fitzmodel.h'
+--- old/sources/fitzmodel.h	2020-01-01 13:07:17 +0000
++++ new/sources/fitzmodel.h	2020-07-29 07:48:01 +0000
+@@ -30,8 +30,8 @@
+ 
+ #include <mupdf/fitz/context.h>
+ 
+-typedef struct fz_page_s fz_page;
+-typedef struct fz_document_s fz_document;
++typedef struct fz_page fz_page;
++typedef struct fz_document fz_document;
+ 
+ }
+ 
+
 === modified file 'sources/model.h'
 --- old/sources/model.h	2017-04-19 21:01:25 +0000
 +++ new/sources/model.h	2020-07-29 04:29:30 +0000
