@@ -1,0 +1,84 @@
+=== modified file 'sources/documentview.cpp'
+--- old/sources/documentview.cpp	2020-07-24 13:30:29 +0000
++++ new/sources/documentview.cpp	2020-11-21 16:26:55 +0000
+@@ -2306,26 +2306,22 @@
+ 
+ bool DocumentView::printUsingCUPS(QPrinter* printer, const PrintOptions& printOptions, int fromPage, int toPage)
+ {
+-    int num_dests = 0;
+     cups_dest_t* dests = 0;
+-
++    const int num_dests = cupsGetDests(&dests);
++
++    cups_dest_t* const dest = cupsGetDest(printer->printerName().toUtf8(), 0, num_dests, dests);
++
++    if(dest == 0)
++    {
++        qWarning() << cupsLastErrorString();
++
++        cupsFreeDests(num_dests, dests);
++
++        return false;
++    }
++
++    cups_option_t* options = 0;
+     int num_options = 0;
+-    cups_option_t* options = 0;
+-
+-    cups_dest_t* dest = 0;
+-    int jobId = 0;
+-
+-    num_dests = cupsGetDests(&dests);
+-    dest = cupsGetDest(printer->printerName().toUtf8(), 0, num_dests, dests);
+-
+-    if(dest == 0)
+-    {
+-        qWarning() << cupsLastErrorString();
+-
+-        cupsFreeDests(num_dests, dests);
+-
+-        return false;
+-    }
+ 
+     for(int index = 0; index < dest->num_options; ++index)
+     {
+@@ -2472,9 +2468,26 @@
+ 
+     {
+         bool ok = false;
+-        int value = QString::fromUtf8(cupsGetOption("number-up", num_options, options)).toInt(&ok);
+-
+-        numberUp = ok ? value : 1;
++        const int value = QString::fromUtf8(cupsGetOption("number-up", num_options, options)).toInt(&ok);
++
++        if(ok)
++        {
++            numberUp = value;
++        }
++    }
++
++    if(fromPage % 2 == 0)
++    {
++        const QString value = QString::fromUtf8(cupsGetOption("page-set", num_options, options));
++
++        if(value == "odd")
++        {
++            num_options = cupsAddOption("page-set", "even", num_options, &options);
++        }
++        else if(value == "even")
++        {
++            num_options = cupsAddOption("page-set", "odd", num_options, &options);
++        }
+     }
+ 
+ #endif // QT_VERSION
+@@ -2516,7 +2529,7 @@
+         return false;
+     }
+ 
+-    jobId = cupsPrintFile(dest->name, QFile::encodeName(temporaryFile.fileName()), m_fileInfo.completeBaseName().toUtf8(), num_options, options);
++    const int jobId = cupsPrintFile(dest->name, QFile::encodeName(temporaryFile.fileName()), m_fileInfo.completeBaseName().toUtf8(), num_options, options);
+ 
+     if(jobId < 1)
+     {
+
