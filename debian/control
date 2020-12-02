@@ -7,6 +7,8 @@ Build-Depends:
  libcups2-dev,
  libdjvulibre-dev,
  libmujs-dev,
+ libjbig2dec0-dev,
+ libopenjp2-7-dev,
  libpoppler-qt5-dev,
  libqt5svg5-dev,
  libspectre-dev,
