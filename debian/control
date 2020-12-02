@@ -3,7 +3,7 @@ Section: graphics
 Priority: optional
 Maintainer: Debian QA Group <packages@qa.debian.org>
 Build-Depends:
- debhelper-compat (= 12),
+ debhelper-compat (= 13),
  libcups2-dev,
  libdjvulibre-dev,
  libpoppler-qt5-dev,
@@ -15,7 +15,7 @@ Build-Depends:
  qtbase5-dev,
  qttools5-dev-tools,
  zlib1g-dev,
-Standards-Version: 4.4.0
+Standards-Version: 4.5.1
 Rules-Requires-Root: no
 Homepage: https://launchpad.net/qpdfview
 Vcs-Git: https://salsa.debian.org/qt-kde-team/extras/qpdfview.git
