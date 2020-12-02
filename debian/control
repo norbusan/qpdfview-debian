@@ -64,7 +64,7 @@ Depends:
  ${misc:Depends},
  ${shlibs:Depends},
 Replaces:
- qpdfview (<= 0.4.18-1.2~),
+ qpdfview (<< 0.4.18-3~),
 Provides:
  pdf-viewer,
 Description: tabbed document viewer - DjVu plugin
