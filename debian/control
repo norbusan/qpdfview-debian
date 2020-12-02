@@ -1,7 +1,7 @@
 Source: qpdfview
 Section: graphics
 Priority: optional
-Maintainer: Debian QA Group <packages@qa.debian.org>
+Maintainer: Norbert Preining <norbert@preining.info>
 Build-Depends:
  debhelper-compat (= 13),
  libcups2-dev,
