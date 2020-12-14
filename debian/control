@@ -22,8 +22,8 @@ Build-Depends:
 Standards-Version: 4.5.1
 Rules-Requires-Root: no
 Homepage: https://launchpad.net/qpdfview
-Vcs-Git: https://salsa.debian.org/qt-kde-team/extras/qpdfview.git
-Vcs-Browser: https://salsa.debian.org/qt-kde-team/extras/qpdfview
+Vcs-Git: https://github.com/norbusan/qpdfview-debian.git
+Vcs-Browser: https://github.com/norbusan/qpdfview-debian
 
 Package: qpdfview
 Architecture: any
