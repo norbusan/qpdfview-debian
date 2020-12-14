@@ -1,9 +1,9 @@
-qpdfview (0.4.18-4) UNRELEASED; urgency=medium
+qpdfview (0.4.18-4) unstable; urgency=medium
 
   * Update VCS fields.
   * Update inter-package relations to avoid cycles (Closes: #977420)
 
- -- Norbert Preining <norbert@preining.info>  Tue, 15 Dec 2020 08:37:37 +0900
+ -- Norbert Preining <norbert@preining.info>  Tue, 15 Dec 2020 08:40:58 +0900
 
 qpdfview (0.4.18-3) unstable; urgency=medium
 
