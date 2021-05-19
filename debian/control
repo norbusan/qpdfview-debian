@@ -67,6 +67,7 @@ Replaces:
  qpdfview (<< 0.4.18-3~),
 Conflicts:
  qpdfview-pdf-mupdf-plugin,
+Breaks: qpdfview (<< 0.4.18-3~)
 Description: tabbed document viewer - DjVu plugin
  qpdfview is a simple tabbed document viewer which uses the Poppler library for
  PDF rendering and CUPS for printing and provides a clear and simple Qt
