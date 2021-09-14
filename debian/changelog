@@ -1,3 +1,9 @@
+qpdfview (0.4.18-6) UNRELEASED; urgency=medium
+
+  * Update watch file format version to 4.
+
+ -- Debian Janitor <janitor@jelmer.uk>  Tue, 14 Sep 2021 12:42:51 -0000
+
 qpdfview (0.4.18-5) unstable; urgency=medium
 
   * Add missing breaks (Closes: #988285)
